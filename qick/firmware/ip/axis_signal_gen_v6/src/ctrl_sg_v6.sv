@@ -301,17 +301,21 @@ always @(posedge clk) begin
       endcase
 
       // Fifo dout register.
-      if (load_r)
+      if (load_r) begin
          fifo_dout_r <= fifo_dout_i;
+      end
 
       // Non-stop counter for time calculation.
-      if (sync_reg == 1'b1 && phrst_int == 1'b1)
+      if (sync_reg == 1'b1 && phrst_int == 1'b1) begin
          cnt_n <= 0;
-      else
+      end
+      else begin
          cnt_n <= cnt_n + N_DDS;
+      end
 
-      if (sync_reg_r1 == 1'b1)
+      if (sync_reg_r1 == 1'b1) begin
          cnt_n_reg <= cnt_n;
+      end
 
       // Pinc/phase/sync.
       pinc_r1        <= pinc_int;
@@ -333,7 +337,7 @@ always @(posedge clk) begin
       phase_0_r1     <= phase_0;
 
       sync_reg       <= load_r;
-      sync_reg_r1    <= sync_reg;
+      sync_reg_r1    <= (sync_reg & phrst_int);
       sync_reg_r2    <= sync_reg_r1;
       sync_reg_r3    <= sync_reg_r2;
       sync_reg_r4    <= sync_reg_r3;
@@ -441,7 +445,8 @@ assign phrst_int     = fifo_dout_r[148];
 assign pinc_N     = pinc_r2*N_DDS;
 
 // Phase calculation.
-assign pinc_Nm    = pinc_r2*cnt_n_reg;
+// assign pinc_Nm    = pinc_r2*cnt_n_reg; -> we removed f * t term
+assign pinc_Nm    = 0;
 assign phase_0    = pinc_Nm_r3 + phase_r5;
 
 // Phase vectors.
