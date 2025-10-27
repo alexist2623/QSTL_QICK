@@ -581,6 +581,7 @@ proc create_root_design { parentCell } {
   set_property -dict [ list \
    CONFIG.FREQ_HZ {2000000} \
  ] $TWOMHZ_1V8_PWR_SYNC
+  set SPARE1_1V8 [ create_bd_port -dir O SPARE1_1V8 ]
 
   # Create instance: axi_intc_0, and set properties
   set axi_intc_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_intc:4.1 axi_intc_0 ]
@@ -2336,7 +2337,7 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
   set qick_vec2bit_0 [ create_bd_cell -type ip -vlnv QICK:QICK:qick_vec2bit:1.0 qick_vec2bit_0 ]
   set_property -dict [list \
     CONFIG.IN_DW {160} \
-    CONFIG.OUT_QTY {6} \
+    CONFIG.OUT_QTY {7} \
   ] $qick_vec2bit_0
 
 
@@ -2635,6 +2636,7 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
   connect_bd_net -net qick_vec2bit_0_dout3 [get_bd_pins qick_vec2bit_0/dout3] [get_bd_pins axis_avg_buffer_3/trigger]
   connect_bd_net -net qick_vec2bit_0_dout4 [get_bd_pins qick_vec2bit_0/dout4] [get_bd_pins mr_buffer_et_0/trigger]
   connect_bd_net -net qick_vec2bit_0_dout5 [get_bd_pins qick_vec2bit_0/dout5] [get_bd_pins ddr4/trigger]
+  connect_bd_net -net qick_vec2bit_0_dout6 [get_bd_pins qick_vec2bit_0/dout6] [get_bd_ports SPARE1_1V8]
   connect_bd_net -net rfb_control_DAC_1V8_BIAS_CLRn [get_bd_pins rfb_control/DAC_1V8_BIAS_CLRn] [get_bd_ports DAC_1V8_BIAS_CLRn]
   connect_bd_net -net rfb_control_DAC_1V8_BIAS_S0 [get_bd_pins rfb_control/DAC_1V8_BIAS_S0] [get_bd_ports DAC_1V8_BIAS_S0]
   connect_bd_net -net rfb_control_DAC_1V8_BIAS_S1 [get_bd_pins rfb_control/DAC_1V8_BIAS_S1] [get_bd_ports DAC_1V8_BIAS_S1]
