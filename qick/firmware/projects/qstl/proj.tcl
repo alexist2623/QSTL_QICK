@@ -33,7 +33,7 @@ set_property -name "simulator_language" -value "Mixed" -objects $obj
 
 # Set IP repository paths
 set obj [get_filesets sources_1]
-set_property "ip_repo_paths" "[file normalize "$origin_dir/../../ip"]" $obj
+set_property "ip_repo_paths" "[file normalize "$origin_dir/../QSTL_QICK/qick/firmware/ip"]" $obj
 
 # Rebuild user ip_repo's index before adding any source files
 update_ip_catalog -rebuild
@@ -50,13 +50,13 @@ set obj [get_filesets constrs_1]
 
 # Add/Import constrs file and set constrs file properties
 set files [list \
-	[ file normalize "$origin_dir/timing.xdc"] 	\
-	[ file normalize "$origin_dir/ios.xdc"] 	\
+	[ file normalize "$origin_dir/../QSTL_QICK/qick/firmware/projects/qstl/timing.xdc"] 	\
+	[ file normalize "$origin_dir/../QSTL_QICK/qick/firmware/projects/qstl/ios.xdc"] 	\
 ]
 add_files -fileset $obj $files
 
 # Source Block Design.
-set file "[file normalize "$origin_dir/bd_2023-1.tcl"]"
+set file "[file normalize "$origin_dir/../QSTL_QICK/qick/firmware/projects/qstl/bd_2023-1.tcl"]"
 source $file
 
 # Update compile order.
