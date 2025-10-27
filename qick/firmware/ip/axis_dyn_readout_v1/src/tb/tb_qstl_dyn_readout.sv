@@ -113,9 +113,9 @@ initial begin
 end
 
 // Input data.
+real fs_gen, f_gen, pi_gen, a_gen;
 initial begin
-	int n;
-	real fs, f, pi, a;
+	real n;
 
 	s1_axis_tvalid	<= 1;
 
@@ -126,15 +126,15 @@ initial begin
 	#1000;
 	
 	n 	= 0;
-	fs 	= 125*N;
-	f 	= 100;
-	pi	= 3.14159;
-	a = 0.99;
+	fs_gen 	= 125*N;
+	f_gen 	= 100;
+	pi_gen	= 3.14159;
+	a_gen = 0.99;
 	while(1) begin
 		@(posedge aclk);
 		for (int i=0; i<N; i=i+1) begin
-			din_r[i] <= 2**15*a*$cos(2*pi*f/fs*n);
-			n = n+1;
+			din_r[i] <= 2**15*a_gen*$cos(n + 2 * pi_gen*f_gen/fs_gen * i);
+			n <= n + 2 * pi_gen*f_gen/fs_gen * N;
 		end
 	end
 end
@@ -174,6 +174,7 @@ initial begin
 	outsel_r		<= 0;
 	mode_r			<= 1;
 	phrst_r			<= 0;
+	f_gen           <= 2;
 
 	@(posedge aclk);
 	s0_axis_tvalid	<= 0;
@@ -196,12 +197,13 @@ initial begin
 
 	@(posedge aclk);
 	s0_axis_tvalid	<= 1;
-	freq_r			<= freq_calc(125, N, 2);
+	freq_r			<= freq_calc(125, N, 120);
 	phase_r			<= 0;
 	nsamp_r			<= 20;
 	outsel_r		<= 0;
 	mode_r			<= 1;
 	phrst_r			<= 0;
+	f_gen           <= 120;
 
 	@(posedge aclk);
 	s0_axis_tvalid	<= 0;
@@ -216,6 +218,7 @@ initial begin
 	outsel_r		<= 0;
 	mode_r			<= 1;
 	phrst_r			<= 0;
+	f_gen           <= 100;
 
 	@(posedge aclk);
 	s0_axis_tvalid	<= 0;		
@@ -259,8 +262,8 @@ function [31:0] freq_calc;
 	// All input frequencies are in MHz.
 	real fs,temp;
 	fs = fclk*ndds;
-	temp = f/fs*2**30;
-	freq_calc = {int'(temp),2'b00};
+	temp = f/fs*2**31;
+	freq_calc = {int'(unsigned'(int'(temp)))};
 endfunction
 
 endmodule

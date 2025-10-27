@@ -123,17 +123,6 @@ reg				rd_en_r2;
 // Counter.
 reg		[31:0]	cnt;
 
-// Output enable register.
-//reg				en_reg;
-//reg				en_reg_r1;
-//reg				en_reg_r2;
-//reg				en_reg_r3;
-//reg				en_reg_r4;
-//reg				en_reg_r5;
-//reg				en_reg_r6;
-//reg				en_reg_r7;
-//reg				en_reg_r8;
-
 // Registers.
 always @(posedge aclk) begin
 	if (~aresetn) begin
@@ -193,17 +182,6 @@ always @(posedge aclk) begin
 
 		// Counter.
 		cnt				<= 0;
-
-		// Output enable register.
-//		en_reg			<= 0;
-//		en_reg_r1		<= 0;
-//		en_reg_r2		<= 0;
-//		en_reg_r3		<= 0;
-//		en_reg_r4		<= 0;
-//		en_reg_r5		<= 0;
-//		en_reg_r6		<= 0;
-//		en_reg_r7		<= 0;
-//		en_reg_r8		<= 0;
 	end
 	else begin
 		// State register.
@@ -249,7 +227,7 @@ always @(posedge aclk) begin
 		phase_0_r1		<= phase_0;
 
 		sync_reg		<= load_r;
-		sync_reg_r1		<= sync_reg;
+		sync_reg_r1		<= sync_reg & phrst_int;
 		sync_reg_r2		<= sync_reg_r1;
 		sync_reg_r3		<= sync_reg_r2;
 		sync_reg_r4		<= sync_reg_r3;
@@ -278,22 +256,6 @@ always @(posedge aclk) begin
 			cnt	<= 0;
 		else
 			cnt <= cnt + 1;
-
-		// Output enable register.
-//		if (~mode_int && rd_en_int)
-//			if (~fifo_empty)
-//				en_reg <= 1;	
-//			else
-//				en_reg <= 0;
-			
-//		en_reg_r1		<= en_reg;
-//		en_reg_r2		<= en_reg_r1;
-//		en_reg_r3		<= en_reg_r2;
-//		en_reg_r4		<= en_reg_r3;
-//		en_reg_r5		<= en_reg_r4;
-//		en_reg_r6		<= en_reg_r5;
-//		en_reg_r7		<= en_reg_r6;
-//		en_reg_r8		<= en_reg_r7;
 	end
 end 
 
@@ -320,10 +282,11 @@ assign mode_int		= fifo_dout_r[82];
 assign phrst_int	= fifo_dout_r[83];
 
 // Frequency calculation.
-assign pinc_N		= pinc_r2*N;
+assign pinc_N		= pinc_r2 * N;
 
 // Phase calculation.
-assign pinc_Nm		= pinc_r2*cnt_n_reg;
+// assign pinc_Nm		= pinc_r2*cnt_n_reg; -> this is set to zero
+assign pinc_Nm		= 0;
 assign phase_0		= pinc_Nm_r3 + phase_r5;
 
 // Phase vectors.
@@ -371,7 +334,6 @@ assign load_int 	= rd_en_int & ~fifo_empty;
 // Assign outputs.
 assign fifo_rd_en	= rd_en_int;
 assign outsel		= outsel_r7;
-//assign en			= en_reg_r8;
 
 endmodule
 
