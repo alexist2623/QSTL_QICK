@@ -1,4 +1,4 @@
-create_clock -name clk_104_pl -period 2.5 [get_ports CLK104_PL_CLK_P]
+create_clock -name clk_104_pl -period 3.333 [get_ports CLK104_PL_CLK_P]
 # create_clock -name clk_104_sysref -period 200.0 [get_ports CLK104_PL_SYSREF_P]
 
 set clk_axi [get_clocks -of_objects [get_nets -of_objects [get_pins d_1_i/usp_rf_data_converter_0/s_axi_aclk]]]
