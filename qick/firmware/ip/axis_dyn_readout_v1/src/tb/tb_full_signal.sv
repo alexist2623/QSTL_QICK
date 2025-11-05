@@ -261,8 +261,8 @@ module tb_full_signal;
     function automatic [31:0] freq_calc_demod (
         input real f
     );
-        real val = (f  * (2.0**32)) / (F_ACLK_HZ * N_DEMOD);
-        return $rtoi(val + 0.5);
+        real val = (f  * (2.0**30)) / (F_ACLK_HZ * N_DEMOD);
+        freq_calc_demod = {int'(val),2'b00};
     endfunction
 
     // AXIS push (1 beat) helpers
@@ -337,9 +337,9 @@ module tb_full_signal;
     // -----------------------------------------------------------------------------
     // Stimulus
     // -----------------------------------------------------------------------------
-    real f1 = 1.0e6;
-    real f2 = 5.0e6;
-    real f3 = 50.0e6;
+    real f1 = 100.0e6;
+    real f2 = 120.0e6;
+    real f3 = 150.0e6;
     logic [31:0] pinc1, pinc2, pinc3;
 
     int FCLK_MHz = int'(F_ACLK_HZ/1.0e6);
@@ -365,26 +365,26 @@ module tb_full_signal;
 
         // Program generator: push three tones (same as your original TB style)
         push_ctrl_gen(
-            pack_ctrl_gen(pinc1, 32'd0, 16'd0, 16'h4000, 16'd2048, 2'd1, 1'b0, 1'b0, 1'b0)
+            pack_ctrl_gen(pinc1, 32'd0, 16'd0, 16'h4000, 16'd2048, 2'd1, 1'b0, 1'b0, 1'b1)
         );
         push_ctrl_demod(
-            pack_ctrl_demod(freq_calc_demod(f1), 32'd0, 16'd64, 2'd0, 1'b1, 1'b0)
+            pack_ctrl_demod(freq_calc_demod(f1), 32'd0, 16'd64, 2'd0, 1'b1, 1'b1)
         );
         repeat (2000) @(posedge aclk);
         push_ctrl_gen(
-            pack_ctrl_gen(pinc2, 32'd0, 16'd0, 16'h4000, 16'd2048, 2'd1, 1'b0, 1'b0, 1'b0)
+            pack_ctrl_gen(pinc2, 32'd0, 16'd0, 16'h4000, 16'd2048, 2'd1, 1'b0, 1'b0, 1'b1)
         );
         push_ctrl_demod(
             pack_ctrl_demod(freq_calc_demod(f2), 32'd0, 16'd128, 2'd0, 1'b1, 1'b1)
         );
         repeat (4000) @(posedge aclk);
         push_ctrl_gen(
-            pack_ctrl_gen(pinc3, 32'd0, 16'd0, 16'h4000, 16'd2048, 2'd1, 1'b0, 1'b0, 1'b0)
+            pack_ctrl_gen(pinc3, 32'd0, 16'd0, 16'h4000, 16'd2048, 2'd1, 1'b0, 1'b0, 1'b1)
         );
         push_ctrl_demod(
             pack_ctrl_demod(freq_calc_demod(f3), 32'd0, 16'd256, 2'd0, 1'b1, 1'b1)
         );
-        repeat (20000) @(posedge aclk);
+        repeat (2000) @(posedge aclk);
 
         // Program demod LO: match the same tones (2^31 scaling by default here)
         // If you know demod expects 2^32, change the function accordingly.
@@ -396,13 +396,6 @@ module tb_full_signal;
 
 endmodule
 
-// -----------------------------------------------------------------------------
-// AXI-Stream lane shrink adapter (IN_LANES -> OUT_LANES, integer ratio)
-// * For each input beat of IN_LANES samples, it emits RATIO beats of OUT_LANES,
-//   slicing the input vector into contiguous chunks.
-// * Backpressure on the output side will throttle the input via s_axis_tready.
-// * No TLAST here since original ports do not expose it.
-// -----------------------------------------------------------------------------
 module axis_lane_shrink #(
     parameter int IN_LANES  = 16,
     parameter int OUT_LANES = 8,
@@ -428,56 +421,11 @@ module axis_lane_shrink #(
         end
     end
 
-    typedef enum logic [1:0] {IDLE=2'd0, SEND=2'd1} state_t;
-    state_t state;
+    assign s_axis_tready = 1'b1;
+    genvar lane_idx;
 
-    reg [IN_LANES*SAMPLE_W-1:0] buf_samp;
-    integer idx; // 0..RATIO-1
-
-    // Ready when idle (we can accept a new input beat)
-    assign s_axis_tready = (state == IDLE);
-
-    // Output valid when in SEND state
-    assign m_axis_tvalid = (state == SEND);
-
-    // Slice selection
-    reg [OUT_LANES*SAMPLE_W-1:0] slice;
-    assign m_axis_tdata = slice;
-
-    // Build current slice based on idx
-    always @(*) begin
-        int lo = idx*OUT_LANES*SAMPLE_W;
-        slice = buf_samp[lo +: OUT_LANES*SAMPLE_W];
-    end
-
-    // FSM
-    always @(posedge aclk or negedge aresetn) begin
-        if (!aresetn) begin
-            state <= IDLE;
-            idx   <= 0;
-            buf_samp   <= '0;
-        end else begin
-            case (state)
-                IDLE: begin
-                    if (s_axis_tvalid && s_axis_tready) begin
-                        buf_samp   <= s_axis_tdata;
-                        idx   <= 0;
-                        state <= SEND;
-                    end
-                end
-                SEND: begin
-                    if (m_axis_tvalid && m_axis_tready) begin
-                        if (idx == (RATIO-1)) begin
-                            state <= IDLE;
-                            idx   <= 0;
-                        end else begin
-                            idx <= idx + 1;
-                            state <= SEND;
-                        end
-                    end
-                end
-                default: state <= IDLE;
-            endcase
-        end
+    for(lane_idx = 0; lane_idx < OUT_LANES; lane_idx = lane_idx + 1) begin : GEN_BUF_SAMP
+        assign m_axis_tdata[lane_idx * SAMPLE_W +: SAMPLE_W] =
+            s_axis_tdata[lane_idx * RATIO * SAMPLE_W +: SAMPLE_W];
     end
 endmodule
