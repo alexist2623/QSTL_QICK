@@ -370,7 +370,7 @@ initial begin
       repeat (8) @(posedge aclk);
       drive_direct_cmd(make_cmd(32'sd0, 32'sd0, 32'd5, 32'sd0, OP_IDLE));
       repeat (8) @(posedge aclk);
-      drive_direct_cmd(make_cmd(32'sd2048, -32'sd2048, 32'd16, calc_step(-32'sd2048, 32'sd2048, 32'd16), OP_RAMP));
+      drive_direct_cmd(make_cmd(32'sd2048, -32'sd9999, 32'd16, 32'sd0, OP_RAMP));
       repeat (80) @(posedge aclk);
    end
 

@@ -23,6 +23,8 @@ localparam int LONG_NEG_WORDS = 6;
 localparam int LONG_POS_DURATION = LONG_POS_WORDS*N_DDS;
 localparam int LONG_NEG_DURATION = LONG_NEG_WORDS*N_DDS;
 localparam int IDLE_SLOW_CYCLES = 5;
+// RTL computes RAMP step internally; command step is deliberately nonzero.
+localparam logic signed [31:0] IGNORED_CMD_STEP = 32'sh1357_2468;
 
 logic                   aresetn;
 logic                   aclk;
@@ -189,11 +191,12 @@ endtask
 
 task automatic dump_word;
    input logic [OUT_WIDTH-1:0] word;
+   input string segment;
    logic signed [B-1:0] lane_value;
    begin
       for (int i = 0; i < N_DDS; i = i + 1) begin
          lane_value = word[i*B +: B];
-         $fwrite(fd, "%0d,%0d,%0d\n", csv_sample, i, lane_value);
+         $fwrite(fd, "%s,%0d,%0d,%0d\n", segment, csv_sample, i, lane_value);
       end
       csv_sample++;
    end
@@ -209,7 +212,7 @@ task automatic check_word;
          fail({"m_axis_tdata mismatch: ", tag});
       end
 
-      dump_word(m_axis_tdata);
+      dump_word(m_axis_tdata, tag);
    end
 endtask
 
@@ -288,10 +291,17 @@ task automatic recv_ramp_checked;
    input logic signed [31:0] step;
    input string tag;
    input int direction;
+   input bit check_stale_start;
+   input logic signed [31:0] stale_start;
    int unsigned base_index;
    int unsigned lane_index;
+   int unsigned final_lane;
    logic [OUT_WIDTH-1:0] expected;
    logic signed [B-1:0] lane_value;
+   logic [B-1:0] expected_start_sample;
+   logic [B-1:0] stale_start_sample;
+   logic [B-1:0] target_sample;
+   logic [B-1:0] final_sample;
    longint signed sample_value;
    longint signed previous_value;
    bit have_previous;
@@ -311,6 +321,27 @@ task automatic recv_ramp_checked;
          end while (!(m_axis_tvalid && m_axis_tready));
 
          check_word(expected, $sformatf("%s base=%0d", tag, base_index));
+
+         if (base_index == 0 && duration > 1) begin
+            expected_start_sample = sat_int64(y_start);
+            stale_start_sample = sat_int64(stale_start);
+
+            if (m_axis_tdata[0 +: B] !== expected_start_sample)
+               fail($sformatf("%s first sample did not start from current held value", tag));
+
+            if (check_stale_start && stale_start_sample !== expected_start_sample &&
+                m_axis_tdata[0 +: B] === stale_start_sample)
+               fail($sformatf("%s first sample used stale cmd_start", tag));
+         end
+
+         if (base_index + N_DDS >= duration) begin
+            final_lane = (duration <= 1) ? 0 : ((duration - 1) - base_index);
+            target_sample = sat_int64(y_target);
+            final_sample = m_axis_tdata[final_lane*B +: B];
+
+            if (final_sample !== target_sample)
+               fail($sformatf("%s final sample did not equal target", tag));
+         end
 
          if (direction != 0) begin
             for (int i = 0; i < N_DDS; i = i + 1) begin
@@ -405,17 +436,19 @@ initial begin
    logic signed [31:0] step;
    logic [OUT_WIDTH-1:0] expected;
    logic [OUT_WIDTH-1:0] frozen_word;
+   logic signed [31:0] current_value;
    int unsigned bp_base;
 
    errors = 0;
    csv_sample = 0;
    have_hold = 1'b0;
+   current_value = 32'sd0;
    current_hold_word = {OUT_WIDTH{1'b0}};
 
    fd = $fopen("dout_awg_tuning.csv", "w");
    if (fd == 0)
       fail("could not open dout_awg_tuning.csv");
-   $fwrite(fd, "word,lane,value\n");
+   $fwrite(fd, "segment,word,lane,value\n");
 
    aresetn = 1'b0;
    s_axis_tdata = {CMD_WIDTH{1'b0}};
@@ -431,19 +464,21 @@ initial begin
    if (m_axis_tvalid !== 1'b0)
       fail("m_axis_tvalid should be low after reset");
 
-   // SET to a positive value.
+   // SET to a positive value. SET is allowed to create an immediate jump.
    cmd = make_cmd(32'sd1234, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b0, 1'b0);
    send_cmd(cmd, have_hold, current_hold_word, "set positive");
    expected = scalar_word(32'sd1234);
    recv_word(expected, "set positive");
+   current_value = 32'sd1234;
    current_hold_word = expected;
    have_hold = 1'b1;
 
-   // SET to a negative value.
+   // SET to a negative value. This is also allowed to jump immediately.
    cmd = make_cmd(-32'sd1234, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b0, 1'b0);
    send_cmd(cmd, have_hold, current_hold_word, "set negative");
    expected = scalar_word(-32'sd1234);
    recv_word(expected, "set negative");
+   current_value = -32'sd1234;
    current_hold_word = expected;
 
    // NOP ignores duration and does not enter the timed IDLE path.
@@ -462,66 +497,90 @@ initial begin
    send_cmd(cmd, have_hold, current_hold_word, "idle after set");
    check_idle_interval(IDLE_SLOW_CYCLES, current_hold_word, "idle after set");
 
-   // RAMP increasing.
-   step = calc_step(-32'sd1000, 32'sd1000, 32'd8);
-   cmd = make_cmd(32'sd1000, -32'sd1000, 32'd8, step, OP_RAMP, 1'b0, 1'b0);
-   send_cmd(cmd, have_hold, current_hold_word, "ramp increasing");
-   recv_ramp(-32'sd1000, 32'sd1000, 32'd8, step, "ramp increasing");
-   current_hold_word = scalar_word(32'sd1000);
+   // Continuous positive RAMP after SET: the first ramp sample must be 1000.
+   cmd = make_cmd(32'sd1000, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b0, 1'b0);
+   send_cmd(cmd, have_hold, current_hold_word, "set before positive continuous ramp");
+   expected = scalar_word(32'sd1000);
+   recv_word(expected, "set before positive continuous ramp");
+   current_value = 32'sd1000;
+   current_hold_word = expected;
 
-   // RAMP decreasing.
-   step = calc_step(32'sd2000, -32'sd2000, 32'd9);
-   cmd = make_cmd(-32'sd2000, 32'sd2000, 32'd9, step, OP_RAMP, 1'b0, 1'b0);
-   send_cmd(cmd, have_hold, current_hold_word, "ramp decreasing");
-   recv_ramp(32'sd2000, -32'sd2000, 32'd9, step, "ramp decreasing");
-   current_hold_word = scalar_word(-32'sd2000);
+   step = calc_step(current_value, 32'sd2000, LONG_POS_DURATION);
+   cmd = make_cmd(32'sd2000, -32'sd30000, LONG_POS_DURATION, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
+   send_cmd(cmd, have_hold, current_hold_word, "continuous positive ramp");
+   recv_ramp_checked(current_value, 32'sd2000, LONG_POS_DURATION, step,
+                     "continuous positive ramp", 1, 1'b1, -32'sd30000);
+   current_value = 32'sd2000;
+   current_hold_word = scalar_word(current_value);
 
-   // Long positive RAMP: 5 accepted m_axis words, not just 5 lanes.
-   step = calc_step(-32'sd1500, 32'sd1500, LONG_POS_DURATION);
-   cmd = make_cmd(32'sd1500, -32'sd1500, LONG_POS_DURATION, step, OP_RAMP, 1'b0, 1'b0);
-   send_cmd(cmd, have_hold, current_hold_word, "long ramp increasing");
-   recv_ramp_checked(-32'sd1500, 32'sd1500, LONG_POS_DURATION, step, "long ramp increasing", 1);
-   current_hold_word = scalar_word(32'sd1500);
+   // Continuous negative RAMP after a previous RAMP. cmd_start is deliberately wrong.
+   step = calc_step(current_value, -32'sd2000, LONG_NEG_DURATION);
+   cmd = make_cmd(-32'sd2000, 32'sd9999, LONG_NEG_DURATION, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
+   send_cmd(cmd, have_hold, current_hold_word, "continuous negative ramp");
+   recv_ramp_checked(current_value, -32'sd2000, LONG_NEG_DURATION, step,
+                     "continuous negative ramp", -1, 1'b1, 32'sd9999);
+   current_value = -32'sd2000;
+   current_hold_word = scalar_word(current_value);
 
-   // Long negative RAMP: 6 accepted m_axis words with monotonic decrease.
-   step = calc_step(32'sd1800, -32'sd1800, LONG_NEG_DURATION);
-   cmd = make_cmd(-32'sd1800, 32'sd1800, LONG_NEG_DURATION, step, OP_RAMP, 1'b0, 1'b0);
-   send_cmd(cmd, have_hold, current_hold_word, "long ramp decreasing");
-   recv_ramp_checked(32'sd1800, -32'sd1800, LONG_NEG_DURATION, step, "long ramp decreasing", -1);
-   current_hold_word = scalar_word(-32'sd1800);
+   // Dedicated stale y_start test: current value 500, command y_start -30000.
+   cmd = make_cmd(32'sd500, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b0, 1'b0);
+   send_cmd(cmd, have_hold, current_hold_word, "set before stale y_start test");
+   expected = scalar_word(32'sd500);
+   recv_word(expected, "set before stale y_start test");
+   current_value = 32'sd500;
+   current_hold_word = expected;
 
-   // RAMP with duration 1.
-   cmd = make_cmd(32'sd222, 32'sd111, 32'd1, 32'sd0, OP_RAMP, 1'b0, 1'b0);
+   step = calc_step(current_value, 32'sd1000, LONG_POS_DURATION);
+   cmd = make_cmd(32'sd1000, -32'sd30000, LONG_POS_DURATION, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
+   send_cmd(cmd, have_hold, current_hold_word, "stale y_start ignored");
+   recv_ramp_checked(current_value, 32'sd1000, LONG_POS_DURATION, step,
+                     "stale y_start ignored", 1, 1'b1, -32'sd30000);
+   current_value = 32'sd1000;
+   current_hold_word = scalar_word(current_value);
+
+   // RAMP with duration 1 is the allowed RAMP edge case that outputs target directly.
+   cmd = make_cmd(32'sd500, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b0, 1'b0);
+   send_cmd(cmd, have_hold, current_hold_word, "set before duration one");
+   expected = scalar_word(32'sd500);
+   recv_word(expected, "set before duration one");
+   current_value = 32'sd500;
+   current_hold_word = expected;
+
+   cmd = make_cmd(32'sd222, 32'sd9999, 32'd1, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
    send_cmd(cmd, have_hold, current_hold_word, "duration one");
-   recv_ramp(32'sd111, 32'sd222, 32'd1, 32'sd0, "duration one");
-   current_hold_word = scalar_word(32'sd222);
+   recv_ramp_checked(current_value, 32'sd222, 32'd1, 32'sd0,
+                     "duration one", 0, 1'b1, 32'sd9999);
+   current_value = 32'sd222;
+   current_hold_word = scalar_word(current_value);
 
-   // IDLE between two RAMPs: no samples are emitted during the wait, and the
-   // next ramp starts correctly after the timed gap.
-   step = calc_step(-32'sd300, 32'sd300, LONG_POS_DURATION);
-   cmd = make_cmd(32'sd300, -32'sd300, LONG_POS_DURATION, step, OP_RAMP, 1'b0, 1'b0);
-   send_cmd(cmd, have_hold, current_hold_word, "pre-idle ramp");
-   recv_ramp_checked(-32'sd300, 32'sd300, LONG_POS_DURATION, step, "pre-idle ramp", 1);
-   current_hold_word = scalar_word(32'sd300);
+   // IDLE must not change current value. The next RAMP starts from 777.
+   cmd = make_cmd(32'sd777, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b0, 1'b0);
+   send_cmd(cmd, have_hold, current_hold_word, "set before idle continuous ramp");
+   expected = scalar_word(32'sd777);
+   recv_word(expected, "set before idle continuous ramp");
+   current_value = 32'sd777;
+   current_hold_word = expected;
 
    cmd = make_cmd(32'sd0, 32'sd0, IDLE_SLOW_CYCLES, 32'sd0, OP_IDLE, 1'b0, 1'b0);
-   send_cmd(cmd, have_hold, current_hold_word, "idle between ramps");
-   check_idle_interval(IDLE_SLOW_CYCLES, current_hold_word, "idle between ramps");
+   send_cmd(cmd, have_hold, current_hold_word, "idle preserves current value");
+   check_idle_interval(IDLE_SLOW_CYCLES, current_hold_word, "idle preserves current value");
 
-   step = calc_step(32'sd300, -32'sd600, LONG_POS_DURATION);
-   cmd = make_cmd(-32'sd600, 32'sd300, LONG_POS_DURATION, step, OP_RAMP, 1'b0, 1'b0);
-   send_cmd(cmd, have_hold, current_hold_word, "post-idle ramp");
-   recv_ramp_checked(32'sd300, -32'sd600, LONG_POS_DURATION, step, "post-idle ramp", -1);
-   current_hold_word = scalar_word(-32'sd600);
+   step = calc_step(current_value, 32'sd1000, LONG_POS_DURATION);
+   cmd = make_cmd(32'sd1000, -32'sd12345, LONG_POS_DURATION, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
+   send_cmd(cmd, have_hold, current_hold_word, "ramp after idle");
+   recv_ramp_checked(current_value, 32'sd1000, LONG_POS_DURATION, step,
+                     "ramp after idle", 1, 1'b1, -32'sd12345);
+   current_value = 32'sd1000;
+   current_hold_word = scalar_word(current_value);
 
    // RAMP with output backpressure and data stability check.
-   step = calc_step(32'sd0, 32'sd96, LONG_NEG_DURATION);
-   cmd = make_cmd(32'sd96, 32'sd0, LONG_NEG_DURATION, step, OP_RAMP, 1'b0, 1'b0);
+   step = calc_step(current_value, 32'sd1500, LONG_NEG_DURATION);
+   cmd = make_cmd(32'sd1500, -32'sd30000, LONG_NEG_DURATION, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
    send_cmd(cmd, have_hold, current_hold_word, "backpressure ramp");
 
    wait (m_axis_tvalid === 1'b1);
    frozen_word = m_axis_tdata;
-   expected = expected_ramp_word(32'sd0, 32'sd96, LONG_NEG_DURATION, step, 0);
+   expected = expected_ramp_word(current_value, 32'sd1500, LONG_NEG_DURATION, step, 0);
    if (frozen_word !== expected)
       fail("unexpected first ramp word before backpressure release");
 
@@ -533,14 +592,15 @@ initial begin
 
    recv_word(expected, "backpressure ramp base=0");
    for (bp_base = N_DDS; bp_base < LONG_NEG_DURATION; bp_base = bp_base + N_DDS) begin
-      recv_word(expected_ramp_word(32'sd0, 32'sd96, LONG_NEG_DURATION, step, bp_base),
+      recv_word(expected_ramp_word(current_value, 32'sd1500, LONG_NEG_DURATION, step, bp_base),
                 $sformatf("backpressure ramp base=%0d", bp_base));
    end
-   current_hold_word = scalar_word(32'sd96);
+   current_value = 32'sd1500;
+   current_hold_word = scalar_word(current_value);
 
    // Back-to-back command behavior: a SET command is held valid while a ramp is busy.
-   step = calc_step(32'sd10, 32'sd70, 32'd8);
-   cmd = make_cmd(32'sd70, 32'sd10, 32'd8, step, OP_RAMP, 1'b0, 1'b0);
+   step = calc_step(current_value, 32'sd70, 32'd8);
+   cmd = make_cmd(32'sd70, 32'sd10, 32'd8, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
    send_cmd(cmd, have_hold, current_hold_word, "back-to-back ramp");
 
    @(negedge aclk);
@@ -554,15 +614,17 @@ initial begin
          fail("s_axis_tready should stay low while ramp is busy");
    end
 
-   recv_word(expected_ramp_word(32'sd10, 32'sd70, 32'd8, step, 0), "back-to-back ramp base=0");
+   recv_word(expected_ramp_word(current_value, 32'sd70, 32'd8, step, 0), "back-to-back ramp base=0");
    if (s_axis_tready !== 1'b0)
       fail("s_axis_tready went high before ramp completed");
-   recv_word(expected_ramp_word(32'sd10, 32'sd70, 32'd8, step, N_DDS), "back-to-back ramp base=4");
-   current_hold_word = scalar_word(32'sd70);
+   recv_word(expected_ramp_word(current_value, 32'sd70, 32'd8, step, N_DDS), "back-to-back ramp base=4");
+   current_value = 32'sd70;
+   current_hold_word = scalar_word(current_value);
    accept_pending_with_hold(current_hold_word, "back-to-back set accept");
 
    expected = scalar_word(32'sd77);
    recv_word(expected, "back-to-back set output");
+   current_value = 32'sd77;
    current_hold_word = expected;
 
    // Saturation behavior.
@@ -570,12 +632,14 @@ initial begin
    send_cmd(cmd, have_hold, current_hold_word, "positive saturation");
    expected = scalar_word(32'sd40000);
    recv_word(expected, "positive saturation");
+   current_value = 32'sd40000;
    current_hold_word = expected;
 
    cmd = make_cmd(-32'sd40000, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b1, 1'b0);
    send_cmd(cmd, have_hold, current_hold_word, "negative saturation zero hold");
    expected = scalar_word(-32'sd40000);
    recv_word(expected, "negative saturation zero hold");
+   current_value = 32'sd0;
    current_hold_word = scalar_word(32'sd0);
 
    // Verify zero-hold after the last command.

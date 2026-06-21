@@ -21,28 +21,26 @@ The command word is 160 bits to match `axis_tproc64x32_x8_v1` realtime master ou
 
 | Bits | Field |
 | --- | --- |
-| `[31:0]` | `y_target` for RAMP, or set value for SET, signed integer |
-| `[63:32]` | `y_start` for RAMP, ignored for SET, signed integer |
+| `[31:0]` | `y_target` for SET/RAMP, signed integer |
+| `[63:32]` | reserved/deprecated `y_start` field, ignored by continuous RAMP |
 | `[95:64]` | duration: RAMP scalar samples, IDLE slow cycles, with 0 coerced to 1 |
-| `[127:96]` | signed fixed-point step per scalar sample, Q(32-FRAC).FRAC |
+| `[127:96]` | reserved/deprecated software step field, ignored by continuous RAMP |
 | `[143:128]` | reserved |
 | `[145:144]` | opcode: `00` NOP, `01` SET, `10` RAMP, `11` IDLE |
 | `[146]` | hold mode: `0` hold final value, `1` output zero after command |
 | `[147]` | reserved, samples are always signed and saturated |
-| `[148]` | clear held output state before accepting this command |
+| `[148]` | clear held output state before SET; ignored by RAMP/IDLE/NOP |
 | `[159:149]` | reserved |
 
-`[127:96]` is used as a precomputed ramp step instead of gain/channel-mask fields. This avoids a realtime divider in the FPGA datapath.
-
-For `duration > 1`, software should pack:
+RAMP no longer uses the deprecated start or step fields. For `duration > 1`, the IP computes one signed fixed-point step when a RAMP command is accepted:
 
 ```text
-step = round_or_trunc(((y_target - y_start) <<< FRAC) / (duration - 1))
+step = trunc(((y_target - current_value) <<< FRAC) / (duration - 1))
 ```
 
-Use signed arithmetic for the subtraction, shift, and division.
+The division is not performed per output sample. For `duration <= 1`, the step is forced to zero and the emitted output is clamped directly to `y_target`.
 
-For `duration <= 1`, `step` is ignored and the emitted output is clamped to `y_target`.
+`current_value` tracks the logical value represented by the currently held output. When hold-zero mode is requested, `current_value` becomes zero after the command so the next continuous RAMP starts from the visible zero output.
 
 ## Timing Behavior
 
@@ -52,7 +50,7 @@ For lane `i` in an output word:
 
 ```text
 sample_index = word_base_index + i
-sample = y_start + sample_index * step
+sample = current_value_at_ramp_start + sample_index * step
 ```
 
 The final scalar sample, and any lanes after it in the final partial word, are forced to `y_target`. This prevents accumulated fixed-point rounding error at segment end.
@@ -68,9 +66,11 @@ After the SET word is accepted:
 
 ## RAMP Mode
 
-Opcode `10` loads `y_start`, `y_target`, `duration`, and the precomputed `step`. It emits `ceil(duration / N_DDS)` output words.
+Opcode `10` ignores the deprecated `y_start` and software `step` fields. It starts from the current held output value, targets `y_target`, computes a fixed-point step once, and emits `ceil(duration / N_DDS)` output words.
 
 Positive and negative ramps are both supported. All output samples are saturated to signed `B`-bit range.
+
+Normal RAMP commands are continuous. Only SET commands are intended to create instantaneous output jumps. The `duration <= 1` RAMP case emits the target directly and can therefore look instantaneous by definition.
 
 ## IDLE Mode
 
@@ -94,14 +94,13 @@ cmd[145:144] = 2'b01
 cmd[146]     = 0
 ```
 
-RAMP from `-1000` to `1000` in 64 scalar samples with `FRAC=16`:
+RAMP continuously from the current held value to `1000` in 64 scalar samples:
 
 ```text
-step         = ((1000 - (-1000)) << 16) / (64 - 1)
 cmd[31:0]    = 1000
-cmd[63:32]   = -1000
+cmd[63:32]   = ignored
 cmd[95:64]   = 64
-cmd[127:96]  = step
+cmd[127:96]  = ignored
 cmd[145:144] = 2'b10
 cmd[146]     = 0
 ```
@@ -109,6 +108,6 @@ cmd[146]     = 0
 ## Known Limitations
 
 - Commands are stalled, not queued.
-- The ramp step must be precomputed by software or tProcessor program logic.
+- RAMP uses an inferred signed divider at command acceptance to compute the segment step.
 - The IP emits consecutive ramp samples across lanes. SET and HOLD output replicate one scalar value across all lanes.
 - Python driver and assembler support are intentionally left as future work.
