@@ -6,10 +6,10 @@
 // |-----------|-----------------------------------------------------------|
 // | 31:0      | y_target for RAMP, or set value for SET, signed integer  |
 // | 63:32     | y_start for RAMP, ignored for SET, signed integer        |
-// | 95:64     | duration in scalar samples, 0 coerced to 1               |
+// | 95:64     | duration: RAMP scalar samples, IDLE slow cycles; 0 -> 1  |
 // | 127:96    | signed fixed-point step per scalar sample, Q(32-FRAC).FRAC |
 // | 143:128   | reserved                                                  |
-// | 145:144   | opcode: 00 NOP, 01 SET, 10 RAMP, 11 reserved/NOP         |
+// | 145:144   | opcode: 00 NOP, 01 SET, 10 RAMP, 11 IDLE                 |
 // | 146       | hold mode: 0 hold final value, 1 output zero after command |
 // | 147       | reserved, samples are always signed and saturated         |
 // | 148       | clear held output state before accepting the command      |
@@ -18,6 +18,12 @@
 // The step field is precomputed by software/tProcessor to avoid a hardware
 // divider in the realtime datapath. For a ramp with duration > 1, use:
 // step = round_or_trunc(((y_target - y_start) <<< FRAC) / (duration - 1)).
+// The subtraction, shift, and division must use signed arithmetic.
+//
+// NOP is an immediate no-op. IDLE is a timed wait using the same duration
+// field, counted in aclk slow sequencer cycles. IDLE emits no m_axis samples,
+// leaves the current held output/ramp configuration unchanged, and returns to
+// the normal ready/hold state when the wait expires.
 
 module awg_tuning_ctrl
    #(
@@ -45,12 +51,14 @@ module awg_tuning_ctrl
 localparam logic [1:0] OP_NOP  = 2'b00;
 localparam logic [1:0] OP_SET  = 2'b01;
 localparam logic [1:0] OP_RAMP = 2'b10;
+localparam logic [1:0] OP_IDLE = 2'b11;
 
-typedef enum logic [1:0] {
+typedef enum logic [2:0] {
    IDLE_ST,
    SET_ST,
    RAMP_ST,
-   HOLD_ST
+   HOLD_ST,
+   WAIT_IDLE_ST
 } state_t;
 
 state_t state;
@@ -79,6 +87,8 @@ logic [B-1:0]           set_sample_r;
 logic                   set_hold_zero_r;
 logic [B-1:0]           hold_sample_r;
 logic                   hold_valid_r;
+logic [31:0]            idle_duration_r;
+logic [31:0]            idle_count_r;
 
 function automatic logic [B-1:0] sat_int32;
    input logic signed [31:0] value;
@@ -177,6 +187,11 @@ always_comb begin
          m_axis_tdata  = sample_word(hold_sample_r);
       end
 
+      WAIT_IDLE_ST: begin
+         m_axis_tvalid = 1'b0;
+         m_axis_tdata  = sample_word(hold_sample_r);
+      end
+
       default: begin
          m_axis_tvalid = 1'b0;
          m_axis_tdata  = {N_DDS*B{1'b0}};
@@ -197,6 +212,8 @@ always_ff @(posedge aclk) begin
       set_hold_zero_r     <= 1'b0;
       hold_sample_r       <= {B{1'b0}};
       hold_valid_r        <= 1'b0;
+      idle_duration_r     <= 32'd0;
+      idle_count_r        <= 32'd0;
    end
    else begin
       ramp_start_r <= 1'b0;
@@ -204,19 +221,24 @@ always_ff @(posedge aclk) begin
       case (state)
          IDLE_ST, HOLD_ST: begin
             if (cmd_fire) begin
-               if (cmd_clear) begin
-                  hold_sample_r <= {B{1'b0}};
-                  hold_valid_r  <= 1'b0;
-               end
-
                case (cmd_opcode)
                   OP_SET: begin
+                     if (cmd_clear) begin
+                        hold_sample_r <= {B{1'b0}};
+                        hold_valid_r  <= 1'b0;
+                     end
+
                      set_sample_r    <= sat_int32(cmd_target);
                      set_hold_zero_r <= cmd_hold_zero;
                      state           <= SET_ST;
                   end
 
                   OP_RAMP: begin
+                     if (cmd_clear) begin
+                        hold_sample_r <= {B{1'b0}};
+                        hold_valid_r  <= 1'b0;
+                     end
+
                      ramp_start_value_r  <= cmd_start;
                      ramp_target_value_r <= cmd_target;
                      ramp_step_r         <= cmd_step;
@@ -226,7 +248,18 @@ always_ff @(posedge aclk) begin
                      state               <= RAMP_ST;
                   end
 
+                  OP_IDLE: begin
+                     idle_duration_r <= (cmd_duration == 32'd0) ? 32'd1 : cmd_duration;
+                     idle_count_r    <= 32'd0;
+                     state           <= WAIT_IDLE_ST;
+                  end
+
                   default: begin
+                     if (cmd_clear) begin
+                        hold_sample_r <= {B{1'b0}};
+                        hold_valid_r  <= 1'b0;
+                     end
+
                      state <= (cmd_clear || !hold_valid_r) ? IDLE_ST : HOLD_ST;
                   end
                endcase
@@ -246,6 +279,16 @@ always_ff @(posedge aclk) begin
                hold_sample_r <= ramp_hold_zero_r ? {B{1'b0}} : sat_int32(ramp_target_value_r);
                hold_valid_r  <= 1'b1;
                state         <= HOLD_ST;
+            end
+         end
+
+         WAIT_IDLE_ST: begin
+            if (idle_count_r == idle_duration_r - 32'd1) begin
+               idle_count_r <= 32'd0;
+               state        <= hold_valid_r ? HOLD_ST : IDLE_ST;
+            end
+            else begin
+               idle_count_r <= idle_count_r + 32'd1;
             end
          end
 

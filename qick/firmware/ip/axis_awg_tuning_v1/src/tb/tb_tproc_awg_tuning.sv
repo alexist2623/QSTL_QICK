@@ -19,6 +19,7 @@ localparam bit USE_DIRECT_COMMAND_DRIVER = 1'b1;
 
 localparam logic [1:0] OP_SET  = 2'b01;
 localparam logic [1:0] OP_RAMP = 2'b10;
+localparam logic [1:0] OP_IDLE = 2'b11;
 
 logic                   s_axi_aclk;
 logic                   s_axi_aresetn;
@@ -252,6 +253,7 @@ function automatic logic signed [31:0] calc_step;
    input logic [31:0] duration;
    longint signed delta;
    longint signed numerator;
+   longint signed denominator;
    longint signed quotient;
    begin
       if (duration <= 1) begin
@@ -260,7 +262,8 @@ function automatic logic signed [31:0] calc_step;
       else begin
          delta = y_target - y_start;
          numerator = delta <<< FRAC;
-         quotient = numerator / (duration - 1);
+         denominator = duration - 1;
+         quotient = numerator / denominator;
          calc_step = quotient[31:0];
       end
    end
@@ -364,6 +367,8 @@ initial begin
 
    if (USE_DIRECT_COMMAND_DRIVER) begin
       drive_direct_cmd(make_cmd(32'sd512, 32'sd0, 32'd0, 32'sd0, OP_SET));
+      repeat (8) @(posedge aclk);
+      drive_direct_cmd(make_cmd(32'sd0, 32'sd0, 32'd5, 32'sd0, OP_IDLE));
       repeat (8) @(posedge aclk);
       drive_direct_cmd(make_cmd(32'sd2048, -32'sd2048, 32'd16, calc_step(-32'sd2048, 32'sd2048, 32'd16), OP_RAMP));
       repeat (80) @(posedge aclk);

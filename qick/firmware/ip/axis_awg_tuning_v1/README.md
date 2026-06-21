@@ -23,10 +23,10 @@ The command word is 160 bits to match `axis_tproc64x32_x8_v1` realtime master ou
 | --- | --- |
 | `[31:0]` | `y_target` for RAMP, or set value for SET, signed integer |
 | `[63:32]` | `y_start` for RAMP, ignored for SET, signed integer |
-| `[95:64]` | duration in scalar samples, with 0 coerced to 1 |
+| `[95:64]` | duration: RAMP scalar samples, IDLE slow cycles, with 0 coerced to 1 |
 | `[127:96]` | signed fixed-point step per scalar sample, Q(32-FRAC).FRAC |
 | `[143:128]` | reserved |
-| `[145:144]` | opcode: `00` NOP, `01` SET, `10` RAMP, `11` reserved |
+| `[145:144]` | opcode: `00` NOP, `01` SET, `10` RAMP, `11` IDLE |
 | `[146]` | hold mode: `0` hold final value, `1` output zero after command |
 | `[147]` | reserved, samples are always signed and saturated |
 | `[148]` | clear held output state before accepting this command |
@@ -40,11 +40,13 @@ For `duration > 1`, software should pack:
 step = round_or_trunc(((y_target - y_start) <<< FRAC) / (duration - 1))
 ```
 
+Use signed arithmetic for the subtraction, shift, and division.
+
 For `duration <= 1`, `step` is ignored and the emitted output is clamped to `y_target`.
 
 ## Timing Behavior
 
-`duration` is counted in scalar output samples. One `m_axis` handshake emits one vector word containing `N_DDS` consecutive scalar ramp samples.
+For RAMP, `duration` is counted in scalar output samples. One `m_axis` handshake emits one vector word containing `N_DDS` consecutive scalar ramp samples.
 
 For lane `i` in an output word:
 
@@ -69,6 +71,12 @@ After the SET word is accepted:
 Opcode `10` loads `y_start`, `y_target`, `duration`, and the precomputed `step`. It emits `ceil(duration / N_DDS)` output words.
 
 Positive and negative ramps are both supported. All output samples are saturated to signed `B`-bit range.
+
+## IDLE Mode
+
+Opcode `11` accepts the command and waits for `[95:64]` slow sequencer cycles. In this mode a slow cycle is one `aclk` cycle spent in the timed wait state, not an accepted `m_axis` output word.
+
+During IDLE, `m_axis_tvalid` is deasserted and `m_axis_tdata` holds the previous stable held-output value. The current held output, ramp accumulator/configuration, slope, and target are not changed. After the wait expires, normal command readiness resumes; if a held output is active, `s_axis_tready` again follows `m_axis_tready`.
 
 ## Backpressure And Command Acceptance
 
