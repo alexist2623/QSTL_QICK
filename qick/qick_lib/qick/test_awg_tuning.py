@@ -1,0 +1,131 @@
+"""Pure-Python tests for qick.awg_tuning.
+
+These tests stub the minimal PYNQ symbol needed to import SocIP, so they do not
+require a board or a PYNQ installation.
+"""
+
+import sys
+import types
+import unittest
+from pathlib import Path
+
+
+class _DefaultIP:
+    bindto = []
+
+    def __init__(self, description):
+        self.description = description
+
+
+def _install_pynq_stub():
+    pynq = types.ModuleType("pynq")
+    overlay = types.ModuleType("pynq.overlay")
+    overlay.DefaultIP = _DefaultIP
+    sys.modules.setdefault("pynq", pynq)
+    sys.modules.setdefault("pynq.overlay", overlay)
+
+
+_install_pynq_stub()
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from qick.awg_tuning import AxisAwgTuningV1
+
+
+def make_driver():
+    return AxisAwgTuningV1({
+        "type": "QICK:QICK:axis_awg_tuning_v1:1.0",
+        "fullpath": "axis_awg_tuning_v1_0",
+        "parameters": {
+            "N_DDS": "4",
+            "B": "16",
+            "FRAC": "16",
+            "CMD_WIDTH": "160",
+        },
+    })
+
+
+class TestAxisAwgTuningV1(unittest.TestCase):
+    def test_signed_field_and_round_trip_packing(self):
+        drv = make_driver()
+        cmd = drv.pack_cmd(
+            target=-1,
+            start=123,
+            duration=5,
+            step=-7,
+            opcode=drv.OP_RAMP,
+            hold_zero=True,
+            clear=True,
+        )
+
+        self.assertEqual(drv.cmd_to_words(cmd), [
+            0xFFFFFFFF,
+            0x0000007B,
+            0x00000005,
+            0xFFFFFFF9,
+            0x00160000,
+        ])
+        self.assertEqual(drv.format_cmd(cmd), {
+            "opcode": drv.OP_RAMP,
+            "op": "ramp",
+            "target": -1,
+            "start": 123,
+            "duration": 5,
+            "step": -7,
+            "hold_zero": True,
+            "clear": True,
+        })
+
+    def test_opcode_helpers(self):
+        drv = make_driver()
+        self.assertEqual(drv.format_cmd(drv.nop_cmd())["opcode"], drv.OP_NOP)
+        self.assertEqual(drv.format_cmd(drv.set_cmd(1234))["opcode"], drv.OP_SET)
+        self.assertEqual(drv.format_cmd(drv.idle_cmd(6))["opcode"], drv.OP_IDLE)
+
+        drv.reset_cache(1234, valid=True)
+        ramp = drv.ramp_cmd(2000, 24)
+        self.assertEqual(drv.format_cmd(ramp)["opcode"], drv.OP_RAMP)
+
+    def test_step_calculation_truncates_toward_zero(self):
+        drv = make_driver()
+        self.assertEqual(drv.calc_step(1000, 2000, 1), 0)
+
+        pos_num = (2000 - 1000) << drv["frac"]
+        self.assertEqual(drv.calc_step(1000, 2000, 24), pos_num // 23)
+
+        neg_num = (-2000 - 2000) << drv["frac"]
+        expected = -(abs(neg_num) // 23)
+        self.assertEqual(drv.calc_step(2000, -2000, 24), expected)
+        self.assertNotEqual(expected, neg_num // 23)
+
+    def test_sequence_updates_cache_and_uses_current_start(self):
+        drv = make_driver()
+        drv.reset_cache(0, valid=True)
+        cmds = drv.make_sequence([
+            {"op": "set", "value": 1000},
+            {"op": "ramp", "target": 2000, "duration": 24},
+            {"op": "idle", "duration": 6},
+            {"op": "ramp", "target": -1000, "duration": 24},
+        ])
+
+        first_ramp = drv.format_cmd(cmds[1])
+        self.assertEqual(first_ramp["start"], 1000)
+        self.assertEqual(first_ramp["step"], drv.calc_step(1000, 2000, 24))
+
+        second_ramp = drv.format_cmd(cmds[3])
+        self.assertEqual(second_ramp["start"], 2000)
+        self.assertEqual(second_ramp["step"], drv.calc_step(2000, -1000, 24))
+        self.assertEqual(drv.current_value, -1000)
+        self.assertTrue(drv.current_valid)
+
+    def test_range_validation(self):
+        drv = make_driver()
+        with self.assertRaises(ValueError):
+            drv.pack_cmd(target=2**31)
+        with self.assertRaises(ValueError):
+            drv.pack_cmd(duration=-1)
+        with self.assertRaises(ValueError):
+            drv.pack_cmd(step=-(2**31) - 1)
+
+
+if __name__ == "__main__":
+    unittest.main()
