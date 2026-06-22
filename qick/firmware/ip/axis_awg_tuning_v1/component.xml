@@ -88,14 +88,118 @@
       </spirit:view>
     </spirit:views>
     <spirit:ports>
-      <spirit:port><spirit:name>aresetn</spirit:name><spirit:wire><spirit:direction>in</spirit:direction><spirit:wireTypeDefs><spirit:wireTypeDef><spirit:typeName>wire</spirit:typeName></spirit:wireTypeDef></spirit:wireTypeDefs></spirit:wire></spirit:port>
-      <spirit:port><spirit:name>aclk</spirit:name><spirit:wire><spirit:direction>in</spirit:direction><spirit:wireTypeDefs><spirit:wireTypeDef><spirit:typeName>wire</spirit:typeName></spirit:wireTypeDef></spirit:wireTypeDefs></spirit:wire></spirit:port>
-      <spirit:port><spirit:name>s_axis_tdata</spirit:name><spirit:wire><spirit:direction>in</spirit:direction><spirit:vector><spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.CMD_WIDTH&apos;)) - 1)">159</spirit:left><spirit:right spirit:format="long">0</spirit:right></spirit:vector><spirit:wireTypeDefs><spirit:wireTypeDef><spirit:typeName>wire</spirit:typeName></spirit:wireTypeDef></spirit:wireTypeDefs></spirit:wire></spirit:port>
-      <spirit:port><spirit:name>s_axis_tvalid</spirit:name><spirit:wire><spirit:direction>in</spirit:direction><spirit:wireTypeDefs><spirit:wireTypeDef><spirit:typeName>wire</spirit:typeName></spirit:wireTypeDef></spirit:wireTypeDefs></spirit:wire></spirit:port>
-      <spirit:port><spirit:name>s_axis_tready</spirit:name><spirit:wire><spirit:direction>out</spirit:direction><spirit:wireTypeDefs><spirit:wireTypeDef><spirit:typeName>wire</spirit:typeName></spirit:wireTypeDef></spirit:wireTypeDefs></spirit:wire></spirit:port>
-      <spirit:port><spirit:name>m_axis_tdata</spirit:name><spirit:wire><spirit:direction>out</spirit:direction><spirit:vector><spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.N_DDS&apos;)) * spirit:decode(id(&apos;MODELPARAM_VALUE.B&apos;))) - 1)">255</spirit:left><spirit:right spirit:format="long">0</spirit:right></spirit:vector><spirit:wireTypeDefs><spirit:wireTypeDef><spirit:typeName>wire</spirit:typeName></spirit:wireTypeDef></spirit:wireTypeDefs></spirit:wire></spirit:port>
-      <spirit:port><spirit:name>m_axis_tvalid</spirit:name><spirit:wire><spirit:direction>out</spirit:direction><spirit:wireTypeDefs><spirit:wireTypeDef><spirit:typeName>wire</spirit:typeName></spirit:wireTypeDef></spirit:wireTypeDefs></spirit:wire></spirit:port>
-      <spirit:port><spirit:name>m_axis_tready</spirit:name><spirit:wire><spirit:direction>in</spirit:direction><spirit:wireTypeDefs><spirit:wireTypeDef><spirit:typeName>wire</spirit:typeName></spirit:wireTypeDef></spirit:wireTypeDefs></spirit:wire></spirit:port>
+      <spirit:port>
+        <spirit:name>aresetn</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>aclk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>s_axis_tdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.CMD_WIDTH&apos;)) - 1)">159</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>s_axis_tvalid</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>s_axis_tready</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>m_axis_tdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.N_DDS&apos;)) * spirit:decode(id(&apos;MODELPARAM_VALUE.B&apos;))) - 1)">255</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>m_axis_tvalid</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>m_axis_tready</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
     </spirit:ports>
     <spirit:modelParameters>
       <spirit:modelParameter spirit:dataType="integer"><spirit:name>N_DDS</spirit:name><spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.N_DDS">16</spirit:value></spirit:modelParameter>
@@ -129,4 +233,23 @@
     <spirit:parameter><spirit:name>CMD_WIDTH</spirit:name><spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.CMD_WIDTH" spirit:minimum="160" spirit:maximum="256" spirit:rangeType="long">160</spirit:value></spirit:parameter>
     <spirit:parameter><spirit:name>Component_Name</spirit:name><spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.Component_Name" spirit:order="1">axis_awg_tuning_v1_v1_0</spirit:value></spirit:parameter>
   </spirit:parameters>
+  <spirit:vendorExtensions>
+    <xilinx:coreExtensions>
+      <xilinx:supportedFamilies>
+        <xilinx:family xilinx:lifeCycle="Production">zynquplus</xilinx:family>
+      </xilinx:supportedFamilies>
+      <xilinx:taxonomies>
+        <xilinx:taxonomy>/QICK/Generator</xilinx:taxonomy>
+      </xilinx:taxonomies>
+      <xilinx:displayName>AXIS AWG Tuning V1</xilinx:displayName>
+      <xilinx:definitionSource>package_project</xilinx:definitionSource>
+      <xilinx:vendorDisplayName>Quantum Instrumentation Control Kit</xilinx:vendorDisplayName>
+      <xilinx:vendorURL>https://github.com/openquantumhardware/qick/</xilinx:vendorURL>
+      <xilinx:coreRevision>1</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2026-06-21T00:00:00Z</xilinx:coreCreationDateTime>
+    </xilinx:coreExtensions>
+    <xilinx:packagingInfo>
+      <xilinx:xilinxVersion>2023.1</xilinx:xilinxVersion>
+    </xilinx:packagingInfo>
+  </spirit:vendorExtensions>
 </spirit:component>
