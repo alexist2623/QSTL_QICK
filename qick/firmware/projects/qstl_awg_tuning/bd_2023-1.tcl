@@ -143,7 +143,7 @@ xilinx.com:ip:axis_register_slice:1.1\
 xilinx.com:ip:axis_switch:1.1\
 xilinx.com:ip:usp_rf_data_converter:2.6\
 xilinx.com:ip:zynq_ultra_ps_e:3.5\
-QICK:QICK:axis_avg_buffer:1.2\
+QICK:QICK:axis_avg_buffer:1.3\
 xilinx.com:ip:axi_gpio:2.0\
 QICK:QICK:axis_tproc64x32_x8:1.0\
 QICK:QICK:qick_vec2bit:1.0\
@@ -2043,7 +2043,7 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
   create_hier_cell_rfb_control [current_bd_instance .] rfb_control
 
   # Create instance: axis_avg_buffer_0, and set properties
-  set axis_avg_buffer_0 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.2 axis_avg_buffer_0 ]
+  set axis_avg_buffer_0 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.3 axis_avg_buffer_0 ]
   set_property -dict [list \
     CONFIG.N_AVG {13} \
     CONFIG.N_BUF {12} \
@@ -2051,7 +2051,7 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
 
 
   # Create instance: axis_avg_buffer_1, and set properties
-  set axis_avg_buffer_1 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.2 axis_avg_buffer_1 ]
+  set axis_avg_buffer_1 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.3 axis_avg_buffer_1 ]
   set_property -dict [list \
     CONFIG.N_AVG {13} \
     CONFIG.N_BUF {12} \
@@ -2059,7 +2059,7 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
 
 
   # Create instance: axis_avg_buffer_2, and set properties
-  set axis_avg_buffer_2 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.2 axis_avg_buffer_2 ]
+  set axis_avg_buffer_2 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.3 axis_avg_buffer_2 ]
   set_property -dict [list \
     CONFIG.N_AVG {13} \
     CONFIG.N_BUF {10} \
@@ -2067,7 +2067,7 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
 
 
   # Create instance: axis_avg_buffer_3, and set properties
-  set axis_avg_buffer_3 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.2 axis_avg_buffer_3 ]
+  set axis_avg_buffer_3 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.3 axis_avg_buffer_3 ]
   set_property -dict [list \
     CONFIG.N_AVG {13} \
     CONFIG.N_BUF {10} \

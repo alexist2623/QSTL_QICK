@@ -1038,6 +1038,79 @@ class AxisAvgBufferV1pt2(AxisAvgBufferV1pt1):
 
     FIRST_OUT_SAMPLE_BUG_FIX = True   # Bug is fixed in IP version >= 1.2
 
+class AxisAvgBufferV1pt3(AxisAvgBufferV1pt2):
+    """
+    AxisAvgBufferV1pt3 class
+
+    Adds AVG-path power-of-two time decimation. AVG length is the number of
+    stored/processed decimated samples; the input sample span is
+    length * 2**decim_log2. The raw BUF path is not decimated.
+    """
+    bindto = ['user.org:user:axis_avg_buffer:1.3',
+              'QICK:QICK:axis_avg_buffer:1.3']
+
+    def _init_config(self, description):
+        super()._init_config(description)
+
+        self.REGISTERS['avg_decim_log2_reg'] = 15
+        self.MAX_AVG_DECIM_LOG2 = int(description['parameters'].get('MAX_AVG_DECIM_LOG2', 6))
+        self.cfg['has_avg_decimation'] = True
+        self.cfg['max_avg_decim_log2'] = self.MAX_AVG_DECIM_LOG2
+
+    def _init_firmware(self):
+        super()._init_firmware()
+        self.avg_decim_log2_reg = 0
+
+    def set_avg_decimation(self, decim_log2: int) -> None:
+        """Set AVG time decimation factor. decim_log2=K averages 2**K input samples per stored AVG sample."""
+        decim_log2 = int(decim_log2)
+        if decim_log2 < 0:
+            raise ValueError("AVG decimation log2 must be non-negative")
+        self.avg_decim_log2_reg = min(decim_log2, self.MAX_AVG_DECIM_LOG2)
+
+    def get_avg_decimation(self) -> int:
+        """Return the programmed effective AVG time decimation log2 value."""
+        return int(self.avg_decim_log2_reg) & 0xf
+
+    def config_avg(
+        self, address=0, length=100, decim_log2=None,
+        edge_counting=False, high_threshold=1000, low_threshold=0):
+        """
+        Configure average buffer data from average and buffering readout block.
+
+        AVG length is the number of processed decimated samples. The input
+        sample span is length * 2**decim_log2 for I/Q averaging. Edge-counting
+        mode continues to count raw input samples.
+        """
+        super().config_avg(
+            address=address,
+            length=length,
+            edge_counting=edge_counting,
+            high_threshold=high_threshold,
+            low_threshold=low_threshold)
+        if decim_log2 is not None:
+            self.set_avg_decimation(decim_log2)
+
+    def config_trace_avg(
+        self,
+        address = 0,
+        length = 100,
+        number_of_trace_average = 1,
+        decim_log2 = None
+    ) -> None:
+        """
+        Configure trace average buffer.
+
+        AVG length is the number of stored decimated trace samples. The input
+        sample span per trace is length * 2**decim_log2.
+        """
+        super().config_trace_avg(
+            address=address,
+            length=length,
+            number_of_trace_average=number_of_trace_average)
+        if decim_log2 is not None:
+            self.set_avg_decimation(decim_log2)
+
 class AxisWeightedBuffer(AxisAvgBufferV1pt1):
     bindto = ['user.org:user:axis_weighted_buffer:1.2',
               'QICK:QICK:axis_weighted_buffer:1.2']
