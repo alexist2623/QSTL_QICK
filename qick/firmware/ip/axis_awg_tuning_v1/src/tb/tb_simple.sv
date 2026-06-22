@@ -598,11 +598,12 @@ endtask
 
 task automatic set_awg;
    input logic signed [31:0] value;
-   input string tag;
 
    logic [CMD_WIDTH-1:0] cmd;
+   string tag;
 
    begin
+      tag = $sformatf("SET %0d", value);
       cmd = make_cmd(value, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b0, 1'b0);
       send_cmd(cmd, have_hold, current_hold_word, tag);
 
@@ -617,11 +618,12 @@ endtask
 
 task automatic set_awg_zero_hold;
    input logic signed [31:0] value;
-   input string tag;
 
    logic [CMD_WIDTH-1:0] cmd;
+   string tag;
 
    begin
+      tag = $sformatf("SET %0d zero hold", value);
       cmd = make_cmd(value, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b1, 1'b0);
       send_cmd(cmd, have_hold, current_hold_word, tag);
 
@@ -636,32 +638,33 @@ task automatic set_awg_zero_hold;
 endtask
 
 task automatic ramp_awg;
-   input logic signed [31:0] target_value;
-   input logic [31:0] duration;
-   input string tag;
+   input logic signed [31:0] final_value;
+   input logic [31:0] ramp_duration;
 
    logic [CMD_WIDTH-1:0] cmd;
    logic signed [31:0] start_value;
    logic signed [31:0] wrong_start;
+   string tag;
 
    begin
       start_value = current_value;
+      tag = $sformatf("RAMP %0d to %0d duration %0d",
+                      start_value, final_value, ramp_duration);
       wrong_start = (start_value == -32'sd30000) ? 32'sd30000 : -32'sd30000;
-      cmd = make_cmd(target_value, wrong_start, duration, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
+      cmd = make_cmd(final_value, wrong_start, ramp_duration, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
 
       send_cmd(cmd, have_hold, current_hold_word, tag);
-      check_ramp(start_value, target_value, duration, tag);
+      check_ramp(start_value, final_value, ramp_duration, tag);
 
-      current_value = target_value;
-      current_hold_word = scalar_word(target_value);
+      current_value = final_value;
+      current_hold_word = scalar_word(final_value);
       have_hold = 1'b1;
    end
 endtask
 
 task automatic ramp_awg_with_drop_tests;
-   input logic signed [31:0] target_value;
-   input logic [31:0] duration;
-   input string tag;
+   input logic signed [31:0] final_value;
+   input logic [31:0] ramp_duration;
 
    logic [CMD_WIDTH-1:0] cmd;
    logic signed [31:0] start_value;
@@ -671,59 +674,63 @@ task automatic ramp_awg_with_drop_tests;
    int unsigned base_index;
    longint signed previous_value;
    bit have_previous;
+   string tag;
 
    begin
-      if (duration < 3*N_DDS)
+      start_value = current_value;
+      tag = $sformatf("RAMP %0d to %0d duration %0d with drop tests",
+                      start_value, final_value, ramp_duration);
+
+      if (ramp_duration < 3*N_DDS)
          $fatal(1, "%s duration must cover at least three output words for drop tests", tag);
 
-      start_value = current_value;
       wrong_start = (start_value == -32'sd30000) ? 32'sd30000 : -32'sd30000;
-      step = calc_step(start_value, target_value, duration);
+      step = calc_step(start_value, final_value, ramp_duration);
       previous_value = 0;
       have_previous = 1'b0;
 
-      cmd = make_cmd(target_value, wrong_start, duration, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
+      cmd = make_cmd(final_value, wrong_start, ramp_duration, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
       send_cmd(cmd, have_hold, current_hold_word, tag);
 
-      expected = expected_ramp_word(start_value, target_value, duration, step, 0);
+      expected = expected_ramp_word(start_value, final_value, ramp_duration, step, 0);
       recv_word(expected, {tag, " base=0"});
-      check_ramp_word_properties(start_value, target_value, duration, 0,
+      check_ramp_word_properties(start_value, final_value, ramp_duration, 0,
                                  {tag, " base=0"}, previous_value, have_previous);
 
       cmd = make_cmd(-32'sd1234, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b0, 1'b0);
-      expected = expected_ramp_word(start_value, target_value, duration, step, N_DDS);
+      expected = expected_ramp_word(start_value, final_value, ramp_duration, step, N_DDS);
       send_cmd_and_check_word(cmd, expected, {tag, " DROP SET base=16"});
-      check_ramp_word_properties(start_value, target_value, duration, N_DDS,
+      check_ramp_word_properties(start_value, final_value, ramp_duration, N_DDS,
                                  {tag, " DROP SET base=16"}, previous_value, have_previous);
 
       cmd = make_cmd(32'sd3000, 32'sd111, 32'd32, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
-      expected = expected_ramp_word(start_value, target_value, duration, step, 2*N_DDS);
+      expected = expected_ramp_word(start_value, final_value, ramp_duration, step, 2*N_DDS);
       send_cmd_and_check_word(cmd, expected, {tag, " DROP RAMP base=32"});
-      check_ramp_word_properties(start_value, target_value, duration, 2*N_DDS,
+      check_ramp_word_properties(start_value, final_value, ramp_duration, 2*N_DDS,
                                  {tag, " DROP RAMP base=32"}, previous_value, have_previous);
 
-      for (base_index = 3*N_DDS; base_index < duration; base_index = base_index + N_DDS) begin
-         expected = expected_ramp_word(start_value, target_value, duration, step, base_index);
+      for (base_index = 3*N_DDS; base_index < ramp_duration; base_index = base_index + N_DDS) begin
+         expected = expected_ramp_word(start_value, final_value, ramp_duration, step, base_index);
          recv_word(expected, $sformatf("%s base=%0d", tag, base_index));
-         check_ramp_word_properties(start_value, target_value, duration, base_index,
+         check_ramp_word_properties(start_value, final_value, ramp_duration, base_index,
                                     $sformatf("%s base=%0d", tag, base_index),
                                     previous_value, have_previous);
       end
 
-      check_hold_words(target_value, 3, {tag, " final hold"});
+      check_hold_words(final_value, 3, {tag, " final hold"});
 
-      current_value = target_value;
-      current_hold_word = scalar_word(target_value);
+      current_value = final_value;
+      current_hold_word = scalar_word(final_value);
       have_hold = 1'b1;
    end
 endtask
 
 task automatic idle_noop_awg;
-   input string tag;
-
    logic [CMD_WIDTH-1:0] cmd;
+   string tag;
 
    begin
+      tag = "OP_IDLE no-op";
       cmd = make_cmd(32'sd9999, 32'sd0, 32'd64, 32'sd0, OP_IDLE, 1'b0, 1'b0);
       send_cmd(cmd, have_hold, current_hold_word, tag);
       check_hold_words(current_value, 2, {tag, " hold"});
@@ -736,13 +743,19 @@ initial begin
 
    reset_dut();
 
-   set_awg(32'sd1000, "SET 1000");
-   ramp_awg_with_drop_tests(32'sd2000, 32'd64, "RAMP 1000 to 2000");
-   set_awg(-32'sd500, "SET -500");
-   ramp_awg(-32'sd1500, 32'd64, "RAMP -500 to -1500");
-   idle_noop_awg("OP_IDLE no-op");
-   set_awg_zero_hold(32'sd123, "SET 123 zero hold");
-   set_awg(32'sd0, "SET 0");
+   set_awg(32'sd1000);
+   ramp_awg_with_drop_tests(
+      32'sd2000,
+      32'd64
+   );
+   set_awg(-32'sd500);
+   ramp_awg(
+      -32'sd1500,
+      32'd64
+   );
+   idle_noop_awg();
+   set_awg_zero_hold(32'sd123);
+   set_awg(32'sd0);
 
    close_output_files();
    $display("PASS: tb_simple axis_awg_tuning_v1 continuous SET/RAMP/drop test completed");
