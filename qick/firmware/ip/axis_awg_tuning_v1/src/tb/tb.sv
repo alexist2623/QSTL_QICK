@@ -3,11 +3,13 @@
 
 module tb();
 
-localparam int N_DDS = 4;
+localparam int N_DDS = 16;
 localparam int B = 16;
 localparam int FRAC = 16;
 localparam int CMD_WIDTH = 160;
 localparam int OUT_WIDTH = N_DDS*B;
+localparam real ACLK_PERIOD_NS = 10.0;
+localparam real DBG_SAMPLE_STEP_NS = ACLK_PERIOD_NS / 16.0;
 
 localparam logic [1:0] OP_NOP  = 2'b00;
 localparam logic [1:0] OP_SET  = 2'b01;
@@ -20,8 +22,10 @@ localparam logic [1:0] OP_IDLE = 2'b11;
 // while m_axis_tvalid stays low.
 localparam int LONG_POS_WORDS = 5;
 localparam int LONG_NEG_WORDS = 6;
+localparam int BACK_TO_BACK_WORDS = 2;
 localparam int LONG_POS_DURATION = LONG_POS_WORDS*N_DDS;
 localparam int LONG_NEG_DURATION = LONG_NEG_WORDS*N_DDS;
+localparam int BACK_TO_BACK_DURATION = BACK_TO_BACK_WORDS*N_DDS;
 localparam int IDLE_SLOW_CYCLES = 5;
 // RTL computes RAMP step internally; command step is deliberately nonzero.
 localparam logic signed [31:0] IGNORED_CMD_STEP = 32'sh1357_2468;
@@ -36,12 +40,35 @@ wire                    s_axis_tready;
 wire [OUT_WIDTH-1:0]    m_axis_tdata;
 wire                    m_axis_tvalid;
 logic                   m_axis_tready;
+wire                    dbg_axis_word_accept;
+
+// RFDC/PG269-style lane order for the 256-bit AXIS output:
+// lane 0 is the earliest sample in bits [15:0], lane 15 is the latest in bits [255:240].
+logic signed [B-1:0]    dbg_axis_lane_sample [0:N_DDS-1];
+logic                   dbg_sample_x16_clk;
+logic                   dbg_sample_x16_valid;
+logic signed [B-1:0]    dbg_sample_x16_tdata;
+int unsigned            dbg_sample_x16_index;
+int unsigned            dbg_sample_x16_lane;
+int unsigned            dbg_sample_x16_word;
 
 int                     fd;
+int                     fd_fast;
 int                     errors;
 int                     csv_sample;
+int unsigned            dbg_slow_word_count;
 logic [OUT_WIDTH-1:0]   current_hold_word;
 bit                     have_hold;
+
+typedef struct {
+   logic [OUT_WIDTH-1:0] word;
+   int unsigned word_index;
+} dbg_accepted_word_t;
+
+dbg_accepted_word_t     dbg_accepted_words[$];
+dbg_accepted_word_t     dbg_accepted_word_snapshot;
+dbg_accepted_word_t     dbg_emit_word;
+event                   dbg_axis_word_accepted_ev;
 
 axis_awg_tuning_v1
    #(
@@ -67,11 +94,32 @@ axis_awg_tuning_v1
       .m_axis_tready    (m_axis_tready  )
    );
 
+genvar dbg_lane_i;
+generate
+   for (dbg_lane_i = 0; dbg_lane_i < N_DDS; dbg_lane_i = dbg_lane_i + 1) begin : GEN_DBG_AXIS_LANES
+      assign dbg_axis_lane_sample[dbg_lane_i] = $signed(m_axis_tdata[B*dbg_lane_i +: B]);
+   end
+endgenerate
+
+assign dbg_axis_word_accept = m_axis_tvalid && m_axis_tready;
+
 always begin
    aclk = 1'b0;
    #5;
    aclk = 1'b1;
    #5;
+end
+
+initial begin
+   dbg_sample_x16_clk = 1'b0;
+   forever #(DBG_SAMPLE_STEP_NS/2.0) dbg_sample_x16_clk = ~dbg_sample_x16_clk;
+end
+
+initial begin
+   if (B != 16)
+      $fatal(1, "This testbench debug stream expects B=16, got B=%0d", B);
+   if (N_DDS != 16)
+      $fatal(1, "This testbench debug stream expects N_DDS=16, got N_DDS=%0d", N_DDS);
 end
 
 function automatic logic signed [31:0] calc_step;
@@ -188,6 +236,66 @@ task automatic fail;
       $fatal(1);
    end
 endtask
+
+task automatic emit_dbg_sample_word;
+   input logic [OUT_WIDTH-1:0] word;
+   input int unsigned word_index;
+   int unsigned lane;
+   logic signed [B-1:0] lane_value;
+   begin
+      #0.001;
+      for (lane = 0; lane < N_DDS; lane = lane + 1) begin
+         if (lane != 0)
+            #(DBG_SAMPLE_STEP_NS);
+
+         lane_value = $signed(word[B*lane +: B]);
+         dbg_sample_x16_valid = 1'b1;
+         dbg_sample_x16_tdata = lane_value;
+         dbg_sample_x16_lane = lane;
+         dbg_sample_x16_word = word_index;
+         dbg_sample_x16_index = word_index*N_DDS + lane;
+
+         if (fd_fast != 0)
+            $fwrite(fd_fast, "%0d,%0d,%0d,%0d\n",
+                    dbg_sample_x16_index, word_index, lane, lane_value);
+      end
+
+      #(DBG_SAMPLE_STEP_NS);
+      dbg_sample_x16_valid = 1'b0;
+   end
+endtask
+
+always @(posedge aclk) begin
+   if (!aresetn) begin
+      dbg_slow_word_count <= 0;
+      dbg_accepted_words.delete();
+   end
+   else if (dbg_axis_word_accept) begin
+      dbg_accepted_word_snapshot.word = m_axis_tdata;
+      dbg_accepted_word_snapshot.word_index = dbg_slow_word_count;
+      dbg_accepted_words.push_back(dbg_accepted_word_snapshot);
+      dbg_slow_word_count <= dbg_slow_word_count + 1;
+      -> dbg_axis_word_accepted_ev;
+   end
+end
+
+initial begin
+   dbg_sample_x16_valid = 1'b0;
+   dbg_sample_x16_tdata = '0;
+   dbg_sample_x16_index = 0;
+   dbg_sample_x16_lane = 0;
+   dbg_sample_x16_word = 0;
+
+   forever begin
+      if (dbg_accepted_words.size() == 0)
+         @dbg_axis_word_accepted_ev;
+
+      while (dbg_accepted_words.size() != 0) begin
+         dbg_emit_word = dbg_accepted_words.pop_front();
+         emit_dbg_sample_word(dbg_emit_word.word, dbg_emit_word.word_index);
+      end
+   end
+end
 
 task automatic dump_word;
    input logic [OUT_WIDTH-1:0] word;
@@ -450,6 +558,11 @@ initial begin
       fail("could not open dout_awg_tuning.csv");
    $fwrite(fd, "segment,word,lane,value\n");
 
+   fd_fast = $fopen("dout_awg_tuning_fast.csv", "w");
+   if (fd_fast == 0)
+      fail("could not open dout_awg_tuning_fast.csv");
+   $fwrite(fd_fast, "sample_index,slow_word,lane,value\n");
+
    aresetn = 1'b0;
    s_axis_tdata = {CMD_WIDTH{1'b0}};
    s_axis_tvalid = 1'b0;
@@ -599,8 +712,8 @@ initial begin
    current_hold_word = scalar_word(current_value);
 
    // Back-to-back command behavior: a SET command is held valid while a ramp is busy.
-   step = calc_step(current_value, 32'sd70, 32'd8);
-   cmd = make_cmd(32'sd70, 32'sd10, 32'd8, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
+   step = calc_step(current_value, 32'sd70, BACK_TO_BACK_DURATION);
+   cmd = make_cmd(32'sd70, 32'sd10, BACK_TO_BACK_DURATION, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
    send_cmd(cmd, have_hold, current_hold_word, "back-to-back ramp");
 
    @(negedge aclk);
@@ -614,10 +727,11 @@ initial begin
          fail("s_axis_tready should stay low while ramp is busy");
    end
 
-   recv_word(expected_ramp_word(current_value, 32'sd70, 32'd8, step, 0), "back-to-back ramp base=0");
+   recv_word(expected_ramp_word(current_value, 32'sd70, BACK_TO_BACK_DURATION, step, 0), "back-to-back ramp base=0");
    if (s_axis_tready !== 1'b0)
       fail("s_axis_tready went high before ramp completed");
-   recv_word(expected_ramp_word(current_value, 32'sd70, 32'd8, step, N_DDS), "back-to-back ramp base=4");
+   recv_word(expected_ramp_word(current_value, 32'sd70, BACK_TO_BACK_DURATION, step, N_DDS),
+             $sformatf("back-to-back ramp base=%0d", N_DDS));
    current_value = 32'sd70;
    current_hold_word = scalar_word(current_value);
    accept_pending_with_hold(current_hold_word, "back-to-back set accept");
@@ -647,6 +761,7 @@ initial begin
 
    repeat (4) @(posedge aclk);
    $fclose(fd);
+   $fclose(fd_fast);
 
    if (errors == 0)
       $display("PASS: axis_awg_tuning_v1 unit test completed");
