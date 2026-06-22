@@ -54,6 +54,9 @@ module trace_avg #(
     logic [N-1:0] sample_idx_r;
     logic [N-1:0] output_idx_r;
     logic [15:0]  shot_count_r;
+    logic [16:0]  avg_count_r;
+    logic [4:0]   avg_shift_r;
+    logic         avg_count_is_pow2_r;
     logic [3:0]   decim_log2_r;
 
     logic              bram_web;
@@ -81,6 +84,56 @@ module trace_avg #(
     wire signed [WCH-1:0] prev_q_s = $signed(bram_doa[WW-1:WCH]);
     wire signed [WCH-1:0] sum_i_s  = prev_i_s + collect_i_pipe_r;
     wire signed [WCH-1:0] sum_q_s  = prev_q_s + collect_q_pipe_r;
+
+    function automatic [16:0] avg_count_from_reg(input [15:0] avg_number);
+        avg_count_from_reg = (avg_number == 16'd0) ? 17'd65536 : {1'b0, avg_number};
+    endfunction
+
+    function automatic logic is_power_of_two(input [16:0] value);
+        is_power_of_two = (value != 17'd0) && ((value & (value - 17'd1)) == 17'd0);
+    endfunction
+
+    function automatic [4:0] log2_power_of_two(input [16:0] value);
+        integer idx;
+        begin
+            log2_power_of_two = 5'd0;
+            for (idx = 0; idx < 17; idx = idx + 1) begin
+                if (value[idx])
+                    log2_power_of_two = idx[4:0];
+            end
+        end
+    endfunction
+
+    function automatic signed [WCH-1:0] trace_avg_divide(
+        input signed [WCH-1:0] sum,
+        input [16:0]           count,
+        input [4:0]            shift,
+        input                  count_is_pow2
+    );
+        begin
+            // Power-of-two repetitions use arithmetic right shift, matching
+            // AVG_DECIM_LOG2 truncation toward negative infinity. Other counts
+            // use synthesizable signed division with truncation toward zero.
+            if (count_is_pow2)
+                trace_avg_divide = sum >>> shift;
+            else
+                trace_avg_divide = sum / $signed({1'b0, count});
+        end
+    endfunction
+
+    wire signed [WCH-1:0] avg_i_s = trace_avg_divide(
+        $signed(bram_doa[WCH-1:0]),
+        avg_count_r,
+        avg_shift_r,
+        avg_count_is_pow2_r
+    );
+    wire signed [WCH-1:0] avg_q_s = trace_avg_divide(
+        $signed(bram_doa[WW-1:WCH]),
+        avg_count_r,
+        avg_shift_r,
+        avg_count_is_pow2_r
+    );
+    wire [WW-1:0] averaged_trace_word = {avg_q_s, avg_i_s};
 
     function automatic [3:0] clamp_decim_log2(input [3:0] decim_log2);
         if (decim_log2 > MAX_AVG_DECIM_LOG2)
@@ -150,6 +203,9 @@ module trace_avg #(
             sample_idx_r         <= '0;
             output_idx_r         <= '0;
             shot_count_r         <= '0;
+            avg_count_r          <= 17'd1;
+            avg_shift_r          <= 5'd0;
+            avg_count_is_pow2_r  <= 1'b1;
             decim_log2_r         <= '0;
             collect_pipe_valid_r <= 1'b0;
             collect_addr_pipe_r  <= '0;
@@ -183,6 +239,9 @@ module trace_avg #(
                         base_addr_r  <= ADDR_REG;
                         len_eff_r    <= (LEN_REG[N-1:0] == '0) ? {{N-1{1'b0}}, 1'b1} : LEN_REG[N-1:0];
                         decim_log2_r <= effective_decim_log2;
+                        avg_count_r  <= avg_count_from_reg(AVG_NUMBER_REG);
+                        avg_shift_r  <= log2_power_of_two(avg_count_from_reg(AVG_NUMBER_REG));
+                        avg_count_is_pow2_r <= is_power_of_two(avg_count_from_reg(AVG_NUMBER_REG));
                         clr_idx_r    <= '0;
                         shot_count_r <= '0;
                         bram_web     <= 1'b1;
@@ -275,7 +334,7 @@ module trace_avg #(
                     if (output_pipe_valid_r) begin
                         mem_we_o   <= 1'b1;
                         mem_addr_o <= output_addr_pipe_r;
-                        mem_di_o   <= bram_doa;
+                        mem_di_o   <= averaged_trace_word;
                     end
 
                     output_pipe_valid_r <= 1'b1;
@@ -293,7 +352,7 @@ module trace_avg #(
                     if (output_pipe_valid_r) begin
                         mem_we_o   <= 1'b1;
                         mem_addr_o <= output_addr_pipe_r;
-                        mem_di_o   <= bram_doa;
+                        mem_di_o   <= averaged_trace_word;
                     end
                     output_pipe_valid_r <= 1'b0;
                     shot_count_r        <= '0;
