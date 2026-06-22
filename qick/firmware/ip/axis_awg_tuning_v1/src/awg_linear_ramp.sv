@@ -1,5 +1,11 @@
 `default_nettype none
 
+// Deterministic ramp helper retained for standalone builds.
+//
+// awg_tuning_ctrl now implements the RFDC streaming scheduler directly and no
+// longer instantiates this module. This helper intentionally has no AXIS
+// output handshake: once started, it advances one N_DDS-wide word per aclk.
+
 module awg_linear_ramp
    #(
       parameter int N_DDS = 16,
@@ -14,17 +20,15 @@ module awg_linear_ramp
       input  wire                              aresetn,
       input  wire                              aclk,
 
-      // One-cycle load pulse. The controller only asserts this when idle.
+      // One-cycle load pulse.
       input  wire                              start_i,
       input  wire signed [VALUE_WIDTH-1:0]     y_start_i,
       input  wire signed [VALUE_WIDTH-1:0]     y_target_i,
       input  wire signed [STEP_WIDTH-1:0]      step_i,
       input  wire        [DURATION_WIDTH-1:0]  duration_i,
 
-      // AXIS-style output handshake.
+      // Deterministic output word.
       output logic [N_DDS*B-1:0]               m_axis_tdata_o,
-      output logic                             m_axis_tvalid_o,
-      input  wire                              m_axis_tready_i,
 
       // Status.
       output logic                             active_o,
@@ -138,7 +142,7 @@ always_ff @(posedge aclk) begin
          step_r         <= step_extend(step_i);
          target_fixed_r <= value_to_fixed(y_target_i);
       end
-      else if (active_r && m_axis_tready_i) begin
+      else if (active_r) begin
          if (last_word) begin
             active_r       <= 1'b0;
             sample_index_r <= {DURATION_WIDTH{1'b0}};
@@ -154,7 +158,6 @@ always_ff @(posedge aclk) begin
 end
 
 assign active_o = active_r;
-assign m_axis_tvalid_o = active_r;
 
 endmodule
 
