@@ -40,6 +40,7 @@ int                     fd;
 int                     fd_fast_simple;
 int                     checked_word;
 bit                     have_hold;
+logic signed [31:0]     current_value;
 logic [OUT_WIDTH-1:0]   current_hold_word;
 
 typedef struct {
@@ -123,6 +124,8 @@ always @(posedge aclk) begin
          $fatal(1, "s_axis_tready dropped");
       if (m_axis_tvalid !== 1'b1)
          $fatal(1, "m_axis_tvalid dropped");
+      if (m_axis_tready !== 1'b1)
+         $fatal(1, "m_axis_tready should remain permanently high in tb_simple");
    end
 end
 
@@ -372,7 +375,6 @@ task automatic send_cmd_and_check_word;
          $fatal(1, "%s saw m_axis_tvalid low", tag);
       check_word(expected, tag);
 
-      #1;
       s_axis_tvalid = 1'b0;
       s_axis_tdata = {CMD_WIDTH{1'b0}};
    end
@@ -480,117 +482,269 @@ task automatic check_ramp;
    end
 endtask
 
-initial begin
-   logic [CMD_WIDTH-1:0] cmd;
-   logic signed [31:0] step;
-   logic [OUT_WIDTH-1:0] expected;
+task automatic check_ramp_word_properties;
+   input logic signed [31:0] start_value;
+   input logic signed [31:0] target_value;
+   input logic [31:0] duration;
+   input int unsigned base_index;
+   input string tag;
+   inout longint signed previous_value;
+   inout bit have_previous;
 
-   fd = $fopen("dout_awg_tuning_simple.csv", "w");
-   if (fd == 0)
-      $fatal(1, "could not open dout_awg_tuning_simple.csv");
-   $fwrite(fd, "tag,word,lane,value\n");
+   logic signed [B-1:0] lane_value;
+   logic [B-1:0] start_sample;
+   logic [B-1:0] target_sample;
+   int direction;
+   int unsigned lane_index;
+   int unsigned final_lane;
+   longint signed sample_value;
 
-   fd_fast_simple = $fopen("dout_awg_tuning_simple_fast.csv", "w");
-   if (fd_fast_simple == 0)
-      $fatal(1, "could not open dout_awg_tuning_simple_fast.csv");
-   $fwrite(fd_fast_simple, "sample_index,slow_word,lane,value\n");
+   begin
+      start_sample = sat_int64(start_value);
+      target_sample = sat_int64(target_value);
+      direction = (target_value > start_value) ? 1 : ((target_value < start_value) ? -1 : 0);
 
-   checked_word = 0;
-   have_hold = 1'b0;
-   current_hold_word = {OUT_WIDTH{1'b0}};
-   aresetn = 1'b0;
-   s_axis_tdata = {CMD_WIDTH{1'b0}};
-   s_axis_tvalid = 1'b0;
-   m_axis_tready = 1'b1;
+      if (base_index == 0 && duration > 1 && m_axis_tdata[0 +: B] !== start_sample)
+         $fatal(1, "%s first ramp sample did not equal tracked start value", tag);
 
-   repeat (8) begin
+      if (base_index + N_DDS >= duration) begin
+         final_lane = (duration <= 1) ? 0 : ((duration - 1) - base_index);
+         if (m_axis_tdata[final_lane*B +: B] !== target_sample)
+            $fatal(1, "%s final ramp sample did not equal target value", tag);
+      end
+
+      for (int i = 0; i < N_DDS; i = i + 1) begin
+         lane_index = base_index + i;
+         if (lane_index < duration) begin
+            lane_value = m_axis_tdata[i*B +: B];
+            sample_value = lane_value;
+
+            if (have_previous && direction > 0 && sample_value < previous_value)
+               $fatal(1, "%s ramp decreased at scalar sample %0d", tag, lane_index);
+
+            if (have_previous && direction < 0 && sample_value > previous_value)
+               $fatal(1, "%s ramp increased at scalar sample %0d", tag, lane_index);
+
+            previous_value = sample_value;
+            have_previous = 1'b1;
+         end
+      end
+   end
+endtask
+
+task automatic open_output_files;
+   begin
+      fd = $fopen("dout_awg_tuning_simple.csv", "w");
+      if (fd == 0)
+         $fatal(1, "could not open dout_awg_tuning_simple.csv");
+      $fwrite(fd, "tag,word,lane,value\n");
+
+      fd_fast_simple = $fopen("dout_awg_tuning_simple_fast.csv", "w");
+      if (fd_fast_simple == 0)
+         $fatal(1, "could not open dout_awg_tuning_simple_fast.csv");
+      $fwrite(fd_fast_simple, "sample_index,slow_word,lane,value\n");
+   end
+endtask
+
+task automatic close_output_files;
+   begin
+      $fclose(fd);
+      $fclose(fd_fast_simple);
+   end
+endtask
+
+task automatic init_tb_state;
+   begin
+      checked_word = 0;
+      have_hold = 1'b0;
+      current_value = 32'sd0;
+      current_hold_word = {OUT_WIDTH{1'b0}};
+   end
+endtask
+
+task automatic reset_dut;
+   begin
+      aresetn = 1'b0;
+      s_axis_tdata = {CMD_WIDTH{1'b0}};
+      s_axis_tvalid = 1'b0;
+      m_axis_tready = 1'b1;
+
+      repeat (8) begin
+         @(posedge aclk);
+         #1;
+         if (m_axis_tvalid !== 1'b0)
+            $fatal(1, "m_axis_tvalid should be low during reset");
+         if (m_axis_tdata !== {OUT_WIDTH{1'b0}})
+            $fatal(1, "m_axis_tdata should be zero during reset");
+      end
+
+      @(negedge aclk);
+      aresetn = 1'b1;
       @(posedge aclk);
       #1;
-      if (m_axis_tvalid !== 1'b0)
-         $fatal(1, "m_axis_tvalid should be low during reset");
-      if (m_axis_tdata !== {OUT_WIDTH{1'b0}})
-         $fatal(1, "m_axis_tdata should be zero during reset");
+      if (s_axis_tready !== 1'b1)
+         $fatal(1, "s_axis_tready should be high after reset");
+      if (m_axis_tvalid !== 1'b1)
+         $fatal(1, "m_axis_tvalid should be high after reset");
+      if (m_axis_tdata !== scalar_word(32'sd0))
+         $fatal(1, "m_axis_tdata should hold zero after reset");
+
+      current_value = 32'sd0;
+      current_hold_word = scalar_word(32'sd0);
+      have_hold = 1'b1;
+      check_hold_words(32'sd0, 2, "RESET HOLD 0");
    end
+endtask
 
-   aresetn = 1'b1;
-   @(posedge aclk);
-   #1;
-   if (s_axis_tready !== 1'b1)
-      $fatal(1, "s_axis_tready should be high after reset");
-   if (m_axis_tvalid !== 1'b1)
-      $fatal(1, "m_axis_tvalid should be high after reset");
-   if (m_axis_tdata !== {OUT_WIDTH{1'b0}})
-      $fatal(1, "m_axis_tdata should hold zero after reset");
-   current_hold_word = scalar_word(32'sd0);
-   have_hold = 1'b1;
-   check_hold_words(32'sd0, 2, "RESET HOLD 0");
+task automatic set_awg;
+   input logic signed [31:0] value;
+   input string tag;
 
-   cmd = make_cmd(32'sd1000, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b0, 1'b0);
-   send_cmd(cmd, have_hold, current_hold_word, "SET 1000");
-   current_hold_word = scalar_word(32'sd1000);
-   recv_word(current_hold_word, "SET 1000 output");
-   check_hold_words(32'sd1000, 3, "HOLD 1000");
-   have_hold = 1'b1;
+   logic [CMD_WIDTH-1:0] cmd;
 
-   step = calc_step(32'sd1000, 32'sd2000, 32'd64);
-   cmd = make_cmd(32'sd2000, -32'sd30000, 32'd64, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
-   send_cmd(cmd, have_hold, current_hold_word, "RAMP 1000 to 2000");
-   expected = expected_ramp_word(32'sd1000, 32'sd2000, 32'd64, step, 0);
-   recv_word(expected, "RAMP 1000 to 2000 base=0");
+   begin
+      cmd = make_cmd(value, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b0, 1'b0);
+      send_cmd(cmd, have_hold, current_hold_word, tag);
 
-   cmd = make_cmd(-32'sd1234, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b0, 1'b0);
-   expected = expected_ramp_word(32'sd1000, 32'sd2000, 32'd64, step, N_DDS);
-   send_cmd_and_check_word(cmd, expected, "DROP SET during RAMP base=16");
+      current_value = value;
+      current_hold_word = scalar_word(value);
+      have_hold = 1'b1;
 
-   cmd = make_cmd(32'sd3000, -32'sd111, 32'd32, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
-   expected = expected_ramp_word(32'sd1000, 32'sd2000, 32'd64, step, 2*N_DDS);
-   send_cmd_and_check_word(cmd, expected, "DROP RAMP during RAMP base=32");
+      recv_word(current_hold_word, {tag, " output"});
+      check_hold_words(value, 3, {tag, " hold"});
+   end
+endtask
 
-   expected = expected_ramp_word(32'sd1000, 32'sd2000, 32'd64, step, 3*N_DDS);
-   recv_word(expected, "RAMP 1000 to 2000 base=48");
-   check_hold_words(32'sd2000, 3, "RAMP 1000 to 2000 final hold");
-   current_hold_word = scalar_word(32'sd2000);
+task automatic set_awg_zero_hold;
+   input logic signed [31:0] value;
+   input string tag;
 
-   cmd = make_cmd(-32'sd500, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b0, 1'b0);
-   send_cmd(cmd, have_hold, current_hold_word, "SET -500");
-   current_hold_word = scalar_word(-32'sd500);
-   recv_word(current_hold_word, "SET -500 output");
-   check_hold_words(-32'sd500, 3, "HOLD -500");
+   logic [CMD_WIDTH-1:0] cmd;
 
-   step = calc_step(-32'sd500, -32'sd1500, 32'd64);
-   cmd = make_cmd(-32'sd1500, 32'sd12345, 32'd64, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
-   send_cmd(cmd, have_hold, current_hold_word, "RAMP -500 to -1500");
-   m_axis_tready = 1'b0;
-   expected = expected_ramp_word(-32'sd500, -32'sd1500, 32'd64, step, 0);
-   check_next_stream_word(expected, "RAMP -500 to -1500 base=0 ready low");
-   expected = expected_ramp_word(-32'sd500, -32'sd1500, 32'd64, step, N_DDS);
-   check_next_stream_word(expected, "RAMP -500 to -1500 base=16 ready low");
-   m_axis_tready = 1'b1;
-   expected = expected_ramp_word(-32'sd500, -32'sd1500, 32'd64, step, 2*N_DDS);
-   recv_word(expected, "RAMP -500 to -1500 base=32 ready restored");
-   expected = expected_ramp_word(-32'sd500, -32'sd1500, 32'd64, step, 3*N_DDS);
-   recv_word(expected, "RAMP -500 to -1500 base=48 ready restored");
-   check_hold_words(-32'sd1500, 3, "RAMP -500 to -1500 final hold");
-   current_hold_word = scalar_word(-32'sd1500);
+   begin
+      cmd = make_cmd(value, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b1, 1'b0);
+      send_cmd(cmd, have_hold, current_hold_word, tag);
 
-   cmd = make_cmd(32'sd9999, 32'sd0, 32'd64, 32'sd0, OP_IDLE, 1'b0, 1'b0);
-   send_cmd(cmd, have_hold, current_hold_word, "OP_IDLE no-op");
-   check_hold_words(-32'sd1500, 2, "OP_IDLE no-op hold");
+      recv_word(scalar_word(value), {tag, " output"});
 
-   cmd = make_cmd(32'sd123, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b1, 1'b0);
-   send_cmd(cmd, have_hold, current_hold_word, "SET 123 zero hold");
-   recv_word(scalar_word(32'sd123), "SET 123 zero-hold output");
-   current_hold_word = scalar_word(32'sd0);
-   check_hold_words(32'sd0, 2, "SET zero-hold final hold");
+      current_value = 32'sd0;
+      current_hold_word = scalar_word(32'sd0);
+      have_hold = 1'b1;
 
-   cmd = make_cmd(32'sd0, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b0, 1'b0);
-   send_cmd(cmd, have_hold, current_hold_word, "SET 0");
-   current_hold_word = scalar_word(32'sd0);
-   recv_word(current_hold_word, "SET 0 output");
-   check_hold_words(32'sd0, 2, "HOLD 0");
+      check_hold_words(32'sd0, 2, {tag, " final hold"});
+   end
+endtask
 
-   $fclose(fd);
-   $fclose(fd_fast_simple);
+task automatic ramp_awg;
+   input logic signed [31:0] target_value;
+   input logic [31:0] duration;
+   input string tag;
+
+   logic [CMD_WIDTH-1:0] cmd;
+   logic signed [31:0] start_value;
+   logic signed [31:0] wrong_start;
+
+   begin
+      start_value = current_value;
+      wrong_start = (start_value == -32'sd30000) ? 32'sd30000 : -32'sd30000;
+      cmd = make_cmd(target_value, wrong_start, duration, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
+
+      send_cmd(cmd, have_hold, current_hold_word, tag);
+      check_ramp(start_value, target_value, duration, tag);
+
+      current_value = target_value;
+      current_hold_word = scalar_word(target_value);
+      have_hold = 1'b1;
+   end
+endtask
+
+task automatic ramp_awg_with_drop_tests;
+   input logic signed [31:0] target_value;
+   input logic [31:0] duration;
+   input string tag;
+
+   logic [CMD_WIDTH-1:0] cmd;
+   logic signed [31:0] start_value;
+   logic signed [31:0] wrong_start;
+   logic signed [31:0] step;
+   logic [OUT_WIDTH-1:0] expected;
+   int unsigned base_index;
+   longint signed previous_value;
+   bit have_previous;
+
+   begin
+      if (duration < 3*N_DDS)
+         $fatal(1, "%s duration must cover at least three output words for drop tests", tag);
+
+      start_value = current_value;
+      wrong_start = (start_value == -32'sd30000) ? 32'sd30000 : -32'sd30000;
+      step = calc_step(start_value, target_value, duration);
+      previous_value = 0;
+      have_previous = 1'b0;
+
+      cmd = make_cmd(target_value, wrong_start, duration, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
+      send_cmd(cmd, have_hold, current_hold_word, tag);
+
+      expected = expected_ramp_word(start_value, target_value, duration, step, 0);
+      recv_word(expected, {tag, " base=0"});
+      check_ramp_word_properties(start_value, target_value, duration, 0,
+                                 {tag, " base=0"}, previous_value, have_previous);
+
+      cmd = make_cmd(-32'sd1234, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b0, 1'b0);
+      expected = expected_ramp_word(start_value, target_value, duration, step, N_DDS);
+      send_cmd_and_check_word(cmd, expected, {tag, " DROP SET base=16"});
+      check_ramp_word_properties(start_value, target_value, duration, N_DDS,
+                                 {tag, " DROP SET base=16"}, previous_value, have_previous);
+
+      cmd = make_cmd(32'sd3000, 32'sd111, 32'd32, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
+      expected = expected_ramp_word(start_value, target_value, duration, step, 2*N_DDS);
+      send_cmd_and_check_word(cmd, expected, {tag, " DROP RAMP base=32"});
+      check_ramp_word_properties(start_value, target_value, duration, 2*N_DDS,
+                                 {tag, " DROP RAMP base=32"}, previous_value, have_previous);
+
+      for (base_index = 3*N_DDS; base_index < duration; base_index = base_index + N_DDS) begin
+         expected = expected_ramp_word(start_value, target_value, duration, step, base_index);
+         recv_word(expected, $sformatf("%s base=%0d", tag, base_index));
+         check_ramp_word_properties(start_value, target_value, duration, base_index,
+                                    $sformatf("%s base=%0d", tag, base_index),
+                                    previous_value, have_previous);
+      end
+
+      check_hold_words(target_value, 3, {tag, " final hold"});
+
+      current_value = target_value;
+      current_hold_word = scalar_word(target_value);
+      have_hold = 1'b1;
+   end
+endtask
+
+task automatic idle_noop_awg;
+   input string tag;
+
+   logic [CMD_WIDTH-1:0] cmd;
+
+   begin
+      cmd = make_cmd(32'sd9999, 32'sd0, 32'd64, 32'sd0, OP_IDLE, 1'b0, 1'b0);
+      send_cmd(cmd, have_hold, current_hold_word, tag);
+      check_hold_words(current_value, 2, {tag, " hold"});
+   end
+endtask
+
+initial begin
+   open_output_files();
+   init_tb_state();
+
+   reset_dut();
+
+   set_awg(32'sd1000, "SET 1000");
+   ramp_awg_with_drop_tests(32'sd2000, 32'd64, "RAMP 1000 to 2000");
+   set_awg(-32'sd500, "SET -500");
+   ramp_awg(-32'sd1500, 32'd64, "RAMP -500 to -1500");
+   idle_noop_awg("OP_IDLE no-op");
+   set_awg_zero_hold(32'sd123, "SET 123 zero hold");
+   set_awg(32'sd0, "SET 0");
+
+   close_output_files();
    $display("PASS: tb_simple axis_awg_tuning_v1 continuous SET/RAMP/drop test completed");
    $finish;
 end
