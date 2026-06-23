@@ -1042,9 +1042,10 @@ class AxisAvgBufferV1pt3(AxisAvgBufferV1pt2):
     """
     AxisAvgBufferV1pt3 class
 
-    Adds AVG-path power-of-two time decimation. AVG length is the number of
-    stored/processed decimated samples; the input sample span is
-    length * 2**decim_log2. The raw BUF path is not decimated.
+    Adds AVG-path direct accumulation controls. AVG length is the number of
+    stored output points. The input sample span for one trigger is
+    length * avg_accum_len. In trace mode the stored output is accumulated over
+    avg_trace_reps triggers. The raw BUF path is unchanged.
     """
     bindto = ['user.org:user:axis_avg_buffer:1.3',
               'QICK:QICK:axis_avg_buffer:1.3']
@@ -1052,35 +1053,62 @@ class AxisAvgBufferV1pt3(AxisAvgBufferV1pt2):
     def _init_config(self, description):
         super()._init_config(description)
 
-        self.REGISTERS['avg_decim_log2_reg'] = 15
-        self.MAX_AVG_DECIM_LOG2 = int(description['parameters'].get('MAX_AVG_DECIM_LOG2', 6))
-        self.cfg['has_avg_decimation'] = True
-        self.cfg['max_avg_decim_log2'] = self.MAX_AVG_DECIM_LOG2
+        self.REGISTERS['avg_accum_len_reg'] = 15
+        self.REGISTERS['avg_trace_reps_reg'] = 16
+        self.MAX_AVG_ACCUM_LEN = 2**24 - 1
+        self.MAX_AVG_TRACE_REPS = 2**24 - 1
+        self.cfg['has_avg_accumulation'] = True
+        self.cfg['max_avg_accum_len'] = self.MAX_AVG_ACCUM_LEN
+        self.cfg['max_avg_trace_reps'] = self.MAX_AVG_TRACE_REPS
+        self.cfg['avg_iq_accum_bits'] = 4 * self.B
+        self.cfg['avg_output_bits'] = 8 * self.B
+
+        # v1.3 AVG samples are {int64 Q_accum, int64 I_accum} on the wire
+        # for B=16, so the DMA buffer is two int64 lanes per stored point.
+        self.avg_buff = allocate(shape=(self['avg_maxlen'], 2), dtype=np.int64)
 
     def _init_firmware(self):
         super()._init_firmware()
-        self.avg_decim_log2_reg = 0
+        self.avg_accum_len_reg = 1
+        self.avg_trace_reps_reg = 1
 
-    def set_avg_decimation(self, decim_log2: int) -> None:
-        """Set AVG time decimation factor. decim_log2=K averages 2**K input samples per stored AVG sample."""
-        decim_log2 = int(decim_log2)
-        if decim_log2 < 0:
-            raise ValueError("AVG decimation log2 must be non-negative")
-        self.avg_decim_log2_reg = min(decim_log2, self.MAX_AVG_DECIM_LOG2)
+    def _check_u24(self, name: str, value: int) -> int:
+        value = int(value)
+        if value < 0:
+            raise ValueError(f"{name} must be non-negative")
+        if value > self.MAX_AVG_ACCUM_LEN:
+            raise ValueError(f"{name} too large ({value} > {self.MAX_AVG_ACCUM_LEN})")
+        return value
 
-    def get_avg_decimation(self) -> int:
-        """Return the programmed effective AVG time decimation log2 value."""
-        return int(self.avg_decim_log2_reg) & 0xf
+    def set_avg_accumulation(self, accum_len: int) -> None:
+        """Set M, the number of input samples accumulated per stored AVG point. Register values 0 and 1 both mean M=1."""
+        self.avg_accum_len_reg = self._check_u24("avg_accum_len", accum_len)
+
+    def get_avg_accumulation(self) -> int:
+        """Return the effective AVG point accumulation length M."""
+        raw = int(self.avg_accum_len_reg) & 0xffffff
+        return 1 if raw <= 1 else raw
+
+    def set_avg_trace_reps(self, trace_reps: int) -> None:
+        """Set R, the number of trace triggers accumulated before the trace is written. Register value 0 means R=1."""
+        self.avg_trace_reps_reg = self._check_u24("avg_trace_reps", trace_reps)
+        raw = int(self.avg_trace_reps_reg) & 0xffffff
+        self.cfg["number_of_trace_average"] = 1 if raw == 0 else raw
+
+    def get_avg_trace_reps(self) -> int:
+        """Return the effective trace repetition accumulation count R."""
+        raw = int(self.avg_trace_reps_reg) & 0xffffff
+        return 1 if raw == 0 else raw
 
     def config_avg(
-        self, address=0, length=100, decim_log2=None,
+        self, address=0, length=100, accum_len=None,
         edge_counting=False, high_threshold=1000, low_threshold=0):
         """
         Configure average buffer data from average and buffering readout block.
 
-        AVG length is the number of processed decimated samples. The input
-        sample span is length * 2**decim_log2 for I/Q averaging. Edge-counting
-        mode continues to count raw input samples.
+        AVG length is the number of stored output points. The input sample
+        span is length * accum_len for I/Q accumulation. No division is
+        applied; returned AVG I/Q values are 64-bit signed accumulations.
         """
         super().config_avg(
             address=address,
@@ -1088,28 +1116,100 @@ class AxisAvgBufferV1pt3(AxisAvgBufferV1pt2):
             edge_counting=edge_counting,
             high_threshold=high_threshold,
             low_threshold=low_threshold)
-        if decim_log2 is not None:
-            self.set_avg_decimation(decim_log2)
+        if accum_len is not None:
+            self.set_avg_accumulation(accum_len)
 
     def config_trace_avg(
         self,
         address = 0,
         length = 100,
         number_of_trace_average = 1,
-        decim_log2 = None
+        accum_len = None,
+        trace_reps = None
     ) -> None:
         """
-        Configure trace average buffer.
+        Configure trace accumulation buffer.
 
-        AVG length is the number of stored decimated trace samples. The input
-        sample span per trace is length * 2**decim_log2.
+        AVG length is the number of stored output points. Each trigger
+        consumes length * accum_len input samples. The final stored trace is
+        the direct sum over trace_reps repetitions, with no division.
         """
         super().config_trace_avg(
             address=address,
             length=length,
             number_of_trace_average=number_of_trace_average)
-        if decim_log2 is not None:
-            self.set_avg_decimation(decim_log2)
+        if accum_len is not None:
+            self.set_avg_accumulation(accum_len)
+        reps = number_of_trace_average if trace_reps is None else trace_reps
+        self.set_avg_trace_reps(reps)
+
+    def enable(
+        self,
+        avg: bool = True,
+        buf: bool = True,
+        trace_avg: bool = False
+    ) -> None:
+        """
+        Enable AVG and/or raw BUF capture.
+
+        In trace mode v1.3 uses AVG_TRACE_REPS_REG for the repetition count;
+        AVG_START_REG[31:16] is reserved for compatibility.
+        """
+        if avg:
+            self.avg_start_reg = 1
+        if buf:
+            self.buf_start_reg = 1
+        if avg and trace_avg:
+            raise ValueError("IQ accumulation with trace trigger not supported")
+        if trace_avg:
+            if self.get_avg_trace_reps() > self.MAX_AVG_TRACE_REPS:
+                raise ValueError(
+                    f"number_of_trace_average too large ({self.get_avg_trace_reps()} > {self.MAX_AVG_TRACE_REPS})"
+                )
+            self.avg_start_reg = 0b11
+
+    def _transfer_avg_accumulated(self, address=0, length=100):
+        if length >= self['avg_maxlen']:
+            raise RuntimeError("length=%d longer than %d" %
+                               (length, self['avg_maxlen']))
+
+        transferlen = length + (length % 2)
+
+        if self.switch_avg is not None:
+            self.switch_avg.sel(slv=self.switch_ch)
+
+        self.avg_dr_addr_reg = address
+        self.avg_dr_len_reg = transferlen
+
+        self._start_transfer('avg')
+
+        buff = self.avg_buff
+        self.dma_avg.recvchannel.transfer(buff, nbytes=int(transferlen*16))
+        self.dma_avg.recvchannel.wait()
+
+        self._stop_transfer()
+
+        if self.dma_avg.recvchannel.transferred != transferlen*16:
+            raise RuntimeError("Requested %d samples but only got %d from DMA" % (
+                transferlen, self.dma_avg.recvchannel.transferred//16))
+
+        data = np.asarray(buff[:transferlen], dtype=np.int64).reshape((-1, 2))
+        data = data[:length]
+        return data.copy()
+
+    def transfer_avg(self, address=0, length=100):
+        """
+        Transfer accumulated AVG data.
+
+        Returns an array of signed int64 I,Q pairs. For B=16 these correspond
+        to lower 64-bit I_accum and upper 64-bit Q_accum from each 128-bit AVG
+        output word.
+        """
+        return self._transfer_avg_accumulated(address=address, length=length)
+
+    def transfer_trace_avg(self, address: int = 0, length: int = 100) -> list:
+        """Transfer accumulated trace data as signed int64 I,Q pairs."""
+        return self._transfer_avg_accumulated(address=address, length=length)
 
 class AxisWeightedBuffer(AxisAvgBufferV1pt1):
     bindto = ['user.org:user:axis_weighted_buffer:1.2',

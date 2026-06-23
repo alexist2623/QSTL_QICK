@@ -78,16 +78,13 @@ parameter N_BUF = 10;
 // Number of bits.
 parameter B = 16;
 
-// Maximum power-of-two AVG path time-decimation factor.
-parameter MAX_AVG_DECIM_LOG2 = 6;
-
 /*********/
 /* Ports */
 /*********/
 input				s_axi_aclk;
 input				s_axi_aresetn;
 
-input		[5:0]	s_axi_awaddr;
+input		[6:0]	s_axi_awaddr;
 input		[2:0]	s_axi_awprot;
 input				s_axi_awvalid;
 output				s_axi_awready;
@@ -101,7 +98,7 @@ output		[1:0]	s_axi_bresp;
 output				s_axi_bvalid;
 input				s_axi_bready;
 
-input		[5:0]	s_axi_araddr;
+input		[6:0]	s_axi_araddr;
 input		[2:0]	s_axi_arprot;
 input				s_axi_arvalid;
 output				s_axi_arready;
@@ -124,7 +121,7 @@ input				m_axis_aresetn;
 
 output				m0_axis_tvalid;
 input				m0_axis_tready;
-output	[4*B-1:0]	m0_axis_tdata;
+output	[8*B-1:0]	m0_axis_tdata;
 output				m0_axis_tlast;
 
 output				m1_axis_tvalid;
@@ -134,7 +131,7 @@ output				m1_axis_tlast;
 
 output				m2_axis_tvalid;
 input				m2_axis_tready;
-output	[4*B-1:0]	m2_axis_tdata;
+output	[8*B-1:0]	m2_axis_tdata;
 
 
 /********************/
@@ -142,21 +139,41 @@ output	[4*B-1:0]	m2_axis_tdata;
 /********************/
 // Registers.
 wire	[31:0]		AVG_START_REG;
+wire    [31:0]      AVG_ADDR_REG_32;
 wire	[N_AVG-1:0]	AVG_ADDR_REG;
 wire	[31:0]		AVG_LEN_REG;
 wire                AVG_PHOTON_MODE_REG;
+wire    [31:0]      AVG_H_THRSH_REG_32;
+wire    [31:0]      AVG_L_THRSH_REG_32;
 wire    [B-1:0]     AVG_H_THRSH_REG;
 wire    [B-1:0]     AVG_L_THRSH_REG;
-wire    [3:0]       AVG_DECIM_LOG2_REG;
+wire    [23:0]      AVG_ACCUM_LEN_REG;
+wire    [23:0]      AVG_TRACE_REPS_REG;
 wire				AVG_DR_START_REG;
+wire    [31:0]      AVG_DR_ADDR_REG_32;
+wire    [31:0]      AVG_DR_LEN_REG_32;
 wire	[N_AVG-1:0]	AVG_DR_ADDR_REG;
 wire	[N_AVG-1:0]	AVG_DR_LEN_REG;
 wire				BUF_START_REG;
+wire    [31:0]      BUF_ADDR_REG_32;
+wire    [31:0]      BUF_LEN_REG_32;
 wire	[N_BUF-1:0]	BUF_ADDR_REG;
 wire	[N_BUF-1:0]	BUF_LEN_REG;
 wire				BUF_DR_START_REG;
+wire    [31:0]      BUF_DR_ADDR_REG_32;
+wire    [31:0]      BUF_DR_LEN_REG_32;
 wire	[N_BUF-1:0]	BUF_DR_ADDR_REG;
 wire	[N_BUF-1:0]	BUF_DR_LEN_REG;
+
+assign AVG_ADDR_REG    = AVG_ADDR_REG_32[N_AVG-1:0];
+assign AVG_H_THRSH_REG = AVG_H_THRSH_REG_32[B-1:0];
+assign AVG_L_THRSH_REG = AVG_L_THRSH_REG_32[B-1:0];
+assign AVG_DR_ADDR_REG = AVG_DR_ADDR_REG_32[N_AVG-1:0];
+assign AVG_DR_LEN_REG  = AVG_DR_LEN_REG_32[N_AVG-1:0];
+assign BUF_ADDR_REG    = BUF_ADDR_REG_32[N_BUF-1:0];
+assign BUF_LEN_REG     = BUF_LEN_REG_32[N_BUF-1:0];
+assign BUF_DR_ADDR_REG = BUF_DR_ADDR_REG_32[N_BUF-1:0];
+assign BUF_DR_LEN_REG  = BUF_DR_LEN_REG_32[N_BUF-1:0];
 
 
 /**********************/
@@ -201,21 +218,22 @@ axi_slv_avg_buf axi_slv_i
 
 		// Registers.
 		.AVG_START_REG		(AVG_START_REG		),
-		.AVG_ADDR_REG		(AVG_ADDR_REG		),
+		.AVG_ADDR_REG		(AVG_ADDR_REG_32	),
 		.AVG_LEN_REG		(AVG_LEN_REG		),
 		.AVG_PHOTON_MODE_REG (AVG_PHOTON_MODE_REG),
-		.AVG_H_THRSH_REG    (AVG_H_THRSH_REG    ),
-		.AVG_L_THRSH_REG    (AVG_L_THRSH_REG    ),
-		.AVG_DECIM_LOG2_REG (AVG_DECIM_LOG2_REG ),
+		.AVG_H_THRSH_REG    (AVG_H_THRSH_REG_32 ),
+		.AVG_L_THRSH_REG    (AVG_L_THRSH_REG_32 ),
+		.AVG_ACCUM_LEN_REG  (AVG_ACCUM_LEN_REG  ),
+		.AVG_TRACE_REPS_REG (AVG_TRACE_REPS_REG ),
 		.AVG_DR_START_REG	(AVG_DR_START_REG	),
-		.AVG_DR_ADDR_REG	(AVG_DR_ADDR_REG	),
-		.AVG_DR_LEN_REG		(AVG_DR_LEN_REG		),
+		.AVG_DR_ADDR_REG	(AVG_DR_ADDR_REG_32	),
+		.AVG_DR_LEN_REG		(AVG_DR_LEN_REG_32	),
 		.BUF_START_REG		(BUF_START_REG		),
-		.BUF_ADDR_REG		(BUF_ADDR_REG		),
-		.BUF_LEN_REG		(BUF_LEN_REG		),
+		.BUF_ADDR_REG		(BUF_ADDR_REG_32	),
+		.BUF_LEN_REG		(BUF_LEN_REG_32		),
 		.BUF_DR_START_REG	(BUF_DR_START_REG	),
-		.BUF_DR_ADDR_REG	(BUF_DR_ADDR_REG	),
-		.BUF_DR_LEN_REG		(BUF_DR_LEN_REG		)
+		.BUF_DR_ADDR_REG	(BUF_DR_ADDR_REG_32	),
+		.BUF_DR_LEN_REG		(BUF_DR_LEN_REG_32	)
 	);
 
 // Averager + Buffer Top.
@@ -223,8 +241,7 @@ avg_buffer
 	#(
 		.N_AVG	(N_AVG	),
 		.N_BUF	(N_BUF	),
-		.B		(B		),
-		.MAX_AVG_DECIM_LOG2 (MAX_AVG_DECIM_LOG2)
+		.B		(B		)
 	)
 	avg_buffer_i
 	(
@@ -268,7 +285,8 @@ avg_buffer
 		.AVG_PHOTON_MODE_REG (AVG_PHOTON_MODE_REG),
 		.AVG_H_THRSH_REG    (AVG_H_THRSH_REG    ),
 		.AVG_L_THRSH_REG    (AVG_L_THRSH_REG    ),
-		.AVG_DECIM_LOG2_REG (AVG_DECIM_LOG2_REG ),
+		.AVG_ACCUM_LEN_REG  (AVG_ACCUM_LEN_REG  ),
+		.AVG_TRACE_REPS_REG (AVG_TRACE_REPS_REG ),
 		.AVG_DR_START_REG	(AVG_DR_START_REG	),
 		.AVG_DR_ADDR_REG	(AVG_DR_ADDR_REG	),
 		.AVG_DR_LEN_REG		(AVG_DR_LEN_REG		),

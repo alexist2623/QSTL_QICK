@@ -23,7 +23,6 @@ set SRC_LIST [list \
   "$SRC_DIR/avg_buffer.v" \
   "$SRC_DIR/avg_top.v" \
   "$SRC_DIR/avg.sv" \
-  "$SRC_DIR/avg_decimator_iq.sv" \
   "$SRC_DIR/trace_avg.sv" \
   "$SRC_DIR/buffer_top.v" \
   "$SRC_DIR/buffer.sv" \

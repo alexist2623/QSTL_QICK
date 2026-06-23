@@ -1,43 +1,48 @@
-// Self-checking trace-average test for axis_avg_buffer v1.3.
+// Self-checking accumulation test for axis_avg_buffer v1.3.
 //
-// This test verifies trace averaging with deterministic random noise.
-// It covers ramp, signed-negative ramp, and complex sinusoidal traces.
-// K = AVG_DECIM_LOG2_REG[3:0], and the AVG time group size is 2**K.
-// AVG_LEN_REG is the number of stored output samples.
-// Consumed input samples per repetition = AVG_LEN_REG * 2**K.
+// This test verifies direct accumulation, not averaging. K/decimation is not
+// used in v1.3. AVG_ACCUM_LEN_REG[23:0] selects M input samples accumulated
+// per stored output point. AVG_TRACE_REPS_REG[23:0] selects R trace
+// repetitions accumulated per stored output trace.
+//
+// AVG_LEN_REG is the number of stored output points.
+// Consumed input samples per trace trigger = AVG_LEN_REG * effective_M.
+// Total samples accumulated in trace mode = AVG_LEN_REG * effective_M * effective_R.
 //
 // Input samples are packed as {Q[B-1:0], I[B-1:0]}.
-// AVG memory readout words are packed as {Q[2*B-1:0], I[2*B-1:0]}.
+// AVG output words are packed as {Q_accum[4*B-1:0], I_accum[4*B-1:0]}.
 module tb;
 
     localparam int B = 16;
     localparam int N_AVG = 8;
     localparam int N_BUF = 8;
-    localparam int MAX_AVG_DECIM_LOG2 = 6;
-    localparam int TRACE_LEN = 64;
-    localparam int N_REPS = 100;
+    localparam int ACC_WIDTH = 4 * B;
+    localparam int AVG_WIDTH = 8 * B;
+    localparam int TRACE_REPS_100 = 100;
+    localparam int MAX_STORED = 128;
     localparam real TWO_PI = 6.2831853071795864769;
 
-    localparam logic [5:0] REG_AVG_START      = 6'h00;
-    localparam logic [5:0] REG_AVG_ADDR       = 6'h04;
-    localparam logic [5:0] REG_AVG_LEN        = 6'h08;
-    localparam logic [5:0] REG_AVG_DR_START   = 6'h0c;
-    localparam logic [5:0] REG_AVG_DR_ADDR    = 6'h10;
-    localparam logic [5:0] REG_AVG_DR_LEN     = 6'h14;
-    localparam logic [5:0] REG_BUF_START      = 6'h18;
-    localparam logic [5:0] REG_BUF_ADDR       = 6'h1c;
-    localparam logic [5:0] REG_BUF_LEN        = 6'h20;
-    localparam logic [5:0] REG_BUF_DR_START   = 6'h24;
-    localparam logic [5:0] REG_BUF_DR_ADDR    = 6'h28;
-    localparam logic [5:0] REG_BUF_DR_LEN     = 6'h2c;
-    localparam logic [5:0] REG_AVG_DECIM_LOG2 = 6'h3c;
+    localparam logic [6:0] REG_AVG_START      = 7'h00;
+    localparam logic [6:0] REG_AVG_ADDR       = 7'h04;
+    localparam logic [6:0] REG_AVG_LEN        = 7'h08;
+    localparam logic [6:0] REG_AVG_DR_START   = 7'h0c;
+    localparam logic [6:0] REG_AVG_DR_ADDR    = 7'h10;
+    localparam logic [6:0] REG_AVG_DR_LEN     = 7'h14;
+    localparam logic [6:0] REG_BUF_START      = 7'h18;
+    localparam logic [6:0] REG_BUF_ADDR       = 7'h1c;
+    localparam logic [6:0] REG_BUF_LEN        = 7'h20;
+    localparam logic [6:0] REG_BUF_DR_START   = 7'h24;
+    localparam logic [6:0] REG_BUF_DR_ADDR    = 7'h28;
+    localparam logic [6:0] REG_BUF_DR_LEN     = 7'h2c;
+    localparam logic [6:0] REG_AVG_ACCUM_LEN  = 7'h3c;
+    localparam logic [6:0] REG_AVG_TRACE_REPS = 7'h40;
 
     logic clk = 1'b0;
     always #5 clk = ~clk;
 
     logic rstn;
 
-    logic [5:0]  s_axi_awaddr;
+    logic [6:0]  s_axi_awaddr;
     logic [2:0]  s_axi_awprot;
     logic        s_axi_awvalid;
     wire         s_axi_awready;
@@ -48,7 +53,7 @@ module tb;
     wire  [1:0]  s_axi_bresp;
     wire         s_axi_bvalid;
     logic        s_axi_bready;
-    logic [5:0]  s_axi_araddr;
+    logic [6:0]  s_axi_araddr;
     logic [2:0]  s_axi_arprot;
     logic        s_axi_arvalid;
     wire         s_axi_arready;
@@ -62,26 +67,25 @@ module tb;
     wire  s_axis_tready;
     logic [2*B-1:0] s_axis_tdata;
 
-    wire         m0_axis_tvalid;
-    logic        m0_axis_tready;
-    wire [4*B-1:0] m0_axis_tdata;
-    wire         m0_axis_tlast;
-    wire         m1_axis_tvalid;
-    logic        m1_axis_tready;
-    wire [2*B-1:0] m1_axis_tdata;
-    wire         m1_axis_tlast;
-    wire         m2_axis_tvalid;
-    logic        m2_axis_tready;
-    wire [4*B-1:0] m2_axis_tdata;
+    wire                 m0_axis_tvalid;
+    logic                m0_axis_tready;
+    wire [AVG_WIDTH-1:0] m0_axis_tdata;
+    wire                 m0_axis_tlast;
+    wire                 m1_axis_tvalid;
+    logic                m1_axis_tready;
+    wire [2*B-1:0]       m1_axis_tdata;
+    wire                 m1_axis_tlast;
+    wire                 m2_axis_tvalid;
+    logic                m2_axis_tready;
+    wire [AVG_WIDTH-1:0] m2_axis_tdata;
 
-    longint signed expected_i [0:TRACE_LEN-1];
-    longint signed expected_q [0:TRACE_LEN-1];
+    longint signed expected_i [0:MAX_STORED-1];
+    longint signed expected_q [0:MAX_STORED-1];
 
     axis_avg_buffer #(
         .N_AVG(N_AVG),
         .N_BUF(N_BUF),
-        .B(B),
-        .MAX_AVG_DECIM_LOG2(MAX_AVG_DECIM_LOG2)
+        .B(B)
     ) dut (
         .s_axi_aclk(clk),
         .s_axi_aresetn(rstn),
@@ -125,14 +129,6 @@ module tb;
         .m2_axis_tdata(m2_axis_tdata)
     );
 
-    function automatic signed [B-1:0] get_i(input logic [2*B-1:0] iq);
-        get_i = $signed(iq[B-1:0]);
-    endfunction
-
-    function automatic signed [B-1:0] get_q(input logic [2*B-1:0] iq);
-        get_q = $signed(iq[2*B-1:B]);
-    endfunction
-
     function automatic logic [2*B-1:0] pack_iq(input int signed i, input int signed q);
         logic signed [B-1:0] ii;
         logic signed [B-1:0] qq;
@@ -143,116 +139,86 @@ module tb;
         end
     endfunction
 
-    function automatic longint signed arshift(input longint signed value, input int unsigned shift);
-        if (shift == 0)
-            arshift = value;
-        else
-            arshift = value >>> shift;
+    function automatic int signed get_i(input logic [2*B-1:0] iq);
+        get_i = $signed(iq[B-1:0]);
     endfunction
 
-    function automatic longint signed avg_repetitions(input longint signed value);
-        // Non-power-of-two repetition counts use the same signed division
-        // truncation policy as trace_avg.sv.
-        avg_repetitions = value / N_REPS;
+    function automatic int signed get_q(input logic [2*B-1:0] iq);
+        get_q = $signed(iq[2*B-1:B]);
     endfunction
 
     function automatic int signed noise(input int rep, input int n, input int salt);
         int unsigned x;
-        int signed mag;
-        int group4;
         begin
-            // Stable pseudo-random noise. It is constant within groups of four
-            // and sign-balanced across the eight repetitions.
-            group4 = n >> 2;
-            x = 32'h1234_5678 ^ ((rep % (N_REPS/2)) * 32'h045d_9f3b);
-            x = x ^ (group4 * 32'h119d_e1f3) ^ salt;
+            x = 32'h1234_5678 ^ (rep * 32'h045d_9f3b) ^ (n * 32'h119d_e1f3) ^ salt;
             x = (x ^ (x >> 16)) * 32'h045d_9f3b;
-            mag = int'(x % 31) - 15;
-            noise = (rep < (N_REPS/2)) ? mag : -mag;
+            noise = int'(x[5:0]) - 32;
         end
     endfunction
 
-    function automatic int signed base_i(input int n, input bit negative_case);
-        base_i = negative_case ? (-1000 + 5*n) : (1000 + 3*n);
-    endfunction
-
-    function automatic int signed base_q(input int n, input bit negative_case);
-        base_q = negative_case ? (-2000 + 7*n) : (-500 + 2*n);
-    endfunction
-
-    function automatic int signed complex_base_i(input int n);
+    function automatic int signed stimulus_i(
+        input int rep,
+        input int n,
+        input int input_len,
+        input int waveform
+    );
         real x;
-        int signed step;
+        int signed shelf;
         begin
-            x = TWO_PI * real'(n) / real'(TRACE_LEN);
-            step = (n < (TRACE_LEN/2)) ? 350 : -350;
-            complex_base_i = $rtoi(
-                1400.0*$sin(3.0*x) +
-                 650.0*$sin(9.0*x + 0.35) +
-                 220.0*$cos(17.0*x - 0.15) +
-                 step +
-                 25.0*real'((n % 7) - 3)
-            );
+            x = TWO_PI * real'(n) / real'(input_len);
+            case (waveform)
+                0: stimulus_i = 1000 + 3*n + noise(rep, n, 32'h101);
+                1: stimulus_i = -1800 + 5*n + noise(rep, n, 32'h202);
+                2: begin
+                    shelf = (n < (input_len/2)) ? 420 : -360;
+                    stimulus_i = $rtoi(
+                        1500.0*$sin(3.0*x + 0.10) +
+                         630.0*$sin(9.0*x - 0.25) +
+                         240.0*$cos(17.0*x + 0.35) +
+                         shelf +
+                         20.0*real'((n % 9) - 4)
+                    ) + noise(rep, n, 32'h303);
+                end
+                3: stimulus_i = 32767;
+                default: stimulus_i = n + noise(rep, n, 32'h404);
+            endcase
         end
     endfunction
 
-    function automatic int signed complex_base_q(input int n);
+    function automatic int signed stimulus_q(
+        input int rep,
+        input int n,
+        input int input_len,
+        input int waveform
+    );
         real x;
         real chirp_x;
         int signed shelf;
         begin
-            x = TWO_PI * real'(n) / real'(TRACE_LEN);
-            chirp_x = TWO_PI * (1.0 + 2.0*real'(n)/real'(TRACE_LEN)) *
-                      real'(n) / real'(TRACE_LEN);
-            shelf = ((n >= 16) && (n < 48)) ? 280 : -180;
-            complex_base_q = $rtoi(
-                -250.0 +
-                1250.0*$cos(5.0*x + 0.20) -
-                 520.0*$sin(13.0*x - 0.40) +
-                 360.0*$sin(4.0*chirp_x) +
-                 shelf
-            );
+            x = TWO_PI * real'(n) / real'(input_len);
+            chirp_x = TWO_PI * (1.0 + 2.0*real'(n)/real'(input_len)) *
+                      real'(n) / real'(input_len);
+            case (waveform)
+                0: stimulus_q = -500 + 2*n + noise(rep, n, 32'h505);
+                1: stimulus_q = -2600 + 7*n + noise(rep, n, 32'h606);
+                2: begin
+                    shelf = ((n >= input_len/4) && (n < 3*input_len/4)) ? 300 : -210;
+                    stimulus_q = $rtoi(
+                        -250.0 +
+                        1280.0*$cos(5.0*x + 0.20) -
+                         540.0*$sin(13.0*x - 0.40) +
+                         370.0*$sin(4.0*chirp_x) +
+                         shelf
+                    ) + noise(rep, n, 32'h707);
+                end
+                3: stimulus_q = -32768;
+                default: stimulus_q = -n + noise(rep, n, 32'h808);
+            endcase
         end
     endfunction
 
-    function automatic int signed sample_i(input int rep, input int n, input bit negative_case);
-        sample_i = base_i(n, negative_case) + noise(rep, n, 32'h0000_0123);
-    endfunction
-
-    function automatic int signed sample_q(input int rep, input int n, input bit negative_case);
-        sample_q = base_q(n, negative_case) + noise(rep, n, 32'h0000_0456);
-    endfunction
-
-    function automatic int signed stimulus_i(input int rep, input int n, input int waveform);
-        case (waveform)
-            0: stimulus_i = sample_i(rep, n, 1'b0);
-            1: stimulus_i = sample_i(rep, n, 1'b1);
-            2: stimulus_i = complex_base_i(n) + noise(rep, n, 32'h0000_0789);
-            default: stimulus_i = sample_i(rep, n, 1'b0);
-        endcase
-    endfunction
-
-    function automatic int signed stimulus_q(input int rep, input int n, input int waveform);
-        case (waveform)
-            0: stimulus_q = sample_q(rep, n, 1'b0);
-            1: stimulus_q = sample_q(rep, n, 1'b1);
-            2: stimulus_q = complex_base_q(n) + noise(rep, n, 32'h0000_0abc);
-            default: stimulus_q = sample_q(rep, n, 1'b0);
-        endcase
-    endfunction
-
-    function automatic logic [4*B-1:0] pack_avg_word(input longint signed i, input longint signed q);
-        logic signed [2*B-1:0] ii;
-        logic signed [2*B-1:0] qq;
-        begin
-            ii = i;
-            qq = q;
-            pack_avg_word = {qq, ii};
-        end
-    endfunction
-
-    task automatic check_iq(
-        input logic [4*B-1:0] actual_avg_word,
+    task automatic check_avg_word(
+        input logic [AVG_WIDTH-1:0] actual_avg_word,
         input longint signed exp_i,
         input longint signed exp_q,
         input string tag
@@ -263,8 +229,8 @@ module tb;
             if ($isunknown(actual_avg_word))
                 $fatal(1, "%s: AVG word contains X/Z: %h", tag, actual_avg_word);
 
-            act_i = $signed(actual_avg_word[2*B-1:0]);
-            act_q = $signed(actual_avg_word[4*B-1:2*B]);
+            act_i = $signed(actual_avg_word[ACC_WIDTH-1:0]);
+            act_q = $signed(actual_avg_word[AVG_WIDTH-1:ACC_WIDTH]);
 
             if ((act_i != exp_i) || (act_q != exp_q)) begin
                 $fatal(1,
@@ -274,21 +240,20 @@ module tb;
         end
     endtask
 
-    task automatic check_raw_iq(
+    task automatic check_raw_word(
         input logic [2*B-1:0] actual_word,
         input int signed exp_i,
         input int signed exp_q,
         input string tag
     );
-        longint signed act_i;
-        longint signed act_q;
+        int signed act_i;
+        int signed act_q;
         begin
             if ($isunknown(actual_word))
                 $fatal(1, "%s: RAW word contains X/Z: %h", tag, actual_word);
 
             act_i = get_i(actual_word);
             act_q = get_q(actual_word);
-
             if ((act_i != exp_i) || (act_q != exp_q)) begin
                 $fatal(1,
                     "%s: expected RAW I=%0d Q=%0d, got I=%0d Q=%0d word=%h",
@@ -297,7 +262,7 @@ module tb;
         end
     endtask
 
-    task automatic axi_write32(input logic [5:0] addr, input logic [31:0] data);
+    task automatic axi_write32(input logic [6:0] addr, input logic [31:0] data);
         int guard;
         bit aw_done;
         bit w_done;
@@ -339,8 +304,8 @@ module tb;
 
             @(negedge clk);
             s_axi_awvalid <= 1'b0;
-            s_axi_wvalid <= 1'b0;
-            s_axi_bready <= 1'b1;
+            s_axi_wvalid  <= 1'b0;
+            s_axi_bready  <= 1'b1;
             @(posedge clk);
             #1;
             @(negedge clk);
@@ -348,7 +313,7 @@ module tb;
         end
     endtask
 
-    task automatic axi_read32(input logic [5:0] addr, output logic [31:0] data);
+    task automatic axi_read32(input logic [6:0] addr, output logic [31:0] data);
         int guard;
         begin
             @(negedge clk);
@@ -380,7 +345,7 @@ module tb;
 
             @(negedge clk);
             s_axi_arvalid <= 1'b0;
-            s_axi_rready <= 1'b1;
+            s_axi_rready  <= 1'b1;
             @(posedge clk);
             #1;
             @(negedge clk);
@@ -420,113 +385,94 @@ module tb;
             trigger <= 1'b1;
             @(negedge clk);
             trigger <= 1'b0;
-            repeat (6) @(posedge clk);
+            repeat (8) @(posedge clk);
         end
     endtask
 
-    task automatic feed_sample(input int signed i, input int signed q);
-        begin
-            @(negedge clk);
-            s_axis_tdata <= pack_iq(i, q);
-            s_axis_tvalid <= 1'b1;
-            @(posedge clk);
-            #1;
-            if (!s_axis_tready)
-                $fatal(1, "DUT deasserted s_axis_tready");
-            @(negedge clk);
-            s_axis_tvalid <= 1'b0;
-            s_axis_tdata <= '0;
-            @(posedge clk);
-        end
-    endtask
-
-    task automatic compute_expected_trace(
-        input int unsigned k,
-        input int unsigned input_len,
+    task automatic feed_stimulus_trace(
+        input int rep,
+        input int input_len,
         input int waveform
     );
-        int group_size;
-        int stored_len;
-        longint signed group_sum_i;
-        longint signed group_sum_q;
-        longint signed rep_sum_i;
-        longint signed rep_sum_q;
-        longint signed decim_i;
-        longint signed decim_q;
         begin
-            group_size = 1 << k;
-            stored_len = input_len / group_size;
-
-            for (int m = 0; m < TRACE_LEN; m++) begin
-                expected_i[m] = 0;
-                expected_q[m] = 0;
+            pulse_trigger();
+            for (int n = 0; n < input_len; n++) begin
+                @(negedge clk);
+                s_axis_tdata  <= pack_iq(
+                    stimulus_i(rep, n, input_len, waveform),
+                    stimulus_q(rep, n, input_len, waveform)
+                );
+                s_axis_tvalid <= 1'b1;
+                @(posedge clk);
+                #1;
+                if (!s_axis_tready)
+                    $fatal(1, "DUT deasserted s_axis_tready");
             end
-
-            for (int m = 0; m < stored_len; m++) begin
-                rep_sum_i = 0;
-                rep_sum_q = 0;
-                for (int rep = 0; rep < N_REPS; rep++) begin
-                    group_sum_i = 0;
-                    group_sum_q = 0;
-                    for (int g = 0; g < group_size; g++) begin
-                        group_sum_i += stimulus_i(rep, m*group_size + g, waveform);
-                        group_sum_q += stimulus_q(rep, m*group_size + g, waveform);
-                    end
-                    decim_i = arshift(group_sum_i, k);
-                    decim_q = arshift(group_sum_q, k);
-                    rep_sum_i += decim_i;
-                    rep_sum_q += decim_q;
-                end
-                expected_i[m] = avg_repetitions(rep_sum_i);
-                expected_q[m] = avg_repetitions(rep_sum_q);
-            end
+            @(negedge clk);
+            s_axis_tvalid <= 1'b0;
+            s_axis_tdata  <= '0;
+            repeat (8) @(posedge clk);
         end
     endtask
 
-    task automatic compute_expected_single_rep(input int unsigned k, input int unsigned input_len);
-        int group_size;
-        int stored_len;
-        longint signed group_sum_i;
-        longint signed group_sum_q;
-        begin
-            group_size = 1 << k;
-            stored_len = input_len / group_size;
-            for (int m = 0; m < TRACE_LEN; m++) begin
-                expected_i[m] = 0;
-                expected_q[m] = 0;
-            end
-            for (int m = 0; m < stored_len; m++) begin
-                group_sum_i = 0;
-                group_sum_q = 0;
-                for (int g = 0; g < group_size; g++) begin
-                    group_sum_i += sample_i(0, m*group_size + g, 1'b0);
-                    group_sum_q += sample_q(0, m*group_size + g, 1'b0);
-                end
-                expected_i[m] = arshift(group_sum_i, k);
-                expected_q[m] = arshift(group_sum_q, k);
-            end
-        end
-    endtask
-
-    task automatic arm_trace_avg(
-        input int unsigned k,
-        input int unsigned stored_len,
-        input int unsigned reps
+    task automatic compute_expected(
+        input int m_len,
+        input int reps,
+        input int stored_len,
+        input int waveform
     );
-        logic [31:0] start_word;
+        int input_len;
+        longint signed sum_i;
+        longint signed sum_q;
         begin
-            start_word = ((reps & 32'hffff) << 16) | 32'h0000_0003;
+            input_len = stored_len * m_len;
+            for (int idx = 0; idx < MAX_STORED; idx++) begin
+                expected_i[idx] = 0;
+                expected_q[idx] = 0;
+            end
+
+            for (int out_idx = 0; out_idx < stored_len; out_idx++) begin
+                sum_i = 0;
+                sum_q = 0;
+                for (int rep = 0; rep < reps; rep++) begin
+                    for (int g = 0; g < m_len; g++) begin
+                        sum_i += stimulus_i(rep, out_idx*m_len + g, input_len, waveform);
+                        sum_q += stimulus_q(rep, out_idx*m_len + g, input_len, waveform);
+                    end
+                end
+                expected_i[out_idx] = sum_i;
+                expected_q[out_idx] = sum_q;
+            end
+        end
+    endtask
+
+    task automatic arm_normal_accum(input int m_len, input int stored_len);
+        begin
             axi_write32(REG_AVG_START, 32'd0);
-            repeat (4) @(posedge clk);
+            repeat (6) @(posedge clk);
             axi_write32(REG_AVG_ADDR, 32'd0);
             axi_write32(REG_AVG_LEN, stored_len);
-            axi_write32(REG_AVG_DECIM_LOG2, k);
-            axi_write32(REG_AVG_START, start_word);
+            axi_write32(REG_AVG_ACCUM_LEN, m_len[23:0]);
+            axi_write32(REG_AVG_TRACE_REPS, 32'd1);
+            axi_write32(REG_AVG_START, 32'd1);
+            repeat (12) @(posedge clk);
+        end
+    endtask
+
+    task automatic arm_trace_accum(input int m_len, input int stored_len, input int reps);
+        begin
+            axi_write32(REG_AVG_START, 32'd0);
+            repeat (6) @(posedge clk);
+            axi_write32(REG_AVG_ADDR, 32'd0);
+            axi_write32(REG_AVG_LEN, stored_len);
+            axi_write32(REG_AVG_ACCUM_LEN, m_len[23:0]);
+            axi_write32(REG_AVG_TRACE_REPS, reps[23:0]);
+            axi_write32(REG_AVG_START, 32'd3);
             repeat ((1 << N_AVG) + 40) @(posedge clk);
         end
     endtask
 
-    task automatic start_avg_read(input int unsigned stored_len);
+    task automatic start_avg_read(input int stored_len);
         begin
             axi_write32(REG_AVG_DR_START, 32'd0);
             axi_write32(REG_AVG_DR_ADDR, 32'd0);
@@ -542,7 +488,7 @@ module tb;
         end
     endtask
 
-    task automatic start_buf_read(input int unsigned raw_len);
+    task automatic start_buf_read(input int raw_len);
         begin
             axi_write32(REG_BUF_DR_START, 32'd0);
             axi_write32(REG_BUF_DR_ADDR, 32'd0);
@@ -563,50 +509,53 @@ module tb;
         string full_tag;
         begin
             guard = 0;
-            while (!m0_axis_tvalid) begin
+            do begin
                 @(posedge clk);
                 #1;
                 guard++;
-                if (guard > 2000)
+                if (guard > 5000)
                     $fatal(1, "%s[%0d]: timeout waiting for AVG stream", tag, idx);
-            end
+            end while (!m0_axis_tvalid);
             full_tag = $sformatf("%s[%0d]", tag, idx);
-            check_iq(m0_axis_tdata, expected_i[idx], expected_q[idx], full_tag);
+            check_avg_word(m0_axis_tdata, expected_i[idx], expected_q[idx], full_tag);
             if (m0_axis_tlast !== expect_last)
                 $fatal(1, "%s: expected m0_axis_tlast=%0b got %0b",
                     full_tag, expect_last, m0_axis_tlast);
-            @(posedge clk);
-            #1;
         end
     endtask
 
-    task automatic expect_raw_sample(input int idx, input string tag, input bit expect_last);
+    task automatic expect_raw_sample(
+        input int idx,
+        input int input_len,
+        input int waveform,
+        input string tag,
+        input bit expect_last
+    );
         int guard;
-        int signed exp_i;
-        int signed exp_q;
         string full_tag;
         begin
             guard = 0;
-            exp_i = sample_i(0, idx, 1'b0);
-            exp_q = sample_q(0, idx, 1'b0);
-            while (!m1_axis_tvalid) begin
+            do begin
                 @(posedge clk);
                 #1;
                 guard++;
-                if (guard > 2000)
+                if (guard > 5000)
                     $fatal(1, "%s[%0d]: timeout waiting for RAW stream", tag, idx);
-            end
+            end while (!m1_axis_tvalid);
             full_tag = $sformatf("%s[%0d]", tag, idx);
-            check_raw_iq(m1_axis_tdata, exp_i, exp_q, full_tag);
+            check_raw_word(
+                m1_axis_tdata,
+                stimulus_i(0, idx, input_len, waveform),
+                stimulus_q(0, idx, input_len, waveform),
+                full_tag
+            );
             if (m1_axis_tlast !== expect_last)
                 $fatal(1, "%s: expected m1_axis_tlast=%0b got %0b",
                     full_tag, expect_last, m1_axis_tlast);
-            @(posedge clk);
-            #1;
         end
     endtask
 
-    task automatic read_and_check_avg(input int unsigned stored_len, input string tag);
+    task automatic read_and_check_avg(input int stored_len, input string tag);
         begin
             start_avg_read(stored_len);
             for (int idx = 0; idx < stored_len; idx++)
@@ -615,100 +564,144 @@ module tb;
         end
     endtask
 
-    task automatic read_and_check_raw(input int unsigned raw_len, input string tag);
+    task automatic read_and_check_raw(input int input_len, input int waveform, input string tag);
         begin
-            start_buf_read(raw_len);
-            for (int idx = 0; idx < raw_len; idx++)
-                expect_raw_sample(idx, tag, idx == (raw_len - 1));
+            start_buf_read(input_len);
+            for (int idx = 0; idx < input_len; idx++)
+                expect_raw_sample(idx, input_len, waveform, tag, idx == (input_len - 1));
             stop_buf_read();
         end
     endtask
 
-    task automatic feed_trace_repetition(input int rep, input int unsigned input_len, input int waveform);
+    task automatic run_normal_case(
+        input string tag,
+        input int m_len,
+        input int stored_len,
+        input int waveform
+    );
+        int input_len;
         begin
-            pulse_trigger();
-            for (int n = 0; n < input_len; n++)
-                feed_sample(stimulus_i(rep, n, waveform), stimulus_q(rep, n, waveform));
-            repeat (30) @(posedge clk);
+            input_len = m_len * stored_len;
+            $display("Running %s: normal AVG M=%0d stored_len=%0d input_len=%0d",
+                tag, m_len, stored_len, input_len);
+            compute_expected(m_len, 1, stored_len, waveform);
+            arm_normal_accum(m_len, stored_len);
+            feed_stimulus_trace(0, input_len, waveform);
+            repeat (80) @(posedge clk);
+            read_and_check_avg(stored_len, tag);
+            axi_write32(REG_AVG_START, 32'd0);
         end
     endtask
 
-    task automatic run_trace_noise_case(
+    task automatic run_trace_case(
         input string tag,
-        input int unsigned k,
+        input int m_len,
+        input int reps,
+        input int stored_len,
         input int waveform
     );
-        int stored_len;
+        int input_len;
         begin
-            stored_len = TRACE_LEN >> k;
-            $display("Running %s: K=%0d, reps=%0d, input_len=%0d, stored_len=%0d",
-                tag, k, N_REPS, TRACE_LEN, stored_len);
-
-            compute_expected_trace(k, TRACE_LEN, waveform);
-            arm_trace_avg(k, stored_len, N_REPS);
-            for (int rep = 0; rep < N_REPS; rep++)
-                feed_trace_repetition(rep, TRACE_LEN, waveform);
-
-            repeat (400) @(posedge clk);
-            axi_write32(REG_AVG_START, 32'd0);
-            repeat (20) @(posedge clk);
+            input_len = m_len * stored_len;
+            $display("Running %s: trace AVG M=%0d R=%0d stored_len=%0d input_len/rep=%0d",
+                tag, m_len, reps, stored_len, input_len);
+            compute_expected(m_len, reps, stored_len, waveform);
+            arm_trace_accum(m_len, stored_len, reps);
+            for (int rep = 0; rep < reps; rep++)
+                feed_stimulus_trace(rep, input_len, waveform);
+            repeat (160) @(posedge clk);
             read_and_check_avg(stored_len, tag);
+            axi_write32(REG_AVG_START, 32'd0);
         end
     endtask
 
     task automatic run_raw_buffer_unchanged_test;
+        int m_len;
         int stored_len;
+        int reps;
+        int input_len;
+        int waveform;
         begin
-            stored_len = TRACE_LEN >> 2;
-            $display("Running raw buffer unchanged test: K=2, input_len=%0d, avg_len=%0d",
-                TRACE_LEN, stored_len);
+            m_len = 5;
+            stored_len = 12;
+            reps = 1;
+            waveform = 2;
+            input_len = m_len * stored_len;
+            $display("Running raw buffer unchanged test with AVG M=%0d input_len=%0d", m_len, input_len);
 
-            compute_expected_single_rep(2, TRACE_LEN);
+            compute_expected(m_len, reps, stored_len, waveform);
             axi_write32(REG_AVG_START, 32'd0);
             axi_write32(REG_BUF_START, 32'd0);
             repeat (6) @(posedge clk);
-
             axi_write32(REG_BUF_ADDR, 32'd0);
-            axi_write32(REG_BUF_LEN, TRACE_LEN);
+            axi_write32(REG_BUF_LEN, input_len);
             axi_write32(REG_BUF_START, 32'd1);
-            arm_trace_avg(2, stored_len, 1);
+            arm_trace_accum(m_len, stored_len, reps);
 
-            feed_trace_repetition(0, TRACE_LEN, 0);
+            feed_stimulus_trace(0, input_len, waveform);
 
-            repeat (400) @(posedge clk);
+            repeat (160) @(posedge clk);
+            read_and_check_avg(stored_len, "raw-test AVG accumulation");
+            read_and_check_raw(input_len, waveform, "raw-test RAW buffer");
             axi_write32(REG_AVG_START, 32'd0);
             axi_write32(REG_BUF_START, 32'd0);
-            repeat (20) @(posedge clk);
-
-            read_and_check_avg(stored_len, "raw-test avg decimated");
-            read_and_check_raw(TRACE_LEN, "raw-test raw buffer");
         end
     endtask
 
-    task automatic run_axi_register_test;
+    task automatic run_register_test;
         logic [31:0] readback;
         begin
-            $display("Running AXI-Lite AVG_DECIM_LOG2 register test");
-            axi_write32(REG_AVG_DECIM_LOG2, 32'd2);
-            axi_read32(REG_AVG_DECIM_LOG2, readback);
-            if (readback[3:0] != 4'd2)
-                $fatal(1, "AVG_DECIM_LOG2_REG readback mismatch: %h", readback);
-            axi_write32(REG_AVG_DECIM_LOG2, 32'd0);
+            $display("Running 24-bit AXI-Lite accumulation register readback test");
+            axi_write32(REG_AVG_ACCUM_LEN, 32'h00ff_ffff);
+            axi_read32(REG_AVG_ACCUM_LEN, readback);
+            if (readback[23:0] != 24'hff_ffff)
+                $fatal(1, "AVG_ACCUM_LEN_REG readback mismatch: %h", readback);
+            axi_write32(REG_AVG_TRACE_REPS, 32'h00ff_ffff);
+            axi_read32(REG_AVG_TRACE_REPS, readback);
+            if (readback[23:0] != 24'hff_ffff)
+                $fatal(1, "AVG_TRACE_REPS_REG readback mismatch: %h", readback);
+            axi_write32(REG_AVG_ACCUM_LEN, 32'd1);
+            axi_write32(REG_AVG_TRACE_REPS, 32'd1);
+        end
+    endtask
+
+    task automatic run_32bit_boundary_test;
+        int m_len;
+        int stored_len;
+        int input_len;
+        begin
+            m_len = 70000;
+            stored_len = 1;
+            input_len = m_len * stored_len;
+            expected_i[0] = 64'sd32767 * m_len;
+            expected_q[0] = -64'sd32768 * m_len;
+            if (expected_i[0] <= 64'sd2147483647)
+                $fatal(1, "Boundary test expected I does not cross 32-bit positive range");
+            if (expected_q[0] >= -64'sd2147483648)
+                $fatal(1, "Boundary test expected Q does not cross 32-bit negative range");
+
+            $display("Running 64-bit channel boundary test: M=%0d", m_len);
+            arm_normal_accum(m_len, stored_len);
+            feed_stimulus_trace(0, input_len, 3);
+            repeat (120) @(posedge clk);
+            read_and_check_avg(stored_len, "64-bit boundary");
+            axi_write32(REG_AVG_START, 32'd0);
         end
     endtask
 
     initial begin
         reset_dut();
-        run_axi_register_test();
-        run_trace_noise_case("trace-noise K0", 0, 1'b0);
-        run_trace_noise_case("trace-noise K1", 1, 0);
-        run_trace_noise_case("trace-noise K2", 2, 0);
-        run_trace_noise_case("trace-noise negative K2", 2, 1);
-        run_trace_noise_case("trace-noise complex-sine K0", 0, 2);
-        run_trace_noise_case("trace-noise complex-sine K1", 1, 2);
-        run_trace_noise_case("trace-noise complex-sine K2", 2, 2);
+        run_register_test();
+        run_normal_case("M1 R1 compatibility", 1, 16, 0);
+        run_normal_case("M2 direct accumulation", 2, 16, 0);
+        run_normal_case("M3 direct accumulation", 3, 15, 0);
+        run_normal_case("M5 direct accumulation", 5, 12, 2);
+        run_trace_case("M3 R4 trace accumulation", 3, 4, 15, 0);
+        run_trace_case("negative signed M5 R4", 5, 4, 12, 1);
+        run_trace_case("complex sine/chirp M3 R100", 3, TRACE_REPS_100, 21, 2);
         run_raw_buffer_unchanged_test();
-        $display("PASS: tb_trace_noise_avg completed trace noise averaging tests");
+        run_32bit_boundary_test();
+        $display("PASS: tb_trace_noise_avg completed v1.3 direct accumulation tests");
         $finish;
     end
 

@@ -44,7 +44,8 @@ module avg_top (
 	AVG_PHOTON_MODE_REG ,
 	AVG_H_THRSH_REG     ,
 	AVG_L_THRSH_REG     ,
-	AVG_DECIM_LOG2_REG
+	AVG_ACCUM_LEN_REG   ,
+	AVG_TRACE_REPS_REG
 	);
 
 ////////////////
@@ -55,9 +56,6 @@ parameter N = 10;
 
 // Number of bits.
 parameter B = 16;
-
-// Maximum supported AVG-path boxcar decimation exponent.
-parameter MAX_AVG_DECIM_LOG2 = 6;
 
 ///////////
 // Ports //
@@ -75,12 +73,12 @@ input				m_axis_aresetn;
 
 output				m0_axis_tvalid;
 input				m0_axis_tready;
-output	[4*B-1:0]	m0_axis_tdata;
+output	[8*B-1:0]	m0_axis_tdata;
 output				m0_axis_tlast;
 
 output				m1_axis_tvalid;
 input				m1_axis_tready;
-output	[4*B-1:0]	m1_axis_tdata;
+output	[8*B-1:0]	m1_axis_tdata;
 
 input	[31:0]		AVG_START_REG;
 input	[N-1:0]		AVG_ADDR_REG;
@@ -91,23 +89,24 @@ input	[N-1:0]		DR_LEN_REG;
 input               AVG_PHOTON_MODE_REG;
 input   [B-1:0]     AVG_H_THRSH_REG;
 input   [B-1:0]     AVG_L_THRSH_REG;
-input   [3:0]       AVG_DECIM_LOG2_REG;
+input   [23:0]      AVG_ACCUM_LEN_REG;
+input   [23:0]      AVG_TRACE_REPS_REG;
 
 //////////////////////
 // Internal signals //
 //////////////////////
 wire				mem_we_avg, mem_we_trace;
 wire	[N-1:0]		mem_addr_avg, mem_addr_trace;
-wire	[4*B-1:0]	mem_di_avg, mem_di_trace;
+wire	[8*B-1:0]	mem_di_avg, mem_di_trace;
 
 wire				mem_we_int;
 wire	[N-1:0]		mem_addra_int, mem_addrb_int;
-wire	[4*B-1:0]	mem_di_int, mem_do_int;
-wire	[4*B-1:0]	mem_doa_int;
+wire	[8*B-1:0]	mem_di_int, mem_do_int;
+wire	[8*B-1:0]	mem_doa_int;
 
 wire	[1:0]		AVG_START_REG_resync;
-wire	[15:0]		avg_number_resync;
-wire    [3:0]       avg_decim_log2_resync;
+wire	[23:0]		avg_accum_len_resync;
+wire	[23:0]		avg_trace_reps_resync;
 wire				DR_START_REG_resync;
 
 wire				fifo_empty;
@@ -117,7 +116,7 @@ wire                TRACE_MODE_REG;
 //////////////////////
 // BRAM Write Selection //
 //////////////////////
-assign TRACE_MODE_REG = AVG_START_REG[1];
+assign TRACE_MODE_REG = AVG_START_REG_resync[1];
 assign mem_we_int   = (TRACE_MODE_REG) ? mem_we_trace   : mem_we_avg;
 assign mem_addra_int= (TRACE_MODE_REG) ? mem_addr_trace : mem_addr_avg;
 assign mem_di_int   = (TRACE_MODE_REG) ? mem_di_trace   : mem_di_avg;
@@ -148,37 +147,36 @@ synchronizer_n
 		.data_out	(AVG_START_REG_resync[1])
 	);
 
-genvar avg_start_idx;
+genvar avg_accum_len_idx;
 
 generate
-	for (avg_start_idx = 0; avg_start_idx < 16; avg_start_idx = avg_start_idx + 1) begin : gen_avg_start_reg_resync
-		wire avg_start_reg_resync_wire;
+	for (avg_accum_len_idx = 0; avg_accum_len_idx < 24; avg_accum_len_idx = avg_accum_len_idx + 1) begin : gen_avg_accum_len_resync
 		synchronizer_n
 			#(
 				.N  (2)
 			)
-			AVG_START_REG_resync_i_x (
+			AVG_ACCUM_LEN_REG_resync_i (
 				.rstn       (rstn                   ),
 				.clk        (clk                    ),
-				.data_in    (AVG_START_REG[16 + avg_start_idx] ),
-				.data_out   (avg_number_resync[avg_start_idx])
+				.data_in    (AVG_ACCUM_LEN_REG[avg_accum_len_idx] ),
+				.data_out   (avg_accum_len_resync[avg_accum_len_idx])
 			);
 	end
 endgenerate
 
-genvar avg_decim_idx;
+genvar avg_trace_reps_idx;
 
 generate
-	for (avg_decim_idx = 0; avg_decim_idx < 4; avg_decim_idx = avg_decim_idx + 1) begin : gen_avg_decim_reg_resync
+	for (avg_trace_reps_idx = 0; avg_trace_reps_idx < 24; avg_trace_reps_idx = avg_trace_reps_idx + 1) begin : gen_avg_trace_reps_resync
 		synchronizer_n
 			#(
 				.N  (2)
 			)
-			AVG_DECIM_LOG2_REG_resync_i (
+			AVG_TRACE_REPS_REG_resync_i (
 				.rstn       (rstn                           ),
 				.clk        (clk                            ),
-				.data_in    (AVG_DECIM_LOG2_REG[avg_decim_idx]),
-				.data_out   (avg_decim_log2_resync[avg_decim_idx])
+				.data_in    (AVG_TRACE_REPS_REG[avg_trace_reps_idx]),
+				.data_out   (avg_trace_reps_resync[avg_trace_reps_idx])
 			);
 	end
 endgenerate
@@ -200,8 +198,7 @@ synchronizer_n
 avg 
 	#(
 		.N	(N),
-		.B	(B),
-		.MAX_AVG_DECIM_LOG2 (MAX_AVG_DECIM_LOG2)
+		.B	(B)
 	)
 	avg_i
 	(
@@ -228,14 +225,13 @@ avg
 		.PHOTON_MODE_REG(AVG_PHOTON_MODE_REG	),
 		.H_THRSH_REG 	(AVG_H_THRSH_REG       	),
 		.L_THRSH_REG 	(AVG_L_THRSH_REG       	),
-		.AVG_DECIM_LOG2_REG (avg_decim_log2_resync)
+		.AVG_ACCUM_LEN_REG (avg_accum_len_resync)
 	);
 
 trace_avg
 	#(
 		.N	(N),
-		.B	(B),
-		.MAX_AVG_DECIM_LOG2 (MAX_AVG_DECIM_LOG2)
+		.B	(B)
 	)
 	trace_avg_i
 	(
@@ -251,17 +247,17 @@ trace_avg
 		.mem_di_o		(mem_di_trace			),
 
 		.START_REG		(AVG_START_REG_resync[0] & TRACE_MODE_REG),
-		.AVG_NUMBER_REG (avg_number_resync		),
+		.AVG_TRACE_REPS_REG (avg_trace_reps_resync),
 		.ADDR_REG		(AVG_ADDR_REG			),
 		.LEN_REG		(AVG_LEN_REG			),
-		.AVG_DECIM_LOG2_REG (avg_decim_log2_resync)
+		.AVG_ACCUM_LEN_REG (avg_accum_len_resync)
 	);
 
 // Dual port BRAM.
 bram_dp
     #(
 		.N	(N	),
-        .B 	(4*B)
+        .B 	(8*B)
     )
     bram_i 
 	( 
@@ -274,7 +270,7 @@ bram_dp
 		.addra  (mem_addra_int	),
 		.addrb  (mem_addrb_int	),
 		.dia    (mem_di_int		),
-		.dib    ({4*B{1'b0}}	),
+		.dib    ({8*B{1'b0}}	),
 		.doa    (mem_doa_int	),
 		.dob    (mem_do_int		)
     );
@@ -283,7 +279,7 @@ bram_dp
 data_reader
     #(
 		.N	(N	),
-		.B	(4*B)
+		.B	(8*B)
     )
     data_reader_i
     (
@@ -313,7 +309,7 @@ data_reader
 fifo_dc_axi
     #(
         // Data width.
-        .B	(4*B	),
+        .B	(8*B	),
         
         // Fifo depth.
         .N	(4		)

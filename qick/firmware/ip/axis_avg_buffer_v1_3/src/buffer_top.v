@@ -156,7 +156,7 @@ bram_dp
 		.addra  (mem_addra_int	),
 		.addrb  (mem_addrb_int	),
 		.dia    (mem_di_int		),
-		.dib    ({4*B{1'b0}}	),
+		.dib    ({2*B{1'b0}}	),
 		.doa    (				),
 		.dob    (mem_do_int		)
     );

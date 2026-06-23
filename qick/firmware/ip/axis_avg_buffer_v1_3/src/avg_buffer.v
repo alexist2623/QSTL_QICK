@@ -50,7 +50,8 @@ module avg_buffer (
 	AVG_PHOTON_MODE_REG ,
 	AVG_H_THRSH_REG     ,
 	AVG_L_THRSH_REG     ,
-	AVG_DECIM_LOG2_REG  ,
+	AVG_ACCUM_LEN_REG   ,
+	AVG_TRACE_REPS_REG  ,
 	AVG_DR_START_REG	,
 	AVG_DR_ADDR_REG		,
 	AVG_DR_LEN_REG		,
@@ -72,9 +73,6 @@ parameter N_BUF = 10;
 // Number of bits.
 parameter B = 16;
 
-// Maximum supported AVG-path boxcar decimation exponent.
-parameter MAX_AVG_DECIM_LOG2 = 6;
-
 ///////////
 // Ports //
 ///////////
@@ -92,7 +90,7 @@ input				m_axis_aresetn;
 
 output				m0_axis_tvalid;
 input				m0_axis_tready;
-output	[4*B-1:0]	m0_axis_tdata;
+output	[8*B-1:0]	m0_axis_tdata;
 output				m0_axis_tlast;
 
 output				m1_axis_tvalid;
@@ -102,7 +100,7 @@ output				m1_axis_tlast;
 
 output				m2_axis_tvalid;
 input				m2_axis_tready;
-output	[4*B-1:0]	m2_axis_tdata;
+output	[8*B-1:0]	m2_axis_tdata;
 
 input	[31:0]		AVG_START_REG;
 input	[N_AVG-1:0]	AVG_ADDR_REG;
@@ -110,7 +108,8 @@ input	[31:0]		AVG_LEN_REG;
 input               AVG_PHOTON_MODE_REG;
 input   [B-1:0]     AVG_H_THRSH_REG;
 input   [B-1:0]     AVG_L_THRSH_REG;
-input   [3:0]       AVG_DECIM_LOG2_REG;
+input   [23:0]      AVG_ACCUM_LEN_REG;
+input   [23:0]      AVG_TRACE_REPS_REG;
 input				AVG_DR_START_REG;
 input	[N_AVG-1:0]	AVG_DR_ADDR_REG;
 input	[N_AVG-1:0]	AVG_DR_LEN_REG;
@@ -147,8 +146,7 @@ synchronizer_n
 avg_top 
 	#(
 		.N	(N_AVG	),
-		.B	(B		),
-		.MAX_AVG_DECIM_LOG2 (MAX_AVG_DECIM_LOG2)
+		.B	(B		)
 	)
 	avg_top_i
 	(
@@ -188,7 +186,8 @@ avg_top
 		.AVG_PHOTON_MODE_REG (AVG_PHOTON_MODE_REG),
 		.AVG_H_THRSH_REG (AVG_H_THRSH_REG   ),
 		.AVG_L_THRSH_REG (AVG_L_THRSH_REG   ),
-		.AVG_DECIM_LOG2_REG (AVG_DECIM_LOG2_REG)
+		.AVG_ACCUM_LEN_REG  (AVG_ACCUM_LEN_REG  ),
+		.AVG_TRACE_REPS_REG (AVG_TRACE_REPS_REG )
 	);
 
 // Buffer block.

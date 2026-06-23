@@ -1,41 +1,45 @@
+// Trace accumulation block.
+//
+// One trigger captures one trace repetition. For each stored output point,
+// AVG_ACCUM_LEN_REG selects the number of raw input samples M to accumulate.
+// AVG_TRACE_REPS_REG selects the number of trace repetitions R to accumulate.
+// Register value 0 maps to R=1; M=0 and M=1 both map to M=1.
+//
+// No division, shift, or reciprocal multiply is applied. The final stored
+// trace word is packed as {Q_accum[4*B-1:0], I_accum[4*B-1:0]}.
 module trace_avg #(
-    parameter int unsigned N = 10,   // memory depth = 2**N
-    parameter int unsigned B = 16,   // per-channel width
-    parameter int unsigned MAX_AVG_DECIM_LOG2 = 6
+    parameter int unsigned N = 10,
+    parameter int unsigned B = 16
 ) (
-    // Reset and clock.
-    input  logic              rstn,
-    input  logic              clk,
+    input  logic             rstn,
+    input  logic             clk,
 
-    // Trigger input (rising edge starts one shot).
-    input  logic              trigger_i,
+    input  logic             trigger_i,
 
-    // Stream input (I,Q packed: I lower B, Q upper B).
-    input  logic              din_valid_i,
-    input  logic [2*B-1:0]    din_i,
+    input  logic             din_valid_i,
+    input  logic [2*B-1:0]   din_i,
 
-    // Outer AVG BRAM Port-A write interface.
-    output logic              mem_we_o,
-    output logic [N-1:0]      mem_addr_o,
-    output logic [4*B-1:0]    mem_di_o,
+    output logic             mem_we_o,
+    output logic [N-1:0]     mem_addr_o,
+    output logic [8*B-1:0]   mem_di_o,
 
-    // Control registers (already synchronized to clk domain).
-    input  logic              START_REG,
-    input  logic [15:0]       AVG_NUMBER_REG,
-    input  logic [N-1:0]      ADDR_REG,
-    input  logic [31:0]       LEN_REG,
-    input  logic [3:0]        AVG_DECIM_LOG2_REG
+    input  logic             START_REG,
+    input  logic [23:0]      AVG_TRACE_REPS_REG,
+    input  logic [N-1:0]     ADDR_REG,
+    input  logic [31:0]      LEN_REG,
+    input  logic [23:0]      AVG_ACCUM_LEN_REG
 );
 
-    localparam int unsigned WCH = 2 * B;
-    localparam int unsigned WW  = 4 * B;
+    localparam int unsigned ACC_WIDTH = 4 * B;
+    localparam int unsigned WW        = 8 * B;
+    localparam int unsigned COUNT_W   = 24;
 
     typedef enum logic [2:0] {
         IDLE,
         CLEAR,
         WAIT_TRIG,
         COLLECT,
-        FLUSH_SHOT,
+        FLUSH_GROUP,
         OUTPUT_PREP,
         OUTPUT_TRACE,
         OUTPUT_FLUSH
@@ -48,119 +52,84 @@ module trace_avg #(
     wire  start_edge = START_REG & ~start_q;
     wire  trig_edge  = trigger_i & ~trig_q;
 
-    logic [N-1:0] base_addr_r;
-    logic [N-1:0] len_eff_r;
-    logic [N-1:0] clr_idx_r;
-    logic [N-1:0] sample_idx_r;
-    logic [N-1:0] output_idx_r;
-    logic [15:0]  shot_count_r;
-    logic [16:0]  avg_count_r;
-    logic [4:0]   avg_shift_r;
-    logic         avg_count_is_pow2_r;
-    logic [3:0]   decim_log2_r;
+    logic [N-1:0]       base_addr_r;
+    logic [N-1:0]       len_eff_r;
+    logic [N-1:0]       clr_idx_r;
+    logic [N-1:0]       output_idx_r;
+    logic [COUNT_W-1:0] accum_len_eff_r;
+    logic [COUNT_W-1:0] trace_reps_eff_r;
+    logic [COUNT_W-1:0] sample_cnt_r;
+    logic [COUNT_W-1:0] rep_cnt_r;
 
-    logic              bram_web;
-    logic [N-1:0]      bram_addra;
-    logic [N-1:0]      bram_addrb;
-    logic [WW-1:0]     bram_dib;
-    wire  [WW-1:0]     bram_doa;
+    logic signed [ACC_WIDTH-1:0] group_i_r;
+    logic signed [ACC_WIDTH-1:0] group_q_r;
+    logic signed [ACC_WIDTH-1:0] next_group_i;
+    logic signed [ACC_WIDTH-1:0] next_group_q;
+    logic                        group_done;
+    logic                        last_output;
+    logic                        last_rep;
 
-    logic              collect_pipe_valid_r;
-    logic [N-1:0]      collect_addr_pipe_r;
-    logic signed [WCH-1:0] collect_i_pipe_r;
-    logic signed [WCH-1:0] collect_q_pipe_r;
+    logic                        pending_valid_r;
+    logic [N-1:0]                pending_addr_r;
+    logic signed [ACC_WIDTH-1:0] pending_i_r;
+    logic signed [ACC_WIDTH-1:0] pending_q_r;
 
-    logic              output_pipe_valid_r;
-    logic [N-1:0]      output_addr_pipe_r;
+    logic                        bram_web;
+    logic [N-1:0]                bram_addra;
+    logic [N-1:0]                bram_addrb;
+    logic [WW-1:0]               bram_dib;
+    wire  [WW-1:0]               bram_doa;
 
-    wire [3:0]         effective_decim_log2;
-    wire               decim_enabled = (decim_log2_r != 4'd0);
-    wire               decim_valid;
-    wire [2*B-1:0]     decim_din;
-    wire               sample_valid = (decim_enabled == 1'b1) ? decim_valid : din_valid_i;
-    wire [2*B-1:0]     sample_din   = (decim_enabled == 1'b1) ? decim_din   : din_i;
+    logic                        output_pipe_valid_r;
+    logic [N-1:0]                output_addr_pipe_r;
 
-    wire signed [WCH-1:0] prev_i_s = $signed(bram_doa[WCH-1:0]);
-    wire signed [WCH-1:0] prev_q_s = $signed(bram_doa[WW-1:WCH]);
-    wire signed [WCH-1:0] sum_i_s  = prev_i_s + collect_i_pipe_r;
-    wire signed [WCH-1:0] sum_q_s  = prev_q_s + collect_q_pipe_r;
+    wire signed [ACC_WIDTH-1:0] din_i_ext = {{(ACC_WIDTH-B){din_i[B-1]}}, din_i[B-1:0]};
+    wire signed [ACC_WIDTH-1:0] din_q_ext = {{(ACC_WIDTH-B){din_i[2*B-1]}}, din_i[2*B-1:B]};
 
-    function automatic [16:0] avg_count_from_reg(input [15:0] avg_number);
-        avg_count_from_reg = (avg_number == 16'd0) ? 17'd65536 : {1'b0, avg_number};
-    endfunction
+    wire signed [ACC_WIDTH-1:0] prev_i_s = $signed(bram_doa[ACC_WIDTH-1:0]);
+    wire signed [ACC_WIDTH-1:0] prev_q_s = $signed(bram_doa[WW-1:ACC_WIDTH]);
+    wire signed [ACC_WIDTH-1:0] sum_i_s  = prev_i_s + pending_i_r;
+    wire signed [ACC_WIDTH-1:0] sum_q_s  = prev_q_s + pending_q_r;
 
-    function automatic logic is_power_of_two(input [16:0] value);
-        is_power_of_two = (value != 17'd0) && ((value & (value - 17'd1)) == 17'd0);
-    endfunction
-
-    function automatic [4:0] log2_power_of_two(input [16:0] value);
-        integer idx;
+    function automatic [COUNT_W-1:0] effective_accum_len(input [23:0] reg_value);
         begin
-            log2_power_of_two = 5'd0;
-            for (idx = 0; idx < 17; idx = idx + 1) begin
-                if (value[idx])
-                    log2_power_of_two = idx[4:0];
-            end
-        end
-    endfunction
-
-    function automatic signed [WCH-1:0] trace_avg_divide(
-        input signed [WCH-1:0] sum,
-        input [16:0]           count,
-        input [4:0]            shift,
-        input                  count_is_pow2
-    );
-        begin
-            // Power-of-two repetitions use arithmetic right shift, matching
-            // AVG_DECIM_LOG2 truncation toward negative infinity. Other counts
-            // use synthesizable signed division with truncation toward zero.
-            if (count_is_pow2)
-                trace_avg_divide = sum >>> shift;
+            if (reg_value <= 24'd1)
+                effective_accum_len = {{(COUNT_W-1){1'b0}}, 1'b1};
             else
-                trace_avg_divide = sum / $signed({1'b0, count});
+                effective_accum_len = reg_value[COUNT_W-1:0];
         end
     endfunction
 
-    wire signed [WCH-1:0] avg_i_s = trace_avg_divide(
-        $signed(bram_doa[WCH-1:0]),
-        avg_count_r,
-        avg_shift_r,
-        avg_count_is_pow2_r
-    );
-    wire signed [WCH-1:0] avg_q_s = trace_avg_divide(
-        $signed(bram_doa[WW-1:WCH]),
-        avg_count_r,
-        avg_shift_r,
-        avg_count_is_pow2_r
-    );
-    wire [WW-1:0] averaged_trace_word = {avg_q_s, avg_i_s};
-
-    function automatic [3:0] clamp_decim_log2(input [3:0] decim_log2);
-        if (decim_log2 > MAX_AVG_DECIM_LOG2)
-            clamp_decim_log2 = MAX_AVG_DECIM_LOG2;
-        else
-            clamp_decim_log2 = decim_log2;
+    function automatic [COUNT_W-1:0] effective_trace_reps(input [23:0] reg_value);
+        begin
+            if (reg_value == 24'd0)
+                effective_trace_reps = {{(COUNT_W-1){1'b0}}, 1'b1};
+            else
+                effective_trace_reps = reg_value[COUNT_W-1:0];
+        end
     endfunction
 
-    assign effective_decim_log2 = clamp_decim_log2(AVG_DECIM_LOG2_REG);
+    always_comb begin
+        next_group_i = group_i_r + din_i_ext;
+        next_group_q = group_q_r + din_q_ext;
+        group_done   = din_valid_i && (sample_cnt_r == (accum_len_eff_r - 1'b1));
+        last_output  = (output_idx_r == (len_eff_r - 1'b1));
+        last_rep     = (rep_cnt_r == (trace_reps_eff_r - 1'b1));
+    end
 
-    // Port-A is read-only. During collection it reads the current accumulated
-    // trace bin; during output it streams the accumulated trace to AVG memory.
+    // Port A reads either the current accumulation bin or the final output bin.
     always_comb begin
         bram_addra = '0;
         if (state == COLLECT)
-            bram_addra = sample_idx_r;
+            bram_addra = output_idx_r;
         else if (state == OUTPUT_TRACE)
             bram_addra = output_idx_r;
     end
 
-    bram_dp
-    #(
+    bram_dp #(
         .N (N),
         .B (WW)
-    )
-    buffer_i
-    (
+    ) buffer_i (
         .clka  (clk),
         .clkb  (clk),
         .ena   (1'b1),
@@ -175,86 +144,74 @@ module trace_avg #(
         .dob   ()
     );
 
-    avg_decimator_iq
-    #(
-        .B (B),
-        .MAX_AVG_DECIM_LOG2 (MAX_AVG_DECIM_LOG2)
-    )
-    avg_decimator_i
-    (
-        .rstn           (rstn),
-        .clk            (clk),
-        .clear_i        ((state != COLLECT) || (decim_enabled == 1'b0)),
-        .decim_log2_i   (decim_log2_r),
-        .din_valid_i    (din_valid_i),
-        .din_i          (din_i),
-        .dout_valid_o   (decim_valid),
-        .dout_i         (decim_din)
-    );
-
     always_ff @(posedge clk) begin
         if (!rstn) begin
-            start_q              <= 1'b0;
-            trig_q               <= 1'b0;
-            state                <= IDLE;
-            base_addr_r          <= '0;
-            len_eff_r            <= '0;
-            clr_idx_r            <= '0;
-            sample_idx_r         <= '0;
-            output_idx_r         <= '0;
-            shot_count_r         <= '0;
-            avg_count_r          <= 17'd1;
-            avg_shift_r          <= 5'd0;
-            avg_count_is_pow2_r  <= 1'b1;
-            decim_log2_r         <= '0;
-            collect_pipe_valid_r <= 1'b0;
-            collect_addr_pipe_r  <= '0;
-            collect_i_pipe_r     <= '0;
-            collect_q_pipe_r     <= '0;
-            output_pipe_valid_r  <= 1'b0;
-            output_addr_pipe_r   <= '0;
-            bram_web             <= 1'b0;
-            bram_addrb           <= '0;
-            bram_dib             <= '0;
-            mem_we_o             <= 1'b0;
-            mem_addr_o           <= '0;
-            mem_di_o             <= '0;
+            start_q             <= 1'b0;
+            trig_q              <= 1'b0;
+            state               <= IDLE;
+            base_addr_r         <= '0;
+            len_eff_r           <= {{(N-1){1'b0}}, 1'b1};
+            clr_idx_r           <= '0;
+            output_idx_r        <= '0;
+            accum_len_eff_r     <= {{(COUNT_W-1){1'b0}}, 1'b1};
+            trace_reps_eff_r    <= {{(COUNT_W-1){1'b0}}, 1'b1};
+            sample_cnt_r        <= '0;
+            rep_cnt_r           <= '0;
+            group_i_r           <= '0;
+            group_q_r           <= '0;
+            pending_valid_r     <= 1'b0;
+            pending_addr_r      <= '0;
+            pending_i_r         <= '0;
+            pending_q_r         <= '0;
+            bram_web            <= 1'b0;
+            bram_addrb          <= '0;
+            bram_dib            <= '0;
+            output_pipe_valid_r <= 1'b0;
+            output_addr_pipe_r  <= '0;
+            mem_we_o            <= 1'b0;
+            mem_addr_o          <= '0;
+            mem_di_o            <= '0;
         end
         else begin
-            start_q  <= START_REG;
-            trig_q   <= trigger_i;
+            start_q <= START_REG;
+            trig_q  <= trigger_i;
 
-            bram_web <= 1'b0;
+            bram_web   <= 1'b0;
             bram_addrb <= '0;
-            bram_dib <= '0;
-            mem_we_o <= 1'b0;
+            bram_dib   <= '0;
+            mem_we_o   <= 1'b0;
             mem_addr_o <= '0;
-            mem_di_o <= '0;
+            mem_di_o   <= '0;
+
+            if (pending_valid_r) begin
+                bram_web   <= 1'b1;
+                bram_addrb <= pending_addr_r;
+                bram_dib   <= {sum_q_s, sum_i_s};
+            end
 
             unique case (state)
                 IDLE: begin
-                    collect_pipe_valid_r <= 1'b0;
-                    output_pipe_valid_r  <= 1'b0;
+                    pending_valid_r     <= 1'b0;
+                    output_pipe_valid_r <= 1'b0;
                     if (start_edge) begin
-                        base_addr_r  <= ADDR_REG;
-                        len_eff_r    <= (LEN_REG[N-1:0] == '0) ? {{N-1{1'b0}}, 1'b1} : LEN_REG[N-1:0];
-                        decim_log2_r <= effective_decim_log2;
-                        avg_count_r  <= avg_count_from_reg(AVG_NUMBER_REG);
-                        avg_shift_r  <= log2_power_of_two(avg_count_from_reg(AVG_NUMBER_REG));
-                        avg_count_is_pow2_r <= is_power_of_two(avg_count_from_reg(AVG_NUMBER_REG));
-                        clr_idx_r    <= '0;
-                        shot_count_r <= '0;
-                        bram_web     <= 1'b1;
-                        bram_addrb   <= '0;
-                        bram_dib     <= '0;
-                        state        <= CLEAR;
+                        base_addr_r      <= ADDR_REG;
+                        len_eff_r        <= (LEN_REG[N-1:0] == '0) ? {{(N-1){1'b0}}, 1'b1} : LEN_REG[N-1:0];
+                        accum_len_eff_r  <= effective_accum_len(AVG_ACCUM_LEN_REG);
+                        trace_reps_eff_r <= effective_trace_reps(AVG_TRACE_REPS_REG);
+                        clr_idx_r        <= '0;
+                        rep_cnt_r        <= '0;
+                        bram_web         <= 1'b1;
+                        bram_addrb       <= '0;
+                        bram_dib         <= '0;
+                        state            <= CLEAR;
                     end
                 end
 
                 CLEAR: begin
-                    bram_web   <= 1'b1;
-                    bram_addrb <= clr_idx_r;
-                    bram_dib   <= '0;
+                    pending_valid_r <= 1'b0;
+                    bram_web        <= 1'b1;
+                    bram_addrb      <= clr_idx_r;
+                    bram_dib        <= '0;
                     if (clr_idx_r == {N{1'b1}}) begin
                         clr_idx_r <= '0;
                         state     <= WAIT_TRIG;
@@ -265,62 +222,64 @@ module trace_avg #(
                 end
 
                 WAIT_TRIG: begin
-                    collect_pipe_valid_r <= 1'b0;
-                    if (START_REG == 1'b0) begin
+                    pending_valid_r <= 1'b0;
+                    if (!START_REG) begin
                         state <= IDLE;
                     end
                     else if (trig_edge) begin
-                        sample_idx_r <= '0;
+                        output_idx_r <= '0;
+                        sample_cnt_r <= '0;
+                        group_i_r    <= '0;
+                        group_q_r    <= '0;
                         state        <= COLLECT;
                     end
                 end
 
                 COLLECT: begin
-                    if (START_REG == 1'b0) begin
-                        collect_pipe_valid_r <= 1'b0;
-                        state <= IDLE;
+                    if (!START_REG) begin
+                        pending_valid_r <= 1'b0;
+                        state           <= IDLE;
                     end
                     else begin
-                        if (collect_pipe_valid_r) begin
-                            bram_web   <= 1'b1;
-                            bram_addrb <= collect_addr_pipe_r;
-                            bram_dib   <= {sum_q_s, sum_i_s};
-                        end
+                        pending_valid_r <= 1'b0;
 
-                        collect_pipe_valid_r <= 1'b0;
-                        if (sample_valid) begin
-                            collect_pipe_valid_r <= 1'b1;
-                            collect_addr_pipe_r  <= sample_idx_r;
-                            collect_i_pipe_r     <= $signed({{B{sample_din[B-1]}}, sample_din[B-1:0]});
-                            collect_q_pipe_r     <= $signed({{B{sample_din[2*B-1]}}, sample_din[2*B-1:B]});
+                        if (din_valid_i) begin
+                            if (group_done) begin
+                                pending_valid_r <= 1'b1;
+                                pending_addr_r  <= output_idx_r;
+                                pending_i_r     <= next_group_i;
+                                pending_q_r     <= next_group_q;
+                                group_i_r       <= '0;
+                                group_q_r       <= '0;
+                                sample_cnt_r    <= '0;
 
-                            if (sample_idx_r == (len_eff_r - 1'b1)) begin
-                                sample_idx_r <= '0;
-                                state        <= FLUSH_SHOT;
+                                if (last_output) begin
+                                    output_idx_r <= '0;
+                                    state        <= FLUSH_GROUP;
+                                end
+                                else begin
+                                    output_idx_r <= output_idx_r + 1'b1;
+                                end
                             end
                             else begin
-                                sample_idx_r <= sample_idx_r + 1'b1;
+                                group_i_r    <= next_group_i;
+                                group_q_r    <= next_group_q;
+                                sample_cnt_r <= sample_cnt_r + 1'b1;
                             end
                         end
                     end
                 end
 
-                FLUSH_SHOT: begin
-                    if (collect_pipe_valid_r) begin
-                        bram_web   <= 1'b1;
-                        bram_addrb <= collect_addr_pipe_r;
-                        bram_dib   <= {sum_q_s, sum_i_s};
-                    end
-                    collect_pipe_valid_r <= 1'b0;
-
-                    if (shot_count_r == (AVG_NUMBER_REG - 1'b1)) begin
+                FLUSH_GROUP: begin
+                    pending_valid_r <= 1'b0;
+                    if (last_rep) begin
                         output_idx_r        <= '0;
                         output_pipe_valid_r <= 1'b0;
                         state               <= OUTPUT_PREP;
                     end
                     else begin
-                        shot_count_r <= shot_count_r + 1'b1;
-                        state        <= WAIT_TRIG;
+                        rep_cnt_r <= rep_cnt_r + 1'b1;
+                        state     <= WAIT_TRIG;
                     end
                 end
 
@@ -334,7 +293,7 @@ module trace_avg #(
                     if (output_pipe_valid_r) begin
                         mem_we_o   <= 1'b1;
                         mem_addr_o <= output_addr_pipe_r;
-                        mem_di_o   <= averaged_trace_word;
+                        mem_di_o   <= bram_doa;
                     end
 
                     output_pipe_valid_r <= 1'b1;
@@ -352,10 +311,10 @@ module trace_avg #(
                     if (output_pipe_valid_r) begin
                         mem_we_o   <= 1'b1;
                         mem_addr_o <= output_addr_pipe_r;
-                        mem_di_o   <= averaged_trace_word;
+                        mem_di_o   <= bram_doa;
                     end
                     output_pipe_valid_r <= 1'b0;
-                    shot_count_r        <= '0;
+                    rep_cnt_r           <= '0;
                     state               <= IDLE;
                 end
 
