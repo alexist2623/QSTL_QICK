@@ -20,7 +20,8 @@ localparam logic [1:0] OP_SET  = 2'b01;
 localparam logic [1:0] OP_RAMP = 2'b10;
 localparam logic [1:0] OP_IDLE = 2'b11;
 
-localparam logic signed [31:0] IGNORED_CMD_STEP = 32'sh1357_2468;
+localparam int RAMP_STARTUP_LATENCY_CYCLES = 2;
+localparam int RAMP_FILL_WORDS_AFTER_COMMAND = RAMP_STARTUP_LATENCY_CYCLES - 1;
 
 logic                   aresetn;
 logic                   aclk;
@@ -434,6 +435,7 @@ task automatic send_cmd_and_check_word;
          $fatal(1, "%s saw s_axis_tready low", tag);
       if (m_axis_tvalid !== 1'b1)
          $fatal(1, "%s saw m_axis_tvalid low", tag);
+      #1;
       check_word(expected, tag);
 
       s_axis_tvalid = 1'b0;
@@ -449,6 +451,7 @@ task automatic recv_word;
          @(posedge aclk);
       end while (!(m_axis_tvalid && m_axis_tready));
 
+      #1;
       check_word(expected, tag);
    end
 endtask
@@ -460,6 +463,7 @@ task automatic check_next_stream_word;
       @(posedge aclk);
       if (m_axis_tvalid !== 1'b1)
          $fatal(1, "%s saw m_axis_tvalid low", tag);
+      #1;
       check_word(expected, tag);
    end
 endtask
@@ -476,12 +480,22 @@ task automatic check_hold_words;
    end
 endtask
 
+task automatic check_ramp_startup_latency;
+   input logic [OUT_WIDTH-1:0] hold_word_expected;
+   input string tag;
+   begin
+      for (int i = 0; i < RAMP_FILL_WORDS_AFTER_COMMAND; i = i + 1)
+         recv_word(hold_word_expected,
+                   $sformatf("%s pipeline fill word %0d", tag, i));
+   end
+endtask
+
 task automatic check_ramp;
    input logic signed [31:0] start_value;
    input logic signed [31:0] target_value;
    input logic [31:0] duration;
+   input logic signed [31:0] step;
    input string tag;
-   logic signed [31:0] step;
    logic [OUT_WIDTH-1:0] expected;
    logic signed [B-1:0] lane_value;
    logic [B-1:0] start_sample;
@@ -495,7 +509,6 @@ task automatic check_ramp;
    bit have_previous;
 
    begin
-      step = calc_step(start_value, target_value, duration);
       start_sample = sat_int64(start_value);
       target_sample = sat_int64(target_value);
       direction = (target_value > start_value) ? 1 : ((target_value < start_value) ? -1 : 0);
@@ -838,13 +851,12 @@ task automatic set_awg;
    begin
       tag = $sformatf("SET %0d", value);
       cmd = make_cmd(value, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b0, 1'b0);
-      send_cmd(cmd, have_hold, current_hold_word, tag);
+      send_cmd_and_check_word(cmd, scalar_word(value), {tag, " output"});
 
       current_value = value;
       current_hold_word = scalar_word(value);
       have_hold = 1'b1;
 
-      recv_word(current_hold_word, {tag, " output"});
       check_hold_words(value, 3, {tag, " hold"});
    end
 endtask
@@ -858,9 +870,7 @@ task automatic set_awg_zero_hold;
    begin
       tag = $sformatf("SET %0d zero hold", value);
       cmd = make_cmd(value, 32'sd0, 32'd0, 32'sd0, OP_SET, 1'b1, 1'b0);
-      send_cmd(cmd, have_hold, current_hold_word, tag);
-
-      recv_word(scalar_word(value), {tag, " output"});
+      send_cmd_and_check_word(cmd, scalar_word(value), {tag, " output"});
 
       current_value = 32'sd0;
       current_hold_word = scalar_word(32'sd0);
@@ -877,6 +887,7 @@ task automatic ramp_awg;
    logic [CMD_WIDTH-1:0] cmd;
    logic signed [31:0] start_value;
    logic signed [31:0] wrong_start;
+   logic signed [31:0] step;
    string tag;
 
    begin
@@ -884,10 +895,16 @@ task automatic ramp_awg;
       tag = $sformatf("RAMP %0d to %0d duration %0d",
                       start_value, final_value, ramp_duration);
       wrong_start = (start_value == -32'sd30000) ? 32'sd30000 : -32'sd30000;
-      cmd = make_cmd(final_value, wrong_start, ramp_duration, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
+      step = calc_step(start_value, final_value, ramp_duration);
+      if (ramp_duration > 1 && final_value != start_value && step == 32'sd0)
+         $fatal(1, "%s command step should be nonzero", tag);
+      cmd = make_cmd(final_value, wrong_start, ramp_duration, step, OP_RAMP, 1'b0, 1'b0);
+      if ($signed(cmd[127:96]) !== step)
+         $fatal(1, "%s command step field mismatch", tag);
 
       send_cmd(cmd, have_hold, current_hold_word, tag);
-      check_ramp(start_value, final_value, ramp_duration, tag);
+      check_ramp_startup_latency(current_hold_word, tag);
+      check_ramp(start_value, final_value, ramp_duration, step, tag);
 
       current_value = final_value;
       current_hold_word = scalar_word(final_value);
@@ -940,8 +957,11 @@ task automatic ramp_awg_abort_with_axi_override;
       have_previous = 1'b0;
 
       cmd = make_cmd(aborted_target, wrong_start, aborted_duration,
-                     IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
+                     step, OP_RAMP, 1'b0, 1'b0);
+      if ($signed(cmd[127:96]) !== step)
+         $fatal(1, "%s command step field mismatch", tag);
       send_cmd(cmd, have_hold, current_hold_word, tag);
+      check_ramp_startup_latency(current_hold_word, tag);
 
       expected = expected_ramp_word(start_value, aborted_target,
                                     aborted_duration, step, 0);
@@ -963,6 +983,7 @@ task automatic ramp_awg_with_drop_tests;
    logic signed [31:0] start_value;
    logic signed [31:0] wrong_start;
    logic signed [31:0] step;
+   logic signed [31:0] dropped_step;
    logic [OUT_WIDTH-1:0] expected;
    int unsigned base_index;
    longint signed previous_value;
@@ -982,8 +1003,11 @@ task automatic ramp_awg_with_drop_tests;
       previous_value = 0;
       have_previous = 1'b0;
 
-      cmd = make_cmd(final_value, wrong_start, ramp_duration, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
+      cmd = make_cmd(final_value, wrong_start, ramp_duration, step, OP_RAMP, 1'b0, 1'b0);
+      if ($signed(cmd[127:96]) !== step)
+         $fatal(1, "%s command step field mismatch", tag);
       send_cmd(cmd, have_hold, current_hold_word, tag);
+      check_ramp_startup_latency(current_hold_word, tag);
 
       expected = expected_ramp_word(start_value, final_value, ramp_duration, step, 0);
       recv_word(expected, {tag, " base=0"});
@@ -996,7 +1020,8 @@ task automatic ramp_awg_with_drop_tests;
       check_ramp_word_properties(start_value, final_value, ramp_duration, N_PTS,
                                  {tag, " DROP SET base=16"}, previous_value, have_previous);
 
-      cmd = make_cmd(32'sd3000, 32'sd111, 32'd32, IGNORED_CMD_STEP, OP_RAMP, 1'b0, 1'b0);
+      dropped_step = calc_step(start_value, 32'sd3000, 32'd32);
+      cmd = make_cmd(32'sd3000, 32'sd111, 32'd32, dropped_step, OP_RAMP, 1'b0, 1'b0);
       expected = expected_ramp_word(start_value, final_value, ramp_duration, step, 2*N_PTS);
       send_cmd_and_check_word(cmd, expected, {tag, " DROP RAMP base=32"});
       check_ramp_word_properties(start_value, final_value, ramp_duration, 2*N_PTS,

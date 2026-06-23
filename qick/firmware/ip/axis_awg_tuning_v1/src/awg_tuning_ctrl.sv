@@ -7,7 +7,7 @@
 // | 31:0      | y_target for SET/RAMP, signed integer                    |
 // | 63:32     | reserved/deprecated y_start field; ignored by RAMP       |
 // | 95:64     | duration: RAMP scalar samples; 0 -> 1                    |
-// | 127:96    | reserved/deprecated software step field; ignored by RAMP |
+// | 127:96    | step for RAMP, signed fixed-point with FRAC frac bits    |
 // | 143:128   | reserved                                                  |
 // | 145:144   | opcode: 00 NOP, 01 SET, 10 RAMP, 11 IDLE                 |
 // | 146       | SET hold mode: 0 hold target, 1 hold zero after SET word |
@@ -21,7 +21,9 @@
 // - m_axis_tready is ignored; output timing is deterministic.
 // - m_axis_tvalid is 1 after reset deassertion in every state.
 // - SET executes inside IDLE_ST without a separate SET state.
-// - RAMP executes in RAMP_ST and emits one N_PTS-wide word every aclk.
+// - RAMP starts from the internal current value, uses the command-provided
+//   step field, and emits one N_PTS-wide word every aclk after a two-cycle
+//   start latency.
 // - OP_IDLE is a no-op in this simplified FSM.
 // - Commands presented during RAMP_ST are intentionally dropped.
 //   The command input is always ready; software/tProc must avoid issuing
@@ -76,6 +78,7 @@ state_t state;
 
 wire signed [31:0] cmd_target    = s_axis_tdata[31:0];
 wire        [31:0] cmd_duration  = s_axis_tdata[95:64];
+wire signed [31:0] cmd_step      = s_axis_tdata[127:96];
 wire        [1:0]  cmd_opcode    = s_axis_tdata[145:144];
 wire               cmd_hold_zero = s_axis_tdata[146];
 wire               cmd_clear     = s_axis_tdata[148];
@@ -93,6 +96,18 @@ logic signed [31:0] ramp_target_value_r;
 logic signed [31:0] ramp_step_r;
 logic [31:0]        ramp_duration_r;
 logic [31:0]        ramp_base_index_r;
+
+logic signed [31:0] ramp_pipe_start_r;
+logic signed [31:0] ramp_pipe_target_r;
+logic signed [31:0] ramp_pipe_step_r;
+logic [31:0]        ramp_pipe_duration_r;
+logic [31:0]        ramp_pipe_base_index_r;
+logic               ramp_pipe_last_r;
+logic               ramp_pipe_valid_r;
+
+logic [N_PTS*B-1:0] ramp_word_pipe_r;
+logic               ramp_word_pipe_last_r;
+logic               ramp_word_pipe_valid_r;
 
 function automatic logic [31:0] normalize_duration;
    input logic [31:0] duration;
@@ -131,29 +146,15 @@ function automatic logic [N_PTS*B-1:0] sample_word;
    end
 endfunction
 
-function automatic logic signed [31:0] calc_ramp_step;
-   input logic signed [31:0] y_start;
-   input logic signed [31:0] y_target;
+function automatic logic ramp_base_is_last;
+   input logic [31:0] base_index;
    input logic [31:0] duration;
-   logic signed [63:0] y_start_ext;
-   logic signed [63:0] y_target_ext;
-   logic signed [63:0] delta;
-   logic signed [63:0] numerator;
-   logic signed [63:0] denominator;
-   logic signed [63:0] quotient;
+   logic [32:0] next_base_ext;
+   logic [32:0] duration_ext;
    begin
-      if (duration <= 32'd1) begin
-         calc_ramp_step = 32'sd0;
-      end
-      else begin
-         y_start_ext = {{32{y_start[31]}}, y_start};
-         y_target_ext = {{32{y_target[31]}}, y_target};
-         delta = y_target_ext - y_start_ext;
-         numerator = delta <<< FRAC;
-         denominator = {32'd0, duration - 32'd1};
-         quotient = numerator / denominator;
-         calc_ramp_step = quotient[31:0];
-      end
+      next_base_ext = {1'b0, base_index} + {1'b0, N_PTS_U32};
+      duration_ext = {1'b0, duration};
+      ramp_base_is_last = (next_base_ext >= duration_ext);
    end
 endfunction
 
@@ -222,16 +223,14 @@ endfunction
 wire [31:0] cmd_duration_norm = normalize_duration(cmd_duration);
 wire [B-1:0] cmd_target_sample = sat_int32(cmd_target);
 wire [B-1:0] cmd_set_hold_sample = cmd_hold_zero ? {B{1'b0}} : cmd_target_sample;
-wire signed [31:0] cmd_ramp_step = calc_ramp_step(current_value_r, cmd_target, cmd_duration_norm);
 wire [B-1:0] axi_override_sample = sat_int32(axi_override_value);
 wire [N_PTS*B-1:0] hold_word = sample_word(hold_sample_r);
 wire [N_PTS*B-1:0] cmd_set_word = sample_word(cmd_target_sample);
 wire [N_PTS*B-1:0] axi_override_word = sample_word(axi_override_sample);
-wire [N_PTS*B-1:0] cmd_first_ramp_word =
-   ramp_word(current_value_r, cmd_target, cmd_duration_norm, cmd_ramp_step, 32'd0);
-wire [N_PTS*B-1:0] next_ramp_word =
-   ramp_word(ramp_start_value_r, ramp_target_value_r, ramp_duration_r, ramp_step_r, ramp_base_index_r);
-wire [N_PTS*B-1:0] ramp_target_hold_word = sample_word(sat_int32(ramp_target_value_r));
+wire [31:0] ramp_pipe_next_base_index = ramp_pipe_base_index_r + N_PTS_U32;
+wire [N_PTS*B-1:0] ramp_pipe_word =
+   ramp_word(ramp_pipe_start_r, ramp_pipe_target_r, ramp_pipe_duration_r,
+             ramp_pipe_step_r, ramp_pipe_base_index_r);
 
 always_comb begin
    s_axis_tready = 1'b1;
@@ -256,6 +255,16 @@ always_ff @(posedge aclk) begin
       ramp_step_r         <= 32'sd0;
       ramp_duration_r     <= 32'd1;
       ramp_base_index_r   <= 32'd0;
+      ramp_pipe_start_r   <= 32'sd0;
+      ramp_pipe_target_r  <= 32'sd0;
+      ramp_pipe_step_r    <= 32'sd0;
+      ramp_pipe_duration_r <= 32'd1;
+      ramp_pipe_base_index_r <= 32'd0;
+      ramp_pipe_last_r    <= 1'b0;
+      ramp_pipe_valid_r   <= 1'b0;
+      ramp_word_pipe_r    <= {N_PTS*B{1'b0}};
+      ramp_word_pipe_last_r <= 1'b0;
+      ramp_word_pipe_valid_r <= 1'b0;
       m_axis_tdata        <= {N_PTS*B{1'b0}};
       m_axis_tvalid       <= 1'b0;
    end
@@ -274,6 +283,10 @@ always_ff @(posedge aclk) begin
          ramp_step_r         <= 32'sd0;
          ramp_duration_r     <= 32'd1;
          ramp_base_index_r   <= 32'd0;
+         ramp_pipe_valid_r   <= 1'b0;
+         ramp_pipe_last_r    <= 1'b0;
+         ramp_word_pipe_valid_r <= 1'b0;
+         ramp_word_pipe_last_r <= 1'b0;
          state               <= IDLE_ST;
       end
       else begin
@@ -286,17 +299,26 @@ always_ff @(posedge aclk) begin
                         hold_sample_r   <= cmd_set_hold_sample;
                         current_value_r <= cmd_hold_zero ? 32'sd0 : cmd_target;
                         current_value_readback_r <= cmd_target;
+                        ramp_pipe_valid_r <= 1'b0;
+                        ramp_word_pipe_valid_r <= 1'b0;
                         state           <= IDLE_ST;
                      end
 
                      OP_RAMP: begin
-                        m_axis_tdata        <= cmd_first_ramp_word;
-                        current_value_readback_r <= lane_to_i32(cmd_first_ramp_word[B-1:0]);
                         ramp_start_value_r  <= current_value_r;
                         ramp_target_value_r <= cmd_target;
-                        ramp_step_r         <= cmd_ramp_step;
+                        ramp_step_r         <= cmd_step;
                         ramp_duration_r     <= cmd_duration_norm;
-                        ramp_base_index_r   <= N_PTS_U32;
+                        ramp_base_index_r   <= 32'd0;
+                        ramp_pipe_start_r   <= current_value_r;
+                        ramp_pipe_target_r  <= cmd_target;
+                        ramp_pipe_step_r    <= cmd_step;
+                        ramp_pipe_duration_r <= cmd_duration_norm;
+                        ramp_pipe_base_index_r <= 32'd0;
+                        ramp_pipe_last_r    <= ramp_base_is_last(32'd0, cmd_duration_norm);
+                        ramp_pipe_valid_r   <= 1'b1;
+                        ramp_word_pipe_valid_r <= 1'b0;
+                        ramp_word_pipe_last_r <= 1'b0;
                         state               <= RAMP_ST;
                      end
 
@@ -312,18 +334,33 @@ always_ff @(posedge aclk) begin
             end
 
             RAMP_ST: begin
-               if (ramp_base_index_r >= ramp_duration_r) begin
-                  m_axis_tdata    <= ramp_target_hold_word;
-                  hold_sample_r   <= sat_int32(ramp_target_value_r);
-                  current_value_r <= ramp_target_value_r;
-                  current_value_readback_r <= ramp_target_value_r;
-                  state           <= IDLE_ST;
+               if (ramp_word_pipe_valid_r) begin
+                  m_axis_tdata <= ramp_word_pipe_r;
+                  current_value_readback_r <= lane_to_i32(ramp_word_pipe_r[B-1:0]);
+
+                  if (ramp_word_pipe_last_r) begin
+                     hold_sample_r   <= sat_int32(ramp_target_value_r);
+                     current_value_r <= ramp_target_value_r;
+                     ramp_pipe_valid_r <= 1'b0;
+                     ramp_word_pipe_valid_r <= 1'b0;
+                     state           <= IDLE_ST;
+                  end
                end
-               else begin
-                  m_axis_tdata      <= next_ramp_word;
-                  current_value_readback_r <= lane_to_i32(next_ramp_word[B-1:0]);
-                  ramp_base_index_r <= ramp_base_index_r + N_PTS_U32;
-                  state             <= RAMP_ST;
+
+               if (ramp_pipe_valid_r) begin
+                  ramp_word_pipe_r <= ramp_pipe_word;
+                  ramp_word_pipe_valid_r <= 1'b1;
+                  ramp_word_pipe_last_r <= ramp_pipe_last_r;
+                  ramp_base_index_r <= ramp_pipe_base_index_r;
+
+                  if (ramp_pipe_last_r) begin
+                     ramp_pipe_valid_r <= 1'b0;
+                  end
+                  else begin
+                     ramp_pipe_base_index_r <= ramp_pipe_next_base_index;
+                     ramp_pipe_last_r <= ramp_base_is_last(ramp_pipe_next_base_index,
+                                                           ramp_pipe_duration_r);
+                  end
                end
             end
 

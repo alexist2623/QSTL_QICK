@@ -13,8 +13,12 @@ The current RTL has these software-visible semantics:
 * ``m_axis_tready`` is ignored by the RTL.
 * ``m_axis_tvalid`` remains asserted after reset.
 * SET changes the current output immediately.
-* RAMP starts from the internal current output and uses only target/duration.
-* Command start and step fields are reserved/deprecated and ignored by RTL.
+* RAMP starts from the internal current output and uses target/duration plus
+  the command-provided fixed-point step field in bits 127:96.
+* The command start field is reserved/deprecated and ignored by RTL.
+* RTL does not calculate the RAMP step or infer a divider; software must pack
+  the desired step into the command.
+* RAMP output starts after a two-cycle command-to-output pipeline latency.
 * Commands presented during an active ramp are dropped by hardware.
 * Timed IDLE is not supported unless explicitly reintroduced in RTL.
 
@@ -60,6 +64,7 @@ class AxisAwgTuningV1(SocIP):
     OUTPUT_READY_IGNORED = True
     DROPS_COMMANDS_WHILE_RAMPING = True
     HAS_TIMED_IDLE = False
+    RAMP_STARTUP_LATENCY_CYCLES = 2
 
     FIELD_MIN = -(2**31)
     FIELD_MAX = 2**31 - 1
@@ -98,6 +103,7 @@ class AxisAwgTuningV1(SocIP):
         self.cfg["output_ready_ignored"] = self.OUTPUT_READY_IGNORED
         self.cfg["drops_commands_while_ramping"] = self.DROPS_COMMANDS_WHILE_RAMPING
         self.cfg["has_timed_idle"] = self.HAS_TIMED_IDLE
+        self.cfg["ramp_startup_latency_cycles"] = self.RAMP_STARTUP_LATENCY_CYCLES
         self.cfg["tproc_ch"] = None
         self.cfg["tproc_port"] = None
         self.cfg["tproc_block"] = None
@@ -261,13 +267,13 @@ class AxisAwgTuningV1(SocIP):
         return max(self["minv"], min(self["maxv"], value))
 
     def calc_step(self, start, target, duration):
-        """Calculate the signed fixed-point RAMP step used by the RTL.
+        """Calculate the signed fixed-point RAMP step packed into a command.
 
         Python ``//`` floors negative divisions, but SystemVerilog signed
         division truncates toward zero. This helper uses truncation toward zero
-        to match the RTL and testbench. ``ramp_cmd`` uses this for software
-        prediction/debug only; the current RTL computes the effective step
-        internally.
+        to match the existing command-generation policy and testbench.
+        ``ramp_cmd`` packs the returned value into bits 127:96. The RTL uses
+        that field directly and does not calculate a step internally.
         """
         start = self._check_int(start, "start")
         target = self._check_int(target, "target")
@@ -287,10 +293,11 @@ class AxisAwgTuningV1(SocIP):
                  opcode=None, hold_zero=False, clear=False):
         """Pack a 160-bit AWG tuning command word into a Python int.
 
-        This low-level packer includes all fields, including the
-        reserved/deprecated RAMP start and step fields. For normal use, call
+        This low-level packer includes all fields, including the ignored RAMP
+        start field and the RAMP step field. For normal use, call
         :meth:`set_cmd` or :meth:`ramp_cmd`. The current RTL ignores the RAMP
-        start/step fields and computes the effective start/step internally.
+        start field, starts from its internal current value, and uses the
+        command-provided step field directly.
         """
         if opcode is None:
             opcode = self.OP_NOP
@@ -298,7 +305,7 @@ class AxisAwgTuningV1(SocIP):
         target_u = self._to_u32_signed(target, "target")
         start_u = self._to_u32_signed(start, "reserved_start")
         duration_u = self._to_u32_unsigned(duration, "duration")
-        step_u = self._to_u32_signed(step, "reserved_step")
+        step_u = self._to_u32_signed(step, "step")
         opcode = self._check_int(opcode, "opcode")
         if opcode < 0 or opcode > 0b11:
             raise ValueError("opcode must fit in 2 bits")
@@ -346,14 +353,14 @@ class AxisAwgTuningV1(SocIP):
         self.current_valid = True
         return cmd
 
-    def ramp_cmd(self, final_output_value, ramp_duration, *, hold_zero=False, clear=False):
+    def ramp_cmd(self, final_output_value, ramp_duration, *, step=None,
+                 hold_zero=False, clear=False):
         """Return a RAMP command word and update the software cache.
 
         This AXIS command helper exposes only the final output value and scalar-sample
-        duration because the current RTL ignores command start/step fields.
-        The effective ramp starts from the IP's internal current output. This
-        method uses the software ``current_value`` cache only for prediction and
-        to reject ambiguous sequences.
+        duration by default. The effective ramp starts from the IP's internal
+        current output. This method uses the software ``current_value`` cache to
+        calculate the command step unless an explicit ``step`` is supplied.
 
         Commands issued during an active ramp are dropped by hardware. This
         method only packs a command word; it does not schedule tProcessor
@@ -374,11 +381,15 @@ class AxisAwgTuningV1(SocIP):
 
         start_value = self.current_value
         self._to_u32_signed(start_value, "current_value")
+        if step is None:
+            step_value = self.calc_step(start_value, target, duration)
+        else:
+            step_value = self._to_u32_signed(step, "step")
         self.last_ramp_start = start_value
-        self.last_ramp_step = self.calc_step(start_value, target, duration)
+        self.last_ramp_step = step_value
 
         cmd = self.pack_cmd(target=target, start=0, duration=duration,
-                            step=0, opcode=self.OP_RAMP,
+                            step=step_value, opcode=self.OP_RAMP,
                             hold_zero=hold_zero, clear=clear)
         self.current_value = target
         self.current_valid = True
@@ -423,14 +434,15 @@ class AxisAwgTuningV1(SocIP):
                     saturate=inst.get("saturate", False),
                 ))
             elif op == "ramp":
-                if "start" in inst or "step" in inst:
+                if "start" in inst:
                     raise ValueError(
-                        "start/step fields are deprecated and ignored by the current RTL; "
-                        "remove them from ramp instructions"
+                        "start field is deprecated and ignored by the current RTL; "
+                        "remove it from ramp instructions"
                     )
                 cmds.append(self.ramp_cmd(
                     inst["target"],
                     inst["duration"],
+                    step=inst.get("step", None),
                     hold_zero=inst.get("hold_zero", False),
                     clear=inst.get("clear", False),
                 ))
@@ -450,8 +462,9 @@ class AxisAwgTuningV1(SocIP):
     def format_cmd(self, cmd):
         """Decode a packed command into a readable dictionary.
 
-        The RAMP start and step command fields are reported as reserved and
-        deprecated because the current RTL ignores them.
+        The RAMP start command field is reported as ignored because the current
+        RTL starts from its internal current value. The RAMP step field is
+        active and is used directly by RTL.
         """
         cmd = self._check_int(cmd, "cmd")
         if cmd < 0 or cmd >= (1 << self["cmd_width"]):
@@ -465,16 +478,15 @@ class AxisAwgTuningV1(SocIP):
             self.OP_IDLE: "idle",
         }
         reserved_start = self._from_u32_signed(cmd >> 32)
-        reserved_step = self._from_u32_signed(cmd >> 96)
+        step = self._from_u32_signed(cmd >> 96)
         return {
             "opcode": opcode,
             "op": names.get(opcode, "unknown"),
             "target": self._from_u32_signed(cmd),
             "reserved_start": reserved_start,
+            "start_ignored": reserved_start,
             "duration": (cmd >> 64) & 0xFFFFFFFF,
-            "reserved_step": reserved_step,
-            "start_deprecated": reserved_start,
-            "step_deprecated": reserved_step,
+            "step": step,
             "hold_zero": bool((cmd >> 146) & 0x1),
             "clear": bool((cmd >> 148) & 0x1),
         }

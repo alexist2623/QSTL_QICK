@@ -110,6 +110,7 @@ logic                   awg_m_axis_tready;
 
 int                     fd;
 logic signed [B-1:0]    lane_value;
+logic signed [31:0]     direct_ramp_step;
 
 always begin
    s_axi_aclk = 1'b0;
@@ -391,7 +392,8 @@ initial begin
       repeat (8) @(posedge aclk);
       drive_direct_cmd(make_cmd(32'sd0, 32'sd0, 32'd5, 32'sd0, OP_IDLE));
       repeat (8) @(posedge aclk);
-      drive_direct_cmd(make_cmd(32'sd2048, -32'sd9999, 32'd16, 32'sd0, OP_RAMP));
+      direct_ramp_step = calc_step(32'sd512, 32'sd2048, 32'd16);
+      drive_direct_cmd(make_cmd(32'sd2048, -32'sd9999, 32'd16, direct_ramp_step, OP_RAMP));
       repeat (80) @(posedge aclk);
    end
 
