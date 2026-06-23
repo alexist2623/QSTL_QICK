@@ -1045,7 +1045,8 @@ class AxisAvgBufferV1pt3(AxisAvgBufferV1pt2):
     Adds AVG-path direct accumulation controls. AVG length is the number of
     stored output points. The input sample span for one trigger is
     length * avg_accum_len. In trace mode the stored output is accumulated over
-    avg_trace_reps triggers. The raw BUF path is unchanged.
+    avg_trace_reps triggers. M and R are 16-bit controls in v1.3. The raw BUF
+    path is unchanged.
     """
     bindto = ['user.org:user:axis_avg_buffer:1.3',
               'QICK:QICK:axis_avg_buffer:1.3']
@@ -1055,16 +1056,16 @@ class AxisAvgBufferV1pt3(AxisAvgBufferV1pt2):
 
         self.REGISTERS['avg_accum_len_reg'] = 15
         self.REGISTERS['avg_trace_reps_reg'] = 16
-        self.MAX_AVG_ACCUM_LEN = 2**24 - 1
-        self.MAX_AVG_TRACE_REPS = 2**24 - 1
+        self.MAX_AVG_ACCUM_LEN = 2**16 - 1
+        self.MAX_AVG_TRACE_REPS = 2**16 - 1
         self.cfg['has_avg_accumulation'] = True
         self.cfg['max_avg_accum_len'] = self.MAX_AVG_ACCUM_LEN
         self.cfg['max_avg_trace_reps'] = self.MAX_AVG_TRACE_REPS
-        self.cfg['avg_iq_accum_bits'] = 4 * self.B
+        self.cfg['avg_iq_accum_bits'] = 3 * self.B
         self.cfg['avg_output_bits'] = 8 * self.B
 
-        # v1.3 AVG samples are {int64 Q_accum, int64 I_accum} on the wire
-        # for B=16, so the DMA buffer is two int64 lanes per stored point.
+        # v1.3 sign-extends each 48-bit accumulator into an int64 lane on the
+        # wire for B=16, so the DMA buffer is two int64 lanes per stored point.
         self.avg_buff = allocate(shape=(self['avg_maxlen'], 2), dtype=np.int64)
 
     def _init_firmware(self):
@@ -1072,7 +1073,7 @@ class AxisAvgBufferV1pt3(AxisAvgBufferV1pt2):
         self.avg_accum_len_reg = 1
         self.avg_trace_reps_reg = 1
 
-    def _check_u24(self, name: str, value: int) -> int:
+    def _check_u16(self, name: str, value: int) -> int:
         value = int(value)
         if value < 0:
             raise ValueError(f"{name} must be non-negative")
@@ -1082,22 +1083,22 @@ class AxisAvgBufferV1pt3(AxisAvgBufferV1pt2):
 
     def set_avg_accumulation(self, accum_len: int) -> None:
         """Set M, the number of input samples accumulated per stored AVG point. Register values 0 and 1 both mean M=1."""
-        self.avg_accum_len_reg = self._check_u24("avg_accum_len", accum_len)
+        self.avg_accum_len_reg = self._check_u16("avg_accum_len", accum_len)
 
     def get_avg_accumulation(self) -> int:
         """Return the effective AVG point accumulation length M."""
-        raw = int(self.avg_accum_len_reg) & 0xffffff
+        raw = int(self.avg_accum_len_reg) & 0xffff
         return 1 if raw <= 1 else raw
 
     def set_avg_trace_reps(self, trace_reps: int) -> None:
         """Set R, the number of trace triggers accumulated before the trace is written. Register value 0 means R=1."""
-        self.avg_trace_reps_reg = self._check_u24("avg_trace_reps", trace_reps)
-        raw = int(self.avg_trace_reps_reg) & 0xffffff
+        self.avg_trace_reps_reg = self._check_u16("avg_trace_reps", trace_reps)
+        raw = int(self.avg_trace_reps_reg) & 0xffff
         self.cfg["number_of_trace_average"] = 1 if raw == 0 else raw
 
     def get_avg_trace_reps(self) -> int:
         """Return the effective trace repetition accumulation count R."""
-        raw = int(self.avg_trace_reps_reg) & 0xffffff
+        raw = int(self.avg_trace_reps_reg) & 0xffff
         return 1 if raw == 0 else raw
 
     def config_avg(
@@ -1108,7 +1109,7 @@ class AxisAvgBufferV1pt3(AxisAvgBufferV1pt2):
 
         AVG length is the number of stored output points. The input sample
         span is length * accum_len for I/Q accumulation. No division is
-        applied; returned AVG I/Q values are 64-bit signed accumulations.
+        applied; returned AVG I/Q values are sign-extended int64 accumulations.
         """
         super().config_avg(
             address=address,
@@ -1201,9 +1202,9 @@ class AxisAvgBufferV1pt3(AxisAvgBufferV1pt2):
         """
         Transfer accumulated AVG data.
 
-        Returns an array of signed int64 I,Q pairs. For B=16 these correspond
-        to lower 64-bit I_accum and upper 64-bit Q_accum from each 128-bit AVG
-        output word.
+        Returns an array of signed int64 I,Q pairs. For B=16 the RTL uses
+        48-bit signed accumulators and sign-extends them into lower 64-bit
+        I_accum and upper 64-bit Q_accum lanes in each 128-bit AVG output word.
         """
         return self._transfer_avg_accumulated(address=address, length=length)
 

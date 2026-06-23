@@ -6,7 +6,9 @@
 // Register value 0 maps to R=1; M=0 and M=1 both map to M=1.
 //
 // No division, shift, or reciprocal multiply is applied. The final stored
-// trace word is packed as {Q_accum[4*B-1:0], I_accum[4*B-1:0]}.
+// trace word is packed as {signext(Q_accum[3*B-1:0]) to 4*B,
+// signext(I_accum[3*B-1:0]) to 4*B}. M and R are 16-bit registers, so for
+// B=16 the 48-bit signed accumulators cover the worst-case M*R*sample sum.
 module trace_avg #(
     parameter int unsigned N = 10,
     parameter int unsigned B = 16
@@ -24,15 +26,17 @@ module trace_avg #(
     output logic [8*B-1:0]   mem_di_o,
 
     input  logic             START_REG,
-    input  logic [23:0]      AVG_TRACE_REPS_REG,
+    input  logic [15:0]      AVG_TRACE_REPS_REG,
     input  logic [N-1:0]     ADDR_REG,
     input  logic [31:0]      LEN_REG,
-    input  logic [23:0]      AVG_ACCUM_LEN_REG
+    input  logic [15:0]      AVG_ACCUM_LEN_REG
 );
 
-    localparam int unsigned ACC_WIDTH = 4 * B;
-    localparam int unsigned WW        = 8 * B;
-    localparam int unsigned COUNT_W   = 24;
+    localparam int unsigned ACC_WIDTH  = 3 * B;
+    localparam int unsigned LANE_WIDTH = 4 * B;
+    localparam int unsigned OUT_WIDTH  = 8 * B;
+    localparam int unsigned WW         = 2 * ACC_WIDTH;
+    localparam int unsigned COUNT_W    = 16;
 
     typedef enum logic [2:0] {
         IDLE,
@@ -88,21 +92,35 @@ module trace_avg #(
 
     wire signed [ACC_WIDTH-1:0] prev_i_s = $signed(bram_doa[ACC_WIDTH-1:0]);
     wire signed [ACC_WIDTH-1:0] prev_q_s = $signed(bram_doa[WW-1:ACC_WIDTH]);
+    wire signed [ACC_WIDTH-1:0] out_i_s  = $signed(bram_doa[ACC_WIDTH-1:0]);
+    wire signed [ACC_WIDTH-1:0] out_q_s  = $signed(bram_doa[WW-1:ACC_WIDTH]);
     wire signed [ACC_WIDTH-1:0] sum_i_s  = prev_i_s + pending_i_r;
     wire signed [ACC_WIDTH-1:0] sum_q_s  = prev_q_s + pending_q_r;
 
-    function automatic [COUNT_W-1:0] effective_accum_len(input [23:0] reg_value);
+    function automatic [OUT_WIDTH-1:0] pack_iq_accum(
+        input logic signed [ACC_WIDTH-1:0] i_accum,
+        input logic signed [ACC_WIDTH-1:0] q_accum
+    );
         begin
-            if (reg_value <= 24'd1)
+            pack_iq_accum = {
+                {(LANE_WIDTH-ACC_WIDTH){q_accum[ACC_WIDTH-1]}}, q_accum,
+                {(LANE_WIDTH-ACC_WIDTH){i_accum[ACC_WIDTH-1]}}, i_accum
+            };
+        end
+    endfunction
+
+    function automatic [COUNT_W-1:0] effective_accum_len(input [15:0] reg_value);
+        begin
+            if (reg_value <= 16'd1)
                 effective_accum_len = {{(COUNT_W-1){1'b0}}, 1'b1};
             else
                 effective_accum_len = reg_value[COUNT_W-1:0];
         end
     endfunction
 
-    function automatic [COUNT_W-1:0] effective_trace_reps(input [23:0] reg_value);
+    function automatic [COUNT_W-1:0] effective_trace_reps(input [15:0] reg_value);
         begin
-            if (reg_value == 24'd0)
+            if (reg_value == 16'd0)
                 effective_trace_reps = {{(COUNT_W-1){1'b0}}, 1'b1};
             else
                 effective_trace_reps = reg_value[COUNT_W-1:0];
@@ -293,7 +311,7 @@ module trace_avg #(
                     if (output_pipe_valid_r) begin
                         mem_we_o   <= 1'b1;
                         mem_addr_o <= output_addr_pipe_r;
-                        mem_di_o   <= bram_doa;
+                        mem_di_o   <= pack_iq_accum(out_i_s, out_q_s);
                     end
 
                     output_pipe_valid_r <= 1'b1;
@@ -311,7 +329,7 @@ module trace_avg #(
                     if (output_pipe_valid_r) begin
                         mem_we_o   <= 1'b1;
                         mem_addr_o <= output_addr_pipe_r;
-                        mem_di_o   <= bram_doa;
+                        mem_di_o   <= pack_iq_accum(out_i_s, out_q_s);
                     end
                     output_pipe_valid_r <= 1'b0;
                     rep_cnt_r           <= '0;

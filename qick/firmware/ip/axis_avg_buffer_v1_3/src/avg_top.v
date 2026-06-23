@@ -89,8 +89,8 @@ input	[N-1:0]		DR_LEN_REG;
 input               AVG_PHOTON_MODE_REG;
 input   [B-1:0]     AVG_H_THRSH_REG;
 input   [B-1:0]     AVG_L_THRSH_REG;
-input   [23:0]      AVG_ACCUM_LEN_REG;
-input   [23:0]      AVG_TRACE_REPS_REG;
+input   [15:0]      AVG_ACCUM_LEN_REG;
+input   [15:0]      AVG_TRACE_REPS_REG;
 
 //////////////////////
 // Internal signals //
@@ -105,8 +105,8 @@ wire	[8*B-1:0]	mem_di_int, mem_do_int;
 wire	[8*B-1:0]	mem_doa_int;
 
 wire	[1:0]		AVG_START_REG_resync;
-wire	[23:0]		avg_accum_len_resync;
-wire	[23:0]		avg_trace_reps_resync;
+wire	[15:0]		avg_accum_len_resync;
+wire	[15:0]		avg_trace_reps_resync;
 wire				DR_START_REG_resync;
 
 wire				fifo_empty;
@@ -150,7 +150,7 @@ synchronizer_n
 genvar avg_accum_len_idx;
 
 generate
-	for (avg_accum_len_idx = 0; avg_accum_len_idx < 24; avg_accum_len_idx = avg_accum_len_idx + 1) begin : gen_avg_accum_len_resync
+	for (avg_accum_len_idx = 0; avg_accum_len_idx < 16; avg_accum_len_idx = avg_accum_len_idx + 1) begin : gen_avg_accum_len_resync
 		synchronizer_n
 			#(
 				.N  (2)
@@ -167,7 +167,7 @@ endgenerate
 genvar avg_trace_reps_idx;
 
 generate
-	for (avg_trace_reps_idx = 0; avg_trace_reps_idx < 24; avg_trace_reps_idx = avg_trace_reps_idx + 1) begin : gen_avg_trace_reps_resync
+	for (avg_trace_reps_idx = 0; avg_trace_reps_idx < 16; avg_trace_reps_idx = avg_trace_reps_idx + 1) begin : gen_avg_trace_reps_resync
 		synchronizer_n
 			#(
 				.N  (2)

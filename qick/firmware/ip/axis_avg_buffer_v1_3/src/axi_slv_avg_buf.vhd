@@ -20,8 +20,9 @@
 -- reg12 0x30 AVG_PHOTON_MODE_REG
 -- reg13 0x34 AVG_H_THRSH_REG
 -- reg14 0x38 AVG_L_THRSH_REG
--- reg15 0x3c AVG_ACCUM_LEN_REG[23:0], effective M = 1 for values 0 or 1
--- reg16 0x40 AVG_TRACE_REPS_REG[23:0], effective R = 1 for value 0
+-- reg15 0x3c AVG_ACCUM_LEN_REG[15:0], effective M = 1 for values 0 or 1
+-- reg16 0x40 AVG_TRACE_REPS_REG[15:0], effective R = 1 for value 0
+--       Upper bits of reg15/reg16 are forced to zero on write/read.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -66,8 +67,8 @@ entity axi_slv_avg_buf is
         AVG_PHOTON_MODE_REG: out std_logic;
         AVG_H_THRSH_REG    : out std_logic_vector(31 downto 0);
         AVG_L_THRSH_REG    : out std_logic_vector(31 downto 0);
-        AVG_ACCUM_LEN_REG  : out std_logic_vector(23 downto 0);
-        AVG_TRACE_REPS_REG : out std_logic_vector(23 downto 0);
+        AVG_ACCUM_LEN_REG  : out std_logic_vector(15 downto 0);
+        AVG_TRACE_REPS_REG : out std_logic_vector(15 downto 0);
         AVG_DR_START_REG   : out std_logic;
         AVG_DR_ADDR_REG    : out std_logic_vector(31 downto 0);
         AVG_DR_LEN_REG     : out std_logic_vector(31 downto 0);
@@ -179,6 +180,9 @@ begin
                                 wdata(byte_index*8+7 downto byte_index*8);
                         end if;
                     end loop;
+                    if loc_addr = 15 or loc_addr = 16 then
+                        slv_regs(loc_addr)(DATA_WIDTH-1 downto 16) <= (others => '0');
+                    end if;
                 end if;
             end if;
         end if;
@@ -277,7 +281,7 @@ begin
     AVG_PHOTON_MODE_REG <= slv_regs(12)(0);
     AVG_H_THRSH_REG     <= slv_regs(13);
     AVG_L_THRSH_REG     <= slv_regs(14);
-    AVG_ACCUM_LEN_REG   <= slv_regs(15)(23 downto 0);
-    AVG_TRACE_REPS_REG  <= slv_regs(16)(23 downto 0);
+    AVG_ACCUM_LEN_REG   <= slv_regs(15)(15 downto 0);
+    AVG_TRACE_REPS_REG  <= slv_regs(16)(15 downto 0);
 
 end rtl;
