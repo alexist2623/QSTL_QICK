@@ -20,7 +20,7 @@ localparam logic [1:0] OP_SET  = 2'b01;
 localparam logic [1:0] OP_RAMP = 2'b10;
 localparam logic [1:0] OP_IDLE = 2'b11;
 
-localparam int RAMP_STARTUP_LATENCY_CYCLES = 2;
+localparam int RAMP_STARTUP_LATENCY_CYCLES = 4;
 localparam int RAMP_FILL_WORDS_AFTER_COMMAND = RAMP_STARTUP_LATENCY_CYCLES - 1;
 
 logic                   aresetn;

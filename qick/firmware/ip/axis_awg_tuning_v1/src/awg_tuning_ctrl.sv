@@ -22,8 +22,8 @@
 // - m_axis_tvalid is 1 after reset deassertion in every state.
 // - SET executes inside IDLE_ST without a separate SET state.
 // - RAMP starts from the internal current value, uses the command-provided
-//   step field, and emits one N_PTS-wide word every aclk after a two-cycle
-//   start latency.
+//   step field, and emits one N_PTS-wide word every aclk after a four-cycle
+//   start latency through command/product/add-saturate/word registers.
 // - OP_IDLE is a no-op in this simplified FSM.
 // - Commands presented during RAMP_ST are intentionally dropped.
 //   The command input is always ready; software/tProc must avoid issuing
@@ -68,6 +68,7 @@ localparam logic [1:0] OP_SET  = 2'b01;
 localparam logic [1:0] OP_RAMP = 2'b10;
 localparam logic [1:0] OP_IDLE = 2'b11;
 localparam logic [31:0] N_PTS_U32 = N_PTS;
+localparam int PRODUCT_WIDTH = 64;
 
 typedef enum logic {
    IDLE_ST,
@@ -104,6 +105,18 @@ logic [31:0]        ramp_pipe_duration_r;
 logic [31:0]        ramp_pipe_base_index_r;
 logic               ramp_pipe_last_r;
 logic               ramp_pipe_valid_r;
+
+logic signed [31:0] ramp_product_start_r;
+logic signed [31:0] ramp_product_target_r;
+logic [31:0]        ramp_product_duration_r;
+logic [31:0]        ramp_product_base_index_r;
+logic [N_PTS*PRODUCT_WIDTH-1:0] ramp_product_pipe_r;
+logic               ramp_product_pipe_last_r;
+logic               ramp_product_pipe_valid_r;
+
+logic [N_PTS*B-1:0] ramp_sum_sat_pipe_r;
+logic               ramp_sum_sat_pipe_last_r;
+logic               ramp_sum_sat_pipe_valid_r;
 
 logic [N_PTS*B-1:0] ramp_word_pipe_r;
 logic               ramp_word_pipe_last_r;
@@ -177,37 +190,55 @@ function automatic logic [B-1:0] sat_fixed64;
    end
 endfunction
 
-function automatic logic [N_PTS*B-1:0] ramp_word;
-   input logic signed [31:0] start_value;
-   input logic signed [31:0] target_value;
-   input logic [31:0] duration;
+function automatic logic [N_PTS*PRODUCT_WIDTH-1:0] ramp_products;
    input logic signed [31:0] step;
    input logic [31:0] base_index;
-   logic [N_PTS*B-1:0] word;
+   logic [N_PTS*PRODUCT_WIDTH-1:0] products;
    logic [31:0] sample_index;
-   logic signed [63:0] fixed_value;
-   logic signed [63:0] start_fixed;
    logic signed [63:0] step_ext;
    logic signed [63:0] sample_index_ext;
    begin
-      word = {N_PTS*B{1'b0}};
-      start_fixed = {{32{start_value[31]}}, start_value} <<< FRAC;
+      products = {N_PTS*PRODUCT_WIDTH{1'b0}};
       step_ext = {{32{step[31]}}, step};
 
       for (int i = 0; i < N_PTS; i = i + 1) begin
          sample_index = base_index + i;
          sample_index_ext = {32'd0, sample_index};
+         products[i*PRODUCT_WIDTH +: PRODUCT_WIDTH] = step_ext * sample_index_ext;
+      end
 
+      ramp_products = products;
+   end
+endfunction
+
+function automatic logic [N_PTS*B-1:0] ramp_word_from_products;
+   input logic signed [31:0] start_value;
+   input logic signed [31:0] target_value;
+   input logic [31:0] duration;
+   input logic [31:0] base_index;
+   input logic [N_PTS*PRODUCT_WIDTH-1:0] products;
+   logic [N_PTS*B-1:0] word;
+   logic [31:0] sample_index;
+   logic signed [63:0] fixed_value;
+   logic signed [63:0] start_fixed;
+   logic signed [63:0] product_value;
+   begin
+      word = {N_PTS*B{1'b0}};
+      start_fixed = {{32{start_value[31]}}, start_value} <<< FRAC;
+
+      for (int i = 0; i < N_PTS; i = i + 1) begin
+         sample_index = base_index + i;
+         product_value = products[i*PRODUCT_WIDTH +: PRODUCT_WIDTH];
          if (duration <= 32'd1 || sample_index >= duration - 32'd1) begin
             word[i*B +: B] = sat_int32(target_value);
          end
          else begin
-            fixed_value = start_fixed + (step_ext * sample_index_ext);
+            fixed_value = start_fixed + product_value;
             word[i*B +: B] = sat_fixed64(fixed_value);
          end
       end
 
-      ramp_word = word;
+      ramp_word_from_products = word;
    end
 endfunction
 
@@ -228,9 +259,13 @@ wire [N_PTS*B-1:0] hold_word = sample_word(hold_sample_r);
 wire [N_PTS*B-1:0] cmd_set_word = sample_word(cmd_target_sample);
 wire [N_PTS*B-1:0] axi_override_word = sample_word(axi_override_sample);
 wire [31:0] ramp_pipe_next_base_index = ramp_pipe_base_index_r + N_PTS_U32;
-wire [N_PTS*B-1:0] ramp_pipe_word =
-   ramp_word(ramp_pipe_start_r, ramp_pipe_target_r, ramp_pipe_duration_r,
-             ramp_pipe_step_r, ramp_pipe_base_index_r);
+wire [N_PTS*PRODUCT_WIDTH-1:0] ramp_product_pipe_next =
+   ramp_products(ramp_pipe_step_r, ramp_pipe_base_index_r);
+wire [N_PTS*B-1:0] ramp_sum_sat_pipe_next =
+   ramp_word_from_products(ramp_product_start_r, ramp_product_target_r,
+                           ramp_product_duration_r,
+                           ramp_product_base_index_r,
+                           ramp_product_pipe_r);
 
 always_comb begin
    s_axis_tready = 1'b1;
@@ -262,6 +297,16 @@ always_ff @(posedge aclk) begin
       ramp_pipe_base_index_r <= 32'd0;
       ramp_pipe_last_r    <= 1'b0;
       ramp_pipe_valid_r   <= 1'b0;
+      ramp_product_start_r <= 32'sd0;
+      ramp_product_target_r <= 32'sd0;
+      ramp_product_duration_r <= 32'd1;
+      ramp_product_base_index_r <= 32'd0;
+      ramp_product_pipe_r <= {N_PTS*PRODUCT_WIDTH{1'b0}};
+      ramp_product_pipe_last_r <= 1'b0;
+      ramp_product_pipe_valid_r <= 1'b0;
+      ramp_sum_sat_pipe_r <= {N_PTS*B{1'b0}};
+      ramp_sum_sat_pipe_last_r <= 1'b0;
+      ramp_sum_sat_pipe_valid_r <= 1'b0;
       ramp_word_pipe_r    <= {N_PTS*B{1'b0}};
       ramp_word_pipe_last_r <= 1'b0;
       ramp_word_pipe_valid_r <= 1'b0;
@@ -285,6 +330,10 @@ always_ff @(posedge aclk) begin
          ramp_base_index_r   <= 32'd0;
          ramp_pipe_valid_r   <= 1'b0;
          ramp_pipe_last_r    <= 1'b0;
+         ramp_product_pipe_valid_r <= 1'b0;
+         ramp_product_pipe_last_r <= 1'b0;
+         ramp_sum_sat_pipe_valid_r <= 1'b0;
+         ramp_sum_sat_pipe_last_r <= 1'b0;
          ramp_word_pipe_valid_r <= 1'b0;
          ramp_word_pipe_last_r <= 1'b0;
          state               <= IDLE_ST;
@@ -300,6 +349,8 @@ always_ff @(posedge aclk) begin
                         current_value_r <= cmd_hold_zero ? 32'sd0 : cmd_target;
                         current_value_readback_r <= cmd_target;
                         ramp_pipe_valid_r <= 1'b0;
+                        ramp_product_pipe_valid_r <= 1'b0;
+                        ramp_sum_sat_pipe_valid_r <= 1'b0;
                         ramp_word_pipe_valid_r <= 1'b0;
                         state           <= IDLE_ST;
                      end
@@ -317,6 +368,10 @@ always_ff @(posedge aclk) begin
                         ramp_pipe_base_index_r <= 32'd0;
                         ramp_pipe_last_r    <= ramp_base_is_last(32'd0, cmd_duration_norm);
                         ramp_pipe_valid_r   <= 1'b1;
+                        ramp_product_pipe_valid_r <= 1'b0;
+                        ramp_product_pipe_last_r <= 1'b0;
+                        ramp_sum_sat_pipe_valid_r <= 1'b0;
+                        ramp_sum_sat_pipe_last_r <= 1'b0;
                         ramp_word_pipe_valid_r <= 1'b0;
                         ramp_word_pipe_last_r <= 1'b0;
                         state               <= RAMP_ST;
@@ -334,32 +389,55 @@ always_ff @(posedge aclk) begin
             end
 
             RAMP_ST: begin
-               if (ramp_word_pipe_valid_r) begin
+               if (ramp_word_pipe_valid_r && ramp_word_pipe_last_r) begin
                   m_axis_tdata <= ramp_word_pipe_r;
                   current_value_readback_r <= lane_to_i32(ramp_word_pipe_r[B-1:0]);
-
-                  if (ramp_word_pipe_last_r) begin
-                     hold_sample_r   <= sat_int32(ramp_target_value_r);
-                     current_value_r <= ramp_target_value_r;
-                     ramp_pipe_valid_r <= 1'b0;
-                     ramp_word_pipe_valid_r <= 1'b0;
-                     state           <= IDLE_ST;
-                  end
+                  hold_sample_r   <= sat_int32(ramp_target_value_r);
+                  current_value_r <= ramp_target_value_r;
+                  ramp_pipe_valid_r <= 1'b0;
+                  ramp_product_pipe_valid_r <= 1'b0;
+                  ramp_sum_sat_pipe_valid_r <= 1'b0;
+                  ramp_word_pipe_valid_r <= 1'b0;
+                  state           <= IDLE_ST;
                end
-
-               if (ramp_pipe_valid_r) begin
-                  ramp_word_pipe_r <= ramp_pipe_word;
-                  ramp_word_pipe_valid_r <= 1'b1;
-                  ramp_word_pipe_last_r <= ramp_pipe_last_r;
-                  ramp_base_index_r <= ramp_pipe_base_index_r;
-
-                  if (ramp_pipe_last_r) begin
-                     ramp_pipe_valid_r <= 1'b0;
+               else begin
+                  if (ramp_word_pipe_valid_r) begin
+                     m_axis_tdata <= ramp_word_pipe_r;
+                     current_value_readback_r <= lane_to_i32(ramp_word_pipe_r[B-1:0]);
                   end
-                  else begin
-                     ramp_pipe_base_index_r <= ramp_pipe_next_base_index;
-                     ramp_pipe_last_r <= ramp_base_is_last(ramp_pipe_next_base_index,
-                                                           ramp_pipe_duration_r);
+
+                  if (ramp_sum_sat_pipe_valid_r) begin
+                     ramp_word_pipe_r <= ramp_sum_sat_pipe_r;
+                     ramp_word_pipe_last_r <= ramp_sum_sat_pipe_last_r;
+                  end
+                  ramp_word_pipe_valid_r <= ramp_sum_sat_pipe_valid_r;
+
+                  if (ramp_product_pipe_valid_r) begin
+                     ramp_sum_sat_pipe_r <= ramp_sum_sat_pipe_next;
+                     ramp_sum_sat_pipe_last_r <= ramp_product_pipe_last_r;
+                  end
+                  ramp_sum_sat_pipe_valid_r <= ramp_product_pipe_valid_r;
+
+                  if (ramp_pipe_valid_r) begin
+                     ramp_product_pipe_r <= ramp_product_pipe_next;
+                     ramp_product_start_r <= ramp_pipe_start_r;
+                     ramp_product_target_r <= ramp_pipe_target_r;
+                     ramp_product_duration_r <= ramp_pipe_duration_r;
+                     ramp_product_base_index_r <= ramp_pipe_base_index_r;
+                     ramp_product_pipe_last_r <= ramp_pipe_last_r;
+                     ramp_base_index_r <= ramp_pipe_base_index_r;
+                  end
+                  ramp_product_pipe_valid_r <= ramp_pipe_valid_r;
+
+                  if (ramp_pipe_valid_r) begin
+                     if (ramp_pipe_last_r) begin
+                        ramp_pipe_valid_r <= 1'b0;
+                     end
+                     else begin
+                        ramp_pipe_base_index_r <= ramp_pipe_next_base_index;
+                        ramp_pipe_last_r <= ramp_base_is_last(ramp_pipe_next_base_index,
+                                                              ramp_pipe_duration_r);
+                     end
                   end
                end
             end

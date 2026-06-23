@@ -18,7 +18,7 @@ The current RTL has these software-visible semantics:
 * The command start field is reserved/deprecated and ignored by RTL.
 * RTL does not calculate the RAMP step or infer a divider; software must pack
   the desired step into the command.
-* RAMP output starts after a two-cycle command-to-output pipeline latency.
+* RAMP output starts after a four-cycle command-to-output pipeline latency.
 * Commands presented during an active ramp are dropped by hardware.
 * Timed IDLE is not supported unless explicitly reintroduced in RTL.
 
@@ -64,7 +64,7 @@ class AxisAwgTuningV1(SocIP):
     OUTPUT_READY_IGNORED = True
     DROPS_COMMANDS_WHILE_RAMPING = True
     HAS_TIMED_IDLE = False
-    RAMP_STARTUP_LATENCY_CYCLES = 2
+    RAMP_STARTUP_LATENCY_CYCLES = 4
 
     FIELD_MIN = -(2**31)
     FIELD_MAX = 2**31 - 1
