@@ -19,8 +19,8 @@ The production block design routes these two RFDC-bound streams:
 The user's `maxis1` request maps to the actual production port
 `axis_tproc64x32_x8_0/m1_axis`.
 
-The production AWG IP instance uses `N_DDS=16`, matching the 256-bit RFDC
-stream width (`16 lanes x 16 bits`). This project uses the same `N_DDS=16`.
+The production AWG IP instance uses `N_PTS=16`, matching the 256-bit RFDC
+stream width (`16 lanes x 16 bits`). This project uses the same `N_PTS=16`.
 
 ## What this project does
 
@@ -38,8 +38,9 @@ stream width (`16 lanes x 16 bits`). This project uses the same `N_DDS=16`.
 - Replaces the tProcessor with a simple testbench AXIS command source.
 - Replaces the RFDC with named external BD ports:
   `siggen_dac_axis_*` and `awg_dac_axis_*`.
-- Ties off signal-generator AXI-Lite and `s0_axis` waveform-load inputs because
-  the selected signal-generator stimulus uses the real DDS-only output path.
+- Ties off the AWG AXI-Lite interface, signal-generator AXI-Lite interface, and
+  signal-generator `s0_axis` waveform-load inputs because this simulation is
+  focused on the AXIS command paths.
 
 ## Pruned simulation routing
 

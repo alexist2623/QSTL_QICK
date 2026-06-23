@@ -14,12 +14,12 @@
 module tb;
 
     localparam int B = 16;
-    localparam int N_AVG = 8;
+    localparam int N_AVG = 10;
     localparam int N_BUF = 8;
     localparam int ACC_WIDTH = 4 * B;
     localparam int AVG_WIDTH = 8 * B;
-    localparam int TRACE_REPS_100 = 100;
-    localparam int MAX_STORED = 128;
+    localparam int TRACE_REPS_10000 = 10000;
+    localparam int MAX_STORED = 1024;
     localparam real TWO_PI = 6.2831853071795864769;
 
     localparam logic [6:0] REG_AVG_START      = 7'h00;
@@ -149,10 +149,14 @@ module tb;
 
     function automatic int signed noise(input int rep, input int n, input int salt);
         int unsigned x;
+        int unsigned pair_rep;
+        int signed base_noise;
         begin
-            x = 32'h1234_5678 ^ (rep * 32'h045d_9f3b) ^ (n * 32'h119d_e1f3) ^ salt;
+            pair_rep = rep >> 1;
+            x = 32'h1234_5678 ^ (pair_rep * 32'h045d_9f3b) ^ (n * 32'h119d_e1f3) ^ salt;
             x = (x ^ (x >> 16)) * 32'h045d_9f3b;
-            noise = int'(x[5:0]) - 32;
+            base_noise = int'(x[5:0]) - 32;
+            noise = ((rep % 2) == 0) ? base_noise : -base_noise;
         end
     endfunction
 
@@ -163,21 +167,15 @@ module tb;
         input int waveform
     );
         real x;
-        int signed shelf;
         begin
             x = TWO_PI * real'(n) / real'(input_len);
             case (waveform)
                 0: stimulus_i = 1000 + 3*n + noise(rep, n, 32'h101);
                 1: stimulus_i = -1800 + 5*n + noise(rep, n, 32'h202);
                 2: begin
-                    shelf = (n < (input_len/2)) ? 420 : -360;
                     stimulus_i = $rtoi(
-                        1500.0*$sin(3.0*x + 0.10) +
-                         630.0*$sin(9.0*x - 0.25) +
-                         240.0*$cos(17.0*x + 0.35) +
-                         shelf +
-                         20.0*real'((n % 9) - 4)
-                    ) + noise(rep, n, 32'h303);
+                        1800.0*$sin(4.0*x + 0.25)
+                    ) + 100*noise(rep, n, 32'h303);
                 end
                 3: stimulus_i = 32767;
                 default: stimulus_i = n + noise(rep, n, 32'h404);
@@ -192,24 +190,28 @@ module tb;
         input int waveform
     );
         real x;
-        real chirp_x;
-        int signed shelf;
+        real phase;
+        real trapezoid;
         begin
             x = TWO_PI * real'(n) / real'(input_len);
-            chirp_x = TWO_PI * (1.0 + 2.0*real'(n)/real'(input_len)) *
-                      real'(n) / real'(input_len);
             case (waveform)
                 0: stimulus_q = -500 + 2*n + noise(rep, n, 32'h505);
                 1: stimulus_q = -2600 + 7*n + noise(rep, n, 32'h606);
                 2: begin
-                    shelf = ((n >= input_len/4) && (n < 3*input_len/4)) ? 300 : -210;
-                    stimulus_q = $rtoi(
-                        -250.0 +
-                        1280.0*$cos(5.0*x + 0.20) -
-                         540.0*$sin(13.0*x - 0.40) +
-                         370.0*$sin(4.0*chirp_x) +
-                         shelf
-                    ) + noise(rep, n, 32'h707);
+                    phase = 4.0*real'(n)/real'(input_len) + 0.0557;
+                    phase = phase - $floor(phase);
+                    if (phase < 0.20) begin
+                        trapezoid = -1400.0;
+                    end else if (phase < 0.40) begin
+                        trapezoid = -1400.0 + 2800.0*(phase - 0.20)/0.20;
+                    end else if (phase < 0.70) begin
+                        trapezoid = 1400.0;
+                    end else if (phase < 0.90) begin
+                        trapezoid = 1400.0 - 2800.0*(phase - 0.70)/0.20;
+                    end else begin
+                        trapezoid = -1400.0;
+                    end
+                    stimulus_q = $rtoi(trapezoid) + 100*noise(rep, n, 32'h707);
                 end
                 3: stimulus_q = -32768;
                 default: stimulus_q = -n + noise(rep, n, 32'h808);
@@ -698,7 +700,7 @@ module tb;
         run_normal_case("M5 direct accumulation", 5, 12, 2);
         run_trace_case("M3 R4 trace accumulation", 3, 4, 15, 0);
         run_trace_case("negative signed M5 R4", 5, 4, 12, 1);
-        run_trace_case("complex sine/chirp M3 R100", 3, TRACE_REPS_100, 21, 2);
+        run_trace_case("sine/ramped-square M20 R10000 300x window", 20, TRACE_REPS_10000, 945, 2);
         run_raw_buffer_unchanged_test();
         run_32bit_boundary_test();
         $display("PASS: tb_trace_noise_avg completed v1.3 direct accumulation tests");

@@ -35,7 +35,7 @@ set xelab [xsim_tool xelab]
 set xsim  [xsim_tool xsim]
 
 set sources [list \
-   [file join $src_dir awg_linear_ramp.sv] \
+   [file join $src_dir axi_slv_awg_tuning_v1.sv] \
    [file join $src_dir awg_tuning_ctrl.sv] \
    [file join $src_dir axis_awg_tuning_v1.sv] \
    [file join $script_dir tb_simple.sv] \

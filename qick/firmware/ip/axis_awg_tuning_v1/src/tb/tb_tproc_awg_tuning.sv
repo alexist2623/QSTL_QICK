@@ -5,10 +5,10 @@ module tb_tproc_awg_tuning();
 
 localparam int PMEM_N = 16;
 localparam int DMEM_N = 10;
-localparam int N_DDS = 4;
+localparam int N_PTS = 4;
 localparam int B = 16;
 localparam int FRAC = 16;
-localparam int OUT_WIDTH = N_DDS*B;
+localparam int OUT_WIDTH = N_PTS*B;
 
 // Exactly one mode should be enabled.
 // USE_TPROC_PROGRAM expects a valid tProcessor v1 program image in prog.bin.
@@ -230,13 +230,34 @@ axis_tproc64x32_x8
 
 axis_awg_tuning_v1
    #(
-      .N_DDS     (N_DDS),
+      .N_PTS     (N_PTS),
       .B         (B    ),
       .FRAC      (FRAC ),
       .CMD_WIDTH (160  )
    )
    awg_tuning_i
    (
+      .s_axi_aclk       (s_axi_aclk         ),
+      .s_axi_aresetn    (s_axi_aresetn      ),
+      .s_axi_awaddr     (6'd0               ),
+      .s_axi_awprot     (3'd0               ),
+      .s_axi_awvalid    (1'b0               ),
+      .s_axi_awready    (                   ),
+      .s_axi_wdata      (32'd0              ),
+      .s_axi_wstrb      (4'd0               ),
+      .s_axi_wvalid     (1'b0               ),
+      .s_axi_wready     (                   ),
+      .s_axi_bresp      (                   ),
+      .s_axi_bvalid     (                   ),
+      .s_axi_bready     (1'b1               ),
+      .s_axi_araddr     (6'd0               ),
+      .s_axi_arprot     (3'd0               ),
+      .s_axi_arvalid    (1'b0               ),
+      .s_axi_arready    (                   ),
+      .s_axi_rdata      (                   ),
+      .s_axi_rresp      (                   ),
+      .s_axi_rvalid     (                   ),
+      .s_axi_rready     (1'b1               ),
       .aresetn          (aresetn            ),
       .aclk             (aclk               ),
       .s_axis_tdata     (awg_s_axis_tdata   ),
@@ -381,7 +402,7 @@ end
 
 always_ff @(posedge aclk) begin
    if (aresetn && awg_m_axis_tvalid && awg_m_axis_tready) begin
-      for (int i = 0; i < N_DDS; i = i + 1) begin
+      for (int i = 0; i < N_PTS; i = i + 1) begin
          lane_value = awg_m_axis_tdata[i*B +: B];
          $fwrite(fd, "%0t,%0d,%0d\n", $time, i, lane_value);
       end

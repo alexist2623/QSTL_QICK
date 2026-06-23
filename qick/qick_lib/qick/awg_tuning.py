@@ -2,11 +2,10 @@
 Driver helpers for ``axis_awg_tuning_v1``.
 
 ``axis_awg_tuning_v1`` is an AXIS-command-controlled continuous DAC sample
-source. It has no AXI-Lite command registers, so this driver does not try to
-write commands directly to hardware. Instead it binds the IP into the
-QICK/PYNQ driver model, discovers the tProcessor connection when metadata is
-available, and provides command-packing helpers for tProcessor program
-generation.
+source. The tProcessor AXIS command path remains the normal SET/RAMP control
+path. The IP also exposes a minimal AXI-Lite register pair for software/debug
+current-output override and readback only; AXI-Lite does not execute SET/RAMP
+commands or provide ramp duration/start/step controls.
 
 The current RTL has these software-visible semantics:
 
@@ -33,12 +32,12 @@ from qick.ip import SocIP
 
 
 class AxisAwgTuningV1(SocIP):
-    """Python helper driver for the AXIS-command-driven AWG tuning IP.
+    """Python helper driver for the AWG tuning IP.
 
-    The class intentionally has no direct ``send`` method: the firmware exposes
-    only AXIS command and sample ports, not software-writable command registers.
-    Use :meth:`pack_cmd` or the opcode-specific helpers to generate command
-    words for a tProcessor program or another firmware command source.
+    Use :meth:`pack_cmd` or the opcode-specific helpers to generate SET/RAMP
+    command words for a tProcessor program or another firmware command source.
+    Use :meth:`override_current` only for direct software/debug current-output
+    override through AXI-Lite.
     """
 
     bindto = [
@@ -68,8 +67,16 @@ class AxisAwgTuningV1(SocIP):
 
     def _init_config(self, description):
         """Read IP parameters from the overlay description."""
+        self.REGISTERS = {
+            "current_value_reg": 0,
+            "status_reg": 1,
+        }
+
         params = description.get("parameters", {})
-        n_dds = self._param_int(params, "N_DDS", 16)
+        if "N_PTS" in params:
+            n_pts = self._param_int(params, "N_PTS", 16)
+        else:
+            n_pts = self._param_int(params, "N_DDS", 16)
         b = self._param_int(params, "B", 16)
         frac = self._param_int(params, "FRAC", 16)
         cmd_width = self._param_int(params, "CMD_WIDTH", 160)
@@ -77,8 +84,8 @@ class AxisAwgTuningV1(SocIP):
         if cmd_width < 149:
             raise ValueError("axis_awg_tuning_v1 command width must include bits through 148")
 
-        self.cfg["n_dds"] = n_dds
-        self.cfg["samps_per_clk"] = n_dds
+        self.cfg["n_pts"] = n_pts
+        self.cfg["samps_per_clk"] = n_pts
         self.cfg["b"] = b
         self.cfg["frac"] = frac
         self.cfg["cmd_width"] = cmd_width
@@ -98,11 +105,7 @@ class AxisAwgTuningV1(SocIP):
         self.cfg["downstream"] = None
 
     def _init_firmware(self):
-        """Initialize software-only cached state.
-
-        There are no AXI-Lite command registers in this IP, so firmware
-        initialization must not write registers.
-        """
+        """Initialize software-only cached state without changing hardware."""
         self.current_value = 0
         self.current_valid = False
         self.last_ramp_start = None
@@ -199,6 +202,50 @@ class AxisAwgTuningV1(SocIP):
         if value & 0x80000000:
             return value - 0x100000000
         return value
+
+    def override_current(self, value, *, saturate=False):
+        """Override the current output value through AXI-Lite.
+
+        This is a debug/software override of ``CURRENT_VALUE_REG``. Hardware
+        aborts any active ramp, forces the FSM back to IDLE_ST, and holds the
+        written scalar value replicated across all ``N_PTS`` output lanes. It
+        does not use the AXIS command parser.
+        """
+        value = self._check_int(value, "value")
+        if saturate:
+            value = self.clip_sample(value)
+        self.current_value_reg = self._to_u32_signed(value, "value")
+        self.current_value = value
+        self.current_valid = True
+        self.last_ramp_start = None
+        self.last_ramp_step = None
+
+    def get_current(self):
+        """Read CURRENT_VALUE_REG as a signed 32-bit current output value."""
+        return self._from_u32_signed(int(self.current_value_reg))
+
+    def get_status(self, decode=False):
+        """Read STATUS_REG.
+
+        When ``decode`` is false, return the raw 32-bit integer. When true,
+        return a small dictionary for the implemented status bits.
+        """
+        status = int(self.status_reg) & 0xFFFFFFFF
+        if not decode:
+            return status
+        return {
+            "raw": status,
+            "idle": bool(status & 0x1),
+            "ramping": bool(status & 0x2),
+            "m_axis_tvalid": bool(status & 0x4),
+            "s_axis_tready": bool(status & 0x8),
+            "axi_override_pending": bool(status & 0x10),
+            "axi_override_seen": bool(status & 0x20),
+        }
+
+    def is_ramping(self):
+        """Return True when STATUS_REG indicates RAMP_ST."""
+        return bool(self.get_status() & 0x2)
 
     @staticmethod
     def _div_trunc_zero(num, den):
@@ -302,7 +349,7 @@ class AxisAwgTuningV1(SocIP):
     def ramp_cmd(self, final_output_value, ramp_duration, *, hold_zero=False, clear=False):
         """Return a RAMP command word and update the software cache.
 
-        The public API exposes only the final output value and scalar-sample
+        This AXIS command helper exposes only the final output value and scalar-sample
         duration because the current RTL ignores command start/step fields.
         The effective ramp starts from the IP's internal current output. This
         method uses the software ``current_value`` cache only for prediction and

@@ -44,7 +44,7 @@ create_bd_port -dir O awg_dac_axis_tvalid
 create_bd_port -dir I awg_dac_axis_tready
 
 set awg_cell [create_bd_cell -type ip -vlnv QICK:QICK:axis_awg_tuning_v1:1.0 axis_awg_tuning_v1_4]
-set_property -dict [list CONFIG.N_DDS {16} CONFIG.B {16} CONFIG.FRAC {16} CONFIG.CMD_WIDTH {160}] $awg_cell
+set_property -dict [list CONFIG.N_PTS {16} CONFIG.B {16} CONFIG.FRAC {16} CONFIG.CMD_WIDTH {160}] $awg_cell
 set siggen_cell [create_bd_cell -type ip -vlnv QICK:QICK:axis_signal_gen_v6:1.0 axis_signal_gen_v6_0]
 set_property -dict [list CONFIG.N {10} CONFIG.N_DDS {16} CONFIG.GEN_DDS {TRUE} CONFIG.ENVELOPE_TYPE {COMPLEX}] $siggen_cell
 
@@ -63,12 +63,25 @@ set_property -dict [list CONFIG.CONST_WIDTH {32} CONFIG.CONST_VAL {0}] $zero32
 
 connect_bd_net [get_bd_ports aclk] [get_bd_pins axis_awg_tuning_v1_4/aclk]
 connect_bd_net [get_bd_ports aresetn] [get_bd_pins axis_awg_tuning_v1_4/aresetn]
+connect_bd_net [get_bd_ports aclk] [get_bd_pins axis_awg_tuning_v1_4/s_axi_aclk]
+connect_bd_net [get_bd_ports aresetn] [get_bd_pins axis_awg_tuning_v1_4/s_axi_aresetn]
 connect_bd_net [get_bd_ports awg_s_axis_tdata] [get_bd_pins axis_awg_tuning_v1_4/s_axis_tdata]
 connect_bd_net [get_bd_ports awg_s_axis_tvalid] [get_bd_pins axis_awg_tuning_v1_4/s_axis_tvalid]
 connect_bd_net [get_bd_pins axis_awg_tuning_v1_4/s_axis_tready] [get_bd_ports awg_s_axis_tready]
 connect_bd_net [get_bd_pins axis_awg_tuning_v1_4/m_axis_tdata] [get_bd_ports awg_dac_axis_tdata]
 connect_bd_net [get_bd_pins axis_awg_tuning_v1_4/m_axis_tvalid] [get_bd_ports awg_dac_axis_tvalid]
 connect_bd_net [get_bd_ports awg_dac_axis_tready] [get_bd_pins axis_awg_tuning_v1_4/m_axis_tready]
+connect_bd_net [get_bd_pins zero6/dout] [get_bd_pins axis_awg_tuning_v1_4/s_axi_awaddr]
+connect_bd_net [get_bd_pins zero3/dout] [get_bd_pins axis_awg_tuning_v1_4/s_axi_awprot]
+connect_bd_net [get_bd_pins zero1/dout] [get_bd_pins axis_awg_tuning_v1_4/s_axi_awvalid]
+connect_bd_net [get_bd_pins zero32/dout] [get_bd_pins axis_awg_tuning_v1_4/s_axi_wdata]
+connect_bd_net [get_bd_pins zero4/dout] [get_bd_pins axis_awg_tuning_v1_4/s_axi_wstrb]
+connect_bd_net [get_bd_pins zero1/dout] [get_bd_pins axis_awg_tuning_v1_4/s_axi_wvalid]
+connect_bd_net [get_bd_pins one1/dout] [get_bd_pins axis_awg_tuning_v1_4/s_axi_bready]
+connect_bd_net [get_bd_pins zero6/dout] [get_bd_pins axis_awg_tuning_v1_4/s_axi_araddr]
+connect_bd_net [get_bd_pins zero3/dout] [get_bd_pins axis_awg_tuning_v1_4/s_axi_arprot]
+connect_bd_net [get_bd_pins zero1/dout] [get_bd_pins axis_awg_tuning_v1_4/s_axi_arvalid]
+connect_bd_net [get_bd_pins one1/dout] [get_bd_pins axis_awg_tuning_v1_4/s_axi_rready]
 
 connect_bd_net [get_bd_ports aclk] [get_bd_pins axis_signal_gen_v6_0/aclk]
 connect_bd_net [get_bd_ports aresetn] [get_bd_pins axis_signal_gen_v6_0/aresetn]

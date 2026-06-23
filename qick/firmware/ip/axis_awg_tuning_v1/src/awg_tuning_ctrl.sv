@@ -21,15 +21,18 @@
 // - m_axis_tready is ignored; output timing is deterministic.
 // - m_axis_tvalid is 1 after reset deassertion in every state.
 // - SET executes inside IDLE_ST without a separate SET state.
-// - RAMP executes in RAMP_ST and emits one N_DDS-wide word every aclk.
+// - RAMP executes in RAMP_ST and emits one N_PTS-wide word every aclk.
 // - OP_IDLE is a no-op in this simplified FSM.
 // - Commands presented during RAMP_ST are intentionally dropped.
 //   The command input is always ready; software/tProc must avoid issuing
 //   meaningful commands during an active ramp if they should not be lost.
+// - AXI-Lite override has higher priority than AXIS command processing.
+//   If an override and AXIS command arrive in the same cycle, the override
+//   is applied, the FSM is forced to IDLE_ST, and the AXIS command is dropped.
 
 module awg_tuning_ctrl
    #(
-      parameter int N_DDS = 16,
+      parameter int N_PTS = 16,
       parameter int B = 16,
       parameter int FRAC = 16,
       parameter int CMD_WIDTH = 160
@@ -44,17 +47,25 @@ module awg_tuning_ctrl
       input  wire                   s_axis_tvalid,
       output logic                  s_axis_tready,
 
+      // Software/debug override from the AXI-Lite clock-domain bridge.
+      input  wire signed [31:0]     axi_override_value,
+      input  wire                   axi_override_valid,
+
       // RFDC-facing continuous sample output.
-      output logic [N_DDS*B-1:0]    m_axis_tdata,
+      output logic [N_PTS*B-1:0]    m_axis_tdata,
       output logic                  m_axis_tvalid,
-      input  wire                   m_axis_tready
+      input  wire                   m_axis_tready,
+
+      // Synchronized by the top-level before AXI-Lite readback.
+      output logic signed [31:0]    current_value_o,
+      output logic [31:0]           status_o
    );
 
 localparam logic [1:0] OP_NOP  = 2'b00;
 localparam logic [1:0] OP_SET  = 2'b01;
 localparam logic [1:0] OP_RAMP = 2'b10;
 localparam logic [1:0] OP_IDLE = 2'b11;
-localparam logic [31:0] N_DDS_U32 = N_DDS;
+localparam logic [31:0] N_PTS_U32 = N_PTS;
 
 typedef enum logic {
    IDLE_ST,
@@ -75,6 +86,7 @@ wire               unused_cmd_clear = cmd_clear;
 
 logic [B-1:0]       hold_sample_r;
 logic signed [31:0] current_value_r;
+logic signed [31:0] current_value_readback_r;
 
 logic signed [31:0] ramp_start_value_r;
 logic signed [31:0] ramp_target_value_r;
@@ -108,12 +120,12 @@ function automatic logic [B-1:0] sat_int32;
    end
 endfunction
 
-function automatic logic [N_DDS*B-1:0] sample_word;
+function automatic logic [N_PTS*B-1:0] sample_word;
    input logic [B-1:0] sample;
-   logic [N_DDS*B-1:0] word;
+   logic [N_PTS*B-1:0] word;
    begin
-      word = {N_DDS*B{1'b0}};
-      for (int i = 0; i < N_DDS; i = i + 1)
+      word = {N_PTS*B{1'b0}};
+      for (int i = 0; i < N_PTS; i = i + 1)
          word[i*B +: B] = sample;
       sample_word = word;
    end
@@ -164,24 +176,24 @@ function automatic logic [B-1:0] sat_fixed64;
    end
 endfunction
 
-function automatic logic [N_DDS*B-1:0] ramp_word;
+function automatic logic [N_PTS*B-1:0] ramp_word;
    input logic signed [31:0] start_value;
    input logic signed [31:0] target_value;
    input logic [31:0] duration;
    input logic signed [31:0] step;
    input logic [31:0] base_index;
-   logic [N_DDS*B-1:0] word;
+   logic [N_PTS*B-1:0] word;
    logic [31:0] sample_index;
    logic signed [63:0] fixed_value;
    logic signed [63:0] start_fixed;
    logic signed [63:0] step_ext;
    logic signed [63:0] sample_index_ext;
    begin
-      word = {N_DDS*B{1'b0}};
+      word = {N_PTS*B{1'b0}};
       start_fixed = {{32{start_value[31]}}, start_value} <<< FRAC;
       step_ext = {{32{step[31]}}, step};
 
-      for (int i = 0; i < N_DDS; i = i + 1) begin
+      for (int i = 0; i < N_PTS; i = i + 1) begin
          sample_index = base_index + i;
          sample_index_ext = {32'd0, sample_index};
 
@@ -198,20 +210,39 @@ function automatic logic [N_DDS*B-1:0] ramp_word;
    end
 endfunction
 
+function automatic logic signed [31:0] lane_to_i32;
+   input logic [B-1:0] sample;
+   logic signed [B-1:0] signed_sample;
+   begin
+      signed_sample = sample;
+      lane_to_i32 = signed_sample;
+   end
+endfunction
+
 wire [31:0] cmd_duration_norm = normalize_duration(cmd_duration);
 wire [B-1:0] cmd_target_sample = sat_int32(cmd_target);
 wire [B-1:0] cmd_set_hold_sample = cmd_hold_zero ? {B{1'b0}} : cmd_target_sample;
 wire signed [31:0] cmd_ramp_step = calc_ramp_step(current_value_r, cmd_target, cmd_duration_norm);
-wire [N_DDS*B-1:0] hold_word = sample_word(hold_sample_r);
-wire [N_DDS*B-1:0] cmd_set_word = sample_word(cmd_target_sample);
-wire [N_DDS*B-1:0] cmd_first_ramp_word =
+wire [B-1:0] axi_override_sample = sat_int32(axi_override_value);
+wire [N_PTS*B-1:0] hold_word = sample_word(hold_sample_r);
+wire [N_PTS*B-1:0] cmd_set_word = sample_word(cmd_target_sample);
+wire [N_PTS*B-1:0] axi_override_word = sample_word(axi_override_sample);
+wire [N_PTS*B-1:0] cmd_first_ramp_word =
    ramp_word(current_value_r, cmd_target, cmd_duration_norm, cmd_ramp_step, 32'd0);
-wire [N_DDS*B-1:0] next_ramp_word =
+wire [N_PTS*B-1:0] next_ramp_word =
    ramp_word(ramp_start_value_r, ramp_target_value_r, ramp_duration_r, ramp_step_r, ramp_base_index_r);
-wire [N_DDS*B-1:0] ramp_target_hold_word = sample_word(sat_int32(ramp_target_value_r));
+wire [N_PTS*B-1:0] ramp_target_hold_word = sample_word(sat_int32(ramp_target_value_r));
 
 always_comb begin
    s_axis_tready = 1'b1;
+   status_o = 32'd0;
+   if (aresetn) begin
+      status_o[0] = (state == IDLE_ST);
+      status_o[1] = (state == RAMP_ST);
+      status_o[2] = m_axis_tvalid;
+      status_o[3] = s_axis_tready;
+   end
+   current_value_o = current_value_readback_r;
 end
 
 always_ff @(posedge aclk) begin
@@ -219,68 +250,88 @@ always_ff @(posedge aclk) begin
       state               <= IDLE_ST;
       hold_sample_r       <= {B{1'b0}};
       current_value_r     <= 32'sd0;
+      current_value_readback_r <= 32'sd0;
       ramp_start_value_r  <= 32'sd0;
       ramp_target_value_r <= 32'sd0;
       ramp_step_r         <= 32'sd0;
       ramp_duration_r     <= 32'd1;
       ramp_base_index_r   <= 32'd0;
-      m_axis_tdata        <= {N_DDS*B{1'b0}};
+      m_axis_tdata        <= {N_PTS*B{1'b0}};
       m_axis_tvalid       <= 1'b0;
    end
    else begin
       m_axis_tvalid <= 1'b1;
       m_axis_tdata  <= hold_word;
+      current_value_readback_r <= current_value_r;
 
-      case (state)
-         IDLE_ST: begin
-            if (cmd_valid) begin
-               case (cmd_opcode)
-                  OP_SET: begin
-                     m_axis_tdata    <= cmd_set_word;
-                     hold_sample_r   <= cmd_set_hold_sample;
-                     current_value_r <= cmd_hold_zero ? 32'sd0 : cmd_target;
-                     state           <= IDLE_ST;
-                  end
+      if (axi_override_valid) begin
+         m_axis_tdata        <= axi_override_word;
+         hold_sample_r       <= axi_override_sample;
+         current_value_r     <= axi_override_value;
+         current_value_readback_r <= axi_override_value;
+         ramp_start_value_r  <= axi_override_value;
+         ramp_target_value_r <= axi_override_value;
+         ramp_step_r         <= 32'sd0;
+         ramp_duration_r     <= 32'd1;
+         ramp_base_index_r   <= 32'd0;
+         state               <= IDLE_ST;
+      end
+      else begin
+         case (state)
+            IDLE_ST: begin
+               if (cmd_valid) begin
+                  case (cmd_opcode)
+                     OP_SET: begin
+                        m_axis_tdata    <= cmd_set_word;
+                        hold_sample_r   <= cmd_set_hold_sample;
+                        current_value_r <= cmd_hold_zero ? 32'sd0 : cmd_target;
+                        current_value_readback_r <= cmd_target;
+                        state           <= IDLE_ST;
+                     end
 
-                  OP_RAMP: begin
-                     m_axis_tdata        <= cmd_first_ramp_word;
-                     ramp_start_value_r  <= current_value_r;
-                     ramp_target_value_r <= cmd_target;
-                     ramp_step_r         <= cmd_ramp_step;
-                     ramp_duration_r     <= cmd_duration_norm;
-                     ramp_base_index_r   <= N_DDS_U32;
-                     state               <= RAMP_ST;
-                  end
+                     OP_RAMP: begin
+                        m_axis_tdata        <= cmd_first_ramp_word;
+                        current_value_readback_r <= lane_to_i32(cmd_first_ramp_word[B-1:0]);
+                        ramp_start_value_r  <= current_value_r;
+                        ramp_target_value_r <= cmd_target;
+                        ramp_step_r         <= cmd_ramp_step;
+                        ramp_duration_r     <= cmd_duration_norm;
+                        ramp_base_index_r   <= N_PTS_U32;
+                        state               <= RAMP_ST;
+                     end
 
-                  OP_NOP, OP_IDLE: begin
-                     state <= IDLE_ST;
-                  end
+                     OP_NOP, OP_IDLE: begin
+                        state <= IDLE_ST;
+                     end
 
-                  default: begin
-                     state <= IDLE_ST;
-                  end
-               endcase
+                     default: begin
+                        state <= IDLE_ST;
+                     end
+                  endcase
+               end
             end
-         end
 
-         RAMP_ST: begin
-            if (ramp_base_index_r >= ramp_duration_r) begin
-               m_axis_tdata    <= ramp_target_hold_word;
-               hold_sample_r   <= sat_int32(ramp_target_value_r);
-               current_value_r <= ramp_target_value_r;
-               state           <= IDLE_ST;
+            RAMP_ST: begin
+               if (ramp_base_index_r >= ramp_duration_r) begin
+                  m_axis_tdata    <= ramp_target_hold_word;
+                  hold_sample_r   <= sat_int32(ramp_target_value_r);
+                  current_value_r <= ramp_target_value_r;
+                  current_value_readback_r <= ramp_target_value_r;
+                  state           <= IDLE_ST;
+               end
+               else begin
+                  m_axis_tdata      <= next_ramp_word;
+                  current_value_readback_r <= lane_to_i32(next_ramp_word[B-1:0]);
+                  ramp_base_index_r <= ramp_base_index_r + N_PTS_U32;
+                  state             <= RAMP_ST;
+               end
             end
-            else begin
-               m_axis_tdata      <= next_ramp_word;
-               ramp_base_index_r <= ramp_base_index_r + N_DDS_U32;
-               state             <= RAMP_ST;
-            end
-         end
 
-         default: begin
-            state <= IDLE_ST;
-         end
-      endcase
+            default: begin
+               state <= IDLE_ST;
+            end
+         endcase
+      end
    end
 end
 

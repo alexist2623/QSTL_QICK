@@ -2,12 +2,12 @@
 `default_nettype none
 
 module tb_qstl_awg_tuning_sim;
-    localparam int N_DDS = 16;
+    localparam int N_PTS = 16;
     localparam int B = 16;
     localparam int FRAC = 16;
     localparam int CMD_WIDTH = 160;
     localparam int SIGGEN_ACLK_MHZ = 100;
-    localparam int SIGGEN_SAMPLE_RATE_MHZ = SIGGEN_ACLK_MHZ * N_DDS;
+    localparam int SIGGEN_SAMPLE_RATE_MHZ = SIGGEN_ACLK_MHZ * N_PTS;
     localparam int SIGGEN_FOUT_MHZ = 25;
     localparam logic [31:0] SIGGEN_FREQ_WORD = 32'h0400_0000;
 
@@ -154,7 +154,7 @@ module tb_qstl_awg_tuning_sim;
         begin
             word = '0;
             sample_bits = sample[15:0];
-            for (lane = 0; lane < N_DDS; lane = lane + 1) begin
+            for (lane = 0; lane < N_PTS; lane = lane + 1) begin
                 word[lane*B +: B] = sample_bits;
             end
             scalar_word = word;
@@ -193,8 +193,8 @@ module tb_qstl_awg_tuning_sim;
         begin
             word = '0;
             base_fixed = longint'(start_sample) <<< FRAC;
-            for (lane = 0; lane < N_DDS; lane = lane + 1) begin
-                sample_index = word_offset * N_DDS + lane;
+            for (lane = 0; lane < N_PTS; lane = lane + 1) begin
+                sample_index = word_offset * N_PTS + lane;
                 if ((duration <= 1) || (sample_index >= duration - 1)) begin
                     sample = target_sample;
                 end else begin
@@ -310,7 +310,7 @@ module tb_qstl_awg_tuning_sim;
         int unsigned cmd_cycle;
         begin
             step = calc_step(current, target, duration);
-            word_count = (duration + N_DDS - 1) / N_DDS;
+            word_count = (duration + N_PTS - 1) / N_PTS;
             send_awg_cmd(make_cmd(OP_RAMP, target, duration), cmd_cycle);
             expect_awg_current_word(expected_ramp_word(current, target, duration, step, 0), "RAMP command word");
             log_latency_event("awg", $sformatf("RAMP_%0d_first", target), cmd_cycle, cycle_count,
@@ -399,13 +399,13 @@ module tb_qstl_awg_tuning_sim;
             end
 
             if (awg_dac_tvalid && awg_dac_tready && siggen_dac_tvalid && siggen_dac_tready) begin
-                for (int cmp_lane = 0; cmp_lane < N_DDS; cmp_lane = cmp_lane + 1) begin
+                for (int cmp_lane = 0; cmp_lane < N_PTS; cmp_lane = cmp_lane + 1) begin
                     automatic int signed awg_sample;
                     automatic int signed siggen_sample;
                     awg_sample = $signed(awg_dac_tdata[cmp_lane*B +: B]);
                     siggen_sample = $signed(siggen_dac_tdata[cmp_lane*B +: B]);
                     $fwrite(compare_fd, "%0d,%0d,%0d,%0d\n",
-                            awg_word_count * N_DDS + cmp_lane,
+                            awg_word_count * N_PTS + cmp_lane,
                             awg_sample, siggen_sample, awg_sample - siggen_sample);
                 end
             end
@@ -423,15 +423,15 @@ module tb_qstl_awg_tuning_sim;
             awg_x16_valid <= 1'b1;
             awg_x16_word <= awg_serializer_word_index;
             awg_x16_lane <= awg_serializer_lane;
-            awg_x16_index <= awg_serializer_word_index * N_DDS + awg_serializer_lane;
+            awg_x16_index <= awg_serializer_word_index * N_PTS + awg_serializer_lane;
             awg_x16_tdata <= $signed(awg_serializer_word[awg_serializer_lane*B +: B]);
             $fwrite(awg_x16_fd, "%0d,%0d,%0d,%0d\n",
-                    awg_serializer_word_index * N_DDS + awg_serializer_lane,
+                    awg_serializer_word_index * N_PTS + awg_serializer_lane,
                     awg_serializer_word_index,
                     awg_serializer_lane,
                     $signed(awg_serializer_word[awg_serializer_lane*B +: B]));
 
-            if (awg_serializer_lane == N_DDS - 1) begin
+            if (awg_serializer_lane == N_PTS - 1) begin
                 awg_serializer_active <= 1'b0;
                 awg_serializer_lane <= 0;
             end else begin
@@ -453,15 +453,15 @@ module tb_qstl_awg_tuning_sim;
             siggen_x16_valid <= 1'b1;
             siggen_x16_word <= siggen_serializer_word_index;
             siggen_x16_lane <= siggen_serializer_lane;
-            siggen_x16_index <= siggen_serializer_word_index * N_DDS + siggen_serializer_lane;
+            siggen_x16_index <= siggen_serializer_word_index * N_PTS + siggen_serializer_lane;
             siggen_x16_tdata <= $signed(siggen_serializer_word[siggen_serializer_lane*B +: B]);
             $fwrite(siggen_x16_fd, "%0d,%0d,%0d,%0d\n",
-                    siggen_serializer_word_index * N_DDS + siggen_serializer_lane,
+                    siggen_serializer_word_index * N_PTS + siggen_serializer_lane,
                     siggen_serializer_word_index,
                     siggen_serializer_lane,
                     $signed(siggen_serializer_word[siggen_serializer_lane*B +: B]));
 
-            if (siggen_serializer_lane == N_DDS - 1) begin
+            if (siggen_serializer_lane == N_PTS - 1) begin
                 siggen_serializer_active <= 1'b0;
                 siggen_serializer_lane <= 0;
             end else begin
