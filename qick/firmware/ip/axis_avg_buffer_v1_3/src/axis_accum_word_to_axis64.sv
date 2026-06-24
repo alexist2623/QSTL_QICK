@@ -1,14 +1,17 @@
-// Split one accumulated IQ word into two AXIS beats.
+// Convert one accumulated IQ word into 64-bit AXIS beats.
 //
 // Internal AVG accumulation uses {Q_accum[4*B-1:0], I_accum[4*B-1:0]}.
 // The external processed AXIS interface remains 4*B bits wide for
 // compatibility with existing 64-bit tProc paths when B=16.
 //
-// Beat order:
+// Full-precision mode beat order:
 //   beat 0: I_accum
 //   beat 1: Q_accum
 //
-// tlast is asserted only on beat 1 when the input word was marked last.
+// Compact mode emits one beat:
+//   {Q_accum[2*B-1:0], I_accum[2*B-1:0]}
+//
+// For B=16, compact mode is {Q_accum[31:0], I_accum[31:0]}.
 module axis_accum_word_to_axis64 #(
     parameter int B = 16,
     parameter int ACC_CH_WIDTH = 4*B,
@@ -22,6 +25,7 @@ module axis_accum_word_to_axis64 #(
     output logic                         in_ready_o,
     input  logic [ACC_WORD_WIDTH-1:0]    in_word_i,
     input  logic                         in_last_i,
+    input  logic                         compact_i,
 
     output logic                         m_axis_tvalid,
     input  logic                         m_axis_tready,
@@ -34,14 +38,30 @@ module axis_accum_word_to_axis64 #(
     logic last_r;
     logic [ACC_WORD_WIDTH-1:0] word_r;
 
-    assign in_ready_o   = ~active_r;
-    assign m_axis_tvalid = active_r;
-    assign m_axis_tdata  = beat_sel_r ? word_r[ACC_WORD_WIDTH-1:ACC_CH_WIDTH]
-                                      : word_r[OUT_WIDTH-1:0];
-    assign m_axis_tlast  = active_r & beat_sel_r & last_r;
+    wire [ACC_CH_WIDTH-1:0] in_i_word = in_word_i[ACC_CH_WIDTH-1:0];
+    wire [ACC_CH_WIDTH-1:0] in_q_word = in_word_i[ACC_WORD_WIDTH-1:ACC_CH_WIDTH];
+    wire [ACC_CH_WIDTH-1:0] hold_i_word = word_r[ACC_CH_WIDTH-1:0];
+    wire [ACC_CH_WIDTH-1:0] hold_q_word = word_r[ACC_WORD_WIDTH-1:ACC_CH_WIDTH];
+    wire [OUT_WIDTH-1:0] compact_word = {
+        in_q_word[2*B-1:0],
+        in_i_word[2*B-1:0]
+    };
+
+    assign in_ready_o    = compact_i ? m_axis_tready : ~active_r;
+    assign m_axis_tvalid = compact_i ? in_valid_i : active_r;
+    assign m_axis_tdata  = compact_i ? compact_word :
+                           (beat_sel_r ? hold_q_word[OUT_WIDTH-1:0]
+                                       : hold_i_word[OUT_WIDTH-1:0]);
+    assign m_axis_tlast  = compact_i ? (in_valid_i & in_last_i) :
+                           (active_r & beat_sel_r & last_r);
 
     always_ff @(posedge clk) begin
         if (!rstn) begin
+            active_r   <= 1'b0;
+            beat_sel_r <= 1'b0;
+            last_r     <= 1'b0;
+            word_r     <= '0;
+        end else if (compact_i) begin
             active_r   <= 1'b0;
             beat_sel_r <= 1'b0;
             last_r     <= 1'b0;

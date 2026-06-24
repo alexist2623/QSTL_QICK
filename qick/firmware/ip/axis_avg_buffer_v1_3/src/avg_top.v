@@ -110,6 +110,7 @@ wire	[23:0]		avg_trace_reps_resync;
 wire				DR_START_REG_resync;
 
 wire				fifo_empty;
+wire				fifo_full;
 wire				m0_word_tvalid;
 wire				m0_word_tready;
 wire	[8*B-1:0]	m0_word_tdata;
@@ -326,6 +327,7 @@ axis_accum_word_to_axis64
         .in_ready_o     (m0_word_tready     ),
         .in_word_i      (m0_word_tdata      ),
         .in_last_i      (m0_word_tlast      ),
+        .compact_i      (1'b0               ),
 
         .m_axis_tvalid  (m0_axis_tvalid     ),
         .m_axis_tready  (m0_axis_tready     ),
@@ -334,13 +336,17 @@ axis_accum_word_to_axis64
     );
 
 // Output data register (dc fifo to cross domain).
+// The m2/tProc stream uses compact one-beat output downstream, but this FIFO
+// still stores the internal 8*B accumulated word. Depth 32 absorbs CDC/read
+// adapter startup latency for full-rate M=1 when m2_axis_tready stays high.
+// There is still no upstream stall path for arbitrary long m2 backpressure.
 fifo_dc_axi
     #(
         // Data width.
         .B	(8*B	),
         
         // Fifo depth.
-        .N	(4		)
+        .N	(32		)
     )
     fifo_i
     ( 
@@ -359,7 +365,7 @@ fifo_dc_axi
         .dout   	(m1_word_tdata	),
         
         // Flags.
-        .full    	(				),
+        .full    	(fifo_full		),
         .empty   	(fifo_empty		)
     );
 
@@ -378,6 +384,7 @@ axis_accum_word_to_axis64
         .in_ready_o     (m1_word_tready     ),
         .in_word_i      (m1_word_tdata      ),
         .in_last_i      (1'b0               ),
+        .compact_i      (1'b1               ),
 
         .m_axis_tvalid  (m1_axis_tvalid     ),
         .m_axis_tready  (m1_axis_tready     ),

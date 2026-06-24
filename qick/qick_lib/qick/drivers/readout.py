@@ -1065,9 +1065,13 @@ class AxisAvgBufferV1pt3(AxisAvgBufferV1pt2):
         self.cfg['avg_axis_output_bits'] = 4 * self.B
         self.cfg['avg_output_bits'] = 4 * self.B
         self.cfg['avg_logical_output_bits'] = 8 * self.B
+        self.cfg['m2_axis_compact_mode'] = True
+        self.cfg['m2_axis_format'] = 'q32_i32_lower'
 
         # For B=16, v1.3 emits two 64-bit AXIS beats per stored point:
         # signed I accumulation first, then signed Q accumulation.
+        # The immediate m2/tProc feedback stream is compact one-beat
+        # {Q_accum[31:0], I_accum[31:0]} so full-rate M=1 can keep up.
         self.avg_buff = allocate(shape=(self['avg_maxlen'], 2), dtype=np.int64)
 
     def _init_firmware(self):
