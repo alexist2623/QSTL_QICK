@@ -172,6 +172,10 @@
       <spirit:modelParameter spirit:dataType="integer"><spirit:name>B</spirit:name><spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.B">16</spirit:value></spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer"><spirit:name>FRAC</spirit:name><spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.FRAC">16</spirit:value></spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer"><spirit:name>CMD_WIDTH</spirit:name><spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.CMD_WIDTH">160</spirit:value></spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer"><spirit:name>STEP_WIDTH</spirit:name><spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.STEP_WIDTH">24</spirit:value></spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer"><spirit:name>DURATION_WIDTH</spirit:name><spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.DURATION_WIDTH">23</spirit:value></spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer"><spirit:name>FIXED_WIDTH</spirit:name><spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.FIXED_WIDTH">48</spirit:value></spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer"><spirit:name>EXTRA_Y_PIPE_STAGES</spirit:name><spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.EXTRA_Y_PIPE_STAGES">1</spirit:value></spirit:modelParameter>
     </spirit:modelParameters>
   </spirit:model>
   <spirit:fileSets>
@@ -197,6 +201,10 @@
     <spirit:parameter><spirit:name>B</spirit:name><spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.B" spirit:minimum="1" spirit:maximum="32" spirit:rangeType="long">16</spirit:value></spirit:parameter>
     <spirit:parameter><spirit:name>FRAC</spirit:name><spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.FRAC" spirit:minimum="1" spirit:maximum="24" spirit:rangeType="long">16</spirit:value></spirit:parameter>
     <spirit:parameter><spirit:name>CMD_WIDTH</spirit:name><spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.CMD_WIDTH" spirit:minimum="160" spirit:maximum="256" spirit:rangeType="long">160</spirit:value></spirit:parameter>
+    <spirit:parameter><spirit:name>STEP_WIDTH</spirit:name><spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.STEP_WIDTH" spirit:minimum="24" spirit:maximum="24" spirit:rangeType="long">24</spirit:value></spirit:parameter>
+    <spirit:parameter><spirit:name>DURATION_WIDTH</spirit:name><spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.DURATION_WIDTH" spirit:minimum="23" spirit:maximum="23" spirit:rangeType="long">23</spirit:value></spirit:parameter>
+    <spirit:parameter><spirit:name>FIXED_WIDTH</spirit:name><spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.FIXED_WIDTH" spirit:minimum="48" spirit:maximum="48" spirit:rangeType="long">48</spirit:value></spirit:parameter>
+    <spirit:parameter><spirit:name>EXTRA_Y_PIPE_STAGES</spirit:name><spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.EXTRA_Y_PIPE_STAGES" spirit:minimum="0" spirit:maximum="8" spirit:rangeType="long">1</spirit:value></spirit:parameter>
     <spirit:parameter><spirit:name>Component_Name</spirit:name><spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.Component_Name" spirit:order="1">axis_awg_tuning_v1_v1_0</spirit:value></spirit:parameter>
   </spirit:parameters>
   <spirit:vendorExtensions>

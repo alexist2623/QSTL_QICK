@@ -9,11 +9,19 @@ module axis_awg_tuning_v1
       parameter int B = 16,
 
       // Fractional bits in the signed fixed-point ramp step.
-      // With the default command field width this is a signed 16.16 step.
+      // With the default command field layout this is a signed 8.16 step.
       parameter int FRAC = 16,
 
       // tProcessor v1 realtime output width.
-      parameter int CMD_WIDTH = 160
+      parameter int CMD_WIDTH = 160,
+
+      // RAMP command datapath field widths.
+      parameter int STEP_WIDTH = 24,
+      parameter int DURATION_WIDTH = 23,
+      parameter int FIXED_WIDTH = 48,
+
+      // Extra pass-through y <= y stages after the DSP lane add stage.
+      parameter int EXTRA_Y_PIPE_STAGES = 1
    )
    (
       // AXI-Lite slave for software/debug current-value override.
@@ -173,7 +181,11 @@ awg_tuning_ctrl
       .N_PTS      (N_PTS    ),
       .B          (B        ),
       .FRAC       (FRAC     ),
-      .CMD_WIDTH  (CMD_WIDTH)
+      .CMD_WIDTH  (CMD_WIDTH),
+      .STEP_WIDTH (STEP_WIDTH),
+      .DURATION_WIDTH (DURATION_WIDTH),
+      .FIXED_WIDTH (FIXED_WIDTH),
+      .EXTRA_Y_PIPE_STAGES (EXTRA_Y_PIPE_STAGES)
    )
    awg_tuning_ctrl_i
    (

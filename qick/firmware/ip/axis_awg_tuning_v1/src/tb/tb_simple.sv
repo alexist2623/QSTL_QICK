@@ -1,12 +1,19 @@
 `timescale 1ns/1ps
 `default_nettype none
 
-module tb_simple();
+module tb_simple
+   #(
+      parameter int EXTRA_Y_PIPE_STAGES = 1
+   )
+   ();
 
 localparam int N_PTS = 16;
 localparam int B = 16;
 localparam int FRAC = 16;
 localparam int CMD_WIDTH = 160;
+localparam int STEP_WIDTH = 24;
+localparam int DURATION_WIDTH = 23;
+localparam int FIXED_WIDTH = 48;
 localparam int OUT_WIDTH = N_PTS*B;
 localparam real ACLK_PERIOD_NS = 10.0;
 localparam real S_AXI_ACLK_PERIOD_NS = 14.0;
@@ -20,7 +27,7 @@ localparam logic [1:0] OP_SET  = 2'b01;
 localparam logic [1:0] OP_RAMP = 2'b10;
 localparam logic [1:0] OP_IDLE = 2'b11;
 
-localparam int RAMP_STARTUP_LATENCY_CYCLES = 4;
+localparam int RAMP_STARTUP_LATENCY_CYCLES = EXTRA_Y_PIPE_STAGES + 4;
 localparam int RAMP_FILL_WORDS_AFTER_COMMAND = RAMP_STARTUP_LATENCY_CYCLES - 1;
 
 logic                   aresetn;
@@ -89,7 +96,11 @@ axis_awg_tuning_v1
       .N_PTS     (N_PTS    ),
       .B         (B        ),
       .FRAC      (FRAC     ),
-      .CMD_WIDTH (CMD_WIDTH)
+      .CMD_WIDTH (CMD_WIDTH),
+      .STEP_WIDTH (STEP_WIDTH),
+      .DURATION_WIDTH (DURATION_WIDTH),
+      .FIXED_WIDTH (FIXED_WIDTH),
+      .EXTRA_Y_PIPE_STAGES (EXTRA_Y_PIPE_STAGES)
    )
    DUT
    (
@@ -205,11 +216,18 @@ function automatic logic [CMD_WIDTH-1:0] make_cmd;
    input logic clear;
    logic [CMD_WIDTH-1:0] cmd;
    begin
+      if (duration >= (32'd1 << DURATION_WIDTH))
+         $fatal(1, "duration %0d does not fit in %0d bits", duration, DURATION_WIDTH);
+      if (step_or_reserved < -(32'sd1 <<< (STEP_WIDTH-1)) ||
+          step_or_reserved > ((32'sd1 <<< (STEP_WIDTH-1)) - 32'sd1))
+         $fatal(1, "step %0d does not fit in signed %0d bits",
+                step_or_reserved, STEP_WIDTH);
+
       cmd = {CMD_WIDTH{1'b0}};
       cmd[31:0]    = target;
       cmd[63:32]   = start_or_reserved;
-      cmd[95:64]   = duration;
-      cmd[127:96]  = step_or_reserved;
+      cmd[64 +: DURATION_WIDTH] = duration[DURATION_WIDTH-1:0];
+      cmd[96 +: STEP_WIDTH] = step_or_reserved[STEP_WIDTH-1:0];
       cmd[145:144] = opcode;
       cmd[146]     = hold_zero;
       cmd[148]     = clear;
@@ -217,20 +235,41 @@ function automatic logic [CMD_WIDTH-1:0] make_cmd;
    end
 endfunction
 
+function automatic logic signed [31:0] cmd_step_field;
+   input logic [CMD_WIDTH-1:0] cmd;
+   logic signed [STEP_WIDTH-1:0] step_field;
+   begin
+      step_field = cmd[96 +: STEP_WIDTH];
+      cmd_step_field = step_field;
+   end
+endfunction
+
+function automatic logic [31:0] cmd_duration_field;
+   input logic [CMD_WIDTH-1:0] cmd;
+   begin
+      cmd_duration_field = {{(32-DURATION_WIDTH){1'b0}}, cmd[64 +: DURATION_WIDTH]};
+   end
+endfunction
+
 function automatic logic [B-1:0] sat_int64;
    input longint signed value;
    longint signed max_sample;
    longint signed min_sample;
+   logic signed [B-1:0] sample;
+   logic [B-1:0] align_mask;
    begin
-      max_sample = (64'sd1 <<< (B-1)) - 64'sd1;
+      max_sample = ((64'sd1 <<< (B-1)) - 64'sd1) & ~64'sd3;
       min_sample = -(64'sd1 <<< (B-1));
+      align_mask = {{(B-2){1'b1}}, 2'b00};
 
       if (value > max_sample)
-         sat_int64 = {1'b0, {(B-1){1'b1}}};
+         sample = max_sample[B-1:0];
       else if (value < min_sample)
-         sat_int64 = {1'b1, {(B-1){1'b0}}};
+         sample = min_sample[B-1:0];
       else
-         sat_int64 = value[B-1:0];
+         sample = value[B-1:0];
+
+      sat_int64 = sample & align_mask;
    end
 endfunction
 
@@ -264,6 +303,10 @@ function automatic logic signed [31:0] calc_step;
          numerator = delta <<< FRAC;
          denominator = duration - 1;
          quotient = numerator / denominator;
+         if (quotient < -(64'sd1 <<< (STEP_WIDTH-1)) ||
+             quotient > ((64'sd1 <<< (STEP_WIDTH-1)) - 64'sd1))
+            $fatal(1, "calc_step result %0d does not fit in signed %0d bits",
+                   quotient, STEP_WIDTH);
          calc_step = quotient[31:0];
       end
    end
@@ -386,11 +429,24 @@ task automatic check_no_unknown_word;
    end
 endtask
 
+task automatic check_dac_lsb_zero;
+   input logic [OUT_WIDTH-1:0] word;
+   input string tag;
+   begin
+      for (int i = 0; i < N_PTS; i = i + 1) begin
+         if (word[i*B +: 2] !== 2'b00)
+            $fatal(1, "%s lane %0d lower two DAC bits are not zero: %b",
+                   tag, i, word[i*B +: 2]);
+      end
+   end
+endtask
+
 task automatic check_word;
    input logic [OUT_WIDTH-1:0] expected;
    input string tag;
    begin
       check_no_unknown_word(m_axis_tdata, tag);
+      check_dac_lsb_zero(m_axis_tdata, tag);
       if (m_axis_tdata !== expected)
          fail_mismatch(tag, expected);
 
@@ -899,8 +955,10 @@ task automatic ramp_awg;
       if (ramp_duration > 1 && final_value != start_value && step == 32'sd0)
          $fatal(1, "%s command step should be nonzero", tag);
       cmd = make_cmd(final_value, wrong_start, ramp_duration, step, OP_RAMP, 1'b0, 1'b0);
-      if ($signed(cmd[127:96]) !== step)
+      if (cmd_step_field(cmd) !== step)
          $fatal(1, "%s command step field mismatch", tag);
+      if (cmd_duration_field(cmd) !== ramp_duration)
+         $fatal(1, "%s command duration field mismatch", tag);
 
       send_cmd(cmd, have_hold, current_hold_word, tag);
       check_ramp_startup_latency(current_hold_word, tag);
@@ -909,6 +967,62 @@ task automatic ramp_awg;
       current_value = final_value;
       current_hold_word = scalar_word(final_value);
       have_hold = 1'b1;
+   end
+endtask
+
+task automatic ramp_awg_explicit_step;
+   input logic signed [31:0] final_value;
+   input logic [31:0] ramp_duration;
+   input logic signed [31:0] explicit_step;
+   input string tag_suffix;
+
+   logic [CMD_WIDTH-1:0] cmd;
+   logic signed [31:0] start_value;
+   logic signed [31:0] wrong_start;
+   string tag;
+
+   begin
+      start_value = current_value;
+      tag = $sformatf("RAMP explicit step %s start %0d target %0d duration %0d step %0d",
+                      tag_suffix, start_value, final_value, ramp_duration, explicit_step);
+      wrong_start = (start_value == -32'sd30000) ? 32'sd30000 : -32'sd30000;
+      cmd = make_cmd(final_value, wrong_start, ramp_duration, explicit_step, OP_RAMP, 1'b0, 1'b0);
+      if (cmd_step_field(cmd) !== explicit_step)
+         $fatal(1, "%s command step field mismatch", tag);
+      if (cmd_duration_field(cmd) !== ramp_duration)
+         $fatal(1, "%s command duration field mismatch", tag);
+
+      send_cmd(cmd, have_hold, current_hold_word, tag);
+      check_ramp_startup_latency(current_hold_word, tag);
+      check_ramp(start_value, final_value, ramp_duration, explicit_step, tag);
+
+      current_value = final_value;
+      current_hold_word = scalar_word(final_value);
+      have_hold = 1'b1;
+   end
+endtask
+
+task automatic check_command_field_limits;
+   logic [CMD_WIDTH-1:0] cmd;
+   logic signed [31:0] max_step;
+   logic signed [31:0] min_step;
+   logic [31:0] max_duration;
+   begin
+      max_step = (32'sd1 <<< (STEP_WIDTH-1)) - 32'sd1;
+      min_step = -(32'sd1 <<< (STEP_WIDTH-1));
+      max_duration = (32'd1 << DURATION_WIDTH) - 32'd1;
+
+      cmd = make_cmd(32'sd0, 32'sd0, max_duration, max_step, OP_RAMP, 1'b0, 1'b0);
+      if (cmd_step_field(cmd) !== max_step)
+         $fatal(1, "max signed 24-bit step field mismatch");
+      if (cmd_duration_field(cmd) !== max_duration)
+         $fatal(1, "max unsigned 23-bit duration field mismatch");
+      if (cmd[95:87] !== 9'd0 || cmd[127:120] !== 8'd0)
+         $fatal(1, "ignored high duration/step bits should remain zero");
+
+      cmd = make_cmd(32'sd0, 32'sd0, 32'd1, min_step, OP_RAMP, 1'b0, 1'b0);
+      if (cmd_step_field(cmd) !== min_step)
+         $fatal(1, "min signed 24-bit step field mismatch");
    end
 endtask
 
@@ -958,8 +1072,10 @@ task automatic ramp_awg_abort_with_axi_override;
 
       cmd = make_cmd(aborted_target, wrong_start, aborted_duration,
                      step, OP_RAMP, 1'b0, 1'b0);
-      if ($signed(cmd[127:96]) !== step)
+      if (cmd_step_field(cmd) !== step)
          $fatal(1, "%s command step field mismatch", tag);
+      if (cmd_duration_field(cmd) !== aborted_duration)
+         $fatal(1, "%s command duration field mismatch", tag);
       send_cmd(cmd, have_hold, current_hold_word, tag);
       check_ramp_startup_latency(current_hold_word, tag);
 
@@ -1004,8 +1120,10 @@ task automatic ramp_awg_with_drop_tests;
       have_previous = 1'b0;
 
       cmd = make_cmd(final_value, wrong_start, ramp_duration, step, OP_RAMP, 1'b0, 1'b0);
-      if ($signed(cmd[127:96]) !== step)
+      if (cmd_step_field(cmd) !== step)
          $fatal(1, "%s command step field mismatch", tag);
+      if (cmd_duration_field(cmd) !== ramp_duration)
+         $fatal(1, "%s command duration field mismatch", tag);
       send_cmd(cmd, have_hold, current_hold_word, tag);
       check_ramp_startup_latency(current_hold_word, tag);
 
@@ -1060,6 +1178,7 @@ initial begin
    init_tb_state();
 
    reset_dut();
+   check_command_field_limits();
 
    check_m_axis_tready_ignored();
    set_awg(32'sd1000);
@@ -1084,6 +1203,19 @@ initial begin
    idle_noop_awg();
    set_awg_zero_hold(32'sd123);
    set_awg(32'sd0);
+   ramp_awg_explicit_step(
+      32'sd1024,
+      32'd9,
+      (32'sd1 <<< (STEP_WIDTH-1)) - 32'sd1,
+      "max valid signed 24-bit step"
+   );
+   set_awg(32'sd0);
+   ramp_awg_explicit_step(
+      -32'sd1024,
+      32'd9,
+      -(32'sd1 <<< (STEP_WIDTH-1)),
+      "min valid signed 24-bit step"
+   );
 
    close_output_files();
    $display("PASS: tb_simple axis_awg_tuning_v1 continuous SET/RAMP/drop test completed");

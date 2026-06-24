@@ -8,6 +8,10 @@ localparam int DMEM_N = 10;
 localparam int N_PTS = 4;
 localparam int B = 16;
 localparam int FRAC = 16;
+localparam int STEP_WIDTH = 24;
+localparam int DURATION_WIDTH = 23;
+localparam int FIXED_WIDTH = 48;
+localparam int EXTRA_Y_PIPE_STAGES = 1;
 localparam int OUT_WIDTH = N_PTS*B;
 
 // Exactly one mode should be enabled.
@@ -234,7 +238,11 @@ axis_awg_tuning_v1
       .N_PTS     (N_PTS),
       .B         (B    ),
       .FRAC      (FRAC ),
-      .CMD_WIDTH (160  )
+      .CMD_WIDTH (160  ),
+      .STEP_WIDTH (STEP_WIDTH),
+      .DURATION_WIDTH (DURATION_WIDTH),
+      .FIXED_WIDTH (FIXED_WIDTH),
+      .EXTRA_Y_PIPE_STAGES (EXTRA_Y_PIPE_STAGES)
    )
    awg_tuning_i
    (
@@ -286,6 +294,10 @@ function automatic logic signed [31:0] calc_step;
          numerator = delta <<< FRAC;
          denominator = duration - 1;
          quotient = numerator / denominator;
+         if (quotient < -(64'sd1 <<< (STEP_WIDTH-1)) ||
+             quotient > ((64'sd1 <<< (STEP_WIDTH-1)) - 64'sd1))
+            $fatal(1, "calc_step result %0d does not fit in signed %0d bits",
+                   quotient, STEP_WIDTH);
          calc_step = quotient[31:0];
       end
    end
@@ -299,11 +311,16 @@ function automatic logic [159:0] make_cmd;
    input logic [1:0] opcode;
    logic [159:0] cmd;
    begin
+      if (duration >= (32'd1 << DURATION_WIDTH))
+         $fatal(1, "duration %0d does not fit in %0d bits", duration, DURATION_WIDTH);
+      if (step < -(32'sd1 <<< (STEP_WIDTH-1)) ||
+          step > ((32'sd1 <<< (STEP_WIDTH-1)) - 32'sd1))
+         $fatal(1, "step %0d does not fit in signed %0d bits", step, STEP_WIDTH);
       cmd = 160'd0;
       cmd[31:0]    = y_target;
       cmd[63:32]   = y_start;
-      cmd[95:64]   = duration;
-      cmd[127:96]  = step;
+      cmd[64 +: DURATION_WIDTH] = duration[DURATION_WIDTH-1:0];
+      cmd[96 +: STEP_WIDTH] = step[STEP_WIDTH-1:0];
       cmd[145:144] = opcode;
       make_cmd = cmd;
    end

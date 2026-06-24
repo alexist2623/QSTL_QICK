@@ -14,11 +14,14 @@ The current RTL has these software-visible semantics:
 * ``m_axis_tvalid`` remains asserted after reset.
 * SET changes the current output immediately.
 * RAMP starts from the internal current output and uses target/duration plus
-  the command-provided fixed-point step field in bits 127:96.
+  the command-provided signed 24-bit fixed-point step field in bits 119:96.
 * The command start field is reserved/deprecated and ignored by RTL.
 * RTL does not calculate the RAMP step or infer a divider; software must pack
   the desired step into the command.
-* RAMP output starts after a four-cycle command-to-output pipeline latency.
+* RAMP output starts after a DSP pipeline latency of
+  ``EXTRA_Y_PIPE_STAGES + 4`` cycles.
+* RFDC-facing output words are 16-bit DAC codes with 14 effective MSB-aligned
+  bits; hardware clears bits 1:0 of every output lane.
 * Commands presented during an active ramp are dropped by hardware.
 * Timed IDLE is not supported unless explicitly reintroduced in RTL.
 
@@ -64,11 +67,19 @@ class AxisAwgTuningV1(SocIP):
     OUTPUT_READY_IGNORED = True
     DROPS_COMMANDS_WHILE_RAMPING = True
     HAS_TIMED_IDLE = False
-    RAMP_STARTUP_LATENCY_CYCLES = 4
+    STEP_WIDTH = 24
+    DURATION_WIDTH = 23
+    DAC_WORD_BITS = 16
+    DAC_EFFECTIVE_BITS = 14
+    EXTRA_Y_PIPE_STAGES_DEFAULT = 1
+    RAMP_STARTUP_LATENCY_CYCLES = EXTRA_Y_PIPE_STAGES_DEFAULT + 4
 
     FIELD_MIN = -(2**31)
     FIELD_MAX = 2**31 - 1
     U32_MAX = 2**32 - 1
+    STEP_MIN = -(2 ** (STEP_WIDTH - 1))
+    STEP_MAX = 2 ** (STEP_WIDTH - 1) - 1
+    DURATION_MAX = 2 ** DURATION_WIDTH - 1
 
     def _init_config(self, description):
         """Read IP parameters from the overlay description."""
@@ -85,16 +96,38 @@ class AxisAwgTuningV1(SocIP):
         b = self._param_int(params, "B", 16)
         frac = self._param_int(params, "FRAC", 16)
         cmd_width = self._param_int(params, "CMD_WIDTH", 160)
+        step_width = self._param_int(params, "STEP_WIDTH", self.STEP_WIDTH)
+        duration_width = self._param_int(params, "DURATION_WIDTH", self.DURATION_WIDTH)
+        fixed_width = self._param_int(params, "FIXED_WIDTH", 48)
+        extra_y_pipe_stages = self._param_int(
+            params, "EXTRA_Y_PIPE_STAGES", self.EXTRA_Y_PIPE_STAGES_DEFAULT
+        )
 
         if cmd_width < 149:
             raise ValueError("axis_awg_tuning_v1 command width must include bits through 148")
+        if step_width != self.STEP_WIDTH:
+            raise ValueError("axis_awg_tuning_v1 currently expects STEP_WIDTH=24")
+        if duration_width != self.DURATION_WIDTH:
+            raise ValueError("axis_awg_tuning_v1 currently expects DURATION_WIDTH=23")
+
+        dac_invalid_lsb = b - self.DAC_EFFECTIVE_BITS
+        if dac_invalid_lsb < 0:
+            raise ValueError("DAC effective bits cannot exceed output word bits")
+        dac_lsb_mask = (1 << dac_invalid_lsb) - 1
 
         self.cfg["n_pts"] = n_pts
         self.cfg["samps_per_clk"] = n_pts
         self.cfg["b"] = b
         self.cfg["frac"] = frac
         self.cfg["cmd_width"] = cmd_width
-        self.cfg["maxv"] = 2 ** (b - 1) - 1
+        self.cfg["step_width"] = step_width
+        self.cfg["duration_width"] = duration_width
+        self.cfg["fixed_width"] = fixed_width
+        self.cfg["dac_word_bits"] = self.DAC_WORD_BITS
+        self.cfg["dac_effective_bits"] = self.DAC_EFFECTIVE_BITS
+        self.cfg["dac_invalid_lsb"] = dac_invalid_lsb
+        self.cfg["extra_y_pipe_stages"] = extra_y_pipe_stages
+        self.cfg["maxv"] = (2 ** (b - 1) - 1) & ~dac_lsb_mask
         self.cfg["minv"] = -(2 ** (b - 1))
         self.cfg["has_idle"] = self.HAS_IDLE
         self.cfg["continuous_ramp"] = self.CONTINUOUS_RAMP
@@ -103,7 +136,7 @@ class AxisAwgTuningV1(SocIP):
         self.cfg["output_ready_ignored"] = self.OUTPUT_READY_IGNORED
         self.cfg["drops_commands_while_ramping"] = self.DROPS_COMMANDS_WHILE_RAMPING
         self.cfg["has_timed_idle"] = self.HAS_TIMED_IDLE
-        self.cfg["ramp_startup_latency_cycles"] = self.RAMP_STARTUP_LATENCY_CYCLES
+        self.cfg["ramp_startup_latency_cycles"] = extra_y_pipe_stages + 4
         self.cfg["tproc_ch"] = None
         self.cfg["tproc_port"] = None
         self.cfg["tproc_block"] = None
@@ -197,6 +230,20 @@ class AxisAwgTuningV1(SocIP):
             raise ValueError(f"{name}={value} does not fit in unsigned 32 bits")
         return value
 
+    def _to_duration_field(self, value, name):
+        """Validate and convert an unsigned 23-bit RAMP duration field."""
+        value = self._check_int(value, name)
+        if value < 0 or value > self.DURATION_MAX:
+            raise ValueError(f"{name}={value} does not fit in unsigned {self.DURATION_WIDTH} bits")
+        return value
+
+    def _to_step_field(self, value, name):
+        """Validate and convert a signed 24-bit RAMP step field."""
+        value = self._check_int(value, name)
+        if value < self.STEP_MIN or value > self.STEP_MAX:
+            raise ValueError(f"{name}={value} does not fit in signed {self.STEP_WIDTH} bits")
+        return value & ((1 << self.STEP_WIDTH) - 1)
+
     def _check_bool(self, value, name):
         if not isinstance(value, (bool, np.bool_)):
             raise ValueError(f"{name} must be a bool")
@@ -207,6 +254,15 @@ class AxisAwgTuningV1(SocIP):
         value &= 0xFFFFFFFF
         if value & 0x80000000:
             return value - 0x100000000
+        return value
+
+    @staticmethod
+    def _from_signed_field(value, width):
+        mask = (1 << width) - 1
+        sign = 1 << (width - 1)
+        value &= mask
+        if value & sign:
+            return value - (1 << width)
         return value
 
     def override_current(self, value, *, saturate=False):
@@ -262,9 +318,12 @@ class AxisAwgTuningV1(SocIP):
         return sign * (abs(num) // abs(den))
 
     def clip_sample(self, value):
-        """Clip a value to the configured signed output sample range."""
+        """Clip and quantize a value to 16-bit, 14-effective-bit DAC range."""
         value = self._check_int(value, "value")
-        return max(self["minv"], min(self["maxv"], value))
+        value = max(self["minv"], min(self["maxv"], value))
+        if self["dac_invalid_lsb"]:
+            value &= ~((1 << self["dac_invalid_lsb"]) - 1)
+        return value
 
     def calc_step(self, start, target, duration):
         """Calculate the signed fixed-point RAMP step packed into a command.
@@ -272,12 +331,12 @@ class AxisAwgTuningV1(SocIP):
         Python ``//`` floors negative divisions, but SystemVerilog signed
         division truncates toward zero. This helper uses truncation toward zero
         to match the existing command-generation policy and testbench.
-        ``ramp_cmd`` packs the returned value into bits 127:96. The RTL uses
+        ``ramp_cmd`` packs the returned value into bits 119:96. The RTL uses
         that field directly and does not calculate a step internally.
         """
         start = self._check_int(start, "start")
         target = self._check_int(target, "target")
-        duration = self._to_u32_unsigned(duration, "duration")
+        duration = self._to_duration_field(duration, "duration")
         self._to_u32_signed(start, "start")
         self._to_u32_signed(target, "target")
 
@@ -286,7 +345,7 @@ class AxisAwgTuningV1(SocIP):
 
         numerator = (target - start) << self["frac"]
         step = self._div_trunc_zero(numerator, duration - 1)
-        self._to_u32_signed(step, "step")
+        self._to_step_field(step, "step")
         return step
 
     def pack_cmd(self, target=0, start=0, duration=0, step=0,
@@ -304,8 +363,8 @@ class AxisAwgTuningV1(SocIP):
 
         target_u = self._to_u32_signed(target, "target")
         start_u = self._to_u32_signed(start, "reserved_start")
-        duration_u = self._to_u32_unsigned(duration, "duration")
-        step_u = self._to_u32_signed(step, "step")
+        duration_u = self._to_duration_field(duration, "duration")
+        step_u = self._to_step_field(step, "step")
         opcode = self._check_int(opcode, "opcode")
         if opcode < 0 or opcode > 0b11:
             raise ValueError("opcode must fit in 2 bits")
@@ -370,7 +429,7 @@ class AxisAwgTuningV1(SocIP):
             raise NotImplementedError("RAMP hold_zero is not implemented by the current RTL")
 
         target = self._check_int(final_output_value, "final_output_value")
-        duration = self._to_u32_unsigned(ramp_duration, "ramp_duration")
+        duration = self._to_duration_field(ramp_duration, "ramp_duration")
         self._to_u32_signed(target, "final_output_value")
 
         if not self.current_valid:
@@ -384,7 +443,8 @@ class AxisAwgTuningV1(SocIP):
         if step is None:
             step_value = self.calc_step(start_value, target, duration)
         else:
-            step_value = self._to_u32_signed(step, "step")
+            self._to_step_field(step, "step")
+            step_value = int(step)
         self.last_ramp_start = start_value
         self.last_ramp_step = step_value
 
@@ -478,15 +538,18 @@ class AxisAwgTuningV1(SocIP):
             self.OP_IDLE: "idle",
         }
         reserved_start = self._from_u32_signed(cmd >> 32)
-        step = self._from_u32_signed(cmd >> 96)
+        duration = (cmd >> 64) & ((1 << self.DURATION_WIDTH) - 1)
+        step = self._from_signed_field(cmd >> 96, self.STEP_WIDTH)
         return {
             "opcode": opcode,
             "op": names.get(opcode, "unknown"),
             "target": self._from_u32_signed(cmd),
             "reserved_start": reserved_start,
             "start_ignored": reserved_start,
-            "duration": (cmd >> 64) & 0xFFFFFFFF,
+            "duration": duration,
             "step": step,
+            "duration_ignored_high": (cmd >> 87) & 0x1FF,
+            "step_ignored_high": (cmd >> 120) & 0xFF,
             "hold_zero": bool((cmd >> 146) & 0x1),
             "clear": bool((cmd >> 148) & 0x1),
         }

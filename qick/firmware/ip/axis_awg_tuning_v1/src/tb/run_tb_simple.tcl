@@ -34,12 +34,23 @@ set xvlog [xsim_tool xvlog]
 set xelab [xsim_tool xelab]
 set xsim  [xsim_tool xsim]
 
+if {$vivado_bin ne ""} {
+   set vivado_root [file dirname $vivado_bin]
+   set glbl_src [file join $vivado_root data verilog src glbl.v]
+} else {
+   set glbl_src {}
+}
+
 set sources [list \
    [file join $src_dir axi_slv_awg_tuning_v1.sv] \
    [file join $src_dir awg_tuning_ctrl.sv] \
    [file join $src_dir axis_awg_tuning_v1.sv] \
    [file join $script_dir tb_simple.sv] \
+   [file join $script_dir tb_simple_p3.sv] \
 ]
+if {$glbl_src ne "" && [file exists $glbl_src]} {
+   lappend sources $glbl_src
+}
 
 set xvlog_cmd [list $xvlog --relax --sv -work xil_defaultlib]
 foreach src $sources {
@@ -47,7 +58,16 @@ foreach src $sources {
 }
 run_cmd $xvlog_cmd
 
-run_cmd [list $xelab --debug typical --relax --mt 2 -L xil_defaultlib xil_defaultlib.tb_simple -snapshot tb_simple_behav -log elaborate_tb_simple.log]
+if {[info exists ::env(TB_TOP)]} {
+   set tb_top $::env(TB_TOP)
+} else {
+   set tb_top xil_defaultlib.tb_simple
+}
+
+set tb_top_leaf [string map {"xil_defaultlib." "" "." "_"} $tb_top]
+set snapshot "${tb_top_leaf}_behav"
+
+run_cmd [list $xelab --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver $tb_top xil_defaultlib.glbl -snapshot $snapshot -log "elaborate_${tb_top_leaf}.log"]
 
 set run_tcl [file normalize [file join [pwd] tb_simple_run.tcl]]
 set fh [open $run_tcl w]
@@ -55,4 +75,4 @@ puts $fh "run all"
 puts $fh "quit"
 close $fh
 
-run_cmd [list $xsim tb_simple_behav -tclbatch $run_tcl -log simulate_tb_simple.log]
+run_cmd [list $xsim $snapshot -tclbatch $run_tcl -log "simulate_${tb_top_leaf}.log"]
