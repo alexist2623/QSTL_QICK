@@ -1,14 +1,13 @@
 // AVG accumulation block.
 //
 // Input samples are packed as {Q[B-1:0], I[B-1:0]} with signed I/Q.
-// AVG_ACCUM_LEN_REG[15:0] selects the number of raw input samples M to
+// AVG_ACCUM_LEN_REG[23:0] selects the number of raw input samples M to
 // accumulate per stored AVG point. M=0 and M=1 both mean one raw sample.
 // AVG_LEN_REG is the number of stored output points; the raw input span for
 // one capture is AVG_LEN_REG * effective_M samples.
 //
 // No division or shift is applied. Each stored word is packed as:
-//   {signext(Q_accum[3*B-1:0]) to 4*B,
-//    signext(I_accum[3*B-1:0]) to 4*B}.
+//   {Q_accum[4*B-1:0], I_accum[4*B-1:0]}.
 module avg #(
     parameter N = 10,
     parameter B = 16
@@ -36,13 +35,13 @@ module avg #(
     input  wire             PHOTON_MODE_REG,
     input  wire [B-1:0]     H_THRSH_REG,
     input  wire [B-1:0]     L_THRSH_REG,
-    input  wire [15:0]      AVG_ACCUM_LEN_REG
+    input  wire [23:0]      AVG_ACCUM_LEN_REG
 );
 
-localparam int unsigned ACC_WIDTH = 3 * B;
+localparam int unsigned ACC_WIDTH = 4 * B;
 localparam int unsigned LANE_WIDTH = 4 * B;
 localparam int unsigned OUT_WIDTH = 8 * B;
-localparam int unsigned COUNT_WIDTH = 16;
+localparam int unsigned COUNT_WIDTH = 24;
 
 typedef enum logic [2:0] {
     INIT_ST,
@@ -86,9 +85,9 @@ logic [OUT_WIDTH-1:0]        write_data_comb;
 logic                        group_done;
 logic                        last_output;
 
-function automatic [COUNT_WIDTH-1:0] effective_accum_len(input [15:0] reg_value);
+function automatic [COUNT_WIDTH-1:0] effective_accum_len(input [23:0] reg_value);
     begin
-        if (reg_value <= 16'd1)
+        if (reg_value <= 24'd1)
             effective_accum_len = {{(COUNT_WIDTH-1){1'b0}}, 1'b1};
         else
             effective_accum_len = reg_value[COUNT_WIDTH-1:0];
@@ -100,10 +99,7 @@ function automatic [OUT_WIDTH-1:0] pack_iq_accum(
     input logic signed [ACC_WIDTH-1:0] q_accum
 );
     begin
-        pack_iq_accum = {
-            {(LANE_WIDTH-ACC_WIDTH){q_accum[ACC_WIDTH-1]}}, q_accum,
-            {(LANE_WIDTH-ACC_WIDTH){i_accum[ACC_WIDTH-1]}}, i_accum
-        };
+        pack_iq_accum = {q_accum, i_accum};
     end
 endfunction
 
@@ -111,10 +107,7 @@ function automatic [OUT_WIDTH-1:0] pack_photon_count(
     input logic [ACC_WIDTH-1:0] count
 );
     begin
-        pack_photon_count = {
-            {LANE_WIDTH{1'b0}},
-            {(LANE_WIDTH-ACC_WIDTH){1'b0}}, count
-        };
+        pack_photon_count = {{LANE_WIDTH{1'b0}}, count};
     end
 endfunction
 

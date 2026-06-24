@@ -1222,6 +1222,10 @@
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>src/ramb36e2_accum_mem.sv</spirit:name>
+        <spirit:fileType>systemVerilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>src/buffer.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
@@ -1304,6 +1308,10 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>src/avg.sv</spirit:name>
+        <spirit:fileType>systemVerilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/ramb36e2_accum_mem.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1396,6 +1404,18 @@
         <spirit:userFileType>USED_IN_testbench</spirit:userFileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>src/tb/tb_banked_accum_mem.sv</spirit:name>
+        <spirit:fileType>systemVerilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_simulation</spirit:userFileType>
+        <spirit:userFileType>USED_IN_testbench</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/tb/run_banked_accum_xsim.tcl</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+        <spirit:userFileType>USED_IN_simulation</spirit:userFileType>
+        <spirit:userFileType>USED_IN_testbench</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>src/tb/tb_waves.wcfg</spirit:name>
         <spirit:fileType>unknown</spirit:fileType>
         <spirit:userFileType>USED_IN_simulation</spirit:userFileType>
@@ -1411,7 +1431,7 @@
       </spirit:file>
     </spirit:fileSet>
   </spirit:fileSets>
-  <spirit:description>AXIS Average + Buffer block v1.3 with AVG-path 16-bit point and trace accumulation controls.</spirit:description>
+  <spirit:description>AXIS AVG + Buffer block v1.3 with 24-bit point/trace accumulation controls and 64-bit I/Q accumulated AVG output.</spirit:description>
   <spirit:parameters>
     <spirit:parameter>
       <spirit:name>N_AVG</spirit:name>

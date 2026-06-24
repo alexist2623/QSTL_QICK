@@ -1,5 +1,5 @@
 // Description:
-// AXIS_AVG_BUFFER is a block that receives an input stream of samples (s_axis) and generates three output streams, one with processed averaged data (m0_axis) and one with raw captured data (m1_axis) and one with averaged data but prior to be stored in internal memory (sent to tProc register) (m2_axis) Captured samples are internally stored in PL memory.
+// AXIS_AVG_BUFFER is a block that receives an input stream of samples (s_axis) and generates three output streams, one with processed accumulated data (m0_axis) and one with raw captured data (m1_axis) and one with accumulated data but prior to be stored in internal memory (sent to tProc register) (m2_axis). Captured samples are internally stored in PL memory.
 // Capture is initiated by an external trigger after the buffer has been enabled. Number of captured samples and address where to store them are configurable.
 // Output stream generation is controlled with a register where the address to start reading data and the number of samples can be configured. Output stream can be interfaced to an AXIS-DMA module
 //
@@ -50,7 +50,7 @@ module axis_avg_buffer
 		m_axis_aclk			,	// clock for m0_axis_* and m1_axis_* and m2_axis_*
 		m_axis_aresetn		,
 
-		// AXIS Master for averaged output.
+		// AXIS Master for accumulated output.
 		m0_axis_tvalid		,
 		m0_axis_tready		,
 		m0_axis_tdata		,
@@ -147,8 +147,8 @@ wire    [31:0]      AVG_H_THRSH_REG_32;
 wire    [31:0]      AVG_L_THRSH_REG_32;
 wire    [B-1:0]     AVG_H_THRSH_REG;
 wire    [B-1:0]     AVG_L_THRSH_REG;
-wire    [15:0]      AVG_ACCUM_LEN_REG;
-wire    [15:0]      AVG_TRACE_REPS_REG;
+wire    [23:0]      AVG_ACCUM_LEN_REG;
+wire    [23:0]      AVG_TRACE_REPS_REG;
 wire				AVG_DR_START_REG;
 wire    [31:0]      AVG_DR_ADDR_REG_32;
 wire    [31:0]      AVG_DR_LEN_REG_32;
@@ -261,7 +261,7 @@ avg_buffer
 		.m_axis_aclk		(m_axis_aclk   		),
 		.m_axis_aresetn		(m_axis_aresetn		),
 
-		// AXIS Master for averaged output.
+		// AXIS Master for accumulated output.
 		.m0_axis_tvalid		(m0_axis_tvalid		),
 		.m0_axis_tready		(m0_axis_tready		),
 		.m0_axis_tdata		(m0_axis_tdata		),

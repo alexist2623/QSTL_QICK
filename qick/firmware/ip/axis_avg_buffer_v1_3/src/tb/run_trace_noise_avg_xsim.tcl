@@ -17,12 +17,15 @@ file mkdir $OUT_DIR
 create_project axis_avg_buffer_v1_3_trace_noise_avg_sim $OUT_DIR -part $PART -force
 set_property target_language Verilog [current_project]
 set_property default_lib xil_defaultlib [current_project]
+set_property verilog_define {SIM_MODEL FAST_SIM} [get_filesets sources_1]
+set_property verilog_define {SIM_MODEL FAST_SIM} [get_filesets sim_1]
 
 set SRC_LIST [list \
   "$SRC_DIR/axis_avg_buffer.v" \
   "$SRC_DIR/avg_buffer.v" \
   "$SRC_DIR/avg_top.v" \
   "$SRC_DIR/avg.sv" \
+  "$SRC_DIR/ramb36e2_accum_mem.sv" \
   "$SRC_DIR/trace_avg.sv" \
   "$SRC_DIR/buffer_top.v" \
   "$SRC_DIR/buffer.sv" \

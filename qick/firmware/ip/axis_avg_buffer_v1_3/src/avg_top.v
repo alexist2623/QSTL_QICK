@@ -1,5 +1,5 @@
 // Description: 
-// AVG_TOP block receives an input stream of samples (s_axis), captures and stores them in an internal memory when indicated and generates two output streams, one with averaged data stored in internal memory (m0_axis) and one with averaged data as soon as it's calculated prior to internal memory (m1_axis) 
+// AVG_TOP block receives an input stream of samples (s_axis), captures and stores them in an internal memory when indicated and generates two output streams, one with accumulated data stored in internal memory (m0_axis) and one with accumulated data as soon as it is calculated prior to internal memory (m1_axis).
 // Capturing flow is controlled by the AVG FSM block and is initiated by an external trigger after the buffer has been enabled. Number of captured samples and address where to store them are configurable. 
 // Captured samples are internally stored in BRAM memory. 
 // Output stream is generated and controlled from the DATA_READER FSM block. Address to start reading and number of samples are configurable. It can be interfaced with an AXIS DMA module.
@@ -89,8 +89,8 @@ input	[N-1:0]		DR_LEN_REG;
 input               AVG_PHOTON_MODE_REG;
 input   [B-1:0]     AVG_H_THRSH_REG;
 input   [B-1:0]     AVG_L_THRSH_REG;
-input   [15:0]      AVG_ACCUM_LEN_REG;
-input   [15:0]      AVG_TRACE_REPS_REG;
+input   [23:0]      AVG_ACCUM_LEN_REG;
+input   [23:0]      AVG_TRACE_REPS_REG;
 
 //////////////////////
 // Internal signals //
@@ -105,8 +105,8 @@ wire	[8*B-1:0]	mem_di_int, mem_do_int;
 wire	[8*B-1:0]	mem_doa_int;
 
 wire	[1:0]		AVG_START_REG_resync;
-wire	[15:0]		avg_accum_len_resync;
-wire	[15:0]		avg_trace_reps_resync;
+wire	[23:0]		avg_accum_len_resync;
+wire	[23:0]		avg_trace_reps_resync;
 wire				DR_START_REG_resync;
 
 wire				fifo_empty;
@@ -150,7 +150,7 @@ synchronizer_n
 genvar avg_accum_len_idx;
 
 generate
-	for (avg_accum_len_idx = 0; avg_accum_len_idx < 16; avg_accum_len_idx = avg_accum_len_idx + 1) begin : gen_avg_accum_len_resync
+	for (avg_accum_len_idx = 0; avg_accum_len_idx < 24; avg_accum_len_idx = avg_accum_len_idx + 1) begin : gen_avg_accum_len_resync
 		synchronizer_n
 			#(
 				.N  (2)
@@ -167,7 +167,7 @@ endgenerate
 genvar avg_trace_reps_idx;
 
 generate
-	for (avg_trace_reps_idx = 0; avg_trace_reps_idx < 16; avg_trace_reps_idx = avg_trace_reps_idx + 1) begin : gen_avg_trace_reps_resync
+	for (avg_trace_reps_idx = 0; avg_trace_reps_idx < 24; avg_trace_reps_idx = avg_trace_reps_idx + 1) begin : gen_avg_trace_reps_resync
 		synchronizer_n
 			#(
 				.N  (2)

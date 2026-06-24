@@ -1,23 +1,22 @@
 // Self-checking accumulation test for axis_avg_buffer v1.3.
 //
-// This test verifies direct accumulation, not averaging. K/decimation is not
-// used in v1.3. AVG_ACCUM_LEN_REG[15:0] selects M input samples accumulated
-// per stored output point. AVG_TRACE_REPS_REG[15:0] selects R trace
-// repetitions accumulated per stored output trace.
+// This test verifies direct accumulation. AVG_ACCUM_LEN_REG[23:0] selects M
+// input samples accumulated per stored output point. AVG_TRACE_REPS_REG[23:0]
+// selects R trace repetitions accumulated per stored output trace.
 //
 // AVG_LEN_REG is the number of stored output points.
 // Consumed input samples per trace trigger = AVG_LEN_REG * effective_M.
 // Total samples accumulated in trace mode = AVG_LEN_REG * effective_M * effective_R.
 //
 // Input samples are packed as {Q[B-1:0], I[B-1:0]}.
-// AVG output words stay 8*B bits wide; each 3*B accumulator is sign-extended
-// into a 4*B lane and packed as {Q_lane[4*B-1:0], I_lane[4*B-1:0]}.
+// AVG output words stay 8*B bits wide and are packed as
+// {Q_lane[4*B-1:0], I_lane[4*B-1:0]}.
 module tb;
 
     localparam int B = 16;
     localparam int N_AVG = 10;
     localparam int N_BUF = 8;
-    localparam int ACC_WIDTH = 3 * B;
+    localparam int ACC_WIDTH = 4 * B;
     localparam int LANE_WIDTH = 4 * B;
     localparam int AVG_WIDTH = 8 * B;
 `ifdef FAST_SIM
@@ -462,7 +461,7 @@ module tb;
             repeat (6) @(posedge clk);
             axi_write32(REG_AVG_ADDR, 32'd0);
             axi_write32(REG_AVG_LEN, stored_len);
-            axi_write32(REG_AVG_ACCUM_LEN, m_len[15:0]);
+            axi_write32(REG_AVG_ACCUM_LEN, m_len[23:0]);
             axi_write32(REG_AVG_TRACE_REPS, 32'd1);
             axi_write32(REG_AVG_START, 32'd1);
             repeat (12) @(posedge clk);
@@ -475,8 +474,8 @@ module tb;
             repeat (6) @(posedge clk);
             axi_write32(REG_AVG_ADDR, 32'd0);
             axi_write32(REG_AVG_LEN, stored_len);
-            axi_write32(REG_AVG_ACCUM_LEN, m_len[15:0]);
-            axi_write32(REG_AVG_TRACE_REPS, reps[15:0]);
+            axi_write32(REG_AVG_ACCUM_LEN, m_len[23:0]);
+            axi_write32(REG_AVG_TRACE_REPS, reps[23:0]);
             axi_write32(REG_AVG_START, 32'd3);
             repeat ((1 << N_AVG) + 40) @(posedge clk);
         end
@@ -661,29 +660,25 @@ module tb;
     task automatic run_register_test;
         logic [31:0] readback;
         begin
-            $display("Running 16-bit AXI-Lite accumulation register readback test");
+            $display("Running 24-bit AXI-Lite accumulation register readback test");
             axi_write32(REG_AVG_ACCUM_LEN, 32'hffff_ffff);
             axi_read32(REG_AVG_ACCUM_LEN, readback);
-            if (readback != 32'h0000_ffff)
+            if (readback != 32'h00ff_ffff)
                 $fatal(1, "AVG_ACCUM_LEN_REG readback mismatch: %h", readback);
             axi_write32(REG_AVG_TRACE_REPS, 32'hffff_ffff);
             axi_read32(REG_AVG_TRACE_REPS, readback);
-            if (readback != 32'h0000_ffff)
+            if (readback != 32'h00ff_ffff)
                 $fatal(1, "AVG_TRACE_REPS_REG readback mismatch: %h", readback);
             axi_write32(REG_AVG_ACCUM_LEN, 32'd1);
             axi_write32(REG_AVG_TRACE_REPS, 32'd1);
         end
     endtask
 
-    task automatic run_48bit_boundary_test;
+    task automatic run_64bit_boundary_test;
         int m_len;
         int reps;
         int stored_len;
         int input_len;
-        longint signed worst_pos;
-        longint signed worst_neg;
-        longint signed max_48;
-        longint signed min_48;
         begin
             m_len = 65535;
             reps = 2;
@@ -696,21 +691,12 @@ module tb;
             if (expected_q[0] >= -64'sd2147483648)
                 $fatal(1, "Boundary test expected Q does not cross 32-bit negative range");
 
-            max_48 = (64'sd1 <<< 47) - 1;
-            min_48 = -(64'sd1 <<< 47);
-            worst_pos = 64'sd32767 * 64'sd65535 * 64'sd65535;
-            worst_neg = -64'sd32768 * 64'sd65535 * 64'sd65535;
-            if (worst_pos > max_48)
-                $fatal(1, "Worst-case positive M*R sum exceeds signed 48-bit range");
-            if (worst_neg < min_48)
-                $fatal(1, "Worst-case negative M*R sum exceeds signed 48-bit range");
-
-            $display("Running 48-bit channel boundary test: M=%0d R=%0d", m_len, reps);
+            $display("Running 64-bit channel boundary smoke test: M=%0d R=%0d", m_len, reps);
             arm_trace_accum(m_len, stored_len, reps);
             for (int rep = 0; rep < reps; rep++)
                 feed_stimulus_trace(rep, input_len, 3);
             repeat (120) @(posedge clk);
-            read_and_check_avg(stored_len, "48-bit boundary");
+            read_and_check_avg(stored_len, "64-bit boundary");
             axi_write32(REG_AVG_START, 32'd0);
         end
     endtask
@@ -726,7 +712,7 @@ module tb;
         run_trace_case("negative signed M5 R4", 5, 4, 12, 1);
         run_trace_case("sine/ramped-square M20 stress window", 20, TRACE_REPS_STRESS, TRACE_STRESS_STORED, 2);
         run_raw_buffer_unchanged_test();
-        run_48bit_boundary_test();
+        run_64bit_boundary_test();
         $display("PASS: tb_trace_noise_avg completed v1.3 direct accumulation tests");
         $finish;
     end
