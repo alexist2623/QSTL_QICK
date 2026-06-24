@@ -9,8 +9,10 @@
 // Total samples accumulated in trace mode = AVG_LEN_REG * effective_M * effective_R.
 //
 // Input samples are packed as {Q[B-1:0], I[B-1:0]}.
-// AVG output words stay 8*B bits wide and are packed as
+// Internal AVG accumulation words stay 8*B bits wide and are packed as
 // {Q_lane[4*B-1:0], I_lane[4*B-1:0]}.
+// The external processed AXIS ports are 4*B bits wide. Each stored output
+// point is read as two AXIS beats: I_lane first, then Q_lane.
 module tb;
 
     localparam int B = 16;
@@ -18,7 +20,8 @@ module tb;
     localparam int N_BUF = 8;
     localparam int ACC_WIDTH = 4 * B;
     localparam int LANE_WIDTH = 4 * B;
-    localparam int AVG_WIDTH = 8 * B;
+    localparam int ACC_WORD_WIDTH = 8 * B;
+    localparam int AVG_AXIS_WIDTH = 4 * B;
 `ifdef FAST_SIM
     localparam int TRACE_REPS_STRESS = 8;
     localparam int TRACE_STRESS_STORED = 48;
@@ -76,7 +79,7 @@ module tb;
 
     wire                 m0_axis_tvalid;
     logic                m0_axis_tready;
-    wire [AVG_WIDTH-1:0] m0_axis_tdata;
+    wire [AVG_AXIS_WIDTH-1:0] m0_axis_tdata;
     wire                 m0_axis_tlast;
     wire                 m1_axis_tvalid;
     logic                m1_axis_tready;
@@ -84,10 +87,13 @@ module tb;
     wire                 m1_axis_tlast;
     wire                 m2_axis_tvalid;
     logic                m2_axis_tready;
-    wire [AVG_WIDTH-1:0] m2_axis_tdata;
+    wire [AVG_AXIS_WIDTH-1:0] m2_axis_tdata;
 
     longint signed expected_i [0:MAX_STORED-1];
     longint signed expected_q [0:MAX_STORED-1];
+    longint signed m2_capture_beats [0:2*MAX_STORED-1];
+    int m2_capture_count;
+    bit m2_capture_enable;
 
     axis_avg_buffer #(
         .N_AVG(N_AVG),
@@ -135,6 +141,17 @@ module tb;
         .m2_axis_tready(m2_axis_tready),
         .m2_axis_tdata(m2_axis_tdata)
     );
+
+    always @(posedge clk) begin
+        if (!rstn) begin
+            m2_capture_count <= 0;
+        end else if (m2_capture_enable && m2_axis_tvalid && m2_axis_tready) begin
+            if (m2_capture_count >= 2*MAX_STORED)
+                $fatal(1, "m2 AXIS capture overflow");
+            m2_capture_beats[m2_capture_count] <= $signed(m2_axis_tdata);
+            m2_capture_count <= m2_capture_count + 1;
+        end
+    end
 
     function automatic logic [2*B-1:0] pack_iq(input int signed i, input int signed q);
         logic signed [B-1:0] ii;
@@ -226,25 +243,22 @@ module tb;
         end
     endfunction
 
-    task automatic check_avg_word(
-        input logic [AVG_WIDTH-1:0] actual_avg_word,
-        input longint signed exp_i,
-        input longint signed exp_q,
+    task automatic check_avg_beat(
+        input logic [AVG_AXIS_WIDTH-1:0] actual_avg_beat,
+        input longint signed expected,
         input string tag
     );
-        longint signed act_i;
-        longint signed act_q;
+        longint signed actual;
         begin
-            if ($isunknown(actual_avg_word))
-                $fatal(1, "%s: AVG word contains X/Z: %h", tag, actual_avg_word);
+            if ($isunknown(actual_avg_beat))
+                $fatal(1, "%s: AVG beat contains X/Z: %h", tag, actual_avg_beat);
 
-            act_i = $signed(actual_avg_word[LANE_WIDTH-1:0]);
-            act_q = $signed(actual_avg_word[AVG_WIDTH-1:LANE_WIDTH]);
+            actual = $signed(actual_avg_beat);
 
-            if ((act_i != exp_i) || (act_q != exp_q)) begin
+            if (actual != expected) begin
                 $fatal(1,
-                    "%s: expected I=%0d Q=%0d, got I=%0d Q=%0d word=%h",
-                    tag, exp_i, exp_q, act_i, act_q, actual_avg_word);
+                    "%s: expected %0d, got %0d beat=%h",
+                    tag, expected, actual, actual_avg_beat);
             end
         end
     endtask
@@ -379,9 +393,11 @@ module tb;
             trigger = 1'b0;
             s_axis_tvalid = 1'b0;
             s_axis_tdata = '0;
-            m0_axis_tready = 1'b1;
+            m0_axis_tready = 1'b0;
             m1_axis_tready = 1'b1;
             m2_axis_tready = 1'b1;
+            m2_capture_enable = 1'b0;
+            m2_capture_count = 0;
             repeat (12) @(posedge clk);
             rstn = 1'b1;
             repeat (8) @(posedge clk);
@@ -404,6 +420,17 @@ module tb;
         input int waveform
     );
         begin
+            feed_stimulus_trace_gap(rep, input_len, waveform, 0);
+        end
+    endtask
+
+    task automatic feed_stimulus_trace_gap(
+        input int rep,
+        input int input_len,
+        input int waveform,
+        input int gap_cycles
+    );
+        begin
             pulse_trigger();
             for (int n = 0; n < input_len; n++) begin
                 @(negedge clk);
@@ -416,6 +443,12 @@ module tb;
                 #1;
                 if (!s_axis_tready)
                     $fatal(1, "DUT deasserted s_axis_tready");
+                if (gap_cycles > 0) begin
+                    @(negedge clk);
+                    s_axis_tvalid <= 1'b0;
+                    s_axis_tdata  <= '0;
+                    repeat (gap_cycles) @(posedge clk);
+                end
             end
             @(negedge clk);
             s_axis_tvalid <= 1'b0;
@@ -483,6 +516,7 @@ module tb;
 
     task automatic start_avg_read(input int stored_len);
         begin
+            m0_axis_tready = 1'b0;
             axi_write32(REG_AVG_DR_START, 32'd0);
             axi_write32(REG_AVG_DR_ADDR, 32'd0);
             axi_write32(REG_AVG_DR_LEN, stored_len);
@@ -494,6 +528,44 @@ module tb;
         begin
             axi_write32(REG_AVG_DR_START, 32'd0);
             repeat (8) @(posedge clk);
+        end
+    endtask
+
+    task automatic start_m2_capture;
+        begin
+            @(negedge clk);
+            m2_capture_count = 0;
+            m2_capture_enable = 1'b1;
+        end
+    endtask
+
+    task automatic wait_and_check_m2(input int stored_len, input string tag);
+        int guard;
+        string full_tag;
+        begin
+            guard = 0;
+            while (m2_capture_count < 2*stored_len) begin
+                @(posedge clk);
+                #1;
+                guard++;
+                if (guard > 10000)
+                    $fatal(1, "%s: timeout waiting for m2 AXIS, captured %0d beats",
+                        tag, m2_capture_count);
+            end
+
+            @(negedge clk);
+            m2_capture_enable = 1'b0;
+
+            for (int idx = 0; idx < stored_len; idx++) begin
+                full_tag = $sformatf("%s m2[%0d].I", tag, idx);
+                if (m2_capture_beats[2*idx] != expected_i[idx])
+                    $fatal(1, "%s: expected %0d, got %0d",
+                        full_tag, expected_i[idx], m2_capture_beats[2*idx]);
+                full_tag = $sformatf("%s m2[%0d].Q", tag, idx);
+                if (m2_capture_beats[2*idx + 1] != expected_q[idx])
+                    $fatal(1, "%s: expected %0d, got %0d",
+                        full_tag, expected_q[idx], m2_capture_beats[2*idx + 1]);
+            end
         end
     endtask
 
@@ -517,19 +589,48 @@ module tb;
         int guard;
         string full_tag;
         begin
+            @(negedge clk);
+            m0_axis_tready <= 1'b0;
             guard = 0;
             do begin
                 @(posedge clk);
                 #1;
                 guard++;
                 if (guard > 5000)
-                    $fatal(1, "%s[%0d]: timeout waiting for AVG stream", tag, idx);
+                    $fatal(1, "%s[%0d].I: timeout waiting for AVG stream", tag, idx);
             end while (!m0_axis_tvalid);
-            full_tag = $sformatf("%s[%0d]", tag, idx);
-            check_avg_word(m0_axis_tdata, expected_i[idx], expected_q[idx], full_tag);
+            full_tag = $sformatf("%s[%0d].I", tag, idx);
+            check_avg_beat(m0_axis_tdata, expected_i[idx], full_tag);
+            if (m0_axis_tlast !== 1'b0)
+                $fatal(1, "%s: I beat asserted m0_axis_tlast", full_tag);
+
+            @(negedge clk);
+            m0_axis_tready <= 1'b1;
+            @(posedge clk);
+            #1;
+            @(negedge clk);
+            m0_axis_tready <= 1'b0;
+
+            guard = 0;
+            do begin
+                @(posedge clk);
+                #1;
+                guard++;
+                if (guard > 5000)
+                    $fatal(1, "%s[%0d].Q: timeout waiting for AVG stream", tag, idx);
+            end while (!m0_axis_tvalid);
+            full_tag = $sformatf("%s[%0d].Q", tag, idx);
+            check_avg_beat(m0_axis_tdata, expected_q[idx], full_tag);
             if (m0_axis_tlast !== expect_last)
                 $fatal(1, "%s: expected m0_axis_tlast=%0b got %0b",
                     full_tag, expect_last, m0_axis_tlast);
+
+            @(negedge clk);
+            m0_axis_tready <= 1'b1;
+            @(posedge clk);
+            #1;
+            @(negedge clk);
+            m0_axis_tready <= 1'b0;
         end
     endtask
 
@@ -595,8 +696,10 @@ module tb;
                 tag, m_len, stored_len, input_len);
             compute_expected(m_len, 1, stored_len, waveform);
             arm_normal_accum(m_len, stored_len);
-            feed_stimulus_trace(0, input_len, waveform);
+            start_m2_capture();
+            feed_stimulus_trace_gap(0, input_len, waveform, 3);
             repeat (80) @(posedge clk);
+            wait_and_check_m2(stored_len, tag);
             read_and_check_avg(stored_len, tag);
             axi_write32(REG_AVG_START, 32'd0);
         end
@@ -703,6 +806,12 @@ module tb;
 
     initial begin
         reset_dut();
+        if ($bits(m0_axis_tdata) != 4*B)
+            $fatal(1, "m0_axis_tdata width mismatch: expected %0d got %0d", 4*B, $bits(m0_axis_tdata));
+        if ($bits(m2_axis_tdata) != 4*B)
+            $fatal(1, "m2_axis_tdata width mismatch: expected %0d got %0d", 4*B, $bits(m2_axis_tdata));
+        if ($bits(m1_axis_tdata) != 2*B)
+            $fatal(1, "m1_axis_tdata width mismatch: expected %0d got %0d", 2*B, $bits(m1_axis_tdata));
         run_register_test();
         run_normal_case("M1 R1 compatibility", 1, 16, 0);
         run_normal_case("M2 direct accumulation", 2, 16, 0);

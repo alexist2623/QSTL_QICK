@@ -90,7 +90,7 @@ input				m_axis_aresetn;
 
 output				m0_axis_tvalid;
 input				m0_axis_tready;
-output	[8*B-1:0]	m0_axis_tdata;
+output	[4*B-1:0]	m0_axis_tdata;
 output				m0_axis_tlast;
 
 output				m1_axis_tvalid;
@@ -100,7 +100,7 @@ output				m1_axis_tlast;
 
 output				m2_axis_tvalid;
 input				m2_axis_tready;
-output	[8*B-1:0]	m2_axis_tdata;
+output	[4*B-1:0]	m2_axis_tdata;
 
 input	[31:0]		AVG_START_REG;
 input	[N_AVG-1:0]	AVG_ADDR_REG;

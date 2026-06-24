@@ -73,12 +73,12 @@ input				m_axis_aresetn;
 
 output				m0_axis_tvalid;
 input				m0_axis_tready;
-output	[8*B-1:0]	m0_axis_tdata;
+output	[4*B-1:0]	m0_axis_tdata;
 output				m0_axis_tlast;
 
 output				m1_axis_tvalid;
 input				m1_axis_tready;
-output	[8*B-1:0]	m1_axis_tdata;
+output	[4*B-1:0]	m1_axis_tdata;
 
 input	[31:0]		AVG_START_REG;
 input	[N-1:0]		AVG_ADDR_REG;
@@ -110,6 +110,14 @@ wire	[23:0]		avg_trace_reps_resync;
 wire				DR_START_REG_resync;
 
 wire				fifo_empty;
+wire				m0_word_tvalid;
+wire				m0_word_tready;
+wire	[8*B-1:0]	m0_word_tdata;
+wire				m0_word_tlast;
+wire				m1_word_tvalid;
+wire				m1_word_tready;
+wire	[8*B-1:0]	m1_word_tdata;
+wire				m1_word_tlast_unused;
 
 wire                TRACE_MODE_REG;
 
@@ -294,15 +302,35 @@ data_reader
         .mem_dout   (mem_do_int				),
         
         // Data out.
-        .dout       (m0_axis_tdata			),
-        .dready     (m0_axis_tready			),
-        .dvalid     (m0_axis_tvalid			),
-        .dlast      (m0_axis_tlast			),
+        .dout       (m0_word_tdata			),
+        .dready     (m0_word_tready			),
+        .dvalid     (m0_word_tvalid			),
+        .dlast      (m0_word_tlast			),
 
         // Registers.
 		.START_REG	(DR_START_REG_resync	),
 		.ADDR_REG	(DR_ADDR_REG			),
 		.LEN_REG	(DR_LEN_REG				)
+    );
+
+axis_accum_word_to_axis64
+    #(
+        .B              (B      )
+    )
+    m0_axis_serializer_i
+    (
+        .clk            (m_axis_aclk        ),
+        .rstn           (m_axis_aresetn     ),
+
+        .in_valid_i     (m0_word_tvalid     ),
+        .in_ready_o     (m0_word_tready     ),
+        .in_word_i      (m0_word_tdata      ),
+        .in_last_i      (m0_word_tlast      ),
+
+        .m_axis_tvalid  (m0_axis_tvalid     ),
+        .m_axis_tready  (m0_axis_tready     ),
+        .m_axis_tdata   (m0_axis_tdata      ),
+        .m_axis_tlast   (m0_axis_tlast      )
     );
 
 // Output data register (dc fifo to cross domain).
@@ -327,16 +355,35 @@ fifo_dc_axi
         .din     	(mem_di_int		),
         
         // Read I/F.
-        .rd_en  	(m1_axis_tready	),
-        .dout   	(m1_axis_tdata	),
+        .rd_en  	(m1_word_tready	),
+        .dout   	(m1_word_tdata	),
         
         // Flags.
         .full    	(				),
         .empty   	(fifo_empty		)
     );
 
-// Assign outputs.
-assign m1_axis_tvalid	= ~fifo_empty;
+assign m1_word_tvalid	= ~fifo_empty;
+
+axis_accum_word_to_axis64
+    #(
+        .B              (B      )
+    )
+    m1_axis_serializer_i
+    (
+        .clk            (m_axis_aclk        ),
+        .rstn           (m_axis_aresetn     ),
+
+        .in_valid_i     (m1_word_tvalid     ),
+        .in_ready_o     (m1_word_tready     ),
+        .in_word_i      (m1_word_tdata      ),
+        .in_last_i      (1'b0               ),
+
+        .m_axis_tvalid  (m1_axis_tvalid     ),
+        .m_axis_tready  (m1_axis_tready     ),
+        .m_axis_tdata   (m1_axis_tdata      ),
+        .m_axis_tlast   (m1_word_tlast_unused)
+    );
 
 endmodule
 

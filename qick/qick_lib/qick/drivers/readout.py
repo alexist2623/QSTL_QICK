@@ -1062,10 +1062,12 @@ class AxisAvgBufferV1pt3(AxisAvgBufferV1pt2):
         self.cfg['max_avg_accum_len'] = self.MAX_AVG_ACCUM_LEN
         self.cfg['max_avg_trace_reps'] = self.MAX_AVG_TRACE_REPS
         self.cfg['avg_iq_accum_bits'] = 4 * self.B
-        self.cfg['avg_output_bits'] = 8 * self.B
+        self.cfg['avg_axis_output_bits'] = 4 * self.B
+        self.cfg['avg_output_bits'] = 4 * self.B
+        self.cfg['avg_logical_output_bits'] = 8 * self.B
 
-        # For B=16, v1.3 returns one 64-bit signed I lane and one 64-bit
-        # signed Q lane per stored point.
+        # For B=16, v1.3 emits two 64-bit AXIS beats per stored point:
+        # signed I accumulation first, then signed Q accumulation.
         self.avg_buff = allocate(shape=(self['avg_maxlen'], 2), dtype=np.int64)
 
     def _init_firmware(self):
@@ -1212,8 +1214,8 @@ class AxisAvgBufferV1pt3(AxisAvgBufferV1pt2):
         Transfer accumulated AVG data.
 
         Returns an array of signed int64 I,Q pairs. For B=16 the RTL uses
-        lower 64-bit I_accum and upper 64-bit Q_accum lanes in each 128-bit
-        AVG output word.
+        one 64-bit I_accum AXIS beat followed by one 64-bit Q_accum AXIS beat
+        for each stored AVG point.
         """
         return self._transfer_avg_accumulated(address=address, length=length)
 
