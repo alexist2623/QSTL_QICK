@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 // Description: 
 // AVG_TOP block receives an input stream of samples (s_axis), captures and stores them in an internal memory when indicated and generates two output streams, one with accumulated data stored in internal memory (m0_axis) and one with accumulated data as soon as it is calculated prior to internal memory (m1_axis).
 // Capturing flow is controlled by the AVG FSM block and is initiated by an external trigger after the buffer has been enabled. Number of captured samples and address where to store them are configurable. 

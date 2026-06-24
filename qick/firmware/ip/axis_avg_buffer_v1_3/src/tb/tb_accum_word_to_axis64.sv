@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 // Self-checking unit test for axis_accum_word_to_axis64.
 //
 // The serializer converts one internal accumulated IQ word into either two

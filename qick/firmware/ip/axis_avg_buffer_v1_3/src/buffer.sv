@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 // Description: 
 // BUFFER block is a FSM that receives an input stream of samples (din), and controls the interface to a memory to capture and store them.
 // Capturing is initiated by an external trigger after the buffer has been enabled. Number of captured samples and address where to store them are configurable.

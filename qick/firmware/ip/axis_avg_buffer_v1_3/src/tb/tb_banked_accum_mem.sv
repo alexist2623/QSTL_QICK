@@ -1,8 +1,15 @@
+`timescale 1ns/1ps
+
 // Self-checking unit test for ramb36e2_accum_mem.
 //
 // Uses N=12 so NUM_BANKS = 4. For B=16, each bank has four 36-bit RAMB36E2
 // width slices and stores one 128-bit word per local address:
 //   {Q_accum[63:0], I_accum[63:0]}.
+//
+// The bank update path has a four-cycle read/DSP/writeback latency after the
+// bank input command reaches the selected bank. Same-address updates are
+// intentionally spaced here because the RTL flags back-to-back same-address
+// hazards in simulation.
 
 module tb_banked_accum_mem;
 
@@ -104,6 +111,17 @@ module tb_banked_accum_mem;
         end
     endtask
 
+    task automatic update_addr_and_wait(
+        input int unsigned a,
+        input longint signed i_delta,
+        input longint signed q_delta
+    );
+        begin
+            update_addr(a, i_delta, q_delta);
+            repeat (8) @(posedge clk);
+        end
+    endtask
+
     task automatic read_and_check(
         input int unsigned a,
         input longint signed exp_i_val,
@@ -179,6 +197,43 @@ module tb_banked_accum_mem;
         read_and_check(1024, exp_i[3], exp_q[3], "second-update-bank1");
         read_and_check(2048, exp_i[6], exp_q[6], "second-update-bank2");
         read_and_check(4095, exp_i[8], exp_q[8], "bank3-retained");
+
+        clear_addr(77);
+        repeat (8) @(posedge clk);
+        update_addr_and_wait(77, 64'sd123, -64'sd456);
+        read_and_check(77, 64'sd123, -64'sd456, "single-update-read");
+
+        clear_addr(78);
+        repeat (8) @(posedge clk);
+        update_addr_and_wait(78, -64'sd5, 64'sd7);
+        update_addr_and_wait(78, 64'sd2, -64'sd11);
+        update_addr_and_wait(78, 64'sd9, 64'sd4);
+        read_and_check(78, 64'sd6, 64'sd0, "spaced-same-address-signed");
+
+        clear_addr(79);
+        repeat (8) @(posedge clk);
+        update_addr_and_wait(
+            79,
+            64'sh0000_0000_ffff_ffff,
+            64'sh0000_0001_ffff_ffff
+        );
+        update_addr_and_wait(
+            79,
+            64'sh0000_0000_0000_0001,
+            64'sh0000_0002_0000_0001
+        );
+        read_and_check(
+            79,
+            64'sh0000_0001_0000_0000,
+            64'sh0000_0004_0000_0000,
+            "lower-carry-and-high-carry"
+        );
+
+        clear_addr(80);
+        repeat (8) @(posedge clk);
+        update_addr_and_wait(80, 64'shffff_ffff_ffff_ffff, -64'sd3);
+        update_addr_and_wait(80, 64'sh0000_0000_0000_0001, 64'sd8);
+        read_and_check(80, 64'sd0, 64'sd5, "negative-wraparound");
 
         $display("PASS: tb_banked_accum_mem verified 4-bank 128-bit accumulated storage");
         $finish;

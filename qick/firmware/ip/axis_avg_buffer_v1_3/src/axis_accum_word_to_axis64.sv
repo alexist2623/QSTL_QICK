@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 // Convert one accumulated IQ word into 64-bit AXIS beats.
 //
 // Internal AVG accumulation uses {Q_accum[4*B-1:0], I_accum[4*B-1:0]}.

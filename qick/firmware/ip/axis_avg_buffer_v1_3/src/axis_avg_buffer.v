@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 // Description:
 // AXIS_AVG_BUFFER is a block that receives an input stream of samples (s_axis) and generates three output streams, one with processed accumulated data (m0_axis) and one with raw captured data (m1_axis) and one with accumulated data but prior to be stored in internal memory (sent to tProc register) (m2_axis). Captured samples are internally stored in PL memory.
 // Capture is initiated by an external trigger after the buffer has been enabled. Number of captured samples and address where to store them are configurable.

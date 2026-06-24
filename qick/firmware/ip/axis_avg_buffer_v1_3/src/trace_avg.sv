@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 // Trace accumulation block for axis_avg_buffer v1.3.
 //
 // M = effective(AVG_ACCUM_LEN_REG[23:0]), where 0 and 1 both mean 1.

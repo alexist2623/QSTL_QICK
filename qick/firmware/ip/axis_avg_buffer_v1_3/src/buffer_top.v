@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 // Description: 
 // BUFFER_TOP block receives an input stream of samples (s_axis), captures and stores them in an internal memory when indicated and generates one output stream with raw captured data (m_axis)
 // Capturing flow is controlled by the BUFFER FSM block and is initiated by an external trigger after the buffer has been enabled. Number of captured samples and address where to store them are configurable. 

@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 // Data is I,Q.
 // I: lower B bits.
 // Q: upper B bits.

@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 // AVG accumulation block.
 //
 // Input samples are packed as {Q[B-1:0], I[B-1:0]} with signed I/Q.

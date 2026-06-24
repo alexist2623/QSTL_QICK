@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 // Self-checking accumulation test for axis_avg_buffer v1.3.
 //
 // This test verifies direct accumulation. AVG_ACCUM_LEN_REG[23:0] selects M
