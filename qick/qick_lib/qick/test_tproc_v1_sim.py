@@ -75,7 +75,7 @@ class TestTProcV1BehaviorModel(unittest.TestCase):
 
     def test_loop_condj_and_time_instructions(self):
         prog = [
-            {"name": "regwi", "args": (0, 1, 3)},
+            {"name": "regwi", "args": (0, 1, 2)},
             {"name": "regwi", "args": (0, 2, 0)},
             {"name": "mathi", "args": (0, 2, 2, "+", 1), "label": "LOOP"},
             {"name": "loopnz", "args": (0, 1, "LOOP")},

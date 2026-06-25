@@ -78,7 +78,10 @@ class TestAwgTuningAsmV1(unittest.TestCase):
         prog = make_prog()
         mgr = prog._gen_mgrs[0]
         self.assertIsInstance(mgr, AwgTuningGenManager)
-        self.assertEqual(mgr.PULSE_REGISTERS, ["cmd0", "cmd1", "cmd2", "cmd3", "cmd4", "t"])
+        self.assertEqual(
+            mgr.PULSE_REGISTERS,
+            ["target", "reserved_start", "duration", "step", "control", "t"],
+        )
         for name in mgr.PULSE_REGISTERS:
             self.assertIn((0, name), prog._gen_regmap)
 

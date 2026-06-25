@@ -1667,9 +1667,9 @@ class TProcV1BehaviorModel:
         self.pc += 1
 
     def _exec_loopnz(self, page, reg, target):
-        value = self._read_signed(page, reg) - 1
-        self._write_reg(page, reg, value)
+        value = self._read_signed(page, reg)
         if value != 0:
+            self._write_reg(page, reg, value - 1)
             self.pc = self._resolve_target(target)
         else:
             self.pc += 1

@@ -523,7 +523,7 @@ class MultiplexedGenManager(AbsGenManager):
 class AwgTuningGenManager(AbsRegisterManager):
     """ASM v1 register manager for ``axis_awg_tuning_v1`` command words."""
 
-    PULSE_REGISTERS = ["cmd0", "cmd1", "cmd2", "cmd3", "cmd4", "t"]
+    PULSE_REGISTERS = ["target", "reserved_start", "duration", "step", "control", "t"]
     OP_NOP = 0b00
     OP_SET = 0b01
     OP_RAMP = 0b10
