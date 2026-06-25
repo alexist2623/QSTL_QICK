@@ -116,14 +116,14 @@ class TestAwgTuningBehaviorModel(unittest.TestCase):
         decoded = drv.format_cmd(cmd)
         start_cycle = 5
         first_cycle = start_cycle + model.ramp_startup_latency_cycles
-        n_words = (17 + model.n_pts - 1) // model.n_pts
+        n_words = 17
 
-        result = model.run(25, [TimedCommandEvent(cycle=start_cycle, word=cmd, label="ramp 1600")])
+        result = model.run(32, [TimedCommandEvent(cycle=start_cycle, word=cmd, label="ramp 1600")])
 
         for word_idx in range(n_words):
             base_index = word_idx * model.n_pts
             expected = model.unpack_lanes(
-                model.expected_ramp_word(0, 1600, 17, decoded["step"], base_index)
+                model.expected_ramp_word(0, 1600, decoded["duration"], decoded["step"], base_index)
             )
             self.assertEqual(result.lane_samples[first_cycle + word_idx].tolist(), expected)
         self.assertTrue(np.all(result.lane_samples[first_cycle + n_words] == 1600))
@@ -132,7 +132,7 @@ class TestAwgTuningBehaviorModel(unittest.TestCase):
     def test_negative_ramp_and_invalid_requested_short_case(self):
         drv = make_driver()
         with self.assertRaises(ValueError):
-            drv.calc_step(2000, -2000, 24)
+            drv.calc_step(2000, -2000, 4)
 
         drv.reset_cache(2000, valid=True)
         model = AwgTuningBehaviorModel(n_pts=4, extra_y_pipe_stages=1)
@@ -141,8 +141,8 @@ class TestAwgTuningBehaviorModel(unittest.TestCase):
         ramp_cmd = drv.ramp_cmd(-2000, 64)
         decoded = drv.format_cmd(ramp_cmd)
         numerator = (-2000 - 2000) << drv["frac"]
-        self.assertEqual(decoded["step"], -(abs(numerator) // 63))
-        self.assertNotEqual(decoded["step"], numerator // 63)
+        self.assertEqual(decoded["step"], -(abs(numerator) // (64 * drv["n_pts"] - 1)))
+        self.assertNotEqual(decoded["step"], numerator // (64 * drv["n_pts"] - 1))
 
         result = model.run(30, [
             TimedCommandEvent(cycle=1, word=set_cmd, label="set 2000"),
@@ -157,15 +157,17 @@ class TestAwgTuningBehaviorModel(unittest.TestCase):
         drv = make_driver()
         drv.reset_cache(0, valid=True)
         model = AwgTuningBehaviorModel(n_pts=4, extra_y_pipe_stages=1)
-        cmd = drv.ramp_cmd(1234, 0)
+        cmd = drv.ramp_cmd(12, 0)
+        decoded = drv.format_cmd(cmd)
         start_cycle = 3
         first_cycle = start_cycle + model.ramp_startup_latency_cycles
 
         result = model.run(15, [TimedCommandEvent(cycle=start_cycle, word=cmd, label="duration 0")])
 
-        self.assertTrue(np.all(result.lane_samples[first_cycle] == independent_clip(1234)))
-        self.assertTrue(np.all(result.lane_samples[first_cycle + 1] == independent_clip(1234)))
-        self.assertEqual(result.accepted_commands[0].decoded["effective_duration"], 1)
+        expected = model.unpack_lanes(model.expected_ramp_word(0, 12, decoded["duration"], decoded["step"], 0))
+        self.assertEqual(result.lane_samples[first_cycle].tolist(), expected)
+        self.assertTrue(np.all(result.lane_samples[first_cycle + 1] == independent_clip(12)))
+        self.assertEqual(result.accepted_commands[0].decoded["effective_duration"], drv["n_pts"])
 
     def test_dropped_command_during_ramp(self):
         drv = make_driver()

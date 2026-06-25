@@ -673,9 +673,14 @@ class AwgTuningGenManager(AbsRegisterManager):
         duration = self._check_int(duration, "duration")
         if duration < 0:
             raise ValueError("duration must be nonnegative")
+        return 1 if duration == 0 else duration
+
+    def _duration_cycles_to_command_samples(self, duration, name):
+        duration = self._to_duration_field(duration, name)
         effective_duration = 1 if duration == 0 else duration
-        npts = int(self.gencfg["n_pts"])
-        return max(1, (effective_duration + npts - 1) // npts)
+        command_duration = effective_duration * int(self.gencfg["n_pts"])
+        self._to_duration_field(command_duration, "%s command sample count" % (name,))
+        return command_duration
 
     def _calc_step(self, start, target, duration):
         start = self._check_int(start, "start")
@@ -684,11 +689,14 @@ class AwgTuningGenManager(AbsRegisterManager):
         self._to_u32_signed(start, "start")
         self._to_u32_signed(target, "target")
 
-        if duration <= 1:
+        duration = 1 if duration == 0 else duration
+        npts = int(self.gencfg["n_pts"])
+        n_scalar_samples = duration * npts
+        if n_scalar_samples <= 1:
             return 0
 
         numerator = (target - start) << int(self.gencfg["frac"])
-        step = self._div_trunc_zero(numerator, duration - 1)
+        step = self._div_trunc_zero(numerator, n_scalar_samples - 1)
         self._to_step_field(step, "step")
         return step
 
@@ -725,6 +733,7 @@ class AwgTuningGenManager(AbsRegisterManager):
         elif style == "awg_ramp":
             target = self._check_int(params["target"], "target")
             duration = self._to_duration_field(params["duration"], "duration")
+            command_duration = self._duration_cycles_to_command_samples(duration, "duration")
             self._to_u32_signed(target, "target")
             hold_zero = self._check_bool(params.get("hold_zero", False), "hold_zero")
             if hold_zero:
@@ -744,7 +753,7 @@ class AwgTuningGenManager(AbsRegisterManager):
 
             self.last_ramp_start = self.current_value if self.current_valid else None
             self.last_ramp_step = step
-            cmd = self._pack_cmd(target=target, duration=duration, step=step,
+            cmd = self._pack_cmd(target=target, duration=command_duration, step=step,
                                  opcode=self.OP_RAMP, clear=clear)
             self._write_command_regs(cmd)
             self.next_pulse["length"] = (
@@ -1191,6 +1200,7 @@ class QickProgram(AbsQickProgram):
                     t_ch = int(ts)
                 elif t < ts:
                     logger.warning("pulse time %d appears to conflict with previous pulse ending at %f?"%(t, ts))
+                    t_ch = int(t)
                 else:
                     t_ch = int(t)
                 # convert from generator clock to tProc clock

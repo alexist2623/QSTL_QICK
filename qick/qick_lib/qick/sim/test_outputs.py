@@ -97,6 +97,13 @@ class TestQickSimOutputs(unittest.TestCase):
         return QickSim
 
     def test_clock_config(self):
+        default_sim = self.make_sim()
+        self.assertEqual(default_sim["rf"]["dacs"]["00"]["fs"], 300.0)
+        self.assertEqual(default_sim["rf"]["dacs"]["00"]["f_fabric"], 300.0)
+        self.assertEqual(default_sim["rf"]["adcs"]["00"]["fs"], 300.0)
+        self.assertEqual(default_sim["rf"]["adcs"]["00"]["f_fabric"], 300.0)
+        self.assertEqual(default_sim["tprocs"][0]["f_time"], 300.0)
+
         sim = self.make_sim(dac_clk=5000.0, adc_clk=2500.0, fabric_clk=250.0, tproc_clk=125.0)
 
         self.assertEqual(sim["rf"]["dacs"]["00"]["fs"], 5000.0)
@@ -136,7 +143,7 @@ class TestQickSimOutputs(unittest.TestCase):
         self.assertEqual(result.outputs["axis_awg_tuning_v1_4"].dac, "10")
         self.assertEqual(result.outputs["axis_signal_gen_v6_0"].lane_samples.shape, (48, 4))
         self.assertGreater(np.count_nonzero(result.get_output_samples("axis_signal_gen_v6_0", valid_only=True)), 0)
-        self.assertTrue(np.all(result.outputs["axis_awg_tuning_v1_4"].lane_samples[22] == 1000))
+        self.assertTrue(np.all(result.outputs["axis_awg_tuning_v1_4"].lane_samples[27] == 1000))
         self.assertAlmostEqual(result.outputs["axis_signal_gen_v6_0"].sample_times_us[0, 1], 1.0 / 4000.0)
 
     def test_plot_and_csv(self):
@@ -148,8 +155,17 @@ class TestQickSimOutputs(unittest.TestCase):
         result = sim.simulate_program(type("Prog", (), {"prog_list": prog})(), cycles=16)
 
         try:
-            fig, _ = result.plot_outputs(show=False, samples=16)
+            fig, axes = result.plot_outputs(show=False, samples=16)
             self.assertIsNotNone(fig)
+            labels = [text.get_text() for ax in axes for text in ax.texts]
+            self.assertTrue(any("fabric cycles=0-3 (4)" in label for label in labels))
+            self.assertTrue(any("time=0-0.05 us" in label for label in labels))
+
+            fig, axes = result.plot_outputs(show=False, samples=32)
+            self.assertIsNotNone(fig)
+            labels = [text.get_text() for ax in axes for text in ax.texts]
+            self.assertTrue(any("pulse 1: set" in label for label in labels))
+            self.assertTrue(any("cycles=6-7 (2)" in label for label in labels))
         except RuntimeError as exc:
             self.assertIn("matplotlib", str(exc))
 

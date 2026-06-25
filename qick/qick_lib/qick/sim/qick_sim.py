@@ -104,16 +104,16 @@ class QickSim(QickConfig):
         if fabric_clk is not None:
             default_dac["fabric"] = float(fabric_clk)
             default_adc["fabric"] = float(fabric_clk)
-        default_dac.setdefault("fs", 6144.0)
-        default_dac.setdefault("fabric", 384.0)
+        default_dac.setdefault("fs", 300.0)
+        default_dac.setdefault("fabric", 300.0)
         default_dac.setdefault("interpolation", cls._compute_ratio(default_dac["fs"], default_dac["fabric"], 1))
-        default_adc.setdefault("fs", 4096.0)
-        default_adc.setdefault("fabric", 256.0 if fabric_clk is None else float(fabric_clk))
+        default_adc.setdefault("fs", 300.0)
+        default_adc.setdefault("fabric", 300.0 if fabric_clk is None else float(fabric_clk))
         default_adc.setdefault("decimation", cls._compute_ratio(default_adc["fs"], default_adc["fabric"], 1))
 
         dac_overrides = {str(k): dict(v) for k, v in dict(clocks.get("dac", {})).items()}
         adc_overrides = {str(k): dict(v) for k, v in dict(clocks.get("adc", {})).items()}
-        tproc = float(tproc_clk if tproc_clk is not None else clocks.get("tproc", 100.0))
+        tproc = float(tproc_clk if tproc_clk is not None else clocks.get("tproc", 300.0))
         return {
             "tproc": tproc,
             "default_dac": default_dac,
@@ -127,8 +127,8 @@ class QickSim(QickConfig):
         cfg = dict(base)
         if override:
             cfg.update(override)
-        fs = float(cfg.get("fs", 6144.0))
-        fabric = float(cfg.get("fabric", cfg.get("f_fabric", 384.0)))
+        fs = float(cfg.get("fs", 300.0))
+        fabric = float(cfg.get("fabric", cfg.get("f_fabric", 300.0)))
         interpolation = int(cfg.get("interpolation", cls._compute_ratio(fs, fabric, 1)))
         fs_div = int(cfg.get("fs_div", 1))
         return {
@@ -146,8 +146,8 @@ class QickSim(QickConfig):
         cfg = dict(base)
         if override:
             cfg.update(override)
-        fs = float(cfg.get("fs", 4096.0))
-        fabric = float(cfg.get("fabric", cfg.get("f_fabric", 256.0)))
+        fs = float(cfg.get("fs", 300.0))
+        fabric = float(cfg.get("fabric", cfg.get("f_fabric", 300.0)))
         decimation = int(cfg.get("decimation", cls._compute_ratio(fs, fabric, 1)))
         return {
             "fs": fs,
@@ -429,8 +429,8 @@ class QickSim(QickConfig):
             "source_type": gen.cfg.get("type", type(gen).__name__),
             "n_lanes": n_lanes,
             "bits": bits,
-            "dac_fs_mhz": float(daccfg.get("fs", gen.cfg.get("fs", 6144.0))),
-            "fabric_clk_mhz": float(daccfg.get("f_fabric", gen.cfg.get("f_fabric", 384.0))),
+            "dac_fs_mhz": float(daccfg.get("fs", gen.cfg.get("fs", 300.0))),
+            "fabric_clk_mhz": float(daccfg.get("f_fabric", gen.cfg.get("f_fabric", 300.0))),
             "tproc_clk_mhz": float(self.clock_config["tproc"]),
             "metadata": metadata,
         }
@@ -443,6 +443,25 @@ class QickSim(QickConfig):
         sink = RfdcDacSinkModel(**meta)
         return sink.collect(model_result.packed_words, tvalid=valid)
 
+    def _event_to_gen_fabric_clock(self, event, gen):
+        tproc_clk = float(self.clock_config["tproc"])
+        fabric_clk = float(gen.cfg.get("f_fabric", tproc_clk))
+        if tproc_clk <= 0:
+            scale = 1.0
+        else:
+            scale = fabric_clk / tproc_clk
+        source_cycle = event.source_cycle if event.source_cycle is not None else event.cycle
+        return TimedCommandEvent(
+            cycle=int(round(int(event.cycle) * scale)),
+            word=int(event.word),
+            channel=event.channel,
+            tproc_ch=event.tproc_ch,
+            tmux_ch=event.tmux_ch,
+            label=event.label,
+            source_cycle=int(round(int(source_cycle) * scale)),
+            route_latency=event.route_latency,
+        )
+
     def _route_to_gens(self, events):
         by_gen = defaultdict(list)
         tmux = AxisTmuxV1BehaviorModel()
@@ -451,23 +470,23 @@ class QickSim(QickConfig):
                 if event.tproc_ch is not None and int(event.tproc_ch) != int(gen.cfg.get("tproc_ch", -999)):
                     continue
                 tmux_ch = gen.cfg.get("tmux_ch")
-                routed = event
+                routed = self._event_to_gen_fabric_clock(event, gen)
                 if tmux_ch is not None:
-                    select = (int(event.word) >> 152) & 0xFF
+                    select = (int(routed.word) >> 152) & 0xFF
                     if select != int(tmux_ch):
                         continue
-                    routed = tmux.route(event)
+                    routed = tmux.route(routed)
                     routed.channel = idx
                 else:
                     routed = TimedCommandEvent(
-                        cycle=int(event.cycle),
-                        word=int(event.word),
+                        cycle=int(routed.cycle),
+                        word=int(routed.word),
                         channel=idx,
-                        tproc_ch=event.tproc_ch,
+                        tproc_ch=routed.tproc_ch,
                         tmux_ch=None,
-                        label=event.label,
-                        source_cycle=event.source_cycle,
-                        route_latency=event.route_latency,
+                        label=routed.label,
+                        source_cycle=routed.source_cycle,
+                        route_latency=routed.route_latency,
                     )
                 by_gen[idx].append(routed)
         return by_gen

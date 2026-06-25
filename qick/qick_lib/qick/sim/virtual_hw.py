@@ -170,27 +170,27 @@ class SimRFdc(SimDummyIP):
         adcs = OrderedDict()
         for name in ["00", "01", "02", "03", "10", "11", "12", "13", "20", "21", "22", "23", "30", "31", "32", "33"]:
             dacs[name] = {
-                "fs": 6144.0,
+                "fs": 300.0,
                 "fs_mult": 1,
                 "fs_div": 1,
                 "interpolation": 1,
-                "f_fabric": 384.0,
-                "f_dds": 6144.0,
+                "f_fabric": 300.0,
+                "f_dds": 300.0,
                 "fdds_div": 1,
             }
             adcs[name] = {
-                "fs": 4096.0,
+                "fs": 300.0,
                 "fs_mult": 1,
                 "fs_div": 1,
                 "decimation": 1,
-                "f_fabric": 256.0,
-                "f_output": 4096.0,
+                "f_fabric": 300.0,
+                "f_output": 300.0,
                 "coupling": "DC",
             }
         return {
             "tiles": {
-                "dac": {i: {"f_ref": 245.76, "f_out": 384.0, "fs": 6144.0} for i in range(4)},
-                "adc": {i: {"f_ref": 245.76, "f_out": 256.0, "fs": 4096.0} for i in range(4)},
+                "dac": {i: {"f_ref": 300.0, "f_out": 300.0, "fs": 300.0} for i in range(4)},
+                "adc": {i: {"f_ref": 300.0, "f_out": 300.0, "fs": 300.0} for i in range(4)},
             },
             "dacs": dacs,
             "adcs": adcs,
@@ -223,7 +223,7 @@ class SimTProc:
     """Small tProcessor helper for tests that do not instantiate the real driver."""
 
     def __init__(self):
-        self.cfg = {"type": "axis_tproc64x32_x8", "f_time": 100.0, "output_pins": [], "start_pin": None}
+        self.cfg = {"type": "axis_tproc64x32_x8", "f_time": 300.0, "output_pins": [], "start_pin": None}
 
     def __getitem__(self, key):
         return self.cfg[key]

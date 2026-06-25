@@ -356,13 +356,22 @@ class AxisAwgTuningV1(AbsPulsedSignalGen):
         self._to_u32_signed(start, "start")
         self._to_u32_signed(target, "target")
 
-        if duration <= 1:
+        duration = 1 if duration == 0 else duration
+        n_scalar_samples = duration * int(self["n_pts"])
+        if n_scalar_samples <= 1:
             return 0
 
         numerator = (target - start) << self["frac"]
-        step = self._div_trunc_zero(numerator, duration - 1)
+        step = self._div_trunc_zero(numerator, n_scalar_samples - 1)
         self._to_step_field(step, "step")
         return step
+
+    def _duration_cycles_to_command_samples(self, duration, name):
+        duration = self._to_duration_field(duration, name)
+        effective_duration = 1 if duration == 0 else duration
+        command_duration = effective_duration * int(self["n_pts"])
+        self._to_duration_field(command_duration, f"{name} command sample count")
+        return command_duration
 
     def pack_cmd(self, target=0, start=0, duration=0, step=0,
                  opcode=None, hold_zero=False, clear=False):
@@ -432,7 +441,7 @@ class AxisAwgTuningV1(AbsPulsedSignalGen):
                  hold_zero=False, clear=False):
         """Return a RAMP command word and update the software cache.
 
-        This AXIS command helper exposes only the final output value and scalar-sample
+        This AXIS command helper exposes only the final output value and fabric-cycle
         duration by default. The effective ramp starts from the IP's internal
         current output. This method uses the software ``current_value`` cache to
         calculate the command step unless an explicit ``step`` is supplied.
@@ -446,6 +455,7 @@ class AxisAwgTuningV1(AbsPulsedSignalGen):
 
         target = self._check_int(final_output_value, "final_output_value")
         duration = self._to_duration_field(ramp_duration, "ramp_duration")
+        command_duration = self._duration_cycles_to_command_samples(duration, "ramp_duration")
         self._to_u32_signed(target, "final_output_value")
 
         if not self.current_valid:
@@ -464,7 +474,7 @@ class AxisAwgTuningV1(AbsPulsedSignalGen):
         self.last_ramp_start = start_value
         self.last_ramp_step = step_value
 
-        cmd = self.pack_cmd(target=target, start=0, duration=duration,
+        cmd = self.pack_cmd(target=target, start=0, duration=command_duration,
                             step=step_value, opcode=self.OP_RAMP,
                             hold_zero=hold_zero, clear=clear)
         self.current_value = target
@@ -1696,21 +1706,21 @@ class TProcV1BehaviorModel:
 
     def _exec_set(self, port, page, r0, r1, r2, r3, r4, rt):
         words = [self._read_raw(page, reg) for reg in (r0, r1, r2, r3, r4)]
-        cycle = self._read_raw(page, rt)
+        cycle = self.current_cycle + self._read_raw(page, rt)
         word = TProcTimedEventSimulator._words_to_cmd(words)
         self._queue_output(port, cycle, word, kind="axis")
         self.pc += 1
 
     def _exec_seti(self, port, page, reg, time_imm):
-        self._queue_output(port, int(time_imm), self._read_raw(page, reg), kind="pin")
+        self._queue_output(port, self.current_cycle + int(time_imm), self._read_raw(page, reg), kind="pin")
         self.pc += 1
 
     def _exec_setb(self, page, reg, time_reg):
-        self._queue_output(0, self._read_raw(page, time_reg), self._read_raw(page, reg), kind="pin")
+        self._queue_output(0, self.current_cycle + self._read_raw(page, time_reg), self._read_raw(page, reg), kind="pin")
         self.pc += 1
 
     def _exec_setbi(self, page, reg, time_imm):
-        self._queue_output(0, int(time_imm), self._read_raw(page, reg), kind="pin")
+        self._queue_output(0, self.current_cycle + int(time_imm), self._read_raw(page, reg), kind="pin")
         self.pc += 1
 
     def _exec_read(self, page, port, op, dst):

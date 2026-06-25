@@ -91,19 +91,23 @@ class TestAxisAwgTuningV1(unittest.TestCase):
         decoded = drv.format_cmd(ramp)
         self.assertEqual(decoded["opcode"], drv.OP_RAMP)
         self.assertEqual(decoded["reserved_start"], 0)
+        self.assertEqual(decoded["duration"], 24 * drv["n_pts"])
         self.assertEqual(decoded["step"], drv.calc_step(1234, 2000, 24))
 
     def test_step_calculation_truncates_toward_zero(self):
         drv = make_driver()
-        self.assertEqual(drv.calc_step(1000, 2000, 1), 0)
+        npts = drv["n_pts"]
+
+        one_cycle_num = (1100 - 1000) << drv["frac"]
+        self.assertEqual(drv.calc_step(1000, 1100, 1), one_cycle_num // (npts - 1))
 
         pos_num = (2000 - 1000) << drv["frac"]
-        self.assertEqual(drv.calc_step(1000, 2000, 24), pos_num // 23)
+        self.assertEqual(drv.calc_step(1000, 2000, 24), pos_num // (24 * npts - 1))
 
         neg_num = (-2000 - 2000) << drv["frac"]
-        expected = -(abs(neg_num) // 63)
+        expected = -(abs(neg_num) // (64 * npts - 1))
         self.assertEqual(drv.calc_step(2000, -2000, 64), expected)
-        self.assertNotEqual(expected, neg_num // 63)
+        self.assertNotEqual(expected, neg_num // (64 * npts - 1))
 
     def test_sequence_updates_cache_and_uses_current_start(self):
         drv = make_driver()

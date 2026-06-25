@@ -62,7 +62,7 @@ class RfdcDacSinkModel:
     """Collect RFDC-facing packed words and lane samples for one DAC input."""
 
     def __init__(self, name, dac, source_path, source_type, n_lanes=16, bits=16,
-                 dac_fs_mhz=6144.0, fabric_clk_mhz=384.0, tproc_clk_mhz=250.0,
+                 dac_fs_mhz=300.0, fabric_clk_mhz=300.0, tproc_clk_mhz=300.0,
                  metadata=None):
         self.name = str(name)
         self.dac = str(dac)
