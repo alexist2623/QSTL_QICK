@@ -34,7 +34,9 @@ and hardware state may have diverged.
 """
 
 import csv
-from dataclasses import dataclass
+import math
+import re
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -624,6 +626,10 @@ class WaveformResult:
     timing_conflicts: List[TimingConflict]
     channels: Optional[List[int]] = None
     channel_results: Optional[Dict[int, "WaveformResult"]] = None
+    unsupported_ips: List[str] = field(default_factory=list)
+    unsupported_instructions: List[str] = field(default_factory=list)
+    unsupported_modes: List[str] = field(default_factory=list)
+    ip_events: List[Dict[str, Any]] = field(default_factory=list)
 
     def to_dict(self):
         """Return a JSON-like dictionary with arrays converted to lists."""
@@ -635,6 +641,24 @@ class WaveformResult:
             "dropped_commands": [event.__dict__.copy() for event in self.dropped_commands],
             "timing_conflicts": [event.__dict__.copy() for event in self.timing_conflicts],
             "channels": None if self.channels is None else list(self.channels),
+            "unsupported_ips": list(self.unsupported_ips),
+            "unsupported_instructions": list(self.unsupported_instructions),
+            "unsupported_modes": list(self.unsupported_modes),
+            "ip_events": [dict(event) for event in self.ip_events],
+        }
+
+    def summary(self):
+        """Return a compact count summary for tests and reports."""
+        return {
+            "cycles": int(np.asarray(self.packed_words).shape[0]) if self.packed_words is not None else 0,
+            "commands": len(self.command_events),
+            "accepted": len(self.accepted_commands),
+            "dropped": len(self.dropped_commands),
+            "timing_conflicts": len(self.timing_conflicts),
+            "unsupported_ips": len(self.unsupported_ips),
+            "unsupported_instructions": len(self.unsupported_instructions),
+            "unsupported_modes": len(self.unsupported_modes),
+            "ip_events": len(self.ip_events),
         }
 
     @staticmethod
@@ -1179,9 +1203,10 @@ class TProcTimedEventSimulator:
     def from_program(cls, prog, soccfg=None, cycles=None, use_tmux=True, **model_kwargs):
         """Create a simulator from an expanded ASM v1 program object.
 
-        The extractor handles only the instruction subset normally emitted by
-        the AWG tuning ASM v1 manager. It does not execute arbitrary tProcessor
-        programs. If ``cycles`` is supplied it is stored as ``default_cycles``.
+        This runs the Python tProcessor v1 behavior model and consumes its
+        timed output events. The interpreter covers the instruction names
+        declared by ASM v1 and records unsupported instructions in strict mode.
+        If ``cycles`` is supplied it is stored as ``default_cycles``.
         """
         prog_list = getattr(prog, "prog_list", None)
         if prog_list is None:
@@ -1190,8 +1215,11 @@ class TProcTimedEventSimulator:
             raise ValueError("program object does not expose prog_list/program instructions")
 
         num_channels = len(soccfg.get("gens", [])) if soccfg is not None else model_kwargs.pop("num_channels", 1)
-        events = cls._events_from_prog_list(prog_list, use_tmux=use_tmux)
+        tproc = TProcV1BehaviorModel(strict=model_kwargs.pop("strict_tproc", True))
+        tproc.run(prog_list)
+        events = tproc.output_events
         sim = cls(num_channels=num_channels, events=events, use_tmux=use_tmux, **model_kwargs)
+        sim.tproc_result = tproc
         sim.default_cycles = cycles
         return sim
 
@@ -1342,6 +1370,834 @@ class TProcTimedEventSimulator:
         )
 
 
+class UnsupportedIPError(RuntimeError):
+    """Raised when a project IP is not modeled in strict simulation mode."""
+
+
+class UnsupportedInstructionError(NotImplementedError):
+    """Raised when a tProcessor instruction has no behavior-model handler."""
+
+
+class UnsupportedModeError(RuntimeError):
+    """Raised when a modeled IP receives an unsupported command mode."""
+
+
+@dataclass
+class IpEvent:
+    """A routed packet or behavioral IP-side event."""
+
+    cycle: int
+    path: str
+    event: str
+    detail: Dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self):
+        return {
+            "cycle": self.cycle,
+            "path": self.path,
+            "event": self.event,
+            "detail": dict(self.detail),
+        }
+
+
+class TProcV1BehaviorModel:
+    """Behavioral interpreter for ASM v1 ``QickProgram.instructions``.
+
+    This is a timing/event interpreter for Python-side program validation. It
+    tracks register pages, register 0 as hardwired zero, a small data memory,
+    labels/PC, stack, timed output queues, and tProcessor output events. It is
+    not a binary tProc RTL model.
+    """
+
+    DECLARED_INSTRUCTIONS = [
+        "pushi", "popi", "mathi", "seti", "synci", "waiti", "bitwi",
+        "memri", "memwi", "regwi", "setbi", "loopnz", "end", "condj",
+        "math", "set", "sync", "read", "wait", "bitw", "memr", "memw",
+        "setb", "comment",
+    ]
+
+    def __init__(self, queue_depth=16, strict=True, input_queues=None):
+        self.queue_depth = int(queue_depth)
+        self.strict = bool(strict)
+        self.input_queues = {} if input_queues is None else {
+            int(k): list(v) for k, v in input_queues.items()
+        }
+        self.reset()
+
+    @staticmethod
+    def _u32(value):
+        return int(value) & 0xFFFFFFFF
+
+    @staticmethod
+    def _s32(value):
+        value = int(value) & 0xFFFFFFFF
+        return value - 0x100000000 if value & 0x80000000 else value
+
+    @staticmethod
+    def _inst_name_args(inst):
+        if isinstance(inst, dict):
+            return inst.get("name") or inst.get("op"), tuple(inst.get("args", ()))
+        if isinstance(inst, (tuple, list)) and inst:
+            return inst[0], tuple(inst[1:])
+        return getattr(inst, "name", None), tuple(getattr(inst, "args", ()))
+
+    @classmethod
+    def handler_names(cls):
+        return {name[6:] for name in dir(cls) if name.startswith("_exec_")}
+
+    @classmethod
+    def missing_instruction_handlers(cls, instruction_names=None):
+        if instruction_names is None:
+            instruction_names = cls.DECLARED_INSTRUCTIONS
+        return sorted(set(instruction_names) - cls.handler_names())
+
+    def reset(self):
+        self.pc = 0
+        self.current_cycle = 0
+        self.ended = False
+        self.regs = {}
+        self.dmem = {}
+        self.stack = []
+        self.labels = {}
+        self.output_events = []
+        self.output_pin_events = []
+        self.timing_conflicts = []
+        self.unsupported_instructions = []
+        self.ip_events = []
+        self._queue_counts = {}
+
+    def _read_raw(self, page, reg):
+        reg = int(reg)
+        if reg == 0:
+            return 0
+        return self.regs.get((int(page), reg), 0) & 0xFFFFFFFF
+
+    def _read_signed(self, page, reg):
+        return self._s32(self._read_raw(page, reg))
+
+    def _write_reg(self, page, reg, value):
+        reg = int(reg)
+        if reg == 0:
+            return
+        self.regs[(int(page), reg)] = self._u32(value)
+
+    def _resolve_target(self, target):
+        if isinstance(target, str):
+            if target not in self.labels:
+                raise ValueError("unknown program label %r" % target)
+            return self.labels[target]
+        return int(target)
+
+    def _apply_math(self, a, op, b):
+        if op == "+":
+            return a + b
+        if op == "-":
+            return a - b
+        if op == "*":
+            return a * b
+        if op == ">":
+            return int(a > b)
+        if op == ">=":
+            return int(a >= b)
+        if op == "<":
+            return int(a < b)
+        if op == "<=":
+            return int(a <= b)
+        if op == "==":
+            return int(a == b)
+        if op == "!=":
+            return int(a != b)
+        raise UnsupportedModeError("unsupported math operator %r" % (op,))
+
+    def _apply_bit(self, a, op, b=0):
+        a = self._u32(a)
+        b = self._u32(b)
+        if op == "&":
+            return a & b
+        if op == "|":
+            return a | b
+        if op == "^":
+            return a ^ b
+        if op == "~":
+            return ~a
+        if op == "<<":
+            return a << int(b)
+        if op == ">>":
+            return a >> int(b)
+        if op == "upper":
+            return (a >> 16) & 0xFFFF
+        if op == "lower":
+            return a & 0xFFFF
+        raise UnsupportedModeError("unsupported bit operator %r" % (op,))
+
+    def _queue_output(self, port, cycle, word, label=None, kind="axis"):
+        port = int(port)
+        cycle = int(cycle)
+        key = (port, cycle)
+        count = self._queue_counts.get(key, 0)
+        if count >= self.queue_depth:
+            conflict = TimingConflict(
+                cycle=cycle,
+                channel=port,
+                description="tProcessor output queue overflow on port %d" % port,
+            )
+            self.timing_conflicts.append(conflict)
+            if self.strict:
+                raise RuntimeError(conflict.description)
+        if count > 0:
+            conflict = TimingConflict(
+                cycle=cycle,
+                channel=port,
+                description="multiple tProcessor writes scheduled to one port/cycle",
+            )
+            self.timing_conflicts.append(conflict)
+            if self.strict:
+                raise RuntimeError(conflict.description)
+        self._queue_counts[key] = count + 1
+
+        if kind == "axis":
+            self.output_events.append(TimedCommandEvent(
+                cycle=cycle,
+                word=int(word),
+                tproc_ch=port,
+                label=label,
+                source_cycle=cycle,
+            ))
+        else:
+            self.output_pin_events.append({
+                "cycle": cycle,
+                "port": port,
+                "word": int(word) & 0xFFFFFFFF,
+                "label": label,
+                "kind": kind,
+            })
+
+    def load_program(self, program):
+        self.program = list(getattr(program, "prog_list", program))
+        self.labels = {}
+        for idx, inst in enumerate(self.program):
+            if isinstance(inst, dict) and "label" in inst:
+                self.labels[inst["label"]] = idx
+
+    def run(self, program=None, max_steps=100000):
+        if program is not None:
+            self.load_program(program)
+        if not hasattr(self, "program"):
+            self.program = []
+        steps = 0
+        while not self.ended and 0 <= self.pc < len(self.program):
+            if steps >= max_steps:
+                raise RuntimeError("tProcessor simulator exceeded max_steps=%d" % max_steps)
+            inst = self.program[self.pc]
+            name, args = self._inst_name_args(inst)
+            if name is None:
+                self.pc += 1
+                steps += 1
+                continue
+            name = str(name)
+            handler = getattr(self, "_exec_" + name, None)
+            if handler is None:
+                self.unsupported_instructions.append(name)
+                if self.strict:
+                    raise UnsupportedInstructionError("unsupported tProc v1 instruction %s" % name)
+                self.pc += 1
+            else:
+                handler(*args)
+            steps += 1
+        return self
+
+    def _exec_comment(self, *args):
+        self.pc += 1
+
+    def _exec_end(self):
+        self.ended = True
+        self.pc += 1
+
+    def _exec_regwi(self, page, reg, imm):
+        self._write_reg(page, reg, imm)
+        self.pc += 1
+
+    def _exec_mathi(self, page, dst, src, op, imm):
+        self._write_reg(page, dst, self._apply_math(self._read_signed(page, src), op, int(imm)))
+        self.pc += 1
+
+    def _exec_math(self, page, dst, src_a, op, src_b):
+        self._write_reg(page, dst, self._apply_math(
+            self._read_signed(page, src_a), op, self._read_signed(page, src_b)
+        ))
+        self.pc += 1
+
+    def _exec_bitwi(self, page, dst, src, op, imm):
+        self._write_reg(page, dst, self._apply_bit(self._read_raw(page, src), op, int(imm)))
+        self.pc += 1
+
+    def _exec_bitw(self, page, dst, src_a, op, src_b):
+        self._write_reg(page, dst, self._apply_bit(
+            self._read_raw(page, src_a), op, self._read_raw(page, src_b)
+        ))
+        self.pc += 1
+
+    def _exec_memwi(self, page, reg, addr):
+        self.dmem[int(addr)] = self._read_raw(page, reg)
+        self.pc += 1
+
+    def _exec_memri(self, page, reg, addr):
+        self._write_reg(page, reg, self.dmem.get(int(addr), 0))
+        self.pc += 1
+
+    def _exec_memw(self, page, reg, addr_reg):
+        self.dmem[self._read_raw(page, addr_reg)] = self._read_raw(page, reg)
+        self.pc += 1
+
+    def _exec_memr(self, page, dst, addr_reg):
+        self._write_reg(page, dst, self.dmem.get(self._read_raw(page, addr_reg), 0))
+        self.pc += 1
+
+    def _exec_pushi(self, page, reg, op, imm):
+        value = self._read_signed(page, reg)
+        if op is not None:
+            value = self._apply_math(value, op, int(imm))
+        self.stack.append(self._u32(value))
+        self.pc += 1
+
+    def _exec_popi(self, page, reg):
+        if not self.stack:
+            raise RuntimeError("tProcessor stack underflow")
+        self._write_reg(page, reg, self.stack.pop())
+        self.pc += 1
+
+    def _exec_loopnz(self, page, reg, target):
+        value = self._read_signed(page, reg) - 1
+        self._write_reg(page, reg, value)
+        if value != 0:
+            self.pc = self._resolve_target(target)
+        else:
+            self.pc += 1
+
+    def _exec_condj(self, page, reg_a, op, reg_b, target):
+        take = bool(self._apply_math(self._read_signed(page, reg_a), op, self._read_signed(page, reg_b)))
+        self.pc = self._resolve_target(target) if take else self.pc + 1
+
+    def _exec_synci(self, imm):
+        self.current_cycle += int(imm)
+        self.pc += 1
+
+    def _exec_sync(self, page, reg):
+        self.current_cycle = max(self.current_cycle, self._read_signed(page, reg))
+        self.pc += 1
+
+    def _exec_waiti(self, port, imm):
+        self.current_cycle = max(self.current_cycle, int(imm))
+        self.pc += 1
+
+    def _exec_wait(self, page, port, reg):
+        self.current_cycle = max(self.current_cycle, self._read_signed(page, reg))
+        self.pc += 1
+
+    def _exec_set(self, port, page, r0, r1, r2, r3, r4, rt):
+        words = [self._read_raw(page, reg) for reg in (r0, r1, r2, r3, r4)]
+        cycle = self._read_raw(page, rt)
+        word = TProcTimedEventSimulator._words_to_cmd(words)
+        self._queue_output(port, cycle, word, kind="axis")
+        self.pc += 1
+
+    def _exec_seti(self, port, page, reg, time_imm):
+        self._queue_output(port, int(time_imm), self._read_raw(page, reg), kind="pin")
+        self.pc += 1
+
+    def _exec_setb(self, page, reg, time_reg):
+        self._queue_output(0, self._read_raw(page, time_reg), self._read_raw(page, reg), kind="pin")
+        self.pc += 1
+
+    def _exec_setbi(self, page, reg, time_imm):
+        self._queue_output(0, int(time_imm), self._read_raw(page, reg), kind="pin")
+        self.pc += 1
+
+    def _exec_read(self, page, port, op, dst):
+        queue = self.input_queues.setdefault(int(port), [])
+        value = queue.pop(0) if queue else 0
+        if op in (None, "lower"):
+            out = value
+        elif op == "upper":
+            out = int(value) >> 32
+        else:
+            out = value
+        self._write_reg(page, dst, out)
+        self.pc += 1
+
+
+class AxisTmuxV1BehaviorModel:
+    """Behavioral model of ``axis_tmux_v1`` upper-byte routing."""
+
+    def __init__(self, latency=2, outputs=8):
+        self.latency = int(latency)
+        self.outputs = int(outputs)
+
+    def route(self, event):
+        word = int(event.word)
+        select = (word >> 152) & 0xFF
+        channel = select & 0x7
+        return TimedCommandEvent(
+            cycle=int(event.cycle) + self.latency,
+            word=word,
+            channel=channel,
+            tproc_ch=event.tproc_ch,
+            tmux_ch=select,
+            label=event.label,
+            source_cycle=event.source_cycle if event.source_cycle is not None else event.cycle,
+            route_latency=int(event.route_latency) + self.latency,
+        )
+
+
+class AxisRegisterSliceBehaviorModel:
+    """Simple AXIS register-slice model with configurable latency."""
+
+    def __init__(self, latency=1, name="axis_register_slice"):
+        self.latency = int(latency)
+        self.name = name
+
+    def route(self, event):
+        event = TimedCommandEvent(**event.__dict__)
+        event.cycle += self.latency
+        event.route_latency += self.latency
+        return event
+
+
+class AxisClockConverterBehaviorModel(AxisRegisterSliceBehaviorModel):
+    """Clock converter model. Clocks are treated as synchronous by default."""
+
+    def __init__(self, latency=0, name="axis_clock_converter"):
+        super().__init__(latency=latency, name=name)
+
+
+class AxisBroadcasterBehaviorModel:
+    """Duplicate one AXIS event to multiple outputs."""
+
+    def __init__(self, outputs=2, latency=0):
+        self.outputs = int(outputs)
+        self.latency = int(latency)
+
+    def route(self, event):
+        routed = []
+        for channel in range(self.outputs):
+            routed.append(TimedCommandEvent(
+                cycle=int(event.cycle) + self.latency,
+                word=int(event.word),
+                channel=channel,
+                tproc_ch=event.tproc_ch,
+                tmux_ch=event.tmux_ch,
+                label=event.label,
+                source_cycle=event.source_cycle,
+                route_latency=int(event.route_latency) + self.latency,
+            ))
+        return routed
+
+
+class AxisSwitchBehaviorModel:
+    """Behavioral AXIS switch model using a selected input/output map."""
+
+    def __init__(self, selection=None, latency=0, strict=True):
+        self.selection = {} if selection is None else dict(selection)
+        self.latency = int(latency)
+        self.strict = bool(strict)
+
+    def route(self, event, input_port=0):
+        if input_port not in self.selection:
+            if self.strict:
+                raise UnsupportedModeError("axis_switch input %s is not selected" % input_port)
+            return None
+        event = TimedCommandEvent(**event.__dict__)
+        event.channel = self.selection[input_port]
+        event.cycle += self.latency
+        event.route_latency += self.latency
+        return event
+
+
+class RfdcDacSinkModel:
+    """Collect packed DAC words and lane samples from a model output."""
+
+    def __init__(self, name, n_lanes=16, b=16):
+        self.name = name
+        self.n_lanes = int(n_lanes)
+        self.b = int(b)
+        self.words = []
+
+    def write(self, cycle, word):
+        model = AwgTuningBehaviorModel(n_pts=self.n_lanes, b=self.b)
+        self.words.append({
+            "cycle": int(cycle),
+            "word": int(word),
+            "lanes": model.unpack_lanes(word),
+        })
+
+
+class RfdcAdcSourceModel:
+    """Configurable ADC source for readout and buffer behavior tests."""
+
+    def __init__(self, samples=None, n_lanes=8):
+        self.samples = [] if samples is None else list(samples)
+        self.n_lanes = int(n_lanes)
+        self.index = 0
+
+    def read_word(self):
+        if self.index < len(self.samples):
+            value = self.samples[self.index]
+            self.index += 1
+            return value
+        return [0] * self.n_lanes
+
+
+class AxisSignalGenV6BehaviorModel:
+    """Behavioral model for ``axis_signal_gen_v6`` command timing and DDS mode."""
+
+    def __init__(self, n_dds=16, b=16, strict=True, latency=0, name="axis_signal_gen_v6"):
+        self.n_dds = int(n_dds)
+        self.b = int(b)
+        self.strict = bool(strict)
+        self.latency = int(latency)
+        self.name = name
+        self.command_events = []
+        self.unsupported_modes = []
+        self._outputs = {}
+        self._last_word = 0
+
+    @staticmethod
+    def decode_command(cmd):
+        cmd = int(cmd)
+        return {
+            "freq": cmd & 0xFFFFFFFF,
+            "phase": (cmd >> 32) & 0xFFFFFFFF,
+            "addr": (cmd >> 64) & 0xFFFF,
+            "gain": AwgTuningBehaviorModel._sign_extend((cmd >> 96) & 0xFFFF, 16),
+            "nsamp": (cmd >> 128) & 0xFFFF,
+            "outsel": (cmd >> 144) & 0x3,
+            "mode": bool((cmd >> 146) & 0x1),
+            "stdysel": bool((cmd >> 147) & 0x1),
+            "phrst": bool((cmd >> 148) & 0x1),
+            "tmux_select": (cmd >> 152) & 0xFF,
+        }
+
+    def _pack(self, samples):
+        word = 0
+        mask = (1 << self.b) - 1
+        for idx, sample in enumerate(samples):
+            word |= (int(sample) & mask) << (idx * self.b)
+        return word
+
+    def _dds_word(self, decoded, word_index):
+        phase0 = int(decoded["phase"])
+        freq = int(decoded["freq"])
+        gain = int(decoded["gain"])
+        samples = []
+        for lane in range(self.n_dds):
+            phase_word = (phase0 + freq * (word_index * self.n_dds + lane)) & 0xFFFFFFFF
+            angle = (phase_word / float(1 << 32)) * 2.0 * math.pi
+            value = int(round(math.cos(angle) * gain))
+            value = max(-(1 << (self.b - 1)), min((1 << (self.b - 1)) - 1, value))
+            samples.append(value)
+        return self._pack(samples)
+
+    def accept_command(self, cycle, cmd, label=None):
+        decoded = self.decode_command(cmd)
+        event = CommandEvent(
+            cycle=int(cycle),
+            channel=0,
+            raw_command=int(cmd),
+            decoded=decoded,
+            label=label,
+            output_cycle=int(cycle) + self.latency,
+        )
+        self.command_events.append(event)
+        nsamp = max(1, int(decoded["nsamp"]))
+        n_words = max(1, (nsamp + self.n_dds - 1) // self.n_dds)
+
+        if decoded["outsel"] == 1:
+            for word_idx in range(n_words):
+                self._outputs[int(cycle) + self.latency + word_idx] = self._dds_word(decoded, word_idx)
+        elif decoded["outsel"] == 3:
+            for word_idx in range(n_words):
+                self._outputs[int(cycle) + self.latency + word_idx] = 0
+        else:
+            msg = "%s outsel=%d requires envelope/input data in the Python model" % (
+                self.name, decoded["outsel"]
+            )
+            self.unsupported_modes.append(msg)
+            if self.strict:
+                raise UnsupportedModeError(msg)
+        return event
+
+    def step(self, cycle):
+        if int(cycle) in self._outputs:
+            self._last_word = self._outputs[int(cycle)]
+            return self._last_word
+        return 0
+
+    def run(self, cycles, events=None):
+        events = [] if events is None else list(events)
+        by_cycle = {}
+        for event in events:
+            by_cycle.setdefault(int(event.cycle), []).append(event)
+        packed = []
+        lane_model = AwgTuningBehaviorModel(n_pts=self.n_dds, b=self.b)
+        lanes = []
+        for cycle in range(int(cycles)):
+            for event in by_cycle.get(cycle, []):
+                self.accept_command(cycle, event.word, event.label)
+            word = self.step(cycle)
+            packed.append(word)
+            lanes.append(lane_model.unpack_lanes(word))
+        return WaveformResult(
+            packed_words=np.array(packed, dtype=object),
+            lane_samples=np.array(lanes, dtype=np.int64),
+            command_events=list(self.command_events),
+            accepted_commands=list(self.command_events),
+            dropped_commands=[],
+            timing_conflicts=[],
+            unsupported_modes=list(self.unsupported_modes),
+            channels=[0],
+        )
+
+
+class AxisDynReadoutV1BehaviorModel:
+    """Behavioral model for qstl dynamic readout command recognition."""
+
+    def __init__(self, n_dds=8, strict=True, latency=0, adc_source=None, name="axis_dyn_readout_v1"):
+        self.n_dds = int(n_dds)
+        self.strict = bool(strict)
+        self.latency = int(latency)
+        self.adc_source = RfdcAdcSourceModel(n_lanes=n_dds) if adc_source is None else adc_source
+        self.name = name
+        self.command_events = []
+        self.captured = []
+
+    @staticmethod
+    def decode_command(cmd):
+        cmd = int(cmd)
+        return {
+            "freq": cmd & 0xFFFFFFFF,
+            "phase": (cmd >> 32) & 0xFFFFFFFF,
+            "nsamp": (cmd >> 64) & 0xFFFF,
+            "outsel": (cmd >> 80) & 0x3,
+            "mode": bool((cmd >> 82) & 0x1),
+            "phrst": bool((cmd >> 83) & 0x1),
+        }
+
+    def accept_command(self, cycle, cmd, label=None):
+        decoded = self.decode_command(cmd)
+        event = CommandEvent(int(cycle), 0, int(cmd), decoded, label, output_cycle=int(cycle) + self.latency)
+        self.command_events.append(event)
+        for idx in range(max(1, decoded["nsamp"])):
+            self.captured.append({
+                "cycle": int(cycle) + self.latency + idx,
+                "sample": self.adc_source.read_word(),
+                "command": decoded,
+            })
+        return event
+
+
+class AxisAvgBufferV13BehaviorModel:
+    """Behavioral integer model for axis_avg_buffer v1.3 capture/feedback."""
+
+    def __init__(self, b=16, accum_len=1, trace_reps=1, feedback_latency=0, name="axis_avg_buffer"):
+        self.b = int(b)
+        self.accum_len = max(1, int(accum_len))
+        self.trace_reps = max(1, int(trace_reps))
+        self.feedback_latency = int(feedback_latency)
+        self.name = name
+        self.raw_buffer = []
+        self.avg_memory = []
+        self.feedback_events = []
+
+    def capture(self, start_cycle, iq_words, length=None):
+        length = len(iq_words) if length is None else int(length)
+        words = list(iq_words)[:length]
+        self.raw_buffer.extend(words)
+        group = self.accum_len
+        for out_idx in range(0, len(words), group):
+            chunk = words[out_idx:out_idx + group]
+            if not chunk:
+                continue
+            accum_i = 0
+            accum_q = 0
+            for word in chunk:
+                i_val = AwgTuningBehaviorModel._sign_extend(word & ((1 << self.b) - 1), self.b)
+                q_val = AwgTuningBehaviorModel._sign_extend((word >> self.b) & ((1 << self.b) - 1), self.b)
+                accum_i += i_val
+                accum_q += q_val
+            packed = (accum_q & ((1 << 64) - 1)) << 64 | (accum_i & ((1 << 64) - 1))
+            self.avg_memory.append(packed)
+            self.feedback_events.append(TimedCommandEvent(
+                cycle=int(start_cycle) + self.feedback_latency + len(self.avg_memory) - 1,
+                word=packed,
+                label=self.name + "_m2_feedback",
+            ))
+        return list(self.feedback_events)
+
+
+class QstlAwgTuningProjectSimulator:
+    """Hand-coded qstl_awg_tuning behavioral topology with BD validation.
+
+    The BD Tcl is scanned to verify expected modeled IP instances. The Python
+    topology covers tProc -> TMUX -> SignalGen/AWG command routing, DAC sinks,
+    dynamic readout command recognition, and avg-buffer feedback event storage.
+    Non-control infrastructure such as AXI interconnect, DMA engines, PS GPIO,
+    and RFDC analog behavior is listed as unsupported/non-simulated metadata
+    rather than silently acting as a waveform source.
+    """
+
+    REQUIRED_MODELED_PATTERNS = {
+        "axis_tproc64x32_x8": "TProcV1BehaviorModel",
+        "axis_tmux_v1": "AxisTmuxV1BehaviorModel",
+        "axis_signal_gen_v6": "AxisSignalGenV6BehaviorModel",
+        "axis_awg_tuning_v1": "AwgTuningBehaviorModel",
+        "axis_dyn_readout_v1": "AxisDynReadoutV1BehaviorModel",
+        "axis_avg_buffer": "AxisAvgBufferV13BehaviorModel",
+        "axis_register_slice": "AxisRegisterSliceBehaviorModel",
+        "axis_broadcaster": "AxisBroadcasterBehaviorModel",
+        "axis_clock_converter": "AxisClockConverterBehaviorModel",
+        "axis_switch": "AxisSwitchBehaviorModel",
+    }
+
+    NON_WAVEFORM_IP_PATTERNS = [
+        "axi_dma", "smartconnect", "zynq_ultra_ps_e", "axi_gpio", "axi_quad_spi",
+        "proc_sys_reset", "xlconcat", "util_ds_buf", "blk_mem_gen", "usp_rf_data_converter",
+        "axi_bram_ctrl", "xlconstant", "axis_set_reg", "qick_vec2bit", "mr_buffer_et",
+        "axis_buffer_ddr_v1", "axis_dwidth_converter", "ddr4", "axi_intc", "c_shift_ram",
+        "axi_interconnect",
+    ]
+
+    def __init__(self, bd_path=None, strict=True):
+        self.bd_path = None if bd_path is None else Path(bd_path)
+        self.strict = bool(strict)
+        self.tmux = AxisTmuxV1BehaviorModel()
+        self.signal_gens = {i: AxisSignalGenV6BehaviorModel(name="axis_signal_gen_v6_%d" % i)
+                            for i in range(4)}
+        self.awgs = {i: AwgTuningBehaviorModel(n_pts=16, extra_y_pipe_stages=3, channel=i)
+                     for i in range(8)}
+        self.readouts = {i: AxisDynReadoutV1BehaviorModel(name="axis_dyn_readout_v1_%d" % i)
+                         for i in range(4)}
+        self.avg_buffers = {i: AxisAvgBufferV13BehaviorModel(name="axis_avg_buffer_%d" % i)
+                            for i in range(4)}
+        self.dac_sinks = {}
+        self.unsupported_ips = []
+        self.ip_events = []
+        self._signal_gen_events = {i: [] for i in self.signal_gens}
+        self._awg_events = {i: [] for i in self.awgs}
+
+    @classmethod
+    def from_bd_tcl(cls, bd_tcl, soccfg=None, strict=True):
+        sim = cls(bd_tcl, strict=strict)
+        sim.validate_bd()
+        return sim
+
+    def _scan_created_ips(self):
+        if self.bd_path is None or not self.bd_path.exists():
+            return []
+        text = self.bd_path.read_text(errors="ignore")
+        ips = []
+        for match in re.finditer(r"create_bd_cell\s+-type\s+ip\s+-vlnv\s+([^\s]+)\s+([^\]\s]+)", text):
+            ips.append((match.group(2), match.group(1)))
+        return ips
+
+    def validate_bd(self):
+        ips = self._scan_created_ips()
+        self.unsupported_ips = []
+        modeled_hits = {key: 0 for key in self.REQUIRED_MODELED_PATTERNS}
+        for inst, vlnv in ips:
+            key = vlnv.split(":")[-2] if ":" in vlnv else vlnv
+            matched = False
+            for pattern in self.REQUIRED_MODELED_PATTERNS:
+                if pattern in key or pattern in vlnv:
+                    modeled_hits[pattern] += 1
+                    matched = True
+                    break
+            if matched:
+                continue
+            if any(pattern in key or pattern in vlnv for pattern in self.NON_WAVEFORM_IP_PATTERNS):
+                continue
+            self.unsupported_ips.append("%s (%s)" % (inst, vlnv))
+        missing = [name for name, count in modeled_hits.items() if count == 0]
+        if missing:
+            self.unsupported_ips.extend("missing expected %s" % name for name in missing)
+        if self.unsupported_ips and self.strict:
+            raise UnsupportedIPError("; ".join(self.unsupported_ips))
+        return {
+            "modeled_hits": modeled_hits,
+            "unsupported_ips": list(self.unsupported_ips),
+        }
+
+    def _dispatch_qstl_event(self, event):
+        # qstl_awg_tuning uses TMUX select values 0..3 for signal generators and
+        # 4..11 for AWG tuning instances on the DAC command fabric.
+        routed = self.tmux.route(event)
+        select = routed.tmux_ch & 0xFF
+        if select in self.signal_gens:
+            self._signal_gen_events[select].append(routed)
+            self.ip_events.append(IpEvent(routed.cycle, "axis_signal_gen_v6_%d" % select,
+                                          "command", {"tmux_select": select}).to_dict())
+        elif 4 <= select <= 11:
+            awg_idx = select - 4
+            self._awg_events[awg_idx].append(routed)
+            self.ip_events.append(IpEvent(routed.cycle, "axis_awg_tuning_v1_%d" % select,
+                                          "command", {"tmux_select": select}).to_dict())
+        else:
+            msg = "qstl_awg_tuning TMUX select %d has no modeled endpoint" % select
+            self.unsupported_ips.append(msg)
+            if self.strict:
+                raise UnsupportedIPError(msg)
+
+    def run_events(self, events, cycles):
+        self.ip_events = []
+        self._signal_gen_events = {i: [] for i in self.signal_gens}
+        self._awg_events = {i: [] for i in self.awgs}
+        for event in events:
+            self._dispatch_qstl_event(event)
+        packed_by_name = {}
+        lanes_by_name = {}
+        commands = []
+        accepted = []
+        dropped = []
+        conflicts = []
+        unsupported_modes = []
+
+        for idx, model in self.signal_gens.items():
+            res = model.run(cycles, self._signal_gen_events[idx])
+            packed_by_name["siggen%d" % idx] = res.packed_words
+            lanes_by_name["siggen%d" % idx] = res.lane_samples
+            commands.extend(res.command_events)
+            accepted.extend(res.accepted_commands)
+            unsupported_modes.extend(res.unsupported_modes)
+        for idx, model in self.awgs.items():
+            res = model.run(cycles, self._awg_events[idx])
+            packed_by_name["awg%d" % idx] = res.packed_words
+            lanes_by_name["awg%d" % idx] = res.lane_samples
+            commands.extend(res.command_events)
+            accepted.extend(res.accepted_commands)
+            dropped.extend(res.dropped_commands)
+            conflicts.extend(res.timing_conflicts)
+
+        return WaveformResult(
+            packed_words=np.array([], dtype=object),
+            lane_samples=np.array([], dtype=np.int64),
+            command_events=commands,
+            accepted_commands=accepted,
+            dropped_commands=dropped,
+            timing_conflicts=conflicts,
+            unsupported_ips=list(self.unsupported_ips),
+            unsupported_modes=unsupported_modes,
+            ip_events=list(self.ip_events),
+            channel_results={
+                "packed_words": packed_by_name,
+                "lane_samples": lanes_by_name,
+            },
+        )
+
+    def run_program(self, prog, cycles=256):
+        tproc = TProcV1BehaviorModel(strict=self.strict)
+        tproc.run(prog)
+        return self.run_events(tproc.output_events, cycles=cycles)
+
+
 __all__ = [
     "AxisAwgTuningV1",
     "TimedCommandEvent",
@@ -1350,4 +2206,19 @@ __all__ = [
     "WaveformResult",
     "AwgTuningBehaviorModel",
     "TProcTimedEventSimulator",
+    "UnsupportedIPError",
+    "UnsupportedInstructionError",
+    "UnsupportedModeError",
+    "TProcV1BehaviorModel",
+    "AxisTmuxV1BehaviorModel",
+    "AxisRegisterSliceBehaviorModel",
+    "AxisSignalGenV6BehaviorModel",
+    "AxisDynReadoutV1BehaviorModel",
+    "AxisAvgBufferV13BehaviorModel",
+    "AxisSwitchBehaviorModel",
+    "AxisBroadcasterBehaviorModel",
+    "AxisClockConverterBehaviorModel",
+    "RfdcDacSinkModel",
+    "RfdcAdcSourceModel",
+    "QstlAwgTuningProjectSimulator",
 ]
