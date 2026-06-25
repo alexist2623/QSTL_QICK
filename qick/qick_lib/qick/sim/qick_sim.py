@@ -10,6 +10,7 @@ from .models import (
     AxisAvgBufferV13BehaviorModel,
     AxisAwgTuningBehaviorModel,
     AxisDynReadoutV1BehaviorModel,
+    RfdcDacSinkModel,
     AxisSignalGenV6BehaviorModel,
     AxisTmuxV1BehaviorModel,
 )
@@ -36,19 +37,32 @@ class QickSim(QickConfig):
     PYNQ hardware APIs.
     """
 
-    def __init__(self, bitfile, *, hwhfile=None, rf_config=None, strict=True, board=None, **kwargs):
+    def __init__(self, bitfile, *, hwhfile=None, rf_config=None, clocks=None,
+                 dac_clk=None, adc_clk=None, fabric_clk=None, tproc_clk=None,
+                 strict=True, board=None, **kwargs):
         bitpath, hwhpath = locate_hwh(bitfile, hwhfile)
         self.bitfile = str(bitpath)
         self.hwhfile = str(hwhpath)
         self.strict = bool(strict)
         self.parser = SimHwhParser(hwhpath)
         self.ip_dict, self.unmatched_ips = build_ip_dict(self.parser.root, strict=strict)
+        self.clock_config = self._normalize_clocks(
+            clocks=clocks,
+            dac_clk=dac_clk,
+            adc_clk=adc_clk,
+            fabric_clk=fabric_clk,
+            tproc_clk=tproc_clk,
+        )
+        rf_config = self._rf_config_from_clocks(rf_config, self.clock_config)
 
         self._cfg = {
             "board": board or os.getenv("BOARD", "SIM"),
             "sw_version": get_version(),
             "fw_timestamp": self.parser.root.get("TIMESTAMP", "unknown"),
-            "extra_description": [],
+            "extra_description": [
+                "QickSim is hardware-free and uses user-configurable MHz clocks.",
+                "RFDC-facing samples are digital AXIS words, not analog RFDC output.",
+            ],
         }
         self.metadata = QickMetadata(self)
 
@@ -65,8 +79,107 @@ class QickSim(QickConfig):
         self["rf"] = self.rf.cfg
         self._tproc = self._find_or_create_tproc()
         self.TPROC_VERSION = 1 if self._tproc is not None else 0
+        self._apply_tproc_clock()
 
         self.map_signal_paths()
+        self._apply_tproc_clock()
+        self["tprocs"] = [self.tproc.cfg] if self.tproc is not None else []
+
+    @staticmethod
+    def _compute_ratio(fs, fabric, default=1):
+        if fs is None or fabric in (None, 0):
+            return int(default)
+        return max(1, int(round(float(fs) / float(fabric))))
+
+    @classmethod
+    def _normalize_clocks(cls, clocks=None, dac_clk=None, adc_clk=None, fabric_clk=None, tproc_clk=None):
+        """Normalize user clock settings. All frequencies are in MHz."""
+        clocks = {} if clocks is None else dict(clocks)
+        default_dac = dict(clocks.get("default_dac", {}))
+        default_adc = dict(clocks.get("default_adc", {}))
+        if dac_clk is not None:
+            default_dac["fs"] = float(dac_clk)
+        if adc_clk is not None:
+            default_adc["fs"] = float(adc_clk)
+        if fabric_clk is not None:
+            default_dac["fabric"] = float(fabric_clk)
+            default_adc["fabric"] = float(fabric_clk)
+        default_dac.setdefault("fs", 6144.0)
+        default_dac.setdefault("fabric", 384.0)
+        default_dac.setdefault("interpolation", cls._compute_ratio(default_dac["fs"], default_dac["fabric"], 1))
+        default_adc.setdefault("fs", 4096.0)
+        default_adc.setdefault("fabric", 256.0 if fabric_clk is None else float(fabric_clk))
+        default_adc.setdefault("decimation", cls._compute_ratio(default_adc["fs"], default_adc["fabric"], 1))
+
+        dac_overrides = {str(k): dict(v) for k, v in dict(clocks.get("dac", {})).items()}
+        adc_overrides = {str(k): dict(v) for k, v in dict(clocks.get("adc", {})).items()}
+        tproc = float(tproc_clk if tproc_clk is not None else clocks.get("tproc", 100.0))
+        return {
+            "tproc": tproc,
+            "default_dac": default_dac,
+            "default_adc": default_adc,
+            "dac": dac_overrides,
+            "adc": adc_overrides,
+        }
+
+    @classmethod
+    def _dac_cfg_from_clock(cls, base, override=None):
+        cfg = dict(base)
+        if override:
+            cfg.update(override)
+        fs = float(cfg.get("fs", 6144.0))
+        fabric = float(cfg.get("fabric", cfg.get("f_fabric", 384.0)))
+        interpolation = int(cfg.get("interpolation", cls._compute_ratio(fs, fabric, 1)))
+        fs_div = int(cfg.get("fs_div", 1))
+        return {
+            "fs": fs,
+            "fs_mult": int(cfg.get("fs_mult", 1)),
+            "fs_div": fs_div,
+            "interpolation": interpolation,
+            "f_fabric": fabric,
+            "f_dds": fs / max(1, interpolation),
+            "fdds_div": fs_div * max(1, interpolation),
+        }
+
+    @classmethod
+    def _adc_cfg_from_clock(cls, base, override=None):
+        cfg = dict(base)
+        if override:
+            cfg.update(override)
+        fs = float(cfg.get("fs", 4096.0))
+        fabric = float(cfg.get("fabric", cfg.get("f_fabric", 256.0)))
+        decimation = int(cfg.get("decimation", cls._compute_ratio(fs, fabric, 1)))
+        return {
+            "fs": fs,
+            "fs_mult": int(cfg.get("fs_mult", 1)),
+            "fs_div": int(cfg.get("fs_div", 1)),
+            "decimation": decimation,
+            "f_fabric": fabric,
+            "f_output": fs / max(1, decimation),
+            "coupling": cfg.get("coupling", "DC"),
+        }
+
+    @classmethod
+    def _rf_config_from_clocks(cls, rf_config, clock_config):
+        cfg = {} if rf_config is None else dict(rf_config)
+        dac_names = ["00", "01", "02", "03", "10", "11", "12", "13", "20", "21", "22", "23", "30", "31", "32", "33"]
+        adc_names = list(dac_names)
+        dacs = {
+            name: cls._dac_cfg_from_clock(clock_config["default_dac"], clock_config["dac"].get(name))
+            for name in dac_names
+        }
+        adcs = {
+            name: cls._adc_cfg_from_clock(clock_config["default_adc"], clock_config["adc"].get(name))
+            for name in adc_names
+        }
+        cfg.setdefault("dacs", {}).update(dacs)
+        cfg.setdefault("adcs", {}).update(adcs)
+        cfg.setdefault("clk_groups", [[("tproc", 0)], [("dac", 0)], [("adc", 0)]])
+        return cfg
+
+    def _apply_tproc_clock(self):
+        if self._tproc is not None:
+            self._tproc.cfg["f_time"] = float(self.clock_config["tproc"])
 
     @property
     def tproc(self):
@@ -248,9 +361,21 @@ class QickSim(QickConfig):
         tproc.run(instructions)
         return self.simulate_events(tproc.output_events, cycles=cycles, tproc=tproc)
 
+    @staticmethod
+    def _signal_gen_memory_from_dma(gen):
+        words = []
+        dma = getattr(gen, "dma", None)
+        send = getattr(dma, "sendchannel", None)
+        for transfer in getattr(send, "transfers", []):
+            words.extend(int(x) for x in np.asarray(transfer).reshape(-1))
+        return words
+
     def _model_for_gen(self, gen, idx):
+        n_pts = int(gen.cfg.get("n_pts", gen.cfg.get("samps_per_clk", 16)))
+        if isinstance(gen, AxisSignalGen):
+            n_pts = int(gen.description.get("parameters", {}).get("N_DDS", n_pts))
         params = {
-            "n_pts": int(gen.cfg.get("n_pts", gen.cfg.get("samps_per_clk", 16))),
+            "n_pts": n_pts,
             "b": int(gen.cfg.get("b", 16)),
         }
         if isinstance(gen, AxisAwgTuningV1):
@@ -261,8 +386,62 @@ class QickSim(QickConfig):
                 channel=idx,
             )
         if isinstance(gen, AxisSignalGen):
-            return AxisSignalGenV6BehaviorModel(n_dds=params["n_pts"], b=params["b"], strict=self.strict)
+            model = AxisSignalGenV6BehaviorModel(
+                n_dds=params["n_pts"],
+                b=params["b"],
+                strict=self.strict,
+                latency=int(gen.cfg.get("sim_latency_cycles", 0)),
+                name=gen.cfg.get("fullpath", "axis_signal_gen_v6"),
+                channel=idx,
+            )
+            memory = self._signal_gen_memory_from_dma(gen)
+            if memory:
+                model.load_memory(memory, addr=0)
+            return model
         return None
+
+    def _output_metadata_for_gen(self, gen, idx):
+        fullpath = gen.cfg.get("fullpath", "gen%d" % idx)
+        dac = str(gen.cfg.get("dac", "unknown"))
+        n_lanes = int(gen.cfg.get("n_pts", gen.cfg.get("samps_per_clk", 16)))
+        if isinstance(gen, AxisSignalGen):
+            n_lanes = int(gen.description.get("parameters", {}).get("N_DDS", n_lanes))
+        bits = int(gen.cfg.get("b", 16))
+        daccfg = self["rf"]["dacs"].get(dac, {})
+        metadata = {
+            "gen_index": idx,
+            "tproc_ch": gen.cfg.get("tproc_ch"),
+            "tmux_ch": gen.cfg.get("tmux_ch"),
+            "packed_width": n_lanes * bits,
+            "n_lanes": n_lanes,
+            "bits": bits,
+            "sample_rate_mhz": daccfg.get("fs", gen.cfg.get("fs")),
+            "fabric_clk_mhz": daccfg.get("f_fabric", gen.cfg.get("f_fabric")),
+        }
+        if isinstance(gen, AxisSignalGen):
+            metadata["dds_model"] = "deterministic approximation; not bit-exact DDS Compiler output"
+        if isinstance(gen, AxisAwgTuningV1):
+            metadata["awg_model"] = "follows axis_awg_tuning_v1 command semantics"
+        return {
+            "name": fullpath,
+            "dac": dac,
+            "source_path": fullpath,
+            "source_type": gen.cfg.get("type", type(gen).__name__),
+            "n_lanes": n_lanes,
+            "bits": bits,
+            "dac_fs_mhz": float(daccfg.get("fs", gen.cfg.get("fs", 6144.0))),
+            "fabric_clk_mhz": float(daccfg.get("f_fabric", gen.cfg.get("f_fabric", 384.0))),
+            "tproc_clk_mhz": float(self.clock_config["tproc"]),
+            "metadata": metadata,
+        }
+
+    def _make_rfdc_output(self, gen, idx, model, model_result):
+        meta = self._output_metadata_for_gen(gen, idx)
+        valid = None
+        if hasattr(model, "_valid_cycles"):
+            valid = np.array([cycle in model._valid_cycles for cycle in range(len(model_result.packed_words))], dtype=bool)
+        sink = RfdcDacSinkModel(**meta)
+        return sink.collect(model_result.packed_words, tvalid=valid)
 
     def _route_to_gens(self, events):
         by_gen = defaultdict(list)
@@ -303,6 +482,7 @@ class QickSim(QickConfig):
         routed = self._route_to_gens(events)
         packed_by_name = {}
         lanes_by_name = {}
+        outputs = {}
         command_events = []
         accepted_commands = []
         dropped_commands = []
@@ -317,6 +497,8 @@ class QickSim(QickConfig):
             name = f"gen{idx}"
             packed_by_name[name] = result.packed_words
             lanes_by_name[name] = result.lane_samples
+            output = self._make_rfdc_output(gen, idx, model, result)
+            outputs[output.name] = output
             command_events.extend(result.command_events)
             accepted_commands.extend(result.accepted_commands)
             dropped_commands.extend(result.dropped_commands)
@@ -363,6 +545,14 @@ class QickSim(QickConfig):
                 "lane_samples": lanes_by_name,
                 "readouts": readout_data,
                 "avg_buffers": avg_data,
+                "outputs": outputs,
+            },
+            outputs=outputs,
+            metadata={
+                "bitfile": self.bitfile,
+                "hwhfile": self.hwhfile,
+                "clocks": self.clock_config,
+                "output_names": list(outputs),
             },
         )
         return result

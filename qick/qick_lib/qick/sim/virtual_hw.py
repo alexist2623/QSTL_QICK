@@ -151,9 +151,18 @@ class SimRFdc(SimDummyIP):
         super().__init__(description)
         self.cfg.update(self._default_rf_config())
         if rf_config:
-            self.cfg.update(rf_config)
+            self._deep_update(self.cfg, rf_config)
         self.mixer_freqs = {}
         self.nyquist = {}
+
+    @staticmethod
+    def _deep_update(dst, src):
+        for key, value in src.items():
+            if isinstance(value, dict) and isinstance(dst.get(key), dict):
+                SimRFdc._deep_update(dst[key], value)
+            else:
+                dst[key] = value
+        return dst
 
     @staticmethod
     def _default_rf_config():
@@ -166,6 +175,8 @@ class SimRFdc(SimDummyIP):
                 "fs_div": 1,
                 "interpolation": 1,
                 "f_fabric": 384.0,
+                "f_dds": 6144.0,
+                "fdds_div": 1,
             }
             adcs[name] = {
                 "fs": 4096.0,
@@ -173,6 +184,7 @@ class SimRFdc(SimDummyIP):
                 "fs_div": 1,
                 "decimation": 1,
                 "f_fabric": 256.0,
+                "f_output": 4096.0,
                 "coupling": "DC",
             }
         return {

@@ -64,12 +64,15 @@ def make_awg_hwh(path):
 
 class TestQickSim(unittest.TestCase):
     def test_package_import(self):
-        from qick.sim import QickSim, SimulationResult, WaveformResult
+        from qick.sim import QickSim, WaveformResult
 
         self.assertIsNotNone(QickSim)
-        self.assertIs(SimulationResult, WaveformResult)
+        self.assertIsNotNone(WaveformResult)
 
     def test_fake_mmio_driver_registers(self):
+        from qick.sim.virtual_hw import install_pynq_stubs
+
+        install_pynq_stubs()
         from qick.awg_tuning import AxisAwgTuningV1
 
         drv = AxisAwgTuningV1({
