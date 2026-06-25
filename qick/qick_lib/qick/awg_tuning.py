@@ -35,10 +35,10 @@ and hardware state may have diverged.
 
 import numpy as np
 
-from qick.ip import SocIP
+from qick.drivers.generator import AbsPulsedSignalGen
 
 
-class AxisAwgTuningV1(SocIP):
+class AxisAwgTuningV1(AbsPulsedSignalGen):
     """Python helper driver for the AWG tuning IP.
 
     Use :meth:`pack_cmd` or the opcode-specific helpers to generate SET/RAMP
@@ -54,6 +54,12 @@ class AxisAwgTuningV1(SocIP):
 
     TPROC_PORT = "s_axis"
     OUTPUT_PORT = "m_axis"
+
+    HAS_MIXER = False
+    HAS_DDS = False
+    B_DDS = 32
+    B_PHASE = 32
+    MAXV = (2**15 - 1) & ~0x3
 
     OP_NOP = 0b00
     OP_SET = 0b01
@@ -87,6 +93,7 @@ class AxisAwgTuningV1(SocIP):
             "current_value_reg": 0,
             "status_reg": 1,
         }
+        super()._init_config(description)
 
         params = description.get("parameters", {})
         if "N_PTS" in params:
@@ -129,6 +136,7 @@ class AxisAwgTuningV1(SocIP):
         self.cfg["extra_y_pipe_stages"] = extra_y_pipe_stages
         self.cfg["maxv"] = (2 ** (b - 1) - 1) & ~dac_lsb_mask
         self.cfg["minv"] = -(2 ** (b - 1))
+        self.cfg["gen_type"] = "awg_tuning"
         self.cfg["has_idle"] = self.HAS_IDLE
         self.cfg["continuous_ramp"] = self.CONTINUOUS_RAMP
         self.cfg["continuous_output"] = self.CONTINUOUS_OUTPUT
@@ -137,7 +145,8 @@ class AxisAwgTuningV1(SocIP):
         self.cfg["drops_commands_while_ramping"] = self.DROPS_COMMANDS_WHILE_RAMPING
         self.cfg["has_timed_idle"] = self.HAS_TIMED_IDLE
         self.cfg["ramp_startup_latency_cycles"] = extra_y_pipe_stages + 4
-        self.cfg["tproc_ch"] = None
+        self.cfg["ramp_guard_cycles"] = 1
+        self.cfg.setdefault("tproc_ch", None)
         self.cfg["tproc_port"] = None
         self.cfg["tproc_block"] = None
         self.cfg["tproc_type"] = None
@@ -161,9 +170,9 @@ class AxisAwgTuningV1(SocIP):
         """Discover tProcessor input and downstream output connections.
 
         The metadata walk follows the same broad pattern as
-        ``AbsPulsedSignalGen.configure_connections``. If tracing fails, the
-        driver leaves connection fields as ``None`` and logs a warning rather
-        than failing overlay initialization.
+        ``AbsPulsedSignalGen.configure_connections``. Standard generator
+        tracing fills ``dac``, RFDC timing fields, ``tproc_ch``, and optional
+        ``tmux_ch``. Extra AWG debug fields are best-effort only.
         """
         super().configure_connections(soc)
         self.soc = soc
@@ -190,7 +199,7 @@ class AxisAwgTuningV1(SocIP):
                 if hasattr(tproc, "port2ch"):
                     self.cfg["tproc_ch"], _ = tproc.port2ch(port)
         except Exception as exc:
-            self.logger.warning("could not trace AWG tuning tProcessor connection: %s", exc)
+            self.logger.warning("could not collect AWG tuning tProcessor debug fields: %s", exc)
 
         try:
             peers = soc.metadata.trace_bus(self["fullpath"], self.OUTPUT_PORT)

@@ -8,6 +8,7 @@ import sys
 import types
 import unittest
 from pathlib import Path
+import numpy as np
 
 
 class _DefaultIP:
@@ -20,9 +21,12 @@ class _DefaultIP:
 def _install_pynq_stub():
     pynq = types.ModuleType("pynq")
     overlay = types.ModuleType("pynq.overlay")
+    buffer = types.ModuleType("pynq.buffer")
     overlay.DefaultIP = _DefaultIP
+    buffer.allocate = lambda shape, dtype=None, **kwargs: np.zeros(shape, dtype=dtype)
     sys.modules.setdefault("pynq", pynq)
     sys.modules.setdefault("pynq.overlay", overlay)
+    sys.modules.setdefault("pynq.buffer", buffer)
 
 
 _install_pynq_stub()
@@ -61,7 +65,7 @@ class TestAxisAwgTuningV1(unittest.TestCase):
             0xFFFFFFFF,
             0x0000007B,
             0x00000005,
-            0xFFFFFFF9,
+            0x00FFFFF9,
             0x00160000,
         ])
         decoded = drv.format_cmd(cmd)
@@ -97,9 +101,9 @@ class TestAxisAwgTuningV1(unittest.TestCase):
         self.assertEqual(drv.calc_step(1000, 2000, 24), pos_num // 23)
 
         neg_num = (-2000 - 2000) << drv["frac"]
-        expected = -(abs(neg_num) // 23)
-        self.assertEqual(drv.calc_step(2000, -2000, 24), expected)
-        self.assertNotEqual(expected, neg_num // 23)
+        expected = -(abs(neg_num) // 63)
+        self.assertEqual(drv.calc_step(2000, -2000, 64), expected)
+        self.assertNotEqual(expected, neg_num // 63)
 
     def test_sequence_updates_cache_and_uses_current_start(self):
         drv = make_driver()
@@ -107,7 +111,7 @@ class TestAxisAwgTuningV1(unittest.TestCase):
         cmds = drv.make_sequence([
             {"op": "set", "value": 1000},
             {"op": "ramp", "target": 2000, "duration": 24},
-            {"op": "ramp", "target": -1000, "duration": 24},
+            {"op": "ramp", "target": -1000, "duration": 25},
         ])
 
         first_ramp = drv.format_cmd(cmds[1])
@@ -117,7 +121,7 @@ class TestAxisAwgTuningV1(unittest.TestCase):
 
         second_ramp = drv.format_cmd(cmds[2])
         self.assertEqual(second_ramp["reserved_start"], 0)
-        self.assertEqual(second_ramp["step"], drv.calc_step(2000, -1000, 24))
+        self.assertEqual(second_ramp["step"], drv.calc_step(2000, -1000, 25))
         self.assertEqual(drv.current_value, -1000)
         self.assertTrue(drv.current_valid)
 

@@ -520,6 +520,246 @@ class MultiplexedGenManager(AbsGenManager):
             self.next_pulse['regs'].append([self.regmap[(self.ch,x)][1] for x in ['freq', 'phase', '0', '0', '0']])
             self.next_pulse['length'] = params['length']
 
+class AwgTuningGenManager(AbsRegisterManager):
+    """ASM v1 register manager for ``axis_awg_tuning_v1`` command words."""
+
+    PULSE_REGISTERS = ["cmd0", "cmd1", "cmd2", "cmd3", "cmd4", "t"]
+    OP_NOP = 0b00
+    OP_SET = 0b01
+    OP_RAMP = 0b10
+    STEP_WIDTH = 24
+    DURATION_WIDTH = 23
+    FIELD_MIN = -(2**31)
+    FIELD_MAX = 2**31 - 1
+    U32_MAX = 2**32 - 1
+    STEP_MIN = -(2 ** (STEP_WIDTH - 1))
+    STEP_MAX = 2 ** (STEP_WIDTH - 1) - 1
+    DURATION_MAX = 2 ** DURATION_WIDTH - 1
+    PARAMS_REQUIRED = {
+        "awg_set": ["style", "value", "duration"],
+        "awg_ramp": ["style", "target", "duration"],
+        "awg_nop": ["style"],
+    }
+    PARAMS_OPTIONAL = {
+        "awg_set": ["hold_zero", "clear", "saturate"],
+        "awg_ramp": ["step", "hold_zero", "clear"],
+        "awg_nop": ["clear", "duration"],
+    }
+    UNSUPPORTED_STANDARD_STYLES = {"const", "arb", "flat_top"}
+
+    def __init__(self, prog, gen_ch):
+        self.ch = gen_ch
+        self.gencfg = prog.soccfg["gens"][self.ch]
+        self.tmux_ch = self.gencfg.get("tmux_ch")
+        self.current_value = 0
+        self.current_valid = False
+        self.last_cmd = None
+        self.last_cmd_words = None
+        self.last_ramp_start = None
+        self.last_ramp_step = None
+        tproc_ch = self.gencfg["tproc_ch"]
+        super().__init__(prog, tproc_ch, "AWG tuning generator %d" % (self.ch))
+
+    def check_params(self, params):
+        if "style" not in params:
+            raise RuntimeError("missing required pulse parameter(s)", {"style"})
+        style = params["style"]
+        if style in self.UNSUPPORTED_STANDARD_STYLES:
+            raise RuntimeError(
+                "axis_awg_tuning_v1 does not support const/arb/flat_top pulses; "
+                "use style='awg_set', style='awg_ramp', or style='awg_nop'"
+            )
+        if style not in self.PARAMS_REQUIRED:
+            raise RuntimeError(
+                "axis_awg_tuning_v1 unsupported pulse style %r; use 'awg_set', "
+                "'awg_ramp', or 'awg_nop'" % (style,)
+            )
+        check_keys(params.keys(), self.PARAMS_REQUIRED[style], self.PARAMS_OPTIONAL[style])
+
+    @staticmethod
+    def _check_bool(value, name):
+        if not isinstance(value, (bool, np.bool_)):
+            raise ValueError("%s must be a bool" % (name,))
+        return bool(value)
+
+    @staticmethod
+    def _check_int(value, name):
+        if isinstance(value, (bool, np.bool_)) or not isinstance(value, (int, np.integer)):
+            raise ValueError("%s must be an integer" % (name,))
+        return int(value)
+
+    @staticmethod
+    def _div_trunc_zero(num, den):
+        if den == 0:
+            raise ZeroDivisionError("division by zero")
+        sign = -1 if (num < 0) ^ (den < 0) else 1
+        return sign * (abs(num) // abs(den))
+
+    def _to_u32_signed(self, value, name):
+        value = self._check_int(value, name)
+        if value < self.FIELD_MIN or value > self.FIELD_MAX:
+            raise ValueError("%s=%d does not fit in signed 32 bits" % (name, value))
+        return value & self.U32_MAX
+
+    def _to_duration_field(self, value, name):
+        value = self._check_int(value, name)
+        if value < 0 or value > self.DURATION_MAX:
+            raise ValueError(
+                "%s=%d does not fit in unsigned %d bits"
+                % (name, value, self.DURATION_WIDTH)
+            )
+        return value
+
+    def _to_step_field(self, value, name):
+        value = self._check_int(value, name)
+        if value < self.STEP_MIN or value > self.STEP_MAX:
+            raise ValueError(
+                "%s=%d does not fit in signed %d bits"
+                % (name, value, self.STEP_WIDTH)
+            )
+        return value & ((1 << self.STEP_WIDTH) - 1)
+
+    def _clip_sample(self, value):
+        value = self._check_int(value, "value")
+        value = max(self.gencfg["minv"], min(self.gencfg["maxv"], value))
+        invalid_lsb = int(self.gencfg.get("dac_invalid_lsb", 0))
+        if invalid_lsb:
+            value &= ~((1 << invalid_lsb) - 1)
+        return value
+
+    def _pack_cmd(self, target=0, duration=0, step=0, opcode=None,
+                  hold_zero=False, clear=False):
+        if opcode is None:
+            opcode = self.OP_NOP
+
+        target_u = self._to_u32_signed(target, "target")
+        duration_u = self._to_duration_field(duration, "duration")
+        step_u = self._to_step_field(step, "step")
+        opcode = self._check_int(opcode, "opcode")
+        if opcode < 0 or opcode > 0b11:
+            raise ValueError("opcode must fit in 2 bits")
+        hold_zero = self._check_bool(hold_zero, "hold_zero")
+        clear = self._check_bool(clear, "clear")
+
+        cmd = 0
+        cmd |= target_u
+        cmd |= duration_u << 64
+        cmd |= step_u << 96
+        cmd |= opcode << 144
+        cmd |= int(hold_zero) << 146
+        cmd |= int(clear) << 148
+
+        if cmd >= (1 << self.gencfg["cmd_width"]):
+            raise ValueError("packed command exceeds configured CMD_WIDTH")
+        return cmd
+
+    def _cmd_to_words(self, cmd):
+        return [(cmd >> (32 * i)) & 0xFFFFFFFF for i in range(5)]
+
+    @staticmethod
+    def _words_to_cmd(words):
+        cmd = 0
+        for i, word in enumerate(words):
+            cmd |= (int(word) & 0xFFFFFFFF) << (32 * i)
+        return cmd
+
+    def _apply_tmux(self, words):
+        words = list(words)
+        if self.tmux_ch is not None:
+            words[4] |= (int(self.tmux_ch) & 0xFF) << 24
+        return words
+
+    def _duration_to_fabric_cycles(self, duration):
+        duration = self._check_int(duration, "duration")
+        if duration < 0:
+            raise ValueError("duration must be nonnegative")
+        effective_duration = 1 if duration == 0 else duration
+        npts = int(self.gencfg["n_pts"])
+        return max(1, (effective_duration + npts - 1) // npts)
+
+    def _calc_step(self, start, target, duration):
+        start = self._check_int(start, "start")
+        target = self._check_int(target, "target")
+        duration = self._to_duration_field(duration, "duration")
+        self._to_u32_signed(start, "start")
+        self._to_u32_signed(target, "target")
+
+        if duration <= 1:
+            return 0
+
+        numerator = (target - start) << int(self.gencfg["frac"])
+        step = self._div_trunc_zero(numerator, duration - 1)
+        self._to_step_field(step, "step")
+        return step
+
+    def _write_command_regs(self, cmd):
+        words = self._apply_tmux(self._cmd_to_words(cmd))
+        self.last_cmd_words = words
+        self.last_cmd = self._words_to_cmd(words)
+        for name, value in zip(self.PULSE_REGISTERS[:5], words):
+            self.set_reg(name, value, "%s = 0x%08x" % (name, value))
+
+        self.next_pulse = {
+            "rp": self.rp,
+            "regs": [[self.regmap[(self.ch, name)][1] for name in self.PULSE_REGISTERS[:5]]],
+        }
+
+    def write_regs(self, params, defaults):
+        if defaults:
+            raise RuntimeError("default_pulse_registers is not supported for axis_awg_tuning_v1")
+
+        style = params["style"]
+        if style == "awg_set":
+            value = self._check_int(params["value"], "value")
+            if params.get("saturate", False):
+                value = self._clip_sample(value)
+            self._to_u32_signed(value, "value")
+            hold_zero = self._check_bool(params.get("hold_zero", False), "hold_zero")
+            clear = self._check_bool(params.get("clear", False), "clear")
+            cmd = self._pack_cmd(target=value, opcode=self.OP_SET,
+                                 hold_zero=hold_zero, clear=clear)
+            self._write_command_regs(cmd)
+            self.next_pulse["length"] = self._duration_to_fabric_cycles(params["duration"])
+            self.current_value = 0 if hold_zero else value
+            self.current_valid = True
+        elif style == "awg_ramp":
+            target = self._check_int(params["target"], "target")
+            duration = self._to_duration_field(params["duration"], "duration")
+            self._to_u32_signed(target, "target")
+            hold_zero = self._check_bool(params.get("hold_zero", False), "hold_zero")
+            if hold_zero:
+                raise NotImplementedError("RAMP hold_zero is not implemented by the current RTL")
+            clear = self._check_bool(params.get("clear", False), "clear")
+
+            if params.get("step") is None:
+                if not self.current_valid:
+                    raise ValueError(
+                        "AWG tuning current-value cache is invalid; issue an awg_set first "
+                        "or provide an explicit step"
+                    )
+                step = self._calc_step(self.current_value, target, duration)
+            else:
+                step = self._check_int(params["step"], "step")
+                self._to_step_field(step, "step")
+
+            self.last_ramp_start = self.current_value if self.current_valid else None
+            self.last_ramp_step = step
+            cmd = self._pack_cmd(target=target, duration=duration, step=step,
+                                 opcode=self.OP_RAMP, clear=clear)
+            self._write_command_regs(cmd)
+            self.next_pulse["length"] = (
+                int(self.gencfg["ramp_startup_latency_cycles"])
+                + self._duration_to_fabric_cycles(duration)
+                + int(self.gencfg.get("ramp_guard_cycles", 1))
+            )
+            self.current_value = target
+            self.current_valid = True
+        elif style == "awg_nop":
+            clear = self._check_bool(params.get("clear", False), "clear")
+            cmd = self._pack_cmd(opcode=self.OP_NOP, clear=clear)
+            self._write_command_regs(cmd)
+            self.next_pulse["length"] = self._duration_to_fabric_cycles(params.get("duration", 1))
+
 class QickProgram(AbsQickProgram):
     """QickProgram is a Python representation of the QickSoc processor assembly program. It can be used to compile simple assembly programs and also contains macros to help make it easy to configure and schedule pulses."""
     # Instruction set for the tproc describing how to automatically generate methods for these instructions
@@ -574,7 +814,8 @@ class QickProgram(AbsQickProgram):
                 'axis_sg_mux4_v1': MultiplexedGenManager,
                 'axis_sg_mux4_v2': MultiplexedGenManager,
                 'axis_sg_mux4_v3': MultiplexedGenManager,
-                'axis_sg_mux8_v1': MultiplexedGenManager}
+                'axis_sg_mux8_v1': MultiplexedGenManager,
+                'axis_awg_tuning_v1': AwgTuningGenManager}
 
     # Gaussian and DRAG definitions use incorrect original definition, which gives a pulse that is too narrow by sqrt(2)
     GAUSS_BUG = True
@@ -723,6 +964,11 @@ class QickProgram(AbsQickProgram):
             Q data, 16-bit
 
         """
+        if self.soccfg["gens"][ch].get("gen_type") == "awg_tuning":
+            raise RuntimeError(
+                "axis_awg_tuning_v1 does not have waveform memory; use "
+                "set_pulse_registers(..., style='awg_set' or style='awg_ramp')"
+            )
         self.add_envelope(ch=ch, name=name, idata=idata, qdata=qdata)
 
     def default_pulse_registers(self, ch, **kwargs):
@@ -858,6 +1104,39 @@ class QickProgram(AbsQickProgram):
         """
         self.set_pulse_registers(ch, **kwargs)
         self.pulse(ch, t)
+
+    def awg_set(self, ch, value, duration, t='auto', **kwargs):
+        """Emit an ``axis_awg_tuning_v1`` SET command through the normal pulse scheduler."""
+        self.set_pulse_registers(
+            ch,
+            style="awg_set",
+            value=value,
+            duration=duration,
+            **kwargs,
+        )
+        self.pulse(ch, t=t)
+
+    def awg_ramp(self, ch, target, duration, t='auto', step=None, **kwargs):
+        """Emit an ``axis_awg_tuning_v1`` RAMP command through the normal pulse scheduler."""
+        self.set_pulse_registers(
+            ch,
+            style="awg_ramp",
+            target=target,
+            duration=duration,
+            step=step,
+            **kwargs,
+        )
+        self.pulse(ch, t=t)
+
+    def awg_nop(self, ch, duration=1, t='auto', **kwargs):
+        """Emit an ``axis_awg_tuning_v1`` NOP command through the normal pulse scheduler."""
+        self.set_pulse_registers(
+            ch,
+            style="awg_nop",
+            duration=duration,
+            **kwargs,
+        )
+        self.pulse(ch, t=t)
 
     def setup_and_measure(self, adcs, pulse_ch, pins=None, adc_trig_offset=270, t='auto', wait=False, syncdelay=None, **kwargs):
         """Set up a pulse on this generator channel, and immediately do a measurement with it.

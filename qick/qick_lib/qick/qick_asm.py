@@ -1378,6 +1378,11 @@ class AbsQickProgram(ABC):
 
         """
         gencfg = self.soccfg['gens'][ch]
+        if gencfg.get('gen_type') == 'awg_tuning':
+            raise RuntimeError(
+                "axis_awg_tuning_v1 does not have waveform memory; use "
+                "set_pulse_registers(..., style='awg_set' or style='awg_ramp')"
+            )
 
         if not gencfg['complex_env'] and qdata is not None and np.any(qdata):
             raise RuntimeError("generator %d only supports real envelope, but nonzero qdata was supplied"%(ch))

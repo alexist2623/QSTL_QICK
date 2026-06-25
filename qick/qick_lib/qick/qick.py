@@ -808,6 +808,8 @@ class QickSoc(Overlay, QickConfig):
         # Initialize lists of IP blocks.
         # Signal generators (anything driven by the tProc)
         self.gens = []
+        # AWG tuning generators, also included in self.gens.
+        self.awg_tunings = []
         # Constant generators
         self.iqs = []
         # Average + Buffer blocks.
@@ -907,7 +909,10 @@ class QickSoc(Overlay, QickConfig):
         # Populate the lists with the registered IP blocks.
         for key, val in self.ip_dict.items():
             if issubclass(val['driver'], AbsPulsedSignalGen):
-                self.gens.append(self._get_block(key))
+                block = self._get_block(key)
+                self.gens.append(block)
+                if isinstance(block, AxisAwgTuningV1):
+                    self.awg_tunings.append(block)
             elif val['driver'] == AxisConstantIQ:
                 self.iqs.append(self._get_block(key))
             elif issubclass(val['driver'], AbsReadout):
@@ -965,6 +970,7 @@ class QickSoc(Overlay, QickConfig):
 
         # Fill the config dictionary with driver parameters.
         self['gens'] = [gen.cfg for gen in self.gens]
+        self['awg_tunings'] = [awg.cfg for awg in self.awg_tunings]
         self['iqs'] = [iq.cfg for iq in self.iqs]
 
         # In the config, we define a "readout" as the chain of ADC+readout+buffer.
