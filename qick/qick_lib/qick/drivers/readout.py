@@ -1615,6 +1615,54 @@ class AxisBufferDdrV1(SocIP):
         """
         self.wnburst_reg = len_
 
+    def samples_per_burst(self) -> int:
+        """
+        Return the number of 32-bit input samples represented by one DDR burst.
+
+        The value is derived from the firmware parameters as:
+            DATA_WIDTH * BURST_SIZE / 32
+
+        In qstl_awg_tuning_fir, axis_triggered_pack_32to256_v1 packs eight
+        accepted 32-bit samples into one 256-bit AXIS beat, and
+        axis_buffer_ddr_v1 writes fixed 16-beat bursts. Therefore one DDR burst
+        corresponds to 8 * 16 = 128 input samples. Partial DDR bursts are not
+        supported by the sample-based helpers.
+        """
+        return int(self.cfg['burst_len'])
+
+    def bursts_for_samples(self, n_samples_32b: int) -> int:
+        """
+        Convert a requested number of 32-bit input samples to a DDR burst count.
+
+        The sample count must be an integer multiple of samples_per_burst().
+        This enforces the 32-to-256 packing and fixed DDR burst alignment used
+        by the trigger-aligned packer workflow.
+        """
+        if not isinstance(n_samples_32b, (int, np.integer)):
+            raise ValueError("n_samples_32b must be an integer number of 32-bit samples.")
+        if n_samples_32b < 0:
+            raise ValueError("n_samples_32b must be non-negative.")
+
+        spb = self.samples_per_burst()
+        if n_samples_32b % spb != 0:
+            raise ValueError(
+                "n_samples_32b must be a multiple of %d 32-bit samples; "
+                "partial DDR bursts are not supported." % spb
+            )
+        return int(n_samples_32b // spb)
+
+    def arm_samples(self, n_samples_32b: int, force_overwrite: bool = False) -> int:
+        """
+        Arm DDR capture using a number of 32-bit input samples.
+
+        This is a convenience wrapper for trigger-aligned packer designs such as
+        qstl_awg_tuning_fir. Existing arm(nt) behavior is unchanged and still
+        expects a raw DDR burst count. Returns the burst count passed to arm().
+        """
+        nt = self.bursts_for_samples(n_samples_32b)
+        self.arm(nt, force_overwrite=force_overwrite)
+        return nt
+
     def set_switch(self, bufname):
         # if there's no switch, just check that the specified buffer is the one that's hardwired
         if self.switch is None:
@@ -1644,6 +1692,18 @@ class AxisBufferDdrV1(SocIP):
         # this way, no special care needs to be taken with the returned array
         buf_copy = self.ddr4_array[start - (start%2):end + (end%2)].copy()
         return buf_copy[start%2:length + start%2].view(dtype=np.int16).reshape((-1,2))
+
+    def get_mem_samples(self, n_samples_32b: int, start: int = 0):
+        """
+        Read back a trigger-aligned capture using a number of 32-bit samples.
+
+        This computes the DDR burst count with bursts_for_samples() and then
+        calls get_mem(nt, start=start). The default start=0 is intended for the
+        trigger-aligned packer workflow. The existing get_mem(nt, start=None)
+        behavior, including junk_len handling, is preserved for compatibility.
+        """
+        nt = self.bursts_for_samples(n_samples_32b)
+        return self.get_mem(nt, start=start)
 
     def arm(self, nt, force_overwrite=False):
         if nt > self['maxlen']//self['burst_len'] and not force_overwrite:

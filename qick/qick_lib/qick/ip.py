@@ -114,6 +114,22 @@ class SocIP(QickIP, DefaultIP):
         else:
             return super().__getattribute__(a)
 
+AXIS_PASS_THROUGH_BACK = {
+    "axis_clock_converter": "S_AXIS",
+    "axis_dwidth_converter": "S_AXIS",
+    "axis_register_slice": "S_AXIS",
+    "axis_broadcaster": "S_AXIS",
+    "axis_resampler_2x1_v1": "s_axis",
+    "axis_triggered_pack_32to256_v1": "S_AXIS",
+}
+
+AXIS_PASS_THROUGH_FORWARD = {
+    "axis_clock_converter": "M_AXIS",
+    "axis_dwidth_converter": "M_AXIS",
+    "axis_register_slice": "M_AXIS",
+    "axis_triggered_pack_32to256_v1": "M_AXIS",
+}
+
 class QickMetadata:
     """
     Provides information about the connections between IP blocks, extracted from the HWH file.
@@ -262,15 +278,13 @@ class QickMetadata:
             next_type = self.mod2type(next_block)
             if next_type in goal_types:
                 return (next_block, port, next_type)
-            elif next_type in ["axis_clock_converter", "axis_dwidth_converter", "axis_register_slice", "axis_broadcaster"]:
-                next_port = 'S_AXIS'
+            elif next_type in AXIS_PASS_THROUGH_BACK:
+                next_port = AXIS_PASS_THROUGH_BACK[next_type]
             elif next_type == "axis_cdcsync_v1":
                 # port name is of the form 'm4_axis' - follow corresponding input 's4_axis'
                 next_port = 's'+port[1:]
             elif next_type == "sg_translator":
                 next_port = 's_tproc_axis'
-            elif next_type == "axis_resampler_2x1_v1":
-                next_port = 's_axis'
             else:
                 raise RuntimeError("failed to trace back from %s - unrecognized IP block %s" % (start_block, next_block))
 
@@ -310,10 +324,8 @@ class QickMetadata:
             elif blocktype == "axis_broadcaster":
                 for iOut in range(int(self.get_param(block, 'NUM_MI'))):
                     to_check.append((block, "M%02d_AXIS" % (iOut)))
-            elif blocktype == "axis_clock_converter":
-                to_check.append((block, "M_AXIS"))
-            elif blocktype == "axis_register_slice":
-                to_check.append((block, "M_AXIS"))
+            elif blocktype in AXIS_PASS_THROUGH_FORWARD:
+                to_check.append((block, AXIS_PASS_THROUGH_FORWARD[blocktype]))
             elif blocktype == "axis_register_slice_nb":
                 to_check.append((block, "m_axis"))
             else:
