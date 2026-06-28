@@ -62,6 +62,15 @@ set_clock_group -name clk_ddr4_to_adc2 -asynchronous \
     -group [get_clocks $clk_ddr4] \
     -group [get_clocks $clk_adc2]
 
+# DDR sample capture CDC.
+# The axis_buffer_ddr_sample_v1 IP crosses from the external readout sample
+# clock to the DDR UI clock through its internal async FIFO. In this project
+# the failing source/readout clock is the explicitly-created clk_104_pl clock,
+# not the RFDC-derived clk_adc2 object above, so constrain that crossing too.
+set_clock_group -name clk_ddr4_to_clk104_pl -asynchronous \
+    -group [get_clocks $clk_ddr4] \
+    -group [get_clocks clk_104_pl]
+
 # readout triggers
 set_false_path -through [get_pins d_1_i/qick_processor_0/trig_*_o]
 

@@ -1742,6 +1742,53 @@ class QickSoc(Overlay, QickConfig):
         self.ddr4_buf.set_switch(self['readouts'][ch]['avgbuf_fullpath'])
         self.ddr4_buf.arm(nt, force_overwrite)
 
+    def arm_ddr4_samples(self, ch, n_samples, n_triggers=1, address=0, stride_bytes=None, force_overwrite=False):
+        """Arm sample-count based DDR4 capture.
+
+        This API is only available for firmware using AxisBufferDdrSampleV1.
+
+        Parameters
+        ----------
+        ch : int
+            The readout channel to record (index in 'readouts' list).
+        n_samples : int
+            Number of valid 32-bit input samples captured per trigger.
+        n_triggers : int
+            Number of trigger events to capture.
+        address : int
+            DDR byte offset for the first trigger event.
+        stride_bytes : int or None
+            DDR byte stride between trigger events. If None, the firmware uses
+            the automatic zero-padded event size.
+        force_overwrite : bool
+            Allow a capture span that exceeds the DDR4 memory capacity.
+        """
+        if not self.ddr4_buf.cfg.get('sample_capture', False):
+            raise RuntimeError("arm_ddr4_samples() requires AxisBufferDdrSampleV1 firmware.")
+        self.ddr4_buf.set_switch(self['readouts'][ch]['avgbuf_fullpath'])
+        return self.ddr4_buf.arm_samples(
+            n_samples,
+            n_triggers=n_triggers,
+            address=address,
+            stride_bytes=stride_bytes,
+            force_overwrite=force_overwrite,
+        )
+
+    def get_ddr4_samples(self, n_samples, n_triggers=1, start=0, stride_bytes=None):
+        """Read back sample-count based DDR4 capture.
+
+        This API is only available for firmware using AxisBufferDdrSampleV1.
+        It trims the zero padding inserted at the end of each trigger event.
+        """
+        if not self.ddr4_buf.cfg.get('sample_capture', False):
+            raise RuntimeError("get_ddr4_samples() requires AxisBufferDdrSampleV1 firmware.")
+        return self.ddr4_buf.get_mem_samples(
+            n_samples,
+            n_triggers=n_triggers,
+            start=start,
+            stride_bytes=stride_bytes,
+        )
+
     def arm_mr(self, ch):
         """Prepare the Multi-Rate buffer to take data.
         This must be called before starting a program that triggers the buffer.

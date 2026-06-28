@@ -7,12 +7,14 @@ Readout paths are unchanged.
 DDS-enabled signal generators are unchanged.
 RFDC DAC endpoint assignments are preserved.
 
-The DDR capture hierarchy replaces the original Xilinx AXIS width converter
-with QICK:QICK:axis_triggered_pack_32to256_v1:1.0. The custom packer drops
-pre-trigger samples, starts a fresh 8-sample pack on each trigger rising edge,
-packs eight 32-bit readout samples into one 256-bit AXIS beat, and discards
-partial packs when trigger falls. The existing axis_clock_converter_0,
-axis_buffer_ddr_v1_0, AXI SmartConnect, and DDR4 controller are unchanged.
+The DDR capture hierarchy replaces the original Xilinx AXIS width converter,
+external AXIS clock converter, and axis_buffer_ddr_v1 write engine with
+QICK:QICK:axis_buffer_ddr_sample_v1:1.0. The new custom IP captures a
+programmable number of accepted 32-bit samples per trigger, supports a
+programmable number of trigger events, crosses internally into the DDR UI clock
+domain, packs eight 32-bit samples into one 256-bit AXI write word, and
+zero-pads the final partial word of each trigger event. The AXI SmartConnect,
+DDR4 controller, PS DDR access path, and external DDR4 pins are preserved.
 
 ## Replacements
 

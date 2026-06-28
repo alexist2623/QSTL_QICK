@@ -1622,11 +1622,10 @@ class AxisBufferDdrV1(SocIP):
         The value is derived from the firmware parameters as:
             DATA_WIDTH * BURST_SIZE / 32
 
-        In qstl_awg_tuning_fir, axis_triggered_pack_32to256_v1 packs eight
-        accepted 32-bit samples into one 256-bit AXIS beat, and
-        axis_buffer_ddr_v1 writes fixed 16-beat bursts. Therefore one DDR burst
-        corresponds to 8 * 16 = 128 input samples. Partial DDR bursts are not
-        supported by the sample-based helpers.
+        This helper is for legacy axis_buffer_ddr_v1 designs that still use the
+        fixed-burst DDR writer. For a 256-bit input stream and 16-beat bursts,
+        one DDR burst corresponds to 128 32-bit samples. Partial DDR bursts are
+        not supported by this legacy helper.
         """
         return int(self.cfg['burst_len'])
 
@@ -1655,9 +1654,9 @@ class AxisBufferDdrV1(SocIP):
         """
         Arm DDR capture using a number of 32-bit input samples.
 
-        This is a convenience wrapper for trigger-aligned packer designs such as
-        qstl_awg_tuning_fir. Existing arm(nt) behavior is unchanged and still
-        expects a raw DDR burst count. Returns the burst count passed to arm().
+        This is a convenience wrapper for legacy fixed-burst designs. Existing
+        arm(nt) behavior is unchanged and still expects a raw DDR burst count.
+        Returns the burst count passed to arm().
         """
         nt = self.bursts_for_samples(n_samples_32b)
         self.arm(nt, force_overwrite=force_overwrite)
@@ -1711,3 +1710,175 @@ class AxisBufferDdrV1(SocIP):
         self.wlen(nt)
         self.wstop()
         self.wstart()
+
+
+class AxisBufferDdrSampleV1(AxisBufferDdrV1):
+    """
+    Sample-count based DDR4 capture buffer for low-rate 32-bit AXIS streams.
+
+    This IP replaces the old external 32-to-256 AXIS converter plus
+    axis_buffer_ddr_v1 path with one custom block. It captures exactly
+    nsamp_reg 32-bit samples for each trigger event, crosses internally into
+    the DDR UI clock domain, packs eight samples into each 256-bit AXI write,
+    and zero-pads the final partial word of each trigger event.
+    """
+    bindto = ['user.org:user:axis_buffer_ddr_sample_v1:1.0',
+              'QICK:QICK:axis_buffer_ddr_sample_v1:1.0']
+
+    STREAM_IN_PORT = "s_axis"
+    WORDS_PER_COMPAT_TRANSFER = 128
+
+    def _init_config(self, description):
+        self.TARGET_SLAVE_BASE_ADDR = int(description['parameters']['TARGET_SLAVE_BASE_ADDR'], 0)
+        self.ID_WIDTH               = int(description['parameters']['ID_WIDTH'])
+        self.S_AXIS_DATA_WIDTH      = int(description['parameters']['S_AXIS_DATA_WIDTH'])
+        self.M_AXI_DATA_WIDTH       = int(description['parameters']['M_AXI_DATA_WIDTH'])
+
+        self.REGISTERS = {'control_reg'      : 0,
+                          'waddr_reg'        : 1,
+                          'nsamp_reg'        : 2,
+                          'ntrig_reg'        : 3,
+                          'stride_reg'       : 4,
+                          'status_reg'       : 5,
+                          'sample_count_reg' : 6,
+                          'trigger_count_reg': 7
+                         }
+
+        self.cfg['s_axis_data_width'] = self.S_AXIS_DATA_WIDTH
+        self.cfg['m_axi_data_width'] = self.M_AXI_DATA_WIDTH
+        self.cfg['samples_per_axi_word'] = self.M_AXI_DATA_WIDTH // self.S_AXIS_DATA_WIDTH
+        self.cfg['bytes_per_axi_word'] = self.M_AXI_DATA_WIDTH // 8
+        self.cfg['sample_capture'] = True
+        self.cfg['supports_zero_padding'] = True
+        # Compatibility metadata for old code paths that display "burst_len".
+        self.cfg['burst_len'] = self.WORDS_PER_COMPAT_TRANSFER
+        self.cfg['junk_len'] = 0
+        self.cfg['junk_nt'] = 0
+
+    def _init_firmware(self):
+        self.control_reg = 0
+        self.waddr_reg = 0
+        self.nsamp_reg = 0
+        self.ntrig_reg = 1
+        self.stride_reg = 0
+
+    def _check_int(self, name, value, minval=0):
+        if not isinstance(value, (int, np.integer)):
+            raise ValueError("%s must be an integer." % name)
+        if value < minval:
+            raise ValueError("%s must be >= %d." % (name, minval))
+        return int(value)
+
+    def _physical_words_per_trigger(self, n_samples_32b):
+        samples_per_word = self.cfg['samples_per_axi_word']
+        return ((n_samples_32b + samples_per_word - 1) // samples_per_word) * samples_per_word
+
+    def arm_samples(self, n_samples_32b, n_triggers=1, address=0, stride_bytes=None, force_overwrite=False):
+        """
+        Arm sample-count based DDR capture.
+
+        Parameters
+        ----------
+        n_samples_32b : int
+            Valid 32-bit samples captured per trigger.
+        n_triggers : int
+            Number of trigger events to capture.
+        address : int
+            DDR byte offset from TARGET_SLAVE_BASE_ADDR. Must be 32-byte aligned.
+        stride_bytes : int or None
+            DDR byte stride between trigger events. If None, hardware uses the
+            automatic packed event size ceil(n_samples_32b/8)*32 bytes.
+        force_overwrite : bool
+            Allow the requested capture span to exceed the DDR array size.
+
+        Returns
+        -------
+        int
+            Number of physical 32-bit words containing captured data, including
+            per-trigger zero padding but excluding any extra stride gap.
+        """
+        n_samples_32b = self._check_int("n_samples_32b", n_samples_32b, minval=1)
+        n_triggers = self._check_int("n_triggers", n_triggers, minval=1)
+        address = self._check_int("address", address, minval=0)
+
+        if address % self.cfg['bytes_per_axi_word'] != 0:
+            raise ValueError("address must be aligned to %d bytes." % self.cfg['bytes_per_axi_word'])
+
+        physical_words_per_trigger = self._physical_words_per_trigger(n_samples_32b)
+        auto_stride_bytes = physical_words_per_trigger * 4
+
+        if stride_bytes is None:
+            stride_reg = 0
+            effective_stride_bytes = auto_stride_bytes
+        else:
+            stride_bytes = self._check_int("stride_bytes", stride_bytes, minval=auto_stride_bytes)
+            if stride_bytes % self.cfg['bytes_per_axi_word'] != 0:
+                raise ValueError("stride_bytes must be aligned to %d bytes." % self.cfg['bytes_per_axi_word'])
+            stride_reg = stride_bytes
+            effective_stride_bytes = stride_bytes
+
+        total_physical_words = physical_words_per_trigger * n_triggers
+        end_word = address // 4 + (n_triggers - 1) * (effective_stride_bytes // 4) + physical_words_per_trigger
+        if end_word > self['maxlen'] and not force_overwrite:
+            raise RuntimeError("the requested sample DDR4 capture exceeds the memory size; use force_overwrite=True to allow wrapping/overwriting.")
+
+        self.control_reg = 0x4
+        self.waddr_reg = address
+        self.nsamp_reg = n_samples_32b
+        self.ntrig_reg = n_triggers
+        self.stride_reg = stride_reg
+        self.control_reg = 0x1
+        return total_physical_words
+
+    def get_mem_samples(self, n_samples_32b, n_triggers=1, start=0, stride_bytes=None):
+        """
+        Read back valid samples only, trimming zero padding from each trigger event.
+
+        start is a 32-bit DDR word offset. The returned array matches the
+        existing DDR readback convention: int16 IQ pairs with shape (-1, 2).
+        """
+        n_samples_32b = self._check_int("n_samples_32b", n_samples_32b, minval=1)
+        n_triggers = self._check_int("n_triggers", n_triggers, minval=1)
+        start = self._check_int("start", start, minval=0)
+
+        physical_words_per_trigger = self._physical_words_per_trigger(n_samples_32b)
+        auto_stride_words = physical_words_per_trigger
+        if stride_bytes is None:
+            stride_words = auto_stride_words
+        else:
+            stride_bytes = self._check_int("stride_bytes", stride_bytes, minval=physical_words_per_trigger * 4)
+            if stride_bytes % 4 != 0:
+                raise ValueError("stride_bytes must be a multiple of 4 bytes.")
+            stride_words = stride_bytes // 4
+
+        pieces = []
+        for trig in range(n_triggers):
+            event_start = start + trig * stride_words
+            event_end = event_start + physical_words_per_trigger
+            pieces.append(self.ddr4_array[event_start:event_end].copy()[:n_samples_32b])
+
+        if pieces:
+            words = np.concatenate(pieces)
+        else:
+            words = np.array([], dtype=np.uint32)
+        return words.view(dtype=np.int16).reshape((-1, 2))
+
+    def get_mem(self, nt, start=None):
+        """
+        Compatibility wrapper for old get_ddr4(nt) code.
+
+        nt is interpreted as old-style 128-sample transfers. New code should use
+        get_mem_samples().
+        """
+        if start is None:
+            start = 0
+        return self.get_mem_samples(nt * self.WORDS_PER_COMPAT_TRANSFER, start=start)
+
+    def arm(self, nt, force_overwrite=False):
+        """
+        Compatibility wrapper for old arm_ddr4(ch, nt) code.
+
+        nt is interpreted as old-style 128-sample transfers. New firmware should
+        prefer arm_samples()/QickSoc.arm_ddr4_samples().
+        """
+        return self.arm_samples(nt * self.WORDS_PER_COMPAT_TRANSFER, n_triggers=1, force_overwrite=force_overwrite)
