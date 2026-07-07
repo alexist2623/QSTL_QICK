@@ -1,5 +1,7 @@
 # qstl_awg_tuning_sim
 
+Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
+
 Simulation-only Vivado 2023.1 project for observing the RFDC-bound AWG tuning
 stream without modifying the production `qstl_awg_tuning` project.
 

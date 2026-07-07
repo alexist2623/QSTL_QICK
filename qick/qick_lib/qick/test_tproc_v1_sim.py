@@ -1,4 +1,5 @@
 """Pure-Python tests for the tProcessor v1 behavior model."""
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 import sys
 import types

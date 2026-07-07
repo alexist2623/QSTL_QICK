@@ -1,3 +1,4 @@
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 # Run from Vivado:
 #   vivado -mode batch -source run_banked_accum_xsim.tcl
 #

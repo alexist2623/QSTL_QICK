@@ -3,6 +3,7 @@
 The public user API is :class:`qick.sim.QickSim`. These model classes are kept
 internal so tests and advanced debugging can exercise individual IP behavior.
 """
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 import math
 

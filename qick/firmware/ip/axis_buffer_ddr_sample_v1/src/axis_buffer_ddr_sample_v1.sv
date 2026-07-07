@@ -1,3 +1,4 @@
+// Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 `timescale 1ns/1ps
 
 // Sample-count DDR capture buffer for low-rate 32-bit AXIS streams.

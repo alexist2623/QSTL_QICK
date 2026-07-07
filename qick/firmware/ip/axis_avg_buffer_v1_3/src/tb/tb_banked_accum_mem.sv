@@ -1,3 +1,4 @@
+// Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 `timescale 1ns/1ps
 
 // Self-checking unit test for ramb36e2_accum_mem.

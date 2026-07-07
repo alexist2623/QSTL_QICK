@@ -1,3 +1,4 @@
+// Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 `timescale 1ns/1ps
 
 // Trace accumulation block for axis_avg_buffer v1.3.

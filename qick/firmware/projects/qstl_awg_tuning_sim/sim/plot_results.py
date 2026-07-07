@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Plot qstl_awg_tuning_sim CSV outputs, including command-to-output latency."""
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 from __future__ import annotations
 

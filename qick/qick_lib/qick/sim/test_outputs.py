@@ -1,4 +1,5 @@
 """Tests for RFDC-facing QickSim outputs, clocks, plotting, and CSV export."""
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 import csv
 import sys

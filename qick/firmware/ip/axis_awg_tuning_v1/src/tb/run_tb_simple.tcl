@@ -1,3 +1,4 @@
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 set script_dir [file dirname [file normalize [info script]]]
 set src_dir [file normalize [file join $script_dir ..]]
 

@@ -1742,6 +1742,7 @@ class QickSoc(Overlay, QickConfig):
         self.ddr4_buf.set_switch(self['readouts'][ch]['avgbuf_fullpath'])
         self.ddr4_buf.arm(nt, force_overwrite)
 
+    # Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
     def arm_ddr4_samples(self, ch, n_samples, n_triggers=1, address=0, stride_bytes=None, force_overwrite=False):
         """Arm sample-count based DDR4 capture.
 

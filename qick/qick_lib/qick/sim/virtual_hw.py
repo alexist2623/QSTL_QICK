@@ -3,6 +3,7 @@
 These classes provide the small subset of PYNQ/RFSoC behavior required by QICK
 driver construction and topology discovery. They do not touch real hardware.
 """
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 import sys
 import types

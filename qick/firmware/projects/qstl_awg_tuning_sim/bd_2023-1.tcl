@@ -1,3 +1,4 @@
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 # QSTL AWG tuning simulation-only block design shell for Vivado 2023.1.
 #
 # The production qstl_awg_tuning design routes:

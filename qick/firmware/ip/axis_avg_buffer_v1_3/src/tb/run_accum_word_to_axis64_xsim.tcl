@@ -1,3 +1,4 @@
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 # Run from Vivado:
 #   vivado -mode batch -source run_accum_word_to_axis64_xsim.tcl
 #

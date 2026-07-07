@@ -1,4 +1,5 @@
 """HWH scanning and driver binding for :class:`qick.sim.QickSim`."""
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 import inspect
 import xml.etree.ElementTree as ElementTree

@@ -1,3 +1,4 @@
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 # Run from Vivado:
 #   vivado -mode batch -source run_tb_axis_triggered_pack_32to256_xsim.tcl
 #

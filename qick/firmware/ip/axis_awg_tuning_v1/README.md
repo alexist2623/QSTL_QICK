@@ -1,5 +1,7 @@
 # axis_awg_tuning_v1
 
+Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
+
 `axis_awg_tuning_v1` is a tProcessor-v1-compatible realtime AXIS IP for AWG tuning values and linear ramp generation.
 
 The AXIS command path remains the main SET/RAMP control path. The AXI-Lite slave is intentionally minimal and only provides software/debug current-value override plus current/status readback.

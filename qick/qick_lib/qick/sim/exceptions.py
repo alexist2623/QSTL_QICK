@@ -1,4 +1,5 @@
 """Exceptions used by the hardware-free QICK simulator."""
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 try:
     from qick.awg_tuning import (

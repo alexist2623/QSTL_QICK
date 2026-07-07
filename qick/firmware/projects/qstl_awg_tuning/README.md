@@ -1,5 +1,7 @@
 # qstl_awg_tuning
 
+Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
+
 This variant is copied from qstl.
 Only axis_signal_gen_v6 instances with GEN_DDS FALSE are replaced by axis_awg_tuning_v1.
 m8_axis remains the original trigger/control path.

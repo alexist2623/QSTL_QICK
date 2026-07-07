@@ -1712,6 +1712,7 @@ class AxisBufferDdrV1(SocIP):
         self.wstart()
 
 
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 class AxisBufferDdrSampleV1(AxisBufferDdrV1):
     """
     Sample-count based DDR4 capture buffer for low-rate 32-bit AXIS streams.

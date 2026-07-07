@@ -1,3 +1,4 @@
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 set IP_ROOT "[file normalize [pwd]]"
 set COMP "$IP_ROOT/component.xml"
 set core [ipx::open_core $COMP]

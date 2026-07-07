@@ -1,4 +1,5 @@
 """Simulation result containers and RFDC-facing output helpers."""
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 import csv
 from dataclasses import dataclass, field

@@ -1,3 +1,4 @@
+// Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 `timescale 1ns/1ps
 
 // Trigger-aligned AXIS 32-bit to 256-bit packer.

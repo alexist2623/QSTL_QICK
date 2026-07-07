@@ -1,4 +1,5 @@
 """ASM v1 tProcessor behavior simulator."""
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 from .virtual_hw import install_pynq_stubs
 

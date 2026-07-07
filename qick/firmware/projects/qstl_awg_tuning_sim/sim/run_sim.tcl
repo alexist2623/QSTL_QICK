@@ -1,3 +1,4 @@
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 # Run qstl_awg_tuning_sim in Vivado/XSim batch mode.
 
 set script_dir [file dirname [file normalize [info script]]]

@@ -1,3 +1,4 @@
+-- Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 -- AXI-Lite register map for axis_avg_buffer v1.3.
 --
 -- reg0  0x00 AVG_START_REG

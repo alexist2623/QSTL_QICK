@@ -1,4 +1,5 @@
 """Pure-Python tests for the qstl_awg_tuning project behavior simulator."""
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 import sys
 import types

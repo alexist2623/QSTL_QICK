@@ -1378,6 +1378,7 @@ class AbsQickProgram(ABC):
 
         """
         gencfg = self.soccfg['gens'][ch]
+        # Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
         if gencfg.get('gen_type') == 'awg_tuning':
             raise RuntimeError(
                 "axis_awg_tuning_v1 does not have waveform memory; use "

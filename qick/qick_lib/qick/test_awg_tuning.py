@@ -3,6 +3,7 @@
 These tests stub the minimal PYNQ symbol needed to import SocIP, so they do not
 require a board or a PYNQ installation.
 """
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 import sys
 import types

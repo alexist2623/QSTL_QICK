@@ -1,4 +1,5 @@
 """Tests for the public qick.sim.QickSim API."""
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 import sys
 import tempfile

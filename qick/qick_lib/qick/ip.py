@@ -114,6 +114,7 @@ class SocIP(QickIP, DefaultIP):
         else:
             return super().__getattribute__(a)
 
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 AXIS_PASS_THROUGH_BACK = {
     "axis_clock_converter": "S_AXIS",
     "axis_dwidth_converter": "S_AXIS",

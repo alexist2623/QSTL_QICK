@@ -1,3 +1,4 @@
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 # Package axis_buffer_ddr_sample_v1 as a QICK Vivado IP.
 # Run from this directory with:
 #   vivado -mode batch -source package_ip.tcl

@@ -520,6 +520,7 @@ class MultiplexedGenManager(AbsGenManager):
             self.next_pulse['regs'].append([self.regmap[(self.ch,x)][1] for x in ['freq', 'phase', '0', '0', '0']])
             self.next_pulse['length'] = params['length']
 
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 class AwgTuningGenManager(AbsRegisterManager):
     """ASM v1 register manager for ``axis_awg_tuning_v1`` command words."""
 

@@ -1,4 +1,5 @@
 """Pure-Python ASM v1 tests for axis_awg_tuning_v1 integration."""
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 import sys
 import types

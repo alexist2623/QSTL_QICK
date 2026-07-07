@@ -1,4 +1,5 @@
 """Tests for qick.sim.tproc_v1."""
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 import sys
 import unittest

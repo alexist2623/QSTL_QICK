@@ -1,3 +1,4 @@
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 create_clock -name clk_104_pl -period 3.333 [get_ports CLK104_PL_CLK_P]
 # create_clock -name clk_104_sysref -period 200.0 [get_ports CLK104_PL_SYSREF_P]
 

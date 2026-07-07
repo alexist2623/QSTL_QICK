@@ -16,6 +16,7 @@ or from this doc directory:
 
     python draw_awg_tuning_pipeline.py
 """
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 from __future__ import annotations
 

@@ -1,3 +1,4 @@
+// Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 `default_nettype none
 
 // 160-bit command format, compatible with tProcessor v1 AXIS output width:

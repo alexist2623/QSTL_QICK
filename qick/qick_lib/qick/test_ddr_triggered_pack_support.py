@@ -1,4 +1,5 @@
 """Pure-Python tests for trigger-aligned DDR packer support."""
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 import sys
 import types

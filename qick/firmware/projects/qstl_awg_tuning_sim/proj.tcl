@@ -1,3 +1,4 @@
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 # Vivado 2023.1 batch project for qstl_awg_tuning simulation only.
 # Generated project files are written outside this repository.
 

@@ -1,4 +1,5 @@
 """Hardware-free QICK simulator built from a bit/HWH pair."""
+# Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
 import os
 from collections import defaultdict
