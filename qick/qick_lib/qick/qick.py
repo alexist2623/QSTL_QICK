@@ -1743,7 +1743,7 @@ class QickSoc(Overlay, QickConfig):
         self.ddr4_buf.arm(nt, force_overwrite)
 
     # Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
-    def arm_ddr4_samples(self, ch, n_samples, n_triggers=1, address=0, stride_bytes=None, force_overwrite=False):
+    def arm_ddr4_samples(self, ch, n_samples, n_triggers=1, address=0, stride_bytes=None, force_overwrite=False, sample_decim=1, target_rate=None):
         """Arm sample-count based DDR4 capture.
 
         This API is only available for firmware using AxisBufferDdrSampleV1.
@@ -1763,16 +1763,28 @@ class QickSoc(Overlay, QickConfig):
             the automatic zero-padded event size.
         force_overwrite : bool
             Allow a capture span that exceeds the DDR4 memory capacity.
+        sample_decim : int
+            Input sample interval for each stored 32-bit sample. A value of 0
+            or 1 stores every input sample. A value of N stores input samples
+            0, N, 2N, ... after each trigger.
+        target_rate : float or None
+            Optional target DDR capture rate in MHz/MSPS. If set, sample_decim
+            is computed from the selected readout's f_output.
         """
         if not self.ddr4_buf.cfg.get('sample_capture', False):
             raise RuntimeError("arm_ddr4_samples() requires AxisBufferDdrSampleV1 firmware.")
         self.ddr4_buf.set_switch(self['readouts'][ch]['avgbuf_fullpath'])
+        if target_rate is not None:
+            if target_rate <= 0:
+                raise ValueError("target_rate must be positive.")
+            sample_decim = max(1, int(round(self['readouts'][ch]['f_output'] / target_rate)))
         return self.ddr4_buf.arm_samples(
             n_samples,
             n_triggers=n_triggers,
             address=address,
             stride_bytes=stride_bytes,
             force_overwrite=force_overwrite,
+            sample_decim=sample_decim,
         )
 
     def get_ddr4_samples(self, n_samples, n_triggers=1, start=0, stride_bytes=None):

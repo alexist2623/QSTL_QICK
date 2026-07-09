@@ -1742,7 +1742,8 @@ class AxisBufferDdrSampleV1(AxisBufferDdrV1):
                           'stride_reg'       : 4,
                           'status_reg'       : 5,
                           'sample_count_reg' : 6,
-                          'trigger_count_reg': 7
+                          'trigger_count_reg': 7,
+                          'sample_decim_reg' : 8
                          }
 
         self.cfg['s_axis_data_width'] = self.S_AXIS_DATA_WIDTH
@@ -1751,6 +1752,7 @@ class AxisBufferDdrSampleV1(AxisBufferDdrV1):
         self.cfg['bytes_per_axi_word'] = self.M_AXI_DATA_WIDTH // 8
         self.cfg['sample_capture'] = True
         self.cfg['supports_zero_padding'] = True
+        self.cfg['supports_sample_decimation'] = True
         # Compatibility metadata for old code paths that display "burst_len".
         self.cfg['burst_len'] = self.WORDS_PER_COMPAT_TRANSFER
         self.cfg['junk_len'] = 0
@@ -1762,6 +1764,7 @@ class AxisBufferDdrSampleV1(AxisBufferDdrV1):
         self.nsamp_reg = 0
         self.ntrig_reg = 1
         self.stride_reg = 0
+        self.sample_decim_reg = 1
 
     def _check_int(self, name, value, minval=0):
         if not isinstance(value, (int, np.integer)):
@@ -1774,7 +1777,7 @@ class AxisBufferDdrSampleV1(AxisBufferDdrV1):
         samples_per_word = self.cfg['samples_per_axi_word']
         return ((n_samples_32b + samples_per_word - 1) // samples_per_word) * samples_per_word
 
-    def arm_samples(self, n_samples_32b, n_triggers=1, address=0, stride_bytes=None, force_overwrite=False):
+    def arm_samples(self, n_samples_32b, n_triggers=1, address=0, stride_bytes=None, force_overwrite=False, sample_decim=1):
         """
         Arm sample-count based DDR capture.
 
@@ -1791,6 +1794,10 @@ class AxisBufferDdrSampleV1(AxisBufferDdrV1):
             automatic packed event size ceil(n_samples_32b/8)*32 bytes.
         force_overwrite : bool
             Allow the requested capture span to exceed the DDR array size.
+        sample_decim : int
+            Input sample interval for each stored 32-bit sample. A value of 0
+            or 1 stores every input sample. A value of N stores input samples
+            0, N, 2N, ... after each trigger.
 
         Returns
         -------
@@ -1801,6 +1808,7 @@ class AxisBufferDdrSampleV1(AxisBufferDdrV1):
         n_samples_32b = self._check_int("n_samples_32b", n_samples_32b, minval=1)
         n_triggers = self._check_int("n_triggers", n_triggers, minval=1)
         address = self._check_int("address", address, minval=0)
+        sample_decim = self._check_int("sample_decim", sample_decim, minval=0)
 
         if address % self.cfg['bytes_per_axi_word'] != 0:
             raise ValueError("address must be aligned to %d bytes." % self.cfg['bytes_per_axi_word'])
@@ -1828,6 +1836,7 @@ class AxisBufferDdrSampleV1(AxisBufferDdrV1):
         self.nsamp_reg = n_samples_32b
         self.ntrig_reg = n_triggers
         self.stride_reg = stride_reg
+        self.sample_decim_reg = sample_decim
         self.control_reg = 0x1
         return total_physical_words
 

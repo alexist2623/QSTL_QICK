@@ -4,10 +4,12 @@
 // Sample-count DDR capture buffer for low-rate 32-bit AXIS streams.
 //
 // Capture control:
-//   - AXI-Lite programs a byte address, samples per trigger, trigger count, and
-//     optional stride.
+//   - AXI-Lite programs a byte address, output samples per trigger, trigger
+//     count, optional stride, and optional sample decimation.
 //   - In the source clock domain, trigger rising edges start finite captures.
-//   - Exactly nsamp_reg accepted 32-bit input samples are written to an internal
+//   - The decimation phase is aligned to each trigger. sample_decim_reg = 0 or
+//     1 keeps every input sample. N > 1 keeps samples 0, N, 2N, ...
+//   - Exactly nsamp_reg decimated 32-bit samples are written to an internal
 //     async FIFO per trigger event.
 //
 // DDR write path:
@@ -108,6 +110,7 @@ module axis_buffer_ddr_sample_v1 #(
     localparam int REG_STATUS        = 5;
     localparam int REG_SAMPLE_COUNT  = 6;
     localparam int REG_TRIGGER_COUNT = 7;
+    localparam int REG_SAMPLE_DECIM  = 8;
 
     wire unused_axi_inputs = |s_axi_awprot | |s_axi_arprot | |s_axis_tlast | |s_axi_wstrb | |m_axi_bid;
 
@@ -118,6 +121,7 @@ module axis_buffer_ddr_sample_v1 #(
     reg [31:0] nsamp_reg;
     reg [31:0] ntrig_reg;
     reg [31:0] stride_reg;
+    reg [31:0] sample_decim_reg;
 
     reg arm_toggle_axi;
     reg soft_reset_toggle_axi;
@@ -159,6 +163,7 @@ module axis_buffer_ddr_sample_v1 #(
             nsamp_reg             <= 32'd0;
             ntrig_reg             <= 32'd0;
             stride_reg            <= 32'd0;
+            sample_decim_reg      <= 32'd1;
             arm_toggle_axi        <= 1'b0;
             soft_reset_toggle_axi <= 1'b0;
             s_axi_awready         <= 1'b0;
@@ -207,7 +212,7 @@ module axis_buffer_ddr_sample_v1 #(
                 s_axi_wready  <= 1'b1;
                 s_axi_bvalid  <= 1'b1;
 
-                case (s_axi_awaddr[4:2])
+                case (s_axi_awaddr[5:2])
                     REG_CONTROL: begin
                         if (s_axi_wdata[1])
                             soft_reset_toggle_axi <= ~soft_reset_toggle_axi;
@@ -229,6 +234,8 @@ module axis_buffer_ddr_sample_v1 #(
                         if (!busy_axi) ntrig_reg <= s_axi_wdata;
                     REG_STRIDE:
                         if (!busy_axi) stride_reg <= s_axi_wdata;
+                    REG_SAMPLE_DECIM:
+                        if (!busy_axi) sample_decim_reg <= s_axi_wdata;
                     default: begin
                     end
                 endcase
@@ -240,7 +247,7 @@ module axis_buffer_ddr_sample_v1 #(
             if (!s_axi_rvalid && s_axi_arvalid) begin
                 s_axi_arready <= 1'b1;
                 s_axi_rvalid  <= 1'b1;
-                case (s_axi_araddr[4:2])
+                case (s_axi_araddr[5:2])
                     REG_CONTROL:
                         s_axi_rdata <= 32'd0;
                     REG_WADDR:
@@ -257,6 +264,8 @@ module axis_buffer_ddr_sample_v1 #(
                         s_axi_rdata <= sample_count_s_axi;
                     REG_TRIGGER_COUNT:
                         s_axi_rdata <= trigger_count_s_axi;
+                    REG_SAMPLE_DECIM:
+                        s_axi_rdata <= sample_decim_reg;
                     default:
                         s_axi_rdata <= 32'd0;
                 endcase
@@ -277,6 +286,8 @@ module axis_buffer_ddr_sample_v1 #(
 
     reg [31:0] nsamp_s;
     reg [31:0] ntrig_s;
+    reg [31:0] sample_decim_s;
+    reg [31:0] decim_count_s;
 
     reg capture_s;
 
@@ -293,13 +304,16 @@ module axis_buffer_ddr_sample_v1 #(
     wire [FIFO_WIDTH-1:0] fifo_wdata;
     wire [FIFO_WIDTH-1:0] fifo_rdata;
 
-    wire capture_ready_s = !fifo_wfull;
+    wire [31:0] effective_sample_decim_s = (sample_decim_s == 32'd0) ? 32'd1 : sample_decim_s;
+    wire sample_due_s = (decim_count_s == 32'd0);
+    wire capture_ready_s = sample_due_s ? !fifo_wfull : 1'b1;
     assign s_axis_tready = capture_s ? capture_ready_s : 1'b1;
 
     wire input_fire_s = s_axis_tvalid & s_axis_tready;
-    wire last_sample_s = capture_s && input_fire_s && (sample_count_s == (nsamp_s - 1));
+    wire output_fire_s = capture_s && input_fire_s && sample_due_s;
+    wire last_sample_s = output_fire_s && (sample_count_s == (nsamp_s - 1));
 
-    assign fifo_wen   = capture_s && input_fire_s;
+    assign fifo_wen   = output_fire_s;
     assign fifo_wdata = {last_sample_s, s_axis_tdata};
 
     always_ff @(posedge s_axis_aclk) begin
@@ -310,6 +324,8 @@ module axis_buffer_ddr_sample_v1 #(
             soft_reset_s_seen <= 1'b0;
             nsamp_s           <= 32'd0;
             ntrig_s           <= 32'd0;
+            sample_decim_s    <= 32'd1;
+            decim_count_s     <= 32'd0;
             sample_count_s    <= 32'd0;
             trigger_count_s   <= 32'd0;
             armed_s           <= 1'b0;
@@ -329,6 +345,7 @@ module axis_buffer_ddr_sample_v1 #(
                 soft_reset_s_seen <= soft_reset_s_sync[2];
                 sample_count_s    <= 32'd0;
                 trigger_count_s   <= 32'd0;
+                decim_count_s     <= 32'd0;
                 armed_s           <= 1'b0;
                 capture_s         <= 1'b0;
                 overflow_s        <= 1'b0;
@@ -337,6 +354,8 @@ module axis_buffer_ddr_sample_v1 #(
                     arm_s_seen      <= arm_s_sync[2];
                     nsamp_s         <= nsamp_reg;
                     ntrig_s         <= ntrig_reg;
+                    sample_decim_s  <= sample_decim_reg;
+                    decim_count_s   <= 32'd0;
                     sample_count_s  <= 32'd0;
                     trigger_count_s <= 32'd0;
                     capture_s       <= 1'b0;
@@ -349,20 +368,27 @@ module axis_buffer_ddr_sample_v1 #(
                 if (armed_s && !capture_s && trigger_rise_s) begin
                     capture_s      <= 1'b1;
                     sample_count_s <= 32'd0;
+                    decim_count_s  <= 32'd0;
                 end
 
-                if (capture_s && s_axis_tvalid && fifo_wfull)
+                if (capture_s && s_axis_tvalid && sample_due_s && fifo_wfull)
                     overflow_s <= 1'b1;
 
                 if (capture_s && input_fire_s) begin
-                    if (last_sample_s) begin
-                        capture_s       <= 1'b0;
-                        sample_count_s  <= 32'd0;
-                        trigger_count_s <= trigger_count_s + 1;
-                        if ((trigger_count_s + 1) >= ntrig_s)
-                            armed_s <= 1'b0;
+                    if (sample_due_s) begin
+                        if (last_sample_s) begin
+                            capture_s       <= 1'b0;
+                            sample_count_s  <= 32'd0;
+                            decim_count_s   <= 32'd0;
+                            trigger_count_s <= trigger_count_s + 1;
+                            if ((trigger_count_s + 1) >= ntrig_s)
+                                armed_s <= 1'b0;
+                        end else begin
+                            sample_count_s <= sample_count_s + 1;
+                            decim_count_s  <= (effective_sample_decim_s > 32'd1) ? (effective_sample_decim_s - 32'd1) : 32'd0;
+                        end
                     end else begin
-                        sample_count_s <= sample_count_s + 1;
+                        decim_count_s <= decim_count_s - 32'd1;
                     end
                 end
             end

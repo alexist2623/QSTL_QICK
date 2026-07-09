@@ -16,7 +16,7 @@ ipx::package_project -root_dir $IP_ROOT -vendor QICK -library QICK -taxonomy /QI
 set core [ipx::current_core]
 set_property name axis_buffer_ddr_sample_v1 $core
 set_property display_name {AXIS Buffer DDR Sample V1} $core
-set_property description {Sample-count trigger-based 32-bit AXIS to 256-bit DDR capture buffer with internal CDC.} $core
+set_property description {Sample-count trigger-based 32-bit AXIS to 256-bit DDR capture buffer with trigger-aligned sample decimation and internal CDC.} $core
 set_property version 1.0 $core
 set_property vendor_display_name {Quantum Instrumentation Control Kit} $core
 set_property company_url {https://github.com/openquantumhardware/qick/} $core

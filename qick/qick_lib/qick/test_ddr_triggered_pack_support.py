@@ -76,8 +76,9 @@ def make_sample_ddr(max_words=4096):
         "status_reg": 5,
         "sample_count_reg": 6,
         "trigger_count_reg": 7,
+        "sample_decim_reg": 8,
     })
-    object.__setattr__(ddr, "mmio", types.SimpleNamespace(array=np.zeros(8, dtype=np.uint32)))
+    object.__setattr__(ddr, "mmio", types.SimpleNamespace(array=np.zeros(9, dtype=np.uint32)))
     object.__setattr__(ddr, "ddr4_array", np.zeros(max_words, dtype=np.uint32))
     return ddr
 
@@ -150,7 +151,7 @@ class TestAxisBufferDdrSampleV1(unittest.TestCase):
     def test_sample_arm_programs_sample_count_registers(self):
         ddr = make_sample_ddr()
 
-        reserved = ddr.arm_samples(10, n_triggers=2, address=32, stride_bytes=64)
+        reserved = ddr.arm_samples(10, n_triggers=2, address=32, stride_bytes=64, sample_decim=300)
 
         self.assertEqual(reserved, 32)
         self.assertEqual(ddr.mmio.array[0], 1)
@@ -158,6 +159,7 @@ class TestAxisBufferDdrSampleV1(unittest.TestCase):
         self.assertEqual(ddr.mmio.array[2], 10)
         self.assertEqual(ddr.mmio.array[3], 2)
         self.assertEqual(ddr.mmio.array[4], 64)
+        self.assertEqual(ddr.mmio.array[8], 300)
 
     def test_sample_arm_rejects_unaligned_address_and_stride(self):
         ddr = make_sample_ddr()

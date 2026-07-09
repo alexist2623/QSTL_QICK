@@ -18,6 +18,7 @@ module tb_axis_buffer_ddr_sample_v1;
     localparam int REG_STATUS = 5;
     localparam int REG_SAMPLE_COUNT = 6;
     localparam int REG_TRIGGER_COUNT = 7;
+    localparam int REG_SAMPLE_DECIM = 8;
     localparam int STATUS_BUSY = 0;
     localparam int STATUS_DONE = 1;
     localparam int STATUS_OVERFLOW = 2;
@@ -424,12 +425,25 @@ module tb_axis_buffer_ddr_sample_v1;
         input logic [31:0] stride
     );
         begin
+            arm_capture_decim(waddr, nsamp, ntrig, stride, 32'd1);
+        end
+    endtask
+
+    task automatic arm_capture_decim(
+        input logic [31:0] waddr,
+        input logic [31:0] nsamp,
+        input logic [31:0] ntrig,
+        input logic [31:0] stride,
+        input logic [31:0] sample_decim
+    );
+        begin
             clear_scoreboard();
             clear_done_and_errors();
             axi_write32(REG_WADDR, waddr);
             axi_write32(REG_NSAMP, nsamp);
             axi_write32(REG_NTRIG, ntrig);
             axi_write32(REG_STRIDE, stride);
+            axi_write32(REG_SAMPLE_DECIM, sample_decim);
             axi_write32(REG_CONTROL, 32'h0000_0001);
             if ((nsamp != 0) && (ntrig != 0) && (waddr[4:0] == 5'd0) &&
                 ((stride == 0) || (stride[4:0] == 5'd0))) begin
@@ -536,6 +550,17 @@ module tb_axis_buffer_ddr_sample_v1;
         end
     endfunction
 
+    function automatic logic [255:0] pack_partial_decim(input int base, input int sample_decim, input int first_sample, input int n_valid);
+        logic [255:0] result;
+        int i;
+        begin
+            result = '0;
+            for (i = 0; i < n_valid; i++)
+                result[i*32 +: 32] = 32'(base + (first_sample + i) * sample_decim);
+            return result;
+        end
+    endfunction
+
     task automatic expect_write(input int idx, input logic [31:0] addr, input logic [255:0] data);
         string msg;
         begin
@@ -607,6 +632,31 @@ module tb_axis_buffer_ddr_sample_v1;
                 remaining = nsamp - (word_idx * LANES);
                 n_valid = (remaining >= LANES) ? LANES : remaining;
                 expected = pack_partial_zero(sample_base + word_idx * LANES, n_valid);
+                expect_write(first_write + word_idx,
+                             event_base_addr + 32'(word_idx * AXI_WORD_BYTES),
+                             expected);
+            end
+        end
+    endtask
+
+    task automatic check_single_event_decim_data(
+        input int first_write,
+        input logic [31:0] event_base_addr,
+        input int sample_base,
+        input int nsamp,
+        input int sample_decim
+    );
+        int words;
+        int word_idx;
+        int remaining;
+        int n_valid;
+        logic [255:0] expected;
+        begin
+            words = (nsamp + LANES - 1) / LANES;
+            for (word_idx = 0; word_idx < words; word_idx++) begin
+                remaining = nsamp - (word_idx * LANES);
+                n_valid = (remaining >= LANES) ? LANES : remaining;
+                expected = pack_partial_decim(sample_base, sample_decim, word_idx * LANES, n_valid);
                 expect_write(first_write + word_idx,
                              event_base_addr + 32'(word_idx * AXI_WORD_BYTES),
                              expected);
@@ -862,6 +912,52 @@ module tb_axis_buffer_ddr_sample_v1;
         end
     endtask
 
+    task automatic test_sample_decimation_single_trigger();
+        logic [31:0] decim_rb;
+        begin
+            $display("TEST 16: sample decimation single trigger");
+            arm_capture_decim(32'h0000_0D00, 8, 1, 32'd0, 32'd4);
+            axi_read32(REG_SAMPLE_DECIM, decim_rb);
+            check(decim_rb == 32'd4, "sample decimation register readback");
+            pulse_trigger();
+            send_words_compliant(2000, 29);
+            wait_completed_writes(1);
+            wait_done();
+            check(completed_count == 1, "decim=4 nsamp=8 produces one write");
+            check_single_event_decim_data(0, 32'h0000_0D00, 2000, 8, 4);
+        end
+    endtask
+
+    task automatic test_sample_decimation_trigger_alignment();
+        begin
+            $display("TEST 17: sample decimation trigger alignment");
+            arm_capture_decim(32'h0000_0E00, 4, 2, 32'd32, 32'd3);
+            pulse_trigger();
+            send_words_compliant(3000, 10);
+            wait_completed_writes(1);
+            pulse_trigger();
+            send_words_compliant(4000, 10);
+            wait_completed_writes(2);
+            wait_done();
+            check(completed_count == 2, "two decimated trigger events produce two writes");
+            check_single_event_decim_data(0, 32'h0000_0E00, 3000, 4, 3);
+            check_single_event_decim_data(1, 32'h0000_0E20, 4000, 4, 3);
+        end
+    endtask
+
+    task automatic test_sample_decimation_zero_is_one();
+        begin
+            $display("TEST 18: sample decimation zero means one");
+            arm_capture_decim(32'h0000_0F00, 8, 1, 32'd0, 32'd0);
+            pulse_trigger();
+            send_words_compliant(5000, 8);
+            wait_completed_writes(1);
+            wait_done();
+            check(completed_count == 1, "decim=0 behaves as decim=1");
+            expect_write(0, 32'h0000_0F00, pack8(5000));
+        end
+    endtask
+
     function automatic int next_index(input int value);
         begin
             next_index = (value + 1) % MAX_PENDING;
@@ -1046,6 +1142,9 @@ module tb_axis_buffer_ddr_sample_v1;
         test_nsamp_sixteen();
         test_invalid_configuration();
         test_compliant_backpressure_overflow();
+        test_sample_decimation_single_trigger();
+        test_sample_decimation_trigger_alignment();
+        test_sample_decimation_zero_is_one();
 
         wait_axi(20);
         if (errors == 0) begin
