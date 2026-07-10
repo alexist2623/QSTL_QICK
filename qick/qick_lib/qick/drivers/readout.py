@@ -8,9 +8,48 @@ from qick.ip import SocIP, QickIP, DummyIP
 def _trace_trigger(soc, start_block):
     """Helper function for finding the tProc port that triggers a buffer.
     """
+    def trace_trigger_source(blockname, portname, visited=None):
+        """Trace a trigger signal through fanout/sync helper blocks."""
+        if visited is None:
+            visited = set()
+        key = (blockname, portname)
+        if key in visited:
+            raise RuntimeError("loop detected while tracing trigger from %s/%s" % key)
+        visited.add(key)
+
+        ports = [p for p in soc.metadata.trace_sig(blockname, portname) if len(p) == 2]
+        candidates = []
+        for block, port in ports:
+            blocktype = soc.metadata.mod2type(block)
+
+            # The FIR DDR design fans out one aligned trigger pulse to both the
+            # DDR sample buffer and the FIR decimator. Follow the sync block back
+            # to the original tProc/qick_vec2bit trigger source, and ignore the
+            # sibling consumer on the same fanout net.
+            if blocktype == "axis_trigger_sync_v1" and port == "trigger_pulse":
+                return trace_trigger_source(block, "trigger_in", visited)
+            if blocktype in ["axis_buffer_ddr_sample_v1", "axis_fir_decim_300to1_v1"] and port == "trigger":
+                continue
+
+            candidates.append((block, port, blocktype))
+
+        for block, port, blocktype in candidates:
+            if blocktype == 'qick_vec2bit' or 'vect2bits' in blocktype:
+                return block, port, blocktype
+
+        for block, port, blocktype in candidates:
+            try:
+                soc._get_block(block).port2ch(port)
+                return block, port, blocktype
+            except Exception:
+                pass
+
+        if len(candidates) == 1:
+            return candidates[0]
+        raise RuntimeError("could not identify trigger source for %s/%s: %s" % (blockname, portname, ports))
+
     # which tProc output bit triggers this buffer?
-    ((block, port),) = soc.metadata.trace_sig(start_block, 'trigger')
-    blocktype = soc.metadata.mod2type(block)
+    block, port, blocktype = trace_trigger_source(start_block, 'trigger')
     if blocktype=='qick_vec2bit' or 'vect2bits' in blocktype:
         # vect2bits/qick_vec2bit port names are of the form 'dout14'
         trigger_bit = int(port[4:])
@@ -20,7 +59,7 @@ def _trace_trigger(soc, start_block):
         # tproc v1 output port -> axis_set_reg -> vect2bits -> buffer
         # tproc v2 data port -> vect2bits -> buffer
         # tproc v3 trigger port -> buffer
-        ((block, port),) = soc.metadata.trace_sig(block, 'din')
+        block, port, blocktype = trace_trigger_source(block, 'din')
         if soc.metadata.mod2type(block) == "axis_set_reg":
             ((block, port),) = soc.metadata.trace_bus(block, 's_axis')
         # ask the tproc to translate this port name to a channel number
