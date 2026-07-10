@@ -1,0 +1,53 @@
+{
+  "fs_input_hz": 300000000.0,
+  "fs_output_hz": 1000000.0,
+  "total_decimation": 300,
+  "coef_width": 18,
+  "coef_frac_bits": 17,
+  "acc_width": 48,
+  "out_width": 16,
+  "rounding": "round half away from zero before coefficient-scale right shift",
+  "saturation": "signed 16-bit saturation",
+  "group_delay_input_samples": 8677.0,
+  "stages": [
+    {
+      "name": "stage0",
+      "fs_hz": 300000000.0,
+      "decim": 10,
+      "num_taps": 95,
+      "cutoff_hz": 12000000.0,
+      "kaiser_beta": 10.0,
+      "coefficient_file": "stage0_coeffs.txt",
+      "coefficient_sum_float": 1.0000000000000004,
+      "coefficient_sum_quantized": 131076,
+      "coefficient_scale": 131072,
+      "max_quantization_error": 3.7207453093057015e-06
+    },
+    {
+      "name": "stage1",
+      "fs_hz": 30000000.0,
+      "decim": 10,
+      "num_taps": 127,
+      "cutoff_hz": 1200000.0,
+      "kaiser_beta": 10.0,
+      "coefficient_file": "stage1_coeffs.txt",
+      "coefficient_sum_float": 0.9999999999999999,
+      "coefficient_sum_quantized": 131066,
+      "coefficient_scale": 131072,
+      "max_quantization_error": 3.811510800559234e-06
+    },
+    {
+      "name": "stage2",
+      "fs_hz": 3000000.0,
+      "decim": 3,
+      "num_taps": 161,
+      "cutoff_hz": 430000.0,
+      "kaiser_beta": 10.0,
+      "coefficient_file": "stage2_coeffs.txt",
+      "coefficient_sum_float": 1.0,
+      "coefficient_sum_quantized": 131074,
+      "coefficient_scale": 131072,
+      "max_quantization_error": 3.7796046558457707e-06
+    }
+  ]
+}

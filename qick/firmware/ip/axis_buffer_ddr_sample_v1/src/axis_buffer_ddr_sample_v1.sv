@@ -212,7 +212,7 @@ module axis_buffer_ddr_sample_v1 #(
                 s_axi_wready  <= 1'b1;
                 s_axi_bvalid  <= 1'b1;
 
-                case (s_axi_awaddr[5:2])
+                case (s_axi_awaddr[7:2])
                     REG_CONTROL: begin
                         if (s_axi_wdata[1])
                             soft_reset_toggle_axi <= ~soft_reset_toggle_axi;
@@ -247,7 +247,7 @@ module axis_buffer_ddr_sample_v1 #(
             if (!s_axi_rvalid && s_axi_arvalid) begin
                 s_axi_arready <= 1'b1;
                 s_axi_rvalid  <= 1'b1;
-                case (s_axi_araddr[5:2])
+                case (s_axi_araddr[7:2])
                     REG_CONTROL:
                         s_axi_rdata <= 32'd0;
                     REG_WADDR:
@@ -303,6 +303,7 @@ module axis_buffer_ddr_sample_v1 #(
     wire fifo_ren;
     wire [FIFO_WIDTH-1:0] fifo_wdata;
     wire [FIFO_WIDTH-1:0] fifo_rdata;
+    wire fifo_wr_rstn = s_axis_aresetn && !soft_reset_pulse_s;
 
     wire [31:0] effective_sample_decim_s = (sample_decim_s == 32'd0) ? 32'd1 : sample_decim_s;
     wire sample_due_s = (decim_count_s == 32'd0);
@@ -343,6 +344,7 @@ module axis_buffer_ddr_sample_v1 #(
 
             if (soft_reset_pulse_s) begin
                 soft_reset_s_seen <= soft_reset_s_sync[2];
+                arm_s_seen        <= arm_s_sync[2];
                 sample_count_s    <= 32'd0;
                 trigger_count_s   <= 32'd0;
                 decim_count_s     <= 32'd0;
@@ -405,6 +407,7 @@ module axis_buffer_ddr_sample_v1 #(
 
     wire arm_pulse_m        = arm_m_sync[2] ^ arm_m_seen;
     wire soft_reset_pulse_m = soft_reset_m_sync[2] ^ soft_reset_m_seen;
+    wire fifo_rd_rstn       = m_axi_aresetn && !soft_reset_pulse_m;
 
     reg [31:0] waddr_m;
     reg [31:0] nsamp_m;
@@ -479,6 +482,7 @@ module axis_buffer_ddr_sample_v1 #(
 
             if (soft_reset_pulse_m) begin
                 soft_reset_m_seen  <= soft_reset_m_sync[2];
+                arm_m_seen         <= arm_m_sync[2];
                 write_active_m     <= 1'b0;
                 busy_m             <= 1'b0;
                 done_m             <= 1'b0;
@@ -563,12 +567,12 @@ module axis_buffer_ddr_sample_v1 #(
         .ADDR_WIDTH (FIFO_ADDR_WIDTH)
     ) sample_fifo_i (
         .wr_clk  (s_axis_aclk),
-        .wr_rstn (s_axis_aresetn),
+        .wr_rstn (fifo_wr_rstn),
         .wr_en   (fifo_wen),
         .wr_data (fifo_wdata),
         .wr_full (fifo_wfull),
         .rd_clk  (m_axi_aclk),
-        .rd_rstn (m_axi_aresetn),
+        .rd_rstn (fifo_rd_rstn),
         .rd_en   (fifo_ren),
         .rd_data (fifo_rdata),
         .rd_empty(fifo_rempty)

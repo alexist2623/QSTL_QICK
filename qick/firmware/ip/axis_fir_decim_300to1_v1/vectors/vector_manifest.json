@@ -1,0 +1,56 @@
+{
+  "description": "Deterministic vectors for axis_fir_decim_300to1_v1. Expected files are packed 32-bit lane1:lane0 words.",
+  "total_decimation": 300,
+  "cases": [
+    {
+      "name": "impulse",
+      "input_file": "impulse_input.txt",
+      "expected_file": "impulse_expected.txt",
+      "input_samples": 12000,
+      "expected_samples": 40,
+      "valid_gap": "none"
+    },
+    {
+      "name": "tone",
+      "input_file": "tone_input.txt",
+      "expected_file": "tone_expected.txt",
+      "input_samples": 60000,
+      "expected_samples": 200,
+      "valid_gap": "none"
+    },
+    {
+      "name": "noisy",
+      "input_file": "noisy_input.txt",
+      "expected_file": "noisy_expected.txt",
+      "input_samples": 60000,
+      "expected_samples": 200,
+      "valid_gap": "none"
+    },
+    {
+      "name": "valid_gap",
+      "input_file": "valid_gap_input.txt",
+      "expected_file": "valid_gap_expected.txt",
+      "input_samples": 18000,
+      "expected_samples": 60,
+      "valid_gap": "drive valid low every 7th and 19th cycle without consuming input"
+    },
+    {
+      "name": "reset_after",
+      "input_file": "reset_after_input.txt",
+      "expected_file": "reset_after_expected.txt",
+      "input_samples": 18000,
+      "expected_samples": 60,
+      "valid_gap": "none"
+    },
+    {
+      "name": "trigger_align",
+      "pre_input_file": "trigger_align_pre_input.txt",
+      "input_file": "trigger_align_post_input.txt",
+      "expected_file": "trigger_align_expected.txt",
+      "pre_input_samples": 4800,
+      "input_samples": 60000,
+      "expected_samples": 200,
+      "description": "pre-trigger data fills FIR history; trigger resets only decimation phase before post input"
+    }
+  ]
+}

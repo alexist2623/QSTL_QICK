@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jul  8 18:01:25 2026" VIVADOVERSION="2023.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Jul  9 14:43:13 2026" VIVADOVERSION="2023.1">
 
   <SYSTEMINFO ARCH="zynquplusRFSOC" BOARD="xilinx.com:zcu216:part0:2.0" DEVICE="xczu49dr" NAME="d_1" PACKAGE="ffvf1760" SPEEDGRADE="-2"/>
 
@@ -10492,7 +10492,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE COREREVISION="3" FULLNAME="/axis_avg_buffer_0" HWVERSION="1.3" INSTANCE="axis_avg_buffer_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_avg_buffer" VLNV="QICK:QICK:axis_avg_buffer:1.3">
+    <MODULE COREREVISION="2" FULLNAME="/axis_avg_buffer_0" HWVERSION="1.2" INSTANCE="axis_avg_buffer_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_avg_buffer" VLNV="QICK:QICK:axis_avg_buffer:1.2">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="s_axi" NAME="reg0" RANGE="4096" USAGE="register"/>
@@ -10517,7 +10517,7 @@
             <CONNECTION INSTANCE="rst_100" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="6" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_0_s_axi_awaddr">
+        <PORT DIR="I" LEFT="5" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_0_s_axi_awaddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M09_AXI_awaddr"/>
           </CONNECTIONS>
@@ -10572,7 +10572,7 @@
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M09_AXI_bready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="6" NAME="s_axi_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_0_s_axi_araddr">
+        <PORT DIR="I" LEFT="5" NAME="s_axi_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_0_s_axi_araddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M09_AXI_araddr"/>
           </CONNECTIONS>
@@ -10772,7 +10772,7 @@
           <PARAMETER NAME="PROTOCOL" VALUE="AXI4LITE"/>
           <PARAMETER NAME="FREQ_HZ"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="ADDR_WIDTH" VALUE="7"/>
+          <PARAMETER NAME="ADDR_WIDTH" VALUE="6"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="WUSER_WIDTH" VALUE="0"/>
@@ -10843,7 +10843,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE COREREVISION="3" FULLNAME="/axis_avg_buffer_1" HWVERSION="1.3" INSTANCE="axis_avg_buffer_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_avg_buffer" VLNV="QICK:QICK:axis_avg_buffer:1.3">
+    <MODULE COREREVISION="2" FULLNAME="/axis_avg_buffer_1" HWVERSION="1.2" INSTANCE="axis_avg_buffer_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_avg_buffer" VLNV="QICK:QICK:axis_avg_buffer:1.2">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="s_axi" NAME="reg0" RANGE="4096" USAGE="register"/>
@@ -10868,7 +10868,7 @@
             <CONNECTION INSTANCE="rst_100" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="6" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_1_s_axi_awaddr">
+        <PORT DIR="I" LEFT="5" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_1_s_axi_awaddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M10_AXI_awaddr"/>
           </CONNECTIONS>
@@ -10923,7 +10923,7 @@
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M10_AXI_bready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="6" NAME="s_axi_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_1_s_axi_araddr">
+        <PORT DIR="I" LEFT="5" NAME="s_axi_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_1_s_axi_araddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M10_AXI_araddr"/>
           </CONNECTIONS>
@@ -11123,7 +11123,7 @@
           <PARAMETER NAME="PROTOCOL" VALUE="AXI4LITE"/>
           <PARAMETER NAME="FREQ_HZ"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="ADDR_WIDTH" VALUE="7"/>
+          <PARAMETER NAME="ADDR_WIDTH" VALUE="6"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="WUSER_WIDTH" VALUE="0"/>
@@ -11194,7 +11194,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE COREREVISION="3" FULLNAME="/axis_avg_buffer_2" HWVERSION="1.3" INSTANCE="axis_avg_buffer_2" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_avg_buffer" VLNV="QICK:QICK:axis_avg_buffer:1.3">
+    <MODULE COREREVISION="2" FULLNAME="/axis_avg_buffer_2" HWVERSION="1.2" INSTANCE="axis_avg_buffer_2" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_avg_buffer" VLNV="QICK:QICK:axis_avg_buffer:1.2">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="s_axi" NAME="reg0" RANGE="4096" USAGE="register"/>
@@ -11219,7 +11219,7 @@
             <CONNECTION INSTANCE="rst_100" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="6" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_2_s_axi_awaddr">
+        <PORT DIR="I" LEFT="5" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_2_s_axi_awaddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_awaddr"/>
           </CONNECTIONS>
@@ -11274,7 +11274,7 @@
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_bready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="6" NAME="s_axi_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_2_s_axi_araddr">
+        <PORT DIR="I" LEFT="5" NAME="s_axi_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_2_s_axi_araddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M01_AXI_araddr"/>
           </CONNECTIONS>
@@ -11474,7 +11474,7 @@
           <PARAMETER NAME="PROTOCOL" VALUE="AXI4LITE"/>
           <PARAMETER NAME="FREQ_HZ"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="ADDR_WIDTH" VALUE="7"/>
+          <PARAMETER NAME="ADDR_WIDTH" VALUE="6"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="WUSER_WIDTH" VALUE="0"/>
@@ -11545,7 +11545,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE COREREVISION="3" FULLNAME="/axis_avg_buffer_3" HWVERSION="1.3" INSTANCE="axis_avg_buffer_3" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_avg_buffer" VLNV="QICK:QICK:axis_avg_buffer:1.3">
+    <MODULE COREREVISION="2" FULLNAME="/axis_avg_buffer_3" HWVERSION="1.2" INSTANCE="axis_avg_buffer_3" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_avg_buffer" VLNV="QICK:QICK:axis_avg_buffer:1.2">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="s_axi" NAME="reg0" RANGE="4096" USAGE="register"/>
@@ -11570,7 +11570,7 @@
             <CONNECTION INSTANCE="rst_100" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="6" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_3_s_axi_awaddr">
+        <PORT DIR="I" LEFT="5" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_3_s_axi_awaddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M11_AXI_awaddr"/>
           </CONNECTIONS>
@@ -11625,7 +11625,7 @@
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M11_AXI_bready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="6" NAME="s_axi_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_3_s_axi_araddr">
+        <PORT DIR="I" LEFT="5" NAME="s_axi_araddr" RIGHT="0" SIGIS="undef" SIGNAME="axis_avg_buffer_3_s_axi_araddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M11_AXI_araddr"/>
           </CONNECTIONS>
@@ -11825,7 +11825,7 @@
           <PARAMETER NAME="PROTOCOL" VALUE="AXI4LITE"/>
           <PARAMETER NAME="FREQ_HZ"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="ADDR_WIDTH" VALUE="7"/>
+          <PARAMETER NAME="ADDR_WIDTH" VALUE="6"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="WUSER_WIDTH" VALUE="0"/>
@@ -21130,12 +21130,12 @@
         </PORT>
         <PORT DIR="O" LEFT="0" NAME="m_axis_tvalid" RIGHT="0" SIGIS="undef" SIGNAME="axis_switch_ddr_m_axis_tvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="ddr4_axis_buffer_ddr_sample_v1_0" PORT="s_axis_tvalid"/>
+            <CONNECTION INSTANCE="ddr4_axis_fir_decim_300to1_v1_0" PORT="s_axis_tvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axis_switch_ddr_m_axis_tdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="ddr4_axis_buffer_ddr_sample_v1_0" PORT="s_axis_tdata"/>
+            <CONNECTION INSTANCE="ddr4_axis_fir_decim_300to1_v1_0" PORT="s_axis_tdata"/>
           </CONNECTIONS>
         </PORT>
         <PORT CLKFREQUENCY="99999985" DIR="I" NAME="s_axi_ctrl_aclk" SIGIS="clk" SIGNAME="zynq_ultra_ps_e_0_pl_clk0">
@@ -24996,6 +24996,8 @@
             <CONNECTION INSTANCE="axis_switch_ddr" PORT="aclk"/>
             <CONNECTION INSTANCE="axis_switch_mr" PORT="aclk"/>
             <CONNECTION INSTANCE="ddr4_axis_buffer_ddr_sample_v1_0" PORT="s_axis_aclk"/>
+            <CONNECTION INSTANCE="ddr4_axis_fir_decim_300to1_v1_0" PORT="aclk"/>
+            <CONNECTION INSTANCE="ddr4_axis_trigger_sync_v1_0" PORT="aclk"/>
             <CONNECTION INSTANCE="axis_avg_buffer_0" PORT="s_axis_aclk"/>
             <CONNECTION INSTANCE="axis_avg_buffer_1" PORT="s_axis_aclk"/>
             <CONNECTION INSTANCE="axis_avg_buffer_2" PORT="s_axis_aclk"/>
@@ -25792,23 +25794,31 @@
             <CONNECTION INSTANCE="rst_100" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="trigger" SIGIS="undef" SIGNAME="qick_vec2bit_0_dout5">
+        <PORT DIR="I" NAME="trigger" SIGIS="undef" SIGNAME="ddr4_axis_trigger_sync_v1_0_trigger_pulse">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="qick_vec2bit_0" PORT="dout5"/>
+            <CONNECTION INSTANCE="ddr4_axis_trigger_sync_v1_0" PORT="trigger_pulse"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef"/>
-        <PORT DIR="I" LEFT="31" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axis_switch_ddr_m_axis_tdata">
+        <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef" SIGNAME="ddr4_axis_buffer_ddr_sample_v1_0_s_axis_tready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axis_switch_ddr" PORT="m_axis_tdata"/>
+            <CONNECTION INSTANCE="ddr4_axis_fir_decim_300to1_v1_0" PORT="m_axis_tready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="axis_switch_ddr_m_axis_tvalid">
+        <PORT DIR="I" LEFT="31" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="ddr4_axis_buffer_ddr_sample_v1_0_s_axis_tdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axis_switch_ddr" PORT="m_axis_tvalid"/>
+            <CONNECTION INSTANCE="ddr4_axis_fir_decim_300to1_v1_0" PORT="m_axis_tdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="s_axis_tlast" SIGIS="undef"/>
+        <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="ddr4_axis_buffer_ddr_sample_v1_0_s_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ddr4_axis_fir_decim_300to1_v1_0" PORT="m_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axis_tlast" SIGIS="undef" SIGNAME="ddr4_axis_buffer_ddr_sample_v1_0_s_axis_tlast">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ddr4_axis_fir_decim_300to1_v1_0" PORT="m_axis_tlast"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="I" LEFT="7" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="ddr4_axis_buffer_ddr_sample_v1_0_s_axi_awaddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="ps8_0_axi_periph" PORT="M22_AXI_awaddr"/>
@@ -26007,7 +26017,7 @@
         </PORT>
       </PORTS>
       <BUSINTERFACES>
-        <BUSINTERFACE BUSNAME="axis_switch_ddr_M00_AXIS" NAME="s_axis" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
+        <BUSINTERFACE BUSNAME="ddr4_axis_fir_decim_300to1_v1_0_m_axis" NAME="s_axis" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
           <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="4"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
@@ -26145,6 +26155,146 @@
       <PERIPHERALS>
         <PERIPHERAL INSTANCE="ddr4_ddr4_0"/>
       </PERIPHERALS>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/ddr4/axis_fir_decim_300to1_v1_0" HWVERSION="1.0" INSTANCE="ddr4_axis_fir_decim_300to1_v1_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_fir_decim_300to1_v1" VLNV="QICK:QICK:axis_fir_decim_300to1_v1:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="S_AXIS_DATA_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="M_AXIS_DATA_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="LANE_WIDTH" VALUE="16"/>
+        <PARAMETER NAME="DECIM0" VALUE="10"/>
+        <PARAMETER NAME="DECIM1" VALUE="10"/>
+        <PARAMETER NAME="DECIM2" VALUE="3"/>
+        <PARAMETER NAME="COEF_WIDTH_PARAM" VALUE="18"/>
+        <PARAMETER NAME="ACC_WIDTH" VALUE="48"/>
+        <PARAMETER NAME="OUT_WIDTH" VALUE="16"/>
+        <PARAMETER NAME="Component_Name" VALUE="d_1_axis_fir_decim_300to1_v1_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="400000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="dac_clk_buf_BUFG_O">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="dac_clk_buf" PORT="BUFG_O"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="aresetn" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="rst_adc2_peripheral_aresetn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="rst_adc2" PORT="peripheral_aresetn"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="trigger" SIGIS="undef" SIGNAME="ddr4_axis_trigger_sync_v1_0_trigger_pulse">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ddr4_axis_trigger_sync_v1_0" PORT="trigger_pulse"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axis_switch_ddr_m_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_switch_ddr" PORT="m_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="axis_switch_ddr_m_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_switch_ddr" PORT="m_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef"/>
+        <PORT DIR="I" NAME="s_axis_tlast" SIGIS="undef"/>
+        <PORT DIR="O" LEFT="31" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="ddr4_axis_buffer_ddr_sample_v1_0_s_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ddr4_axis_buffer_ddr_sample_v1_0" PORT="s_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="m_axis_tvalid" SIGIS="undef" SIGNAME="ddr4_axis_buffer_ddr_sample_v1_0_s_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ddr4_axis_buffer_ddr_sample_v1_0" PORT="s_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="m_axis_tready" SIGIS="undef" SIGNAME="ddr4_axis_buffer_ddr_sample_v1_0_s_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ddr4_axis_buffer_ddr_sample_v1_0" PORT="s_axis_tready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="m_axis_tlast" SIGIS="undef" SIGNAME="ddr4_axis_buffer_ddr_sample_v1_0_s_axis_tlast">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ddr4_axis_buffer_ddr_sample_v1_0" PORT="s_axis_tlast"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="ddr4_axis_fir_decim_300to1_v1_0_m_axis" NAME="m_axis" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="4"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="400000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="d_1_CLK104_PL_CLK_N"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="m_axis_tdata"/>
+            <PORTMAP LOGICAL="TLAST" PHYSICAL="m_axis_tlast"/>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="m_axis_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="m_axis_tready"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="axis_switch_ddr_M00_AXIS" NAME="s_axis" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="4"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="400000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="d_1_CLK104_PL_CLK_N"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="s_axis_tdata"/>
+            <PORTMAP LOGICAL="TLAST" PHYSICAL="s_axis_tlast"/>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="s_axis_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="s_axis_tready"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/ddr4/axis_trigger_sync_v1_0" HWVERSION="1.0" INSTANCE="ddr4_axis_trigger_sync_v1_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_trigger_sync_v1" VLNV="QICK:QICK:axis_trigger_sync_v1:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="d_1_axis_trigger_sync_v1_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="400000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="dac_clk_buf_BUFG_O">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="dac_clk_buf" PORT="BUFG_O"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="aresetn" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="rst_adc2_peripheral_aresetn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="rst_adc2" PORT="peripheral_aresetn"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="trigger_in" SIGIS="undef" SIGNAME="qick_vec2bit_0_dout5">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="qick_vec2bit_0" PORT="dout5"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="trigger_pulse" SIGIS="undef" SIGNAME="ddr4_axis_trigger_sync_v1_0_trigger_pulse">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ddr4_axis_buffer_ddr_sample_v1_0" PORT="trigger"/>
+            <CONNECTION INSTANCE="ddr4_axis_fir_decim_300to1_v1_0" PORT="trigger"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
     </MODULE>
     <MODULE COREREVISION="19" FULLNAME="/ddr4/ddr4_0" HWVERSION="2.2" INSTANCE="ddr4_ddr4_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="ddr4" VLNV="xilinx.com:ip:ddr4:2.2">
       <DOCUMENTS>
@@ -32537,7 +32687,7 @@
         </PORT>
         <PORT DIR="O" NAME="dout5" SIGIS="undef" SIGNAME="qick_vec2bit_0_dout5">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="ddr4_axis_buffer_ddr_sample_v1_0" PORT="trigger"/>
+            <CONNECTION INSTANCE="ddr4_axis_trigger_sync_v1_0" PORT="trigger_in"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="dout6" SIGIS="undef" SIGNAME="qick_vec2bit_0_dout6">
@@ -36618,6 +36768,8 @@
             <CONNECTION INSTANCE="axis_switch_ddr" PORT="aresetn"/>
             <CONNECTION INSTANCE="axis_switch_mr" PORT="aresetn"/>
             <CONNECTION INSTANCE="ddr4_axis_buffer_ddr_sample_v1_0" PORT="s_axis_aresetn"/>
+            <CONNECTION INSTANCE="ddr4_axis_fir_decim_300to1_v1_0" PORT="aresetn"/>
+            <CONNECTION INSTANCE="ddr4_axis_trigger_sync_v1_0" PORT="aresetn"/>
             <CONNECTION INSTANCE="axis_avg_buffer_0" PORT="s_axis_aresetn"/>
             <CONNECTION INSTANCE="axis_avg_buffer_1" PORT="s_axis_aresetn"/>
             <CONNECTION INSTANCE="axis_avg_buffer_2" PORT="s_axis_aresetn"/>

@@ -144,7 +144,7 @@ xilinx.com:ip:axis_register_slice:1.1\
 xilinx.com:ip:axis_switch:1.1\
 xilinx.com:ip:usp_rf_data_converter:2.6\
 xilinx.com:ip:zynq_ultra_ps_e:3.5\
-QICK:QICK:axis_avg_buffer:1.3\
+QICK:QICK:axis_avg_buffer:1.2\
 xilinx.com:ip:axi_gpio:2.0\
 QICK:QICK:axis_tproc64x32_x8:1.0\
 QICK:QICK:qick_vec2bit:1.0\
@@ -153,6 +153,8 @@ xilinx.com:ip:xlconstant:1.1\
 QICK:QICK:axis_set_reg:1.0\
 xilinx.com:ip:c_shift_ram:12.0\
 QICK:QICK:axis_buffer_ddr_sample_v1:1.0\
+QICK:QICK:axis_fir_decim_300to1_v1:1.0\
+QICK:QICK:axis_trigger_sync_v1:1.0\
 xilinx.com:ip:ddr4:2.2\
 xilinx.com:ip:axi_quad_spi:3.2\
 "
@@ -419,6 +421,19 @@ proc create_hier_cell_ddr4 { parentCell nameHier } {
     CONFIG.TARGET_SLAVE_BASE_ADDR {0x00000000} \
   ] $axis_buffer_ddr_sample_v1_0
 
+  # Create instance: axis_fir_decim_300to1_v1_0, and set properties
+  set axis_fir_decim_300to1_v1_0 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_fir_decim_300to1_v1:1.0 axis_fir_decim_300to1_v1_0 ]
+  set_property -dict [list \
+    CONFIG.DECIM0 {10} \
+    CONFIG.DECIM1 {10} \
+    CONFIG.DECIM2 {3} \
+    CONFIG.M_AXIS_DATA_WIDTH {32} \
+    CONFIG.S_AXIS_DATA_WIDTH {32} \
+  ] $axis_fir_decim_300to1_v1_0
+
+  # Create instance: axis_trigger_sync_v1_0, and set properties
+  set axis_trigger_sync_v1_0 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_trigger_sync_v1:1.0 axis_trigger_sync_v1_0 ]
+
   # Create instance: axi_smc_1, and set properties
   set axi_smc_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 axi_smc_1 ]
 
@@ -436,7 +451,8 @@ proc create_hier_cell_ddr4 { parentCell nameHier } {
 
   # Create interface connections
   connect_bd_intf_net -intf_net axis_buffer_ddr_sample_v1_0_m_axi [get_bd_intf_pins axi_smc_1/S01_AXI] [get_bd_intf_pins axis_buffer_ddr_sample_v1_0/m_axi]
-  connect_bd_intf_net -intf_net axis_switch_ddr_M00_AXIS [get_bd_intf_pins S_AXIS] [get_bd_intf_pins axis_buffer_ddr_sample_v1_0/s_axis]
+  connect_bd_intf_net -intf_net axis_fir_decim_300to1_v1_0_m_axis [get_bd_intf_pins axis_fir_decim_300to1_v1_0/m_axis] [get_bd_intf_pins axis_buffer_ddr_sample_v1_0/s_axis]
+  connect_bd_intf_net -intf_net axis_switch_ddr_M00_AXIS [get_bd_intf_pins S_AXIS] [get_bd_intf_pins axis_fir_decim_300to1_v1_0/s_axis]
   connect_bd_intf_net -intf_net ddr4_0_C0_DDR4 [get_bd_intf_pins ddr4_sdram_c0] [get_bd_intf_pins ddr4_0/C0_DDR4]
   connect_bd_intf_net -intf_net default_sysclk_c0_300mhz_1 [get_bd_intf_pins default_sysclk_c0_300mhz] [get_bd_intf_pins ddr4_0/C0_SYS_CLK]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M22_AXI [get_bd_intf_pins s_axi] [get_bd_intf_pins axis_buffer_ddr_sample_v1_0/s_axi]
@@ -447,11 +463,12 @@ proc create_hier_cell_ddr4 { parentCell nameHier } {
   connect_bd_net -net Net [get_bd_pins rst_ddr4/peripheral_aresetn] [get_bd_pins axis_buffer_ddr_sample_v1_0/m_axi_aresetn] [get_bd_pins axi_smc_1/aresetn] [get_bd_pins ddr4_0/c0_ddr4_aresetn]
   connect_bd_net -net ddr4_0_c0_ddr4_ui_clk [get_bd_pins ddr4_0/c0_ddr4_ui_clk] [get_bd_pins c0_ddr4_ui_clk] [get_bd_pins axis_buffer_ddr_sample_v1_0/m_axi_aclk] [get_bd_pins rst_ddr4/slowest_sync_clk] [get_bd_pins axi_smc_1/aclk]
   connect_bd_net -net ddr4_0_c0_ddr4_ui_clk_sync_rst [get_bd_pins ddr4_0/c0_ddr4_ui_clk_sync_rst] [get_bd_pins rst_ddr4/ext_reset_in]
-  connect_bd_net -net qick_processor_0_trig_9_o [get_bd_pins trigger] [get_bd_pins axis_buffer_ddr_sample_v1_0/trigger]
+  connect_bd_net -net qick_processor_0_trig_9_o [get_bd_pins trigger] [get_bd_pins axis_trigger_sync_v1_0/trigger_in]
+  connect_bd_net -net ddr4_trigger_align [get_bd_pins axis_trigger_sync_v1_0/trigger_pulse] [get_bd_pins axis_buffer_ddr_sample_v1_0/trigger] [get_bd_pins axis_fir_decim_300to1_v1_0/trigger]
   connect_bd_net -net rst_100_bus_struct_reset [get_bd_pins sys_rst] [get_bd_pins ddr4_0/sys_rst]
-  connect_bd_net -net rst_adc_peripheral_aresetn [get_bd_pins aresetn] [get_bd_pins axis_buffer_ddr_sample_v1_0/s_axis_aresetn]
+  connect_bd_net -net rst_adc_peripheral_aresetn [get_bd_pins aresetn] [get_bd_pins axis_buffer_ddr_sample_v1_0/s_axis_aresetn] [get_bd_pins axis_fir_decim_300to1_v1_0/aresetn] [get_bd_pins axis_trigger_sync_v1_0/aresetn]
   connect_bd_net -net rst_ps8_0_99M_peripheral_aresetn [get_bd_pins s_axi_aresetn] [get_bd_pins axis_buffer_ddr_sample_v1_0/s_axi_aresetn]
-  connect_bd_net -net usp_rf_data_converter_0_clk_adc2 [get_bd_pins aclk] [get_bd_pins axis_buffer_ddr_sample_v1_0/s_axis_aclk]
+  connect_bd_net -net usp_rf_data_converter_0_clk_adc2 [get_bd_pins aclk] [get_bd_pins axis_buffer_ddr_sample_v1_0/s_axis_aclk] [get_bd_pins axis_fir_decim_300to1_v1_0/aclk] [get_bd_pins axis_trigger_sync_v1_0/aclk]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins s_axi_aclk] [get_bd_pins axis_buffer_ddr_sample_v1_0/s_axi_aclk]
 
   # Restore current instance
@@ -2033,7 +2050,7 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
   create_hier_cell_rfb_control [current_bd_instance .] rfb_control
 
   # Create instance: axis_avg_buffer_0, and set properties
-  set axis_avg_buffer_0 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.3 axis_avg_buffer_0 ]
+  set axis_avg_buffer_0 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.2 axis_avg_buffer_0 ]
   set_property -dict [list \
     CONFIG.N_AVG {13} \
     CONFIG.N_BUF {12} \
@@ -2041,7 +2058,7 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
 
 
   # Create instance: axis_avg_buffer_1, and set properties
-  set axis_avg_buffer_1 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.3 axis_avg_buffer_1 ]
+  set axis_avg_buffer_1 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.2 axis_avg_buffer_1 ]
   set_property -dict [list \
     CONFIG.N_AVG {13} \
     CONFIG.N_BUF {12} \
@@ -2049,7 +2066,7 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
 
 
   # Create instance: axis_avg_buffer_2, and set properties
-  set axis_avg_buffer_2 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.3 axis_avg_buffer_2 ]
+  set axis_avg_buffer_2 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.2 axis_avg_buffer_2 ]
   set_property -dict [list \
     CONFIG.N_AVG {13} \
     CONFIG.N_BUF {10} \
@@ -2057,7 +2074,7 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
 
 
   # Create instance: axis_avg_buffer_3, and set properties
-  set axis_avg_buffer_3 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.3 axis_avg_buffer_3 ]
+  set axis_avg_buffer_3 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_avg_buffer:1.2 axis_avg_buffer_3 ]
   set_property -dict [list \
     CONFIG.N_AVG {13} \
     CONFIG.N_BUF {10} \

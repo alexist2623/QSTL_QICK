@@ -1753,6 +1753,16 @@ class AxisBufferDdrSampleV1(AxisBufferDdrV1):
         self.cfg['sample_capture'] = True
         self.cfg['supports_zero_padding'] = True
         self.cfg['supports_sample_decimation'] = True
+        self.cfg['fir_enabled'] = False
+        self.cfg['fir_decimation'] = 1
+        self.cfg['fir_sample_rate_msps'] = None
+        self.cfg['fir_input_fs_mhz'] = None
+        self.cfg['fir_output_fs_mhz'] = None
+        self.cfg['fir_fullpath'] = None
+        self.cfg['fir_trigger_aligned'] = False
+        self.cfg['fir_trigger_alignment'] = None
+        self.cfg['fir_decimation_phase_reset_on_trigger'] = False
+        self.cfg['fir_history_cleared_on_trigger'] = None
         # Compatibility metadata for old code paths that display "burst_len".
         self.cfg['burst_len'] = self.WORDS_PER_COMPAT_TRANSFER
         self.cfg['junk_len'] = 0
@@ -1777,6 +1787,52 @@ class AxisBufferDdrSampleV1(AxisBufferDdrV1):
         samples_per_word = self.cfg['samples_per_axi_word']
         return ((n_samples_32b + samples_per_word - 1) // samples_per_word) * samples_per_word
 
+    def configure_connections(self, soc):
+        super().configure_connections(soc)
+
+        try:
+            ((block, port),) = soc.metadata.trace_bus(self['fullpath'], self.STREAM_IN_PORT)
+            blocktype = soc.metadata.mod2type(block)
+        except Exception as exc:
+            self.cfg['fir_detect_error'] = str(exc)
+            return
+
+        if blocktype != "axis_fir_decim_300to1_v1":
+            return
+
+        def get_int_param(name, default):
+            try:
+                return int(str(soc.metadata.get_param(block, name)), 0)
+            except Exception:
+                return default
+
+        decim0 = get_int_param("DECIM0", 10)
+        decim1 = get_int_param("DECIM1", 10)
+        decim2 = get_int_param("DECIM2", 3)
+        total_decim = decim0 * decim1 * decim2
+
+        self.cfg['fir_enabled'] = True
+        self.cfg['fir_block'] = block
+        self.cfg['fir_fullpath'] = block
+        self.cfg['fir_input_port'] = port
+        self.cfg['fir_decimation_stages'] = [decim0, decim1, decim2]
+        self.cfg['fir_decimation'] = total_decim
+        self.cfg['fir_nominal_input_rate_msps'] = 300.0
+        self.cfg['fir_sample_rate_msps'] = 300.0 / total_decim
+        self.cfg['fir_input_fs_mhz'] = 300.0
+        self.cfg['fir_output_fs_mhz'] = 300.0 / total_decim
+        self.cfg['fir_filter_type'] = "anti_alias_decimator"
+        self.cfg['fir_group_delay_input_samples'] = 8677
+        self.cfg['fir_trigger_aligned'] = True
+        self.cfg['fir_trigger_alignment'] = "common_source_clock_pulse"
+        self.cfg['fir_decimation_phase_reset_on_trigger'] = True
+        self.cfg['fir_history_cleared_on_trigger'] = False
+        try:
+            self.cfg['fir_clock_mhz'] = soc.metadata.get_fclk(block, 'aclk')
+            self.cfg['fir_clock_output_rate_msps'] = self.cfg['fir_clock_mhz'] / total_decim
+        except Exception:
+            pass
+
     def arm_samples(self, n_samples_32b, n_triggers=1, address=0, stride_bytes=None, force_overwrite=False, sample_decim=1):
         """
         Arm sample-count based DDR capture.
@@ -1797,7 +1853,8 @@ class AxisBufferDdrSampleV1(AxisBufferDdrV1):
         sample_decim : int
             Input sample interval for each stored 32-bit sample. A value of 0
             or 1 stores every input sample. A value of N stores input samples
-            0, N, 2N, ... after each trigger.
+            0, N, 2N, ... after each trigger. This is sample picking, not an
+            anti-alias FIR decimator.
 
         Returns
         -------

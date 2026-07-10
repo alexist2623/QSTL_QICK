@@ -393,6 +393,25 @@ module tb_axis_buffer_ddr_sample_v1;
         end
     endtask
 
+    task automatic wait_not_busy();
+        logic [31:0] status;
+        int timeout;
+        begin
+            timeout = 0;
+            status = '0;
+            axi_read32(REG_STATUS, status);
+            while (status[STATUS_BUSY]) begin
+                wait_axi(2);
+                axi_read32(REG_STATUS, status);
+                timeout++;
+                if (timeout > 500) begin
+                    fail("timeout waiting for busy status to clear");
+                    break;
+                end
+            end
+        end
+    endtask
+
     task automatic wait_armed();
         logic [31:0] status;
         int timeout;
@@ -418,6 +437,17 @@ module tb_axis_buffer_ddr_sample_v1;
         end
     endtask
 
+    task automatic soft_reset_capture();
+        begin
+            axi_write32(REG_CONTROL, 32'h0000_0002);
+            wait_s_axis(8);
+            wait_m_axi(8);
+            wait_axi(8);
+            wait_not_busy();
+            clear_done_and_errors();
+        end
+    endtask
+
     task automatic arm_capture(
         input logic [31:0] waddr,
         input logic [31:0] nsamp,
@@ -438,6 +468,7 @@ module tb_axis_buffer_ddr_sample_v1;
     );
         begin
             clear_scoreboard();
+            wait_not_busy();
             clear_done_and_errors();
             axi_write32(REG_WADDR, waddr);
             axi_write32(REG_NSAMP, nsamp);
@@ -909,6 +940,7 @@ module tb_axis_buffer_ddr_sample_v1;
             @(negedge s_axis_aclk);
             s_axis_tvalid <= 1'b0;
             s_axis_tdata <= '0;
+            soft_reset_capture();
         end
     endtask
 

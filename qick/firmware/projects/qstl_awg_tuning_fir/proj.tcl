@@ -34,3 +34,9 @@ add_files -fileset $constrs_obj [list \
 source [file normalize [file join $script_dir bd_2023-1.tcl]]
 validate_bd_design
 save_bd_design
+
+set bd_file [get_files [file join $output_dir "$project_name.srcs" sources_1 bd d_1 d_1.bd]]
+set wrapper_file [make_wrapper -files $bd_file -top]
+add_files -norecurse $wrapper_file
+set_property top d_1_wrapper [current_fileset]
+update_compile_order -fileset sources_1

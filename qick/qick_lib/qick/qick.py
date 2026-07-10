@@ -1766,7 +1766,8 @@ class QickSoc(Overlay, QickConfig):
         sample_decim : int
             Input sample interval for each stored 32-bit sample. A value of 0
             or 1 stores every input sample. A value of N stores input samples
-            0, N, 2N, ... after each trigger.
+            0, N, 2N, ... after each trigger. This is sample picking in the
+            DDR sample buffer; it is not an anti-alias FIR decimator.
         target_rate : float or None
             Optional target DDR capture rate in MHz/MSPS. If set, sample_decim
             is computed from the selected readout's f_output.
@@ -1787,6 +1788,48 @@ class QickSoc(Overlay, QickConfig):
             sample_decim=sample_decim,
         )
 
+    # Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
+    def fir_readout_length_for_capture(self, n_samples_1msps, margin=1024):
+        """Return a conservative upstream readout length for FIR DDR capture.
+
+        The FIR DDR project filters a nominal 300 MSPS 32-bit readout stream and
+        writes the 1 MSPS FIR output to DDR. This helper returns the number of
+        upstream readout samples needed to produce at least ``n_samples_1msps``
+        post-FIR samples, including filter group-delay margin.
+        """
+        if not self.ddr4_buf.cfg.get('fir_enabled', False):
+            raise RuntimeError("fir_readout_length_for_capture() requires qstl_awg_tuning_fir firmware with the FIR DDR path.")
+        if n_samples_1msps < 1:
+            raise ValueError("n_samples_1msps must be positive.")
+        if margin < 0:
+            raise ValueError("margin must be non-negative.")
+        decim = int(self.ddr4_buf.cfg.get('fir_decimation', 300))
+        group_delay = int(np.ceil(self.ddr4_buf.cfg.get('fir_group_delay_input_samples', 8677)))
+        return int(n_samples_1msps) * decim + group_delay + int(margin)
+
+    # Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
+    def arm_ddr4_fir_samples(self, ch, n_samples, n_triggers=1, address=0, stride_bytes=None, force_overwrite=False):
+        """Arm FIR-filtered DDR4 capture.
+
+        ``n_samples`` is the number of post-FIR 32-bit IQ samples stored
+        per trigger. The DDR sample buffer is programmed with ``sample_decim=1``
+        because anti-alias decimation is performed by axis_fir_decim_300to1_v1
+        in the firmware data path.
+        """
+        if not self.ddr4_buf.cfg.get('sample_capture', False):
+            raise RuntimeError("arm_ddr4_fir_samples() requires AxisBufferDdrSampleV1 firmware.")
+        if not self.ddr4_buf.cfg.get('fir_enabled', False):
+            raise RuntimeError("arm_ddr4_fir_samples() requires qstl_awg_tuning_fir firmware with axis_fir_decim_300to1_v1.")
+        self.ddr4_buf.set_switch(self['readouts'][ch]['avgbuf_fullpath'])
+        return self.ddr4_buf.arm_samples(
+            n_samples,
+            n_triggers=n_triggers,
+            address=address,
+            stride_bytes=stride_bytes,
+            force_overwrite=force_overwrite,
+            sample_decim=1,
+        )
+
     def get_ddr4_samples(self, n_samples, n_triggers=1, start=0, stride_bytes=None):
         """Read back sample-count based DDR4 capture.
 
@@ -1795,6 +1838,20 @@ class QickSoc(Overlay, QickConfig):
         """
         if not self.ddr4_buf.cfg.get('sample_capture', False):
             raise RuntimeError("get_ddr4_samples() requires AxisBufferDdrSampleV1 firmware.")
+        return self.ddr4_buf.get_mem_samples(
+            n_samples,
+            n_triggers=n_triggers,
+            start=start,
+            stride_bytes=stride_bytes,
+        )
+
+    # Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
+    def get_ddr4_fir_samples(self, n_samples, n_triggers=1, start=0, stride_bytes=None):
+        """Read post-FIR DDR4 samples captured by arm_ddr4_fir_samples()."""
+        if not self.ddr4_buf.cfg.get('sample_capture', False):
+            raise RuntimeError("get_ddr4_fir_samples() requires AxisBufferDdrSampleV1 firmware.")
+        if not self.ddr4_buf.cfg.get('fir_enabled', False):
+            raise RuntimeError("get_ddr4_fir_samples() requires qstl_awg_tuning_fir firmware with axis_fir_decim_300to1_v1.")
         return self.ddr4_buf.get_mem_samples(
             n_samples,
             n_triggers=n_triggers,
