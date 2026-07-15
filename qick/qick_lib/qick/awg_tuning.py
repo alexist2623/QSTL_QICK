@@ -1694,7 +1694,8 @@ class TProcV1BehaviorModel:
         self.pc += 1
 
     def _exec_sync(self, page, reg):
-        self.current_cycle = max(self.current_cycle, self._read_signed(page, reg))
+        # tproc64x32_x8 implements sync as t_ref_next = t_ref + register.
+        self.current_cycle += self._read_signed(page, reg)
         self.pc += 1
 
     def _exec_waiti(self, port, imm):

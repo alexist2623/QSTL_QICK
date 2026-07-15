@@ -93,7 +93,8 @@ class TestTProcV1BehaviorModel(unittest.TestCase):
         sim = TProcV1BehaviorModel().run(prog)
         self.assertEqual(sim._read_signed(0, 2), 3)
         self.assertEqual(sim._read_signed(0, 4), 0)
-        self.assertEqual(sim.current_cycle, 12)
+        # sync adds its register operand to the tProcessor time reference.
+        self.assertEqual(sim.current_cycle, 22)
 
     def test_output_read_and_pin_events(self):
         prog = [
