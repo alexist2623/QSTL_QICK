@@ -1318,17 +1318,23 @@ class QickSoc(Overlay, QickConfig):
         data = np.array(data, dtype=np.int16)
         self.gens[ch].load(xin=data, addr=addr)
 
-    def set_nyquist(self, ch, nqz, force=False):
+    def set_nyquist(self, ch, nqz, force=False, blocktype='dac'):
         """
-        Sets DAC channel ch to operate in Nyquist zone nqz mode.
+        Sets a DAC generator or ADC readout channel to a Nyquist zone.
 
-        :param ch: DAC channel (index in 'gens' list)
+        :param ch: channel index in ``gens`` or ``readouts``
         :type ch: int
         :param nqz: Nyquist zone
         :type nqz: int
         """
 
-        self.gens[ch].set_nyquist(nqz)
+        if blocktype == 'dac':
+            self.gens[ch].set_nyquist(nqz)
+        elif blocktype == 'adc':
+            adc = self.readouts[ch]['adc']
+            self.rf.set_nyquist(adc, nqz, blocktype='adc', force=force)
+        else:
+            raise RuntimeError("Block type must be adc or dac")
 
     def set_mixer_freq(self, ch, f, ro_ch=None, phase_reset=True):
         """
