@@ -94,7 +94,8 @@ class TestAwgTuningAsmV1(unittest.TestCase):
         self.assertIsNotNone(mgr.next_pulse)
         self.assertEqual(len(mgr.next_pulse["regs"]), 1)
         self.assertEqual(len(mgr.next_pulse["regs"][0]), 5)
-        self.assertEqual(mgr.next_pulse["length"], 10)
+        # The current GUI passes duration in AWG fabric-clock cycles.
+        self.assertEqual(mgr.next_pulse["length"], 160)
         self.assertEqual(mgr.last_cmd & 0xFFFFFFFF, 1234)
         self.assertEqual((mgr.last_cmd >> 64) & ((1 << 23) - 1), 0)
         self.assertEqual((mgr.last_cmd >> 144) & 0b11, AxisAwgTuningV1.OP_SET)
@@ -105,13 +106,26 @@ class TestAwgTuningAsmV1(unittest.TestCase):
         prog.set_pulse_registers(0, style="awg_ramp", target=4000, duration=160)
         mgr = prog._gen_mgrs[0]
 
-        expected_step = ((4000 - 1000) << 16) // (160 - 1)
+        duration_cycles = 160
+        duration_samples = duration_cycles * 16
+        expected_step = ((4000 - 1000) << 16) // (duration_samples - 1)
         self.assertEqual((mgr.last_cmd >> 144) & 0b11, AxisAwgTuningV1.OP_RAMP)
-        self.assertEqual((mgr.last_cmd >> 64) & ((1 << 23) - 1), 160)
+        self.assertEqual((mgr.last_cmd >> 64) & ((1 << 23) - 1), duration_samples)
         self.assertEqual(AxisAwgTuningV1._from_signed_field(mgr.last_cmd >> 96, 24), expected_step)
-        self.assertEqual(mgr.next_pulse["length"], 18)
+        self.assertEqual(mgr.next_pulse["length"], 7 + duration_cycles + 1)
         self.assertEqual(mgr.current_value, 4000)
         self.assertTrue(mgr.current_valid)
+
+    def test_gui_fabric_cycle_duration_contract(self):
+        prog = make_prog()
+        mgr = prog._gen_mgrs[0]
+
+        prog.set_pulse_registers(0, style="awg_set", value=0, duration=3)
+        self.assertEqual(mgr.next_pulse["length"], 3)
+
+        prog.set_pulse_registers(0, style="awg_ramp", target=120, duration=3)
+        self.assertEqual((mgr.last_cmd >> 64) & ((1 << 23) - 1), 3 * 16)
+        self.assertEqual(mgr.next_pulse["length"], 7 + 3 + 1)
 
     def test_tmux_injection_preserves_opcode(self):
         prog = make_prog(tmux_ch=1)
@@ -136,9 +150,9 @@ class TestAwgTuningAsmV1(unittest.TestCase):
     def test_timestamp_auto_uses_awg_lengths(self):
         prog = make_prog()
         prog.awg_set(0, value=1000, duration=160, t="auto")
-        self.assertEqual(prog.get_timestamp(gen_ch=0), 10)
+        self.assertEqual(prog.get_timestamp(gen_ch=0), 160)
         prog.awg_ramp(0, target=2000, duration=160, t="auto")
-        self.assertEqual(prog.get_timestamp(gen_ch=0), 28)
+        self.assertEqual(prog.get_timestamp(gen_ch=0), 160 + 7 + 160 + 1)
 
     def test_reject_standard_styles_and_envelopes(self):
         prog = make_prog()

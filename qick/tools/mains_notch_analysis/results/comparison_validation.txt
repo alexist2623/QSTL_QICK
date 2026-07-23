@@ -1,0 +1,8 @@
+Cross-sampling-rate time-constant comparison
+================================================
+fs=10000 S/s: theoretical tau=0.159154943092 s, tau=1591.549431 samples, pole-derived tau=0.159154901204 s
+fs=100000 S/s: theoretical tau=0.159154943092 s, tau=15915.494309 samples, pole-derived tau=0.159154942673 s
+theoretical seconds-domain tau spread: 0.000e+00 s
+pole-derived relative tau spread: 2.606e-07
+PASS: seconds-domain theoretical tau is sampling-rate independent
+PASS: pole-derived seconds-domain tau agrees across rates

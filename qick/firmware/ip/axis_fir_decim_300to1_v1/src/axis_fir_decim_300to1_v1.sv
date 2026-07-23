@@ -27,6 +27,7 @@ module axis_fir_decim_300to1_v1 #(
     input  wire                         aclk,
     input  wire                         aresetn,
     input  wire                         trigger,
+    output logic                        capture_trigger,
 
     input  wire [S_AXIS_DATA_WIDTH-1:0] s_axis_tdata,
     input  wire                         s_axis_tvalid,
@@ -38,6 +39,21 @@ module axis_fir_decim_300to1_v1 #(
     input  wire                         m_axis_tready,
     output wire                         m_axis_tlast
 );
+
+    localparam int TOTAL_DECIM = DECIM0 * DECIM1 * DECIM2;
+    localparam int FIR_GROUP_DELAY_INPUT_SAMPLES =
+        ((STAGE0_TAPS - 1) / 2) +
+        DECIM0 * ((STAGE1_TAPS - 1) / 2) +
+        DECIM0 * DECIM1 * ((STAGE2_TAPS - 1) / 2);
+    // Every stage emits on DECIM-1 after a phase reset, so the first cascade
+    // output is associated with input sample TOTAL_DECIM-1. Capture starts at
+    // the first output whose FIR center is at or after the trigger sample.
+    localparam int FIRST_OUTPUT_PHASE_INPUT_SAMPLES = TOTAL_DECIM - 1;
+    localparam int DELAY_AFTER_FIRST_OUTPUT =
+        FIR_GROUP_DELAY_INPUT_SAMPLES - FIRST_OUTPUT_PHASE_INPUT_SAMPLES;
+    localparam int CAPTURE_SKIP_OUTPUTS =
+        (DELAY_AFTER_FIRST_OUTPUT <= 0) ? 0 :
+        ((DELAY_AFTER_FIRST_OUTPUT + TOTAL_DECIM - 1) / TOTAL_DECIM);
 
     wire unused_inputs = s_axis_tlast | (COEF_WIDTH_PARAM != COEF_WIDTH);
 
@@ -54,6 +70,8 @@ module axis_fir_decim_300to1_v1 #(
     logic trigger_meta;
     logic trigger_sync;
     logic trigger_sync_d;
+    logic capture_trigger_pending_r;
+    logic [31:0] capture_output_count_r;
 
     wire trigger_align = trigger_sync & ~trigger_sync_d;
 
@@ -66,6 +84,38 @@ module axis_fir_decim_300to1_v1 #(
             trigger_meta   <= trigger;
             trigger_sync   <= trigger_meta;
             trigger_sync_d <= trigger_sync;
+        end
+    end
+
+    // The FIR history remains continuous across a trigger, so its first
+    // post-trigger outputs still describe pre-trigger input. Count real FIR
+    // output-valid events and notify the DDR buffer one output period before
+    // the first group-delay-compensated sample. The DDR buffer's trigger
+    // synchronizer settles during that full 1 MSPS output interval.
+    always_ff @(posedge aclk) begin
+        if (!aresetn) begin
+            capture_trigger           <= 1'b0;
+            capture_trigger_pending_r <= 1'b0;
+            capture_output_count_r    <= '0;
+        end else begin
+            capture_trigger <= 1'b0;
+
+            if (trigger_align) begin
+                capture_output_count_r <= '0;
+                if (CAPTURE_SKIP_OUTPUTS == 0) begin
+                    capture_trigger           <= 1'b1;
+                    capture_trigger_pending_r <= 1'b0;
+                end else begin
+                    capture_trigger_pending_r <= 1'b1;
+                end
+            end else if (capture_trigger_pending_r && m_axis_tvalid) begin
+                if (capture_output_count_r == CAPTURE_SKIP_OUTPUTS - 1) begin
+                    capture_trigger           <= 1'b1;
+                    capture_trigger_pending_r <= 1'b0;
+                end else begin
+                    capture_output_count_r <= capture_output_count_r + 1'b1;
+                end
+            end
         end
     end
 

@@ -25,6 +25,7 @@ set_property version 1.0 $core
 set_property vendor_display_name {Quantum Instrumentation Control Kit} $core
 set_property company_url {https://github.com/openquantumhardware/qick/} $core
 
+ipx::check_integrity $core -quiet
 ipx::save_core $core
 close_project
 file delete -force $TMP_PROJ

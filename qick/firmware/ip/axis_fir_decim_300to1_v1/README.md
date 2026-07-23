@@ -35,3 +35,17 @@ alignment event. On each trigger rising edge, the FIR keeps its sample history
 and clears only the decimation phase plus valid pipeline. The FIR response
 therefore remains continuous, while the 300-to-1 output phase is aligned to the
 trigger event.
+
+`capture_trigger` is the DDR-facing trigger output. The FIR computes its group
+delay from the three tap counts and decimation factors, then counts actual
+`m_axis_tvalid` events after each input trigger. With the default 95/127/161-tap
+10x/10x/3x cascade, the group delay is 8677 input samples (28.923333 us at
+300 MSPS). The block skips 28 early FIR outputs and pulses `capture_trigger`
+during the full output interval before the first sample whose FIR center is at
+or after the trigger. The first stored 1 MSPS sample is therefore aligned to
+within 22 input samples (73.333 ns) of the trigger without moving the tProcessor
+command timeline. The remaining offset is the nearest available point on the
+existing 1 MSPS output phase; no FIR data samples or history are discarded.
+If another trigger arrives before the compensated pulse is emitted, the phase
+and pending delay restart from the newer trigger. Default triggers therefore
+need at least 28 us separation, in addition to the DDR capture length rule.

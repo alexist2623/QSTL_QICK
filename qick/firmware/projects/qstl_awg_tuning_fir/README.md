@@ -2,6 +2,12 @@
 
 Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 
+The Python driver discovers this project's 1 MSPS FIR-DDR profile from
+`bitstream.hwh`. It exposes `fir_rate_profile="1_msps"`,
+`stored_sample_rate_hz=1000000`, and `stored_sample_period_us=1`. The same
+`arm_ddr4_fir_samples()` and `get_ddr4_fir_samples()` APIs also support the
+50 kSPS notch-filter project when that HWH is loaded.
+
 This variant is copied from qstl_awg_tuning.
 Only axis_signal_gen_v6 instances with GEN_DDS FALSE are replaced by axis_awg_tuning_v1.
 m8_axis remains the original trigger/control path.
@@ -18,6 +24,12 @@ events, crosses internally into the DDR UI clock domain, packs eight 32-bit
 samples into one 256-bit AXI write word, and zero-pads the final partial word
 of each trigger event. The AXI SmartConnect,
 DDR4 controller, PS DDR access path, and external DDR4 pins are preserved.
+
+The synchronized tProcessor trigger resets the FIR decimation phase only. The
+FIR's `capture_trigger` output accounts for the 8677-input-sample cascade group
+delay and drives the DDR capture trigger. This keeps tProcessor and waveform
+timing unchanged while preventing the first DDR words from representing roughly
+28.9 us of pre-trigger FIR history.
 
 ## Replacements
 

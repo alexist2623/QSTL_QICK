@@ -1,0 +1,99 @@
+{
+  "input_sample_rate_hz": 1000000.0,
+  "intermediate_sample_rate_hz": 100000.0,
+  "output_sample_rate_hz": 50000.0,
+  "decimation": 20,
+  "anti_alias_fir": {
+    "method": "multistage linear-phase FIR using scipy.signal.firwin with a Kaiser window",
+    "kaiser_beta": 10.0,
+    "coefficient_format": "signed Q1.17",
+    "accumulator_width_bits": 48,
+    "passband_hz": 20000.0,
+    "stopband_hz": 25000.0,
+    "maximum_passband_ripple_db": 0.1,
+    "minimum_stopband_attenuation_db": 80.0,
+    "stages": [
+      {
+        "name": "stage0",
+        "fs_hz": 1000000.0,
+        "decim": 10,
+        "passband_hz": 20000.0,
+        "stopband_hz": 75000.0,
+        "cutoff_hz": 47500.0,
+        "num_taps": 113,
+        "order": 112,
+        "passband_ripple_db": 0.0007625391313021129,
+        "passband_min_db": -0.00044636680008126975,
+        "stopband_max_db": -81.01158573086748,
+        "dc_gain_db": 0.0
+      },
+      {
+        "name": "stage1",
+        "fs_hz": 100000.0,
+        "decim": 2,
+        "passband_hz": 20000.0,
+        "stopband_hz": 25000.0,
+        "cutoff_hz": 22500.0,
+        "num_taps": 125,
+        "order": 124,
+        "passband_ripple_db": 0.0012516257433616003,
+        "passband_min_db": -0.0005000801650359346,
+        "stopband_max_db": -84.06204437969501,
+        "dc_gain_db": 0.00026506827101451484
+      }
+    ],
+    "cascade_metrics": {
+      "passband_ripple_db": 0.001718869125896646,
+      "passband_min_db": -0.0009217749323888343,
+      "stopband_max_db": -84.13430216509617,
+      "stopband_worst_frequency_hz": 27326.5,
+      "dc_gain_db": 0.00026506827101451484
+    },
+    "parallel_multipliers_for_iq": 476,
+    "group_delay_input_samples": 676.0,
+    "group_delay_microseconds": 676.0
+  },
+  "notch": {
+    "mains_frequency_hz": 60.0,
+    "harmonics": 20,
+    "bandwidth_hz_per_biquad": 2.0,
+    "cascade_repeats": 2,
+    "sections": 40,
+    "coefficient_format": "Q2.30",
+    "signal_format": "Q16.16",
+    "max_pole_radius": 0.9998743441171295,
+    "quantized_center_attenuation_db": [
+      -134.27956426172562,
+      -143.5895887856537,
+      -153.92052869824204,
+      -162.61775401749492,
+      -163.47516285394636,
+      -176.00881053720053,
+      -169.72011440528274,
+      -170.1990217388701,
+      -174.92036307158529,
+      -189.60540919385434,
+      -184.2015734861901,
+      -173.54821351098371,
+      -181.62143594158675,
+      -176.55742795648246,
+      -186.99415243291926,
+      -183.8445816808163,
+      -182.42403998696602,
+      -178.98031338271468,
+      -188.7483484111505,
+      -198.35727709519966
+    ]
+  },
+  "trigger_delay": {
+    "post_filter_nominal_dc_seconds": 0.0009599670372078622,
+    "post_filter_nominal_dc_microseconds": 959.9670372078622,
+    "upstream_fir_group_delay_seconds": 2.8923333333333335e-05,
+    "upstream_fir_group_delay_microseconds": 28.923333333333336,
+    "full_path_nominal_dc_seconds": 0.0009888903705411955,
+    "full_path_nominal_dc_microseconds": 988.8903705411955,
+    "default_output_samples": 50,
+    "output_sample_period_microseconds": 20.0,
+    "note": "The FIR delay is exact; notch IIR group delay is frequency-dependent. Tune the DDR delay register for the measured signal band when needed."
+  }
+}

@@ -8,6 +8,7 @@ module tb_axis_fir_decim_300to1_v1;
     logic aclk = 1'b0;
     logic aresetn = 1'b0;
     logic trigger = 1'b0;
+    wire  capture_trigger;
 
     logic [31:0] s_axis_tdata = '0;
     logic        s_axis_tvalid = 1'b0;
@@ -19,6 +20,13 @@ module tb_axis_fir_decim_300to1_v1;
     logic        m_axis_tready = 1'b1;
     wire         m_axis_tlast;
 
+    logic ddr_trigger_meta;
+    logic ddr_trigger_sync;
+    logic ddr_trigger_sync_d;
+    logic ddr_capture_active;
+    logic ddr_first_word_valid;
+    logic [31:0] ddr_first_word;
+
     string vector_dir;
     int errors = 0;
     int max_lane_error = 0;
@@ -27,6 +35,7 @@ module tb_axis_fir_decim_300to1_v1;
         .aclk          (aclk),
         .aresetn       (aresetn),
         .trigger       (trigger),
+        .capture_trigger(capture_trigger),
         .s_axis_tdata  (s_axis_tdata),
         .s_axis_tvalid (s_axis_tvalid),
         .s_axis_tready (s_axis_tready),
@@ -38,6 +47,32 @@ module tb_axis_fir_decim_300to1_v1;
     );
 
     always #(CLK_HALF_NS) aclk = ~aclk;
+
+    // Source-clock portion of axis_buffer_ddr_sample_v1: synchronize the FIR
+    // capture trigger, arm capture, and retain the first valid FIR word.
+    always_ff @(posedge aclk) begin
+        if (!aresetn) begin
+            ddr_trigger_meta     <= 1'b0;
+            ddr_trigger_sync     <= 1'b0;
+            ddr_trigger_sync_d   <= 1'b0;
+            ddr_capture_active   <= 1'b0;
+            ddr_first_word_valid <= 1'b0;
+            ddr_first_word       <= '0;
+        end else begin
+            ddr_trigger_meta   <= capture_trigger;
+            ddr_trigger_sync   <= ddr_trigger_meta;
+            ddr_trigger_sync_d <= ddr_trigger_sync;
+
+            if (ddr_trigger_sync && !ddr_trigger_sync_d)
+                ddr_capture_active <= 1'b1;
+
+            if (ddr_capture_active && m_axis_tvalid && !ddr_first_word_valid) begin
+                ddr_first_word       <= m_axis_tdata;
+                ddr_first_word_valid <= 1'b1;
+                ddr_capture_active   <= 1'b0;
+            end
+        end
+    end
 
     function automatic string vec_path(input string leaf);
         vec_path = {vector_dir, "/", leaf};
@@ -120,9 +155,64 @@ module tb_axis_fir_decim_300to1_v1;
             aresetn <= 1'b0;
             repeat (8) @(posedge aclk);
             check(m_axis_tvalid === 1'b0, "m_axis_tvalid must be low during reset");
+            check(capture_trigger === 1'b0, "capture_trigger must be low during reset");
             aresetn <= 1'b1;
             repeat (8) @(posedge aclk);
             check(m_axis_tvalid === 1'b0, "m_axis_tvalid must remain low immediately after reset");
+        end
+    endtask
+
+    task automatic capture_trigger_compensation_case();
+        localparam int EXPECTED_SKIPPED_OUTPUTS = 28;
+        localparam int EXPECTED_RESIDUAL_INPUT_SAMPLES = 22;
+        logic [31:0] input_vec[];
+        logic [31:0] expected_vec[];
+        int outputs_seen;
+        int timeout;
+        bit trigger_seen;
+        begin
+            $display("TEST: FIR group-delay-compensated DDR capture trigger");
+            load_hex_file(vec_path("tone_input.txt"), input_vec);
+            load_hex_file(vec_path("tone_expected.txt"), expected_vec);
+            reset_dut();
+            pulse_trigger();
+
+            outputs_seen = 0;
+            timeout = 0;
+            trigger_seen = 1'b0;
+            fork
+                drive_inputs(input_vec, 1'b0);
+                begin
+                    while (!trigger_seen && timeout < 2_000_000) begin
+                        @(negedge aclk);
+                        if (m_axis_tvalid)
+                            outputs_seen++;
+                        if (capture_trigger) begin
+                            trigger_seen = 1'b1;
+                            check(outputs_seen == EXPECTED_SKIPPED_OUTPUTS,
+                                  $sformatf("capture trigger followed %0d outputs, expected %0d",
+                                            outputs_seen, EXPECTED_SKIPPED_OUTPUTS));
+                        end
+                        timeout++;
+                    end
+
+                    check(trigger_seen, "capture trigger must be emitted");
+                    @(negedge aclk);
+                    check(capture_trigger === 1'b0, "capture trigger must be one clock wide");
+
+                    timeout = 0;
+                    while (!ddr_first_word_valid && timeout < 2_000) begin
+                        @(negedge aclk);
+                        timeout++;
+                    end
+                    check(ddr_first_word_valid, "DDR trigger synchronizer must capture a compensated FIR output");
+                    check(ddr_first_word === expected_vec[EXPECTED_SKIPPED_OUTPUTS],
+                          $sformatf("first DDR-visible word mismatch: actual=%08x expected=%08x",
+                                    ddr_first_word, expected_vec[EXPECTED_SKIPPED_OUTPUTS]));
+                    $display("  skipped %0d FIR outputs; residual alignment=%0d input samples",
+                             EXPECTED_SKIPPED_OUTPUTS, EXPECTED_RESIDUAL_INPUT_SAMPLES);
+                end
+            join
         end
     endtask
 
@@ -315,6 +405,7 @@ module tb_axis_fir_decim_300to1_v1;
         run_vector_case("tone with output ready toggled", "tone_input.txt", "tone_expected.txt", 1'b0, 1'b1);
         run_vector_case("valid gaps", "valid_gap_input.txt", "valid_gap_expected.txt", 1'b1, 1'b0);
         trigger_alignment_case();
+        capture_trigger_compensation_case();
         reset_mid_stream_case();
 
         if (errors == 0) begin
