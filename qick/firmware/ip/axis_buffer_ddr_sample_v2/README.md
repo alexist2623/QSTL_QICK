@@ -20,3 +20,25 @@ The delay counts `s_axis_tvalid` events, not 300 MHz fabric clocks.
 
 This register gates storage only. It does not reset or realign any upstream FIR,
 IIR, or decimation state.
+
+## Pending-trigger FIFO
+
+Each accepted trigger is converted to an absolute valid-sample deadline and
+stored in a source-clock-domain FIFO. This allows later triggers to arrive while
+earlier triggers are still inside the programmable delay. The FIFO depth is the
+next power of two that is at least twice `DEFAULT_TRIGGER_DELAY_SAMPLES`:
+
+```text
+required depth = max(2, 2 * DEFAULT_TRIGGER_DELAY_SAMPLES)
+implemented depth = 2 ** ceil(log2(required depth))
+```
+
+The default 50-sample delay therefore uses 128 entries, exceeding the requested
+two-times margin of 100 pending triggers. `NTRIG_REG` still limits the number of
+accepted trigger events for one arm operation.
+
+The single capture datapath cannot store overlapping capture windows. Trigger
+spacing must therefore be at least the configured captured window in valid
+input-sample units, including `SAMPLE_DECIM_REG`. If a queued deadline expires
+while another capture is still active, the sticky overflow status is asserted
+instead of silently treating the late sample as correctly aligned.

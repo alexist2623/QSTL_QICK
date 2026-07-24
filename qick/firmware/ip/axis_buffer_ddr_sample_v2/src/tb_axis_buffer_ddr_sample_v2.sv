@@ -989,6 +989,68 @@ module tb_axis_buffer_ddr_sample_v2;
         end
     endtask
 
+    task automatic test_trigger_fifo_during_delay();
+        localparam int QUEUED_TRIGGERS = 50;
+        int trigger_index;
+        logic [31:0] status;
+        logic [31:0] trigger_count;
+        begin
+            $display("TEST 20: trigger FIFO retains events during the full delay");
+            check(
+                dut.TRIGGER_FIFO_DEPTH >= (2 * 50),
+                "trigger FIFO has at least two times the default delay capacity"
+            );
+            check(
+                dut.TRIGGER_FIFO_DEPTH == 128,
+                "default 50-sample delay produces a 128-entry trigger FIFO"
+            );
+
+            arm_capture_delay(
+                32'h0000_2000,
+                1,
+                QUEUED_TRIGGERS,
+                32'd32,
+                32'd50
+            );
+
+            // Keep every trigger pending by advancing the valid-sample clock
+            // exactly once after each edge. The first deadline is sample 50,
+            // so all 50 triggers are resident before any capture starts.
+            for (trigger_index = 0;
+                 trigger_index < QUEUED_TRIGGERS;
+                 trigger_index++) begin
+                pulse_trigger();
+                send_word_compliant(trigger_index);
+            end
+
+            // Deadlines are now consecutive, so nsamp=1 consumes one queued
+            // trigger per valid sample without any overlap.
+            send_words_compliant(QUEUED_TRIGGERS, QUEUED_TRIGGERS);
+            wait_completed_writes(QUEUED_TRIGGERS);
+            wait_done();
+
+            read_status(status);
+            axi_read32(REG_TRIGGER_COUNT, trigger_count);
+            check(
+                status[STATUS_OVERFLOW] == 1'b0,
+                "queued delayed triggers complete without overflow"
+            );
+            check(
+                trigger_count == QUEUED_TRIGGERS,
+                "all queued delayed triggers complete"
+            );
+            for (trigger_index = 0;
+                 trigger_index < QUEUED_TRIGGERS;
+                 trigger_index++) begin
+                expect_write(
+                    trigger_index,
+                    32'h0000_2000 + 32'(trigger_index * AXI_WORD_BYTES),
+                    pack_partial_zero(QUEUED_TRIGGERS + trigger_index, 1)
+                );
+            end
+        end
+    endtask
+
     task automatic test_sample_decimation_single_trigger();
         logic [31:0] decim_rb;
         begin
@@ -1223,6 +1285,7 @@ module tb_axis_buffer_ddr_sample_v2;
         test_sample_decimation_trigger_alignment();
         test_sample_decimation_zero_is_one();
         test_programmable_trigger_delay();
+        test_trigger_fifo_during_delay();
 
         wait_axi(20);
         if (errors == 0) begin
