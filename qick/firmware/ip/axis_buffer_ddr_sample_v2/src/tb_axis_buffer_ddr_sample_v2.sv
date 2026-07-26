@@ -109,6 +109,13 @@ module tb_axis_buffer_ddr_sample_v2;
     int           b_delay_cycles = 0;
     int           aw_stall_count = 0;
     int           w_stall_count = 0;
+    int           s_axis_cycle_count = 0;
+    bit           delay_monitor_enable = 1'b0;
+    int           delay_accept_count = 0;
+    int           delay_start_count = 0;
+    int           delay_accept_cycle [0:MAX_PENDING-1];
+    int           delay_start_cycle [0:MAX_PENDING-1];
+    logic [31:0]  delay_start_data [0:MAX_PENDING-1];
 
     logic aw_prev_backpressured = 1'b0;
     logic [31:0] aw_prev_addr = '0;
@@ -192,6 +199,23 @@ module tb_axis_buffer_ddr_sample_v2;
         .m_axi_bvalid(m_axi_bvalid),
         .m_axi_bready(m_axi_bready)
     );
+
+    always @(posedge s_axis_aclk) begin
+        if (!s_axis_aresetn) begin
+            s_axis_cycle_count = 0;
+        end else begin
+            s_axis_cycle_count = s_axis_cycle_count + 1;
+            if (delay_monitor_enable && dut.trigger_accept_s) begin
+                delay_accept_cycle[delay_accept_count] = s_axis_cycle_count;
+                delay_accept_count = delay_accept_count + 1;
+            end
+            if (delay_monitor_enable && dut.trigger_start_s) begin
+                delay_start_cycle[delay_start_count] = s_axis_cycle_count;
+                delay_start_data[delay_start_count] = s_axis_tdata;
+                delay_start_count = delay_start_count + 1;
+            end
+        end
+    end
 
     task automatic fail(input string msg);
         begin
@@ -499,7 +523,7 @@ module tb_axis_buffer_ddr_sample_v2;
         input logic [31:0] nsamp,
         input logic [31:0] ntrig,
         input logic [31:0] stride,
-        input logic [31:0] trigger_delay_samples
+        input logic [31:0] trigger_delay_cycles
     );
         begin
             clear_scoreboard();
@@ -510,7 +534,7 @@ module tb_axis_buffer_ddr_sample_v2;
             axi_write32(REG_NTRIG, ntrig);
             axi_write32(REG_STRIDE, stride);
             axi_write32(REG_SAMPLE_DECIM, 32'd1);
-            axi_write32(REG_TRIGGER_DELAY, trigger_delay_samples);
+            axi_write32(REG_TRIGGER_DELAY, trigger_delay_cycles);
             axi_write32(REG_CONTROL, 32'h0000_0001);
             wait_armed();
             clear_done_and_errors();
@@ -977,7 +1001,7 @@ module tb_axis_buffer_ddr_sample_v2;
     task automatic test_programmable_trigger_delay();
         logic [31:0] trigger_delay_rb;
         begin
-            $display("TEST 19: programmable trigger delay skips valid stream samples");
+            $display("TEST 19: programmable trigger delay register and pending request");
             arm_capture_delay(32'h0000_1000, 4, 1, 32'd0, 32'd3);
             axi_read32(REG_TRIGGER_DELAY, trigger_delay_rb);
             check(trigger_delay_rb == 32'd3, "trigger delay register readback");
@@ -985,24 +1009,26 @@ module tb_axis_buffer_ddr_sample_v2;
             send_words_compliant(100, 7);
             wait_done();
             wait_completed_writes(1);
-            expect_write(0, 32'h0000_1000, pack_partial_decim(100, 1, 3, 4));
+            expect_write(0, 32'h0000_1000, pack_partial_zero(100, 4));
         end
     endtask
 
-    task automatic test_trigger_fifo_during_delay();
-        localparam int QUEUED_TRIGGERS = 50;
+    task automatic test_trigger_shift_line_during_delay();
+        localparam int QUEUED_TRIGGERS = 8;
+        localparam int DELAY_CYCLES = 20;
+        int cycle_index;
         int trigger_index;
         logic [31:0] status;
         logic [31:0] trigger_count;
         begin
-            $display("TEST 20: trigger FIFO retains events during the full delay");
+            $display("TEST 20: one-bit shift line carries multiple delayed triggers");
             check(
-                dut.TRIGGER_FIFO_DEPTH >= (2 * 50),
-                "trigger FIFO has at least two times the default delay capacity"
+                dut.TRIGGER_DELAY_LINE_DEPTH >= (2 * 50),
+                "trigger delay line has at least two times the default delay capacity"
             );
             check(
-                dut.TRIGGER_FIFO_DEPTH == 128,
-                "default 50-sample delay produces a 128-entry trigger FIFO"
+                dut.TRIGGER_DELAY_LINE_DEPTH == 128,
+                "default 50-cycle delay produces a 128-stage trigger line"
             );
 
             arm_capture_delay(
@@ -1010,22 +1036,34 @@ module tb_axis_buffer_ddr_sample_v2;
                 1,
                 QUEUED_TRIGGERS,
                 32'd32,
-                32'd50
+                DELAY_CYCLES
             );
 
-            // Keep every trigger pending by advancing the valid-sample clock
-            // exactly once after each edge. The first deadline is sample 50,
-            // so all 50 triggers are resident before any capture starts.
-            for (trigger_index = 0;
-                 trigger_index < QUEUED_TRIGGERS;
-                 trigger_index++) begin
-                pulse_trigger();
-                send_word_compliant(trigger_index);
-            end
+            delay_accept_count = 0;
+            delay_start_count = 0;
+            delay_monitor_enable = 1'b1;
 
-            // Deadlines are now consecutive, so nsamp=1 consumes one queued
-            // trigger per valid sample without any overlap.
-            send_words_compliant(QUEUED_TRIGGERS, QUEUED_TRIGGERS);
+            // Keep TVALID high while eight trigger pulses enter four source
+            // clocks apart. Several pulses are simultaneously present in the
+            // 20-cycle delay line before the first one reaches stage zero.
+            @(negedge s_axis_aclk);
+            s_axis_tvalid <= 1'b1;
+            s_axis_tdata <= 32'd5000;
+            trigger <= 1'b0;
+            for (cycle_index = 0; cycle_index < 100; cycle_index++) begin
+                @(negedge s_axis_aclk);
+                if (s_axis_tready)
+                    s_axis_tdata <= s_axis_tdata + 1'b1;
+                if ((cycle_index >= 2) &&
+                    (cycle_index < (2 + 4 * QUEUED_TRIGGERS)))
+                    trigger <= (((cycle_index - 2) % 4) < 2);
+                else
+                    trigger <= 1'b0;
+            end
+            s_axis_tvalid <= 1'b0;
+            trigger <= 1'b0;
+            delay_monitor_enable = 1'b0;
+
             wait_completed_writes(QUEUED_TRIGGERS);
             wait_done();
 
@@ -1033,19 +1071,36 @@ module tb_axis_buffer_ddr_sample_v2;
             axi_read32(REG_TRIGGER_COUNT, trigger_count);
             check(
                 status[STATUS_OVERFLOW] == 1'b0,
-                "queued delayed triggers complete without overflow"
+                "shift-delayed triggers complete without overflow"
             );
             check(
                 trigger_count == QUEUED_TRIGGERS,
-                "all queued delayed triggers complete"
+                "all shift-delayed triggers complete"
+            );
+            check(
+                delay_accept_count == QUEUED_TRIGGERS,
+                "all trigger edges enter the delay line"
+            );
+            check(
+                delay_start_count == QUEUED_TRIGGERS,
+                "all delayed trigger pulses start a capture"
             );
             for (trigger_index = 0;
                  trigger_index < QUEUED_TRIGGERS;
                  trigger_index++) begin
+                check(
+                    (delay_start_cycle[trigger_index] -
+                     delay_accept_cycle[trigger_index]) == DELAY_CYCLES,
+                    $sformatf(
+                        "trigger %0d delay is exactly %0d source clocks",
+                        trigger_index,
+                        DELAY_CYCLES
+                    )
+                );
                 expect_write(
                     trigger_index,
                     32'h0000_2000 + 32'(trigger_index * AXI_WORD_BYTES),
-                    pack_partial_zero(QUEUED_TRIGGERS + trigger_index, 1)
+                    pack_partial_zero(delay_start_data[trigger_index], 1)
                 );
             end
         end
@@ -1285,7 +1340,7 @@ module tb_axis_buffer_ddr_sample_v2;
         test_sample_decimation_trigger_alignment();
         test_sample_decimation_zero_is_one();
         test_programmable_trigger_delay();
-        test_trigger_fifo_during_delay();
+        test_trigger_shift_line_during_delay();
 
         wait_axi(20);
         if (errors == 0) begin

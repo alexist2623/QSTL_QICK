@@ -24,6 +24,12 @@ Arithmetic uses signed 16-bit input lanes, signed 18-bit Q1.17 coefficients,
 signed 48-bit accumulators, round-half-away-from-zero coefficient rescaling, and
 signed 16-bit output saturation.
 
+Each stage launches its parallel FIR dot product for every accepted input
+sample. `decim_count_r` does not select multiplier operands or insert zero
+products; it only marks every DECIM-th completed FIR result valid. This keeps
+the decimation comparator out of the DSP arithmetic path without changing the
+number of instantiated tap multipliers.
+
 The FIR path intentionally ignores output backpressure. `s_axis_tready` is held
 high, `m_axis_tready` is not fed back into the pipeline, and decimated
 `m_axis_tvalid` pulses continue at the FIR output rate. The downstream DDR

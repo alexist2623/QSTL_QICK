@@ -3,7 +3,7 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "Component_Name"
   #Adding Page
   set Page_0 [ipgui::add_page $IPINST -name "Page 0"]
-  ipgui::add_param $IPINST -name "DEFAULT_TRIGGER_DELAY_SAMPLES" -parent ${Page_0}
+  ipgui::add_param $IPINST -name "DEFAULT_TRIGGER_DELAY_CYCLES" -parent ${Page_0}
   ipgui::add_param $IPINST -name "FIFO_ADDR_WIDTH" -parent ${Page_0}
   ipgui::add_param $IPINST -name "ID_WIDTH" -parent ${Page_0}
   ipgui::add_param $IPINST -name "M_AXI_DATA_WIDTH" -parent ${Page_0}
@@ -13,12 +13,12 @@ proc init_gui { IPINST } {
 
 }
 
-proc update_PARAM_VALUE.DEFAULT_TRIGGER_DELAY_SAMPLES { PARAM_VALUE.DEFAULT_TRIGGER_DELAY_SAMPLES } {
-	# Procedure called to update DEFAULT_TRIGGER_DELAY_SAMPLES when any of the dependent parameters in the arguments change
+proc update_PARAM_VALUE.DEFAULT_TRIGGER_DELAY_CYCLES { PARAM_VALUE.DEFAULT_TRIGGER_DELAY_CYCLES } {
+	# Procedure called to update DEFAULT_TRIGGER_DELAY_CYCLES when any of the dependent parameters in the arguments change
 }
 
-proc validate_PARAM_VALUE.DEFAULT_TRIGGER_DELAY_SAMPLES { PARAM_VALUE.DEFAULT_TRIGGER_DELAY_SAMPLES } {
-	# Procedure called to validate DEFAULT_TRIGGER_DELAY_SAMPLES
+proc validate_PARAM_VALUE.DEFAULT_TRIGGER_DELAY_CYCLES { PARAM_VALUE.DEFAULT_TRIGGER_DELAY_CYCLES } {
+	# Procedure called to validate DEFAULT_TRIGGER_DELAY_CYCLES
 	return true
 }
 
@@ -93,7 +93,7 @@ proc update_MODELPARAM_VALUE.FIFO_ADDR_WIDTH { MODELPARAM_VALUE.FIFO_ADDR_WIDTH 
 	set_property value [get_property value ${PARAM_VALUE.FIFO_ADDR_WIDTH}] ${MODELPARAM_VALUE.FIFO_ADDR_WIDTH}
 }
 
-proc update_MODELPARAM_VALUE.DEFAULT_TRIGGER_DELAY_SAMPLES { MODELPARAM_VALUE.DEFAULT_TRIGGER_DELAY_SAMPLES PARAM_VALUE.DEFAULT_TRIGGER_DELAY_SAMPLES } {
+proc update_MODELPARAM_VALUE.DEFAULT_TRIGGER_DELAY_CYCLES { MODELPARAM_VALUE.DEFAULT_TRIGGER_DELAY_CYCLES PARAM_VALUE.DEFAULT_TRIGGER_DELAY_CYCLES } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.DEFAULT_TRIGGER_DELAY_SAMPLES}] ${MODELPARAM_VALUE.DEFAULT_TRIGGER_DELAY_SAMPLES}
+	set_property value [get_property value ${PARAM_VALUE.DEFAULT_TRIGGER_DELAY_CYCLES}] ${MODELPARAM_VALUE.DEFAULT_TRIGGER_DELAY_CYCLES}
 }

@@ -1439,9 +1439,9 @@
         <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.FIFO_ADDR_WIDTH">6</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
-        <spirit:name>DEFAULT_TRIGGER_DELAY_SAMPLES</spirit:name>
-        <spirit:displayName>Default Trigger Delay Samples</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.DEFAULT_TRIGGER_DELAY_SAMPLES">50</spirit:value>
+        <spirit:name>DEFAULT_TRIGGER_DELAY_CYCLES</spirit:name>
+        <spirit:displayName>Default Trigger Delay Cycles</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.DEFAULT_TRIGGER_DELAY_CYCLES">50</spirit:value>
       </spirit:modelParameter>
     </spirit:modelParameters>
   </spirit:model>
@@ -1478,7 +1478,7 @@
       </spirit:file>
     </spirit:fileSet>
   </spirit:fileSets>
-  <spirit:description>Sample-count 32-bit AXIS to 256-bit DDR capture buffer with internal CDC and programmable valid-sample trigger delay.</spirit:description>
+  <spirit:description>Sample-count 32-bit AXIS to 256-bit DDR capture buffer with internal CDC and a programmable source-clock trigger delay line.</spirit:description>
   <spirit:parameters>
     <spirit:parameter>
       <spirit:name>TARGET_SLAVE_BASE_ADDR</spirit:name>
@@ -1506,9 +1506,9 @@
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.FIFO_ADDR_WIDTH">6</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
-      <spirit:name>DEFAULT_TRIGGER_DELAY_SAMPLES</spirit:name>
-      <spirit:displayName>Default Trigger Delay Samples</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.DEFAULT_TRIGGER_DELAY_SAMPLES">50</spirit:value>
+      <spirit:name>DEFAULT_TRIGGER_DELAY_CYCLES</spirit:name>
+      <spirit:displayName>Default Trigger Delay Cycles</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.DEFAULT_TRIGGER_DELAY_CYCLES">50</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>Component_Name</spirit:name>

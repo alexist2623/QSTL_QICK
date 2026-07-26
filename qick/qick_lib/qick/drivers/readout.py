@@ -2176,57 +2176,113 @@ class AxisBufferDdrSampleV1(AxisBufferDdrV1):
 
 # Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 class AxisBufferDdrSampleV2(AxisBufferDdrSampleV1):
-    """Continuous-filter DDR capture with a programmable valid-sample delay.
+    """Continuous-filter DDR capture with a programmable trigger delay.
 
-    Version 2 keeps the V1 sample-count interface and adds register 9. The
-    register skips complete valid stream samples after a trigger before capture
-    starts. It gates DDR storage only and never resets an upstream filter or
-    decimator.
+    New V2 firmware interprets register 9 as ``s_axis_aclk`` cycles and uses a
+    one-bit multi-trigger delay line. Older V2 HWH files expose
+    ``DEFAULT_TRIGGER_DELAY_SAMPLES`` and retain their valid-input-sample
+    interpretation. The driver detects both forms without changing V1 support.
     """
     bindto = ['user.org:user:axis_buffer_ddr_sample_v2:1.0',
               'QICK:QICK:axis_buffer_ddr_sample_v2:1.0']
 
     def _init_config(self, description):
         super()._init_config(description)
-        self.REGISTERS['trigger_delay_samples_reg'] = 9
+        parameters = description.get('parameters', {})
         try:
-            default_delay = int(str(description['parameters']['DEFAULT_TRIGGER_DELAY_SAMPLES']), 0)
+            default_cycles = int(
+                str(parameters['DEFAULT_TRIGGER_DELAY_CYCLES']), 0
+            )
         except (KeyError, TypeError, ValueError):
-            default_delay = 50
+            default_cycles = None
 
-        self.DEFAULT_TRIGGER_DELAY_SAMPLES = default_delay
+        if default_cycles is not None:
+            required_depth = max(2, 2 * default_cycles)
+            delay_line_depth = 1 << (required_depth - 1).bit_length()
+            self.REGISTERS['trigger_delay_cycles_reg'] = 9
+            self.DEFAULT_TRIGGER_DELAY_CYCLES = default_cycles
+            self.cfg['trigger_delay_units'] = 's_axis_aclk_cycles'
+            self.cfg['trigger_delay_default_cycles'] = default_cycles
+            self.cfg['trigger_delay_max_cycles'] = delay_line_depth
+            self.cfg['trigger_delay_line_depth'] = delay_line_depth
+            self.cfg['trigger_delay_architecture'] = 'one_bit_shift_line'
+        else:
+            try:
+                default_samples = int(
+                    str(parameters['DEFAULT_TRIGGER_DELAY_SAMPLES']), 0
+                )
+            except (KeyError, TypeError, ValueError):
+                default_samples = 50
+            self.REGISTERS['trigger_delay_samples_reg'] = 9
+            self.DEFAULT_TRIGGER_DELAY_SAMPLES = default_samples
+            self.cfg['trigger_delay_units'] = 'valid_input_samples'
+            self.cfg['trigger_delay_default_samples'] = default_samples
+            self.cfg['trigger_delay_architecture'] = 'legacy_sample_deadline'
+
         self.cfg['supports_trigger_delay'] = True
-        self.cfg['trigger_delay_units'] = 'valid_input_samples'
-        self.cfg['trigger_delay_default_samples'] = default_delay
         self.cfg['filter_state_continuous'] = True
         self.cfg['decimation_phase_continuous'] = True
 
     def _init_firmware(self):
         super()._init_firmware()
-        self.trigger_delay_samples_reg = self.DEFAULT_TRIGGER_DELAY_SAMPLES
+        if self.cfg['trigger_delay_units'] == 's_axis_aclk_cycles':
+            self.trigger_delay_cycles_reg = self.DEFAULT_TRIGGER_DELAY_CYCLES
+        else:
+            self.trigger_delay_samples_reg = self.DEFAULT_TRIGGER_DELAY_SAMPLES
 
     def arm_samples(self, n_samples_32b, n_triggers=1, address=0,
                     stride_bytes=None, force_overwrite=False, sample_decim=1,
-                    trigger_delay_samples=None):
-        """Arm capture and optionally set the post-trigger valid-sample delay.
+                    trigger_delay_cycles=None, trigger_delay_samples=None):
+        """Arm capture and optionally set the post-trigger delay.
 
-        ``trigger_delay_samples`` is measured in valid samples at this IP's
-        input. In the 50 kSPS project one count is 20 us. ``None`` preserves
-        the current register setting; zero captures the first valid sample
-        after the synchronized trigger.
+        New firmware uses ``trigger_delay_cycles`` in ``s_axis_aclk`` cycles.
+        ``trigger_delay_samples`` remains accepted as an alias on new firmware
+        for compatibility with existing callers, but its value is interpreted
+        as cycles. Legacy V2 firmware continues to interpret that argument as
+        valid input samples. ``None`` preserves the current register setting.
         """
         if int(self.status_reg) & 0x1:
             raise RuntimeError(
                 'cannot re-arm DDR sample capture while the previous capture is busy'
             )
 
-        if trigger_delay_samples is not None:
-            trigger_delay_samples = self._check_int(
-                'trigger_delay_samples', trigger_delay_samples, minval=0
+        if trigger_delay_cycles is not None and trigger_delay_samples is not None:
+            raise ValueError(
+                'specify only one of trigger_delay_cycles or trigger_delay_samples'
             )
-            if trigger_delay_samples > 0xFFFF_FFFF:
-                raise ValueError('trigger_delay_samples must fit in 32 bits')
-            self.trigger_delay_samples_reg = trigger_delay_samples
+
+        cycle_mode = (
+            self.cfg.get('trigger_delay_units') == 's_axis_aclk_cycles'
+        )
+        if cycle_mode:
+            delay_value = (
+                trigger_delay_cycles
+                if trigger_delay_cycles is not None
+                else trigger_delay_samples
+            )
+            if delay_value is not None:
+                delay_value = self._check_int(
+                    'trigger_delay_cycles', delay_value, minval=0
+                )
+                max_cycles = int(self.cfg['trigger_delay_max_cycles'])
+                if delay_value > max_cycles:
+                    raise ValueError(
+                        'trigger_delay_cycles must be between 0 and %d for '
+                        'this firmware' % max_cycles
+                    )
+                self.trigger_delay_cycles_reg = delay_value
+        else:
+            if trigger_delay_cycles is not None:
+                raise ValueError(
+                    'trigger_delay_cycles requires shift-delay-line V2 firmware'
+                )
+            if trigger_delay_samples is not None:
+                trigger_delay_samples = self._check_int(
+                    'trigger_delay_samples', trigger_delay_samples, minval=0
+                )
+                if trigger_delay_samples > 0xFFFF_FFFF:
+                    raise ValueError('trigger_delay_samples must fit in 32 bits')
+                self.trigger_delay_samples_reg = trigger_delay_samples
 
         return super().arm_samples(
             n_samples_32b,

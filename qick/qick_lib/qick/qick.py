@@ -1801,6 +1801,7 @@ class QickSoc(Overlay, QickConfig):
     def arm_ddr4_samples(self, ch, n_samples, n_triggers=1, address=0,
                          stride_bytes=None, force_overwrite=False,
                          sample_decim=1, target_rate=None,
+                         trigger_delay_cycles=None,
                          trigger_delay_samples=None):
         """Arm sample-count based DDR4 capture.
 
@@ -1831,10 +1832,14 @@ class QickSoc(Overlay, QickConfig):
             is computed from the actual DDR input rate. For FIR projects that
             rate is detected from the HWH (1 MSPS or 50 kSPS); raw projects use
             the selected readout's f_output.
+        trigger_delay_cycles : int or None
+            For shift-delay-line AxisBufferDdrSampleV2 firmware, source fabric
+            clock cycles from synchronized trigger acceptance to the capture
+            request. None preserves the current setting.
         trigger_delay_samples : int or None
-            For AxisBufferDdrSampleV2, number of valid input samples skipped
-            after the trigger before storage starts. None preserves the current
-            setting. Version 1 firmware does not support this argument.
+            Compatibility argument for legacy V2 firmware. New V2 firmware
+            accepts it as an alias whose numeric value is interpreted as source
+            clock cycles. Version 1 firmware supports neither delay argument.
         """
         if not self.ddr4_buf.cfg.get('sample_capture', False):
             raise RuntimeError("arm_ddr4_samples() requires AxisBufferDdrSampleV1 or V2 firmware.")
@@ -1856,9 +1861,13 @@ class QickSoc(Overlay, QickConfig):
             force_overwrite=force_overwrite,
             sample_decim=sample_decim,
         )
-        if trigger_delay_samples is not None:
+        if ((trigger_delay_cycles is not None) or
+                (trigger_delay_samples is not None)):
             if not self.ddr4_buf.cfg.get('supports_trigger_delay', False):
-                raise RuntimeError('trigger_delay_samples requires AxisBufferDdrSampleV2 firmware.')
+                raise RuntimeError(
+                    'trigger delay requires AxisBufferDdrSampleV2 firmware.'
+                )
+            arm_kwargs['trigger_delay_cycles'] = trigger_delay_cycles
             arm_kwargs['trigger_delay_samples'] = trigger_delay_samples
         return self.ddr4_buf.arm_samples(n_samples, **arm_kwargs)
 
@@ -1885,6 +1894,7 @@ class QickSoc(Overlay, QickConfig):
     # Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
     def arm_ddr4_fir_samples(self, ch, n_samples, n_triggers=1, address=0,
                              stride_bytes=None, force_overwrite=False,
+                             trigger_delay_cycles=None,
                              trigger_delay_samples=None):
         """Arm FIR-filtered DDR4 capture.
 
@@ -1905,9 +1915,13 @@ class QickSoc(Overlay, QickConfig):
             force_overwrite=force_overwrite,
             sample_decim=1,
         )
-        if trigger_delay_samples is not None:
+        if ((trigger_delay_cycles is not None) or
+                (trigger_delay_samples is not None)):
             if not self.ddr4_buf.cfg.get('supports_trigger_delay', False):
-                raise RuntimeError('trigger_delay_samples requires AxisBufferDdrSampleV2 firmware.')
+                raise RuntimeError(
+                    'trigger delay requires AxisBufferDdrSampleV2 firmware.'
+                )
+            arm_kwargs['trigger_delay_cycles'] = trigger_delay_cycles
             arm_kwargs['trigger_delay_samples'] = trigger_delay_samples
         return self.ddr4_buf.arm_samples(n_samples, **arm_kwargs)
 

@@ -109,6 +109,9 @@ def make_sample_ddr_v2(max_words=4096):
         "bytes_per_axi_word": 32,
         "sample_capture": True,
         "supports_trigger_delay": True,
+        "trigger_delay_units": "s_axis_aclk_cycles",
+        "trigger_delay_max_cycles": 128,
+        "trigger_delay_line_depth": 128,
         "maxlen": max_words,
     })
     object.__setattr__(ddr, "REGISTERS", {
@@ -121,7 +124,7 @@ def make_sample_ddr_v2(max_words=4096):
         "sample_count_reg": 6,
         "trigger_count_reg": 7,
         "sample_decim_reg": 8,
-        "trigger_delay_samples_reg": 9,
+        "trigger_delay_cycles_reg": 9,
     })
     object.__setattr__(ddr, "mmio", types.SimpleNamespace(array=np.zeros(10, dtype=np.uint32)))
     object.__setattr__(ddr, "ddr4_array", np.zeros(max_words, dtype=np.uint32))
@@ -477,13 +480,13 @@ class TestAxisBufferDdrSampleV1(unittest.TestCase):
 
 
 class TestAxisBufferDdrSampleV2(unittest.TestCase):
-    def test_arm_programs_trigger_delay_register(self):
+    def test_arm_programs_trigger_delay_cycle_register(self):
         ddr = make_sample_ddr_v2()
 
         reserved = ddr.arm_samples(
             10,
             n_triggers=2,
-            trigger_delay_samples=18,
+            trigger_delay_cycles=18,
         )
 
         self.assertEqual(reserved, 32)
@@ -497,25 +500,39 @@ class TestAxisBufferDdrSampleV2(unittest.TestCase):
         ddr = make_sample_ddr_v2()
         ddr.mmio.array[9] = 7
 
-        ddr.arm_samples(8, trigger_delay_samples=None)
+        ddr.arm_samples(8, trigger_delay_cycles=None)
 
         self.assertEqual(ddr.mmio.array[9], 7)
 
-    def test_negative_trigger_delay_is_rejected(self):
+    def test_invalid_trigger_delay_is_rejected(self):
         ddr = make_sample_ddr_v2()
 
         with self.assertRaises(ValueError):
-            ddr.arm_samples(8, trigger_delay_samples=-1)
+            ddr.arm_samples(8, trigger_delay_cycles=-1)
 
-        with self.assertRaisesRegex(ValueError, 'fit in 32 bits'):
-            ddr.arm_samples(8, trigger_delay_samples=0x1_0000_0000)
+        with self.assertRaisesRegex(ValueError, 'between 0 and 128'):
+            ddr.arm_samples(8, trigger_delay_cycles=129)
+
+        with self.assertRaisesRegex(ValueError, 'only one'):
+            ddr.arm_samples(
+                8,
+                trigger_delay_cycles=4,
+                trigger_delay_samples=4,
+            )
+
+    def test_legacy_argument_aliases_cycle_register(self):
+        ddr = make_sample_ddr_v2()
+
+        ddr.arm_samples(8, trigger_delay_samples=18)
+
+        self.assertEqual(ddr.mmio.array[9], 18)
 
     def test_rearm_while_busy_is_rejected(self):
         ddr = make_sample_ddr_v2()
         ddr.mmio.array[5] = 1
 
         with self.assertRaisesRegex(RuntimeError, 'previous capture is busy'):
-            ddr.arm_samples(8, trigger_delay_samples=18)
+            ddr.arm_samples(8, trigger_delay_cycles=18)
 
 
 if __name__ == "__main__":

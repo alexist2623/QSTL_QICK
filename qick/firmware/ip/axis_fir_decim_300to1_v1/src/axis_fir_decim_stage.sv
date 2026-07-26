@@ -12,6 +12,11 @@ import fir_decim_300to1_coeffs_pkg::*;
 //   - round half away from zero before shifting by COEF_FRAC_BITS,
 //   - signed 16-bit saturation.
 //
+// Datapath behavior:
+//   - the FIR dot product is launched for every accepted input sample,
+//   - decim_count_r selects which completed FIR result is marked valid,
+//   - decimation control does not drive the multiplier or adder datapath.
+//
 // AXIS behavior:
 //   - trigger_align clears decimation phase and valid pipeline,
 //   - input is always accepted when s_axis_tvalid is asserted,
@@ -130,8 +135,11 @@ module axis_fir_decim_stage #(
             valid_pipe_r <= {valid_pipe_r[7:0], output_due};
             m_axis_tvalid <= valid_pipe_r[8];
 
-            for (int k = 0; k < TAPS; k++) begin
-                if (output_due) begin
+            // Compute the full-rate FIR result for every accepted sample.
+            // output_due only qualifies the corresponding result through
+            // valid_pipe_r; it must not become a DSP operand/zero-select mux.
+            if (input_fire) begin
+                for (int k = 0; k < TAPS; k++) begin
                     if (k == 0) begin
                         prod0_r[k] <= $signed(s_axis_tdata[LANE_WIDTH-1:0]) * $signed(fir_coeff(STAGE_ID, k));
                         prod1_r[k] <= $signed(s_axis_tdata[2*LANE_WIDTH-1:LANE_WIDTH]) * $signed(fir_coeff(STAGE_ID, k));
@@ -139,9 +147,6 @@ module axis_fir_decim_stage #(
                         prod0_r[k] <= $signed(lane0_hist[k-1]) * $signed(fir_coeff(STAGE_ID, k));
                         prod1_r[k] <= $signed(lane1_hist[k-1]) * $signed(fir_coeff(STAGE_ID, k));
                     end
-                end else begin
-                    prod0_r[k] <= '0;
-                    prod1_r[k] <= '0;
                 end
             end
 
