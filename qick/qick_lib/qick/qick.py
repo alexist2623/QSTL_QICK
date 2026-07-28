@@ -1833,9 +1833,10 @@ class QickSoc(Overlay, QickConfig):
             rate is detected from the HWH (1 MSPS or 50 kSPS); raw projects use
             the selected readout's f_output.
         trigger_delay_cycles : int or None
-            For shift-delay-line AxisBufferDdrSampleV2 firmware, source fabric
-            clock cycles from synchronized trigger acceptance to the capture
-            request. None preserves the current setting.
+            For source-clock-cycle AxisBufferDdrSampleV2 firmware, source
+            fabric clock cycles from synchronized trigger acceptance to the
+            capture request. Timestamp-queue firmware supports the full 32-bit
+            unsigned range. None preserves the current setting.
         trigger_delay_samples : int or None
             Compatibility argument for legacy V2 firmware. New V2 firmware
             accepts it as an alias whose numeric value is interpreted as source

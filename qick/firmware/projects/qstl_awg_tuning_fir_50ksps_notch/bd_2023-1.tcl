@@ -417,7 +417,8 @@ proc create_hier_cell_ddr4 { parentCell nameHier } {
   # Create instance: axis_buffer_ddr_sample_v2_0, and set properties
   set axis_buffer_ddr_sample_v2_0 [ create_bd_cell -type ip -vlnv QICK:QICK:axis_buffer_ddr_sample_v2:1.0 axis_buffer_ddr_sample_v2_0 ]
   set_property -dict [list \
-      CONFIG.DEFAULT_TRIGGER_DELAY_CYCLES {50} \
+      CONFIG.DEFAULT_TRIGGER_DELAY_CYCLES {281970} \
+      CONFIG.TRIGGER_QUEUE_ADDR_WIDTH {6} \
     CONFIG.M_AXI_DATA_WIDTH {256} \
     CONFIG.S_AXIS_DATA_WIDTH {32} \
     CONFIG.TARGET_SLAVE_BASE_ADDR {0x00000000} \

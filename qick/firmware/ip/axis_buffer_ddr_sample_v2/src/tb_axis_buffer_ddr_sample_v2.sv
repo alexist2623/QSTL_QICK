@@ -6,6 +6,7 @@ module tb_axis_buffer_ddr_sample_v2;
 
     localparam int ID_WIDTH = 1;
     localparam int FIFO_ADDR_WIDTH = 4;
+    localparam int TRIGGER_QUEUE_ADDR_WIDTH = 3;
     localparam int AXI_WORD_BYTES = 32;
     localparam int LANES = 8;
     localparam int MAX_WRITES = 512;
@@ -145,7 +146,8 @@ module tb_axis_buffer_ddr_sample_v2;
         .ID_WIDTH(ID_WIDTH),
         .S_AXIS_DATA_WIDTH(32),
         .M_AXI_DATA_WIDTH(256),
-        .FIFO_ADDR_WIDTH(FIFO_ADDR_WIDTH)
+        .FIFO_ADDR_WIDTH(FIFO_ADDR_WIDTH),
+        .TRIGGER_QUEUE_ADDR_WIDTH(TRIGGER_QUEUE_ADDR_WIDTH)
     ) dut (
         .s_axis_aclk(s_axis_aclk),
         .s_axis_aresetn(s_axis_aresetn),
@@ -758,7 +760,10 @@ module tb_axis_buffer_ddr_sample_v2;
             check(status[STATUS_DONE] == 1'b0, "reset status done clear");
             check(status[STATUS_OVERFLOW] == 1'b0, "reset status overflow clear");
             check(status[STATUS_ARMED] == 1'b0, "reset status armed clear");
-            check(trigger_delay == 32'd50, "default trigger delay is 50 output samples");
+            check(
+                trigger_delay == 32'd281970,
+                "default trigger delay is 281970 source-clock cycles"
+            );
             check(s_axis_tready == 1'b1, "idle/drop mode keeps s_axis_tready high");
             check(completed_count == 0, "no writes after reset");
         end
@@ -859,17 +864,24 @@ module tb_axis_buffer_ddr_sample_v2;
     endtask
 
     task automatic test_trigger_during_active_capture();
+        logic [31:0] status;
         begin
-            $display("TEST 8: trigger during active capture");
-            arm_capture(32'h0000_0500, 20, 1, 32'd0);
+            $display("TEST 8: trigger during active capture remains pending");
+            arm_capture(32'h0000_0500, 20, 2, 32'd96);
             pulse_trigger();
             send_words_compliant(1000, 4);
             pulse_trigger();
-            send_words_compliant(1004, 16);
-            wait_completed_writes(3);
+            send_words_compliant(1004, 36);
+            wait_completed_writes(6);
             wait_done();
-            check(completed_count == 3, "active trigger ignored; one 20-sample event only");
+            read_status(status);
+            check(
+                status[STATUS_OVERFLOW] == 1'b0,
+                "trigger maturing during capture does not set overflow"
+            );
+            check(completed_count == 6, "two pending 20-sample events complete");
             check_single_event_data(0, 32'h0000_0500, 1000, 20);
+            check_single_event_data(3, 32'h0000_0560, 1020, 20);
         end
     endtask
 
@@ -1013,22 +1025,18 @@ module tb_axis_buffer_ddr_sample_v2;
         end
     endtask
 
-    task automatic test_trigger_shift_line_during_delay();
+    task automatic test_trigger_timestamp_queue();
         localparam int QUEUED_TRIGGERS = 8;
-        localparam int DELAY_CYCLES = 20;
+        localparam int DELAY_CYCLES = 300;
         int cycle_index;
         int trigger_index;
         logic [31:0] status;
         logic [31:0] trigger_count;
         begin
-            $display("TEST 20: one-bit shift line carries multiple delayed triggers");
+            $display("TEST 20: timestamp queue carries multiple long-delay triggers");
             check(
-                dut.TRIGGER_DELAY_LINE_DEPTH >= (2 * 50),
-                "trigger delay line has at least two times the default delay capacity"
-            );
-            check(
-                dut.TRIGGER_DELAY_LINE_DEPTH == 128,
-                "default 50-cycle delay produces a 128-stage trigger line"
+                dut.TRIGGER_QUEUE_DEPTH == QUEUED_TRIGGERS,
+                "test instance has an eight-entry timestamp queue"
             );
 
             arm_capture_delay(
@@ -1044,13 +1052,13 @@ module tb_axis_buffer_ddr_sample_v2;
             delay_monitor_enable = 1'b1;
 
             // Keep TVALID high while eight trigger pulses enter four source
-            // clocks apart. Several pulses are simultaneously present in the
-            // 20-cycle delay line before the first one reaches stage zero.
+            // clocks apart. The 300-cycle delay exceeds the former 128-cycle
+            // shift-line limit, and all eight due timestamps coexist.
             @(negedge s_axis_aclk);
             s_axis_tvalid <= 1'b1;
             s_axis_tdata <= 32'd5000;
             trigger <= 1'b0;
-            for (cycle_index = 0; cycle_index < 100; cycle_index++) begin
+            for (cycle_index = 0; cycle_index < 380; cycle_index++) begin
                 @(negedge s_axis_aclk);
                 if (s_axis_tready)
                     s_axis_tdata <= s_axis_tdata + 1'b1;
@@ -1071,15 +1079,15 @@ module tb_axis_buffer_ddr_sample_v2;
             axi_read32(REG_TRIGGER_COUNT, trigger_count);
             check(
                 status[STATUS_OVERFLOW] == 1'b0,
-                "shift-delayed triggers complete without overflow"
+                "timestamp-queued triggers complete without overflow"
             );
             check(
                 trigger_count == QUEUED_TRIGGERS,
-                "all shift-delayed triggers complete"
+                "all timestamp-queued triggers complete"
             );
             check(
                 delay_accept_count == QUEUED_TRIGGERS,
-                "all trigger edges enter the delay line"
+                "all trigger edges enter the timestamp queue"
             );
             check(
                 delay_start_count == QUEUED_TRIGGERS,
@@ -1103,6 +1111,113 @@ module tb_axis_buffer_ddr_sample_v2;
                     pack_partial_zero(delay_start_data[trigger_index], 1)
                 );
             end
+        end
+    endtask
+
+    task automatic test_timestamp_wraparound();
+        localparam int DELAY_CYCLES = 12;
+        int cycle_index;
+        logic [31:0] status;
+        begin
+            $display("TEST 21: 32-bit due timestamp crosses wraparound");
+            arm_capture_delay(
+                32'h0000_2400,
+                1,
+                1,
+                32'd0,
+                DELAY_CYCLES
+            );
+
+            @(negedge s_axis_aclk);
+            force dut.trigger_timestamp_s = 32'hFFFF_FFF8;
+            release dut.trigger_timestamp_s;
+
+            delay_accept_count = 0;
+            delay_start_count = 0;
+            delay_monitor_enable = 1'b1;
+            s_axis_tvalid <= 1'b1;
+            s_axis_tdata <= 32'd6000;
+            trigger <= 1'b0;
+
+            for (cycle_index = 0; cycle_index < 40; cycle_index++) begin
+                @(negedge s_axis_aclk);
+                if (s_axis_tready)
+                    s_axis_tdata <= s_axis_tdata + 1'b1;
+                trigger <= (cycle_index == 2) || (cycle_index == 3);
+            end
+            s_axis_tvalid <= 1'b0;
+            trigger <= 1'b0;
+            delay_monitor_enable = 1'b0;
+
+            wait_completed_writes(1);
+            wait_done();
+            read_status(status);
+            check(
+                status[STATUS_OVERFLOW] == 1'b0,
+                "timestamp wraparound completes without overflow"
+            );
+            check(delay_accept_count == 1, "wraparound trigger is accepted");
+            check(delay_start_count == 1, "wraparound trigger starts capture");
+            check(
+                (delay_start_cycle[0] - delay_accept_cycle[0]) ==
+                    DELAY_CYCLES,
+                "wrapped due timestamp preserves the programmed delay"
+            );
+            check(
+                dut.trigger_timestamp_s < 32'd128,
+                "free-running timestamp crossed from 0xffffffff to zero"
+            );
+            expect_write(
+                0,
+                32'h0000_2400,
+                pack_partial_zero(delay_start_data[0], 1)
+            );
+        end
+    endtask
+
+    task automatic test_timestamp_queue_overflow();
+        localparam int REQUESTED_TRIGGERS = 9;
+        localparam int DELAY_CYCLES = 100;
+        int cycle_index;
+        logic [31:0] status;
+        begin
+            $display("TEST 22: timestamp queue full sets sticky overflow");
+            arm_capture_delay(
+                32'h0000_2800,
+                1,
+                REQUESTED_TRIGGERS,
+                32'd32,
+                DELAY_CYCLES
+            );
+
+            @(negedge s_axis_aclk);
+            trigger <= 1'b0;
+            for (cycle_index = 0;
+                 cycle_index < (4 * REQUESTED_TRIGGERS + 8);
+                 cycle_index++) begin
+                @(negedge s_axis_aclk);
+                if ((cycle_index >= 2) &&
+                    (cycle_index < (2 + 4 * REQUESTED_TRIGGERS)))
+                    trigger <= (((cycle_index - 2) % 4) < 2);
+                else
+                    trigger <= 1'b0;
+            end
+            trigger <= 1'b0;
+            wait_axi(12);
+            read_status(status);
+            check(
+                status[STATUS_OVERFLOW] == 1'b1,
+                "ninth outstanding trigger sets queue overflow"
+            );
+            check(
+                dut.accepted_trigger_count_s == dut.TRIGGER_QUEUE_DEPTH,
+                "full queue accepts exactly its configured depth"
+            );
+            check(
+                dut.trigger_queue_count_s == dut.TRIGGER_QUEUE_DEPTH,
+                "all accepted future timestamps remain queued"
+            );
+            soft_reset_capture();
         end
     endtask
 
@@ -1340,7 +1455,9 @@ module tb_axis_buffer_ddr_sample_v2;
         test_sample_decimation_trigger_alignment();
         test_sample_decimation_zero_is_one();
         test_programmable_trigger_delay();
-        test_trigger_shift_line_during_delay();
+        test_trigger_timestamp_queue();
+        test_timestamp_wraparound();
+        test_timestamp_queue_overflow();
 
         wait_axi(20);
         if (errors == 0) begin

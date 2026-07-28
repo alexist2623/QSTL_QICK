@@ -566,7 +566,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>f77daaab</spirit:value>
+            <spirit:value>fbdce853</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -582,7 +582,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>f77daaab</spirit:value>
+            <spirit:value>fbdce853</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -596,7 +596,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>950e77e9</spirit:value>
+            <spirit:value>33dff87b</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1439,9 +1439,14 @@
         <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.FIFO_ADDR_WIDTH">6</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>TRIGGER_QUEUE_ADDR_WIDTH</spirit:name>
+        <spirit:displayName>Trigger Queue Addr Width</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.TRIGGER_QUEUE_ADDR_WIDTH">6</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>DEFAULT_TRIGGER_DELAY_CYCLES</spirit:name>
         <spirit:displayName>Default Trigger Delay Cycles</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.DEFAULT_TRIGGER_DELAY_CYCLES">50</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.DEFAULT_TRIGGER_DELAY_CYCLES">281970</spirit:value>
       </spirit:modelParameter>
     </spirit:modelParameters>
   </spirit:model>
@@ -1458,7 +1463,7 @@
       <spirit:file>
         <spirit:name>src/axis_buffer_ddr_sample_v2.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_f77daaab</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_fbdce853</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -1473,12 +1478,12 @@
       <spirit:file>
         <spirit:name>xgui/axis_buffer_ddr_sample_v2_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_950e77e9</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_33dff87b</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
   </spirit:fileSets>
-  <spirit:description>Sample-count 32-bit AXIS to 256-bit DDR capture buffer with internal CDC and a programmable source-clock trigger delay line.</spirit:description>
+  <spirit:description>Sample-count 32-bit AXIS to 256-bit DDR capture buffer with internal CDC and a programmable 32-bit timestamp trigger queue.</spirit:description>
   <spirit:parameters>
     <spirit:parameter>
       <spirit:name>TARGET_SLAVE_BASE_ADDR</spirit:name>
@@ -1506,9 +1511,14 @@
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.FIFO_ADDR_WIDTH">6</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
+      <spirit:name>TRIGGER_QUEUE_ADDR_WIDTH</spirit:name>
+      <spirit:displayName>Trigger Queue Addr Width</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.TRIGGER_QUEUE_ADDR_WIDTH">6</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
       <spirit:name>DEFAULT_TRIGGER_DELAY_CYCLES</spirit:name>
       <spirit:displayName>Default Trigger Delay Cycles</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.DEFAULT_TRIGGER_DELAY_CYCLES">50</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.DEFAULT_TRIGGER_DELAY_CYCLES">281970</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>Component_Name</spirit:name>
@@ -1552,17 +1562,17 @@
       <xilinx:vendorDisplayName>Quantum Instrumentation Control Kit</xilinx:vendorDisplayName>
       <xilinx:vendorURL>https://github.com/openquantumhardware/qick/</xilinx:vendorURL>
       <xilinx:coreRevision>1</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2026-07-22T06:06:22Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2026-07-28T07:01:21Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2023.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="a1a6d26f"/>
       <xilinx:checksum xilinx:scope="addressSpaces" xilinx:value="a8a8736d"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="c930e363"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="838e6063"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="462aff79"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="b2ea7a32"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="45fb9c34"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="689c8459"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="045baa78"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="267ef224"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

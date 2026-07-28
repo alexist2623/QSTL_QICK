@@ -110,8 +110,11 @@ def make_sample_ddr_v2(max_words=4096):
         "sample_capture": True,
         "supports_trigger_delay": True,
         "trigger_delay_units": "s_axis_aclk_cycles",
-        "trigger_delay_max_cycles": 128,
-        "trigger_delay_line_depth": 128,
+        "trigger_delay_max_cycles": 0xFFFF_FFFF,
+        "trigger_delay_timestamp_bits": 32,
+        "trigger_queue_addr_width": 6,
+        "trigger_queue_depth": 64,
+        "trigger_delay_architecture": "timestamp_fifo_fsm",
         "maxlen": max_words,
     })
     object.__setattr__(ddr, "REGISTERS", {
@@ -480,6 +483,52 @@ class TestAxisBufferDdrSampleV1(unittest.TestCase):
 
 
 class TestAxisBufferDdrSampleV2(unittest.TestCase):
+    def test_hwh_timestamp_queue_parameters_are_detected(self):
+        ddr = object.__new__(AxisBufferDdrSampleV2)
+        object.__setattr__(ddr, "_cfg", {})
+        description = {
+            "parameters": {
+                "TARGET_SLAVE_BASE_ADDR": "0x00000000",
+                "ID_WIDTH": "1",
+                "S_AXIS_DATA_WIDTH": "32",
+                "M_AXI_DATA_WIDTH": "256",
+                "DEFAULT_TRIGGER_DELAY_CYCLES": "281970",
+                "TRIGGER_QUEUE_ADDR_WIDTH": "6",
+            }
+        }
+
+        ddr._init_config(description)
+
+        self.assertEqual(ddr.cfg["trigger_delay_default_cycles"], 281970)
+        self.assertEqual(ddr.cfg["trigger_delay_max_cycles"], 0xFFFF_FFFF)
+        self.assertEqual(ddr.cfg["trigger_queue_depth"], 64)
+        self.assertEqual(
+            ddr.cfg["trigger_delay_architecture"],
+            "timestamp_fifo_fsm",
+        )
+
+    def test_intermediate_hwh_keeps_shift_line_limit(self):
+        ddr = object.__new__(AxisBufferDdrSampleV2)
+        object.__setattr__(ddr, "_cfg", {})
+        description = {
+            "parameters": {
+                "TARGET_SLAVE_BASE_ADDR": "0x00000000",
+                "ID_WIDTH": "1",
+                "S_AXIS_DATA_WIDTH": "32",
+                "M_AXI_DATA_WIDTH": "256",
+                "DEFAULT_TRIGGER_DELAY_CYCLES": "50",
+            }
+        }
+
+        ddr._init_config(description)
+
+        self.assertEqual(ddr.cfg["trigger_delay_max_cycles"], 128)
+        self.assertEqual(ddr.cfg["trigger_delay_line_depth"], 128)
+        self.assertEqual(
+            ddr.cfg["trigger_delay_architecture"],
+            "one_bit_shift_line",
+        )
+
     def test_arm_programs_trigger_delay_cycle_register(self):
         ddr = make_sample_ddr_v2()
 
@@ -510,8 +559,8 @@ class TestAxisBufferDdrSampleV2(unittest.TestCase):
         with self.assertRaises(ValueError):
             ddr.arm_samples(8, trigger_delay_cycles=-1)
 
-        with self.assertRaisesRegex(ValueError, 'between 0 and 128'):
-            ddr.arm_samples(8, trigger_delay_cycles=129)
+        with self.assertRaisesRegex(ValueError, 'between 0 and 4294967295'):
+            ddr.arm_samples(8, trigger_delay_cycles=0x1_0000_0000)
 
         with self.assertRaisesRegex(ValueError, 'only one'):
             ddr.arm_samples(
@@ -526,6 +575,13 @@ class TestAxisBufferDdrSampleV2(unittest.TestCase):
         ddr.arm_samples(8, trigger_delay_samples=18)
 
         self.assertEqual(ddr.mmio.array[9], 18)
+
+    def test_full_32bit_trigger_delay_is_accepted(self):
+        ddr = make_sample_ddr_v2()
+
+        ddr.arm_samples(8, trigger_delay_cycles=0xFFFF_FFFF)
+
+        self.assertEqual(ddr.mmio.array[9], 0xFFFF_FFFF)
 
     def test_rearm_while_busy_is_rejected(self):
         ddr = make_sample_ddr_v2()

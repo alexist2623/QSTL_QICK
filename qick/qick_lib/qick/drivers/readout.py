@@ -2179,9 +2179,10 @@ class AxisBufferDdrSampleV2(AxisBufferDdrSampleV1):
     """Continuous-filter DDR capture with a programmable trigger delay.
 
     New V2 firmware interprets register 9 as ``s_axis_aclk`` cycles and uses a
-    one-bit multi-trigger delay line. Older V2 HWH files expose
+    32-bit timestamp queue. Intermediate V2 firmware used a one-bit
+    multi-trigger delay line. Older V2 HWH files expose
     ``DEFAULT_TRIGGER_DELAY_SAMPLES`` and retain their valid-input-sample
-    interpretation. The driver detects both forms without changing V1 support.
+    interpretation. The driver detects all forms without changing V1 support.
     """
     bindto = ['user.org:user:axis_buffer_ddr_sample_v2:1.0',
               'QICK:QICK:axis_buffer_ddr_sample_v2:1.0']
@@ -2197,15 +2198,33 @@ class AxisBufferDdrSampleV2(AxisBufferDdrSampleV1):
             default_cycles = None
 
         if default_cycles is not None:
-            required_depth = max(2, 2 * default_cycles)
-            delay_line_depth = 1 << (required_depth - 1).bit_length()
             self.REGISTERS['trigger_delay_cycles_reg'] = 9
             self.DEFAULT_TRIGGER_DELAY_CYCLES = default_cycles
             self.cfg['trigger_delay_units'] = 's_axis_aclk_cycles'
             self.cfg['trigger_delay_default_cycles'] = default_cycles
-            self.cfg['trigger_delay_max_cycles'] = delay_line_depth
-            self.cfg['trigger_delay_line_depth'] = delay_line_depth
-            self.cfg['trigger_delay_architecture'] = 'one_bit_shift_line'
+            try:
+                queue_addr_width = int(
+                    str(parameters['TRIGGER_QUEUE_ADDR_WIDTH']), 0
+                )
+            except (KeyError, TypeError, ValueError):
+                queue_addr_width = None
+
+            if queue_addr_width is not None:
+                self.cfg['trigger_delay_max_cycles'] = 0xFFFF_FFFF
+                self.cfg['trigger_delay_timestamp_bits'] = 32
+                self.cfg['trigger_queue_addr_width'] = queue_addr_width
+                self.cfg['trigger_queue_depth'] = 1 << queue_addr_width
+                self.cfg['trigger_delay_architecture'] = (
+                    'timestamp_fifo_fsm'
+                )
+            else:
+                required_depth = max(2, 2 * default_cycles)
+                delay_line_depth = 1 << (required_depth - 1).bit_length()
+                self.cfg['trigger_delay_max_cycles'] = delay_line_depth
+                self.cfg['trigger_delay_line_depth'] = delay_line_depth
+                self.cfg['trigger_delay_architecture'] = (
+                    'one_bit_shift_line'
+                )
         else:
             try:
                 default_samples = int(
@@ -2274,7 +2293,7 @@ class AxisBufferDdrSampleV2(AxisBufferDdrSampleV1):
         else:
             if trigger_delay_cycles is not None:
                 raise ValueError(
-                    'trigger_delay_cycles requires shift-delay-line V2 firmware'
+                    'trigger_delay_cycles requires source-clock-cycle V2 firmware'
                 )
             if trigger_delay_samples is not None:
                 trigger_delay_samples = self._check_int(

@@ -10,13 +10,14 @@
 //   - trigger_delay_cycles_reg delays each accepted trigger by a programmable
 //     number of s_axis_aclk cycles. Filtering and upstream decimation continue
 //     independently.
-//   - Trigger pulses occupy independent bits in a one-bit shift delay line.
-//     The line depth is the next power of two at or above twice the reset
-//     delay (128 stages for the default 50-cycle delay).
-//   - The delay line shifts every s_axis_aclk cycle, including cycles where
-//     s_axis_tvalid is low. A small count holds matured triggers while a finite
-//     capture is active; no target-address FIFO or wide deadline comparator is
-//     used.
+//   - A free-running 32-bit timestamp is added to the programmed delay and the
+//     resulting due timestamp is stored in a FIFO. Delay length therefore does
+//     not change the hardware depth.
+//   - Due timestamps are compared for equality. The programmed delay remains
+//     fixed while armed, so trigger order is preserved across 32-bit timestamp
+//     wraparound without a signed deadline comparison.
+//   - A pending-event counter holds due triggers while a finite capture is
+//     active. The capture FSM consumes those events in order.
 //   - The local sample-picker phase is aligned when capture starts.
 //     sample_decim_reg = 0 or
 //     1 keeps every input sample. N > 1 keeps samples 0, N, 2N, ...
@@ -40,7 +41,8 @@ module axis_buffer_ddr_sample_v2 #(
     parameter S_AXIS_DATA_WIDTH      = 32,
     parameter M_AXI_DATA_WIDTH       = 256,
     parameter FIFO_ADDR_WIDTH        = 6,
-    parameter DEFAULT_TRIGGER_DELAY_CYCLES = 50
+    parameter TRIGGER_QUEUE_ADDR_WIDTH = 6,
+    parameter DEFAULT_TRIGGER_DELAY_CYCLES = 281970
 )(
     // Source/readout AXIS clock domain.
     input  wire                          s_axis_aclk,
@@ -113,16 +115,9 @@ module axis_buffer_ddr_sample_v2 #(
     localparam int LANES           = M_AXI_DATA_WIDTH / S_AXIS_DATA_WIDTH;
     localparam int FIFO_WIDTH      = S_AXIS_DATA_WIDTH + 1;
     localparam int AXI_SIZE_32BYTE = 5;
-    localparam int TRIGGER_DELAY_LINE_REQUIRED_DEPTH =
-        (DEFAULT_TRIGGER_DELAY_CYCLES > 0)
-            ? (2 * DEFAULT_TRIGGER_DELAY_CYCLES)
-            : 2;
-    localparam int TRIGGER_DELAY_LINE_ADDR_WIDTH =
-        $clog2(TRIGGER_DELAY_LINE_REQUIRED_DEPTH);
-    localparam int TRIGGER_DELAY_LINE_DEPTH =
-        1 << TRIGGER_DELAY_LINE_ADDR_WIDTH;
-    localparam int TRIGGER_PENDING_COUNT_WIDTH =
-        $clog2(TRIGGER_DELAY_LINE_DEPTH + 1);
+    localparam int TRIGGER_QUEUE_DEPTH = 1 << TRIGGER_QUEUE_ADDR_WIDTH;
+    localparam int TRIGGER_QUEUE_COUNT_WIDTH =
+        $clog2(TRIGGER_QUEUE_DEPTH + 1);
 
     localparam int REG_CONTROL       = 0;
     localparam int REG_WADDR         = 1;
@@ -318,12 +313,27 @@ module axis_buffer_ddr_sample_v2 #(
     reg [31:0] sample_decim_s;
     reg [31:0] decim_count_s;
     reg [31:0] accepted_trigger_count_s;
-    reg [TRIGGER_DELAY_LINE_DEPTH-1:0] trigger_delay_line_s;
-    reg [TRIGGER_DELAY_LINE_DEPTH-1:0] trigger_insert_mask_s;
-    reg trigger_delay_zero_s;
-    reg [TRIGGER_PENDING_COUNT_WIDTH-1:0] trigger_pending_count_s;
+    reg [31:0] trigger_delay_cycles_s;
+    reg [31:0] trigger_timestamp_s;
+    reg [31:0] trigger_due_queue_s [0:TRIGGER_QUEUE_DEPTH-1];
+    reg [TRIGGER_QUEUE_ADDR_WIDTH-1:0] trigger_queue_wr_ptr_s;
+    reg [TRIGGER_QUEUE_ADDR_WIDTH-1:0] trigger_queue_rd_ptr_s;
+    reg [TRIGGER_QUEUE_COUNT_WIDTH-1:0] trigger_queue_count_s;
+    reg [31:0] trigger_queue_head_due_s;
+    reg [31:0] trigger_pending_count_s;
 
-    reg capture_s;
+    typedef enum logic {
+        TRIGGER_QUEUE_EMPTY_ST,
+        TRIGGER_QUEUE_WAIT_ST
+    } trigger_queue_state_t;
+    trigger_queue_state_t trigger_queue_state_s;
+
+    typedef enum logic {
+        CAPTURE_WAIT_ST,
+        CAPTURE_ACTIVE_ST
+    } capture_state_t;
+    capture_state_t capture_state_s;
+    wire capture_s = (capture_state_s == CAPTURE_ACTIVE_ST);
 
     reg trigger_meta_s;
     reg trigger_sync_s;
@@ -342,16 +352,29 @@ module axis_buffer_ddr_sample_v2 #(
     wire [31:0] effective_sample_decim_s = (sample_decim_s == 32'd0) ? 32'd1 : sample_decim_s;
     wire sample_due_s = (decim_count_s == 32'd0);
     wire capture_ready_s = sample_due_s ? !fifo_wfull : 1'b1;
-    wire trigger_pending_full_s =
-        (trigger_pending_count_s == TRIGGER_DELAY_LINE_DEPTH);
+    wire trigger_queue_full_s =
+        (trigger_queue_count_s == TRIGGER_QUEUE_DEPTH);
+    wire trigger_queue_due_s =
+        (trigger_queue_state_s == TRIGGER_QUEUE_WAIT_ST) &&
+        (trigger_timestamp_s == trigger_queue_head_due_s);
+    wire trigger_pending_full_s = &trigger_pending_count_s;
     wire trigger_accept_request_s =
         armed_s &&
         trigger_rise_s &&
         (accepted_trigger_count_s < ntrig_s);
-    wire trigger_accept_s = trigger_accept_request_s;
+    wire trigger_accept_s =
+        trigger_accept_request_s &&
+        ((trigger_delay_cycles_s == 32'd0) ||
+         !trigger_queue_full_s ||
+         trigger_queue_due_s);
+    wire trigger_enqueue_s =
+        trigger_accept_s &&
+        (trigger_delay_cycles_s != 32'd0);
+    wire [31:0] trigger_new_due_s =
+        trigger_timestamp_s + trigger_delay_cycles_s;
     wire trigger_mature_s =
-        trigger_delay_line_s[0] ||
-        (trigger_accept_s && trigger_delay_zero_s);
+        trigger_queue_due_s ||
+        (trigger_accept_s && (trigger_delay_cycles_s == 32'd0));
     wire trigger_available_s =
         (trigger_pending_count_s != 0) || trigger_mature_s;
     wire trigger_start_s =
@@ -388,14 +411,18 @@ module axis_buffer_ddr_sample_v2 #(
             sample_decim_s    <= 32'd1;
             decim_count_s     <= 32'd0;
             accepted_trigger_count_s <= 32'd0;
-            trigger_delay_line_s     <= '0;
-            trigger_insert_mask_s    <= '0;
-            trigger_delay_zero_s     <= 1'b0;
-            trigger_pending_count_s  <= '0;
+            trigger_delay_cycles_s   <= DEFAULT_TRIGGER_DELAY_CYCLES;
+            trigger_timestamp_s      <= 32'd0;
+            trigger_queue_wr_ptr_s   <= '0;
+            trigger_queue_rd_ptr_s   <= '0;
+            trigger_queue_count_s    <= '0;
+            trigger_queue_head_due_s <= 32'd0;
+            trigger_pending_count_s  <= 32'd0;
+            trigger_queue_state_s    <= TRIGGER_QUEUE_EMPTY_ST;
             sample_count_s    <= 32'd0;
             trigger_count_s   <= 32'd0;
             armed_s           <= 1'b0;
-            capture_s         <= 1'b0;
+            capture_state_s   <= CAPTURE_WAIT_ST;
             overflow_s        <= 1'b0;
             trigger_meta_s    <= 1'b0;
             trigger_sync_s    <= 1'b0;
@@ -406,6 +433,7 @@ module axis_buffer_ddr_sample_v2 #(
             trigger_meta_s    <= trigger;
             trigger_sync_s    <= trigger_meta_s;
             trigger_sync_d_s  <= trigger_sync_s;
+            trigger_timestamp_s <= trigger_timestamp_s + 1'b1;
 
             if (soft_reset_pulse_s) begin
                 soft_reset_s_seen <= soft_reset_s_sync[2];
@@ -414,12 +442,15 @@ module axis_buffer_ddr_sample_v2 #(
                 trigger_count_s   <= 32'd0;
                 decim_count_s     <= 32'd0;
                 accepted_trigger_count_s <= 32'd0;
-                trigger_delay_line_s     <= '0;
-                trigger_insert_mask_s    <= '0;
-                trigger_delay_zero_s     <= 1'b0;
-                trigger_pending_count_s  <= '0;
+                trigger_delay_cycles_s   <= DEFAULT_TRIGGER_DELAY_CYCLES;
+                trigger_queue_wr_ptr_s   <= '0;
+                trigger_queue_rd_ptr_s   <= '0;
+                trigger_queue_count_s    <= '0;
+                trigger_queue_head_due_s <= 32'd0;
+                trigger_pending_count_s  <= 32'd0;
+                trigger_queue_state_s    <= TRIGGER_QUEUE_EMPTY_ST;
                 armed_s           <= 1'b0;
-                capture_s         <= 1'b0;
+                capture_state_s   <= CAPTURE_WAIT_ST;
                 overflow_s        <= 1'b0;
             end else begin
                 if (arm_pulse_s) begin
@@ -429,37 +460,84 @@ module axis_buffer_ddr_sample_v2 #(
                     sample_decim_s  <= sample_decim_reg;
                     decim_count_s   <= 32'd0;
                     accepted_trigger_count_s <= 32'd0;
-                    trigger_delay_line_s     <= '0;
-                    trigger_insert_mask_s    <= '0;
-                    trigger_delay_zero_s     <=
-                        (trigger_delay_cycles_reg == 32'd0);
-                    trigger_pending_count_s  <= '0;
+                    trigger_delay_cycles_s   <= trigger_delay_cycles_reg;
+                    trigger_queue_wr_ptr_s   <= '0;
+                    trigger_queue_rd_ptr_s   <= '0;
+                    trigger_queue_count_s    <= '0;
+                    trigger_queue_head_due_s <= 32'd0;
+                    trigger_pending_count_s  <= 32'd0;
+                    trigger_queue_state_s    <= TRIGGER_QUEUE_EMPTY_ST;
                     sample_count_s  <= 32'd0;
                     trigger_count_s <= 32'd0;
-                    capture_s       <= 1'b0;
+                    capture_state_s <= CAPTURE_WAIT_ST;
                     overflow_s      <= 1'b0;
                     armed_s         <=
                         (nsamp_reg != 32'd0) &&
-                        (ntrig_reg != 32'd0) &&
-                        (trigger_delay_cycles_reg <= TRIGGER_DELAY_LINE_DEPTH);
+                        (ntrig_reg != 32'd0);
                     if ((nsamp_reg == 32'd0) ||
-                        (ntrig_reg == 32'd0) ||
-                        (trigger_delay_cycles_reg > TRIGGER_DELAY_LINE_DEPTH))
+                        (ntrig_reg == 32'd0))
                         overflow_s <= 1'b1;
-                    for (integer delay_index = 0;
-                         delay_index < TRIGGER_DELAY_LINE_DEPTH;
-                         delay_index = delay_index + 1) begin
-                        trigger_insert_mask_s[delay_index] <=
-                            (trigger_delay_cycles_reg == (delay_index + 1));
-                    end
                 end else begin
-                    trigger_delay_line_s <=
-                        {1'b0, trigger_delay_line_s[TRIGGER_DELAY_LINE_DEPTH-1:1]} |
-                        (trigger_accept_s ? trigger_insert_mask_s : '0);
+                    case ({trigger_enqueue_s, trigger_queue_due_s})
+                        2'b10: begin
+                            trigger_due_queue_s[trigger_queue_wr_ptr_s] <=
+                                trigger_new_due_s;
+                            trigger_queue_wr_ptr_s <=
+                                trigger_queue_wr_ptr_s + 1'b1;
+                            trigger_queue_count_s <=
+                                trigger_queue_count_s + 1'b1;
+                            if (trigger_queue_state_s ==
+                                TRIGGER_QUEUE_EMPTY_ST)
+                                trigger_queue_head_due_s <=
+                                    trigger_new_due_s;
+                            trigger_queue_state_s <=
+                                TRIGGER_QUEUE_WAIT_ST;
+                        end
+                        2'b01: begin
+                            trigger_queue_rd_ptr_s <=
+                                trigger_queue_rd_ptr_s + 1'b1;
+                            trigger_queue_count_s <=
+                                trigger_queue_count_s - 1'b1;
+                            if (trigger_queue_count_s == 1) begin
+                                trigger_queue_state_s <=
+                                    TRIGGER_QUEUE_EMPTY_ST;
+                            end else begin
+                                trigger_queue_head_due_s <=
+                                    trigger_due_queue_s[
+                                        trigger_queue_rd_ptr_s + 1'b1
+                                    ];
+                                trigger_queue_state_s <=
+                                    TRIGGER_QUEUE_WAIT_ST;
+                            end
+                        end
+                        2'b11: begin
+                            trigger_due_queue_s[trigger_queue_wr_ptr_s] <=
+                                trigger_new_due_s;
+                            trigger_queue_wr_ptr_s <=
+                                trigger_queue_wr_ptr_s + 1'b1;
+                            trigger_queue_rd_ptr_s <=
+                                trigger_queue_rd_ptr_s + 1'b1;
+                            if (trigger_queue_count_s == 1)
+                                trigger_queue_head_due_s <=
+                                    trigger_new_due_s;
+                            else
+                                trigger_queue_head_due_s <=
+                                    trigger_due_queue_s[
+                                        trigger_queue_rd_ptr_s + 1'b1
+                                    ];
+                            trigger_queue_state_s <=
+                                TRIGGER_QUEUE_WAIT_ST;
+                        end
+                        default: begin
+                        end
+                    endcase
 
                     if (trigger_accept_s)
                         accepted_trigger_count_s <=
                             accepted_trigger_count_s + 1'b1;
+
+                    if (trigger_accept_request_s && !trigger_accept_s)
+                        overflow_s <= 1'b1;
 
                     if (trigger_start_s) begin
                         sample_count_s <= 32'd0;
@@ -482,9 +560,6 @@ module axis_buffer_ddr_sample_v2 #(
                         !trigger_start_s)
                         overflow_s <= 1'b1;
 
-                    if (trigger_mature_s && capture_s)
-                        overflow_s <= 1'b1;
-
                     if (capture_active_s &&
                         s_axis_tvalid &&
                         sample_due_s &&
@@ -494,14 +569,14 @@ module axis_buffer_ddr_sample_v2 #(
                     if (capture_active_s && input_fire_s) begin
                         if (sample_due_s) begin
                             if (last_sample_s) begin
-                                capture_s       <= 1'b0;
+                                capture_state_s <= CAPTURE_WAIT_ST;
                                 sample_count_s  <= 32'd0;
                                 decim_count_s   <= 32'd0;
                                 trigger_count_s <= trigger_count_s + 1;
                                 if ((trigger_count_s + 1) >= ntrig_s)
                                     armed_s <= 1'b0;
                             end else begin
-                                capture_s      <= 1'b1;
+                                capture_state_s <= CAPTURE_ACTIVE_ST;
                                 sample_count_s <= sample_count_s + 1;
                                 decim_count_s  <= (effective_sample_decim_s > 32'd1) ? (effective_sample_decim_s - 32'd1) : 32'd0;
                             end

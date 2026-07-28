@@ -22,10 +22,13 @@ continuously and are never aligned to a trigger.
 
 The synchronized tProcessor trigger goes only to the DDR V2 capture block.
 Register `TRIGGER_DELAY_CYCLES_REG` at byte offset `0x24` delays capture by
-source fabric-clock cycles. The reset/default value is 50. Trigger pulses move
-through a one-bit shift delay line, so multiple triggers can be in flight
-without the former target FIFO and 64-bit deadline comparison. Software can
-override the cycle count before arming.
+source fabric-clock cycles. The reset/default value is 281970, which is
+704.925 us at the generated 400 MHz source clock and compensates the calculated
+704.923333 us FIR group delay. Trigger pulses are scheduled by a 32-bit
+free-running timestamp and a 64-entry due-time queue, so delay length no longer
+sets the amount of trigger-delay storage. Software can override the full 32-bit
+cycle count before arming. Due events that arrive during an active finite
+capture remain pending and are serviced in order.
 
 The 50 kSPS output sample period is 20 us. The stored 32-bit word remains packed
 as signed `Q[31:16]` and signed `I[15:0]`.
