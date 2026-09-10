@@ -1,0 +1,178 @@
+
+****** Vivado v2023.1 (64-bit)
+  **** SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+  **** IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+  **** SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64/run_xsim.tcl
+# set project_dir [file dirname [file normalize [info script]]]
+# set ip_dir [file normalize [file join $project_dir .. .. ip]]
+# if {$argc != 1} { error "Usage: vivado -mode batch -source run_xsim.tcl -tclargs FRESH_OUTPUT_DIR" }
+# set output_dir [file normalize [lindex $argv 0]]
+# if {[file exists $output_dir]} { error "Output already exists: $output_dir" }
+# file mkdir $output_dir
+# cd $output_dir
+# proc run_checked {command} {
+#     puts "RUN: $command"
+#     if {[catch {exec {*}$command 2>@1} result]} {
+#         puts $result
+#         error "Command failed: $command"
+#     }
+#     puts $result
+#     return $result
+# }
+# set fir_dir [file join $ip_dir axis_fir_decim_300to1_v2]
+# set ddr_dir [file join $ip_dir axis_buffer_ddr_sample_v3 src]
+# run_checked [list xvlog -sv \
+#     [file join $fir_dir src fir_decim_300to1_v2_coeffs_pkg.sv] \
+#     [file join $fir_dir src axis_fir_decim_full_precision_stage.sv] \
+#     [file join $fir_dir src axis_fir_decim_300to1_v2.sv] \
+#     [file join $fir_dir src tb_axis_fir_decim_300to1_v2.sv] \
+#     [file join $ip_dir axis_trigger_sync_v1 src axis_trigger_sync_v1.sv] \
+#     [file join $ddr_dir axis_buffer_ddr_sample_v3.sv] \
+#     [file join $ddr_dir tb_axis_buffer_ddr_sample_v3.sv] \
+#     [file join $project_dir tb_fir_ddr_1msps_iq64.sv]]
+RUN: xvlog -sv C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_fir_decim_300to1_v2/src/fir_decim_300to1_v2_coeffs_pkg.sv C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_fir_decim_300to1_v2/src/axis_fir_decim_full_precision_stage.sv C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_fir_decim_300to1_v2/src/axis_fir_decim_300to1_v2.sv C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_fir_decim_300to1_v2/src/tb_axis_fir_decim_300to1_v2.sv C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_trigger_sync_v1/src/axis_trigger_sync_v1.sv C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_buffer_ddr_sample_v3/src/axis_buffer_ddr_sample_v3.sv C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_buffer_ddr_sample_v3/src/tb_axis_buffer_ddr_sample_v3.sv C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64/tb_fir_ddr_1msps_iq64.sv
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_fir_decim_300to1_v2/src/fir_decim_300to1_v2_coeffs_pkg.sv" into library work
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_fir_decim_300to1_v2/src/axis_fir_decim_full_precision_stage.sv" into library work
+INFO: [VRFC 10-311] analyzing module axis_fir_decim_full_precision_stage
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_fir_decim_300to1_v2/src/axis_fir_decim_300to1_v2.sv" into library work
+INFO: [VRFC 10-311] analyzing module axis_fir_decim_300to1_v2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_fir_decim_300to1_v2/src/tb_axis_fir_decim_300to1_v2.sv" into library work
+INFO: [VRFC 10-311] analyzing module tb_axis_fir_decim_300to1_v2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_trigger_sync_v1/src/axis_trigger_sync_v1.sv" into library work
+INFO: [VRFC 10-311] analyzing module axis_trigger_sync_v1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_buffer_ddr_sample_v3/src/axis_buffer_ddr_sample_v3.sv" into library work
+INFO: [VRFC 10-311] analyzing module axis_buffer_ddr_sample_v3
+INFO: [VRFC 10-311] analyzing module axis_buffer_ddr_sample_v3_async_fifo
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_buffer_ddr_sample_v3/src/tb_axis_buffer_ddr_sample_v3.sv" into library work
+INFO: [VRFC 10-311] analyzing module tb_axis_buffer_ddr_sample_v3
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64/tb_fir_ddr_1msps_iq64.sv" into library work
+INFO: [VRFC 10-311] analyzing module tb_fir_ddr_1msps_iq64
+# foreach top {tb_axis_buffer_ddr_sample_v3 tb_axis_fir_decim_300to1_v2 tb_fir_ddr_1msps_iq64} {
+#     run_checked [list xelab $top -s $top]
+#     set result [run_checked [list xsim $top -runall -testplusarg "VECTOR_DIR=[file join $fir_dir vectors]"]]
+#     if {[string first "PASS:" $result] < 0 || [string first "FAIL:" $result] >= 0} {
+#         error "Simulation did not pass: $top"
+#     }
+# }
+RUN: xelab tb_axis_buffer_ddr_sample_v3 -s tb_axis_buffer_ddr_sample_v3
+Vivado Simulator v2023.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: C:\Xilinx\Vivado\2023.1\bin\unwrapped\win64.o\xelab.exe tb_axis_buffer_ddr_sample_v3 -s tb_axis_buffer_ddr_sample_v3 
+Multi-threading is on. Using 18 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.axis_buffer_ddr_sample_v3_async_...
+Compiling module work.axis_buffer_ddr_sample_v3(FIFO_A...
+Compiling module work.tb_axis_buffer_ddr_sample_v3
+Built simulation snapshot tb_axis_buffer_ddr_sample_v3
+RUN: xsim tb_axis_buffer_ddr_sample_v3 -runall -testplusarg VECTOR_DIR=C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_fir_decim_300to1_v2/vectors
+
+****** xsim v2023.1 (64-bit)
+  **** SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+  **** IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+  **** SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/tb_axis_buffer_ddr_sample_v3/xsim_script.tcl
+# xsim {tb_axis_buffer_ddr_sample_v3} -testplusarg VECTOR_DIR=C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_fir_decim_300to1_v2/vectors -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+PASS: DDR int64 signed/high/low bits, odd padding, strides, rearm, stalls and format registers
+$finish called at time : 9530 ns : File "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_buffer_ddr_sample_v3/src/tb_axis_buffer_ddr_sample_v3.sv" Line 959
+exit
+INFO: [Common 17-206] Exiting xsim at Wed Sep  9 23:10:56 2026...
+RUN: xelab tb_axis_fir_decim_300to1_v2 -s tb_axis_fir_decim_300to1_v2
+Vivado Simulator v2023.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: C:\Xilinx\Vivado\2023.1\bin\unwrapped\win64.o\xelab.exe tb_axis_fir_decim_300to1_v2 -s tb_axis_fir_decim_300to1_v2 
+Multi-threading is on. Using 18 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.axis_fir_decim_full_precision_st...
+Compiling module work.axis_fir_decim_full_precision_st...
+Compiling module work.axis_fir_decim_full_precision_st...
+Compiling module work.axis_fir_decim_300to1_v2
+Compiling module work.tb_axis_fir_decim_300to1_v2
+Built simulation snapshot tb_axis_fir_decim_300to1_v2
+RUN: xsim tb_axis_fir_decim_300to1_v2 -runall -testplusarg VECTOR_DIR=C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_fir_decim_300to1_v2/vectors
+
+****** xsim v2023.1 (64-bit)
+  **** SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+  **** IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+  **** SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/tb_axis_fir_decim_300to1_v2/xsim_script.tcl
+# xsim {tb_axis_fir_decim_300to1_v2} -testplusarg VECTOR_DIR=C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_fir_decim_300to1_v2/vectors -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+PASS: exact stage bits and int64 output, pass=0 input=330000 output=1100 latency=35
+PASS: exact stage bits and int64 output, pass=1 input=330000 output=1100 latency=35
+$finish called at time : 2204530818 ps : File "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_fir_decim_300to1_v2/src/tb_axis_fir_decim_300to1_v2.sv" Line 86
+run: Time (s): cpu = 00:00:00 ; elapsed = 00:02:24 . Memory (MB): peak = 204.254 ; gain = 0.000
+exit
+INFO: xsimkernel Simulation Memory Usage: 21584 KB (Peak: 21584 KB), Simulation CPU Usage: 142687 ms
+INFO: [Common 17-206] Exiting xsim at Wed Sep  9 23:13:27 2026...
+RUN: xelab tb_fir_ddr_1msps_iq64 -s tb_fir_ddr_1msps_iq64
+Vivado Simulator v2023.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: C:\Xilinx\Vivado\2023.1\bin\unwrapped\win64.o\xelab.exe tb_fir_ddr_1msps_iq64 -s tb_fir_ddr_1msps_iq64 
+Multi-threading is on. Using 18 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.axis_buffer_ddr_sample_v3_async_...
+Compiling module work.axis_buffer_ddr_sample_v3(FIFO_A...
+Compiling module work.tb_axis_buffer_ddr_sample_v3(RUN...
+Compiling module work.axis_trigger_sync_v1
+Compiling module work.axis_fir_decim_full_precision_st...
+Compiling module work.axis_fir_decim_full_precision_st...
+Compiling module work.axis_fir_decim_full_precision_st...
+Compiling module work.axis_fir_decim_300to1_v2
+Compiling module work.tb_fir_ddr_1msps_iq64
+Built simulation snapshot tb_fir_ddr_1msps_iq64
+RUN: xsim tb_fir_ddr_1msps_iq64 -runall -testplusarg VECTOR_DIR=C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_fir_decim_300to1_v2/vectors
+
+****** xsim v2023.1 (64-bit)
+  **** SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+  **** IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+  **** SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/tb_fir_ddr_1msps_iq64/xsim_script.tcl
+# xsim {tb_fir_ddr_1msps_iq64} -testplusarg VECTOR_DIR=C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_fir_decim_300to1_v2/vectors -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+CAPTURE delay=0 cycles: 4 shots, 13 samples/shot, first wait=154 cycles
+CAPTURE delay=8712 cycles: 4 shots, 13 samples/shot, first wait=163 cycles
+PASS: FIR DDR 1 MSPS IQ64 continuous phase, 40 kHz triggers, programmable delay, packing and CDC
+$finish called at time : 285450 ns : File "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64/tb_fir_ddr_1msps_iq64.sv" Line 148
+run: Time (s): cpu = 00:00:00 ; elapsed = 00:00:15 . Memory (MB): peak = 203.785 ; gain = 0.000
+exit
+INFO: xsimkernel Simulation Memory Usage: 23904 KB (Peak: 23904 KB), Simulation CPU Usage: 15250 ms
+INFO: [Common 17-206] Exiting xsim at Wed Sep  9 23:13:51 2026...
+# puts "PASS: all 1 MSPS IQ64 RTL regressions"
+PASS: all 1 MSPS IQ64 RTL regressions
+# exit 0
+INFO: [Common 17-206] Exiting Vivado at Wed Sep  9 23:13:51 2026...

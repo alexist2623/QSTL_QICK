@@ -1799,6 +1799,11 @@ class AxisBufferDdrSampleV1(AxisBufferDdrV1):
         self.cfg['m_axi_data_width'] = self.M_AXI_DATA_WIDTH
         self.cfg['samples_per_axi_word'] = self.M_AXI_DATA_WIDTH // self.S_AXIS_DATA_WIDTH
         self.cfg['bytes_per_axi_word'] = self.M_AXI_DATA_WIDTH // 8
+        self.cfg['iq_component_bits'] = 16
+        self.cfg['iq_scale_log2'] = 0
+        self.cfg['iq_sample_bytes'] = 4
+        self.cfg['iq_dtype'] = 'int16'
+        self.cfg['iq_format_version'] = 0
         self.cfg['sample_capture'] = True
         self.cfg['supports_zero_padding'] = True
         self.cfg['supports_sample_decimation'] = True
@@ -1904,13 +1909,10 @@ class AxisBufferDdrSampleV1(AxisBufferDdrV1):
             )
 
         total_decim = decim0 * decim1 * decim2
-        # FREQ_HZ in the HWH describes the AXIS fabric clock, not the average
-        # rate of valid samples on this stream.  In the ZCU216 design the FIR
-        # clock is 400 MHz while s_axis_tvalid carries the designed 300 MSPS
-        # stream.  Deriving the sample rate from FREQ_HZ would therefore report
-        # 1.333 MSPS instead of 1 MSPS.  The HWH identifies the IP and its
-        # decimation parameters; the IP's documented stream rate supplies the
-        # remaining semantic information.
+        # Legacy HWH files incorrectly label the external 300 MHz CLK104 PL
+        # clock as 400 MHz. The 1 MSPS V2 project fixes that metadata. Keep the
+        # documented 300 MSPS stream rate for both generations: deriving it
+        # from old FREQ_HZ metadata would incorrectly report 1.333 MSPS.
         clock_rate_mhz = self._get_hwh_fclk_mhz(soc, block)
         input_rate_msps = self.NOMINAL_INPUT_RATE_MSPS
         stage_taps = self.FIR_STAGE_TAPS
@@ -1929,6 +1931,20 @@ class AxisBufferDdrSampleV1(AxisBufferDdrV1):
             'output_rate_msps': input_rate_msps / total_decim,
             'group_delay_input_samples': group_delay,
         }
+
+    @classmethod
+    def _fir_trigger_is_disabled(cls, soc, block):
+        """Detect the continuous FIR path from its actual HWH trigger wiring."""
+        try:
+            ((source, port),) = soc.metadata.trace_sig(block, 'trigger')
+            return (
+                soc.metadata.mod2type(source) == 'xlconstant'
+                and port == 'dout'
+                and cls._get_hwh_int_param(soc, source, 'CONST_VAL', None) == 0
+            )
+        except Exception:
+            # Older metadata providers may not expose scalar-net tracing.
+            return False
 
     def _configure_1msps_fir_path(self, soc, block, port):
         fir = self._read_upstream_fir_metadata(soc, block)
@@ -1962,6 +1978,21 @@ class AxisBufferDdrSampleV1(AxisBufferDdrV1):
         self.cfg['fir_capture_min_trigger_spacing_us'] = (
             skipped_outputs / self.cfg['fir_output_fs_mhz']
         )
+        self.cfg['fir_full_path_nominal_delay_us'] = group_delay / fir['input_rate_msps']
+        self.cfg['fir_delay_frequency_dependent'] = False
+        if self._fir_trigger_is_disabled(soc, block):
+            self.cfg['fir_trigger_aligned'] = False
+            self.cfg['fir_trigger_alignment'] = 'continuous_filter_programmable_capture_delay'
+            self.cfg['fir_decimation_phase_reset_on_trigger'] = False
+            self.cfg['filter_state_continuous'] = True
+            self.cfg['decimation_phase_continuous'] = True
+            # The continuous path never waits for the FIR capture_trigger
+            # countdown; capture spacing is limited by DDR window length.
+            for key in ('fir_capture_skipped_outputs',
+                        'fir_capture_residual_input_samples',
+                        'fir_capture_residual_us',
+                        'fir_capture_min_trigger_spacing_us'):
+                self.cfg.pop(key, None)
 
     def _configure_50ksps_fir_path(self, soc, filter_block, filter_output_port):
         post_decim = self._get_hwh_int_param(
@@ -2311,3 +2342,104 @@ class AxisBufferDdrSampleV2(AxisBufferDdrSampleV1):
             force_overwrite=force_overwrite,
             sample_decim=sample_decim,
         )
+
+
+class AxisBufferDdrSampleV3(AxisBufferDdrSampleV2):
+    """Signed-int64 I/Q capture; raw arrays always retain their integer dtype.
+
+    Sample counts count IQ pairs. Address/stride are bytes and readback start
+    remains a physical 32-bit word offset, as in previous QICK versions.
+    """
+    bindto = ['user.org:user:axis_buffer_ddr_sample_v3:1.0',
+              'QICK:QICK:axis_buffer_ddr_sample_v3:1.0']
+    FIR_DECIMATOR_TYPE = 'axis_fir_decim_300to1_v2'
+
+    def _init_config(self, description):
+        super()._init_config(description)
+        params = description['parameters']
+        expected = {'S_AXIS_DATA_WIDTH': 128, 'M_AXI_DATA_WIDTH': 256,
+                    'IQ_COMPONENT_BITS': 64, 'IQ_SCALE_LOG2': 46,
+                    'FORMAT_VERSION': 1}
+        for name, value in expected.items():
+            if int(str(params.get(name, -1)), 0) != value:
+                raise RuntimeError('Unsupported DDR V3 HWH format: %s=%r' % (name, params.get(name)))
+        if self.cfg['trigger_delay_units'] != 's_axis_aclk_cycles':
+            raise RuntimeError('DDR V3 requires a source-clock trigger delay')
+        self.REGISTERS.update(format_magic_reg=10, format_version_reg=11,
+                              component_bits_reg=12, scale_log2_reg=13)
+        self.cfg.update(iq_component_bits=64, iq_scale_log2=46,
+                        iq_sample_bytes=16, iq_dtype='int64', iq_format_version=1)
+
+    def _check_format(self):
+        actual = tuple(int(getattr(self, name)) for name in
+                       ('format_magic_reg', 'format_version_reg',
+                        'component_bits_reg', 'scale_log2_reg'))
+        if actual != (0x5149434b, 1, 64, 46):
+            raise RuntimeError('DDR BIT/HWH format mismatch or unsupported firmware: %r' % (actual,))
+
+    def _init_firmware(self):
+        self._check_format()
+        super()._init_firmware()
+
+    def _configure_1msps_fir_path(self, soc, block, port):
+        super()._configure_1msps_fir_path(soc, block, port)
+        scale = self._get_hwh_int_param(soc, block, 'OUTPUT_SCALE_LOG2', None)
+        width = self._get_hwh_int_param(soc, block, 'M_AXIS_DATA_WIDTH', None)
+        latency = self._get_hwh_int_param(soc, block, 'PIPELINE_LATENCY_CYCLES', None)
+        if (scale, width, latency) != (46, 128, 35):
+            raise RuntimeError('FIR/DDR integer format or pipeline metadata mismatch')
+        self.cfg['fir_pipeline_latency_cycles'] = latency
+        self.cfg['fir_full_path_nominal_delay_us'] = (
+            self.cfg['fir_group_delay_input_samples'] + latency
+        ) / self.cfg['fir_input_fs_mhz']
+
+    def _physical_words_per_trigger(self, n_samples_32b):
+        # Public return value remains physical uint32 words, not IQ samples.
+        return ((n_samples_32b + 1) // 2) * 8
+
+    def arm_samples(self, n_samples_32b, n_triggers=1, address=0,
+                    stride_bytes=None, force_overwrite=False, sample_decim=1,
+                    trigger_delay_cycles=None, trigger_delay_samples=None):
+        self._check_format()
+        if self.cfg.get('fir_detect_error'):
+            raise RuntimeError(self.cfg['fir_detect_error'])
+        for name, value, minimum in [('n_samples', n_samples_32b, 1),
+                                     ('n_triggers', n_triggers, 1),
+                                     ('address', address, 0),
+                                     ('sample_decim', sample_decim, 0)]:
+            if self._check_int(name, value, minimum) > 0xFFFF_FFFF:
+                raise ValueError('%s must fit in a 32-bit register' % name)
+        if self._physical_words_per_trigger(n_samples_32b)*4 > 0xFFFF_FFFF:
+            raise ValueError('capture stride exceeds the 32-bit address space')
+        if stride_bytes is not None and self._check_int('stride_bytes', stride_bytes) > 0xFFFF_FFFF:
+            raise ValueError('stride_bytes must fit in a 32-bit register')
+        return super().arm_samples(n_samples_32b, n_triggers, address,
+                                   stride_bytes, force_overwrite, sample_decim,
+                                   trigger_delay_cycles, trigger_delay_samples)
+
+    def get_mem_samples(self, n_samples_32b, n_triggers=1, start=0, stride_bytes=None):
+        """Return exact raw signed-int64 IQ with per-trigger padding removed."""
+        self._check_format()
+        n_samples = self._check_int('n_samples', n_samples_32b, 1)
+        n_triggers = self._check_int('n_triggers', n_triggers, 1)
+        start = self._check_int('start', start)
+        # 64-bit alignment avoids unaligned device-memory loads on ARM.
+        if start % 4:
+            raise ValueError('start must be aligned to a 128-bit IQ sample (4 uint32 words)')
+        physical_words = self._physical_words_per_trigger(n_samples)
+        stride_words = physical_words
+        if stride_bytes is not None:
+            stride_bytes = self._check_int('stride_bytes', stride_bytes, physical_words*4)
+            if stride_bytes % 32:
+                raise ValueError('stride_bytes must be aligned to 32 bytes')
+            stride_words = stride_bytes // 4
+        end = start + (n_triggers-1)*stride_words + physical_words
+        if end > len(self.ddr4_array):
+            raise RuntimeError('DDR readback exceeds the mapped memory')
+        result = np.empty((n_triggers*n_samples, 2), dtype=np.int64)
+        for trigger in range(n_triggers):
+            begin = start + trigger*stride_words
+            # Copy before viewing: the returned array owns normal host memory.
+            words = self.ddr4_array[begin:begin+n_samples*4].copy()
+            result[trigger*n_samples:(trigger+1)*n_samples] = words.view('<i8').reshape(-1, 2)
+        return result

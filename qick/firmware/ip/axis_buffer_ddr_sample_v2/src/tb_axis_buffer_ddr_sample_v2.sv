@@ -2,7 +2,12 @@
 `timescale 1ns/1ps
 `default_nettype none
 
-module tb_axis_buffer_ddr_sample_v2;
+// The project integration bench can reuse the AXI memory model and tasks
+// while supplying a real FIR stream and its own stimulus.
+module tb_axis_buffer_ddr_sample_v2 #(
+    parameter bit RUN_REGRESSION = 1'b1,
+    parameter realtime SOURCE_HALF_PERIOD_NS = 4.0
+);
 
     localparam int ID_WIDTH = 1;
     localparam int FIFO_ADDR_WIDTH = 4;
@@ -133,7 +138,7 @@ module tb_axis_buffer_ddr_sample_v2;
     logic [31:0] s_prev_data = '0;
 
     always #5 s_axi_aclk = ~s_axi_aclk;
-    always #4 s_axis_aclk = ~s_axis_aclk;
+    always #(SOURCE_HALF_PERIOD_NS) s_axis_aclk = ~s_axis_aclk;
     always #3 m_axi_aclk = ~m_axi_aclk;
 
     initial begin
@@ -1434,7 +1439,7 @@ module tb_axis_buffer_ddr_sample_v2;
         end
     end
 
-    initial begin
+    initial if (RUN_REGRESSION) begin
         test_reset_default_state();
         test_pre_arm_drop();
         test_single_trigger_full_word();

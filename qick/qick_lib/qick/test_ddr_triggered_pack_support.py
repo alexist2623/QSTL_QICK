@@ -145,14 +145,18 @@ def make_rate_detection_ddr(fullpath="ddr"):
 
 
 class _RateMetadata:
-    def __init__(self, modtypes, bus_map, params, clocks=None):
+    def __init__(self, modtypes, bus_map, params, clocks=None, signal_map=None):
         self.modtypes = modtypes
         self.bus_map = bus_map
         self.params = params
         self.clocks = clocks or {}
+        self.signal_map = signal_map or {}
 
     def trace_bus(self, block, port):
         return self.bus_map.get((block, port), [])
+
+    def trace_sig(self, block, port):
+        return self.signal_map.get((block, port), [])
 
     def mod2type(self, block):
         return self.modtypes[block]
@@ -164,9 +168,9 @@ class _RateMetadata:
         return self.clocks[(block, port)]
 
 
-def make_rate_soc(modtypes, bus_map, params, clocks=None):
+def make_rate_soc(modtypes, bus_map, params, clocks=None, signal_map=None):
     return types.SimpleNamespace(
-        metadata=_RateMetadata(modtypes, bus_map, params, clocks)
+        metadata=_RateMetadata(modtypes, bus_map, params, clocks, signal_map)
     )
 
 
@@ -322,6 +326,52 @@ class TestFirSampleRateDetection(unittest.TestCase):
         self.assertEqual(ddr.cfg["fir_decimation_stages"], [10, 10, 3])
         self.assertAlmostEqual(ddr.cfg["stored_sample_rate_hz"], 1_000_000.0)
         self.assertAlmostEqual(ddr.cfg["stored_sample_period_us"], 1.0)
+        self.assertTrue(ddr.cfg["fir_trigger_aligned"])
+        self.assertTrue(ddr.cfg["fir_decimation_phase_reset_on_trigger"])
+        self.assertEqual(ddr.cfg["fir_capture_min_trigger_spacing_us"], 28.0)
+
+    def test_mock_hwh_detects_continuous_1msps_v2_path(self):
+        ddr = make_sample_ddr_v2()
+        ddr.cfg['fullpath'] = 'ddr'
+        soc = make_rate_soc(
+            {"ddr": "axis_buffer_ddr_sample_v2",
+             "fir": "axis_fir_decim_300to1_v1", "zero": "xlconstant"},
+            {("ddr", "s_axis"): [("fir", "m_axis")]},
+            {"fir": {"DECIM0": "10", "DECIM1": "10", "DECIM2": "3"},
+             "zero": {"CONST_VAL": "0"}},
+            {("fir", "aclk"): 300.0},
+            {("fir", "trigger"): [("zero", "dout")]},
+        )
+        ddr._configure_fir_capture_path(soc)
+        self.assertNotIn("fir_detect_error", ddr.cfg)
+        self.assertEqual(ddr.cfg["fir_rate_profile"], "1_msps")
+        self.assertEqual(ddr.cfg["fir_hwh_chain"], ["fir"])
+        self.assertEqual(ddr.cfg["fir_clock_mhz"], 300.0)
+        self.assertEqual(ddr.cfg["stored_sample_period_us"], 1.0)
+        self.assertFalse(ddr.cfg["fir_trigger_aligned"])
+        self.assertFalse(ddr.cfg["fir_decimation_phase_reset_on_trigger"])
+        self.assertTrue(ddr.cfg["filter_state_continuous"])
+        self.assertNotIn("fir_capture_min_trigger_spacing_us", ddr.cfg)
+        self.assertNotIn("fir_capture_skipped_outputs", ddr.cfg)
+        self.assertFalse(ddr.cfg["fir_delay_frequency_dependent"])
+        self.assertAlmostEqual(ddr.cfg["fir_full_path_nominal_delay_us"], 8677 / 300)
+        self.assertEqual(ddr.arm_samples(16, n_triggers=4, trigger_delay_cycles=8677), 64)
+        self.assertEqual(ddr.trigger_delay_cycles_reg, 8677)
+
+    def test_constant_one_does_not_identify_continuous_fir(self):
+        soc = make_rate_soc(
+            {"one": "xlconstant"}, {}, {"one": {"CONST_VAL": "1"}},
+            signal_map={("fir", "trigger"): [("one", "dout")]},
+        )
+        self.assertFalse(AxisBufferDdrSampleV1._fir_trigger_is_disabled(soc, "fir"))
+
+    def test_legacy_400mhz_metadata_does_not_change_nominal_stream_rate(self):
+        soc = make_rate_soc(
+            {"fir": "axis_fir_decim_300to1_v1"}, {}, {"fir": {}},
+            {("fir", "aclk"): 400.0},
+        )
+        fir = make_rate_detection_ddr()._read_upstream_fir_metadata(soc, "fir")
+        self.assertEqual(fir["output_rate_msps"], 1.0)
 
     def test_mock_hwh_detects_50ksps_path(self):
         ddr = make_rate_detection_ddr()
@@ -356,7 +406,7 @@ class TestFirSampleRateDetection(unittest.TestCase):
             988.8903705411955,
         )
 
-    def test_repository_hwh_files_identify_both_rate_profiles(self):
+    def test_repository_hwh_files_identify_rate_profiles(self):
         qick_root = Path(__file__).resolve().parents[2]
         cases = [
             (
@@ -370,6 +420,12 @@ class TestFirSampleRateDetection(unittest.TestCase):
                 "ddr4/axis_buffer_ddr_sample_v2_0",
                 "50_ksps",
                 50_000.0,
+            ),
+            (
+                qick_root / "firmware/projects/qstl_awg_tuning_fir_1msps_v2/bitstream.hwh",
+                "ddr4/axis_buffer_ddr_sample_v2_0",
+                "1_msps",
+                1_000_000.0,
             ),
         ]
 
@@ -385,6 +441,38 @@ class TestFirSampleRateDetection(unittest.TestCase):
                 self.assertAlmostEqual(
                     ddr.cfg["stored_sample_rate_hz"], expected_rate_hz
                 )
+
+    def test_repository_1msps_v2_clocks_and_trigger_wiring(self):
+        qick_root = Path(__file__).resolve().parents[2]
+        path = qick_root / "firmware/projects/qstl_awg_tuning_fir_1msps_v2/bitstream.hwh"
+        metadata = load_hwh_metadata(path)
+        ddr_path = "ddr4/axis_buffer_ddr_sample_v2_0"
+        fir_path = "ddr4/axis_fir_decim_300to1_v1_0"
+        self.assertNotIn("axis_notch_decim_1m_to50k_v1",
+                         [info['type'] for info in metadata.modinfo.values()])
+        self.assertEqual(metadata.trace_bus(ddr_path, "s_axis"), [[fir_path, "m_axis"]])
+        self.assertEqual(metadata.trace_sig(ddr_path, "trigger"),
+                         [["ddr4/axis_trigger_sync_v1_0", "trigger_pulse"]])
+        capture_port = metadata.xml.find(
+            "./MODULES/MODULE[@FULLNAME='/%s']/PORTS/PORT[@NAME='capture_trigger']"
+            % fir_path
+        )
+        self.assertIn(capture_port.get('SIGNAME'), (None, '', '__NOC__'))
+        for block, port in [(fir_path, "aclk"), (ddr_path, "s_axis_aclk"),
+                            ("axis_tproc64x32_x8_0", "aclk")]:
+            self.assertEqual(metadata.get_fclk(block, port), 300.0)
+        for block, info in metadata.modinfo.items():
+            if info['type'] == 'axis_awg_tuning_v1':
+                self.assertEqual(metadata.get_fclk(block, "aclk"), 300.0)
+        self.assertEqual(int(metadata.get_param(ddr_path, "DEFAULT_TRIGGER_DELAY_CYCLES")), 8677)
+        self.assertEqual(int(metadata.get_param(ddr_path, "TRIGGER_QUEUE_ADDR_WIDTH")), 6)
+        ddr = make_rate_detection_ddr(ddr_path)
+        ddr._configure_fir_capture_path(types.SimpleNamespace(metadata=metadata))
+        self.assertNotIn("fir_detect_error", ddr.cfg)
+        self.assertFalse(ddr.cfg["fir_trigger_aligned"])
+        self.assertTrue(ddr.cfg["filter_state_continuous"])
+        self.assertFalse(ddr.cfg["fir_decimation_phase_reset_on_trigger"])
+        self.assertNotIn("fir_capture_min_trigger_spacing_us", ddr.cfg)
 
 
 class TestQickSocFirRateApi(unittest.TestCase):

@@ -1,0 +1,382 @@
+{
+  "created_utc": "2026-09-10T08:21:49.262153+00:00",
+  "build_directory": "C:/JeonghyunPark/Workspace/Vivado_Output/q64a",
+  "vivado": "2023.1",
+  "part": "xczu49dr-ffvf1760-2-e",
+  "format": {
+    "sample_rate_hz": 1000000,
+    "dtype": "signed int64",
+    "components": [
+      "I",
+      "Q"
+    ],
+    "bits_per_iq": 128,
+    "integer_scale_log2": 46,
+    "trigger_delay_cycles": 8712
+  },
+  "build_result": {
+    "synthesis_status": "synth_design Complete!",
+    "implementation_status": "write_bitstream Complete!",
+    "implementation_retried": "YES",
+    "setup_wns_ns": "0.019190",
+    "setup_tns_ns": "0.000000",
+    "hold_whs_ns": "0.009340",
+    "hold_ths_ns": "0.000000",
+    "timing_closed": "YES",
+    "bitstream": "C:/JeonghyunPark/Workspace/Vivado_Output/q64a/bitstream.bit",
+    "xsa": "C:/JeonghyunPark/Workspace/Vivado_Output/q64a/bitstream.xsa",
+    "hwh": "C:/JeonghyunPark/Workspace/Vivado_Output/q64a/bitstream.hwh"
+  },
+  "artifacts": [
+    {
+      "path": "bitstream.bit",
+      "bytes": 34437473,
+      "sha256": "690986d19a6bcebe7120c8404b91d5322f8582c016a6504212c50f31403458ea"
+    },
+    {
+      "path": "bitstream.hwh",
+      "bytes": 2609349,
+      "sha256": "a225b07e9156686f02f694732a5b10b760fe8cdc9ac60e11b6d1cd982f242e88"
+    },
+    {
+      "path": "bitstream.xsa",
+      "bytes": 18788835,
+      "sha256": "aa5897b1e1f2385a6a17951a4ad8ff5775475e7cc5c7fced93c30eaec68a720a"
+    }
+  ],
+  "xsa_contains_matching_bitstream": true,
+  "qick_branch": "codex/qstl-fir-1msps-v2",
+  "qick_base_commit": "6925f8c03d9b03fd4c2fd439ab472034be42b72b",
+  "gui_branch": "farbod/feature/qcs",
+  "gui_base_commit": "f80a0bda0bd48069a6982cfd37d0e90b1cb9c71f",
+  "qick_sources": [
+    {
+      "path": "qick/firmware/ip/axis_buffer_ddr_sample_v3/component.xml",
+      "bytes": 71404,
+      "sha256": "63cdaf422ffa578ccde97e2d8093b40692eee01c6172d5cb94777da5b3c54679"
+    },
+    {
+      "path": "qick/firmware/ip/axis_buffer_ddr_sample_v3/src/axis_buffer_ddr_sample_v3.sv",
+      "bytes": 35401,
+      "sha256": "6a2c1667cdc77846d2cd4558f31e6a203b28092be930a8c388cad91c65456544"
+    },
+    {
+      "path": "qick/firmware/ip/axis_buffer_ddr_sample_v3/src/tb_axis_buffer_ddr_sample_v3.sv",
+      "bytes": 33592,
+      "sha256": "2ca5944bcaafd3e4290d14cdded818f368c3d570a60824d631ca09196a5cc2fe"
+    },
+    {
+      "path": "qick/firmware/ip/axis_buffer_ddr_sample_v3/xgui/axis_buffer_ddr_sample_v3_v1_0.tcl",
+      "bytes": 4821,
+      "sha256": "941d4459ec18f164b178c09d5fafaccf6b3461fd54ff484d2492d4afefc47011"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/component.xml",
+      "bytes": 28463,
+      "sha256": "0063de713e9a83ed922fcf7cf34a9599741e012ee3af268916fd1435bfa9cf92"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/scripts/verify_full_precision.py",
+      "bytes": 7782,
+      "sha256": "49233f5a7b6c05623e85004c38a8d0a6f2139036faf785dd442f0ec58f36a9b0"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/src/axis_fir_decim_300to1_v2.sv",
+      "bytes": 4273,
+      "sha256": "abcb0e5b653c06bd85539a644a738011243cc0dad5e089f11010392eb6514d99"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/src/axis_fir_decim_full_precision_stage.sv",
+      "bytes": 4912,
+      "sha256": "e43859dc6c79b365e549ace0f513d3ba6d1f93d0986bf6a8f8a9c3e5e760f586"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/src/fir_decim_300to1_v2_coeffs_pkg.sv",
+      "bytes": 19256,
+      "sha256": "0157ca197bcf98a33d37b22320338c595fff58523472343a50d53c18bf73d10f"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/src/tb_axis_fir_decim_300to1_v2.sv",
+      "bytes": 4392,
+      "sha256": "ba2feb2d7be22367d64fc4cc1141d54ceb96cd43d8739e3854642eaed3dbfcac"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/xgui/axis_fir_decim_300to1_v2_v1_0.tcl",
+      "bytes": 5171,
+      "sha256": "0b2896fa97bdf6e66fa0141ae7121f14a8e1572adf97443d7d10c3f862818e18"
+    },
+    {
+      "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64/bd_2023-1.tcl",
+      "bytes": 178454,
+      "sha256": "06428ed00ae2011dec0f2627d7176d73bbffc8c0854ede97e1fc9291cb306007"
+    },
+    {
+      "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64/build_vivado_2023_1_run5.tcl",
+      "bytes": 10229,
+      "sha256": "2a868ad12cb5dba5eaa4b7d75440d991272cd34130634025d71089c651550e75"
+    },
+    {
+      "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64/ios.xdc",
+      "bytes": 13413,
+      "sha256": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7"
+    },
+    {
+      "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64/proj.tcl",
+      "bytes": 2150,
+      "sha256": "56a7bf87527958a0ed17577352044d3087cafb4917434a06105801e3e988d127"
+    },
+    {
+      "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64/resume_vivado_2023_1_impl_run5.tcl",
+      "bytes": 5978,
+      "sha256": "858ce6299dff942f01ac3e51bc84a01a97339649f205412d7390b90b7e90132a"
+    },
+    {
+      "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64/run_xsim.tcl",
+      "bytes": 1963,
+      "sha256": "262c61c90cca7b5c25b4f61e7a7bad55aaa58451e53147cd896297341e77f8e1"
+    },
+    {
+      "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64/tb_fir_ddr_1msps_iq64.sv",
+      "bytes": 6655,
+      "sha256": "13212359eea9a8cc9a9c30cd0b27a3a147266732b1353ad4e7721b7abc81744f"
+    },
+    {
+      "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64/timing.xdc",
+      "bytes": 3294,
+      "sha256": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb"
+    },
+    {
+      "path": "qick/qick_lib/qick/drivers/readout.py",
+      "bytes": 97528,
+      "sha256": "0990902468eb4e7ecd5f2d67394efbba37e08813bebe020e56a372370f99eabb"
+    },
+    {
+      "path": "qick/qick_lib/qick/ip.py",
+      "bytes": 23175,
+      "sha256": "6e3a081c493488028fb752917404757d1e16b518777a4099fae030bf89a2c4b7"
+    },
+    {
+      "path": "qick/qick_lib/qick/qick.py",
+      "bytes": 88622,
+      "sha256": "59b79808eb58bdb4f43a47a99bc0d297216a5ea7843048ce11ff5b450ed428db"
+    },
+    {
+      "path": "qick/qick_lib/qick/test_ddr_iq64_support.py",
+      "bytes": 4637,
+      "sha256": "9100a84a83b9509db0ff35021184418a9360803b071912a39b068d6845d5fb05"
+    },
+    {
+      "path": "qick/qick_lib/qick/test_ddr_triggered_pack_support.py",
+      "bytes": 24705,
+      "sha256": "709af7b96bad22a6ce8d898578b8e98c0dd8d09ff3f49a350c82d086c207c99d"
+    }
+  ],
+  "gui_sources": [
+    {
+      "path": "DCWaveformGeneratorGUI/DCWaveform_Generator.py",
+      "bytes": 897357,
+      "sha256": "9224141c9a95db72f17b8c4c421b7c61c1e8546469a8c14a0f97e0b7948d9453"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/FIR_DDR_IQ64.md",
+      "bytes": 2736,
+      "sha256": "7c2bdef6ec5022a49ebb5b35c1e13706acd1430c1762819332aa7beb7184cdcc"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/awg_sweep_map.py",
+      "bytes": 70372,
+      "sha256": "c4bd0f88294051d2d81bdd23116683efac650ab929b6ce955ccbbd8b2e7b2135"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/dc_voltage_calibration.py",
+      "bytes": 27116,
+      "sha256": "401372975e29a06b9267330b3c8caaacd10126e10fb7556664e0aeeb9d471f65"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/ddr_memory_usage.py",
+      "bytes": 4878,
+      "sha256": "653cb19c542e137b18d05ae8777e694389999e85fa9387d48c091ca728f11ca1"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/fir_ddr_profile.py",
+      "bytes": 14160,
+      "sha256": "faa4f9d9e21634b84ba6feb14bb86356b5e4aa07037d6c050294aa2ae3538461"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/noise_acquisition.py",
+      "bytes": 13600,
+      "sha256": "01cb0dfcf20a60f3da0d18c13e15b2629d8003048d78a0a2ca2e627adad49b01"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/noise_analysis.py",
+      "bytes": 80470,
+      "sha256": "e39666cb8f4c4fecf52bc4cf60ee437896bbe3cadcc8d2deb1ee96c6f9c7d174"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/qick_fine_tune_sweep.py",
+      "bytes": 285298,
+      "sha256": "8c8208ee4f171f0ef429f34446f56df6b3bb1bbef39c5fade7cc878266a19754"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/qick_front_panel.py",
+      "bytes": 52882,
+      "sha256": "eb00be8540e68974bf7ac7e0b3757a13a8e9adde30421b7e12cc5070754516e7"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/qick_qcodes_experiment.py",
+      "bytes": 93415,
+      "sha256": "e381c0c027fe380a1d2161e389022f96845ddff7517b54cb1e67353ed1932ebb"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/qick_sparameter_sweep.py",
+      "bytes": 127972,
+      "sha256": "212e25e19404ba1065f3ed1aa54cd7e9b15d7a1107373629dfe3e5cd1b1395dd"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/stability_diagram.py",
+      "bytes": 228599,
+      "sha256": "07e4513b73a69305b5f332e66dbd0c9afc44353ee88633af62c6f7c647661703"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_iq64_format.py",
+      "bytes": 7935,
+      "sha256": "aece1b71cbc011184205e3bde412721a239bc4cfa525724f25cca8f02c11f1ea"
+    }
+  ],
+  "simulation_vectors": [
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/vectors/counts.txt",
+      "bytes": 22,
+      "sha256": "1ecbc26d22f8de6f963e0b305936d8a5c3e8a5c0db326128278e6ba26ce3ea82"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/vectors/input.hex",
+      "bytes": 3300000,
+      "sha256": "77d858b4a1d02ffe3235cc84178a417909b4cd732de703d3faa0ee12a508e66b"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/vectors/low_power_and_error.png",
+      "bytes": 209032,
+      "sha256": "6a6f1d095fb3aa8906018af51a8b4c6730d9b1102f524345234c0a6565af12fa"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/vectors/precision_comparison.png",
+      "bytes": 148075,
+      "sha256": "dcf79aa7de4ffead7f22565149cf75d6950d393b14afdcd8f20e930d42ec43ab"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/vectors/reference_report.json",
+      "bytes": 3816,
+      "sha256": "793cb565b5e9b2a137ab7adb232f804ce69b17b6ac382bf7aa596b394a4a016e"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/vectors/stage0.hex",
+      "bytes": 627000,
+      "sha256": "de8882c2bb86acd59c6bd51b1ead35dd1e725e53b240a9e0d7082071851e62e2"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/vectors/stage1.hex",
+      "bytes": 92400,
+      "sha256": "02a79d1da4c9b7ab7ed97a9e08376ab5bdf3689831dffe09a463e6a7ab2ed809"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/vectors/stage2.hex",
+      "bytes": 40700,
+      "sha256": "7fd0c66d837924ccf4afe398c2c20ecb2b142381def86f848982c6a4a3b456f1"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/vectors/stored.hex",
+      "bytes": 37400,
+      "sha256": "9bc19350a5c2f7d1dfa08cb5e52f75ab24602a4f7a94be71d15ff2014a1d5fa5"
+    }
+  ],
+  "validation_files": [
+    {
+      "path": "validation_reports/build_result.txt",
+      "bytes": 428,
+      "sha256": "0c21d3d90186fdbba6ac55c01bc19b414b054d364c6d9e2746f664f6096daf33"
+    },
+    {
+      "path": "validation_reports/bus_skew_postroute.rpt",
+      "bytes": 235656,
+      "sha256": "b031de3aa5537ce513d078ff669c71dd6fc2e263cbfc8244941948ae3261a6f3"
+    },
+    {
+      "path": "validation_reports/drc_postroute.rpt",
+      "bytes": 1707771,
+      "sha256": "1a9e21cbfd42a23960903b3223353d4700313c0b06678cf811599746c10875c0"
+    },
+    {
+      "path": "validation_reports/implementation_retry.txt",
+      "bytes": 171,
+      "sha256": "df48057b2b94a90fec3a09fa5c8800b9165ce14f3e034c58da231f26d5c391a4"
+    },
+    {
+      "path": "validation_reports/iq64_analysis_tests.log",
+      "bytes": 183,
+      "sha256": "0a7a3ee01234ba653b9481a8272c43c30dc6996cff32f7dd5c83cda624ded406"
+    },
+    {
+      "path": "validation_reports/iq64_final_sim_console.log",
+      "bytes": 12133,
+      "sha256": "6f66a0b65b152c988be1f1df4fcfae35d0bf67eb3d04cccf5fa7d663279b42cb"
+    },
+    {
+      "path": "validation_reports/iq64_gui_tests.log",
+      "bytes": 279,
+      "sha256": "2a2844a82ca221ad57802ee52c03c0d6b0117a99c3d8276bc256cb108e5ea967"
+    },
+    {
+      "path": "validation_reports/iq64_hwh_metadata.json",
+      "bytes": 2142,
+      "sha256": "de3246bcdb9ebbcf305abb575aeaa6d842d85345bf8312505b4e72d5b156e2b7"
+    },
+    {
+      "path": "validation_reports/iq64_noise_final_tests.log",
+      "bytes": 101,
+      "sha256": "571c1611140ff95feb9eb7f4c9f9635cbd5aeeff31c260f03ffb5ba3882ed0f4"
+    },
+    {
+      "path": "validation_reports/methodology_postroute.rpt",
+      "bytes": 175886,
+      "sha256": "995a03de41c4cd1ff773c3d465973c360f426a9363cf01c4b51f8d92981a6f10"
+    },
+    {
+      "path": "validation_reports/route_status_postroute.rpt",
+      "bytes": 651,
+      "sha256": "d5aab9b5f76e286037458e8859f6b4938a2a1d3e5a8b6ed9f711d499f5a54704"
+    },
+    {
+      "path": "validation_reports/timing_paths_postroute.rpt",
+      "bytes": 7693694,
+      "sha256": "186af3faf104d6c6c7eedadfa5a6d9c4df3346e0028212368fbc9f5b01dddf70"
+    },
+    {
+      "path": "validation_reports/timing_summary_postroute.rpt",
+      "bytes": 288978,
+      "sha256": "6651f709cf7947f3f37e8f658990e3d66627f860b6075b5d846f114def3a4fab"
+    },
+    {
+      "path": "validation_reports/utilization_hierarchical_postroute.rpt",
+      "bytes": 4280188,
+      "sha256": "96da647a9b0b8d417694ad84577427e51a41c2983c314ee0c63054e5874ab3fc"
+    },
+    {
+      "path": "validation_reports/utilization_postroute.rpt",
+      "bytes": 21746,
+      "sha256": "8a7b64ec392c27e960641de29d2d712b86217c06114f2e67ecf366d257cc79b4"
+    }
+  ],
+  "physical_board_tested": false,
+  "xsa_contains_matching_hwh": true,
+  "artifact_extraction": {
+    "source": "bitstream.xsa",
+    "members": {
+      "bitstream.bit": "bitstream.bit",
+      "bitstream.hwh": "d_1.hwh"
+    },
+    "verification": "BIT and top-level HWH extracted directly and verified byte for byte",
+    "git_line_endings": "bitstream.* files use -text to preserve archive bytes"
+  },
+  "source_hash_basis": "Original build/validation-machine file bytes; Git newline conversion may change text hashes."
+}

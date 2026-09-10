@@ -123,6 +123,7 @@ AXIS_PASS_THROUGH_BACK = {
     "axis_resampler_2x1_v1": "s_axis",
     "axis_triggered_pack_32to256_v1": "S_AXIS",
     "axis_fir_decim_300to1_v1": "s_axis",
+    "axis_fir_decim_300to1_v2": "s_axis",
     "axis_notch_decim_1m_to50k_v1": "s_axis",
 }
 
@@ -132,6 +133,7 @@ AXIS_PASS_THROUGH_FORWARD = {
     "axis_register_slice": "M_AXIS",
     "axis_triggered_pack_32to256_v1": "M_AXIS",
     "axis_fir_decim_300to1_v1": "m_axis",
+    "axis_fir_decim_300to1_v2": "m_axis",
     "axis_notch_decim_1m_to50k_v1": "m_axis",
 }
 

@@ -1,0 +1,111 @@
+{
+  "input": "synthetic post-QICK int16 IQ; adjacent-code density for sub-LSB means",
+  "power_label_basis": "nominal I amplitude: 32767 * 10**(dBm/20); Q=-I/10",
+  "bounds": [
+    {
+      "width": 34,
+      "absolute_bound": 5429395456,
+      "coefficient_l1": 165692
+    },
+    {
+      "width": 51,
+      "absolute_bound": 984881476927488,
+      "coefficient_l1": 181398
+    },
+    {
+      "width": 69,
+      "absolute_bound": 258403353101465026560,
+      "coefficient_l1": 262370
+    }
+  ],
+  "dc_gain": 0.9999999983701642,
+  "input_count": 330000,
+  "stage_counts": [
+    33000,
+    3300,
+    1100
+  ],
+  "integer_storage_bits_per_lane": 64,
+  "maximum_final_error_input_codes": 7.105427357601002e-15,
+  "intermediate_removed_bits": 0,
+  "final_removed_bits": 5,
+  "cases": [
+    {
+      "case": "measurement_scale",
+      "input_mean_i": -33.0,
+      "input_mean_q": 3.0,
+      "exact_reference_mean_i_input_codes": -32.99999994621542,
+      "exact_reference_mean_q_input_codes": 2.999999995110493,
+      "new_mean_i_input_codes": -32.999999946215425,
+      "new_mean_q_input_codes": 2.9999999951104996,
+      "old_mean_i_input_codes": -33.0,
+      "old_mean_q_input_codes": 3.0
+    },
+    {
+      "case": "sub_lsb",
+      "input_mean_i": -0.33,
+      "input_mean_q": 0.03,
+      "exact_reference_mean_i_input_codes": -0.32999998512655265,
+      "exact_reference_mean_q_input_codes": 0.029999362073883873,
+      "new_mean_i_input_codes": -0.32999998512654827,
+      "new_mean_q_input_codes": 0.02999936207388032,
+      "old_mean_i_input_codes": 0.0,
+      "old_mean_q_input_codes": 0.0
+    },
+    {
+      "case": "very_weak",
+      "input_mean_i": -0.0033,
+      "input_mean_q": 0.0003,
+      "exact_reference_mean_i_input_codes": -0.003299965130692133,
+      "exact_reference_mean_q_input_codes": 0.0002689630740245974,
+      "new_mean_i_input_codes": -0.003299965130692044,
+      "new_mean_q_input_codes": 0.00026896307402410005,
+      "old_mean_i_input_codes": 0.0,
+      "old_mean_q_input_codes": 0.0
+    },
+    {
+      "case": "-60_dBm",
+      "input_mean_i": -32.767,
+      "input_mean_q": 3.2767000000000004,
+      "exact_reference_mean_i_input_codes": -32.7669997136707,
+      "exact_reference_mean_q_input_codes": 3.276700339067352,
+      "new_mean_i_input_codes": -32.7669997136707,
+      "new_mean_q_input_codes": 3.276700339067352,
+      "old_mean_i_input_codes": -33.0,
+      "old_mean_q_input_codes": 3.0
+    },
+    {
+      "case": "-70_dBm",
+      "input_mean_i": -10.361835209073728,
+      "input_mean_q": 1.0361835209073729,
+      "exact_reference_mean_i_input_codes": -10.361834883978629,
+      "exact_reference_mean_q_input_codes": 1.0361832820313948,
+      "new_mean_i_input_codes": -10.36183488397863,
+      "new_mean_q_input_codes": 1.0361832820313952,
+      "old_mean_i_input_codes": -10.0,
+      "old_mean_q_input_codes": 1.0
+    },
+    {
+      "case": "-80_dBm",
+      "input_mean_i": -3.2767,
+      "input_mean_q": 0.32767,
+      "exact_reference_mean_i_input_codes": -3.2767003216690767,
+      "exact_reference_mean_q_input_codes": 0.3276699047703479,
+      "new_mean_i_input_codes": -3.276700321669078,
+      "new_mean_q_input_codes": 0.3276699047703477,
+      "old_mean_i_input_codes": -3.0,
+      "old_mean_q_input_codes": 0.0
+    },
+    {
+      "case": "-90_dBm",
+      "input_mean_i": -1.0361835209073729,
+      "input_mean_q": 0.10361835209073729,
+      "exact_reference_mean_i_input_codes": -1.0361832820313948,
+      "exact_reference_mean_q_input_codes": 0.10361844123810976,
+      "new_mean_i_input_codes": -1.0361832820313952,
+      "new_mean_q_input_codes": 0.1036184412381101,
+      "old_mean_i_input_codes": -1.0,
+      "old_mean_q_input_codes": 0.0
+    }
+  ]
+}

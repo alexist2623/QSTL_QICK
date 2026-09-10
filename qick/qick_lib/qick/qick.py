@@ -1929,8 +1929,11 @@ class QickSoc(Overlay, QickConfig):
     def get_ddr4_samples(self, n_samples, n_triggers=1, start=0, stride_bytes=None):
         """Read back sample-count based DDR4 capture.
 
-        This API is available for firmware using AxisBufferDdrSampleV1 or V2.
-        It trims the zero padding inserted at the end of each trigger event.
+        This API supports sample-buffer V1/V2 (signed int16 I/Q) and V3
+        (signed int64 I/Q), selected from the loaded IP. Counts are IQ pairs;
+        start is a physical uint32 word offset. Per-trigger padding is removed.
+        No scale conversion is applied. See ddr4_buf['iq_scale_log2'] to convert
+        a copy to input-code units for analysis.
         """
         if not self.ddr4_buf.cfg.get('sample_capture', False):
             raise RuntimeError("get_ddr4_samples() requires AxisBufferDdrSampleV1 or V2 firmware.")
@@ -1943,7 +1946,11 @@ class QickSoc(Overlay, QickConfig):
 
     # Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
     def get_ddr4_fir_samples(self, n_samples, n_triggers=1, start=0, stride_bytes=None):
-        """Read post-FIR DDR4 samples captured by arm_ddr4_fir_samples()."""
+        """Read raw integer IQ; dtype is int16 on V1/V2 and int64 on V3.
+
+        ``n_samples`` counts IQ pairs and ``start`` counts physical uint32 words.
+        V3 values are stored integers; no floating-point conversion is applied.
+        """
         if not self.ddr4_buf.cfg.get('sample_capture', False):
             raise RuntimeError("get_ddr4_fir_samples() requires AxisBufferDdrSampleV1 or V2 firmware.")
         if not self.ddr4_buf.cfg.get('fir_enabled', False):
