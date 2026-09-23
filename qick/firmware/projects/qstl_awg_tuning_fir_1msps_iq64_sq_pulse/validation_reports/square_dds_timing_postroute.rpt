@@ -1,0 +1,1482 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2023.1 (win64) Build 3865809 Sun May  7 15:05:29 MDT 2023
+| Date              : Wed Sep 23 03:25:18 2026
+| Host              : DESKTOP-SU4R45B running 64-bit major release  (build 9200)
+| Command           : report_timing -from [get_cells -hier -filter {IS_SEQUENTIAL && NAME =~ *axis_square_pulse_v1_0*}] -to [get_cells -hier -filter {IS_SEQUENTIAL && NAME =~ *axis_square_pulse_v1_0*}] -max_paths 20 -file C:/JeonghyunPark/Workspace/Vivado_Output/sq3/square_dds_timing_postroute.rpt
+| Design            : d_1_wrapper
+| Device            : xczu49dr-ffvf1760
+| Speed File        : -2  PRODUCTION 1.32 01-31-2021
+| Design State      : Routed
+| Temperature Grade : E
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.916ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg[5]/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][13]/D
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.575ns  (logic 0.469ns (18.214%)  route 2.106ns (81.786%))
+  Logic Levels:           3  (LUT2=1 LUT6=2)
+  Clock Path Skew:        0.168ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.192ns = ( 7.525 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.657ns
+    Clock Pessimism Removal (CPR):    0.633ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.208ns (routing 1.638ns, distribution 1.570ns)
+  Clock Net Delay (Destination): 3.129ns (routing 1.490ns, distribution 1.639ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.208     4.657    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X69Y367        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg[5]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y367        FDRE (Prop_GFF_SLICEM_C_Q)
+                                                      0.078     4.735 f  d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg[5]/Q
+                         net (fo=5, routed)           1.732     6.467    d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg_n_0_[5]
+    SLICE_X110Y365       LUT6 (Prop_E6LUT_SLICEM_I4_O)
+                                                      0.124     6.591 r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][12]_i_2/O
+                         net (fo=6, routed)           0.229     6.820    d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][12]_i_2_n_0
+    SLICE_X112Y363       LUT6 (Prop_G6LUT_SLICEM_I2_O)
+                                                      0.150     6.970 r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][15]_i_2/O
+                         net (fo=3, routed)           0.112     7.081    d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][15]_i_2_n_0
+    SLICE_X113Y363       LUT2 (Prop_F5LUT_SLICEM_I0_O)
+                                                      0.117     7.198 r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][13]_i_1/O
+                         net (fo=1, routed)           0.034     7.232    d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][13]_i_1_n_0
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][13]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.129     7.525    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][13]/C
+                         clock pessimism              0.633     8.159    
+                         clock uncertainty           -0.035     8.123    
+    SLICE_X113Y363       FDRE (Setup_FFF2_SLICEM_C_D)
+                                                      0.025     8.148    d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][13]
+  -------------------------------------------------------------------
+                         required time                          8.148    
+                         arrival time                          -7.232    
+  -------------------------------------------------------------------
+                         slack                                  0.916    
+
+Slack (MET) :             0.947ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/mute_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/D
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.117ns  (logic 0.189ns (8.928%)  route 1.928ns (91.072%))
+  Logic Levels:           1  (LUT5=1)
+  Clock Path Skew:        -0.258ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    3.940ns = ( 7.273 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.739ns
+    Clock Pessimism Removal (CPR):    0.542ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.290ns (routing 1.638ns, distribution 1.652ns)
+  Clock Net Delay (Destination): 2.876ns (routing 1.490ns, distribution 1.386ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.290     4.739    d_1_i/axis_square_pulse_v1_0/inst/aclk
+    SLICE_X85Y253        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/mute_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X85Y253        FDRE (Prop_DFF_SLICEL_C_Q)
+                                                      0.079     4.818 f  d_1_i/axis_square_pulse_v1_0/inst/mute_reg/Q
+                         net (fo=1, routed)           1.623     6.441    d_1_i/axis_square_pulse_v1_0/inst/dds/mute
+    SLICE_X73Y354        LUT5 (Prop_D5LUT_SLICEL_I4_O)
+                                                      0.110     6.551 r  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_i_1/O
+                         net (fo=1, routed)           0.305     6.856    d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_i_1_n_0
+    SLICE_X73Y354        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      2.876     7.273    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X73Y354        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+                         clock pessimism              0.542     7.814    
+                         clock uncertainty           -0.035     7.779    
+    SLICE_X73Y354        FDRE (Setup_GFF2_SLICEL_C_D)
+                                                      0.025     7.804    d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg
+  -------------------------------------------------------------------
+                         required time                          7.804    
+                         arrival time                          -6.856    
+  -------------------------------------------------------------------
+                         slack                                  0.947    
+
+Slack (MET) :             0.953ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg[5]/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][14]/D
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.538ns  (logic 0.405ns (15.958%)  route 2.133ns (84.042%))
+  Logic Levels:           3  (LUT3=1 LUT6=2)
+  Clock Path Skew:        0.168ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.192ns = ( 7.525 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.657ns
+    Clock Pessimism Removal (CPR):    0.633ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.208ns (routing 1.638ns, distribution 1.570ns)
+  Clock Net Delay (Destination): 3.129ns (routing 1.490ns, distribution 1.639ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.208     4.657    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X69Y367        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg[5]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y367        FDRE (Prop_GFF_SLICEM_C_Q)
+                                                      0.078     4.735 f  d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg[5]/Q
+                         net (fo=5, routed)           1.732     6.467    d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg_n_0_[5]
+    SLICE_X110Y365       LUT6 (Prop_E6LUT_SLICEM_I4_O)
+                                                      0.124     6.591 r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][12]_i_2/O
+                         net (fo=6, routed)           0.229     6.820    d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][12]_i_2_n_0
+    SLICE_X112Y363       LUT6 (Prop_G6LUT_SLICEM_I2_O)
+                                                      0.150     6.970 r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][15]_i_2/O
+                         net (fo=3, routed)           0.115     7.084    d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][15]_i_2_n_0
+    SLICE_X113Y363       LUT3 (Prop_H6LUT_SLICEM_I1_O)
+                                                      0.053     7.137 r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][14]_i_1/O
+                         net (fo=1, routed)           0.058     7.195    d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][14]_i_1_n_0
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][14]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.129     7.525    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][14]/C
+                         clock pessimism              0.633     8.159    
+                         clock uncertainty           -0.035     8.123    
+    SLICE_X113Y363       FDRE (Setup_HFF_SLICEM_C_D)
+                                                      0.025     8.148    d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][14]
+  -------------------------------------------------------------------
+                         required time                          8.148    
+                         arrival time                          -7.195    
+  -------------------------------------------------------------------
+                         slack                                  0.953    
+
+Slack (MET) :             0.963ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][7]/R
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.348ns  (logic 0.147ns (6.261%)  route 2.201ns (93.739%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.087ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.189ns = ( 7.522 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.662ns
+    Clock Pessimism Removal (CPR):    0.560ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.213ns (routing 1.638ns, distribution 1.575ns)
+  Clock Net Delay (Destination): 3.126ns (routing 1.490ns, distribution 1.636ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.213     4.662    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X73Y354        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y354        FDRE (Prop_GFF2_SLICEL_C_Q)
+                                                      0.081     4.743 f  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/Q
+                         net (fo=3, routed)           0.365     5.108    d_1_i/axis_square_pulse_v1_0/inst/dds/D[0]
+    SLICE_X78Y354        LUT2 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.066     5.174 r  d_1_i/axis_square_pulse_v1_0/inst/dds/positive[0][14]_i_1/O
+                         net (fo=26, routed)          1.836     7.010    d_1_i/axis_square_pulse_v1_0/inst/dds/negative
+    SLICE_X110Y366       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][7]/R
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.126     7.523    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X110Y366       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][7]/C
+                         clock pessimism              0.560     8.082    
+                         clock uncertainty           -0.035     8.047    
+    SLICE_X110Y366       FDRE (Setup_DFF_SLICEM_C_R)
+                                                     -0.074     7.973    d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][7]
+  -------------------------------------------------------------------
+                         required time                          7.973    
+                         arrival time                          -7.010    
+  -------------------------------------------------------------------
+                         slack                                  0.963    
+
+Slack (MET) :             0.977ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][10]/R
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.325ns  (logic 0.147ns (6.323%)  route 2.178ns (93.677%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.079ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.181ns = ( 7.514 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.662ns
+    Clock Pessimism Removal (CPR):    0.560ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.213ns (routing 1.638ns, distribution 1.575ns)
+  Clock Net Delay (Destination): 3.118ns (routing 1.490ns, distribution 1.628ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.213     4.662    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X73Y354        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y354        FDRE (Prop_GFF2_SLICEL_C_Q)
+                                                      0.081     4.743 f  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/Q
+                         net (fo=3, routed)           0.365     5.108    d_1_i/axis_square_pulse_v1_0/inst/dds/D[0]
+    SLICE_X78Y354        LUT2 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.066     5.174 r  d_1_i/axis_square_pulse_v1_0/inst/dds/positive[0][14]_i_1/O
+                         net (fo=26, routed)          1.813     6.987    d_1_i/axis_square_pulse_v1_0/inst/dds/negative
+    SLICE_X112Y365       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][10]/R
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.118     7.514    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X112Y365       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][10]/C
+                         clock pessimism              0.560     8.074    
+                         clock uncertainty           -0.035     8.039    
+    SLICE_X112Y365       FDRE (Setup_DFF_SLICEM_C_R)
+                                                     -0.074     7.965    d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][10]
+  -------------------------------------------------------------------
+                         required time                          7.965    
+                         arrival time                          -6.987    
+  -------------------------------------------------------------------
+                         slack                                  0.977    
+
+Slack (MET) :             0.977ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][11]/R
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.325ns  (logic 0.147ns (6.323%)  route 2.178ns (93.677%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.079ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.181ns = ( 7.514 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.662ns
+    Clock Pessimism Removal (CPR):    0.560ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.213ns (routing 1.638ns, distribution 1.575ns)
+  Clock Net Delay (Destination): 3.118ns (routing 1.490ns, distribution 1.628ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.213     4.662    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X73Y354        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y354        FDRE (Prop_GFF2_SLICEL_C_Q)
+                                                      0.081     4.743 f  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/Q
+                         net (fo=3, routed)           0.365     5.108    d_1_i/axis_square_pulse_v1_0/inst/dds/D[0]
+    SLICE_X78Y354        LUT2 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.066     5.174 r  d_1_i/axis_square_pulse_v1_0/inst/dds/positive[0][14]_i_1/O
+                         net (fo=26, routed)          1.813     6.987    d_1_i/axis_square_pulse_v1_0/inst/dds/negative
+    SLICE_X112Y365       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][11]/R
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.118     7.514    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X112Y365       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][11]/C
+                         clock pessimism              0.560     8.074    
+                         clock uncertainty           -0.035     8.039    
+    SLICE_X112Y365       FDRE (Setup_DFF2_SLICEM_C_R)
+                                                     -0.074     7.965    d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][11]
+  -------------------------------------------------------------------
+                         required time                          7.965    
+                         arrival time                          -6.987    
+  -------------------------------------------------------------------
+                         slack                                  0.977    
+
+Slack (MET) :             0.977ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][12]/R
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.325ns  (logic 0.147ns (6.323%)  route 2.178ns (93.677%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.079ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.181ns = ( 7.514 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.662ns
+    Clock Pessimism Removal (CPR):    0.560ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.213ns (routing 1.638ns, distribution 1.575ns)
+  Clock Net Delay (Destination): 3.118ns (routing 1.490ns, distribution 1.628ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.213     4.662    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X73Y354        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y354        FDRE (Prop_GFF2_SLICEL_C_Q)
+                                                      0.081     4.743 f  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/Q
+                         net (fo=3, routed)           0.365     5.108    d_1_i/axis_square_pulse_v1_0/inst/dds/D[0]
+    SLICE_X78Y354        LUT2 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.066     5.174 r  d_1_i/axis_square_pulse_v1_0/inst/dds/positive[0][14]_i_1/O
+                         net (fo=26, routed)          1.813     6.987    d_1_i/axis_square_pulse_v1_0/inst/dds/negative
+    SLICE_X112Y365       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][12]/R
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.118     7.514    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X112Y365       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][12]/C
+                         clock pessimism              0.560     8.074    
+                         clock uncertainty           -0.035     8.039    
+    SLICE_X112Y365       FDRE (Setup_CFF_SLICEM_C_R)
+                                                     -0.074     7.965    d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][12]
+  -------------------------------------------------------------------
+                         required time                          7.965    
+                         arrival time                          -6.987    
+  -------------------------------------------------------------------
+                         slack                                  0.977    
+
+Slack (MET) :             0.980ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg[5]/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][15]/D
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.511ns  (logic 0.418ns (16.648%)  route 2.093ns (83.352%))
+  Logic Levels:           3  (LUT3=1 LUT6=2)
+  Clock Path Skew:        0.168ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.192ns = ( 7.525 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.657ns
+    Clock Pessimism Removal (CPR):    0.633ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.208ns (routing 1.638ns, distribution 1.570ns)
+  Clock Net Delay (Destination): 3.129ns (routing 1.490ns, distribution 1.639ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.208     4.657    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X69Y367        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg[5]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y367        FDRE (Prop_GFF_SLICEM_C_Q)
+                                                      0.078     4.735 r  d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg[5]/Q
+                         net (fo=5, routed)           1.732     6.467    d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg_n_0_[5]
+    SLICE_X110Y365       LUT6 (Prop_E6LUT_SLICEM_I4_O)
+                                                      0.124     6.591 f  d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][12]_i_2/O
+                         net (fo=6, routed)           0.229     6.820    d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][12]_i_2_n_0
+    SLICE_X112Y363       LUT6 (Prop_G6LUT_SLICEM_I2_O)
+                                                      0.150     6.970 f  d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][15]_i_2/O
+                         net (fo=3, routed)           0.115     7.084    d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][15]_i_2_n_0
+    SLICE_X113Y363       LUT3 (Prop_H5LUT_SLICEM_I2_O)
+                                                      0.066     7.150 r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][15]_i_1/O
+                         net (fo=1, routed)           0.018     7.168    d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][15]_i_1_n_0
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][15]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.129     7.525    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][15]/C
+                         clock pessimism              0.633     8.159    
+                         clock uncertainty           -0.035     8.123    
+    SLICE_X113Y363       FDRE (Setup_HFF2_SLICEM_C_D)
+                                                      0.025     8.148    d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][15]
+  -------------------------------------------------------------------
+                         required time                          8.148    
+                         arrival time                          -7.168    
+  -------------------------------------------------------------------
+                         slack                                  0.980    
+
+Slack (MET) :             1.061ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][13]/R
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.253ns  (logic 0.147ns (6.526%)  route 2.106ns (93.474%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.090ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.192ns = ( 7.525 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.662ns
+    Clock Pessimism Removal (CPR):    0.560ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.213ns (routing 1.638ns, distribution 1.575ns)
+  Clock Net Delay (Destination): 3.129ns (routing 1.490ns, distribution 1.639ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.213     4.662    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X73Y354        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y354        FDRE (Prop_GFF2_SLICEL_C_Q)
+                                                      0.081     4.743 f  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/Q
+                         net (fo=3, routed)           0.365     5.108    d_1_i/axis_square_pulse_v1_0/inst/dds/D[0]
+    SLICE_X78Y354        LUT2 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.066     5.174 r  d_1_i/axis_square_pulse_v1_0/inst/dds/positive[0][14]_i_1/O
+                         net (fo=26, routed)          1.741     6.915    d_1_i/axis_square_pulse_v1_0/inst/dds/negative
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][13]/R
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.129     7.525    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][13]/C
+                         clock pessimism              0.560     8.085    
+                         clock uncertainty           -0.035     8.050    
+    SLICE_X113Y363       FDRE (Setup_FFF2_SLICEM_C_R)
+                                                     -0.074     7.976    d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][13]
+  -------------------------------------------------------------------
+                         required time                          7.976    
+                         arrival time                          -6.915    
+  -------------------------------------------------------------------
+                         slack                                  1.061    
+
+Slack (MET) :             1.061ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][14]/R
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.253ns  (logic 0.147ns (6.526%)  route 2.106ns (93.474%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.090ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.192ns = ( 7.525 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.662ns
+    Clock Pessimism Removal (CPR):    0.560ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.213ns (routing 1.638ns, distribution 1.575ns)
+  Clock Net Delay (Destination): 3.129ns (routing 1.490ns, distribution 1.639ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.213     4.662    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X73Y354        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y354        FDRE (Prop_GFF2_SLICEL_C_Q)
+                                                      0.081     4.743 f  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/Q
+                         net (fo=3, routed)           0.365     5.108    d_1_i/axis_square_pulse_v1_0/inst/dds/D[0]
+    SLICE_X78Y354        LUT2 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.066     5.174 r  d_1_i/axis_square_pulse_v1_0/inst/dds/positive[0][14]_i_1/O
+                         net (fo=26, routed)          1.741     6.915    d_1_i/axis_square_pulse_v1_0/inst/dds/negative
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][14]/R
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.129     7.525    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][14]/C
+                         clock pessimism              0.560     8.085    
+                         clock uncertainty           -0.035     8.050    
+    SLICE_X113Y363       FDRE (Setup_HFF_SLICEM_C_R)
+                                                     -0.074     7.976    d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][14]
+  -------------------------------------------------------------------
+                         required time                          7.976    
+                         arrival time                          -6.915    
+  -------------------------------------------------------------------
+                         slack                                  1.061    
+
+Slack (MET) :             1.061ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][15]/R
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.253ns  (logic 0.147ns (6.526%)  route 2.106ns (93.474%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.090ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.192ns = ( 7.525 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.662ns
+    Clock Pessimism Removal (CPR):    0.560ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.213ns (routing 1.638ns, distribution 1.575ns)
+  Clock Net Delay (Destination): 3.129ns (routing 1.490ns, distribution 1.639ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.213     4.662    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X73Y354        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y354        FDRE (Prop_GFF2_SLICEL_C_Q)
+                                                      0.081     4.743 f  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/Q
+                         net (fo=3, routed)           0.365     5.108    d_1_i/axis_square_pulse_v1_0/inst/dds/D[0]
+    SLICE_X78Y354        LUT2 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.066     5.174 r  d_1_i/axis_square_pulse_v1_0/inst/dds/positive[0][14]_i_1/O
+                         net (fo=26, routed)          1.741     6.915    d_1_i/axis_square_pulse_v1_0/inst/dds/negative
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][15]/R
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.129     7.525    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][15]/C
+                         clock pessimism              0.560     8.085    
+                         clock uncertainty           -0.035     8.050    
+    SLICE_X113Y363       FDRE (Setup_HFF2_SLICEM_C_R)
+                                                     -0.074     7.976    d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][15]
+  -------------------------------------------------------------------
+                         required time                          7.976    
+                         arrival time                          -6.915    
+  -------------------------------------------------------------------
+                         slack                                  1.061    
+
+Slack (MET) :             1.061ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][8]/R
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.253ns  (logic 0.147ns (6.526%)  route 2.106ns (93.474%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.090ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.192ns = ( 7.525 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.662ns
+    Clock Pessimism Removal (CPR):    0.560ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.213ns (routing 1.638ns, distribution 1.575ns)
+  Clock Net Delay (Destination): 3.129ns (routing 1.490ns, distribution 1.639ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.213     4.662    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X73Y354        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y354        FDRE (Prop_GFF2_SLICEL_C_Q)
+                                                      0.081     4.743 f  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/Q
+                         net (fo=3, routed)           0.365     5.108    d_1_i/axis_square_pulse_v1_0/inst/dds/D[0]
+    SLICE_X78Y354        LUT2 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.066     5.174 r  d_1_i/axis_square_pulse_v1_0/inst/dds/positive[0][14]_i_1/O
+                         net (fo=26, routed)          1.741     6.915    d_1_i/axis_square_pulse_v1_0/inst/dds/negative
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][8]/R
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.129     7.525    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][8]/C
+                         clock pessimism              0.560     8.085    
+                         clock uncertainty           -0.035     8.050    
+    SLICE_X113Y363       FDRE (Setup_GFF_SLICEM_C_R)
+                                                     -0.074     7.976    d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][8]
+  -------------------------------------------------------------------
+                         required time                          7.976    
+                         arrival time                          -6.915    
+  -------------------------------------------------------------------
+                         slack                                  1.061    
+
+Slack (MET) :             1.061ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][9]/R
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.253ns  (logic 0.147ns (6.526%)  route 2.106ns (93.474%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.090ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.192ns = ( 7.525 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.662ns
+    Clock Pessimism Removal (CPR):    0.560ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.213ns (routing 1.638ns, distribution 1.575ns)
+  Clock Net Delay (Destination): 3.129ns (routing 1.490ns, distribution 1.639ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.213     4.662    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X73Y354        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X73Y354        FDRE (Prop_GFF2_SLICEL_C_Q)
+                                                      0.081     4.743 f  d_1_i/axis_square_pulse_v1_0/inst/dds/enabled_reg/Q
+                         net (fo=3, routed)           0.365     5.108    d_1_i/axis_square_pulse_v1_0/inst/dds/D[0]
+    SLICE_X78Y354        LUT2 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.066     5.174 r  d_1_i/axis_square_pulse_v1_0/inst/dds/positive[0][14]_i_1/O
+                         net (fo=26, routed)          1.741     6.915    d_1_i/axis_square_pulse_v1_0/inst/dds/negative
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][9]/R
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.129     7.525    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][9]/C
+                         clock pessimism              0.560     8.085    
+                         clock uncertainty           -0.035     8.050    
+    SLICE_X113Y363       FDRE (Setup_GFF2_SLICEM_C_R)
+                                                     -0.074     7.976    d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][9]
+  -------------------------------------------------------------------
+                         required time                          7.976    
+                         arrival time                          -6.915    
+  -------------------------------------------------------------------
+                         slack                                  1.061    
+
+Slack (MET) :             1.090ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[38]/D
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.309ns  (logic 0.202ns (8.747%)  route 2.107ns (91.253%))
+  Logic Levels:           1  (LUT3=1)
+  Clock Path Skew:        0.077ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.173ns = ( 7.505 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.655ns
+    Clock Pessimism Removal (CPR):    0.560ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.206ns (routing 1.638ns, distribution 1.568ns)
+  Clock Net Delay (Destination): 3.109ns (routing 1.490ns, distribution 1.619ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.206     4.655    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X71Y377        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X71Y377        FDRE (Prop_GFF_SLICEL_C_Q)
+                                                      0.079     4.734 r  d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]/Q
+                         net (fo=13, routed)          2.040     6.775    d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]
+    SLICE_X115Y352       LUT3 (Prop_F6LUT_SLICEM_I1_O)
+                                                      0.123     6.898 r  d_1_i/axis_square_pulse_v1_0/inst/dds/samples[38]_i_1/O
+                         net (fo=1, routed)           0.067     6.965    d_1_i/axis_square_pulse_v1_0/inst/dds/samples[38]_i_1_n_0
+    SLICE_X115Y352       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[38]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.109     7.506    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X115Y352       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[38]/C
+                         clock pessimism              0.560     8.065    
+                         clock uncertainty           -0.035     8.030    
+    SLICE_X115Y352       FDRE (Setup_FFF_SLICEM_C_D)
+                                                      0.025     8.055    d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[38]
+  -------------------------------------------------------------------
+                         required time                          8.055    
+                         arrival time                          -6.965    
+  -------------------------------------------------------------------
+                         slack                                  1.090    
+
+Slack (MET) :             1.091ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[41]/D
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.299ns  (logic 0.226ns (9.831%)  route 2.073ns (90.169%))
+  Logic Levels:           1  (LUT3=1)
+  Clock Path Skew:        0.067ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.162ns = ( 7.495 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.655ns
+    Clock Pessimism Removal (CPR):    0.560ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.206ns (routing 1.638ns, distribution 1.568ns)
+  Clock Net Delay (Destination): 3.099ns (routing 1.490ns, distribution 1.609ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.206     4.655    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X71Y377        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X71Y377        FDRE (Prop_GFF_SLICEL_C_Q)
+                                                      0.079     4.734 r  d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]/Q
+                         net (fo=13, routed)          2.027     6.761    d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]
+    SLICE_X117Y350       LUT3 (Prop_E6LUT_SLICEL_I1_O)
+                                                      0.147     6.908 r  d_1_i/axis_square_pulse_v1_0/inst/dds/samples[41]_i_1/O
+                         net (fo=1, routed)           0.046     6.954    d_1_i/axis_square_pulse_v1_0/inst/dds/samples[41]_i_1_n_0
+    SLICE_X117Y350       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[41]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.099     7.495    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X117Y350       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[41]/C
+                         clock pessimism              0.560     8.055    
+                         clock uncertainty           -0.035     8.020    
+    SLICE_X117Y350       FDRE (Setup_EFF_SLICEL_C_D)
+                                                      0.025     8.045    d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[41]
+  -------------------------------------------------------------------
+                         required time                          8.045    
+                         arrival time                          -6.954    
+  -------------------------------------------------------------------
+                         slack                                  1.091    
+
+Slack (MET) :             1.095ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[40]/D
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.296ns  (logic 0.227ns (9.889%)  route 2.069ns (90.111%))
+  Logic Levels:           1  (LUT3=1)
+  Clock Path Skew:        0.068ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.163ns = ( 7.496 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.655ns
+    Clock Pessimism Removal (CPR):    0.560ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.206ns (routing 1.638ns, distribution 1.568ns)
+  Clock Net Delay (Destination): 3.100ns (routing 1.490ns, distribution 1.610ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.206     4.655    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X71Y377        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X71Y377        FDRE (Prop_GFF_SLICEL_C_Q)
+                                                      0.079     4.734 r  d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]/Q
+                         net (fo=13, routed)          2.018     6.752    d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]
+    SLICE_X117Y352       LUT3 (Prop_F6LUT_SLICEL_I1_O)
+                                                      0.148     6.900 r  d_1_i/axis_square_pulse_v1_0/inst/dds/samples[40]_i_1/O
+                         net (fo=1, routed)           0.051     6.951    d_1_i/axis_square_pulse_v1_0/inst/dds/samples[40]_i_1_n_0
+    SLICE_X117Y352       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[40]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.100     7.496    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X117Y352       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[40]/C
+                         clock pessimism              0.560     8.056    
+                         clock uncertainty           -0.035     8.021    
+    SLICE_X117Y352       FDRE (Setup_FFF_SLICEL_C_D)
+                                                      0.025     8.046    d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[40]
+  -------------------------------------------------------------------
+                         required time                          8.046    
+                         arrival time                          -6.951    
+  -------------------------------------------------------------------
+                         slack                                  1.095    
+
+Slack (MET) :             1.113ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[4][31]/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[79]/D
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.251ns  (logic 0.225ns (9.995%)  route 2.026ns (90.005%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.042ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.161ns = ( 7.494 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.679ns
+    Clock Pessimism Removal (CPR):    0.560ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.230ns (routing 1.638ns, distribution 1.592ns)
+  Clock Net Delay (Destination): 3.098ns (routing 1.490ns, distribution 1.608ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.230     4.679    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X72Y379        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[4][31]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X72Y379        FDRE (Prop_FFF_SLICEM_C_Q)
+                                                      0.076     4.755 r  d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[4][31]/Q
+                         net (fo=13, routed)          1.978     6.733    d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[4][31]
+    SLICE_X117Y352       LUT2 (Prop_A6LUT_SLICEL_I0_O)
+                                                      0.149     6.882 r  d_1_i/axis_square_pulse_v1_0/inst/dds/samples[79]_i_1/O
+                         net (fo=1, routed)           0.048     6.930    d_1_i/axis_square_pulse_v1_0/inst/dds/samples[79]_i_1_n_0
+    SLICE_X117Y352       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[79]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.098     7.494    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X117Y352       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[79]/C
+                         clock pessimism              0.560     8.054    
+                         clock uncertainty           -0.035     8.019    
+    SLICE_X117Y352       FDRE (Setup_AFF_SLICEL_C_D)
+                                                      0.025     8.044    d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[79]
+  -------------------------------------------------------------------
+                         required time                          8.044    
+                         arrival time                          -6.930    
+  -------------------------------------------------------------------
+                         slack                                  1.113    
+
+Slack (MET) :             1.131ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[46]/D
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.259ns  (logic 0.202ns (8.941%)  route 2.057ns (91.059%))
+  Logic Levels:           1  (LUT3=1)
+  Clock Path Skew:        0.068ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.163ns = ( 7.496 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.655ns
+    Clock Pessimism Removal (CPR):    0.560ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.206ns (routing 1.638ns, distribution 1.568ns)
+  Clock Net Delay (Destination): 3.100ns (routing 1.490ns, distribution 1.610ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.206     4.655    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X71Y377        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X71Y377        FDRE (Prop_GFF_SLICEL_C_Q)
+                                                      0.079     4.734 r  d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]/Q
+                         net (fo=13, routed)          2.006     6.740    d_1_i/axis_square_pulse_v1_0/inst/dds/lane_phase_reg[2][31]
+    SLICE_X117Y351       LUT3 (Prop_F6LUT_SLICEL_I1_O)
+                                                      0.123     6.863 r  d_1_i/axis_square_pulse_v1_0/inst/dds/samples[46]_i_1/O
+                         net (fo=1, routed)           0.051     6.914    d_1_i/axis_square_pulse_v1_0/inst/dds/samples[46]_i_1_n_0
+    SLICE_X117Y351       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[46]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.100     7.496    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X117Y351       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[46]/C
+                         clock pessimism              0.560     8.056    
+                         clock uncertainty           -0.035     8.021    
+    SLICE_X117Y351       FDRE (Setup_FFF_SLICEL_C_D)
+                                                      0.025     8.046    d_1_i/axis_square_pulse_v1_0/inst/dds/samples_reg[46]
+  -------------------------------------------------------------------
+                         required time                          8.046    
+                         arrival time                          -6.914    
+  -------------------------------------------------------------------
+                         slack                                  1.131    
+
+Slack (MET) :             1.132ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg[5]/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][8]/D
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.359ns  (logic 0.302ns (12.801%)  route 2.057ns (87.199%))
+  Logic Levels:           2  (LUT2=1 LUT6=1)
+  Clock Path Skew:        0.168ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.192ns = ( 7.525 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.657ns
+    Clock Pessimism Removal (CPR):    0.633ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.208ns (routing 1.638ns, distribution 1.570ns)
+  Clock Net Delay (Destination): 3.129ns (routing 1.490ns, distribution 1.639ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.208     4.657    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X69Y367        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg[5]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y367        FDRE (Prop_GFF_SLICEM_C_Q)
+                                                      0.078     4.735 f  d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg[5]/Q
+                         net (fo=5, routed)           1.732     6.467    d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg_n_0_[5]
+    SLICE_X110Y365       LUT6 (Prop_E6LUT_SLICEM_I4_O)
+                                                      0.124     6.591 r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][12]_i_2/O
+                         net (fo=6, routed)           0.267     6.858    d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][12]_i_2_n_0
+    SLICE_X113Y363       LUT2 (Prop_G6LUT_SLICEM_I0_O)
+                                                      0.100     6.958 r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][8]_i_1/O
+                         net (fo=1, routed)           0.059     7.017    d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][8]_i_1_n_0
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][8]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.129     7.525    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][8]/C
+                         clock pessimism              0.633     8.159    
+                         clock uncertainty           -0.035     8.123    
+    SLICE_X113Y363       FDRE (Setup_GFF_SLICEM_C_D)
+                                                      0.025     8.148    d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][8]
+  -------------------------------------------------------------------
+                         required time                          8.148    
+                         arrival time                          -7.017    
+  -------------------------------------------------------------------
+                         slack                                  1.132    
+
+Slack (MET) :             1.156ns  (required time - arrival time)
+  Source:                 d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg[5]/C
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][9]/D
+                            (rising edge-triggered cell FDRE clocked by clk_104_pl  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             clk_104_pl
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (clk_104_pl rise@3.333ns - clk_104_pl rise@0.000ns)
+  Data Path Delay:        2.335ns  (logic 0.314ns (13.446%)  route 2.021ns (86.554%))
+  Logic Levels:           2  (LUT3=1 LUT6=1)
+  Clock Path Skew:        0.168ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.192ns = ( 7.525 - 3.333 ) 
+    Source Clock Delay      (SCD):    4.657ns
+    Clock Pessimism Removal (CPR):    0.633ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+  Clock Net Delay (Source):      3.208ns (routing 1.638ns, distribution 1.570ns)
+  Clock Net Delay (Destination): 3.129ns (routing 1.490ns, distribution 1.639ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_104_pl rise edge)
+                                                      0.000     0.000 r  
+    E10                                               0.000     0.000 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     0.000    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      1.172     1.172 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.045     1.217    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     1.217 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.204     1.421    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.028     1.449 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.208     4.657    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X69Y367        FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg[5]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X69Y367        FDRE (Prop_GFF_SLICEM_C_Q)
+                                                      0.078     4.735 f  d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg[5]/Q
+                         net (fo=5, routed)           1.732     6.467    d_1_i/axis_square_pulse_v1_0/inst/dds/amplitude_reg_n_0_[5]
+    SLICE_X110Y365       LUT6 (Prop_E6LUT_SLICEM_I4_O)
+                                                      0.124     6.591 r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][12]_i_2/O
+                         net (fo=6, routed)           0.267     6.858    d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][12]_i_2_n_0
+    SLICE_X113Y363       LUT3 (Prop_G5LUT_SLICEM_I1_O)
+                                                      0.112     6.970 r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][9]_i_1/O
+                         net (fo=1, routed)           0.023     6.993    d_1_i/axis_square_pulse_v1_0/inst/dds/negative[0][9]_i_1_n_0
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][9]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_104_pl rise edge)
+                                                      3.333     3.333 r  
+    E10                                               0.000     3.333 r  CLK104_PL_CLK_P (IN)
+                         net (fo=0)                   0.000     3.333    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/I
+    HDIOBDIFFINBUF_X0Y42 DIFFINBUF (Prop_DIFFINBUF_HDIOBDIFFINBUF_DIFF_IN_P_O)
+                                                      0.837     4.170 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/DIFFINBUF_INST/O
+                         net (fo=1, routed)           0.034     4.204    d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/OUT
+    E10                  IBUFCTRL (Prop_IBUFCTRL_HDIOB_M_I_O)
+                                                      0.000     4.204 r  d_1_i/dac_clk_diff_buf/U0/USE_IBUFDS.GEN_IBUFDS[0].IBUFDS_I/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.169     4.373    d_1_i/dac_clk_buf/U0/BUFG_I[0]
+    BUFGCE_HDIO_X1Y7     BUFGCE (Prop_BUFCE_BUFGCE_HDIO_I_O)
+                                                      0.024     4.397 r  d_1_i/dac_clk_buf/U0/USE_BUFG.GEN_BUFG[0].BUFG_U/O
+    X2Y3 (CLOCK_ROOT)    net (fo=274630, routed)      3.129     7.525    d_1_i/axis_square_pulse_v1_0/inst/dds/aclk
+    SLICE_X113Y363       FDRE                                         r  d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][9]/C
+                         clock pessimism              0.633     8.159    
+                         clock uncertainty           -0.035     8.123    
+    SLICE_X113Y363       FDRE (Setup_GFF2_SLICEM_C_D)
+                                                      0.025     8.148    d_1_i/axis_square_pulse_v1_0/inst/dds/negative_reg[0][9]
+  -------------------------------------------------------------------
+                         required time                          8.148    
+                         arrival time                          -6.993    
+  -------------------------------------------------------------------
+                         slack                                  1.156    
+
+
+
+

@@ -1,0 +1,104 @@
+#-----------------------------------------------------------
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Wed Sep 23 01:04:00 2026
+# Process ID: 36536
+# Current directory: C:/JeonghyunPark/Workspace/QSTL_QICK
+# Command line: vivado.exe -mode batch -nojournal -log C:/JeonghyunPark/Workspace/Vivado_Output/sqsim3.log -source qick/firmware/ip/axis_square_pulse_v1/run_xsim.tcl -tclargs C:/JeonghyunPark/Workspace/Vivado_Output/sqsim3
+# Log file: C:/JeonghyunPark/Workspace/Vivado_Output/sqsim3.log
+# Journal file: 
+# Running On: DESKTOP-SU4R45B, OS: Windows, CPU Frequency: 3610 MHz, CPU Physical cores: 12, Host memory: 34063 MB
+#-----------------------------------------------------------
+source qick/firmware/ip/axis_square_pulse_v1/run_xsim.tcl
+# set ip_dir [file dirname [file normalize [info script]]]
+# if {$argc != 1} {error "Pass a fresh output directory"}
+# set output_dir [file normalize [lindex $argv 0]]
+# if {[file exists $output_dir]} {error "Output already exists: $output_dir"}
+# file mkdir $output_dir
+# cd $output_dir
+# proc checked {command} {
+#     if {[catch {exec {*}$command 2>@1} result]} {puts $result; error $command}
+#     puts $result
+#     return $result
+# }
+# checked [list xvlog -sv [file join $ip_dir src square_dds.sv] [file join $ip_dir src axis_square_pulse_v1.sv] [file join $ip_dir src tb_square_dds.sv] [file join $ip_dir src tb_axis_square_pulse_v1.sv]]
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_square_pulse_v1/src/square_dds.sv" into library work
+INFO: [VRFC 10-311] analyzing module square_dds
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_square_pulse_v1/src/axis_square_pulse_v1.sv" into library work
+INFO: [VRFC 10-311] analyzing module axis_square_pulse_v1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_square_pulse_v1/src/tb_square_dds.sv" into library work
+INFO: [VRFC 10-311] analyzing module tb_square_dds
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_square_pulse_v1/src/tb_axis_square_pulse_v1.sv" into library work
+INFO: [VRFC 10-311] analyzing module tb_axis_square_pulse_v1
+# foreach top {tb_square_dds tb_axis_square_pulse_v1} {
+#     checked [list xelab $top -s $top]
+#     set result [checked [list xsim $top -runall]]
+#     if {[string first "PASS:" $result] < 0 || [string first "Fatal:" $result] >= 0} {error "Square DDS regression failed: $top"}
+# }
+Vivado Simulator v2023.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: C:\Xilinx\Vivado\2023.1\bin\unwrapped\win64.o\xelab.exe tb_square_dds -s tb_square_dds 
+Multi-threading is on. Using 18 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.square_dds
+Compiling module work.tb_square_dds
+Built simulation snapshot tb_square_dds
+
+****** xsim v2023.1 (64-bit)
+  **** SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+  **** IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+  **** SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/tb_square_dds/xsim_script.tcl
+# xsim {tb_square_dds} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+PASS: square DDS, 361216 scalar samples checked
+$finish called at time : 75295056 ps : File "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_square_pulse_v1/src/tb_square_dds.sv" Line 74
+exit
+INFO: [Common 17-206] Exiting xsim at Wed Sep 23 01:04:09 2026...
+Vivado Simulator v2023.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: C:\Xilinx\Vivado\2023.1\bin\unwrapped\win64.o\xelab.exe tb_axis_square_pulse_v1 -s tb_axis_square_pulse_v1 
+Multi-threading is on. Using 18 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.square_dds
+Compiling module work.axis_square_pulse_v1
+Compiling module work.tb_axis_square_pulse_v1
+Built simulation snapshot tb_axis_square_pulse_v1
+
+****** xsim v2023.1 (64-bit)
+  **** SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+  **** IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+  **** SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/tb_axis_square_pulse_v1/xsim_script.tcl
+# xsim {tb_axis_square_pulse_v1} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+PASS: AXIS wrapper, independent AXI channels, stalls, CDC mute
+$finish called at time : 1310 ns : File "C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip/axis_square_pulse_v1/src/tb_axis_square_pulse_v1.sv" Line 74
+exit
+INFO: [Common 17-206] Exiting xsim at Wed Sep 23 01:04:13 2026...
+# puts "PASS: square DDS regression"
+PASS: square DDS regression
+# exit 0
+INFO: [Common 17-206] Exiting Vivado at Wed Sep 23 01:04:13 2026...

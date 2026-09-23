@@ -1,0 +1,80 @@
+#-----------------------------------------------------------
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Wed Sep 23 01:51:40 2026
+# Process ID: 23128
+# Current directory: C:/JeonghyunPark/Workspace/Vivado_Output/sqphy1
+# Command line: vivado.exe -mode batch -nojournal -log C:/JeonghyunPark/Workspace/Vivado_Output/sqphy1/validate.log -source C:/JeonghyunPark/Workspace/Vivado_Output/sqphy1/generate_phy.tcl
+# Log file: C:/JeonghyunPark/Workspace/Vivado_Output/sqphy1/validate.log
+# Journal file: 
+# Running On: DESKTOP-SU4R45B, OS: Windows, CPU Frequency: 3610 MHz, CPU Physical cores: 12, Host memory: 34063 MB
+#-----------------------------------------------------------
+source C:/JeonghyunPark/Workspace/Vivado_Output/sqphy1/generate_phy.tcl
+# set_param project.singleFileAddWarning.threshold 0
+# set_param general.maxThreads 1
+# set_param chipscope.maxJobs 1
+# set_param power.BramSDPPropagationFix 1
+# set_param power.enableUnconnectedCarry8PinPower 1
+# set_param power.enableCarry8RouteBelPower 1
+# set_param runs.launchOptions { -jobs 1  }
+# set_param power.enableLutRouteBelPower 1
+# set_param synth.enableIncremental 0
+# set_param chipscope.flow 0
+# set_param synth.rodin.xdcFlow false
+# set part xczu49dr-ffvf1760-2-e
+# set board_part_repo_paths {}
+# set board_part xilinx.com:zcu216:part0:2.0
+# set board_connections {}
+# set tool_flow Vivado
+# set ip_vlnv xilinx.com:ip:ddr4_phy:2.2
+# set ip_module_name d_1_ddr4_0_0_phy
+# set params {{{PARAM_VALUE.C0.ControllerType} {DDR4_SDRAM} {PARAM_VALUE.C0.DDR4_CLAMSHELL} {true} {PARAM_VALUE.C0.DDR4_CLKFBOUT_MULT} {10} {PARAM_VALUE.C0.DDR4_CLKOUT0_DIVIDE} {3} {PARAM_VALUE.C0.DDR4_CLKOUTPHY_MODE} {VCO_2X} {PARAM_VALUE.C0.DDR4_CasLatency} {18} {PARAM_VALUE.C0.DDR4_CasWriteLatency} {14} {PARAM_VALUE.C0.DDR4_ChipSelect} {true} {PARAM_VALUE.C0.DDR4_DIVCLK_DIVIDE} {3} {PARAM_VALUE.C0.DDR4_DataMask} {DM_NO_DBI} {PARAM_VALUE.C0.DDR4_DataWidth} {32} {PARAM_VALUE.C0.DDR4_ECC} {false} {PARAM_VALUE.C0.DDR4_EN_PARITY} {false} {PARAM_VALUE.C0.DDR4_Enable_LVAUX} {false} {PARAM_VALUE.C0.DDR4_HR_MIN_FREQ} {0} {PARAM_VALUE.C0.DDR4_InputClockPeriod} {3334} {PARAM_VALUE.C0.DDR4_MemoryPart} {MT40A1G8WE-075E} {PARAM_VALUE.C0.DDR4_MemoryType} {Components} {PARAM_VALUE.C0.DDR4_MemoryVoltage} {1.2V} {PARAM_VALUE.C0.DDR4_PhyClockRatio} {4:1} {PARAM_VALUE.C0.DDR4_SAVE_RESTORE} {false} {PARAM_VALUE.C0.DDR4_SELF_REFRESH} {false} {PARAM_VALUE.C0.DDR4_Slot} {Single} {PARAM_VALUE.C0.DDR4_StackHeight} {1} {PARAM_VALUE.C0.DDR4_TimePeriod} {750} {PARAM_VALUE.C0.DDR4_VrefVoltage} {0.84} {PARAM_VALUE.C0.DDR4_isCKEShared} {false} {PARAM_VALUE.CLKOUT1_DIVIDE} {10} {PARAM_VALUE.CLKOUT2_DIVIDE} {0} {PARAM_VALUE.CLKOUT3_DIVIDE} {0} {PARAM_VALUE.CLKOUT4_DIVIDE} {0} {PARAM_VALUE.CUSTOM_PART_ATTRIBUTES} {NONE} {PARAM_VALUE.DEBUG_SIGNAL} {Disable} {PARAM_VALUE.DIFF_TERM_SYSCLK} {false} {PARAM_VALUE.PARTIAL_RECONFIG_FLOW_MIG} {false} {PARAM_VALUE.Phy_Only} {Complete_Memory_Controller} {PARAM_VALUE.Simulation_Mode} {BFM} {PARAM_VALUE.System_Clock} {Differential} {PARAM_VALUE.c0_act_n} {bank65.byte3.pin3} {PARAM_VALUE.c0_adr_0} {bank65.byte3.pin0} {PARAM_VALUE.c0_adr_1} {bank65.byte2.pin12} {PARAM_VALUE.c0_adr_10} {bank65.byte2.pin3} {PARAM_VALUE.c0_adr_11} {bank65.byte2.pin2} {PARAM_VALUE.c0_adr_12} {bank65.byte1.pin3} {PARAM_VALUE.c0_adr_13} {bank65.byte1.pin2} {PARAM_VALUE.c0_adr_14} {bank65.byte3.pin7} {PARAM_VALUE.c0_adr_15} {bank65.byte3.pin9} {PARAM_VALUE.c0_adr_16} {bank65.byte3.pin1} {PARAM_VALUE.c0_adr_2} {bank65.byte2.pin11} {PARAM_VALUE.c0_adr_3} {bank65.byte2.pin10} {PARAM_VALUE.c0_adr_4} {bank65.byte2.pin9} {PARAM_VALUE.c0_adr_5} {bank65.byte2.pin8} {PARAM_VALUE.c0_adr_6} {bank65.byte2.pin7} {PARAM_VALUE.c0_adr_7} {bank65.byte2.pin6} {PARAM_VALUE.c0_adr_8} {bank65.byte2.pin5} {PARAM_VALUE.c0_adr_9} {bank65.byte2.pin4} {PARAM_VALUE.c0_ba_0} {bank65.byte1.pin7} {PARAM_VALUE.c0_ba_1} {bank65.byte1.pin6} {PARAM_VALUE.c0_bg_0} {bank65.byte3.pin5} {PARAM_VALUE.c0_bg_1} {bank65.byte3.pin4} {PARAM_VALUE.c0_ck_c_0} {bank65.byte2.pin1} {PARAM_VALUE.c0_ck_t_0} {bank65.byte2.pin0} {PARAM_VALUE.c0_cke_0} {bank65.byte3.pin11} {PARAM_VALUE.c0_cs_n_0} {bank65.byte3.pin8} {PARAM_VALUE.c0_cs_n_1} {bank65.byte0.pin4} {PARAM_VALUE.c0_dm_dbi_n_0} {bank64.byte2.pin0} {PARAM_VALUE.c0_dm_dbi_n_1} {bank64.byte3.pin0} {PARAM_VALUE.c0_dm_dbi_n_2} {bank64.byte1.pin0} {PARAM_VALUE.c0_dm_dbi_n_3} {bank64.byte0.pin0} {PARAM_VALUE.c0_dq_0} {bank64.byte2.pin4} {PARAM_VALUE.c0_dq_1} {bank64.byte2.pin2} {PARAM_VALUE.c0_dq_10} {bank64.byte3.pin3} {PARAM_VALUE.c0_dq_11} {bank64.byte3.pin11} {PARAM_VALUE.c0_dq_12} {bank64.byte3.pin8} {PARAM_VALUE.c0_dq_13} {bank64.byte3.pin9} {PARAM_VALUE.c0_dq_14} {bank64.byte3.pin4} {PARAM_VALUE.c0_dq_15} {bank64.byte3.pin2} {PARAM_VALUE.c0_dq_16} {bank64.byte1.pin2} {PARAM_VALUE.c0_dq_17} {bank64.byte1.pin8} {PARAM_VALUE.c0_dq_18} {bank64.byte1.pin11} {PARAM_VALUE.c0_dq_19} {bank64.byte1.pin4} {PARAM_VALUE.c0_dq_2} {bank64.byte2.pin8} {PARAM_VALUE.c0_dq_20} {bank64.byte1.pin3} {PARAM_VALUE.c0_dq_21} {bank64.byte1.pin5} {PARAM_VALUE.c0_dq_22} {bank64.byte1.pin10} {PARAM_VALUE.c0_dq_23} {bank64.byte1.pin9} {PARAM_VALUE.c0_dq_24} {bank64.byte0.pin10} {PARAM_VALUE.c0_dq_25} {bank64.byte0.pin8} {PARAM_VALUE.c0_dq_26} {bank64.byte0.pin11} {PARAM_VALUE.c0_dq_27} {bank64.byte0.pin9} {PARAM_VALUE.c0_dq_28} {bank64.byte0.pin5} {PARAM_VALUE.c0_dq_29} {bank64.byte0.pin3} {PARAM_VALUE.c0_dq_3} {bank64.byte2.pin5} {PARAM_VALUE.c0_dq_30} {bank64.byte0.pin4} {PARAM_VALUE.c0_dq_31} {bank64.byte0.pin2} {PARAM_VALUE.c0_dq_4} {bank64.byte2.pin9} {PARAM_VALUE.c0_dq_5} {bank64.byte2.pin3} {PARAM_VALUE.c0_dq_6} {bank64.byte2.pin10} {PARAM_VALUE.c0_dq_7} {bank64.byte2.pin11} {PARAM_VALUE.c0_dq_8} {bank64.byte3.pin5} {PARAM_VALUE.c0_dq_9} {bank64.byte3.pin10} {PARAM_VALUE.c0_dqs_c_0} {bank64.byte2.pin7} {PARAM_VALUE.c0_dqs_c_1} {bank64.byte3.pin7} {PARAM_VALUE.c0_dqs_c_2} {bank64.byte1.pin7} {PARAM_VALUE.c0_dqs_c_3} {bank64.byte0.pin7} {PARAM_VALUE.c0_dqs_t_0} {bank64.byte2.pin6} {PARAM_VALUE.c0_dqs_t_1} {bank64.byte3.pin6} {PARAM_VALUE.c0_dqs_t_2} {bank64.byte1.pin6} {PARAM_VALUE.c0_dqs_t_3} {bank64.byte0.pin6} {PARAM_VALUE.c0_odt_0} {bank65.byte3.pin2} {PARAM_VALUE.c0_reset_n} {bank65.byte3.pin10} {PARAM_VALUE.c0_sys_clk_n} {bank65.byte1.pin11} {PARAM_VALUE.c0_sys_clk_p} {bank65.byte1.pin10}}}
+# set output_xci {C:/JeonghyunPark/Workspace/Vivado_Output/sqphy1/out/d_1_ddr4_0_0_phy.0/result.xci}
+# set output_dcp {C:/JeonghyunPark/Workspace/Vivado_Output/sqphy1/out/d_1_ddr4_0_0_phy.0/result.dcp}
+# set output_dir {C:/JeonghyunPark/Workspace/Vivado_Output/sqphy1/out}
+# set ip_repo_paths C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip
+# set ip_output_repo C:/JeonghyunPark/Workspace/Vivado_Output/sq3/qstl_awg_tuning_fir_1msps_iq64_sq_pulse.cache/ip
+# set ip_cache_permissions {read write}
+# set oopbus_ip_repo_paths [get_param chipscope.oopbus_ip_repo_paths]
+# set synth_opts {{-bufg 0 -no_iobuf}}
+# set ordering_constrs 1
+# set bGenNoOOC 0
+# set xdc_files {C:/JeonghyunPark/Workspace/Vivado_Output/sqphy1/phy.xdc}
+# source {C:/Xilinx/Vivado/2023.1/scripts/ip/ipxchipscope.tcl}
+DBG: run_single_gen_and_synth_ip() creating proj: d_1_ddr4_0_0_phy_0
+DBG: bGenNoOOC = 0
+create_project: Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1902.254 ; gain = 153.777
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2023.1/data/ip'.
+Current synth_xdc_files = C:/JeonghyunPark/Workspace/Vivado_Output/sqphy1/phy.xdc
+Current Constraint Set = constrs_d_1_ddr4_0_0_phy_19184
+DBG: creating temporary IP: d_1_ddr4_0_0_phy
+INFO: [Device 21-403] Loading part xczu49dr-ffvf1760-2-e
+create_ip: Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 3084.047 ; gain = 1146.941
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'd_1_ddr4_0_0_phy'...
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'd_1_ddr4_0_0_phy'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'd_1_ddr4_0_0_phy'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'd_1_ddr4_0_0_phy'...
+DBG: adding to xdc_files: c:/JeonghyunPark/Workspace/Vivado_Output/sqphy1/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/par/d_1_ddr4_0_0_phy_ooc_early.xdc
+synth_opts = -constrset constrs_d_1_ddr4_0_0_phy_19184 -bufg 0 -no_iobuf
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: d_1_ddr4_0_0_phy
+INFO: [IP_Flow 19-6922] IPCACHE: Exporting cached entry 76c734d762a38b9c to dir: c:/JeonghyunPark/Workspace/Vivado_Output/sqphy1/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy
+INFO: [IP_Flow 19-6928] IPCACHE: copied cached file c:/JeonghyunPark/Workspace/Vivado_Output/sq3/qstl_awg_tuning_fir_1msps_iq64_sq_pulse.cache/ip/2023.1/7/6/76c734d762a38b9c/d_1_ddr4_0_0_phy.dcp to c:/JeonghyunPark/Workspace/Vivado_Output/sqphy1/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/d_1_ddr4_0_0_phy.dcp.
+INFO: [IP_Flow 19-6926] IPCACHE: added file to list for BOM: c:/JeonghyunPark/Workspace/Vivado_Output/sqphy1/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/d_1_ddr4_0_0_phy.dcp
+INFO: [IP_Flow 19-4838] Using cached IP synthesis design for IP d_1_ddr4_0_0_phy, cache-ID = 76c734d762a38b9c.
+DBG: after check check: cacheID = 76c734d762a38b9c
+DBG: found cache hit for d_1_ddr4_0_0_phy
+DBG: copied DCP file 'd_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/d_1_ddr4_0_0_phy.dcp' to 'C:/JeonghyunPark/Workspace/Vivado_Output/sqphy1/out/d_1_ddr4_0_0_phy.0/result.dcp'
+INFO: [#UNDEF] Time taken for copying files = 11203
+# set failed [catch {ipx::chipscope::gen_and_synth_ip $part $board_part $board_connections $board_part_repo_paths $tool_flow $ip_vlnv $ip_module_name $params $output_xci $output_dcp $output_dir $ip_repo_paths $ip_output_repo $ip_cache_permissions $oopbus_ip_repo_paths $synth_opts $xdc_files $ordering_constrs $bGenNoOOC} errMessage]
+# if { $failed } {
+# send_msg_id {IP_Flow 19-3805} ERROR "Failed to generate and synthesize debug IP $ip_vlnv. \n $errMessage"
+#   exit 1
+# }
+# puts "PHY_CACHE_READY"
+PHY_CACHE_READY
+# exit 0
+INFO: [Common 17-206] Exiting Vivado at Wed Sep 23 01:52:01 2026...

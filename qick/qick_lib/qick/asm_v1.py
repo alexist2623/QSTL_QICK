@@ -521,6 +521,40 @@ class MultiplexedGenManager(AbsGenManager):
             self.next_pulse['length'] = params['length']
 
 # Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
+class SquarePulseGenManager(AbsRegisterManager):
+    """Five-word continuous DDS update; length reserves scheduling time only."""
+    PULSE_REGISTERS = ["freq", "phase", "gain", "reserved", "control", "t"]
+
+    def __init__(self, prog, gen_ch):
+        self.ch = gen_ch
+        self.gencfg = prog.soccfg["gens"][gen_ch]
+        super().__init__(prog, self.gencfg["tproc_ch"], f"Square DDS {gen_ch}")
+
+    def check_params(self, params):
+        check_keys(params.keys(), ["style", "freq", "phase", "gain"],
+                   ["enable", "reset_phase", "length"])
+        if params["style"] != "square":
+            raise ValueError("axis_square_pulse_v1 requires style='square'")
+
+    def write_regs(self, params, defaults):
+        from .square_pulse import square_words
+        if defaults:
+            raise ValueError("Square DDS uses complete atomic updates, not defaults")
+        length = params.get("length", 1)
+        if isinstance(length, (bool, np.bool_)) or not isinstance(length, (int, np.integer)) or length < 1:
+            raise ValueError("length must be a positive integer")
+        words = square_words(params["freq"], params["phase"], params["gain"],
+                             enable=params.get("enable", True),
+                             reset_phase=params.get("reset_phase", False),
+                             tmux_ch=self.gencfg.get("tmux_ch"))
+        for name, value in zip(self.PULSE_REGISTERS, words):
+            self.set_reg(name, value)
+        self.last_cmd_words = words
+        self.next_pulse = {"rp": self.rp, "length": int(length),
+                           "regs": [[self.regmap[(self.ch, name)][1]
+                                     for name in self.PULSE_REGISTERS[:5]]]}
+
+
 class AwgTuningGenManager(AbsRegisterManager):
     """ASM v1 register manager for ``axis_awg_tuning_v1`` command words."""
 
@@ -825,7 +859,8 @@ class QickProgram(AbsQickProgram):
                 'axis_sg_mux4_v2': MultiplexedGenManager,
                 'axis_sg_mux4_v3': MultiplexedGenManager,
                 'axis_sg_mux8_v1': MultiplexedGenManager,
-                'axis_awg_tuning_v1': AwgTuningGenManager}
+                'axis_awg_tuning_v1': AwgTuningGenManager,
+                'axis_square_pulse_v1': SquarePulseGenManager}
 
     # Gaussian and DRAG definitions use incorrect original definition, which gives a pulse that is too narrow by sqrt(2)
     GAUSS_BUG = True

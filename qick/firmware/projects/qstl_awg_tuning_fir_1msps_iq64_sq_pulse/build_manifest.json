@@ -1,0 +1,495 @@
+{
+  "created_utc": "2026-09-23T13:49:49.678005+00:00",
+  "vivado": "2023.1",
+  "part": "xczu49dr-ffvf1760-2-e",
+  "build_directory": "C:/JeonghyunPark/Workspace/Vivado_Output/sq3",
+  "qick_branch": "codex/1msps-square-pulse-dds",
+  "qick_base_commit": "211f73557c20527532b85c4b38a9d9d336abf128",
+  "build_result": {
+    "synthesis_status": "synth_design Complete!",
+    "implementation_status": "write_bitstream Complete!",
+    "implementation_retried": "YES",
+    "setup_wns_ns": "0.033420",
+    "setup_tns_ns": "0.000000",
+    "hold_whs_ns": "0.009511",
+    "hold_ths_ns": "0.000000",
+    "timing_closed": "YES",
+    "bitstream": "C:/JeonghyunPark/Workspace/Vivado_Output/sq3/bitstream.bit",
+    "xsa": "C:/JeonghyunPark/Workspace/Vivado_Output/sq3/bitstream.xsa",
+    "hwh": "C:/JeonghyunPark/Workspace/Vivado_Output/sq3/bitstream.hwh"
+  },
+  "hardware": {
+    "square_dac": "13",
+    "square_fabric_clock_hz": 300000000,
+    "samples_per_clock": 16,
+    "square_scalar_sample_rate_hz": 4800000000,
+    "nominal_gen_ch": 7,
+    "iq_component_bits": 64,
+    "fir_decimation": 300,
+    "trigger_delay_cycles": 8712
+  },
+  "xsa_members": {
+    ".bit": [
+      "bitstream.bit"
+    ],
+    ".hwh": [
+      "d_1.hwh"
+    ]
+  },
+  "xsa_all_hwh_members": [
+    "d_1.hwh",
+    "d_1_axi_smc_0.hwh",
+    "d_1_axi_smc_1_0.hwh",
+    "d_1_ddr4_0_0_microblaze_mcs.hwh"
+  ],
+  "xsa_contains_matching_bitstream": true,
+  "xsa_contains_matching_hwh": true,
+  "artifacts": [
+    {
+      "path": "bitstream.bit",
+      "bytes": 34437473,
+      "sha256": "8aecad838f4914a3e073893d0af5505dead9e0bfc50d58cc742c0528cfd65c8c"
+    },
+    {
+      "path": "bitstream.hwh",
+      "bytes": 2609258,
+      "sha256": "62869797ac2b3a28fbab0cd9e12eced98f01590ecf9545242beae4671399d2be"
+    },
+    {
+      "path": "bitstream.xsa",
+      "bytes": 18738105,
+      "sha256": "46078b46d9dd60e97926d6a400b4b7e0e8a61fa2c1afb2ce7daaf9c16ec9e260"
+    }
+  ],
+  "qick_sources": [
+    {
+      "path": "qick/firmware/ip/axis_buffer_ddr_sample_v3/component.xml",
+      "bytes": 71404,
+      "sha256": "63cdaf422ffa578ccde97e2d8093b40692eee01c6172d5cb94777da5b3c54679"
+    },
+    {
+      "path": "qick/firmware/ip/axis_buffer_ddr_sample_v3/src/axis_buffer_ddr_sample_v3.sv",
+      "bytes": 35401,
+      "sha256": "6a2c1667cdc77846d2cd4558f31e6a203b28092be930a8c388cad91c65456544"
+    },
+    {
+      "path": "qick/firmware/ip/axis_buffer_ddr_sample_v3/src/tb_axis_buffer_ddr_sample_v3.sv",
+      "bytes": 33592,
+      "sha256": "2ca5944bcaafd3e4290d14cdded818f368c3d570a60824d631ca09196a5cc2fe"
+    },
+    {
+      "path": "qick/firmware/ip/axis_buffer_ddr_sample_v3/xgui/axis_buffer_ddr_sample_v3_v1_0.tcl",
+      "bytes": 4821,
+      "sha256": "941d4459ec18f164b178c09d5fafaccf6b3461fd54ff484d2492d4afefc47011"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/component.xml",
+      "bytes": 28463,
+      "sha256": "0063de713e9a83ed922fcf7cf34a9599741e012ee3af268916fd1435bfa9cf92"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/src/axis_fir_decim_300to1_v2.sv",
+      "bytes": 4273,
+      "sha256": "abcb0e5b653c06bd85539a644a738011243cc0dad5e089f11010392eb6514d99"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/src/axis_fir_decim_full_precision_stage.sv",
+      "bytes": 4912,
+      "sha256": "e43859dc6c79b365e549ace0f513d3ba6d1f93d0986bf6a8f8a9c3e5e760f586"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/src/fir_decim_300to1_v2_coeffs_pkg.sv",
+      "bytes": 19256,
+      "sha256": "0157ca197bcf98a33d37b22320338c595fff58523472343a50d53c18bf73d10f"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/src/tb_axis_fir_decim_300to1_v2.sv",
+      "bytes": 4392,
+      "sha256": "ba2feb2d7be22367d64fc4cc1141d54ceb96cd43d8739e3854642eaed3dbfcac"
+    },
+    {
+      "path": "qick/firmware/ip/axis_fir_decim_300to1_v2/xgui/axis_fir_decim_300to1_v2_v1_0.tcl",
+      "bytes": 5171,
+      "sha256": "0b2896fa97bdf6e66fa0141ae7121f14a8e1572adf97443d7d10c3f862818e18"
+    },
+    {
+      "path": "qick/firmware/ip/axis_square_pulse_v1/component.xml",
+      "bytes": 30173,
+      "sha256": "3c00ff96c1fd4b61783dea501b6b909e9feb7f209e30b8650d491ce5b82c6789"
+    },
+    {
+      "path": "qick/firmware/ip/axis_square_pulse_v1/run_xsim.tcl",
+      "bytes": 936,
+      "sha256": "ede5115549800eb65491117ce1e785ccef544b1b9dfe3587dac697ae697570e6"
+    },
+    {
+      "path": "qick/firmware/ip/axis_square_pulse_v1/src/axis_square_pulse_v1.sv",
+      "bytes": 5141,
+      "sha256": "937fdd029ddfab206428fce21694406adc86caeeedc0f45f874d28f1c17ac7ec"
+    },
+    {
+      "path": "qick/firmware/ip/axis_square_pulse_v1/src/square_dds.sv",
+      "bytes": 3046,
+      "sha256": "41063fbd1718d2b9dab96af91fc6fb4e49e1c69bba13d673c7d7c82344723d91"
+    },
+    {
+      "path": "qick/firmware/ip/axis_square_pulse_v1/src/tb_axis_square_pulse_v1.sv",
+      "bytes": 3464,
+      "sha256": "7e1f2f972a99066bc7932c5d30b11799ebb753a1965725e49072e34d1aa3216f"
+    },
+    {
+      "path": "qick/firmware/ip/axis_square_pulse_v1/src/tb_square_dds.sv",
+      "bytes": 3162,
+      "sha256": "fdd2e84e8799dfc77decc87062d125eac5dae5ed7963dfa1a7b342dcea599aed"
+    },
+    {
+      "path": "qick/firmware/ip/axis_square_pulse_v1/xgui/axis_square_pulse_v1_v1_0.tcl",
+      "bytes": 1106,
+      "sha256": "5a9323103f36fed16c9c6f47b68d29cc35c83828377ac70508fb39115364f90d"
+    },
+    {
+      "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64_sq_pulse/bd_2023-1.tcl",
+      "bytes": 178335,
+      "sha256": "4f09998ef35c148783c163d392aaaad1f521c9098a368debd8a0e7be6ed34bf9"
+    },
+    {
+      "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64_sq_pulse/build_vivado_2023_1.tcl",
+      "bytes": 10623,
+      "sha256": "f2874d9c0ebb03c856e01e7efd19ff26b4b59786afa161f2de35658b8b938d19"
+    },
+    {
+      "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64_sq_pulse/ios.xdc",
+      "bytes": 13413,
+      "sha256": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7"
+    },
+    {
+      "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64_sq_pulse/proj.tcl",
+      "bytes": 2136,
+      "sha256": "e0587ac03c44161cec0585f625b769e298bf5fdb9e381bb0fe7c99dd4836591c"
+    },
+    {
+      "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64_sq_pulse/publish_build.py",
+      "bytes": 7105,
+      "sha256": "3576285dabc5ede959a1f0a29c55af54683975ff98128b9305076e78ef61469b"
+    },
+    {
+      "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64_sq_pulse/resume_implementation.tcl",
+      "bytes": 6422,
+      "sha256": "1c7e33b5ed4c8d5161ac65492354c086dd3aece61f714b157cc407b961d06d17"
+    },
+    {
+      "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64_sq_pulse/timing.xdc",
+      "bytes": 3294,
+      "sha256": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb"
+    },
+    {
+      "path": "qick/qick_lib/qick/asm_v1.py",
+      "bytes": 90224,
+      "sha256": "86a7dea8d4e6cd6f4b22bdd000bf1dd295db7fecf74c1c2afc9c9c678d0900d3"
+    },
+    {
+      "path": "qick/qick_lib/qick/qick.py",
+      "bytes": 89086,
+      "sha256": "6656cd4b5df3c4f6df0006a80088ceb9c72c3b4621315f0a64dda54cd6614f88"
+    },
+    {
+      "path": "qick/qick_lib/qick/qick_asm.py",
+      "bytes": 108572,
+      "sha256": "10697b55e08ea30db5dc82ea41a91f099e3e4fa0f81c89319e5721468c36bc18"
+    },
+    {
+      "path": "qick/qick_lib/qick/square_pulse.py",
+      "bytes": 3817,
+      "sha256": "67447bfb350673aff46f83b49f9cfb8e2b30293eefc5dd99358343f33833a1bb"
+    }
+  ],
+  "gui_branch": "codex/square-pulse-dds-gui",
+  "gui_base_commit": "efc64e389b3a1f4e98e7166dc00e2692b8a0527f",
+  "gui_sources": [
+    {
+      "path": "DCWaveformGeneratorGUI/awg_sweep_map.py",
+      "bytes": 70725,
+      "sha256": "5f3c586fcaaab285d56e12dfb8e34c95dad739426977485732f8924d01f4b74e"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/bias_control.py",
+      "bytes": 34630,
+      "sha256": "2dc0db7e92513b2f3e1bbad3e02187ebdecf89f779cc452b5fb62e5390770263"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/bias_measurement.py",
+      "bytes": 62255,
+      "sha256": "1112561a99f0a60dc5f896b2978ae6e22f08d9a4f0d77231cd2e8d21a5d83c8a"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/bias_measurement_gui.py",
+      "bytes": 58471,
+      "sha256": "2afd435e8d572f49d756548a0960544498934d1c8c530b764965fb93f7c64b70"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/calibration_gui.py",
+      "bytes": 100607,
+      "sha256": "d1f0dcc1c8ffc3c5a86699598ab68c523d1b5ced8078e57a64004b35f36fc7fb"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/dc_voltage_calibration.py",
+      "bytes": 26867,
+      "sha256": "14db19e9fd9de4e43ff7d850d5d80f5d9b73cffe372067553f01cbb5bee2c48e"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/dc_waveform_core.py",
+      "bytes": 112844,
+      "sha256": "d79d449baee28613d9d3d78be3fd3fcc040bfabe96e1bbfbbc71e6da098b1042"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/dc_waveform_widgets.py",
+      "bytes": 68237,
+      "sha256": "d2778287cd0809b0c0a58962db030c25a8dde92ebddaf33d7bd6bc8c0b197e0a"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/DCWaveform_Generator.py",
+      "bytes": 686934,
+      "sha256": "330c79ebeeb68e8c92fcabe3e880bcfdc873aaab65eed6f72d8c9a001fb17729"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/ddr_memory_usage.py",
+      "bytes": 5018,
+      "sha256": "a0184ac4e79ec81c0a0770e04021b2eab5526956380d78e7e2fa5ddc143735d9"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/fir_ddr_profile.py",
+      "bytes": 17569,
+      "sha256": "b67af1c9186225e639cebd428018904f9713948c887679781400457a9ec7ce64"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/input_power_estimate.py",
+      "bytes": 6396,
+      "sha256": "fd5164aa3f0591173dbccee1aaaac24a88f14493a94551f75ef7e32ebcbc0dc9"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/measurement_display.py",
+      "bytes": 11002,
+      "sha256": "bf2e2e1a8bfdf95eea693bbaebce522e02499c0a15877ece7442a14153a1130e"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/noise_acquisition.py",
+      "bytes": 13859,
+      "sha256": "bf3333d042e2205d79a84bbac3ea6770a0c39def81975a85446d63d8ebdef10f"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/noise_analysis.py",
+      "bytes": 67430,
+      "sha256": "c5708060b05fced8ceb29253b4180b5b856c41775d70b395268dca24cb021bbf"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/power_calibration.py",
+      "bytes": 55574,
+      "sha256": "f069b981be3f1a75205eb7f63ac800fe047d9370993168b9ca087bb388cd7de2"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/qick_fine_tune_sweep.py",
+      "bytes": 302094,
+      "sha256": "696c06e363b2e14480613fdbc19770c50d165feaf6131a199532d96f13ab0253"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/qick_front_panel.py",
+      "bytes": 54504,
+      "sha256": "36239b81daa2151592793dba3aef6234e7d76ac7ba517566890fd18c845c8589"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/qick_output_triggers.py",
+      "bytes": 6365,
+      "sha256": "437b833f0341498001c59fe0418bc84628fc1d95e168f795aa0b8e54b72e3aaf"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/qick_power_calibration.py",
+      "bytes": 60061,
+      "sha256": "0c29106b7e417d1516a4ab643be09692b5accc817e2ab84fed9d7394423b5713"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/qick_qcodes_experiment.py",
+      "bytes": 114554,
+      "sha256": "e82025db23f523fee9a7d6b5432f6eafbd4ebbd585d4a0e28c4abadd6532e178"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/qick_sparameter_sweep.py",
+      "bytes": 149128,
+      "sha256": "3986e036ceea0ff6be43c7adc4d4a2bb6bc5edc234601473d5089e4f70bbb95e"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/qick_square_dds.py",
+      "bytes": 10031,
+      "sha256": "1877e28074a67ef1e223eddaaf5bccc26338f37d9fc7a706e21e993d488dcec5"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/qick_square_dds_panel.py",
+      "bytes": 8102,
+      "sha256": "bf15325917c1b3d0a6ff129246adb7942bf0bc13102ccb13453f55aca54572f7"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/qick_square_wave.py",
+      "bytes": 15788,
+      "sha256": "4b98165949710c050b5fd79c36c14541d92d71ea75cb2bece36266e115a2211b"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/sparameter_gui.py",
+      "bytes": 112323,
+      "sha256": "884335df82e17b14e5d39c03504d60cacc2b1da572465d050f3ba6fa3885d554"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/stability_diagram.py",
+      "bytes": 184078,
+      "sha256": "68d507e4bc89bb93a2e8b95272128981499d599ed19f314872be80b6ecbee018"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_awg_segment_sweep_structure.py",
+      "bytes": 29786,
+      "sha256": "01e8067ade3f00391a8688578aeac01bd98e1fec2ee774e40405e640790fd815"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_awg_sweep_map.py",
+      "bytes": 40479,
+      "sha256": "7f49a669b9d84852ce0fda81e499250817d6532b5b156658596543f9d0cf820b"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_bias_control.py",
+      "bytes": 13272,
+      "sha256": "116891fb4d332bfc72fd9cd82744c886cdd24a518dd2648b109f8139e0a2366c"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_bias_measurement.py",
+      "bytes": 29463,
+      "sha256": "18434d5a02a3f69d02f2e2abe0569ba013887efff476b1253ffc84fb7248a0f1"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_dc_voltage_calibration.py",
+      "bytes": 13435,
+      "sha256": "de8e6cfcf10b573ffc140eb464d4a0667167e016a44b31fea33e301c73d887e3"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py",
+      "bytes": 136665,
+      "sha256": "151d87996094578da0171820354b0c53f4522b34168f6aa0382f85ea174772f3"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_ddr_memory_usage.py",
+      "bytes": 2133,
+      "sha256": "aaf35859650cb26e590fed98aad7376cee503702e46a5f6a0cd3907dad68d8ff"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_fir_ddr_profile.py",
+      "bytes": 6188,
+      "sha256": "9b6325a17e1d4be54fe655622ce0b4451a3690fb7f87cd1c721b1e3b1a9813a9"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_fir_rate_gui.py",
+      "bytes": 5773,
+      "sha256": "08b86f46841c60a101b77a474996632743c87e6419f8fc2b6b7c701525bc3086"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_input_power_estimate.py",
+      "bytes": 9142,
+      "sha256": "4f3a0fe30aa998dcfc74d55e3c1bb1170c529baf926bc2fd612fc39310c86592"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_iq64_format.py",
+      "bytes": 13138,
+      "sha256": "30b3e6d74e2d7f4bf52eb0585b51b6c06577b6925790af521aa30aa29e7fd061"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_measurement_display.py",
+      "bytes": 1350,
+      "sha256": "fc663b872b372af6196bb0de3b67b2847f70d0a41d25ee70f24b45b26341d087"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_noise_acquisition.py",
+      "bytes": 8116,
+      "sha256": "f491f8f5936f44a3582dc2fda3574afa80dbc3c0b9a72c43e21d6c32db0e6faa"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_noise_analysis.py",
+      "bytes": 12258,
+      "sha256": "871235ad5d6ca5d18a57f411a9f8c1568461b1c18b77bf5ce3198794e676ab10"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_power_calibration.py",
+      "bytes": 15827,
+      "sha256": "3cfa2c7e0177d499400d4d91ed9ec5a0b27cbbb540884d05c95b53c1a134772a"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py",
+      "bytes": 92201,
+      "sha256": "f5411ce272c571ce4761034bc5a47a77b0dd386b690901286d6ded99ca6fb5b8"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_qick_front_panel.py",
+      "bytes": 21339,
+      "sha256": "f41ff012ad6e646b83825377ef856b5bfc6108e92602be84e6bbcc3d2968e12d"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_qick_output_triggers.py",
+      "bytes": 4240,
+      "sha256": "21e2f3919ae336ffa6f2305faaa660ff86eb89ea12a0de12dc33f30e81f1762d"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_qick_power_calibration.py",
+      "bytes": 34205,
+      "sha256": "c651b214c8d5857cccb6ae6e5a24dc85866e5cbc766515b01cd6f14043f0600a"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py",
+      "bytes": 62874,
+      "sha256": "d18ed2bbf9f22b6e8b99eec5f5451fa35521a8c68e4894f8af509915119d8d2d"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_qick_sparameter_sweep.py",
+      "bytes": 65076,
+      "sha256": "35c37f1b145aa3be65eb9a44718a34d58b5652682c8338a90d965fb3fb6fc419"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_qick_square_dds.py",
+      "bytes": 4830,
+      "sha256": "1d52ca6245f3612a70810a5d2119c33757c143d59644e2983375d22e83daf981"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_qick_square_wave.py",
+      "bytes": 13084,
+      "sha256": "a77ec221adf8dccf00d94244157eecf117db20e079e3ab1553b7cced6fe21954"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_sparameter_magnitude_display.py",
+      "bytes": 6461,
+      "sha256": "f6a84bf4f55480691aeae21afccafc7bc6d272ff1a1975cadc38575212934c6a"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_sparameter_phase_storage.py",
+      "bytes": 10394,
+      "sha256": "abb1609629cb13315aad5594ceffc5b8d3612e1ee3257f0ba50538ac78ba6c36"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_square_dds_cleanup.py",
+      "bytes": 1356,
+      "sha256": "a11c1f97af0b91738ad547afdda0a24e9a54f8842423fc4d6a9b0649f805d1e3"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_square_dds_gui.py",
+      "bytes": 4675,
+      "sha256": "320dddfbc31b68e367ea7573ab1350b2f672e04105820358aac38549e21e2c52"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_square_dds_storage.py",
+      "bytes": 2374,
+      "sha256": "7a04e57af45be8612cd0ee078aed78550b3f5a5d3eaec94297f6216d7aa0a686"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_stability_diagram.py",
+      "bytes": 51236,
+      "sha256": "87e6b7c872d85393e83232a837da0923308afe2cf84e0d3b9eea1d832bf44388"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_trace_plot_overlay.py",
+      "bytes": 20375,
+      "sha256": "7e717f4889160977b6c7145f831eb0d3dfd1cca4c1e32d7b931c6507128e8d48"
+    }
+  ]
+}

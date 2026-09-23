@@ -22,6 +22,7 @@ from .drivers.generator import *
 from .drivers.readout import *
 from .drivers.tproc import *
 from .awg_tuning import *
+from .square_pulse import AxisSquarePulseV1
 
 logger = logging.getLogger(__name__)
 
@@ -1606,8 +1607,19 @@ class QickSoc(Overlay, QickConfig):
                 prog.pulse(ch=gen, name="dummypulse", t=0)
             prog.end()
         self.tproc.reset()
+        for gen in self.gens:
+            if isinstance(gen, AxisSquarePulseV1):
+                gen.mute()
         # this should always run with internal trigger
         prog.run(self, start_src="internal")
+
+    def stop_square_pulse(self, ch):
+        """Stop the tProcessor and mute one autonomous square DDS output."""
+        gen = self.gens[int(ch)]
+        if not isinstance(gen, AxisSquarePulseV1):
+            raise ValueError("selected generator is not a square DDS")
+        self.stop_tproc()
+        gen.mute()
 
     def start_readout(self, total_shots, counter_addr=1, ch_list=None, reads_per_shot=1, stride=None):
         """

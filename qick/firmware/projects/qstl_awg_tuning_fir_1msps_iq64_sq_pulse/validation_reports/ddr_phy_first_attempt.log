@@ -1,0 +1,840 @@
+
+
+****** Vivado v2023.1 (64-bit)
+  **** SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+  **** IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+  **** SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source get_cs_ip.tcl
+# set_param project.singleFileAddWarning.threshold 0
+# set_param general.maxThreads 5
+# set_param chipscope.maxJobs 4
+# set_param power.BramSDPPropagationFix 1
+# set_param power.enableUnconnectedCarry8PinPower 1
+# set_param power.enableCarry8RouteBelPower 1
+# set_param runs.launchOptions { -jobs 5  }
+# set_param power.enableLutRouteBelPower 1
+# set_param synth.enableIncremental 0
+# set_param chipscope.flow 0
+# set_param synth.rodin.xdcFlow false
+# set part xczu49dr-ffvf1760-2-e
+# set board_part_repo_paths {}
+# set board_part xilinx.com:zcu216:part0:2.0
+# set board_connections {}
+# set tool_flow Vivado
+# set ip_vlnv xilinx.com:ip:ddr4_phy:2.2
+# set ip_module_name d_1_ddr4_0_0_phy
+# set params {{{PARAM_VALUE.C0.ControllerType} {DDR4_SDRAM} {PARAM_VALUE.C0.DDR4_CLAMSHELL} {true} {PARAM_VALUE.C0.DDR4_CLKFBOUT_MULT} {10} {PARAM_VALUE.C0.DDR4_CLKOUT0_DIVIDE} {3} {PARAM_VALUE.C0.DDR4_CLKOUTPHY_MODE} {VCO_2X} {PARAM_VALUE.C0.DDR4_CasLatency} {18} {PARAM_VALUE.C0.DDR4_CasWriteLatency} {14} {PARAM_VALUE.C0.DDR4_ChipSelect} {true} {PARAM_VALUE.C0.DDR4_DIVCLK_DIVIDE} {3} {PARAM_VALUE.C0.DDR4_DataMask} {DM_NO_DBI} {PARAM_VALUE.C0.DDR4_DataWidth} {32} {PARAM_VALUE.C0.DDR4_ECC} {false} {PARAM_VALUE.C0.DDR4_EN_PARITY} {false} {PARAM_VALUE.C0.DDR4_Enable_LVAUX} {false} {PARAM_VALUE.C0.DDR4_HR_MIN_FREQ} {0} {PARAM_VALUE.C0.DDR4_InputClockPeriod} {3334} {PARAM_VALUE.C0.DDR4_MemoryPart} {MT40A1G8WE-075E} {PARAM_VALUE.C0.DDR4_MemoryType} {Components} {PARAM_VALUE.C0.DDR4_MemoryVoltage} {1.2V} {PARAM_VALUE.C0.DDR4_PhyClockRatio} {4:1} {PARAM_VALUE.C0.DDR4_SAVE_RESTORE} {false} {PARAM_VALUE.C0.DDR4_SELF_REFRESH} {false} {PARAM_VALUE.C0.DDR4_Slot} {Single} {PARAM_VALUE.C0.DDR4_StackHeight} {1} {PARAM_VALUE.C0.DDR4_TimePeriod} {750} {PARAM_VALUE.C0.DDR4_VrefVoltage} {0.84} {PARAM_VALUE.C0.DDR4_isCKEShared} {false} {PARAM_VALUE.CLKOUT1_DIVIDE} {10} {PARAM_VALUE.CLKOUT2_DIVIDE} {0} {PARAM_VALUE.CLKOUT3_DIVIDE} {0} {PARAM_VALUE.CLKOUT4_DIVIDE} {0} {PARAM_VALUE.CUSTOM_PART_ATTRIBUTES} {NONE} {PARAM_VALUE.DEBUG_SIGNAL} {Disable} {PARAM_VALUE.DIFF_TERM_SYSCLK} {false} {PARAM_VALUE.PARTIAL_RECONFIG_FLOW_MIG} {false} {PARAM_VALUE.Phy_Only} {Complete_Memory_Controller} {PARAM_VALUE.Simulation_Mode} {BFM} {PARAM_VALUE.System_Clock} {Differential} {PARAM_VALUE.c0_act_n} {bank65.byte3.pin3} {PARAM_VALUE.c0_adr_0} {bank65.byte3.pin0} {PARAM_VALUE.c0_adr_1} {bank65.byte2.pin12} {PARAM_VALUE.c0_adr_10} {bank65.byte2.pin3} {PARAM_VALUE.c0_adr_11} {bank65.byte2.pin2} {PARAM_VALUE.c0_adr_12} {bank65.byte1.pin3} {PARAM_VALUE.c0_adr_13} {bank65.byte1.pin2} {PARAM_VALUE.c0_adr_14} {bank65.byte3.pin7} {PARAM_VALUE.c0_adr_15} {bank65.byte3.pin9} {PARAM_VALUE.c0_adr_16} {bank65.byte3.pin1} {PARAM_VALUE.c0_adr_2} {bank65.byte2.pin11} {PARAM_VALUE.c0_adr_3} {bank65.byte2.pin10} {PARAM_VALUE.c0_adr_4} {bank65.byte2.pin9} {PARAM_VALUE.c0_adr_5} {bank65.byte2.pin8} {PARAM_VALUE.c0_adr_6} {bank65.byte2.pin7} {PARAM_VALUE.c0_adr_7} {bank65.byte2.pin6} {PARAM_VALUE.c0_adr_8} {bank65.byte2.pin5} {PARAM_VALUE.c0_adr_9} {bank65.byte2.pin4} {PARAM_VALUE.c0_ba_0} {bank65.byte1.pin7} {PARAM_VALUE.c0_ba_1} {bank65.byte1.pin6} {PARAM_VALUE.c0_bg_0} {bank65.byte3.pin5} {PARAM_VALUE.c0_bg_1} {bank65.byte3.pin4} {PARAM_VALUE.c0_ck_c_0} {bank65.byte2.pin1} {PARAM_VALUE.c0_ck_t_0} {bank65.byte2.pin0} {PARAM_VALUE.c0_cke_0} {bank65.byte3.pin11} {PARAM_VALUE.c0_cs_n_0} {bank65.byte3.pin8} {PARAM_VALUE.c0_cs_n_1} {bank65.byte0.pin4} {PARAM_VALUE.c0_dm_dbi_n_0} {bank64.byte2.pin0} {PARAM_VALUE.c0_dm_dbi_n_1} {bank64.byte3.pin0} {PARAM_VALUE.c0_dm_dbi_n_2} {bank64.byte1.pin0} {PARAM_VALUE.c0_dm_dbi_n_3} {bank64.byte0.pin0} {PARAM_VALUE.c0_dq_0} {bank64.byte2.pin4} {PARAM_VALUE.c0_dq_1} {bank64.byte2.pin2} {PARAM_VALUE.c0_dq_10} {bank64.byte3.pin3} {PARAM_VALUE.c0_dq_11} {bank64.byte3.pin11} {PARAM_VALUE.c0_dq_12} {bank64.byte3.pin8} {PARAM_VALUE.c0_dq_13} {bank64.byte3.pin9} {PARAM_VALUE.c0_dq_14} {bank64.byte3.pin4} {PARAM_VALUE.c0_dq_15} {bank64.byte3.pin2} {PARAM_VALUE.c0_dq_16} {bank64.byte1.pin2} {PARAM_VALUE.c0_dq_17} {bank64.byte1.pin8} {PARAM_VALUE.c0_dq_18} {bank64.byte1.pin11} {PARAM_VALUE.c0_dq_19} {bank64.byte1.pin4} {PARAM_VALUE.c0_dq_2} {bank64.byte2.pin8} {PARAM_VALUE.c0_dq_20} {bank64.byte1.pin3} {PARAM_VALUE.c0_dq_21} {bank64.byte1.pin5} {PARAM_VALUE.c0_dq_22} {bank64.byte1.pin10} {PARAM_VALUE.c0_dq_23} {bank64.byte1.pin9} {PARAM_VALUE.c0_dq_24} {bank64.byte0.pin10} {PARAM_VALUE.c0_dq_25} {bank64.byte0.pin8} {PARAM_VALUE.c0_dq_26} {bank64.byte0.pin11} {PARAM_VALUE.c0_dq_27} {bank64.byte0.pin9} {PARAM_VALUE.c0_dq_28} {bank64.byte0.pin5} {PARAM_VALUE.c0_dq_29} {bank64.byte0.pin3} {PARAM_VALUE.c0_dq_3} {bank64.byte2.pin5} {PARAM_VALUE.c0_dq_30} {bank64.byte0.pin4} {PARAM_VALUE.c0_dq_31} {bank64.byte0.pin2} {PARAM_VALUE.c0_dq_4} {bank64.byte2.pin9} {PARAM_VALUE.c0_dq_5} {bank64.byte2.pin3} {PARAM_VALUE.c0_dq_6} {bank64.byte2.pin10} {PARAM_VALUE.c0_dq_7} {bank64.byte2.pin11} {PARAM_VALUE.c0_dq_8} {bank64.byte3.pin5} {PARAM_VALUE.c0_dq_9} {bank64.byte3.pin10} {PARAM_VALUE.c0_dqs_c_0} {bank64.byte2.pin7} {PARAM_VALUE.c0_dqs_c_1} {bank64.byte3.pin7} {PARAM_VALUE.c0_dqs_c_2} {bank64.byte1.pin7} {PARAM_VALUE.c0_dqs_c_3} {bank64.byte0.pin7} {PARAM_VALUE.c0_dqs_t_0} {bank64.byte2.pin6} {PARAM_VALUE.c0_dqs_t_1} {bank64.byte3.pin6} {PARAM_VALUE.c0_dqs_t_2} {bank64.byte1.pin6} {PARAM_VALUE.c0_dqs_t_3} {bank64.byte0.pin6} {PARAM_VALUE.c0_odt_0} {bank65.byte3.pin2} {PARAM_VALUE.c0_reset_n} {bank65.byte3.pin10} {PARAM_VALUE.c0_sys_clk_n} {bank65.byte1.pin11} {PARAM_VALUE.c0_sys_clk_p} {bank65.byte1.pin10}}}
+# set output_xci c:/Users/박정현/AppData/Local/Temp/28544/out/d_1_ddr4_0_0_phy.0/result.xci
+# set output_dcp c:/Users/박정현/AppData/Local/Temp/28544/out/d_1_ddr4_0_0_phy.0/result.dcp
+# set output_dir c:/Users/박정현/AppData/Local/Temp/28544/out
+# set ip_repo_paths C:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip
+# set ip_output_repo C:/JeonghyunPark/Workspace/Vivado_Output/sq3/qstl_awg_tuning_fir_1msps_iq64_sq_pulse.cache/ip
+# set ip_cache_permissions {read write}
+# set oopbus_ip_repo_paths [get_param chipscope.oopbus_ip_repo_paths]
+# set synth_opts {{-bufg 0 -no_iobuf}}
+# set ordering_constrs 1
+# set bGenNoOOC 0
+# set xdc_files C:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0/u_mig_ddr4_phy_phy.xdc
+# source {C:/Xilinx/Vivado/2023.1/scripts/ip/ipxchipscope.tcl}
+DBG: run_single_gen_and_synth_ip() creating proj: d_1_ddr4_0_0_phy_0
+DBG: bGenNoOOC = 0
+create_project: Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1908.969 ; gain = 161.559
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/JeonghyunPark/Workspace/QSTL_QICK/qick/firmware/ip'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2023.1/data/ip'.
+Current synth_xdc_files = C:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0/u_mig_ddr4_phy_phy.xdc
+Current Constraint Set = constrs_d_1_ddr4_0_0_phy_19184
+DBG: creating temporary IP: d_1_ddr4_0_0_phy
+INFO: [Device 21-403] Loading part xczu49dr-ffvf1760-2-e
+create_ip: Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 3092.090 ; gain = 1148.012
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'd_1_ddr4_0_0_phy'...
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'd_1_ddr4_0_0_phy'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'd_1_ddr4_0_0_phy'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'd_1_ddr4_0_0_phy'...
+DBG: adding to xdc_files: c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/par/d_1_ddr4_0_0_phy_ooc_early.xdc
+synth_opts = -constrset constrs_d_1_ddr4_0_0_phy_19184 -bufg 0 -no_iobuf
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: d_1_ddr4_0_0_phy
+DBG: after check check: cacheID = 
+DBG: no cache hit, so run synth
+Command: synth_design -constrset constrs_d_1_ddr4_0_0_phy_19184 -bufg 0 -no_iobuf -part xczu49dr-ffvf1760-2-e -top d_1_ddr4_0_0_phy
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xczu49dr'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu49dr'
+INFO: [Common 17-1540] The version limit for your license is '2026.08' and has expired for new software. A version limit expiration means that, although you may be able to continue to use the current version of tools or IP with this license, you will not be eligible for new releases.
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 35324
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 3466.191 ; gain = 355.227
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'd_1_ddr4_0_0_phy' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/ip_top/d_1_ddr4_0_0_phy.sv:76]
+INFO: [Synth 8-6157] synthesizing module 'd_1_ddr4_0_0_phy_ddr4' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/phy/d_1_ddr4_0_0_phy_ddr4.sv:90]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_xiphy' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/phy/ddr4_phy_v2_2_xiphy.sv:68]
+	Parameter BYTES bound to: 8 - type: integer 
+	Parameter DBYTES bound to: 4 - type: integer 
+	Parameter TBYTE_CTL bound to: TBYTE_IN - type: string 
+	Parameter DELAY_TYPE bound to: FIXED - type: string 
+	Parameter DELAY_FORMAT bound to: TIME - type: string 
+	Parameter UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter PLLCLK_SRC bound to: 1'b0 
+	Parameter FIFO_SYNC_MODE bound to: 104'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter DIV_MODE bound to: 2'b00 
+	Parameter REFCLK_SRC bound to: 2'b00 
+	Parameter CTRL_CLK bound to: 2'b11 
+	Parameter GCLK_SRC bound to: 360'b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter INIT bound to: 120'b111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 
+	Parameter RX_DATA_TYPE bound to: 120'b010111001111111111111111111111000001110011000000000000100000011110111111001011110111111001011110111111001011110111111001 
+	Parameter TX_OUTPUT_PHASE_90 bound to: 104'b01011101111111111111111111000001100110000000000100000000011000000000001100000000000110000000000011000000 
+	Parameter RXTX_BITSLICE_EN bound to: 104'b01011101111111111111111101000001100110000000000100000111101111101011110111110101111011111010111101111101 
+	Parameter TRI_OUTPUT_PHASE_90 bound to: 16'b1111111111111111 
+	Parameter NATIVE_ODELAY_BYPASS bound to: 104'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter EN_OTHER_PCLK bound to: 16'b0000000001010101 
+	Parameter EN_OTHER_NCLK bound to: 16'b0000000001010101 
+	Parameter SERIAL_MODE bound to: 16'b0000000000000000 
+	Parameter RX_CLK_PHASE_P bound to: 16'b0000000011111111 
+	Parameter RX_CLK_PHASE_N bound to: 16'b0000000011111111 
+	Parameter INV_RXCLK bound to: 16'b0000000000000000 
+	Parameter TX_GATING bound to: 16'b0000000011111111 
+	Parameter RX_GATING bound to: 16'b0000000011111111 
+	Parameter EN_CLK_TO_EXT_NORTH bound to: 16'b0000000000000000 
+	Parameter EN_CLK_TO_EXT_SOUTH bound to: 16'b0000000000000000 
+	Parameter RX_DELAY_VAL bound to: 416'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TX_DELAY_VAL bound to: 416'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TRI_DELAY_VAL bound to: 64'b0000000000000000000000000000000000000000000000000000000000000000 
+	Parameter READ_IDLE_COUNT bound to: 64'b0000000000000000000000000001111100000000000000000000000000011111 
+	Parameter ROUNDING_FACTOR bound to: 64'b0000000000000000000000000001000000000000000000000000000000010000 
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter REFCLK_FREQ bound to: 300.000000 - type: double 
+	Parameter DCI_SRC bound to: 104'b11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111 
+	Parameter EN_DYN_ODLY_MODE bound to: 16'b0000000011111111 
+	Parameter SELF_CALIBRATE bound to: 16'b1111111111111111 
+	Parameter IDLY_VT_TRACK bound to: 16'b1111111111111111 
+	Parameter ODLY_VT_TRACK bound to: 16'b1111111111111111 
+	Parameter QDLY_VT_TRACK bound to: 16'b1111111111111111 
+	Parameter RXGATE_EXTEND bound to: 16'b0000000000000000 
+	Parameter DRAM_TYPE bound to: DDR4 - type: string 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_xiphy_byte_wrapper' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_byte_wrapper.sv:69]
+	Parameter ENABLE_PRE_EMPHASIS bound to: TRUE - type: string 
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter REFCLK_FREQ bound to: 300.000000 - type: double 
+	Parameter TBYTE_CTL bound to: TBYTE_IN - type: string 
+	Parameter DELAY_TYPE bound to: FIXED - type: string 
+	Parameter DELAY_FORMAT bound to: TIME - type: string 
+	Parameter UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter PLLCLK_SRC bound to: 1'b0 
+	Parameter RXTX_BITSLICE_EN bound to: 13'b0111101111101 
+	Parameter GCLK_SRC bound to: 45'b000000000000000000000000000000000000000000000 
+	Parameter DCI_SRC bound to: 13'b1111111111111 
+	Parameter INIT bound to: 15'b111111111111111 
+	Parameter RX_DATA_TYPE bound to: 15'b011110111111001 
+	Parameter RX_DELAY_VAL bound to: 416'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TX_DELAY_VAL bound to: 416'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TRI_DELAY_VAL bound to: 64'b0000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TX_OUTPUT_PHASE_90 bound to: 13'b0000011000000 
+	Parameter TRI_OUTPUT_PHASE_90 bound to: 2'b11 
+	Parameter NATIVE_ODELAY_BYPASS bound to: 13'b0000000000000 
+	Parameter FIFO_SYNC_MODE bound to: 13'b0000000000000 
+	Parameter EN_OTHER_PCLK bound to: 2'b01 
+	Parameter EN_OTHER_NCLK bound to: 2'b01 
+	Parameter EN_DYN_ODLY_MODE bound to: 2'b11 
+	Parameter SERIAL_MODE bound to: 2'b00 
+	Parameter RX_CLK_PHASE_P bound to: 2'b11 
+	Parameter RX_CLK_PHASE_N bound to: 2'b11 
+	Parameter INV_RXCLK bound to: 2'b00 
+	Parameter TX_GATING bound to: 2'b11 
+	Parameter RX_GATING bound to: 2'b11 
+	Parameter SELF_CALIBRATE bound to: 2'b11 
+	Parameter READ_IDLE_COUNT bound to: 64'b0000000000000000000000000001111100000000000000000000000000011111 
+	Parameter DIV_MODE bound to: 2'b00 
+	Parameter REFCLK_SRC bound to: 2'b00 
+	Parameter ROUNDING_FACTOR bound to: 64'b0000000000000000000000000001000000000000000000000000000000010000 
+	Parameter CTRL_CLK bound to: 2'b11 
+	Parameter EN_CLK_TO_EXT_NORTH bound to: 2'b00 
+	Parameter EN_CLK_TO_EXT_SOUTH bound to: 2'b00 
+	Parameter IDLY_VT_TRACK bound to: 2'b11 
+	Parameter ODLY_VT_TRACK bound to: 2'b11 
+	Parameter QDLY_VT_TRACK bound to: 2'b11 
+	Parameter RXGATE_EXTEND bound to: 2'b00 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_xiphy_bitslice_wrapper' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_bitslice_wrapper.sv:69]
+	Parameter FIFO_SYNC_MODE bound to: FALSE - type: string 
+	Parameter ENABLE_PRE_EMPHASIS bound to: TRUE - type: string 
+	Parameter RX_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter RX_DATA_TYPE bound to: DATA - type: string 
+	Parameter RX_DELAY_FORMAT bound to: TIME - type: string 
+	Parameter RX_DELAY_TYPE bound to: FIXED - type: string 
+	Parameter RX_DELAY_VAL bound to: 0 - type: integer 
+	Parameter RX_REFCLK_FREQ bound to: 300.000000 - type: double 
+	Parameter RX_UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter TX_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter TX_DELAY_TYPE bound to: FIXED - type: string 
+	Parameter TX_REFCLK_FREQ bound to: 300.000000 - type: double 
+	Parameter TX_UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter TX_DELAY_VAL bound to: 0 - type: integer 
+	Parameter INIT bound to: 1'b1 
+	Parameter TBYTE_CTL bound to: TBYTE_IN - type: string 
+	Parameter TX_DELAY_FORMAT bound to: TIME - type: string 
+	Parameter TX_OUTPUT_PHASE_90 bound to: FALSE - type: string 
+	Parameter NATIVE_ODELAY_BYPASS bound to: FALSE - type: string 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+INFO: [Synth 8-6157] synthesizing module 'RXTX_BITSLICE' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:133085]
+	Parameter ENABLE_PRE_EMPHASIS bound to: TRUE - type: string 
+	Parameter FIFO_SYNC_MODE bound to: FALSE - type: string 
+	Parameter INIT bound to: 1'b1 
+	Parameter NATIVE_ODELAY_BYPASS bound to: FALSE - type: string 
+	Parameter RX_DATA_TYPE bound to: DATA - type: string 
+	Parameter RX_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter RX_DELAY_FORMAT bound to: TIME - type: string 
+	Parameter RX_DELAY_TYPE bound to: FIXED - type: string 
+	Parameter RX_DELAY_VALUE bound to: 0 - type: integer 
+	Parameter RX_REFCLK_FREQUENCY bound to: 300.000000 - type: double 
+	Parameter RX_UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+	Parameter TBYTE_CTL bound to: TBYTE_IN - type: string 
+	Parameter TX_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter TX_DELAY_FORMAT bound to: TIME - type: string 
+	Parameter TX_DELAY_TYPE bound to: FIXED - type: string 
+	Parameter TX_DELAY_VALUE bound to: 0 - type: integer 
+	Parameter TX_OUTPUT_PHASE_90 bound to: FALSE - type: string 
+	Parameter TX_REFCLK_FREQUENCY bound to: 300.000000 - type: double 
+	Parameter TX_UPDATE_MODE bound to: ASYNC - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'RXTX_BITSLICE' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:133085]
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_xiphy_bitslice_wrapper' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_bitslice_wrapper.sv:69]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_xiphy_bitslice_wrapper__parameterized0' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_bitslice_wrapper.sv:69]
+	Parameter FIFO_SYNC_MODE bound to: FALSE - type: string 
+	Parameter ENABLE_PRE_EMPHASIS bound to: TRUE - type: string 
+	Parameter RX_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter RX_DATA_TYPE bound to: DATA_AND_CLOCK - type: string 
+	Parameter RX_DELAY_FORMAT bound to: TIME - type: string 
+	Parameter RX_DELAY_TYPE bound to: FIXED - type: string 
+	Parameter RX_DELAY_VAL bound to: 0 - type: integer 
+	Parameter RX_REFCLK_FREQ bound to: 300.000000 - type: double 
+	Parameter RX_UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter TX_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter TX_DELAY_TYPE bound to: FIXED - type: string 
+	Parameter TX_REFCLK_FREQ bound to: 300.000000 - type: double 
+	Parameter TX_UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter TX_DELAY_VAL bound to: 0 - type: integer 
+	Parameter INIT bound to: 1'b1 
+	Parameter TBYTE_CTL bound to: TBYTE_IN - type: string 
+	Parameter TX_DELAY_FORMAT bound to: TIME - type: string 
+	Parameter TX_OUTPUT_PHASE_90 bound to: TRUE - type: string 
+	Parameter NATIVE_ODELAY_BYPASS bound to: FALSE - type: string 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+INFO: [Synth 8-6157] synthesizing module 'RXTX_BITSLICE__parameterized0' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:133085]
+	Parameter ENABLE_PRE_EMPHASIS bound to: TRUE - type: string 
+	Parameter FIFO_SYNC_MODE bound to: FALSE - type: string 
+	Parameter INIT bound to: 1'b1 
+	Parameter NATIVE_ODELAY_BYPASS bound to: FALSE - type: string 
+	Parameter RX_DATA_TYPE bound to: DATA_AND_CLOCK - type: string 
+	Parameter RX_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter RX_DELAY_FORMAT bound to: TIME - type: string 
+	Parameter RX_DELAY_TYPE bound to: FIXED - type: string 
+	Parameter RX_DELAY_VALUE bound to: 0 - type: integer 
+	Parameter RX_REFCLK_FREQUENCY bound to: 300.000000 - type: double 
+	Parameter RX_UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+	Parameter TBYTE_CTL bound to: TBYTE_IN - type: string 
+	Parameter TX_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter TX_DELAY_FORMAT bound to: TIME - type: string 
+	Parameter TX_DELAY_TYPE bound to: FIXED - type: string 
+	Parameter TX_DELAY_VALUE bound to: 0 - type: integer 
+	Parameter TX_OUTPUT_PHASE_90 bound to: TRUE - type: string 
+	Parameter TX_REFCLK_FREQUENCY bound to: 300.000000 - type: double 
+	Parameter TX_UPDATE_MODE bound to: ASYNC - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'RXTX_BITSLICE__parameterized0' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:133085]
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_xiphy_bitslice_wrapper__parameterized0' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_bitslice_wrapper.sv:69]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_xiphy_tristate_wrapper' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_tristate_wrapper.sv:69]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter INIT bound to: 1'b1 
+	Parameter DELAY_TYPE bound to: FIXED - type: string 
+	Parameter DELAY_FORMAT bound to: TIME - type: string 
+	Parameter UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter DELAY_VAL bound to: 0 - type: integer 
+	Parameter REFCLK_FREQ bound to: 300.000000 - type: double 
+	Parameter OUTPUT_PHASE_90 bound to: TRUE - type: string 
+	Parameter NATIVE_ODELAY_BYPASS bound to: FALSE - type: string 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+INFO: [Synth 8-6157] synthesizing module 'TX_BITSLICE_TRI' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:134350]
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter DELAY_FORMAT bound to: TIME - type: string 
+	Parameter DELAY_TYPE bound to: FIXED - type: string 
+	Parameter DELAY_VALUE bound to: 0 - type: integer 
+	Parameter INIT bound to: 1'b1 
+	Parameter NATIVE_ODELAY_BYPASS bound to: FALSE - type: string 
+	Parameter OUTPUT_PHASE_90 bound to: TRUE - type: string 
+	Parameter REFCLK_FREQUENCY bound to: 300.000000 - type: double 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+	Parameter UPDATE_MODE bound to: ASYNC - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'TX_BITSLICE_TRI' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:134350]
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_xiphy_tristate_wrapper' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_tristate_wrapper.sv:69]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_xiphy_control_wrapper' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_control_wrapper.sv:69]
+	Parameter EN_OTHER_PCLK bound to: TRUE - type: string 
+	Parameter EN_OTHER_NCLK bound to: TRUE - type: string 
+	Parameter EN_DYN_ODLY_MODE bound to: TRUE - type: string 
+	Parameter SERIAL_MODE bound to: FALSE - type: string 
+	Parameter RX_CLK_PHASE_P bound to: SHIFT_90 - type: string 
+	Parameter RX_CLK_PHASE_N bound to: SHIFT_90 - type: string 
+	Parameter INV_RXCLK bound to: FALSE - type: string 
+	Parameter TX_GATING bound to: ENABLE - type: string 
+	Parameter RX_GATING bound to: ENABLE - type: string 
+	Parameter SELF_CALIBRATE bound to: ENABLE - type: string 
+	Parameter READ_IDLE_COUNT bound to: 31 - type: integer 
+	Parameter DIV_MODE bound to: DIV4 - type: string 
+	Parameter REFCLK_SRC bound to: PLLCLK - type: string 
+	Parameter ROUNDING_FACTOR bound to: 16 - type: integer 
+	Parameter CTRL_CLK bound to: EXTERNAL - type: string 
+	Parameter EN_CLK_TO_EXT_NORTH bound to: DISABLE - type: string 
+	Parameter EN_CLK_TO_EXT_SOUTH bound to: DISABLE - type: string 
+	Parameter IDLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter ODLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter QDLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter RXGATE_EXTEND bound to: FALSE - type: string 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+INFO: [Synth 8-6157] synthesizing module 'BITSLICE_CONTROL' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:1176]
+	Parameter CTRL_CLK bound to: EXTERNAL - type: string 
+	Parameter DIV_MODE bound to: DIV4 - type: string 
+	Parameter EN_CLK_TO_EXT_NORTH bound to: DISABLE - type: string 
+	Parameter EN_CLK_TO_EXT_SOUTH bound to: DISABLE - type: string 
+	Parameter EN_DYN_ODLY_MODE bound to: TRUE - type: string 
+	Parameter EN_OTHER_NCLK bound to: TRUE - type: string 
+	Parameter EN_OTHER_PCLK bound to: TRUE - type: string 
+	Parameter IDLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter INV_RXCLK bound to: FALSE - type: string 
+	Parameter ODLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter QDLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter READ_IDLE_COUNT bound to: 31 - type: integer 
+	Parameter REFCLK_SRC bound to: PLLCLK - type: string 
+	Parameter ROUNDING_FACTOR bound to: 16 - type: integer 
+	Parameter RXGATE_EXTEND bound to: FALSE - type: string 
+	Parameter RX_CLK_PHASE_N bound to: SHIFT_90 - type: string 
+	Parameter RX_CLK_PHASE_P bound to: SHIFT_90 - type: string 
+	Parameter RX_GATING bound to: ENABLE - type: string 
+	Parameter SELF_CALIBRATE bound to: ENABLE - type: string 
+	Parameter SERIAL_MODE bound to: FALSE - type: string 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+	Parameter TX_GATING bound to: ENABLE - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'BITSLICE_CONTROL' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:1176]
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_xiphy_control_wrapper' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_control_wrapper.sv:69]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_xiphy_control_wrapper__parameterized0' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_control_wrapper.sv:69]
+	Parameter EN_OTHER_PCLK bound to: FALSE - type: string 
+	Parameter EN_OTHER_NCLK bound to: FALSE - type: string 
+	Parameter EN_DYN_ODLY_MODE bound to: TRUE - type: string 
+	Parameter SERIAL_MODE bound to: FALSE - type: string 
+	Parameter RX_CLK_PHASE_P bound to: SHIFT_90 - type: string 
+	Parameter RX_CLK_PHASE_N bound to: SHIFT_90 - type: string 
+	Parameter INV_RXCLK bound to: FALSE - type: string 
+	Parameter TX_GATING bound to: ENABLE - type: string 
+	Parameter RX_GATING bound to: ENABLE - type: string 
+	Parameter SELF_CALIBRATE bound to: ENABLE - type: string 
+	Parameter READ_IDLE_COUNT bound to: 31 - type: integer 
+	Parameter DIV_MODE bound to: DIV4 - type: string 
+	Parameter REFCLK_SRC bound to: PLLCLK - type: string 
+	Parameter ROUNDING_FACTOR bound to: 16 - type: integer 
+	Parameter CTRL_CLK bound to: EXTERNAL - type: string 
+	Parameter EN_CLK_TO_EXT_NORTH bound to: DISABLE - type: string 
+	Parameter EN_CLK_TO_EXT_SOUTH bound to: DISABLE - type: string 
+	Parameter IDLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter ODLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter QDLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter RXGATE_EXTEND bound to: FALSE - type: string 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+INFO: [Synth 8-6157] synthesizing module 'BITSLICE_CONTROL__parameterized0' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:1176]
+	Parameter CTRL_CLK bound to: EXTERNAL - type: string 
+	Parameter DIV_MODE bound to: DIV4 - type: string 
+	Parameter EN_CLK_TO_EXT_NORTH bound to: DISABLE - type: string 
+	Parameter EN_CLK_TO_EXT_SOUTH bound to: DISABLE - type: string 
+	Parameter EN_DYN_ODLY_MODE bound to: TRUE - type: string 
+	Parameter EN_OTHER_NCLK bound to: FALSE - type: string 
+	Parameter EN_OTHER_PCLK bound to: FALSE - type: string 
+	Parameter IDLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter INV_RXCLK bound to: FALSE - type: string 
+	Parameter ODLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter QDLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter READ_IDLE_COUNT bound to: 31 - type: integer 
+	Parameter REFCLK_SRC bound to: PLLCLK - type: string 
+	Parameter ROUNDING_FACTOR bound to: 16 - type: integer 
+	Parameter RXGATE_EXTEND bound to: FALSE - type: string 
+	Parameter RX_CLK_PHASE_N bound to: SHIFT_90 - type: string 
+	Parameter RX_CLK_PHASE_P bound to: SHIFT_90 - type: string 
+	Parameter RX_GATING bound to: ENABLE - type: string 
+	Parameter SELF_CALIBRATE bound to: ENABLE - type: string 
+	Parameter SERIAL_MODE bound to: FALSE - type: string 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+	Parameter TX_GATING bound to: ENABLE - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'BITSLICE_CONTROL__parameterized0' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:1176]
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_xiphy_control_wrapper__parameterized0' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_control_wrapper.sv:69]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_xiphy_riuor_wrapper' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_riuor_wrapper.sv:69]
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+INFO: [Synth 8-6157] synthesizing module 'RIU_OR' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:132985]
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'RIU_OR' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:132985]
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_xiphy_riuor_wrapper' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_riuor_wrapper.sv:69]
+INFO: [Synth 8-6157] synthesizing module 'LUT1' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:80176]
+	Parameter INIT bound to: 2'b10 
+INFO: [Synth 8-6155] done synthesizing module 'LUT1' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:80176]
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_xiphy_byte_wrapper' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_byte_wrapper.sv:69]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_xiphy_byte_wrapper__parameterized0' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_byte_wrapper.sv:69]
+	Parameter ENABLE_PRE_EMPHASIS bound to: TRUE - type: string 
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter REFCLK_FREQ bound to: 300.000000 - type: double 
+	Parameter TBYTE_CTL bound to: TBYTE_IN - type: string 
+	Parameter DELAY_TYPE bound to: FIXED - type: string 
+	Parameter DELAY_FORMAT bound to: TIME - type: string 
+	Parameter UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter PLLCLK_SRC bound to: 1'b0 
+	Parameter RXTX_BITSLICE_EN bound to: 13'b0000000010000 
+	Parameter GCLK_SRC bound to: 45'b000000000000000000000000000000000000000000000 
+	Parameter DCI_SRC bound to: 13'b1111111111111 
+	Parameter INIT bound to: 15'b111111111111111 
+	Parameter RX_DATA_TYPE bound to: 15'b000000000100000 
+	Parameter RX_DELAY_VAL bound to: 416'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TX_DELAY_VAL bound to: 416'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TRI_DELAY_VAL bound to: 64'b0000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TX_OUTPUT_PHASE_90 bound to: 13'b0000000010000 
+	Parameter TRI_OUTPUT_PHASE_90 bound to: 2'b11 
+	Parameter NATIVE_ODELAY_BYPASS bound to: 13'b0000000000000 
+	Parameter FIFO_SYNC_MODE bound to: 13'b0000000000000 
+	Parameter EN_OTHER_PCLK bound to: 2'b00 
+	Parameter EN_OTHER_NCLK bound to: 2'b00 
+	Parameter EN_DYN_ODLY_MODE bound to: 2'b00 
+	Parameter SERIAL_MODE bound to: 2'b00 
+	Parameter RX_CLK_PHASE_P bound to: 2'b00 
+	Parameter RX_CLK_PHASE_N bound to: 2'b00 
+	Parameter INV_RXCLK bound to: 2'b00 
+	Parameter TX_GATING bound to: 2'b00 
+	Parameter RX_GATING bound to: 2'b00 
+	Parameter SELF_CALIBRATE bound to: 2'b11 
+	Parameter READ_IDLE_COUNT bound to: 64'b0000000000000000000000000001111100000000000000000000000000011111 
+	Parameter DIV_MODE bound to: 2'b00 
+	Parameter REFCLK_SRC bound to: 2'b00 
+	Parameter ROUNDING_FACTOR bound to: 64'b0000000000000000000000000001000000000000000000000000000000010000 
+	Parameter CTRL_CLK bound to: 2'b11 
+	Parameter EN_CLK_TO_EXT_NORTH bound to: 2'b00 
+	Parameter EN_CLK_TO_EXT_SOUTH bound to: 2'b00 
+	Parameter IDLY_VT_TRACK bound to: 2'b11 
+	Parameter ODLY_VT_TRACK bound to: 2'b11 
+	Parameter QDLY_VT_TRACK bound to: 2'b11 
+	Parameter RXGATE_EXTEND bound to: 2'b00 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_xiphy_bitslice_wrapper__parameterized1' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_bitslice_wrapper.sv:69]
+	Parameter FIFO_SYNC_MODE bound to: FALSE - type: string 
+	Parameter ENABLE_PRE_EMPHASIS bound to: TRUE - type: string 
+	Parameter RX_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter RX_DATA_TYPE bound to: DATA - type: string 
+	Parameter RX_DELAY_FORMAT bound to: TIME - type: string 
+	Parameter RX_DELAY_TYPE bound to: FIXED - type: string 
+	Parameter RX_DELAY_VAL bound to: 0 - type: integer 
+	Parameter RX_REFCLK_FREQ bound to: 300.000000 - type: double 
+	Parameter RX_UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter TX_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter TX_DELAY_TYPE bound to: FIXED - type: string 
+	Parameter TX_REFCLK_FREQ bound to: 300.000000 - type: double 
+	Parameter TX_UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter TX_DELAY_VAL bound to: 0 - type: integer 
+	Parameter INIT bound to: 1'b1 
+	Parameter TBYTE_CTL bound to: TBYTE_IN - type: string 
+	Parameter TX_DELAY_FORMAT bound to: TIME - type: string 
+	Parameter TX_OUTPUT_PHASE_90 bound to: TRUE - type: string 
+	Parameter NATIVE_ODELAY_BYPASS bound to: FALSE - type: string 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+INFO: [Synth 8-6157] synthesizing module 'RXTX_BITSLICE__parameterized1' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:133085]
+	Parameter ENABLE_PRE_EMPHASIS bound to: TRUE - type: string 
+	Parameter FIFO_SYNC_MODE bound to: FALSE - type: string 
+	Parameter INIT bound to: 1'b1 
+	Parameter NATIVE_ODELAY_BYPASS bound to: FALSE - type: string 
+	Parameter RX_DATA_TYPE bound to: DATA - type: string 
+	Parameter RX_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter RX_DELAY_FORMAT bound to: TIME - type: string 
+	Parameter RX_DELAY_TYPE bound to: FIXED - type: string 
+	Parameter RX_DELAY_VALUE bound to: 0 - type: integer 
+	Parameter RX_REFCLK_FREQUENCY bound to: 300.000000 - type: double 
+	Parameter RX_UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+	Parameter TBYTE_CTL bound to: TBYTE_IN - type: string 
+	Parameter TX_DATA_WIDTH bound to: 8 - type: integer 
+	Parameter TX_DELAY_FORMAT bound to: TIME - type: string 
+	Parameter TX_DELAY_TYPE bound to: FIXED - type: string 
+	Parameter TX_DELAY_VALUE bound to: 0 - type: integer 
+	Parameter TX_OUTPUT_PHASE_90 bound to: TRUE - type: string 
+	Parameter TX_REFCLK_FREQUENCY bound to: 300.000000 - type: double 
+	Parameter TX_UPDATE_MODE bound to: ASYNC - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'RXTX_BITSLICE__parameterized1' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:133085]
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_xiphy_bitslice_wrapper__parameterized1' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_bitslice_wrapper.sv:69]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_xiphy_control_wrapper__parameterized1' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_control_wrapper.sv:69]
+	Parameter EN_OTHER_PCLK bound to: FALSE - type: string 
+	Parameter EN_OTHER_NCLK bound to: FALSE - type: string 
+	Parameter EN_DYN_ODLY_MODE bound to: FALSE - type: string 
+	Parameter SERIAL_MODE bound to: FALSE - type: string 
+	Parameter RX_CLK_PHASE_P bound to: SHIFT_0 - type: string 
+	Parameter RX_CLK_PHASE_N bound to: SHIFT_0 - type: string 
+	Parameter INV_RXCLK bound to: FALSE - type: string 
+	Parameter TX_GATING bound to: DISABLE - type: string 
+	Parameter RX_GATING bound to: DISABLE - type: string 
+	Parameter SELF_CALIBRATE bound to: ENABLE - type: string 
+	Parameter READ_IDLE_COUNT bound to: 31 - type: integer 
+	Parameter DIV_MODE bound to: DIV4 - type: string 
+	Parameter REFCLK_SRC bound to: PLLCLK - type: string 
+	Parameter ROUNDING_FACTOR bound to: 16 - type: integer 
+	Parameter CTRL_CLK bound to: EXTERNAL - type: string 
+	Parameter EN_CLK_TO_EXT_NORTH bound to: DISABLE - type: string 
+	Parameter EN_CLK_TO_EXT_SOUTH bound to: DISABLE - type: string 
+	Parameter IDLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter ODLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter QDLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter RXGATE_EXTEND bound to: FALSE - type: string 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+INFO: [Synth 8-6157] synthesizing module 'BITSLICE_CONTROL__parameterized1' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:1176]
+	Parameter CTRL_CLK bound to: EXTERNAL - type: string 
+	Parameter DIV_MODE bound to: DIV4 - type: string 
+	Parameter EN_CLK_TO_EXT_NORTH bound to: DISABLE - type: string 
+	Parameter EN_CLK_TO_EXT_SOUTH bound to: DISABLE - type: string 
+	Parameter EN_DYN_ODLY_MODE bound to: FALSE - type: string 
+	Parameter EN_OTHER_NCLK bound to: FALSE - type: string 
+	Parameter EN_OTHER_PCLK bound to: FALSE - type: string 
+	Parameter IDLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter INV_RXCLK bound to: FALSE - type: string 
+	Parameter ODLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter QDLY_VT_TRACK bound to: TRUE - type: string 
+	Parameter READ_IDLE_COUNT bound to: 31 - type: integer 
+	Parameter REFCLK_SRC bound to: PLLCLK - type: string 
+	Parameter ROUNDING_FACTOR bound to: 16 - type: integer 
+	Parameter RXGATE_EXTEND bound to: FALSE - type: string 
+	Parameter RX_CLK_PHASE_N bound to: SHIFT_0 - type: string 
+	Parameter RX_CLK_PHASE_P bound to: SHIFT_0 - type: string 
+	Parameter RX_GATING bound to: DISABLE - type: string 
+	Parameter SELF_CALIBRATE bound to: ENABLE - type: string 
+	Parameter SERIAL_MODE bound to: FALSE - type: string 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+	Parameter TX_GATING bound to: DISABLE - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'BITSLICE_CONTROL__parameterized1' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:1176]
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_xiphy_control_wrapper__parameterized1' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_control_wrapper.sv:69]
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_xiphy_byte_wrapper__parameterized0' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_byte_wrapper.sv:69]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_xiphy_byte_wrapper__parameterized1' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_byte_wrapper.sv:69]
+	Parameter ENABLE_PRE_EMPHASIS bound to: TRUE - type: string 
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter REFCLK_FREQ bound to: 300.000000 - type: double 
+	Parameter TBYTE_CTL bound to: TBYTE_IN - type: string 
+	Parameter DELAY_TYPE bound to: FIXED - type: string 
+	Parameter DELAY_FORMAT bound to: TIME - type: string 
+	Parameter UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter PLLCLK_SRC bound to: 1'b0 
+	Parameter RXTX_BITSLICE_EN bound to: 13'b0000011001100 
+	Parameter GCLK_SRC bound to: 45'b000000000000000000000000000000000000000000000 
+	Parameter DCI_SRC bound to: 13'b1111111111111 
+	Parameter INIT bound to: 15'b111111111111111 
+	Parameter RX_DATA_TYPE bound to: 15'b000001110011000 
+	Parameter RX_DELAY_VAL bound to: 416'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TX_DELAY_VAL bound to: 416'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TRI_DELAY_VAL bound to: 64'b0000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TX_OUTPUT_PHASE_90 bound to: 13'b0000011001100 
+	Parameter TRI_OUTPUT_PHASE_90 bound to: 2'b11 
+	Parameter NATIVE_ODELAY_BYPASS bound to: 13'b0000000000000 
+	Parameter FIFO_SYNC_MODE bound to: 13'b0000000000000 
+	Parameter EN_OTHER_PCLK bound to: 2'b00 
+	Parameter EN_OTHER_NCLK bound to: 2'b00 
+	Parameter EN_DYN_ODLY_MODE bound to: 2'b00 
+	Parameter SERIAL_MODE bound to: 2'b00 
+	Parameter RX_CLK_PHASE_P bound to: 2'b00 
+	Parameter RX_CLK_PHASE_N bound to: 2'b00 
+	Parameter INV_RXCLK bound to: 2'b00 
+	Parameter TX_GATING bound to: 2'b00 
+	Parameter RX_GATING bound to: 2'b00 
+	Parameter SELF_CALIBRATE bound to: 2'b11 
+	Parameter READ_IDLE_COUNT bound to: 64'b0000000000000000000000000001111100000000000000000000000000011111 
+	Parameter DIV_MODE bound to: 2'b00 
+	Parameter REFCLK_SRC bound to: 2'b00 
+	Parameter ROUNDING_FACTOR bound to: 64'b0000000000000000000000000001000000000000000000000000000000010000 
+	Parameter CTRL_CLK bound to: 2'b11 
+	Parameter EN_CLK_TO_EXT_NORTH bound to: 2'b00 
+	Parameter EN_CLK_TO_EXT_SOUTH bound to: 2'b00 
+	Parameter IDLY_VT_TRACK bound to: 2'b11 
+	Parameter ODLY_VT_TRACK bound to: 2'b11 
+	Parameter QDLY_VT_TRACK bound to: 2'b11 
+	Parameter RXGATE_EXTEND bound to: 2'b00 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_xiphy_byte_wrapper__parameterized1' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_byte_wrapper.sv:69]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_xiphy_byte_wrapper__parameterized2' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_byte_wrapper.sv:69]
+	Parameter ENABLE_PRE_EMPHASIS bound to: TRUE - type: string 
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter REFCLK_FREQ bound to: 300.000000 - type: double 
+	Parameter TBYTE_CTL bound to: TBYTE_IN - type: string 
+	Parameter DELAY_TYPE bound to: FIXED - type: string 
+	Parameter DELAY_FORMAT bound to: TIME - type: string 
+	Parameter UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter PLLCLK_SRC bound to: 1'b0 
+	Parameter RXTX_BITSLICE_EN bound to: 13'b1111111111101 
+	Parameter GCLK_SRC bound to: 45'b000000000000000000000000000000000000000000000 
+	Parameter DCI_SRC bound to: 13'b1111111111111 
+	Parameter INIT bound to: 15'b111111111111111 
+	Parameter RX_DATA_TYPE bound to: 15'b111111111111111 
+	Parameter RX_DELAY_VAL bound to: 416'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TX_DELAY_VAL bound to: 416'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TRI_DELAY_VAL bound to: 64'b0000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TX_OUTPUT_PHASE_90 bound to: 13'b1111111111111 
+	Parameter TRI_OUTPUT_PHASE_90 bound to: 2'b11 
+	Parameter NATIVE_ODELAY_BYPASS bound to: 13'b0000000000000 
+	Parameter FIFO_SYNC_MODE bound to: 13'b0000000000000 
+	Parameter EN_OTHER_PCLK bound to: 2'b00 
+	Parameter EN_OTHER_NCLK bound to: 2'b00 
+	Parameter EN_DYN_ODLY_MODE bound to: 2'b00 
+	Parameter SERIAL_MODE bound to: 2'b00 
+	Parameter RX_CLK_PHASE_P bound to: 2'b00 
+	Parameter RX_CLK_PHASE_N bound to: 2'b00 
+	Parameter INV_RXCLK bound to: 2'b00 
+	Parameter TX_GATING bound to: 2'b00 
+	Parameter RX_GATING bound to: 2'b00 
+	Parameter SELF_CALIBRATE bound to: 2'b11 
+	Parameter READ_IDLE_COUNT bound to: 64'b0000000000000000000000000001111100000000000000000000000000011111 
+	Parameter DIV_MODE bound to: 2'b00 
+	Parameter REFCLK_SRC bound to: 2'b00 
+	Parameter ROUNDING_FACTOR bound to: 64'b0000000000000000000000000001000000000000000000000000000000010000 
+	Parameter CTRL_CLK bound to: 2'b11 
+	Parameter EN_CLK_TO_EXT_NORTH bound to: 2'b00 
+	Parameter EN_CLK_TO_EXT_SOUTH bound to: 2'b00 
+	Parameter IDLY_VT_TRACK bound to: 2'b11 
+	Parameter ODLY_VT_TRACK bound to: 2'b11 
+	Parameter QDLY_VT_TRACK bound to: 2'b11 
+	Parameter RXGATE_EXTEND bound to: 2'b00 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_xiphy_byte_wrapper__parameterized2' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_byte_wrapper.sv:69]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_xiphy_byte_wrapper__parameterized3' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_byte_wrapper.sv:69]
+	Parameter ENABLE_PRE_EMPHASIS bound to: TRUE - type: string 
+	Parameter DATA_WIDTH bound to: 8 - type: integer 
+	Parameter REFCLK_FREQ bound to: 300.000000 - type: double 
+	Parameter TBYTE_CTL bound to: TBYTE_IN - type: string 
+	Parameter DELAY_TYPE bound to: FIXED - type: string 
+	Parameter DELAY_FORMAT bound to: TIME - type: string 
+	Parameter UPDATE_MODE bound to: ASYNC - type: string 
+	Parameter PLLCLK_SRC bound to: 1'b0 
+	Parameter RXTX_BITSLICE_EN bound to: 13'b0101110111111 
+	Parameter GCLK_SRC bound to: 45'b000000000000000000000000000000000000000000000 
+	Parameter DCI_SRC bound to: 13'b1111111111111 
+	Parameter INIT bound to: 15'b111111111111111 
+	Parameter RX_DATA_TYPE bound to: 15'b010111001111111 
+	Parameter RX_DELAY_VAL bound to: 416'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TX_DELAY_VAL bound to: 416'b00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TRI_DELAY_VAL bound to: 64'b0000000000000000000000000000000000000000000000000000000000000000 
+	Parameter TX_OUTPUT_PHASE_90 bound to: 13'b0101110111111 
+	Parameter TRI_OUTPUT_PHASE_90 bound to: 2'b11 
+	Parameter NATIVE_ODELAY_BYPASS bound to: 13'b0000000000000 
+	Parameter FIFO_SYNC_MODE bound to: 13'b0000000000000 
+	Parameter EN_OTHER_PCLK bound to: 2'b00 
+	Parameter EN_OTHER_NCLK bound to: 2'b00 
+	Parameter EN_DYN_ODLY_MODE bound to: 2'b00 
+	Parameter SERIAL_MODE bound to: 2'b00 
+	Parameter RX_CLK_PHASE_P bound to: 2'b00 
+	Parameter RX_CLK_PHASE_N bound to: 2'b00 
+	Parameter INV_RXCLK bound to: 2'b00 
+	Parameter TX_GATING bound to: 2'b00 
+	Parameter RX_GATING bound to: 2'b00 
+	Parameter SELF_CALIBRATE bound to: 2'b11 
+	Parameter READ_IDLE_COUNT bound to: 64'b0000000000000000000000000001111100000000000000000000000000011111 
+	Parameter DIV_MODE bound to: 2'b00 
+	Parameter REFCLK_SRC bound to: 2'b00 
+	Parameter ROUNDING_FACTOR bound to: 64'b0000000000000000000000000001000000000000000000000000000000010000 
+	Parameter CTRL_CLK bound to: 2'b11 
+	Parameter EN_CLK_TO_EXT_NORTH bound to: 2'b00 
+	Parameter EN_CLK_TO_EXT_SOUTH bound to: 2'b00 
+	Parameter IDLY_VT_TRACK bound to: 2'b11 
+	Parameter ODLY_VT_TRACK bound to: 2'b11 
+	Parameter QDLY_VT_TRACK bound to: 2'b11 
+	Parameter RXGATE_EXTEND bound to: 2'b00 
+	Parameter SIM_DEVICE bound to: ULTRASCALE_PLUS - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_xiphy_byte_wrapper__parameterized3' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/xiphy_files/ddr4_phy_v2_2_xiphy_byte_wrapper.sv:69]
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_xiphy' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/phy/ddr4_phy_v2_2_xiphy.sv:68]
+INFO: [Synth 8-6157] synthesizing module 'OBUF' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:91867]
+INFO: [Synth 8-6155] done synthesizing module 'OBUF' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:91867]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_pll' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/clocking/ddr4_phy_v2_2_pll.sv:67]
+	Parameter SYSCLK_TYPE bound to: DIFFERENTIAL - type: string 
+	Parameter BACKBONE_ROUTE bound to: FALSE - type: string 
+	Parameter PLL_WIDTH bound to: 2 - type: integer 
+	Parameter CLKOUTPHY_MODE bound to: VCO_2X - type: string 
+	Parameter CLKIN_PERIOD_PLL bound to: 3000 - type: integer 
+	Parameter nCK_PER_CLK bound to: 4 - type: integer 
+	Parameter C_FAMILY bound to: zynquplus - type: string 
+	Parameter TCQ bound to: 100.000000 - type: double 
+INFO: [Synth 8-6157] synthesizing module 'IBUFDS' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:71783]
+	Parameter IBUF_LOW_PWR bound to: FALSE - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'IBUFDS' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:71783]
+INFO: [Synth 8-6157] synthesizing module 'PLLE4_ADV' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:110822]
+	Parameter CLKFBOUT_MULT bound to: 4 - type: integer 
+	Parameter CLKFBOUT_PHASE bound to: 90.000000 - type: double 
+	Parameter CLKIN_PERIOD bound to: 3.000000 - type: double 
+	Parameter CLKOUT0_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT0_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT0_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUTPHY_MODE bound to: VCO_2X - type: string 
+	Parameter COMPENSATION bound to: INTERNAL - type: string 
+	Parameter DIVCLK_DIVIDE bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'PLLE4_ADV' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:110822]
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_pll' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/clocking/ddr4_phy_v2_2_pll.sv:67]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_iob' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/iob/ddr4_phy_v2_2_iob.sv:72]
+	Parameter BYTES bound to: 8 - type: integer 
+	Parameter IOBTYPE bound to: 312'b000001000001001001000001001001001001001001001001001001001001001001001001101101000000000000000001001000000001001000000000000000000000000000000001000000000000000011011011011111111011011011011000011000011011011011111111011011011011000011000011011011011111111011011011011000011000011011011011111111011011011011000011 
+	Parameter DQS_BIAS bound to: FALSE - type: string 
+	Parameter DRAM_TYPE bound to: DDR4 - type: string 
+	Parameter EN_LVAUX bound to: FALSE - type: string 
+	Parameter BANK_TYPE bound to: HP_IO - type: string 
+	Parameter USE_DYNAMIC_DCI bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_iob_byte' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/iob/ddr4_phy_v2_2_iob_byte.sv:93]
+	Parameter IOBTYPE bound to: 39'b000011011011011111111011011011011000011 
+	Parameter DQS_BIAS bound to: FALSE - type: string 
+	Parameter DRAM_TYPE bound to: DDR4 - type: string 
+	Parameter EN_LVAUX bound to: FALSE - type: string 
+	Parameter BANK_TYPE bound to: HP_IO - type: string 
+	Parameter USE_DYNAMIC_DCI bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'HPIO_VREF' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:71418]
+	Parameter VREF_CNTR bound to: FABRIC_RANGE1 - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'HPIO_VREF' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:71418]
+INFO: [Synth 8-6157] synthesizing module 'IOBUFE3' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:76728]
+INFO: [Synth 8-6155] done synthesizing module 'IOBUFE3' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:76728]
+INFO: [Synth 8-6157] synthesizing module 'IOBUFDS' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:76351]
+	Parameter DQS_BIAS bound to: FALSE - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'IOBUFDS' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:76351]
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_iob_byte' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/iob/ddr4_phy_v2_2_iob_byte.sv:93]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_iob_byte__parameterized0' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/iob/ddr4_phy_v2_2_iob_byte.sv:93]
+	Parameter IOBTYPE bound to: 39'b000000000000000000000000001000000000000 
+	Parameter DQS_BIAS bound to: FALSE - type: string 
+	Parameter DRAM_TYPE bound to: DDR4 - type: string 
+	Parameter EN_LVAUX bound to: FALSE - type: string 
+	Parameter BANK_TYPE bound to: HP_IO - type: string 
+	Parameter USE_DYNAMIC_DCI bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_iob_byte__parameterized0' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/iob/ddr4_phy_v2_2_iob_byte.sv:93]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_iob_byte__parameterized1' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/iob/ddr4_phy_v2_2_iob_byte.sv:93]
+	Parameter IOBTYPE bound to: 39'b000000000000000001001000000001001000000 
+	Parameter DQS_BIAS bound to: FALSE - type: string 
+	Parameter DRAM_TYPE bound to: DDR4 - type: string 
+	Parameter EN_LVAUX bound to: FALSE - type: string 
+	Parameter BANK_TYPE bound to: HP_IO - type: string 
+	Parameter USE_DYNAMIC_DCI bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_iob_byte__parameterized1' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/iob/ddr4_phy_v2_2_iob_byte.sv:93]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_iob_byte__parameterized2' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/iob/ddr4_phy_v2_2_iob_byte.sv:93]
+	Parameter IOBTYPE bound to: 39'b001001001001001001001001001001001101101 
+	Parameter DQS_BIAS bound to: FALSE - type: string 
+	Parameter DRAM_TYPE bound to: DDR4 - type: string 
+	Parameter EN_LVAUX bound to: FALSE - type: string 
+	Parameter BANK_TYPE bound to: HP_IO - type: string 
+	Parameter USE_DYNAMIC_DCI bound to: 1 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'OBUFDS' [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:91881]
+INFO: [Synth 8-6155] done synthesizing module 'OBUFDS' (0#1) [C:/Xilinx/Vivado/2023.1/scripts/rt/data/unisim_comp_diablo.v:91881]
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_iob_byte__parameterized2' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/iob/ddr4_phy_v2_2_iob_byte.sv:93]
+INFO: [Synth 8-6157] synthesizing module 'ddr4_phy_v2_2_0_iob_byte__parameterized3' [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/iob/ddr4_phy_v2_2_iob_byte.sv:93]
+	Parameter IOBTYPE bound to: 39'b000001000001001001000001001001001001001 
+	Parameter DQS_BIAS bound to: FALSE - type: string 
+	Parameter DRAM_TYPE bound to: DDR4 - type: string 
+	Parameter EN_LVAUX bound to: FALSE - type: string 
+	Parameter BANK_TYPE bound to: HP_IO - type: string 
+	Parameter USE_DYNAMIC_DCI bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_iob_byte__parameterized3' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/iob/ddr4_phy_v2_2_iob_byte.sv:93]
+INFO: [Synth 8-6155] done synthesizing module 'ddr4_phy_v2_2_0_iob' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/iob/ddr4_phy_v2_2_iob.sv:72]
+INFO: [Synth 8-6155] done synthesizing module 'd_1_ddr4_0_0_phy_ddr4' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/phy/d_1_ddr4_0_0_phy_ddr4.sv:90]
+INFO: [Synth 8-6155] done synthesizing module 'd_1_ddr4_0_0_phy' (0#1) [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/ip_top/d_1_ddr4_0_0_phy.sv:76]
+WARNING: [Synth 8-3848] Net ddr4_c in module/entity d_1_ddr4_0_0_phy_ddr4 does not have driver. [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/phy/d_1_ddr4_0_0_phy_ddr4.sv:177]
+WARNING: [Synth 8-3848] Net dbg_bus in module/entity d_1_ddr4_0_0_phy_ddr4 does not have driver. [c:/Users/박정현/AppData/Local/Temp/28544/d_1_ddr4_0_0_phy_0.gen/sources_1/ip/d_1_ddr4_0_0_phy/rtl/phy/d_1_ddr4_0_0_phy_ddr4.sv:275]
+WARNING: [Synth 8-7129] Port iob2phy_d_in_byte[12] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob2phy_d_in_byte[10] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob2phy_d_in_byte[6] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob_pin[12] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob_pin[10] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob_pin[6] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_q_out_byte[12] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_q_out_byte[10] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_q_out_byte[6] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[12] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[11] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[10] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[9] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[8] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[7] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[6] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[5] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[4] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[3] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[2] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[1] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[0] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[12] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[11] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[10] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[9] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[8] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[7] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[6] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[5] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[4] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[3] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[2] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[1] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[0] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fpga_vref_tune[6] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fpga_vref_tune[5] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fpga_vref_tune[4] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fpga_vref_tune[3] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fpga_vref_tune[2] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fpga_vref_tune[1] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fpga_vref_tune[0] in module ddr4_phy_v2_2_0_iob_byte__parameterized3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob2phy_d_in_byte[1] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_q_out_byte[1] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[12] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[11] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[10] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[9] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[8] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[7] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[6] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[5] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[4] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[3] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[2] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[1] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_odt_out_byte[0] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[12] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[11] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[10] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[9] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[8] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[7] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[6] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[5] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[4] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[3] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[2] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[1] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_t[0] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fpga_vref_tune[6] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fpga_vref_tune[5] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fpga_vref_tune[4] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fpga_vref_tune[3] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fpga_vref_tune[2] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fpga_vref_tune[1] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fpga_vref_tune[0] in module ddr4_phy_v2_2_0_iob_byte__parameterized2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob2phy_d_in_byte[12] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob2phy_d_in_byte[11] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob2phy_d_in_byte[10] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob2phy_d_in_byte[9] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob2phy_d_in_byte[8] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob2phy_d_in_byte[5] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob2phy_d_in_byte[4] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob2phy_d_in_byte[1] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob2phy_d_in_byte[0] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob_pin[12] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob_pin[11] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob_pin[10] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob_pin[9] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob_pin[8] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob_pin[5] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob_pin[4] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob_pin[1] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iob_pin[0] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_q_out_byte[12] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_q_out_byte[11] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_q_out_byte[10] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_q_out_byte[9] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port phy2iob_q_out_byte[8] in module ddr4_phy_v2_2_0_iob_byte__parameterized1 is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+TclStackFree: incorrect freePtr. Call out of sequence?
