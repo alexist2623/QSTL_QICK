@@ -22,7 +22,8 @@ module axis_awg_tuning_v1
       parameter int FIXED_WIDTH = 48,
 
       // Extra pass-through y <= y stages after the DSP lane add stage.
-      parameter int EXTRA_Y_PIPE_STAGES = 1
+      parameter int EXTRA_Y_PIPE_STAGES = 1,
+      parameter int RC_PRECOMP_VERSION = 1
    )
    (
       // AXI-Lite slave for software/debug current-value override.
@@ -74,6 +75,37 @@ logic                    override_valid_aclk;
 
 logic signed [31:0] ctrl_current_value_aclk;
 logic [31:0]        ctrl_status_aclk;
+wire [31:0]        core_status;
+wire [N_PTS*B-1:0] core_samples;
+wire core_valid;
+logic [31:0] rc_coefficient;
+logic rc_enabled, rc_clear;
+wire rc_clipped;
+assign ctrl_status_aclk=core_status | {22'd0,rc_clipped,rc_enabled,8'd0};
+
+// Atomic realtime configuration: IDLE opcode plus bit 149 distinguishes it
+// from legacy no-ops. target holds round(2^48/(2*tau*scalar_sample_rate)).
+// Control bit 146 enables RC; bit 147 explicitly clears its history.
+always_ff @(posedge aclk) begin
+   if(!aresetn) begin rc_coefficient<=0; rc_enabled<=0; rc_clear<=0; end
+   else begin
+      rc_clear<=0;
+      if(RC_PRECOMP_VERSION!=0 && s_axis_tvalid && s_axis_tdata[149] && s_axis_tdata[145:144]==2'b11) begin
+         rc_coefficient<=s_axis_tdata[31:0];
+         rc_enabled<=s_axis_tdata[146]; rc_clear<=s_axis_tdata[147];
+      end
+      // A software zero override is an explicit stop, unlike an AXIS SET 0.
+      if(override_valid_aclk && override_value_aclk==0) begin rc_enabled<=0; rc_clear<=1; end
+   end
+end
+generate if(RC_PRECOMP_VERSION!=0) begin: GEN_RC
+   awg_rc_precomp #(.N_PTS(N_PTS)) rc (
+      .clk(aclk),.rstn(aresetn),.valid_i(core_valid),.active_i(1'b1),
+      .enable_i(rc_enabled),.clear_i(rc_clear),.coefficient_i(rc_coefficient),
+      .samples_i(core_samples),.samples_o(m_axis_tdata),.valid_o(m_axis_tvalid),.clipped_o(rc_clipped));
+end else begin: GEN_LEGACY
+   assign m_axis_tdata=core_samples; assign m_axis_tvalid=core_valid; assign rc_clipped=1'b0;
+end endgenerate
 
 logic signed [31:0] snapshot_current_value_aclk;
 logic [31:0]        snapshot_status_aclk;
@@ -202,11 +234,11 @@ awg_tuning_ctrl
       .axi_override_valid (override_valid_aclk),
 
       // AXIS master sample output.
-      .m_axis_tdata     (m_axis_tdata   ),
-      .m_axis_tvalid    (m_axis_tvalid  ),
+      .m_axis_tdata     (core_samples   ),
+      .m_axis_tvalid    (core_valid  ),
       .m_axis_tready    (m_axis_tready  ),
       .current_value_o  (ctrl_current_value_aclk),
-      .status_o         (ctrl_status_aclk)
+      .status_o         (core_status)
    );
 
 endmodule

@@ -154,6 +154,10 @@ class AxisAwgTuningV1(AbsPulsedSignalGen):
         self.cfg["has_timed_idle"] = self.HAS_TIMED_IDLE
         self.cfg["ramp_startup_latency_cycles"] = extra_y_pipe_stages + 4
         self.cfg["ramp_guard_cycles"] = 1
+        rc_version = self._param_int(params, "RC_PRECOMP_VERSION", 0)
+        self.cfg["rc_precomp_version"] = rc_version
+        self.cfg["output_latency_cycles"] = 11 if rc_version else 0
+        self.cfg["rc_fraction_bits"] = 48 if rc_version else 0
         self.cfg.setdefault("tproc_ch", None)
         self.cfg["tproc_port"] = None
         self.cfg["tproc_block"] = None
@@ -320,6 +324,8 @@ class AxisAwgTuningV1(AbsPulsedSignalGen):
             "s_axis_tready": bool(status & 0x8),
             "axi_override_pending": bool(status & 0x10),
             "axi_override_seen": bool(status & 0x20),
+            "rc_enabled": bool(status & 0x100),
+            "rc_clipped": bool(status & 0x200),
         }
 
     def is_ramping(self):

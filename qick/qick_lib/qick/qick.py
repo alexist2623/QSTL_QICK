@@ -23,6 +23,7 @@ from .drivers.readout import *
 from .drivers.tproc import *
 from .awg_tuning import *
 from .square_pulse import AxisSquarePulseV1
+from .dac_current import DacCurrentControl
 
 logger = logging.getLogger(__name__)
 
@@ -731,7 +732,7 @@ class RFDC(SocIP, xrfdc.RFdc):
         for calblock in calblocks:
             adc.DisableCoefficientsOverride(self.ADC_CAL_BLOCKS[calblock][0])
 
-class QickSoc(Overlay, QickConfig):
+class QickSoc(DacCurrentControl, Overlay, QickConfig):
     """
     This class loads, initializes, and provides access to the QICK firmware.
 

@@ -169,6 +169,7 @@
       <spirit:port><spirit:name>m_axis_tready</spirit:name><spirit:wire><spirit:direction>in</spirit:direction><spirit:wireTypeDefs><spirit:wireTypeDef><spirit:typeName>std_logic</spirit:typeName><spirit:viewNameRef>xilinx_anylanguagesynthesis</spirit:viewNameRef><spirit:viewNameRef>xilinx_anylanguagebehavioralsimulation</spirit:viewNameRef></spirit:wireTypeDef></spirit:wireTypeDefs></spirit:wire></spirit:port>
     </spirit:ports>
     <spirit:modelParameters>
+      <spirit:modelParameter spirit:dataType="integer"><spirit:name>RC_PRECOMP_VERSION</spirit:name><spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.RC_PRECOMP_VERSION">1</spirit:value></spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer"><spirit:name>N_PTS</spirit:name><spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.N_PTS">16</spirit:value></spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer"><spirit:name>B</spirit:name><spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.B">16</spirit:value></spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer"><spirit:name>FRAC</spirit:name><spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.FRAC">16</spirit:value></spirit:modelParameter>
@@ -184,12 +185,14 @@
       <spirit:name>xilinx_anylanguagesynthesis_view_fileset</spirit:name>
       <spirit:file><spirit:name>src/axi_slv_awg_tuning_v1.sv</spirit:name><spirit:fileType>systemVerilogSource</spirit:fileType><spirit:logicalName>xil_defaultlib</spirit:logicalName></spirit:file>
       <spirit:file><spirit:name>src/awg_tuning_ctrl.sv</spirit:name><spirit:fileType>systemVerilogSource</spirit:fileType><spirit:logicalName>xil_defaultlib</spirit:logicalName></spirit:file>
+      <spirit:file><spirit:name>src/awg_rc_precomp.sv</spirit:name><spirit:fileType>systemVerilogSource</spirit:fileType><spirit:logicalName>xil_defaultlib</spirit:logicalName></spirit:file>
       <spirit:file><spirit:name>src/axis_awg_tuning_v1.sv</spirit:name><spirit:fileType>systemVerilogSource</spirit:fileType><spirit:logicalName>xil_defaultlib</spirit:logicalName></spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
       <spirit:name>xilinx_anylanguagebehavioralsimulation_view_fileset</spirit:name>
       <spirit:file><spirit:name>src/axi_slv_awg_tuning_v1.sv</spirit:name><spirit:fileType>systemVerilogSource</spirit:fileType><spirit:logicalName>xil_defaultlib</spirit:logicalName></spirit:file>
       <spirit:file><spirit:name>src/awg_tuning_ctrl.sv</spirit:name><spirit:fileType>systemVerilogSource</spirit:fileType><spirit:logicalName>xil_defaultlib</spirit:logicalName></spirit:file>
+      <spirit:file><spirit:name>src/awg_rc_precomp.sv</spirit:name><spirit:fileType>systemVerilogSource</spirit:fileType><spirit:logicalName>xil_defaultlib</spirit:logicalName></spirit:file>
       <spirit:file><spirit:name>src/axis_awg_tuning_v1.sv</spirit:name><spirit:fileType>systemVerilogSource</spirit:fileType><spirit:logicalName>xil_defaultlib</spirit:logicalName></spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -206,6 +209,7 @@
     <spirit:parameter><spirit:name>DURATION_WIDTH</spirit:name><spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.DURATION_WIDTH" spirit:minimum="23" spirit:maximum="23" spirit:rangeType="long">23</spirit:value></spirit:parameter>
     <spirit:parameter><spirit:name>FIXED_WIDTH</spirit:name><spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.FIXED_WIDTH" spirit:minimum="48" spirit:maximum="48" spirit:rangeType="long">48</spirit:value></spirit:parameter>
     <spirit:parameter><spirit:name>EXTRA_Y_PIPE_STAGES</spirit:name><spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.EXTRA_Y_PIPE_STAGES" spirit:minimum="0" spirit:maximum="8" spirit:rangeType="long">1</spirit:value></spirit:parameter>
+    <spirit:parameter><spirit:name>RC_PRECOMP_VERSION</spirit:name><spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.RC_PRECOMP_VERSION" spirit:minimum="0" spirit:maximum="1" spirit:rangeType="long">1</spirit:value></spirit:parameter>
     <spirit:parameter><spirit:name>Component_Name</spirit:name><spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.Component_Name" spirit:order="1">axis_awg_tuning_v1_v1_0</spirit:value></spirit:parameter>
   </spirit:parameters>
   <spirit:vendorExtensions>
@@ -220,7 +224,7 @@
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
       <xilinx:vendorDisplayName>Quantum Instrumentation Control Kit</xilinx:vendorDisplayName>
       <xilinx:vendorURL>https://github.com/openquantumhardware/qick/</xilinx:vendorURL>
-      <xilinx:coreRevision>2</xilinx:coreRevision>
+      <xilinx:coreRevision>3</xilinx:coreRevision>
       <xilinx:coreCreationDateTime>2026-06-22T00:00:00Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>

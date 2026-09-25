@@ -20,7 +20,7 @@ See the base project's README for FIR arithmetic and DDR format details.
 The square DDS continuously integrates a 32-bit frequency increment. The MSB
 of accumulated phase plus phase offset selects +/-amplitude. Frequency and
 amplitude updates preserve accumulated phase. See
-`../../ip/axis_square_pulse_v1/README.md` for the command format, four-cycle
+`../../ip/axis_square_pulse_v1/README.md` for the command format, fifteen-cycle
 pipeline, AXI-Lite mute and testbench.
 
 ## External trigger
@@ -62,8 +62,19 @@ tProcessor and mute the generator. A minimal standalone example is
 `qick/qick_demos/square_pulse_dds.py`.
 
 The matching GUI changes are in the QICK checkout `PulseGenerator-qick`, on
-`codex/square-pulse-dds-gui`. The firmware and Python library are on
-`QSTL_QICK` branch `codex/1msps-square-pulse-dds`.
+`codex/rc-precompensation-gui`. The firmware and Python library are on
+`QSTL_QICK` branch `codex/rc-precompensation`.
 The GUI's `DCWaveformGeneratorGUI/SQUARE_PULSE_DDS.md`
 describes hardware sweeps and triggering. The QCS checkout is not part of this
 change.
+
+## RC precompensation
+
+All seven AWG Tuning wrappers now contain the selectable high-pass inverse.
+SquarePulse uses signed linear increments computed in software. Both paths
+include 11 output pipeline clocks even in bypass. HWH reports
+`RC_PRECOMP_VERSION=1`, and the drivers expose the corresponding timing.
+Tau is supported from 10 us through 1000 ms, with 72-bit internal histories
+and no hardware division. See `../../ip/rc_precomp_validation/README.md`.
+AWG Tuning and Stability Diagram have independent DC/RC controls. The previous
+software RC waveform rewriting path has been removed.

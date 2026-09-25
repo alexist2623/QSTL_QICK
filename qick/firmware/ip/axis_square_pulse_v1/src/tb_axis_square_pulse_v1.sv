@@ -56,12 +56,12 @@ module tb_axis_square_pulse_v1;
     task start;
         @(negedge clk); cmd={32'd3,32'd0,32'd800,32'd0,32'd0}; valid=1;
         @(negedge clk); valid=0;
-        repeat(8) @(negedge clk);
+        repeat(19) @(negedge clk);
         if(data !== {16{16'd800}}) $fatal(1,"start output");
     endtask
     initial begin
         repeat(5) @(negedge axi_clk); axi_resetn=1; resetn=1;
-        read_reg(0,32'h53515031); read_reg(8,4); read_reg(12,16);
+        read_reg(0,32'h53515031); read_reg(8,15); read_reg(12,16); read_reg(16,1);
         start(); ready=0; repeat(5) @(negedge clk);
         if(data !== {16{16'd800}} || !out_valid || !cmd_ready) $fatal(1,"realtime sink stalled");
         write_mute(1,6,5); repeat(20) @(negedge axi_clk);

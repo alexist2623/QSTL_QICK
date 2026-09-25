@@ -9,7 +9,7 @@ proc checked {command} {
     puts $result
     return $result
 }
-checked [list xvlog -sv [file join $ip_dir src square_dds.sv] [file join $ip_dir src axis_square_pulse_v1.sv] [file join $ip_dir src tb_square_dds.sv] [file join $ip_dir src tb_axis_square_pulse_v1.sv]]
+checked [list xvlog -sv [file join $ip_dir src square_dds.sv] [file join $ip_dir src square_rc_precomp.sv] [file join $ip_dir src axis_square_pulse_v1.sv] [file join $ip_dir src tb_square_dds.sv] [file join $ip_dir src tb_axis_square_pulse_v1.sv]]
 foreach top {tb_square_dds tb_axis_square_pulse_v1} {
     checked [list xelab $top -s $top]
     set result [checked [list xsim $top -runall]]

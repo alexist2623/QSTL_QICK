@@ -1,6 +1,7 @@
 # Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
 # Definitional proc to organize widgets for parameters.
 proc init_gui { IPINST } {
+  ipgui::add_param $IPINST -name "RC_PRECOMP_VERSION"
   ipgui::add_param $IPINST -name "Component_Name"
   set Page_0 [ipgui::add_page $IPINST -name "Page 0"]
   ipgui::add_param $IPINST -name "N_PTS" -parent ${Page_0}
@@ -67,4 +68,10 @@ proc update_MODELPARAM_VALUE.FIXED_WIDTH { MODELPARAM_VALUE.FIXED_WIDTH PARAM_VA
 
 proc update_MODELPARAM_VALUE.EXTRA_Y_PIPE_STAGES { MODELPARAM_VALUE.EXTRA_Y_PIPE_STAGES PARAM_VALUE.EXTRA_Y_PIPE_STAGES } {
   set_property value [get_property value ${PARAM_VALUE.EXTRA_Y_PIPE_STAGES}] ${MODELPARAM_VALUE.EXTRA_Y_PIPE_STAGES}
+}
+
+proc update_PARAM_VALUE.RC_PRECOMP_VERSION { PARAM_VALUE.RC_PRECOMP_VERSION } {}
+proc validate_PARAM_VALUE.RC_PRECOMP_VERSION { PARAM_VALUE.RC_PRECOMP_VERSION } { return true }
+proc update_MODELPARAM_VALUE.RC_PRECOMP_VERSION { MODELPARAM_VALUE.RC_PRECOMP_VERSION PARAM_VALUE.RC_PRECOMP_VERSION } {
+  set_property value [get_property value ${PARAM_VALUE.RC_PRECOMP_VERSION}] ${MODELPARAM_VALUE.RC_PRECOMP_VERSION}
 }

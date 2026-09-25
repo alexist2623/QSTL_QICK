@@ -1,4 +1,43 @@
-# SquarePulse validation
+# RC precompensation and SquarePulse validation
+
+## RC implementation update (2026-09-24)
+
+The current source adds continuous RC precompensation to all seven AWG tuning
+outputs and the dedicated SquarePulse output. The former GUI software RC
+algorithm is removed. AWG Tuning and Stability Diagram have independent DC
+and RC controls, with the existing DC pulse algorithm preserved.
+
+Current RC test evidence, waveform plots and GUI screenshots are in
+[`analysis_results/rc_precompensation_v1/REPORT.md`](../../../../analysis_results/rc_precompensation_v1/REPORT.md).
+The actual-IP five-tau and rail/bypass/mute tests, two real-tProcessor
+10 x 10 x 2 integration tests, 217 GUI tests and 23 library tests pass.
+RC and bypass both add 11 clocks; current SquarePulse command latency is
+15 clocks. These supersede the original four-clock wrapper timing below.
+
+Full-project synthesis, placement, routing and bitstream generation pass.
+The current build (`Vivado_Output/rc1`) has setup WNS **+0.041301 ns** and
+hold WHS **+0.009500 ns**, with TNS/THS zero. Pulse-width violations, missing
+clocks and unconstrained internal endpoints are zero. All 14 bus-skew
+constraints pass (minimum slack +2.705 ns). The separate SquarePulse timing
+report has minimum setup slack +0.256 ns.
+
+The current `bitstream.bit` and `bitstream.hwh` were extracted from the same
+`bitstream.xsa`. `build_manifest.json` records the member names, SHA-256 hashes,
+source hashes, branches and hardware capabilities. It verifies all seven AWG
+instances and the SquarePulse instance have `RC_PRECOMP_VERSION=1`, with the
+existing 1 MSPS IQ64 FIR/DDR path and 8712-cycle capture correction preserved.
+
+Final utilization: 241289 LUTs (56.74%), 336104 registers (39.52%), and 2576 DSPs
+(60.30%). The SquarePulse RC path has no DSP multipliers. The existing timing
+constraints were retained. Methodology warning categories/counts match the
+previous build; there are no DRC errors.
+
+The historical firmware numbers below describe the previous SquarePulse
+build. Its original reports/manifest are preserved in the RC report's
+`evidence/pre_rc_baseline` directory. The project's `validation_reports`
+now contains the current RC implementation reports.
+
+## Historical SquarePulse validation before RC
 
 ## Digital behavior
 
@@ -19,6 +58,33 @@ Vivado 2023.1 XSim completed both self-checking testbenches in
 
 The new IP's standalone synthesis uses 1,009 LUTs and 955 registers, with zero
 DSP and BRAM blocks. Its utilization report is archived with the simulations.
+
+### Additional 500 us period and amplitude regression
+
+`run_500us_xsim.tcl` ran `tb_square_dds_500us.sv` with Vivado 2023.1 XSim.
+The log is `validation_reports/square_dds_500us_xsim.log`. This adds a longer
+test to the already-published RTL; the synthesizable RTL and bitstream are
+unchanged, and both RTL files still match the original build-manifest hashes.
+
+- A requested 500 us period is 2 kHz. At 4.8 GSPS the nearest 32-bit FTW is
+  **1790**, giving **2000.480890274 Hz** and a nominal average period of
+  **499.879806331 us** (about -0.120194 us, or -0.02404%, from the request).
+- Over approximately **6.85 ms**, all **32,880,224 scalar output samples**
+  matched an independent scalar phase accumulator, including the four-clock
+  command pipeline.
+- Peak DAC codes changed through **800, 1920, 320, 4, 32764, 0, 800**.
+  Every nonzero level was held for more than two periods and both output
+  polarities were observed. Zero amplitude produced zero output; restoring
+  amplitude retained the phase accumulated during the zero-output interval.
+- A separate output-edge monitor checked **11 complete periods** and **24
+  half-periods** across amplitude changes. Observed full-period spacings were
+  2,399,423 scalar samples; half-period spacings were 1,199,711 or 1,199,712.
+  These fall on the expected sample grid for FTW 1790. Amplitude updates did
+  not restart phase or create extra sign transitions.
+- The Python/GUI conversion was also checked: `0.002 MHz` produces FTW 1790.
+  With an example full-scale setting of 800 mV, requested peak amplitudes of
+  0, 1, 10, 20 and 800 mV produce DAC codes 0, 40, 408, 820 and 32764.
+  This verifies digital scaling, not measured analog output voltage.
 
 ## Python and GUI
 

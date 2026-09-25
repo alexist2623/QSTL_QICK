@@ -1,0 +1,165 @@
+{
+  "case": "gui_autonomy",
+  "square": {
+    "enabled": false
+  },
+  "trigger": {
+    "enabled": true,
+    "pin": 0,
+    "scope": "experiment",
+    "edge": "both",
+    "width_us": 0.37
+  },
+  "rf": {
+    "gen_ch": 6,
+    "segment_name": "set_0",
+    "delay_us": 3.0,
+    "duration_us": 5.0,
+    "frequency_mhz": 190.0,
+    "gain": 2000,
+    "att1_db": 0.0,
+    "att2_db": 0.0,
+    "phase_degrees": 0.0,
+    "nqz": 1,
+    "require_within_segment": true,
+    "filter_type": "bypass",
+    "filter_cutoff": 2.5,
+    "filter_bandwidth": 1.0,
+    "output_board_type": "RF_Out",
+    "duration_sweep_enabled": false,
+    "duration_sweep_start_us": 1.0,
+    "duration_sweep_stop_us": 1.0,
+    "duration_sweep_count": 1,
+    "segment_length_mode": "fixed",
+    "frequency_sweep_enabled": false,
+    "frequency_sweep_start_mhz": 50.0,
+    "frequency_sweep_stop_mhz": 50.0,
+    "frequency_sweep_count": 1,
+    "power_sweep_enabled": false,
+    "power_sweep_start_dbm": -20.0,
+    "power_sweep_stop_dbm": -20.0,
+    "power_sweep_count": 1,
+    "power_calibration_enabled": false,
+    "power_calibration_database_path": "",
+    "power_calibration_run_id": 0,
+    "target_output_power_dbm": -20.0,
+    "pulse_mode": "single",
+    "pulse_name": "RF pulse",
+    "frequency_parameters": [],
+    "duration_parameters": [],
+    "composite_items": [],
+    "predefined_template": "custom",
+    "predefined_n": 4,
+    "predefined_tau_us": 10.0,
+    "predefined_frequency_parameter": "f0",
+    "predefined_duration_parameter": "d0",
+    "predefined_gain": 20000,
+    "predefined_phase_degrees": 0.0,
+    "predefined_n_sweep_enabled": false,
+    "predefined_n_sweep_start": 1,
+    "predefined_n_sweep_stop": 4,
+    "predefined_n_sweep_count": 4,
+    "predefined_tau_sweep_enabled": false,
+    "predefined_tau_sweep_start_us": 1.0,
+    "predefined_tau_sweep_stop_us": 10.0,
+    "predefined_tau_sweep_count": 10
+  },
+  "capture": {
+    "ro_ch": 0,
+    "segment_name": "set_0",
+    "delay_us": 2.0,
+    "samples_per_trigger": 8,
+    "readout_frequency_mhz": 190.0,
+    "margin_input_samples": 0,
+    "address": 0,
+    "force_overwrite": false,
+    "post_run_read_delay_seconds": 0.1,
+    "attenuation_db": 20.0,
+    "filter_type": "bypass",
+    "filter_cutoff": 2.5,
+    "filter_bandwidth": 1.0,
+    "input_board_type": "RF_In",
+    "dc_gain_db": 0.0,
+    "dc_measure_mode": false,
+    "dc_measure_gain_v_per_a": 1.0,
+    "dc_voltage_calibration_enabled": false,
+    "dc_voltage_calibration_database_path": "",
+    "dc_voltage_calibration_run_id": 0,
+    "measurement_representation": "auto",
+    "nqz": 1,
+    "fpga_trigger_delay_samples": null,
+    "fpga_trigger_delay_us": null
+  },
+  "pmem_words": 88,
+  "dmem_words": 0,
+  "events": [
+    {
+      "cycle": 256,
+      "port": 0,
+      "word": "0101000000000000000000000000000000000198",
+      "kind": "axis"
+    },
+    {
+      "cycle": 256,
+      "port": 4,
+      "word": "0004ffff000000000004ffff0000000014444444",
+      "kind": "axis"
+    },
+    {
+      "cycle": 256,
+      "port": 7,
+      "word": "0000000000000000000000000000000000000040",
+      "kind": "axis"
+    },
+    {
+      "cycle": 367,
+      "port": 7,
+      "word": "0000000000000000000000000000000000000000",
+      "kind": "axis"
+    },
+    {
+      "cycle": 856,
+      "port": 7,
+      "word": "0000000000000000000000000000000000000020",
+      "kind": "axis"
+    },
+    {
+      "cycle": 868,
+      "port": 7,
+      "word": "0000000000000000000000000000000000000000",
+      "kind": "axis"
+    },
+    {
+      "cycle": 1156,
+      "port": 3,
+      "word": "000905dc000007d000000000000000000a222222",
+      "kind": "axis"
+    },
+    {
+      "cycle": 195249,
+      "port": 0,
+      "word": "0102000000ffbeb20000096000000000ffffff34",
+      "kind": "axis"
+    },
+    {
+      "cycle": 195407,
+      "port": 0,
+      "word": "01010000000000000000000000000000ffffff34",
+      "kind": "axis"
+    },
+    {
+      "cycle": 198277,
+      "port": 7,
+      "word": "0000000000000000000000000000000000000040",
+      "kind": "pin"
+    },
+    {
+      "cycle": 198388,
+      "port": 7,
+      "word": "0000000000000000000000000000000000000000",
+      "kind": "pin"
+    }
+  ],
+  "stop_cycle": 201388,
+  "model_conflicts": []
+}

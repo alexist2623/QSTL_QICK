@@ -1,0 +1,46 @@
+{
+  "gui_mute_on": {
+    "passed": true,
+    "core_samples": 5283392,
+    "dac_samples": 5283392,
+    "command_count": 3,
+    "end_cycle": 6552,
+    "cycles_after_end": 323677,
+    "final_levels": [
+      0
+    ],
+    "phase_reset_commands": 0,
+    "axi_lite_stop_passed": true,
+    "command_routing_passed": true
+  },
+  "gui_mute_off": {
+    "passed": true,
+    "core_samples": 5283392,
+    "dac_samples": 5283392,
+    "command_count": 2,
+    "end_cycle": 6544,
+    "cycles_after_end": 323685,
+    "final_levels": [
+      -820,
+      820
+    ],
+    "phase_reset_commands": 0,
+    "axi_lite_stop_passed": true,
+    "command_routing_passed": true
+  },
+  "gui_square_standalone": {
+    "passed": true,
+    "core_samples": 5282336,
+    "dac_samples": 5282336,
+    "command_count": 1,
+    "end_cycle": 324,
+    "cycles_after_end": 329839,
+    "final_levels": [
+      -820,
+      820
+    ],
+    "phase_reset_commands": 0,
+    "axi_lite_stop_passed": true,
+    "command_routing_passed": true
+  }
+}

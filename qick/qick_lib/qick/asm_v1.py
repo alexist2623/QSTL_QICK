@@ -532,7 +532,7 @@ class SquarePulseGenManager(AbsRegisterManager):
 
     def check_params(self, params):
         check_keys(params.keys(), ["style", "freq", "phase", "gain"],
-                   ["enable", "reset_phase", "length"])
+                   ["enable", "reset_phase", "length", "rc_enable", "rc_increment", "reset_rc"])
         if params["style"] != "square":
             raise ValueError("axis_square_pulse_v1 requires style='square'")
 
@@ -546,7 +546,11 @@ class SquarePulseGenManager(AbsRegisterManager):
         words = square_words(params["freq"], params["phase"], params["gain"],
                              enable=params.get("enable", True),
                              reset_phase=params.get("reset_phase", False),
-                             tmux_ch=self.gencfg.get("tmux_ch"))
+                             tmux_ch=self.gencfg.get("tmux_ch"),
+                             rc_enable=params.get("rc_enable",False),
+                             rc_increment=params.get("rc_increment",0),reset_rc=params.get("reset_rc",False))
+        if any(params.get(key,False) for key in ("rc_enable","rc_increment","reset_rc")) and not self.gencfg.get("rc_precomp_version"):
+            raise ValueError("This SquarePulse firmware does not support RC precompensation")
         for name, value in zip(self.PULSE_REGISTERS, words):
             self.set_reg(name, value)
         self.last_cmd_words = words
@@ -574,11 +578,13 @@ class AwgTuningGenManager(AbsRegisterManager):
         "awg_set": ["style", "value", "duration"],
         "awg_ramp": ["style", "target", "duration"],
         "awg_nop": ["style"],
+        "awg_rc": ["style", "coefficient"],
     }
     PARAMS_OPTIONAL = {
         "awg_set": ["hold_zero", "clear", "saturate"],
         "awg_ramp": ["step", "hold_zero", "clear"],
         "awg_nop": ["clear", "duration"],
+        "awg_rc": ["enable", "reset"],
     }
     UNSUPPORTED_STANDARD_STYLES = {"const", "arb", "flat_top"}
 
@@ -752,7 +758,14 @@ class AwgTuningGenManager(AbsRegisterManager):
             raise RuntimeError("default_pulse_registers is not supported for axis_awg_tuning_v1")
 
         style = params["style"]
-        if style == "awg_set":
+        if style == "awg_rc":
+            from .precompensation import awg_rc_words
+            if not self.gencfg.get("rc_precomp_version"):
+                raise ValueError("This AWG firmware does not support RC precompensation")
+            words=awg_rc_words(params["coefficient"],enable=params.get("enable",False),reset=params.get("reset",False))
+            self._write_command_regs(self._words_to_cmd(words))
+            self.next_pulse["length"]=1
+        elif style == "awg_set":
             value = self._check_int(params["value"], "value")
             if params.get("saturate", False):
                 value = self._clip_sample(value)

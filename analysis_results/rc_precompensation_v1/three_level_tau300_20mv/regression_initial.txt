@@ -1,0 +1,138 @@
+........................................................................ [ 40%]
+........................................................................ [ 80%]
+.........F..........................                                     [100%]
+================================== FAILURES ===================================
+_____ test_stability_tab_builds_two_axis_hardware_sweep_without_database ______
+
+    def test_stability_tab_builds_two_axis_hardware_sweep_without_database():
+        app = _application()
+        window = gui.MainWindow()
+        window._add_port()
+        window._rf_readout_panel.setChecked(True)
+        window._rf_readout_panel.samples.setValue(16)
+        window._rf_readout_panel.input_board_type.setCurrentText("RF_In")
+        window._rf_readout_panel.attenuation_db.setValue(5.0)
+        window._stability_panel.apply_path_settings(
+            {
+                "input_board_type": "DC_In",
+                "readout_ch": 0,
+                "output_board_type": "DC_Out",
+                "output_ch": 0,
+            }
+        )
+        window._stability_panel.dc_measure_mode.setChecked(True)
+        window._stability_panel.dc_measure_gain_v_per_a.setValue(2.0e6)
+        window._stability_panel.dc_calibration_group.setChecked(True)
+        window._stability_panel.dc_calibration_path.setText("dc_calibration.db")
+        window._stability_panel.dc_calibration_run_id.setValue(7)
+        window._stability_panel.modulation_frequency_mhz.setValue(0.0)
+        window._stability_panel.trace_samples.setValue(96)
+        window._stability_panel.x_axis.start_mv.setValue(-200.0)
+        window._stability_panel.x_axis.stop_mv.setValue(100.0)
+        window._stability_panel.x_axis.points.setValue(5)
+        window._stability_panel.y_axis.start_mv.setValue(-50.0)
+        window._stability_panel.y_axis.stop_mv.setValue(75.0)
+        window._stability_panel.y_axis.points.setValue(3)
+        window._stability_panel.repetitions.setValue(4)
+        window._experiment_panel.bias_t_group.setChecked(True)
+        window._experiment_panel.bias_t_type.setCurrentIndex(
+            window._experiment_panel.bias_t_type.findData("filter")
+        )
+        window._experiment_panel.bias_t_filter_tau_us.setValue(999.0)
+        window._stability_panel.bias_t_group.setChecked(True)
+        window._stability_panel.bias_t_mode.setCurrentIndex(
+            window._stability_panel.bias_t_mode.findData("fixed_time")
+        )
+        window._stability_panel.bias_t_duration_us.setValue(2.5)
+        window._stability_panel.iq_storage_mode.setCurrentIndex(
+            window._stability_panel.iq_storage_mode.findData(
+                IQ_STORAGE_MEAN_IQ
+            )
+        )
+        app.processEvents()
+    
+        assert window._stability_panel.dc_measure_mode.isChecked() is True
+        assert window._stability_panel.dc_measure_mode.isEnabled() is True
+        assert window._stability_panel.dc_measure_gain_v_per_a.value() == 2.0e6
+        assert window._stability_panel.dc_calibration_group.isChecked() is True
+        assert (
+            window._stability_panel.dc_calibration_path.text()
+            == "dc_calibration.db"
+        )
+        assert window._stability_panel.dc_calibration_run_id.value() == 7
+        window._stability_panel.dc_measure_gain_v_per_a.setValue(3.0e6)
+        window._stability_panel.dc_calibration_run_id.setValue(8)
+        app.processEvents()
+        assert window._rf_readout_panel.input_board_type.currentText() == "RF_In"
+        assert window._rf_readout_panel.attenuation_db.value() == 5.0
+        assert window._rf_readout_panel.dc_measure_mode.isChecked() is False
+    
+        arguments = window._stability_run_arguments(save=False)
+    
+        assert arguments["run_config"] is None
+        assert arguments["iq_storage_mode"] == IQ_STORAGE_MEAN_IQ
+        assert arguments["gui_settings"] is None
+        assert arguments["repetitions_per_sweep"] == 4
+        assert arguments["sequence"].sweep_shape == (5, 3)
+        assert [axis.output_name for axis in arguments["sequence"].sweep_axes] == [
+            "awg_0",
+            "awg_1",
+        ]
+        assert arguments["sequence"].sweep_point_count == 15
+        assert arguments["sequence"].bias_t_compensation.compensation_type == "dc"
+        assert arguments["sequence"].bias_t_compensation.mode == "fixed_time"
+        assert arguments["sequence"].bias_t_compensation.fixed_duration_cycles == 750
+        assert arguments["readout_spec"].samples_per_trigger == 96
+        assert window._rf_readout_panel.samples.value() == 16
+        assert arguments["stability_config"].trace_samples_per_point == 96
+        assert arguments["readout_spec"].dc_measure_mode is True
+        assert arguments["readout_spec"].dc_measure_gain_v_per_a == 3.0e6
+        assert arguments["readout_spec"].dc_voltage_calibration_enabled is True
+        assert arguments["readout_spec"].dc_voltage_calibration_run_id == 8
+        assert arguments["readout_spec"].readout_frequency_mhz == 0.0
+        assert arguments["rf_specs"][0].frequency_mhz == 0.0
+        assert arguments["rf_specs"][0].output_board_type == "DC_Out"
+        assert arguments["rf_specs"][0].delay_us == pytest.approx(
+            DEFAULT_STABILITY_RF_START_GUARD_TPROC_CYCLES / 300.0
+        )
+    
+        window._stability_panel.bias_t_type.setCurrentIndex(
+            window._stability_panel.bias_t_type.findData("filter")
+        )
+        window._stability_panel.bias_t_filter_tau_us.setValue(25.0)
+>       filter_arguments = window._stability_run_arguments(save=False)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:3016: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:12008: in _stability_run_arguments
+    sequence = build_stability_hold_sequence(
+DCWaveformGeneratorGUI\stability_diagram.py:1516: in build_stability_hold_sequence
+    return build_qick_sequence(
+DCWaveformGeneratorGUI\dc_waveform_core.py:1943: in build_qick_sequence
+    sequence.rc_output_range_preview = validate_sequence_rc_range(
+DCWaveformGeneratorGUI\qick_rc_validation.py:79: in validate_sequence_rc_range
+    check_limits(bounds, name=name, point=point, limits=(-1.0, 1.0),
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+bounds = (-1.72, 0.0), name = 'awg_0', point = 0, limits = (-1.0, 1.0)
+full_scale_mv = 800.0
+
+    def check_limits(bounds, *, name, point, limits, full_scale_mv=None):
+        low, high = bounds
+        if low >= limits[0] and high <= limits[1]:
+            return
+        scale = 1.0 if full_scale_mv is None else float(full_scale_mv)
+        unit = "full scale" if full_scale_mv is None else "mV"
+>       raise ValueError(
+            f"RC-compensated DAC output exceeds range: {name}, sweep corner {point}. "
+            f"Predicted bounds [{low * scale:+.6g}, {high * scale:+.6g}] {unit}; "
+            f"allowed [{limits[0] * scale:+.6g}, {limits[1] * scale:+.6g}] {unit}. "
+            "Includes DC compensation and the zero-input hold before IIR reset. "
+            "Reduce voltage/duration or increase RC tau.")
+E       ValueError: RC-compensated DAC output exceeds range: awg_0, sweep corner 0. Predicted bounds [-1376, +0] mV; allowed [-800, +800] mV. Includes DC compensation and the zero-input hold before IIR reset. Reduce voltage/duration or increase RC tau.
+
+DCWaveformGeneratorGUI\qick_rc_validation.py:56: ValueError
+=========================== short test summary info ===========================
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_stability_tab_builds_two_axis_hardware_sweep_without_database
+1 failed, 179 passed, 1 warning in 60.97s (0:01:00)

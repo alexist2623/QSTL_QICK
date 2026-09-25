@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import xml.etree.ElementTree as ET
@@ -25,6 +26,10 @@ def validate_hwh(data):
     params = lambda m: {p.get('NAME'): p.get('VALUE') for p in m.findall('PARAMETERS/PARAMETER')}
     bus = lambda m, name: m.find(f"BUSINTERFACES/BUSINTERFACE[@NAME='{name}']").get('BUSNAME')
     assert params(square)['N_PTS'] == '16'
+    assert params(square)['RC_PRECOMP_VERSION'] == '1'
+    for module in modules.values():
+        if module.get('MODTYPE') == 'axis_awg_tuning_v1':
+            assert params(module)['RC_PRECOMP_VERSION'] == '1'
     assert square.find("PORTS/PORT[@NAME='aclk']").get('CLKFREQUENCY') == '300000000'
     output_slice = modules['axis_register_slice_12']
     assert bus(square, 'm_axis') == bus(output_slice, 's_axis')
@@ -41,7 +46,10 @@ def validate_hwh(data):
     assert sum(m.get('MODTYPE') == 'axis_awg_tuning_v1' for m in modules.values()) == 7
     return dict(square_dac='13', square_fabric_clock_hz=300000000, samples_per_clock=16,
                 square_scalar_sample_rate_hz=4800000000, nominal_gen_ch=7,
-                iq_component_bits=64, fir_decimation=300, trigger_delay_cycles=8712)
+                iq_component_bits=64, fir_decimation=300, trigger_delay_cycles=8712,
+                rc_precomp_version=1, rc_output_latency_cycles=11,
+                rc_fraction_bits=48, rc_accumulator_bits=72,
+                square_command_latency_cycles=15)
 
 
 def git(root, *args):
@@ -64,6 +72,13 @@ def main():
     timing_report=(build/'timing_summary_postroute.rpt').read_text()
     if 'All user specified timing constraints are met.' not in timing_report:
         raise RuntimeError('Routed timing report must pass, including pulse-width checks')
+    for check in ('no_clock', 'unconstrained_internal_endpoints'):
+        if not re.search(r'checking '+check+r' \(0\)', timing_report):
+            raise RuntimeError(f'Routed timing report contains {check} endpoints')
+    skew_report=(build/'bus_skew_postroute.rpt').read_text()
+    skew_results=re.findall(r'Slack\s*\((MET|VIOLATED)\)\s*:\s*([-\d.]+)ns', skew_report)
+    if not skew_results or any(state!='MET' or float(slack)<0 for state,slack in skew_results):
+        raise RuntimeError('All bus-skew constraints must pass before publication')
     with zipfile.ZipFile(build/'bitstream.xsa') as archive:
         members={suffix:[name for name in archive.namelist() if name.endswith(suffix)] for suffix in ('.bit','.hwh')}
         # SmartConnect and the DDR MicroBlaze also export subsystem HWH files.
@@ -76,11 +91,12 @@ def main():
     hardware=validate_hwh(hwh)
     # Verify that the generated project used the current new-IP RTL.
     generated=build/(project.name+'.gen')
-    for source in (repo/'qick/firmware/ip/axis_square_pulse_v1/src').glob('*.sv'):
-        if source.name.startswith('tb_'): continue
-        copies=list(generated.rglob(source.name))
-        if not copies or any(p.read_bytes()!=source.read_bytes() for p in copies):
-            raise RuntimeError(f'Generated RTL differs from current source: {source.name}')
+    for ip in ('axis_square_pulse_v1','axis_awg_tuning_v1'):
+        for source in (repo/'qick/firmware/ip'/ip/'src').glob('*.sv'):
+            if source.name.startswith('tb_'): continue
+            copies=list(generated.rglob(source.name))
+            if not copies or any(p.read_bytes()!=source.read_bytes() for p in copies):
+                raise RuntimeError(f'Generated RTL differs from current source: {source.name}')
     (project/'bitstream.bit').write_bytes(bit)
     (project/'bitstream.hwh').write_bytes(hwh)
     shutil.copy2(build/'bitstream.xsa',project/'bitstream.xsa')
@@ -93,17 +109,19 @@ def main():
     shutil.copy2(build/(project.name+'.runs')/'impl_1/d_1_wrapper_io_placed.rpt',
                  reports/'io_placed.rpt')
     sources=[]
-    for directory in ('axis_square_pulse_v1','axis_fir_decim_300to1_v2','axis_buffer_ddr_sample_v3'):
+    for directory in ('axis_awg_tuning_v1','axis_square_pulse_v1','axis_fir_decim_300to1_v2','axis_buffer_ddr_sample_v3'):
         sources.extend(p for p in (repo/'qick/firmware/ip'/directory).rglob('*')
                        if p.is_file() and p.suffix in ('.sv','.v','.xml','.tcl','.vh'))
     sources.extend(project.glob('*.tcl')); sources.extend(project.glob('*.xdc'))
     sources.append(Path(__file__).resolve())
     sources.extend(repo/'qick/qick_lib/qick'/name for name in
-                   ('square_pulse.py','asm_v1.py','qick.py','qick_asm.py'))
+                   ('square_pulse.py','awg_tuning.py','precompensation.py','asm_v1.py','qick.py','qick_asm.py'))
     manifest=dict(created_utc=datetime.now(timezone.utc).isoformat(),vivado='2023.1',
                   part='xczu49dr-ffvf1760-2-e',build_directory=build.as_posix(),
                   qick_branch=git(repo,'branch','--show-current'),qick_base_commit=git(repo,'rev-parse','HEAD'),
                   build_result=result,hardware=hardware,xsa_members=selected_members,
+                  bus_skew_constraints=len(skew_results),
+                  minimum_bus_skew_slack_ns=min(float(slack) for _,slack in skew_results),
                   xsa_all_hwh_members=members['.hwh'],
                   xsa_contains_matching_bitstream=True,xsa_contains_matching_hwh=True,
                   artifacts=[file_record(project/name,project) for name in ('bitstream.bit','bitstream.hwh','bitstream.xsa')],

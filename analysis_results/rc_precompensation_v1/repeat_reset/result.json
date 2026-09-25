@@ -1,0 +1,53 @@
+{
+  "points": 100,
+  "repetitions": 2,
+  "commands": 4602,
+  "cycle_offset": 162,
+  "square_amplitude_sweep": false,
+  "rc_reset_each_repeat": true,
+  "reset_results": [
+    "REPEAT_RESET_RESULT ch=0 resets=201 zero_checks=201",
+    "REPEAT_RESET_RESULT ch=1 resets=201 zero_checks=201"
+  ],
+  "cycles": 312283,
+  "analog_results": [
+    "GUI_RC_RESULT ch=0 max_error_codes=3.130727",
+    "GUI_RC_RESULT ch=1 max_error_codes=2.851027",
+    "GUI_RC_RESULT ch=2 max_error_codes=2.010385"
+  ],
+  "retained_cells": [
+    "axis_awg_tuning_v1_4",
+    "axis_awg_tuning_v1_5",
+    "axis_register_slice_10",
+    "axis_register_slice_12",
+    "axis_register_slice_21",
+    "axis_register_slice_23",
+    "axis_register_slice_8",
+    "axis_register_slice_9",
+    "axis_set_reg_0",
+    "axis_square_pulse_v1_0",
+    "axis_tmux_v1_0",
+    "axis_tmux_v1_1",
+    "axis_tmux_v1_3",
+    "axis_tproc64x32_x8_0",
+    "qick_vec2bit_0",
+    "xlconstant_0",
+    "xlconstant_1",
+    "xlconstant_2",
+    "xlconstant_3",
+    "xlconstant_4"
+  ],
+  "pmem_words": 222,
+  "dmem_words": 0,
+  "per_repeat_dac_zero": true,
+  "additional_cycles_per_repeat": 79,
+  "additional_us_per_repeat": 0.2633333333333333,
+  "final_dac_before_mv": [
+    -1.171875,
+    1.07421875
+  ],
+  "final_dac_after_mv": [
+    0.0,
+    0.0
+  ]
+}

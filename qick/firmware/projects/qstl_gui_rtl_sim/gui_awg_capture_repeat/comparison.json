@@ -1,0 +1,155 @@
+{
+  "case": "gui_awg_capture_repeat",
+  "passed": true,
+  "errors": [],
+  "sample_checks": 1124432,
+  "awg_sample_checks": 1124432,
+  "awg_mismatch_examples": [],
+  "gui_events": 49,
+  "processor_timing_deltas": [
+    1
+  ],
+  "routing": {
+    "sqcmd": {
+      "count": 5,
+      "latency_cycles": [
+        3
+      ]
+    },
+    "awgcmd": {
+      "count": 12,
+      "latency_cycles": [
+        3
+      ]
+    },
+    "rfcmd": {
+      "count": 4,
+      "latency_cycles": [
+        3
+      ]
+    }
+  },
+  "marker_count": 8,
+  "marker_width_cycles": [
+    111,
+    111,
+    111,
+    111,
+    111,
+    111,
+    111,
+    111
+  ],
+  "gpio_extra_cycles": [
+    0
+  ],
+  "square_command_points": [
+    [
+      35791,
+      820,
+      0
+    ],
+    [
+      35791,
+      820,
+      0
+    ],
+    [
+      35791,
+      820,
+      0
+    ],
+    [
+      35791,
+      820,
+      0
+    ]
+  ],
+  "epochs": [
+    {
+      "cycle": "326",
+      "kind": "gui_start"
+    }
+  ],
+  "rf_frequency_mhz": 189.99999240942302,
+  "rf_peak_code": 2000,
+  "rf_pulse_cycles": [
+    1500,
+    1500,
+    1500,
+    1500
+  ],
+  "rf_command_to_dac_cycles": [
+    39
+  ],
+  "first_nonzero_dac_cycles": {
+    "core": 736,
+    "dac": 746,
+    "awg": 750,
+    "rf": 1679
+  },
+  "first_marker_cycle": 737,
+  "trigger_delay_cycles": [
+    8712,
+    8712,
+    8712,
+    8712
+  ],
+  "captured_samples": 32,
+  "ddr_beats": 16,
+  "capture_matches_next_fir_valid": true,
+  "initial_square_periods_us": [
+    25.000208333333333,
+    25.000208333333333,
+    25.000416666666666,
+    25.000208333333333,
+    25.000208333333333,
+    25.000416666666666,
+    25.000208333333333
+  ],
+  "initial_square_theoretical_period_us": 25.00027530198467,
+  "trigger_to_first_sample_cycles": [
+    9000,
+    8859,
+    8718,
+    8877
+  ],
+  "requested_awg": {
+    "errors": [],
+    "points": 2,
+    "repetitions": 2,
+    "shots": 4,
+    "independent_sample_checks": 1124432,
+    "mismatch_count": 0,
+    "mismatch_examples": [],
+    "loop_period_cycles": 16641,
+    "loop_period_us": 55.47,
+    "repeat_mismatches": [],
+    "input_amplitude_mv": [
+      -10.0,
+      10.0
+    ],
+    "measured_set_codes": [
+      -408,
+      408
+    ],
+    "measured_tail_codes": [
+      204
+    ],
+    "hold_cycles": [
+      13500
+    ],
+    "ramp_cycles": [
+      150
+    ],
+    "ramp_step_errors": [
+      0
+    ],
+    "max_ideal_ramp_error_codes": 4.020008336806995,
+    "max_direct_step_difference_codes": 0,
+    "marker_to_awg_dac_cycles": 13,
+    "ramp_command_advance_cycles": 7,
+    "tail_set_guard_cycles": 1,
+    "all_requested_command_values_and_times_match": true
+  }
+}

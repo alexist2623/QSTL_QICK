@@ -33,17 +33,21 @@ RFDC sine generator or a programmable-duty PWM generator.
 | --- | --- |
 | 0 / 31:0 | 32-bit frequency increment per scalar sample |
 | 1 / 63:32 | 32-bit phase offset (one turn = 2^32) |
-| 2 / 95:64 | Unsigned peak amplitude; 0..32764, multiples of four |
-| 3 / 127:96 | Reserved, zero |
+| 2 low half / 79:64 | Unsigned peak amplitude; 0..32764, multiples of four |
+| 127:80 | RC half-step, unsigned 48-bit Q48; zero when unused |
 | 4 bit 0 / 128 | Enable output; zero emits zero samples |
 | 4 bit 1 / 129 | Clear accumulated phase once for this update |
+| 4 bit 2 / 130 | Enable RC linear compensation |
+| 4 bit 3 / 131 | Clear RC history once |
 | 4 bits 31:24 / 159:152 | Existing TMUX destination |
 
 The two low DAC-code bits are unused by the existing DAC path. The IP clears
 them before forming symmetric +/- values and clamps excessive magnitudes.
 Software rejects unrepresentable codes rather than silently truncating them.
 
-An accepted command affects its first output word four fabric clocks later.
+An accepted command reaches the raw DDS output four fabric clocks later.
+With `RC_PRECOMP_VERSION=1`, the output wrapper adds eleven clocks even in
+bypass, for fifteen clocks from command acceptance to the IP output.
 The command register, partial lane products, summed lane offsets, phase sums,
 and registered output sign selection maintain matching amplitude/phase state.
 The constant lane products are split into base-four parts to shorten the carry
@@ -60,9 +64,10 @@ clock while reset is inactive, including back-to-back updates.
 | Byte offset | Read | Write |
 | --- | --- | --- |
 | 0x00 | Identity `0x53515031` (`SQP1`) | Any nonempty byte strobe requests mute |
-| 0x04 | Bit 0 enabled; bit 1 mute request pending | Error |
-| 0x08 | Command latency: 4 fabric clocks | Error |
+| 0x04 | Bit 0 enabled; bit 1 mute pending; bit 2 RC clipping | Error |
+| 0x08 | Command latency: 15 with RC v1, 4 for legacy | Error |
 | 0x0c | Parallel sample count: 16 | Error |
+| 0x10 | RC precompensation version: 1 | Error |
 
 Independent AW/W handshakes, response backpressure and a request/acknowledge
 CDC are implemented. Stop the tProcessor before software mute so a queued new
@@ -79,3 +84,13 @@ phase-only changes, phase wrap, DC, explicit phase reset, mute/enable, reset,
 and randomized back-to-back commands. The wrapper testbench additionally checks
 independent AXI write channels, stalled read responses, identity/status/latency,
 asynchronous mute CDC and AXIS reset behavior.
+
+For the longer 500 us requested-period case, run `run_500us_xsim.tcl` with a
+fresh output directory. It checks more than 6 ms of output against a scalar
+reference, measures edge spacing, and changes amplitude without phase clear.
+At 4.8 GSPS, rounding the 2 kHz request to FTW 1790 produces a nominal average
+period of 499.879806331 us. This finite frequency-word resolution is separate
+from the one-sample quantization of individual output edges.
+
+RC arithmetic, command ABI, precision, bypass timing, and analog-circuit RTL
+verification are described in `../rc_precomp_validation/README.md`.

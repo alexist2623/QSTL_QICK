@@ -1,0 +1,101 @@
+{
+  "points": 400,
+  "repetitions": 2,
+  "commands": 14402,
+  "cycle_offset": 162,
+  "sweep_case": null,
+  "rc_range_corners": [
+    {
+      "point_index": 0,
+      "gen_ch": 1,
+      "minimum_normalized": -0.012779412768761258,
+      "maximum_normalized": 0.01099287436203103
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 3,
+      "minimum_normalized": -0.017243296682511493,
+      "maximum_normalized": 0.006656518715089311
+    },
+    {
+      "point_index": 19,
+      "gen_ch": 1,
+      "minimum_normalized": -0.012779412768761258,
+      "maximum_normalized": 0.01099287436203103
+    },
+    {
+      "point_index": 19,
+      "gen_ch": 3,
+      "minimum_normalized": -0.031232905340047724,
+      "maximum_normalized": 0.019326145368270486
+    },
+    {
+      "point_index": 380,
+      "gen_ch": 1,
+      "minimum_normalized": -0.013520080726295753,
+      "maximum_normalized": 0.01925555448478676
+    },
+    {
+      "point_index": 380,
+      "gen_ch": 3,
+      "minimum_normalized": -0.017243296682511493,
+      "maximum_normalized": 0.006656518715089311
+    },
+    {
+      "point_index": 399,
+      "gen_ch": 1,
+      "minimum_normalized": -0.013520080726295753,
+      "maximum_normalized": 0.01925555448478676
+    },
+    {
+      "point_index": 399,
+      "gen_ch": 3,
+      "minimum_normalized": -0.031232905340047724,
+      "maximum_normalized": 0.019326145368270486
+    }
+  ],
+  "square_amplitude_sweep": false,
+  "rc_reset_each_repeat": true,
+  "no_aux": true,
+  "grid_count": 20,
+  "waveform_capture_cycles": 12000,
+  "reset_results": [
+    "REPEAT_RESET_RESULT ch=0 resets=801 zero_checks=801",
+    "REPEAT_RESET_RESULT ch=1 resets=801 zero_checks=801"
+  ],
+  "cycles": 384793,
+  "analog_results": [],
+  "exact_awg_results": [
+    "EXACT_AWG_RESULT ch=0 samples=6158800",
+    "EXACT_AWG_RESULT ch=1 samples=6158800"
+  ],
+  "retained_cells": [
+    "axis_awg_tuning_v1_4",
+    "axis_awg_tuning_v1_5",
+    "axis_register_slice_10",
+    "axis_register_slice_12",
+    "axis_register_slice_21",
+    "axis_register_slice_23",
+    "axis_register_slice_8",
+    "axis_register_slice_9",
+    "axis_set_reg_0",
+    "axis_square_pulse_v1_0",
+    "axis_tmux_v1_0",
+    "axis_tmux_v1_1",
+    "axis_tmux_v1_3",
+    "axis_tproc64x32_x8_0",
+    "qick_vec2bit_0",
+    "xlconstant_0",
+    "xlconstant_1",
+    "xlconstant_2",
+    "xlconstant_3",
+    "xlconstant_4"
+  ],
+  "pmem_words": 206,
+  "dmem_words": 0,
+  "grid_target_error_mv": [
+    0.7421875,
+    0.7421875
+  ],
+  "compile_validation_mode": "boundary"
+}

@@ -1,0 +1,151 @@
+{
+  "case": "gui_sweep",
+  "passed": true,
+  "errors": [],
+  "sample_checks": 2192624,
+  "awg_sample_checks": 2192624,
+  "awg_mismatch_examples": [],
+  "gui_events": 97,
+  "processor_timing_deltas": [
+    1
+  ],
+  "routing": {
+    "sqcmd": {
+      "count": 9,
+      "latency_cycles": [
+        3
+      ]
+    },
+    "awgcmd": {
+      "count": 24,
+      "latency_cycles": [
+        3
+      ]
+    },
+    "rfcmd": {
+      "count": 8,
+      "latency_cycles": [
+        3
+      ]
+    }
+  },
+  "marker_count": 16,
+  "marker_width_cycles": [
+    111,
+    111,
+    111,
+    111,
+    111,
+    111,
+    111,
+    111,
+    111,
+    111,
+    111,
+    111,
+    111,
+    111,
+    111,
+    111
+  ],
+  "gpio_extra_cycles": [
+    0
+  ],
+  "square_command_points": [
+    [
+      35791,
+      820,
+      0
+    ],
+    [
+      35791,
+      820,
+      1073741824
+    ],
+    [
+      35791,
+      1640,
+      0
+    ],
+    [
+      35791,
+      1640,
+      1073741824
+    ],
+    [
+      71583,
+      820,
+      0
+    ],
+    [
+      71583,
+      820,
+      1073741824
+    ],
+    [
+      71583,
+      1640,
+      0
+    ],
+    [
+      71583,
+      1640,
+      1073741824
+    ]
+  ],
+  "epochs": [
+    {
+      "cycle": "524",
+      "kind": "gui_start"
+    }
+  ],
+  "rf_frequency_mhz": 189.9999882013723,
+  "rf_peak_code": 2000,
+  "rf_pulse_cycles": [
+    1500,
+    1500,
+    1500,
+    1500,
+    1500,
+    1500,
+    1500,
+    1500
+  ],
+  "rf_command_to_dac_cycles": [
+    39
+  ],
+  "first_nonzero_dac_cycles": {
+    "core": 934,
+    "dac": 944,
+    "awg": 948,
+    "rf": 1877
+  },
+  "first_marker_cycle": 935,
+  "trigger_delay_cycles": [
+    8712,
+    8712,
+    8712,
+    8712,
+    8712,
+    8712,
+    8712,
+    8712
+  ],
+  "captured_samples": 64,
+  "ddr_beats": 32,
+  "capture_matches_next_fir_valid": true,
+  "initial_square_periods_us": [
+    25.000208333333333
+  ],
+  "initial_square_theoretical_period_us": 25.00027530198467,
+  "trigger_to_first_sample_cycles": [
+    9000,
+    8859,
+    8718,
+    8877,
+    8736,
+    8895,
+    8754,
+    8913
+  ]
+}

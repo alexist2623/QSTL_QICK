@@ -1,22 +1,21 @@
 {
-  "created_utc": "2026-09-23T13:49:49.678005+00:00",
+  "created_utc": "2026-09-24T10:09:15.442083+00:00",
   "vivado": "2023.1",
   "part": "xczu49dr-ffvf1760-2-e",
-  "build_directory": "C:/JeonghyunPark/Workspace/Vivado_Output/sq3",
-  "qick_branch": "codex/1msps-square-pulse-dds",
-  "qick_base_commit": "211f73557c20527532b85c4b38a9d9d336abf128",
+  "build_directory": "C:/JeonghyunPark/Workspace/Vivado_Output/rc1",
+  "qick_branch": "codex/rc-precompensation",
+  "qick_base_commit": "9189f0e3ef3277a94b8da8cb18e259fa14ae2a4c",
   "build_result": {
     "synthesis_status": "synth_design Complete!",
     "implementation_status": "write_bitstream Complete!",
-    "implementation_retried": "YES",
-    "setup_wns_ns": "0.033420",
+    "setup_wns_ns": "0.041301",
     "setup_tns_ns": "0.000000",
-    "hold_whs_ns": "0.009511",
+    "hold_whs_ns": "0.009500",
     "hold_ths_ns": "0.000000",
     "timing_closed": "YES",
-    "bitstream": "C:/JeonghyunPark/Workspace/Vivado_Output/sq3/bitstream.bit",
-    "xsa": "C:/JeonghyunPark/Workspace/Vivado_Output/sq3/bitstream.xsa",
-    "hwh": "C:/JeonghyunPark/Workspace/Vivado_Output/sq3/bitstream.hwh"
+    "bitstream": "C:/JeonghyunPark/Workspace/Vivado_Output/rc1/bitstream.bit",
+    "xsa": "C:/JeonghyunPark/Workspace/Vivado_Output/rc1/bitstream.xsa",
+    "hwh": "C:/JeonghyunPark/Workspace/Vivado_Output/rc1/bitstream.hwh"
   },
   "hardware": {
     "square_dac": "13",
@@ -26,7 +25,12 @@
     "nominal_gen_ch": 7,
     "iq_component_bits": 64,
     "fir_decimation": 300,
-    "trigger_delay_cycles": 8712
+    "trigger_delay_cycles": 8712,
+    "rc_precomp_version": 1,
+    "rc_output_latency_cycles": 11,
+    "rc_fraction_bits": 48,
+    "rc_accumulator_bits": 72,
+    "square_command_latency_cycles": 15
   },
   "xsa_members": {
     ".bit": [
@@ -36,6 +40,8 @@
       "d_1.hwh"
     ]
   },
+  "bus_skew_constraints": 14,
+  "minimum_bus_skew_slack_ns": 2.705,
   "xsa_all_hwh_members": [
     "d_1.hwh",
     "d_1_axi_smc_0.hwh",
@@ -48,20 +54,75 @@
     {
       "path": "bitstream.bit",
       "bytes": 34437473,
-      "sha256": "8aecad838f4914a3e073893d0af5505dead9e0bfc50d58cc742c0528cfd65c8c"
+      "sha256": "0f2270396aefe1a2a67b2ce873c8dd783bb5419a49ea6442bde62a2d7e188808"
     },
     {
       "path": "bitstream.hwh",
-      "bytes": 2609258,
-      "sha256": "62869797ac2b3a28fbab0cd9e12eced98f01590ecf9545242beae4671399d2be"
+      "bytes": 2609714,
+      "sha256": "d257e84bbd373013490e5353cbe0b4259cdf7732d51684ac3082197412e707d9"
     },
     {
       "path": "bitstream.xsa",
-      "bytes": 18738105,
-      "sha256": "46078b46d9dd60e97926d6a400b4b7e0e8a61fa2c1afb2ce7daaf9c16ec9e260"
+      "bytes": 20558037,
+      "sha256": "a4b3633bbcce6953eb58443762726c7eaf42dc1339bc2a62e149aadeff6372a6"
     }
   ],
   "qick_sources": [
+    {
+      "path": "qick/firmware/ip/axis_awg_tuning_v1/component.xml",
+      "bytes": 34309,
+      "sha256": "e133d59d2b0c7d955ab102e5981436bc34ed657ab57a00d687c53121bb12c087"
+    },
+    {
+      "path": "qick/firmware/ip/axis_awg_tuning_v1/src/awg_rc_precomp.sv",
+      "bytes": 4815,
+      "sha256": "4a2b3d88fce9368c48af0847d9028be8933e66afe085070cfe676a59b9733645"
+    },
+    {
+      "path": "qick/firmware/ip/axis_awg_tuning_v1/src/awg_tuning_ctrl.sv",
+      "bytes": 26383,
+      "sha256": "7830ead4a1cb174fabbb296e60aa65e55eccc049783af975f724a5c46f80f7b6"
+    },
+    {
+      "path": "qick/firmware/ip/axis_awg_tuning_v1/src/axi_slv_awg_tuning_v1.sv",
+      "bytes": 4303,
+      "sha256": "879dddbaa0ba651522e8a1b12fbff563f0199d498a498f1bc343ca2cc5bca7a2"
+    },
+    {
+      "path": "qick/firmware/ip/axis_awg_tuning_v1/src/axis_awg_tuning_v1.sv",
+      "bytes": 9992,
+      "sha256": "f5f911d3e5962056065bdf7f7b9f83c6be8e52a82cc1961f40c051f7ab9bf1c7"
+    },
+    {
+      "path": "qick/firmware/ip/axis_awg_tuning_v1/src/tb/run_tb_simple.tcl",
+      "bytes": 2250,
+      "sha256": "75738ea4f62074556c717f911569e08ef0df6c3f051d5e7fcbba44145df302fe"
+    },
+    {
+      "path": "qick/firmware/ip/axis_awg_tuning_v1/src/tb/tb.sv",
+      "bytes": 405,
+      "sha256": "979c43da3d4e9dcb5b45782d4b200306905163ba6c3787042f355638c49dda73"
+    },
+    {
+      "path": "qick/firmware/ip/axis_awg_tuning_v1/src/tb/tb_simple.sv",
+      "bytes": 39311,
+      "sha256": "b1769c00a90c021b20716a59a7c8f3a08d407ffc989715d6d1d95b35031cd298"
+    },
+    {
+      "path": "qick/firmware/ip/axis_awg_tuning_v1/src/tb/tb_simple_p3.sv",
+      "bytes": 244,
+      "sha256": "238a0488eeb2476b094b562ca53e10df110b1a43753706c9bcdc46cd7bef1f35"
+    },
+    {
+      "path": "qick/firmware/ip/axis_awg_tuning_v1/src/tb/tb_tproc_awg_tuning.sv",
+      "bytes": 14866,
+      "sha256": "301c7d2391e69304e44aeed0d180dd6eac0221f88a6c8e3db7e2e12689e85d98"
+    },
+    {
+      "path": "qick/firmware/ip/axis_awg_tuning_v1/xgui/axis_awg_tuning_v1_v1_0.tcl",
+      "bytes": 4017,
+      "sha256": "54de1496deee41f5cd7fc7e249b2752dc7683d82671fc601e1db5dd051bd1aee"
+    },
     {
       "path": "qick/firmware/ip/axis_buffer_ddr_sample_v3/component.xml",
       "bytes": 71404,
@@ -114,28 +175,38 @@
     },
     {
       "path": "qick/firmware/ip/axis_square_pulse_v1/component.xml",
-      "bytes": 30173,
-      "sha256": "3c00ff96c1fd4b61783dea501b6b909e9feb7f209e30b8650d491ce5b82c6789"
+      "bytes": 31297,
+      "sha256": "ef2e740b6f71c3ddfb9d9418cc0e5161a6a4bcb784f7445349f70cbc8d3ba7f3"
+    },
+    {
+      "path": "qick/firmware/ip/axis_square_pulse_v1/run_500us_xsim.tcl",
+      "bytes": 834,
+      "sha256": "ca7ef1e8bd66dd00bbe87967b02f80339c2468fd6cb716e12e5c29c1b68895ae"
     },
     {
       "path": "qick/firmware/ip/axis_square_pulse_v1/run_xsim.tcl",
-      "bytes": 936,
-      "sha256": "ede5115549800eb65491117ce1e785ccef544b1b9dfe3587dac697ae697570e6"
+      "bytes": 1000,
+      "sha256": "4e1cfe5657c5cec84f1133c9d10dd93a67fba8c257e31a11c7205e502e474ad2"
     },
     {
       "path": "qick/firmware/ip/axis_square_pulse_v1/src/axis_square_pulse_v1.sv",
-      "bytes": 5141,
-      "sha256": "937fdd029ddfab206428fce21694406adc86caeeedc0f45f874d28f1c17ac7ec"
+      "bytes": 6121,
+      "sha256": "82f42fb271f9a02891ac962f500418c855737bd275db42084af26cf40940d371"
     },
     {
       "path": "qick/firmware/ip/axis_square_pulse_v1/src/square_dds.sv",
-      "bytes": 3046,
-      "sha256": "41063fbd1718d2b9dab96af91fc6fb4e49e1c69bba13d673c7d7c82344723d91"
+      "bytes": 4041,
+      "sha256": "f1a2e028152c3f54271905a29b7a87d40e1ba38ab6bd4c93a5958198fc3b521e"
+    },
+    {
+      "path": "qick/firmware/ip/axis_square_pulse_v1/src/square_rc_precomp.sv",
+      "bytes": 4824,
+      "sha256": "e851be04a50211c5feb2e802ff3a62dff17e277b485aa9d604c6288696637e43"
     },
     {
       "path": "qick/firmware/ip/axis_square_pulse_v1/src/tb_axis_square_pulse_v1.sv",
-      "bytes": 3464,
-      "sha256": "7e1f2f972a99066bc7932c5d30b11799ebb753a1965725e49072e34d1aa3216f"
+      "bytes": 3559,
+      "sha256": "91431f046e66620e380d651ab3784d5ba30feca8022a210e140e80ad38cf6d85"
     },
     {
       "path": "qick/firmware/ip/axis_square_pulse_v1/src/tb_square_dds.sv",
@@ -143,9 +214,14 @@
       "sha256": "fdd2e84e8799dfc77decc87062d125eac5dae5ed7963dfa1a7b342dcea599aed"
     },
     {
+      "path": "qick/firmware/ip/axis_square_pulse_v1/src/tb_square_dds_500us.sv",
+      "bytes": 7132,
+      "sha256": "45e9a58ef111c4b33a0f79b6f366a4cfcd0014fec49d2c743b7811fae834a358"
+    },
+    {
       "path": "qick/firmware/ip/axis_square_pulse_v1/xgui/axis_square_pulse_v1_v1_0.tcl",
-      "bytes": 1106,
-      "sha256": "5a9323103f36fed16c9c6f47b68d29cc35c83828377ac70508fb39115364f90d"
+      "bytes": 1543,
+      "sha256": "5fce5763dbdd4f69aeba4e25bea2c451ba67f1a4254631e9b66d1e376c48ab07"
     },
     {
       "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64_sq_pulse/bd_2023-1.tcl",
@@ -169,8 +245,8 @@
     },
     {
       "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64_sq_pulse/publish_build.py",
-      "bytes": 7105,
-      "sha256": "3576285dabc5ede959a1f0a29c55af54683975ff98128b9305076e78ef61469b"
+      "bytes": 8329,
+      "sha256": "fd7cc2c485f6efb4093a45d22f10f5ba6bd2b7b3abcff09c93559da846d50da8"
     },
     {
       "path": "qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64_sq_pulse/resume_implementation.tcl",
@@ -184,8 +260,18 @@
     },
     {
       "path": "qick/qick_lib/qick/asm_v1.py",
-      "bytes": 90224,
-      "sha256": "86a7dea8d4e6cd6f4b22bdd000bf1dd295db7fecf74c1c2afc9c9c678d0900d3"
+      "bytes": 91216,
+      "sha256": "a72d350e8f2f76f5918863f1710e23a107d1a1784c0d0b0499868b5f5cc89b4f"
+    },
+    {
+      "path": "qick/qick_lib/qick/awg_tuning.py",
+      "bytes": 90258,
+      "sha256": "a89bcf5ca3b57acc46e862533d26170244e0de423b80d506c407bbdea80343ad"
+    },
+    {
+      "path": "qick/qick_lib/qick/precompensation.py",
+      "bytes": 2493,
+      "sha256": "dc133c0df32f47a44f5ee6f121f27d698ff4f3c9afd5e2a13bb502421239da65"
     },
     {
       "path": "qick/qick_lib/qick/qick.py",
@@ -199,12 +285,12 @@
     },
     {
       "path": "qick/qick_lib/qick/square_pulse.py",
-      "bytes": 3817,
-      "sha256": "67447bfb350673aff46f83b49f9cfb8e2b30293eefc5dd99358343f33833a1bb"
+      "bytes": 5158,
+      "sha256": "0572be40122713cc152f52f8d6a46b730980f681e13c13d59104d027af2b942f"
     }
   ],
-  "gui_branch": "codex/square-pulse-dds-gui",
-  "gui_base_commit": "efc64e389b3a1f4e98e7166dc00e2692b8a0527f",
+  "gui_branch": "codex/rc-precompensation-gui",
+  "gui_base_commit": "5723385936c5aa75469b51a3e16de68da9c2fe58",
   "gui_sources": [
     {
       "path": "DCWaveformGeneratorGUI/awg_sweep_map.py",
@@ -238,8 +324,8 @@
     },
     {
       "path": "DCWaveformGeneratorGUI/dc_waveform_core.py",
-      "bytes": 112844,
-      "sha256": "d79d449baee28613d9d3d78be3fd3fcc040bfabe96e1bbfbbc71e6da098b1042"
+      "bytes": 112845,
+      "sha256": "ec15c3b5d353b99af1d4cf5c49863e8eb8fc36275f7b747834ffa83859ce6d07"
     },
     {
       "path": "DCWaveformGeneratorGUI/dc_waveform_widgets.py",
@@ -248,8 +334,8 @@
     },
     {
       "path": "DCWaveformGeneratorGUI/DCWaveform_Generator.py",
-      "bytes": 686934,
-      "sha256": "330c79ebeeb68e8c92fcabe3e880bcfdc873aaab65eed6f72d8c9a001fb17729"
+      "bytes": 708009,
+      "sha256": "25fa5cf816e255c4ef175b31a1fb3f56af38f983a9bf12e35a4a660ec5d5c2be"
     },
     {
       "path": "DCWaveformGeneratorGUI/ddr_memory_usage.py",
@@ -287,14 +373,19 @@
       "sha256": "f069b981be3f1a75205eb7f63ac800fe047d9370993168b9ca087bb388cd7de2"
     },
     {
+      "path": "DCWaveformGeneratorGUI/qick_compensation_controls.py",
+      "bytes": 3482,
+      "sha256": "a7ff87cb9c851f0e8351c6e4240b7996542e7a94b1ea1e3dd8e20753847a6aad"
+    },
+    {
       "path": "DCWaveformGeneratorGUI/qick_fine_tune_sweep.py",
-      "bytes": 302094,
-      "sha256": "696c06e363b2e14480613fdbc19770c50d165feaf6131a199532d96f13ab0253"
+      "bytes": 299068,
+      "sha256": "c67e5257ce5ce88a1569b031f7ec45fef452de1ef11c93475787e278b2295557"
     },
     {
       "path": "DCWaveformGeneratorGUI/qick_front_panel.py",
-      "bytes": 54504,
-      "sha256": "36239b81daa2151592793dba3aef6234e7d76ac7ba517566890fd18c845c8589"
+      "bytes": 58726,
+      "sha256": "221834c7bd697fa54ff516a70c70fd78af57aabc19a6c7d96caa94ec132fe263"
     },
     {
       "path": "DCWaveformGeneratorGUI/qick_output_triggers.py",
@@ -308,8 +399,8 @@
     },
     {
       "path": "DCWaveformGeneratorGUI/qick_qcodes_experiment.py",
-      "bytes": 114554,
-      "sha256": "e82025db23f523fee9a7d6b5432f6eafbd4ebbd585d4a0e28c4abadd6532e178"
+      "bytes": 114681,
+      "sha256": "dfc01fdcb993c5e1e5248b99ef02a1dbc43df035f70fd473e7e301133431f38a"
     },
     {
       "path": "DCWaveformGeneratorGUI/qick_sparameter_sweep.py",
@@ -318,18 +409,23 @@
     },
     {
       "path": "DCWaveformGeneratorGUI/qick_square_dds.py",
-      "bytes": 10031,
-      "sha256": "1877e28074a67ef1e223eddaaf5bccc26338f37d9fc7a706e21e993d488dcec5"
+      "bytes": 12448,
+      "sha256": "14db798d3537ef279d689348adc99d77da411f22733dd4d6fa7f4b487bcff20c"
     },
     {
       "path": "DCWaveformGeneratorGUI/qick_square_dds_panel.py",
-      "bytes": 8102,
-      "sha256": "bf15325917c1b3d0a6ff129246adb7942bf0bc13102ccb13453f55aca54572f7"
+      "bytes": 10379,
+      "sha256": "77304b73610351577ed715e6a60a3c9ee8edb82813323209e179ca854eaf0aac"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/qick_square_output.py",
+      "bytes": 4012,
+      "sha256": "5b880b2a0b4649677a48ad13745ee12686b66f119f63a1764dc4c6d4127ff66a"
     },
     {
       "path": "DCWaveformGeneratorGUI/qick_square_wave.py",
-      "bytes": 15788,
-      "sha256": "4b98165949710c050b5fd79c36c14541d92d71ea75cb2bece36266e115a2211b"
+      "bytes": 23309,
+      "sha256": "eaff5a69ed9bc2f1c5901191d42109f91055cd4d7f94527a19ad31b43d030459"
     },
     {
       "path": "DCWaveformGeneratorGUI/sparameter_gui.py",
@@ -338,8 +434,8 @@
     },
     {
       "path": "DCWaveformGeneratorGUI/stability_diagram.py",
-      "bytes": 184078,
-      "sha256": "68d507e4bc89bb93a2e8b95272128981499d599ed19f314872be80b6ecbee018"
+      "bytes": 185214,
+      "sha256": "33de8d6c7881d3df0b24e46930733d41de70e2f64e72d2e0b3bd4fa29ce02ce9"
     },
     {
       "path": "DCWaveformGeneratorGUI/test_awg_segment_sweep_structure.py",
@@ -368,8 +464,8 @@
     },
     {
       "path": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py",
-      "bytes": 136665,
-      "sha256": "151d87996094578da0171820354b0c53f4522b34168f6aa0382f85ea174772f3"
+      "bytes": 140366,
+      "sha256": "b6d87438ce77d69a6aee0f289242bf8258def55f65f901c8d009387ff430334b"
     },
     {
       "path": "DCWaveformGeneratorGUI/test_ddr_memory_usage.py",
@@ -418,8 +514,8 @@
     },
     {
       "path": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py",
-      "bytes": 92201,
-      "sha256": "f5411ce272c571ce4761034bc5a47a77b0dd386b690901286d6ded99ca6fb5b8"
+      "bytes": 86210,
+      "sha256": "645b787f7a370967ee5065e4bce1916542262e444601c8c4b13581338bc8df44"
     },
     {
       "path": "DCWaveformGeneratorGUI/test_qick_front_panel.py",
@@ -448,13 +544,18 @@
     },
     {
       "path": "DCWaveformGeneratorGUI/test_qick_square_dds.py",
-      "bytes": 4830,
-      "sha256": "1d52ca6245f3612a70810a5d2119c33757c143d59644e2983375d22e83daf981"
+      "bytes": 5002,
+      "sha256": "f1bc76387ee87132e397feb4c7d1f426895e9633dd8ea1dcc3c24098dc95f8c9"
     },
     {
       "path": "DCWaveformGeneratorGUI/test_qick_square_wave.py",
-      "bytes": 13084,
-      "sha256": "a77ec221adf8dccf00d94244157eecf117db20e079e3ab1553b7cced6fe21954"
+      "bytes": 14647,
+      "sha256": "581d9acd3db41d50049895538975170f02d9fd7297edba501bf2da3c61a3716c"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_rc_precompensation.py",
+      "bytes": 6869,
+      "sha256": "34e6d9d14922a64929168437f1287662782ad1b146289eb96460c3dbe84df18b"
     },
     {
       "path": "DCWaveformGeneratorGUI/test_sparameter_magnitude_display.py",
@@ -467,9 +568,14 @@
       "sha256": "abb1609629cb13315aad5594ceffc5b8d3612e1ee3257f0ba50538ac78ba6c36"
     },
     {
+      "path": "DCWaveformGeneratorGUI/test_square_awg_exclusion.py",
+      "bytes": 7422,
+      "sha256": "236fda00fb2aab76ccb68b5bf49da049214db58903d15c5413aeb9413047a943"
+    },
+    {
       "path": "DCWaveformGeneratorGUI/test_square_dds_cleanup.py",
-      "bytes": 1356,
-      "sha256": "a11c1f97af0b91738ad547afdda0a24e9a54f8842423fc4d6a9b0649f805d1e3"
+      "bytes": 1842,
+      "sha256": "6f5151bdf4f926a80ffc66b55f298ada409a0c3e9d80705ab66de2204059c8a6"
     },
     {
       "path": "DCWaveformGeneratorGUI/test_square_dds_gui.py",
@@ -480,6 +586,11 @@
       "path": "DCWaveformGeneratorGUI/test_square_dds_storage.py",
       "bytes": 2374,
       "sha256": "7a04e57af45be8612cd0ee078aed78550b3f5a5d3eaec94297f6216d7aa0a686"
+    },
+    {
+      "path": "DCWaveformGeneratorGUI/test_square_output_controls.py",
+      "bytes": 4051,
+      "sha256": "33333f138c3e9c427b25b8e6fc653ca1e52ac4d882699994beebf57128781d68"
     },
     {
       "path": "DCWaveformGeneratorGUI/test_stability_diagram.py",

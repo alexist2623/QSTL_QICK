@@ -1,0 +1,153 @@
+{
+  "updated_utc": "2026-09-24T22:01:07.912702+00:00",
+  "cases": {
+    "short_extend": {
+      "status": "passed",
+      "output": "C:\\JeonghyunPark\\Workspace\\Vivado_Output\\gui_rtl6\\rc_precomp_repeat_reset_rf_duration_20x20_oneshot_v1",
+      "points": 400,
+      "repetitions": 2,
+      "returncode": 0,
+      "rf_measurements": {
+        "pulses": 800,
+        "periodic": false,
+        "repetition_command_mismatches": 0,
+        "frequency_error_max_mhz": 0.002119855310411367,
+        "peak_error_max_codes": 0,
+        "amplitude_error_max_codes": 0.16945469158167725,
+        "fit_residual_max_codes": 1.6852405429796136,
+        "width_mismatch_pulses": 0,
+        "width_error_max_cycles": 0,
+        "gain_codes": [
+          2000
+        ],
+        "requested_width_error_max_cycles": 1.4210854715202004e-14,
+        "widths_cycles": [
+          30,
+          35,
+          40,
+          45,
+          50,
+          55,
+          60,
+          65,
+          70,
+          75,
+          80,
+          85,
+          90,
+          95,
+          100,
+          105,
+          110,
+          115,
+          120,
+          125
+        ],
+        "latency_cycles": 42
+      },
+      "validation_status": "passed"
+    },
+    "short_fixed": {
+      "status": "passed",
+      "output": "C:\\JeonghyunPark\\Workspace\\Vivado_Output\\gui_rtl6\\rc_precomp_repeat_reset_rf_duration_fixed_20x20_oneshot_v1",
+      "points": 400,
+      "repetitions": 2,
+      "returncode": 0,
+      "rf_measurements": {
+        "pulses": 800,
+        "periodic": false,
+        "repetition_command_mismatches": 0,
+        "frequency_error_max_mhz": 0.0016917595138465913,
+        "peak_error_max_codes": 0,
+        "amplitude_error_max_codes": 0.1679671800025062,
+        "fit_residual_max_codes": 1.6981620559698172,
+        "width_mismatch_pulses": 0,
+        "width_error_max_cycles": 0,
+        "gain_codes": [
+          2000
+        ],
+        "requested_width_error_max_cycles": 1.4210854715202004e-14,
+        "widths_cycles": [
+          30,
+          35,
+          40,
+          45,
+          50,
+          55,
+          60,
+          65,
+          70,
+          75,
+          80,
+          85,
+          90,
+          95,
+          100,
+          105,
+          110,
+          115,
+          120,
+          125
+        ],
+        "latency_cycles": 42
+      },
+      "validation_status": "passed"
+    },
+    "limit_oneshot": {
+      "status": "passed",
+      "output": "C:\\JeonghyunPark\\Workspace\\Vivado_Output\\gui_rtl6\\rc_precomp_repeat_reset_rf_duration_fixed_2x2_boundary_oneshot_oneshot_v1",
+      "points": 4,
+      "repetitions": 2,
+      "returncode": 0,
+      "rf_measurements": {
+        "pulses": 8,
+        "periodic": false,
+        "repetition_command_mismatches": 0,
+        "frequency_error_max_mhz": 5.533080980058003e-07,
+        "peak_error_max_codes": 0,
+        "amplitude_error_max_codes": 0.12542010430547634,
+        "fit_residual_max_codes": 1.649262613891267,
+        "width_mismatch_pulses": 0,
+        "width_error_max_cycles": 0,
+        "gain_codes": [
+          2000
+        ],
+        "requested_width_error_max_cycles": 0.0,
+        "widths_cycles": [
+          65534,
+          65535
+        ],
+        "latency_cycles": 42
+      },
+      "validation_status": "passed"
+    },
+    "limit_periodic": {
+      "status": "passed",
+      "output": "C:\\JeonghyunPark\\Workspace\\Vivado_Output\\gui_rtl6\\rc_precomp_repeat_reset_rf_duration_fixed_2x2_boundary_periodic_oneshot_v1",
+      "points": 4,
+      "repetitions": 2,
+      "returncode": 2,
+      "rf_measurements": {
+        "pulses": 8,
+        "periodic": true,
+        "repetition_command_mismatches": 0,
+        "frequency_error_max_mhz": 4.779822972977854e-07,
+        "peak_error_max_codes": 0,
+        "amplitude_error_max_codes": 0.12539257056505448,
+        "fit_residual_max_codes": 1.6492515267146928,
+        "width_mismatch_pulses": 4,
+        "width_error_max_cycles": 2,
+        "gain_codes": [
+          2000
+        ],
+        "requested_width_error_max_cycles": 2.0,
+        "widths_cycles": [
+          65535,
+          65538
+        ],
+        "latency_cycles": 42
+      },
+      "validation_status": "completed_with_timing_findings"
+    }
+  }
+}

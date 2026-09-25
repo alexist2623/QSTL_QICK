@@ -4,7 +4,8 @@
 module axis_square_pulse_v1 #(
     parameter integer N_PTS = 16,
     parameter integer B = 16,
-    parameter integer CMD_WIDTH = 160
+    parameter integer CMD_WIDTH = 160,
+    parameter integer RC_PRECOMP_VERSION = 1
 )
    (
       // AXI-Lite slave for software/debug current-value override.
@@ -50,17 +51,29 @@ module axis_square_pulse_v1 #(
     (* ASYNC_REG = "TRUE" *) logic [1:0] req_sync, ack_sync, enabled_sync;
     logic req_seen, mute;
     wire enabled;
+    wire [N_PTS*16-1:0] raw_samples;
+    wire [47:0] rc_half_step;
+    wire rc_enabled, rc_clear, samples_active, rc_clipped;
+    (* ASYNC_REG="TRUE" *) logic [1:0] rc_clipped_sync;
     logic have_aw, have_w;
     logic [5:0] awaddr;
     logic [3:0] wstrb;
     assign s_axis_tready = aresetn;
-    assign m_axis_tvalid = aresetn;
+    generate if(RC_PRECOMP_VERSION!=0) begin: GEN_RC
+        square_rc_precomp #(.N_PTS(N_PTS)) rc (
+            .clk(aclk),.rstn(aresetn),.valid_i(aresetn),.active_i(samples_active),
+            .enable_i(rc_enabled),.clear_i(rc_clear),.half_step_i(rc_half_step),
+            .samples_i(raw_samples),.samples_o(m_axis_tdata),.valid_o(m_axis_tvalid),.clipped_o(rc_clipped));
+    end else begin: GEN_LEGACY
+        assign m_axis_tdata=raw_samples; assign m_axis_tvalid=aresetn; assign rc_clipped=1'b0;
+    end endgenerate
     // The DAC is a realtime sink: its ready cannot pause phase accumulation.
     // There is no waveform FIFO, exactly as for axis_awg_tuning_v1.
     square_dds #(.N_PTS(N_PTS)) dds (
         .aclk(aclk), .aresetn(aresetn), .command(s_axis_tdata[159:0]),
         .command_valid(s_axis_tvalid && s_axis_tready), .mute(mute),
-        .enabled(enabled), .samples(m_axis_tdata)
+        .enabled(enabled), .samples(raw_samples),.rc_half_step(rc_half_step),
+        .rc_enabled(rc_enabled),.rc_clear(rc_clear),.samples_active(samples_active)
     );
     always_ff @(posedge aclk) begin
         if (!aresetn) begin
@@ -83,12 +96,14 @@ module axis_square_pulse_v1 #(
     always_ff @(posedge s_axi_aclk) begin
         if (!s_axi_aresetn) begin
             mute_req <= 0; ack_sync <= 0; enabled_sync <= 0;
+            rc_clipped_sync<=0;
             have_aw <= 0; have_w <= 0; awaddr <= 0; wstrb <= 0;
             s_axi_bvalid <= 0; s_axi_bresp <= 0;
             s_axi_rvalid <= 0; s_axi_rresp <= 0; s_axi_rdata <= 0;
         end else begin
             ack_sync <= {ack_sync[0], mute_ack};
             enabled_sync <= {enabled_sync[0], enabled};
+            rc_clipped_sync<={rc_clipped_sync[0],rc_clipped};
             if (s_axi_awvalid && s_axi_awready) begin
                 have_aw <= 1; awaddr <= s_axi_awaddr;
             end
@@ -106,9 +121,10 @@ module axis_square_pulse_v1 #(
                 s_axi_rvalid <= 1; s_axi_rresp <= 0;
                 case (s_axi_araddr[5:2])
                     0: s_axi_rdata <= 32'h53515031; // "SQP1"; write = mute
-                    1: s_axi_rdata <= {30'd0, (mute_req != ack_sync[1]), enabled_sync[1]};
-                    2: s_axi_rdata <= 4; // AXIS command latency in fabric cycles
+                    1: s_axi_rdata <= {29'd0,rc_clipped_sync[1],(mute_req != ack_sync[1]), enabled_sync[1]};
+                    2: s_axi_rdata <= 4+((RC_PRECOMP_VERSION!=0) ? 11 : 0);
                     3: s_axi_rdata <= N_PTS;
+                    4: s_axi_rdata <= RC_PRECOMP_VERSION;
                     default: begin s_axi_rdata <= 0; s_axi_rresp <= 2; end
                 endcase
             end
