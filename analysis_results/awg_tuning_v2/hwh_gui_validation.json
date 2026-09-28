@@ -1,0 +1,116 @@
+{
+  "status": "passed",
+  "source_hwh": "C:\\JeonghyunPark\\Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v2\\bitstream.hwh",
+  "live_board": false,
+  "hardware": {
+    "square_dac": "13",
+    "square_fabric_clock_hz": 300000000,
+    "samples_per_clock": 16,
+    "awg_ip_version": 2,
+    "awg_step_bits": 32,
+    "awg_step_fraction_bits": 18,
+    "square_scalar_sample_rate_hz": 4800000000,
+    "nominal_gen_ch": 7,
+    "iq_component_bits": 64,
+    "fir_decimation": 300,
+    "trigger_delay_cycles": 8712,
+    "rc_precomp_version": 1,
+    "rc_output_latency_cycles": 11,
+    "rc_fraction_bits": 48,
+    "rc_accumulator_bits": 72,
+    "square_command_latency_cycles": 15
+  },
+  "awg_routes": [
+    {
+      "gen_ch": 1,
+      "dac": "10",
+      "route": [
+        "axis_awg_tuning_v2_4",
+        "axis_register_slice_8",
+        "usp_rf_data_converter_0"
+      ],
+      "width": 32,
+      "frac": 18
+    },
+    {
+      "gen_ch": 3,
+      "dac": "11",
+      "route": [
+        "axis_awg_tuning_v2_5",
+        "axis_register_slice_10",
+        "usp_rf_data_converter_0"
+      ],
+      "width": 32,
+      "frac": 18
+    },
+    {
+      "gen_ch": 5,
+      "dac": "12",
+      "route": [
+        "axis_awg_tuning_v2_6",
+        "axis_register_slice_11",
+        "usp_rf_data_converter_0"
+      ],
+      "width": 32,
+      "frac": 18
+    },
+    {
+      "gen_ch": 8,
+      "dac": "20",
+      "route": [
+        "axis_awg_tuning_v2_8",
+        "axis_register_slice_13",
+        "usp_rf_data_converter_0"
+      ],
+      "width": 32,
+      "frac": 18
+    },
+    {
+      "gen_ch": 9,
+      "dac": "21",
+      "route": [
+        "axis_awg_tuning_v2_9",
+        "axis_register_slice_14",
+        "usp_rf_data_converter_0"
+      ],
+      "width": 32,
+      "frac": 18
+    },
+    {
+      "gen_ch": 10,
+      "dac": "22",
+      "route": [
+        "axis_awg_tuning_v2_10",
+        "axis_register_slice_15",
+        "usp_rf_data_converter_0"
+      ],
+      "width": 32,
+      "frac": 18
+    },
+    {
+      "gen_ch": 11,
+      "dac": "23",
+      "route": [
+        "axis_awg_tuning_v2_11",
+        "axis_register_slice_16",
+        "usp_rf_data_converter_0"
+      ],
+      "width": 32,
+      "frac": 18
+    }
+  ],
+  "gui_awg_channels": [
+    1,
+    3,
+    5,
+    8,
+    9,
+    10,
+    11
+  ],
+  "square_channels": [
+    7
+  ],
+  "stability_x_gen": 1,
+  "stability_y_gen": 3
+}

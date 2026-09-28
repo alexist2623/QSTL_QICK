@@ -82,6 +82,7 @@ class AxisAwgTuningV1(AbsPulsedSignalGen):
     DROPS_COMMANDS_WHILE_RAMPING = True
     HAS_TIMED_IDLE = False
     STEP_WIDTH = 24
+    FRAC_DEFAULT = 16
     DURATION_WIDTH = 23
     DAC_WORD_BITS = 16
     DAC_EFFECTIVE_BITS = 14
@@ -109,7 +110,7 @@ class AxisAwgTuningV1(AbsPulsedSignalGen):
         else:
             n_pts = self._param_int(params, "N_DDS", 16)
         b = self._param_int(params, "B", 16)
-        frac = self._param_int(params, "FRAC", 16)
+        frac = self._param_int(params, "FRAC", self.FRAC_DEFAULT)
         cmd_width = self._param_int(params, "CMD_WIDTH", 160)
         step_width = self._param_int(params, "STEP_WIDTH", self.STEP_WIDTH)
         duration_width = self._param_int(params, "DURATION_WIDTH", self.DURATION_WIDTH)
@@ -121,7 +122,9 @@ class AxisAwgTuningV1(AbsPulsedSignalGen):
         if cmd_width < 149:
             raise ValueError("axis_awg_tuning_v1 command width must include bits through 148")
         if step_width != self.STEP_WIDTH:
-            raise ValueError("axis_awg_tuning_v1 currently expects STEP_WIDTH=24")
+            raise ValueError(f"{type(self).__name__} expects STEP_WIDTH={self.STEP_WIDTH}")
+        if self.STEP_WIDTH == 32 and frac != 18:
+            raise ValueError("axis_awg_tuning_v2 expects FRAC=18")
         if duration_width != self.DURATION_WIDTH:
             raise ValueError("axis_awg_tuning_v1 currently expects DURATION_WIDTH=23")
 
@@ -582,10 +585,25 @@ class AxisAwgTuningV1(AbsPulsedSignalGen):
             "duration": duration,
             "step": step,
             "duration_ignored_high": (cmd >> 87) & 0x1FF,
-            "step_ignored_high": (cmd >> 120) & 0xFF,
+            "step_ignored_high": (cmd >> (96 + self.STEP_WIDTH)) & ((1 << (32 - self.STEP_WIDTH)) - 1),
             "hold_zero": bool((cmd >> 146) & 0x1),
             "clear": bool((cmd >> 148) & 0x1),
         }
+
+
+class AxisAwgTuningV2(AxisAwgTuningV1):
+    """V2 command ABI: signed 32-bit Q18 step in bits 127:96.
+
+    The target, scalar duration, RC configuration and five-word AXIS interface
+    retain their existing layout. A single tProcessor data register holds step.
+    """
+
+    bindto = ["QICK:QICK:axis_awg_tuning_v2:1.0",
+              "user.org:user:axis_awg_tuning_v2:1.0"]
+    STEP_WIDTH = 32
+    FRAC_DEFAULT = 18
+    STEP_MIN = -(1 << 31)
+    STEP_MAX = (1 << 31) - 1
 
 
 @dataclass
@@ -956,7 +974,7 @@ class AwgTuningBehaviorModel:
             "duration": (cmd >> 64) & self._duration_mask,
             "step": self._sign_extend(cmd >> 96, self.step_width),
             "duration_ignored_high": (cmd >> 87) & 0x1FF,
-            "step_ignored_high": (cmd >> 120) & 0xFF,
+            "step_ignored_high": (cmd >> (96 + self.step_width)) & ((1 << (32 - self.step_width)) - 1),
             "opcode_reserved_high": (cmd >> 149) & ((1 << max(0, self.cmd_width - 149)) - 1),
             "tmux_select": (cmd >> 152) & 0xFF if self.cmd_width >= 160 else 0,
             "hold_zero": bool((cmd >> 146) & 0x1),
@@ -2218,6 +2236,7 @@ class QstlAwgTuningProjectSimulator:
 
 __all__ = [
     "AxisAwgTuningV1",
+    "AxisAwgTuningV2",
     "TimedCommandEvent",
     "CommandEvent",
     "TimingConflict",

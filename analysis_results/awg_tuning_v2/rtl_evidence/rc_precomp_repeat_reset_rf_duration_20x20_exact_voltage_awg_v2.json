@@ -1,0 +1,162 @@
+{
+  "points": 400,
+  "repetitions": 2,
+  "commands": 18318,
+  "cycle_offset": 16002,
+  "command_value_mismatches": 0,
+  "command_timing_mismatches": 0,
+  "voltage_grid_policy": "nearest_dac_code_per_point",
+  "compiled_target_error_codes": 0,
+  "compiled_step_error_units": 0,
+  "awg_ip_version": 2,
+  "v2_fixture": null,
+  "raw_awg_results": [
+    "RAW_AWG_V2_RESULT ch=0 samples=21468112 ramps=1600 sets=4796",
+    "RAW_AWG_V2_RESULT ch=1 samples=21468112 ramps=1600 sets=4720"
+  ],
+  "dac_current_ma": [
+    20.0,
+    20.0,
+    20.0
+  ],
+  "dc_mode": "fixed_time",
+  "dc_voltage_mv": 20.0,
+  "sweep_case": "rf_duration",
+  "run_tag": "exact_voltage",
+  "rf_length_boundary": null,
+  "rc_range_corners": [
+    {
+      "point_index": 0,
+      "gen_ch": 1,
+      "minimum_normalized": -0.01332598492353969,
+      "maximum_normalized": 0.007576432247636662
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 3,
+      "minimum_normalized": -0.007126880477083941,
+      "maximum_normalized": 0.006382287331394763
+    },
+    {
+      "point_index": 19,
+      "gen_ch": 1,
+      "minimum_normalized": -0.013128841368879264,
+      "maximum_normalized": 0.007357321931850272
+    },
+    {
+      "point_index": 19,
+      "gen_ch": 3,
+      "minimum_normalized": -0.007324024031744367,
+      "maximum_normalized": 0.006185143776734337
+    },
+    {
+      "point_index": 380,
+      "gen_ch": 1,
+      "minimum_normalized": -0.011851184012320652,
+      "maximum_normalized": 0.021150550693286176
+    },
+    {
+      "point_index": 380,
+      "gen_ch": 3,
+      "minimum_normalized": -0.007126880477083941,
+      "maximum_normalized": 0.006382287331394763
+    },
+    {
+      "point_index": 399,
+      "gen_ch": 1,
+      "minimum_normalized": -0.013714342924752028,
+      "maximum_normalized": 0.021745846917162755
+    },
+    {
+      "point_index": 399,
+      "gen_ch": 3,
+      "minimum_normalized": -0.007324024031744367,
+      "maximum_normalized": 0.006185143776734337
+    }
+  ],
+  "square_amplitude_sweep": false,
+  "rc_reset_each_repeat": true,
+  "no_aux": false,
+  "grid_count": 0,
+  "waveform_capture_cycles": 12000,
+  "reset_results": [
+    "REPEAT_RESET_RESULT ch=0 resets=801 zero_checks=801",
+    "REPEAT_RESET_RESULT ch=1 resets=801 zero_checks=801"
+  ],
+  "cycles": 1325755,
+  "analog_results": [
+    "GUI_RC_RESULT ch=0 max_error_codes=3.265338",
+    "GUI_RC_RESULT ch=1 max_error_codes=2.661803",
+    "GUI_RC_RESULT ch=2 max_error_codes=0.000000"
+  ],
+  "exact_awg_results": [
+    "EXACT_AWG_RESULT ch=0 samples=21467632",
+    "EXACT_AWG_RESULT ch=1 samples=21467632"
+  ],
+  "retained_cells": [
+    "axis_awg_tuning_v1_4",
+    "axis_awg_tuning_v1_5",
+    "axis_register_slice_0",
+    "axis_register_slice_10",
+    "axis_register_slice_12",
+    "axis_register_slice_21",
+    "axis_register_slice_23",
+    "axis_register_slice_4",
+    "axis_register_slice_8",
+    "axis_register_slice_9",
+    "axis_set_reg_0",
+    "axis_signal_gen_v6_0",
+    "axis_square_pulse_v1_0",
+    "axis_tmux_v1_0",
+    "axis_tmux_v1_1",
+    "axis_tmux_v1_3",
+    "axis_tproc64x32_x8_0",
+    "qick_vec2bit_0",
+    "xlconstant_0",
+    "xlconstant_1",
+    "xlconstant_2",
+    "xlconstant_3",
+    "xlconstant_4"
+  ],
+  "pmem_words": 315,
+  "dmem_words": 480,
+  "rf_measurements": {
+    "pulses": 800,
+    "periodic": false,
+    "repetition_command_mismatches": 0,
+    "frequency_error_max_mhz": 0.001950100965927959,
+    "peak_error_max_codes": 0,
+    "amplitude_error_max_codes": 0.16838310072262175,
+    "fit_residual_max_codes": 1.6834717778902473,
+    "width_mismatch_pulses": 0,
+    "width_error_max_cycles": 0,
+    "gain_codes": [
+      2000
+    ],
+    "requested_width_error_max_cycles": 1.4210854715202004e-14,
+    "widths_cycles": [
+      30,
+      35,
+      40,
+      45,
+      50,
+      55,
+      60,
+      65,
+      70,
+      75,
+      80,
+      85,
+      90,
+      95,
+      100,
+      105,
+      110,
+      115,
+      120,
+      125
+    ],
+    "latency_cycles": 42
+  },
+  "validation_status": "passed"
+}

@@ -54,6 +54,9 @@ def main():
     parser.add_argument('--build',type=Path,required=True)
     parser.add_argument('--gui',type=Path,required=True)
     parser.add_argument('--square-sweep',action='store_true')
+    parser.add_argument('--awg-v2',action='store_true', help='Use production 32-bit Q18 AWG RTL and driver metadata.')
+    parser.add_argument('--v2-fixture', choices=('fast','stability'),
+                        help='One-clock wide-step voltage sweep or the real stability hold builder.')
     parser.add_argument('--repeat-reset',action='store_true',
                         help='Verify AWG history and DAC return to zero after every shot.')
     parser.add_argument('--no-aux',action='store_true',
@@ -86,6 +89,8 @@ def main():
         parser.error('Sweep dimensions must contain at least two points.')
     if args.grid_count and args.sweep_case:
         parser.error('Choose either the two-DAC voltage grid or a mixed sweep case.')
+    if args.v2_fixture and (not args.awg_v2 or not args.grid_count or not args.no_aux):
+        parser.error('V2 fixtures require --awg-v2 --grid-count N --no-aux.')
     if args.run_tag and not re.fullmatch(r'[a-z0-9_]+',args.run_tag):
         parser.error('Run tag must contain only lowercase letters, digits and underscores.')
     if args.rf_length_boundary and (args.sweep_case!='rf_duration_fixed' or args.sweep_count!=2):
@@ -107,6 +112,10 @@ def main():
         case_name += '_boundary_' + args.rf_length_boundary
     if args.run_tag:
         case_name += '_' + args.run_tag
+    if args.awg_v2:
+        case_name += '_awg_v2'
+    if args.v2_fixture:
+        case_name += '_' + args.v2_fixture
     out=args.build/case_name;out.mkdir(exist_ok=True)
     # Preserve the exact testbench generation used by saved evidence. New
     # simulations explicitly close every diagnostic stream before $finish.
@@ -127,6 +136,8 @@ def main():
         if g['type'] in ('axis_awg_tuning_v1','axis_square_pulse_v1'):
             g.update(rc_precomp_version=1,output_latency_cycles=11)
         if g['type']=='axis_square_pulse_v1':g['command_latency_cycles']=15
+        if args.awg_v2 and g['type']=='axis_awg_tuning_v1':
+            g.update(type='axis_awg_tuning_v2',frac=18,step_width=32)
     pulses=[]
     for scale in (1.,-.5):
         p=PulseSequence()
@@ -140,6 +151,11 @@ def main():
             # stream and nested-loop arithmetic to replenish queue lookahead.
             p.t=np.array([0,100,150,250,300,300+args.grid_zero_hold_ns],dtype=float)
         axes=[QickSweepSpec('set_0',f'awg_{i}',5/800,15/800,args.grid_count) for i in range(2)]
+    if args.v2_fixture=='fast':
+        for p in pulses:
+            p.t=np.array([0,400,403,803,806,2006],dtype=float)
+            p.v=np.array([0,0,-799,-799,0,0],dtype=float)
+        axes=[QickSweepSpec('set_0',f'awg_{i}',-799/800,799/800,args.grid_count) for i in range(2)]
     square=dict(enabled=True,gen_ch=7,mute_on_finish=False,rc_enabled=True,rc_tau_us=10.,
         parameters=dict(frequency=dict(value=.002),amplitude=dict(value=10),phase=dict(value=0)))
     if args.square_sweep:
@@ -186,7 +202,7 @@ def main():
         output_full_scales_mv=tuple(current*40 for current in args.dac_current_ma[:2]),
         square_full_scale_mv=args.dac_current_ma[2]*40,
         fabric_mhz=300.,tproc_mhz=300.,repetitions_per_sweep=2,sweeps=axes,
-        bias_t_compensation_enabled=True,bias_t_compensation_type='dc_rc',
+        bias_t_compensation_enabled=args.v2_fixture!='fast',bias_t_compensation_type='dc_rc',
         bias_t_compensation_mode=args.dc_mode,bias_t_compensation_voltage_mv=args.dc_voltage_mv,
         bias_t_compensation_duration_us=.1 if args.grid_count else 1.,bias_t_filter_tau_us=10.,
         rf_pulse_specs=rf_specs,
@@ -195,6 +211,23 @@ def main():
     if args.grid_count:
         code=code.replace('        ddr_readout=ddr_readout,\n',
                           '        ddr_readout=ddr_readout,\n        compile_validation_mode="boundary",\n')
+    if args.v2_fixture=='stability':
+        # This is the same public sequence builder used by the Stability tab.
+        code=f'''from stability_diagram import (StabilityDiagramConfig, StabilitySweepAxis, build_stability_hold_sequence)
+def build_program(soccfg):
+    config=StabilityDiagramConfig(
+        x_axis=StabilitySweepAxis('awg_0',5.,15.,{args.grid_count}),
+        y_axis=StabilitySweepAxis('awg_1',5.,15.,{args.grid_count}),
+        repetitions_per_point=2,settle_time_us=0.,trace_samples_per_point=1,
+        bias_t_compensation_enabled=True,bias_t_compensation_type='dc_rc',
+        bias_t_compensation_mode='fixed_time',bias_t_compensation_duration_us=2.,
+        bias_t_filter_tau_us=300.)
+    sequence=build_stability_hold_sequence(config,output_names=('awg_0','awg_1'),
+        fabric_mhz=300.,full_scale_mv=800.,sample_period_us=1.,
+        output_full_scales_mv={tuple(v*40 for v in args.dac_current_ma[:2])!r})
+    return sequence.make_program(soccfg,awg_channels=(1,3),repetitions_per_sweep=2,
+        compile_validation_mode='boundary')
+'''
     (out/'gui_export.py').write_text(code,encoding='utf-8')
     ns={};exec(compile(code,str(out/'gui_export.py'),'exec'),ns)
     program=ns['build_program'](cfg);program.compile()
@@ -236,6 +269,8 @@ def main():
         text=text.replace(f'sim_bd_axis_awg_tuning_v1_{i}_0 axis_awg',
                           'axis_awg_tuning_v1 #(.EXTRA_Y_PIPE_STAGES(3)) axis_awg')
     text=text.replace('sim_bd_axis_square_pulse_v1_0_0 axis_square','axis_square_pulse_v1 axis_square')
+    if args.awg_v2:
+        text=text.replace('axis_awg_tuning_v1 #(', 'axis_awg_tuning_v2 #(')
     ties=[f"assign axis_clk_cnvrt_avg_{i}_M_AXIS_TDATA=64'b0;\nassign axis_clk_cnvrt_avg_{i}_M_AXIS_TVALID=1'b0;" for i in range(4)]
     ties += [f"assign axis_tproc64x32_x8_0_m{i}_axis_TREADY=1'b1;" for i in (3,5,6,7)]
     if args.sweep_case:
@@ -306,7 +341,7 @@ end
         # ramps have different DC area residuals; report their analog error
         # while checking the complete digital recurrence exactly below.
         monitor=[re.sub(r'   if\(cycle>100 && error>4.2\).*?\n', '', m) for m in monitor]
-        if args.grid_count > 5:
+        if args.grid_count > 5 or args.v2_fixture=='fast':
             monitor=[]
         for ch,cell in enumerate(('axis_awg_tuning_v1_4','axis_awg_tuning_v1_5')):
             root=f'dut.sim_bd_i.{cell}'
@@ -390,10 +425,20 @@ begin: REPEAT_RESET{ch}
 end
 ''')
         top=top.replace('endgenerate\nendmodule', ''.join(reset_monitors)+'endgenerate\nendmodule')
+    if args.awg_v2:
+        raw_checks=''
+        for ch,cell in enumerate(('axis_awg_tuning_v1_4','axis_awg_tuning_v1_5')):
+            root=f'dut.sim_bd_i.{cell}'
+            raw_checks+=f'''awg_v2_raw_checker #(.CHANNEL({ch})) raw_checker{ch} (
+ .clk(clk_300000000),.rstn(resetn),.command_valid({root}.s_axis_tvalid),
+ .command({root}.s_axis_tdata),.raw_samples({root}.core_samples));\n'''
+        top=top.replace('endmodule',raw_checks+'endmodule')
     (out/'tb_rc_gui.sv').write_text(top)
     rtl=[]
-    for folder in ('axis_awg_tuning_v1','axis_square_pulse_v1'):
+    for folder in ('axis_awg_tuning_v2' if args.awg_v2 else 'axis_awg_tuning_v1','axis_square_pulse_v1'):
         rtl += [p for p in (HERE.parent/folder/'src').glob('*.sv') if not p.name.startswith('tb_')]
+    if args.awg_v2:
+        rtl.append(HERE.parent/'axis_awg_tuning_v2/validation/awg_v2_raw_checker.sv')
     files=rtl+[out/n for n in ('rc_bd.v','rc_wrapper.v','tb_rc_gui.sv')]
     (out/'sources.prj').write_text(''.join(f'sv xil_defaultlib "{f.as_posix()}"\n' for f in files)+'nosort\n')
     fingerprint=hashlib.sha256(b''.join(p.read_bytes() for p in files+[out/'pmem.hex',out/'dmem.txt'])).hexdigest()
@@ -422,8 +467,9 @@ end
                 if path.is_file():shutil.copy2(path,snapshot/path.name)
             shutil.copy2(run/'xsim.ini',isolated/'xsim.ini')
         run=isolated
-    if args.prepare_only:
+    if not args.reuse_snapshot:
         (out/'prepared.json').write_text(json.dumps(dict(points=points,shots=shots,cycles=cycles,fingerprint=fingerprint,capture_version=capture_version)))
+    if args.prepare_only:
         return
     (out/'run.tcl').write_text('run all\nquit\n')
     options=['rc_gui',f'-tclbatch "{(out/"run.tcl").as_posix()}"',
@@ -442,6 +488,13 @@ end
         assert int(act['port'])==exp['port'] and int(act['word'],16)==int(exp['word'],16),(act,exp)
         assert int(act['cycle'])-exp['cycle']==offset,(act,exp,offset)
     summary=dict(points=points,repetitions=2,commands=len(actual),cycle_offset=offset,
+        command_value_mismatches=0,command_timing_mismatches=0,
+        voltage_grid_policy=program.summary().get('voltage_grid_policy','legacy_rounded_increment'),
+        compiled_target_error_codes=program._sweep_max_target_error,
+        compiled_step_error_units=program._sweep_max_step_error,
+        awg_ip_version=2 if args.awg_v2 else 1,
+        v2_fixture=args.v2_fixture,
+        raw_awg_results=re.findall(r'RAW_AWG_V2_RESULT[^\n]+',result),
         dac_current_ma=args.dac_current_ma,
         dc_mode=args.dc_mode,dc_voltage_mv=args.dc_voltage_mv,
         sweep_case=args.sweep_case,run_tag=args.run_tag,rf_length_boundary=args.rf_length_boundary,
@@ -460,10 +513,12 @@ end
         for ch in range(2):
             events=[e for e in model.output_events if e.tproc_ch==ch]
             reset_positions=[i for i,e in enumerate(events) if e.word & (1<<149)]
-            assert len(reset_positions)==shots+1
+            if args.v2_fixture!='fast':
+                assert len(reset_positions)==shots+1
+            first_sets=[e for e in events if (e.word>>144)&3==1]
             first_codes=[]
             for shot in range(shots):
-                e=events[reset_positions[shot]+1]
+                e=first_sets[shot*3] if args.v2_fixture=='fast' else events[reset_positions[shot]+1]
                 code=e.word&0xffffffff
                 first_codes.append(code if code<2**31 else code-2**32)
             values=np.array(first_codes).reshape(args.grid_count,args.grid_count,2)
@@ -471,7 +526,7 @@ end
             axis=values[:,0,0] if ch==0 else values[0,:,0]
             expected_codes=np.broadcast_to(axis[:,None] if ch==0 else axis[None,:],values[:,:,0].shape)
             assert np.array_equal(values[:,:,0],expected_codes), 'Sweep axis failed to reset'
-            requested=np.linspace(5.,15.,args.grid_count)
+            requested=np.linspace(-799.,799.,args.grid_count) if args.v2_fixture=='fast' else np.linspace(5.,15.,args.grid_count)
             measured=axis*(args.dac_current_ma[ch]*40)/32768
             axes_report.append(dict(channel=ch,requested_mv=requested.tolist(),
                 executed_target_mv=measured.tolist(),target_codes=axis.tolist(),

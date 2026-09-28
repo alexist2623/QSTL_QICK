@@ -1,0 +1,118 @@
+{
+  "points": 100,
+  "repetitions": 2,
+  "commands": 4602,
+  "cycle_offset": 1812,
+  "command_value_mismatches": 0,
+  "command_timing_mismatches": 0,
+  "voltage_grid_policy": "nearest_dac_code_per_point",
+  "compiled_target_error_codes": 0,
+  "compiled_step_error_units": 0,
+  "awg_ip_version": 2,
+  "v2_fixture": null,
+  "raw_awg_results": [
+    "RAW_AWG_V2_RESULT ch=0 samples=5025520 ramps=400 sets=1200",
+    "RAW_AWG_V2_RESULT ch=1 samples=5025520 ramps=400 sets=1200"
+  ],
+  "dac_current_ma": [
+    20.0,
+    20.0,
+    20.0
+  ],
+  "dc_mode": "fixed_time",
+  "dc_voltage_mv": 20.0,
+  "sweep_case": null,
+  "run_tag": "exact_voltage",
+  "rf_length_boundary": null,
+  "rc_range_corners": [
+    {
+      "point_index": 0,
+      "gen_ch": 1,
+      "minimum_normalized": -0.01338824078290614,
+      "maximum_normalized": 0.00818556310701183
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 3,
+      "minimum_normalized": -0.007064624617717491,
+      "maximum_normalized": 0.006444543190761213
+    },
+    {
+      "point_index": 9,
+      "gen_ch": 1,
+      "minimum_normalized": -0.01338824078290614,
+      "maximum_normalized": 0.00818556310701183
+    },
+    {
+      "point_index": 9,
+      "gen_ch": 3,
+      "minimum_normalized": -0.007064624617717491,
+      "maximum_normalized": 0.006444543190761213
+    },
+    {
+      "point_index": 90,
+      "gen_ch": 1,
+      "minimum_normalized": -0.012039172293544835,
+      "maximum_normalized": 0.020962562412061993
+    },
+    {
+      "point_index": 90,
+      "gen_ch": 3,
+      "minimum_normalized": -0.007064624617717491,
+      "maximum_normalized": 0.006444543190761213
+    },
+    {
+      "point_index": 99,
+      "gen_ch": 1,
+      "minimum_normalized": -0.012039172293544835,
+      "maximum_normalized": 0.020962562412061993
+    },
+    {
+      "point_index": 99,
+      "gen_ch": 3,
+      "minimum_normalized": -0.007064624617717491,
+      "maximum_normalized": 0.006444543190761213
+    }
+  ],
+  "square_amplitude_sweep": true,
+  "rc_reset_each_repeat": true,
+  "no_aux": false,
+  "grid_count": 0,
+  "waveform_capture_cycles": 12000,
+  "reset_results": [
+    "REPEAT_RESET_RESULT ch=0 resets=201 zero_checks=201",
+    "REPEAT_RESET_RESULT ch=1 resets=201 zero_checks=201"
+  ],
+  "cycles": 312283,
+  "analog_results": [
+    "GUI_RC_RESULT ch=0 max_error_codes=3.129822",
+    "GUI_RC_RESULT ch=1 max_error_codes=2.483664",
+    "GUI_RC_RESULT ch=2 max_error_codes=2.011471"
+  ],
+  "exact_awg_results": [],
+  "retained_cells": [
+    "axis_awg_tuning_v1_4",
+    "axis_awg_tuning_v1_5",
+    "axis_register_slice_10",
+    "axis_register_slice_12",
+    "axis_register_slice_21",
+    "axis_register_slice_23",
+    "axis_register_slice_8",
+    "axis_register_slice_9",
+    "axis_set_reg_0",
+    "axis_square_pulse_v1_0",
+    "axis_tmux_v1_0",
+    "axis_tmux_v1_1",
+    "axis_tmux_v1_3",
+    "axis_tproc64x32_x8_0",
+    "qick_vec2bit_0",
+    "xlconstant_0",
+    "xlconstant_1",
+    "xlconstant_2",
+    "xlconstant_3",
+    "xlconstant_4"
+  ],
+  "pmem_words": 235,
+  "dmem_words": 50,
+  "validation_status": "passed"
+}

@@ -354,7 +354,12 @@ class QickSim(QickConfig):
     def simulate_program(self, program, *, cycles=None, strict=None):
         """Execute a compiled QickProgram/AveragerProgram-like object."""
         instructions = self._program_instructions(program)
-        return self.simulate_tproc_instructions(instructions, cycles=cycles, strict=strict)
+        tproc = TProcV1Sim(strict=self.strict if strict is None else strict)
+        loader = getattr(program, "load_runtime_dmem_into_model", None)
+        if callable(loader):
+            loader(tproc)
+        tproc.run(instructions)
+        return self.simulate_events(tproc.output_events, cycles=cycles, tproc=tproc)
 
     def simulate_tproc_instructions(self, instructions, *, cycles=None, strict=None):
         """Run ASM v1 instructions through the tProc simulator."""
@@ -383,6 +388,9 @@ class QickSim(QickConfig):
             return AxisAwgTuningBehaviorModel(
                 n_pts=params["n_pts"],
                 b=params["b"],
+                frac=int(gen.cfg.get("frac", 16)),
+                step_width=int(gen.cfg.get("step_width", 24)),
+                duration_width=int(gen.cfg.get("duration_width", 23)),
                 extra_y_pipe_stages=int(gen.cfg.get("extra_y_pipe_stages", 1)),
                 channel=idx,
             )
@@ -422,7 +430,7 @@ class QickSim(QickConfig):
         if isinstance(gen, AxisSignalGen):
             metadata["dds_model"] = "deterministic approximation; not bit-exact DDS Compiler output"
         if isinstance(gen, AxisAwgTuningV1):
-            metadata["awg_model"] = "follows axis_awg_tuning_v1 command semantics"
+            metadata["awg_model"] = "follows %s raw command semantics" % gen.cfg.get("type", "axis_awg_tuning_v1")
         return {
             "name": fullpath,
             "dac": dac,
