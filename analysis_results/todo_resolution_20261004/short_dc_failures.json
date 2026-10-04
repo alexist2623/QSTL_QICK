@@ -1,0 +1,28 @@
+[
+  {
+    "case": "rf_duration",
+    "validation_status": "failed_command_timing",
+    "commands": 18370,
+    "command_value_mismatches": 0,
+    "command_timing_mismatches": 62,
+    "delay_cycles": {
+      "2": 34,
+      "1": 28
+    },
+    "evidence_directory": "C:\\JeonghyunPark\\Workspace\\Vivado_Output\\gui_rtl6\\rc_precomp_repeat_reset_rf_duration_20x20_todo_fixed_voltage_rev2_20261004_awg_v2",
+    "resolution": "Compiler now rejects nonzero DC SET pulse widths shorter than three clocks."
+  },
+  {
+    "case": "rf_duration_fixed",
+    "validation_status": "failed_command_timing",
+    "commands": 18242,
+    "command_value_mismatches": 0,
+    "command_timing_mismatches": 80,
+    "delay_cycles": {
+      "2": 40,
+      "1": 40
+    },
+    "evidence_directory": "C:\\JeonghyunPark\\Workspace\\Vivado_Output\\gui_rtl6\\rc_precomp_repeat_reset_rf_duration_fixed_20x20_todo_fixed_voltage_rev2_20261004_awg_v2",
+    "resolution": "Compiler now rejects nonzero DC SET pulse widths shorter than three clocks."
+  }
+]

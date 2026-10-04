@@ -1,0 +1,350 @@
+[
+  {
+    "kind": "pre",
+    "mode": "fixed_voltage",
+    "tau_s": 0.0003,
+    "compensation_duration_s": 0.001355,
+    "compensation_amplitude_v": 0.02,
+    "body_area_vs": 2.71e-05,
+    "body_dac_area_vs": 4.7835000000000005e-05,
+    "iir_state_before_reset_v": 0.0,
+    "period_s": 0.0032662690875914376,
+    "compensation_end_s": [
+      0.0018700000000000001,
+      0.005136269087591437,
+      0.008402538175182874,
+      0.01166880726277431,
+      0.014935076350365749
+    ],
+    "post_reset_rc_residual_mv": [
+      1.8923147860278266e-05,
+      1.8923497983143808e-05,
+      1.8923512796310763e-05,
+      1.8923514628270914e-05,
+      1.8923514642559015e-05
+    ],
+    "max_body_error_mv": 0.00010110939778484873,
+    "last_repeat_dac_area_v_s": 8.193583333333327e-05,
+    "last_repeat_rc_area_v_s": 2.467371823484466e-13,
+    "max_abs_dac_mv": 150.3333333333333
+  },
+  {
+    "kind": "post_pre",
+    "mode": "fixed_voltage",
+    "tau_s": 0.0003,
+    "compensation_duration_s": 0.0026512690875914375,
+    "compensation_amplitude_v": 0.02,
+    "body_area_vs": 2.71e-05,
+    "body_dac_area_vs": 4.7835000000000005e-05,
+    "iir_state_before_reset_v": -0.0864179391727625,
+    "period_s": 0.0032662690875914376,
+    "compensation_end_s": [
+      0.0031662690875914378,
+      0.006432538175182875,
+      0.009698807262774313,
+      0.012965076350365748,
+      0.016231345437957186
+    ],
+    "post_reset_rc_residual_mv": [
+      86.3950655167206,
+      86.39668015694754,
+      86.39668018714073,
+      86.39668018714232,
+      86.39668018711185
+    ],
+    "max_body_error_mv": 60.86235295662099,
+    "last_repeat_dac_area_v_s": -1.8147767223166116e-09,
+    "last_repeat_rc_area_v_s": -6.196167927559912e-08,
+    "max_abs_dac_mv": 150.3333333333333
+  },
+  {
+    "kind": "post_post",
+    "mode": "fixed_voltage",
+    "tau_s": 0.0003,
+    "compensation_duration_s": 0.00239175,
+    "compensation_amplitude_v": 0.02,
+    "body_area_vs": 2.71e-05,
+    "body_dac_area_vs": 4.7835000000000005e-05,
+    "iir_state_before_reset_v": null,
+    "period_s": 0.0032662690875914376,
+    "compensation_end_s": [
+      0.0029067500000000005,
+      0.006173019087591438,
+      0.009439288175182876,
+      0.01270555726277431,
+      0.01597182635036575
+    ],
+    "post_reset_rc_residual_mv": [
+      19.95526913548571,
+      19.955642080168317,
+      19.95564208713846,
+      19.9556420871389,
+      19.95564208713856
+    ],
+    "max_body_error_mv": 5.918632673878599,
+    "last_repeat_dac_area_v_s": 1.6940658945086007e-20,
+    "last_repeat_rc_area_v_s": -6.024955691069219e-09,
+    "max_abs_dac_mv": 150.3333333333333
+  },
+  {
+    "kind": "pre",
+    "mode": "fixed_time",
+    "tau_s": 0.0003,
+    "compensation_duration_s": 0.0002,
+    "compensation_amplitude_v": 0.1355,
+    "body_area_vs": 2.71e-05,
+    "body_dac_area_vs": 4.7835000000000005e-05,
+    "iir_state_before_reset_v": -1.3877787807814457e-17,
+    "period_s": 0.0008150000000000001,
+    "compensation_end_s": [
+      0.000715,
+      0.0015300000000000003,
+      0.0023450000000000003,
+      0.00316,
+      0.003975
+    ],
+    "post_reset_rc_residual_mv": [
+      5.414407255506686e-06,
+      5.772430922349881e-06,
+      5.796091377373372e-06,
+      5.797657855629619e-06,
+      5.797761385484038e-06
+    ],
+    "max_body_error_mv": 0.00010110939778484873,
+    "last_repeat_dac_area_v_s": 2.9768333333333304e-05,
+    "last_repeat_rc_area_v_s": 8.099440307893571e-13,
+    "max_abs_dac_mv": 150.3333333333333
+  },
+  {
+    "kind": "post_pre",
+    "mode": "fixed_time",
+    "tau_s": 0.0003,
+    "compensation_duration_s": 0.0002,
+    "compensation_amplitude_v": 0.24713125000000002,
+    "body_area_vs": 2.71e-05,
+    "body_dac_area_vs": 4.7835000000000005e-05,
+    "iir_state_before_reset_v": -0.07442083333333335,
+    "period_s": 0.0008150000000000001,
+    "compensation_end_s": [
+      0.000715,
+      0.0015300000000000003,
+      0.0023450000000000003,
+      0.00316,
+      0.003975
+    ],
+    "post_reset_rc_residual_mv": [
+      74.40112954741686,
+      79.31863785843053,
+      79.64365829992265,
+      79.66514037595061,
+      79.66656022384804
+    ],
+    "max_body_error_mv": 56.12029915976639,
+    "last_repeat_dac_area_v_s": -1.5628375000517137e-09,
+    "last_repeat_rc_area_v_s": -5.743871658595105e-08,
+    "max_abs_dac_mv": 321.5520833333334
+  },
+  {
+    "kind": "post_post",
+    "mode": "fixed_time",
+    "tau_s": 0.0003,
+    "compensation_duration_s": 0.0002,
+    "compensation_amplitude_v": 0.23917500000000003,
+    "body_area_vs": 2.71e-05,
+    "body_dac_area_vs": 4.7835000000000005e-05,
+    "iir_state_before_reset_v": null,
+    "period_s": 0.0008150000000000001,
+    "compensation_end_s": [
+      0.000715,
+      0.0015300000000000003,
+      0.0023450000000000003,
+      0.00316,
+      0.003975
+    ],
+    "post_reset_rc_residual_mv": [
+      69.97643346125719,
+      74.6014935270741,
+      74.9071847368186,
+      74.92738925619756,
+      74.92872466457914
+    ],
+    "max_body_error_mv": 52.78277606332464,
+    "last_repeat_dac_area_v_s": -6.776263578034403e-20,
+    "last_repeat_rc_area_v_s": -5.4021945497864914e-08,
+    "max_abs_dac_mv": 239.175
+  },
+  {
+    "kind": "pre",
+    "mode": "fixed_voltage",
+    "tau_s": 0.001,
+    "compensation_duration_s": 0.001355,
+    "compensation_amplitude_v": 0.02,
+    "body_area_vs": 2.71e-05,
+    "body_dac_area_vs": 3.33205e-05,
+    "iir_state_before_reset_v": 0.0,
+    "period_s": 0.0028295900085771593,
+    "compensation_end_s": [
+      0.0018700000000000001,
+      0.004699590008577159,
+      0.007529180017154319,
+      0.010358770025731476,
+      0.013188360034308635
+    ],
+    "post_reset_rc_residual_mv": [
+      1.5277792041712088e-06,
+      1.6179842510552754e-06,
+      1.6233095809670804e-06,
+      1.6236321206750332e-06,
+      1.6236511408381635e-06
+    ],
+    "max_body_error_mv": 3.0139714897459147e-05,
+    "last_repeat_dac_area_v_s": 2.4580749999999922e-05,
+    "last_repeat_rc_area_v_s": 2.462893085953882e-13,
+    "max_abs_dac_mv": 87.1
+  },
+  {
+    "kind": "post_pre",
+    "mode": "fixed_voltage",
+    "tau_s": 0.001,
+    "compensation_duration_s": 0.0022145900085771596,
+    "compensation_amplitude_v": 0.02,
+    "body_area_vs": 2.71e-05,
+    "body_dac_area_vs": 3.33205e-05,
+    "iir_state_before_reset_v": -0.017191800171543193,
+    "period_s": 0.0028295900085771593,
+    "compensation_end_s": [
+      0.0027295900085771594,
+      0.005559180017154318,
+      0.008388770025731478,
+      0.011218360034308636,
+      0.014047950042885796
+    ],
+    "post_reset_rc_residual_mv": [
+      17.19043629858398,
+      18.205308765668406,
+      18.265223831619185,
+      18.268761039739257,
+      18.26896986603489
+    ],
+    "max_body_error_mv": 16.446153816839796,
+    "last_repeat_dac_area_v_s": -3.6102780353886857e-10,
+    "last_repeat_rc_area_v_s": -1.6723733649363193e-08,
+    "max_abs_dac_mv": 87.1
+  },
+  {
+    "kind": "post_post",
+    "mode": "fixed_voltage",
+    "tau_s": 0.001,
+    "compensation_duration_s": 0.001666025,
+    "compensation_amplitude_v": 0.02,
+    "body_area_vs": 2.71e-05,
+    "body_dac_area_vs": 3.33205e-05,
+    "iir_state_before_reset_v": null,
+    "period_s": 0.0028295900085771593,
+    "compensation_end_s": [
+      0.002181025,
+      0.005010615008577159,
+      0.007840205017154319,
+      0.010669795025731475,
+      0.013499385034308635
+    ],
+    "post_reset_rc_residual_mv": [
+      11.09713475267024,
+      11.752276735599892,
+      11.790954378735513,
+      11.793237792289279,
+      11.793372598265353
+    ],
+    "max_body_error_mv": 6.1340719956597605,
+    "last_repeat_dac_area_v_s": 9.994988777600744e-20,
+    "last_repeat_rc_area_v_s": -6.2373521350297684e-09,
+    "max_abs_dac_mv": 87.1
+  },
+  {
+    "kind": "pre",
+    "mode": "fixed_time",
+    "tau_s": 0.001,
+    "compensation_duration_s": 0.0002,
+    "compensation_amplitude_v": 0.1355,
+    "body_area_vs": 2.71e-05,
+    "body_dac_area_vs": 3.33205e-05,
+    "iir_state_before_reset_v": 0.0,
+    "period_s": 0.0008150000000000001,
+    "compensation_end_s": [
+      0.000715,
+      0.0015300000000000003,
+      0.0023450000000000003,
+      0.00316,
+      0.003975
+    ],
+    "post_reset_rc_residual_mv": [
+      5.618501872315358e-07,
+      8.106794315058468e-07,
+      9.208579423017643e-07,
+      9.69647873082955e-07,
+      9.912521487459533e-07
+    ],
+    "max_body_error_mv": 3.0139714897459147e-05,
+    "last_repeat_dac_area_v_s": 8.930499999999985e-06,
+    "last_repeat_rc_area_v_s": 7.934051670049989e-13,
+    "max_abs_dac_mv": 135.5
+  },
+  {
+    "kind": "post_pre",
+    "mode": "fixed_time",
+    "tau_s": 0.001,
+    "compensation_duration_s": 0.0002,
+    "compensation_amplitude_v": 0.17609318181818182,
+    "body_area_vs": 2.71e-05,
+    "body_dac_area_vs": 3.33205e-05,
+    "iir_state_before_reset_v": -0.008118636363636366,
+    "period_s": 0.0008150000000000001,
+    "compensation_end_s": [
+      0.000715,
+      0.0015300000000000003,
+      0.0023450000000000003,
+      0.00316,
+      0.003975
+    ],
+    "post_reset_rc_residual_mv": [
+      8.117991764316956,
+      11.711333936441102,
+      13.301888391353051,
+      14.005930297986392,
+      14.317566912981297
+    ],
+    "max_body_error_mv": 12.608606562361736,
+    "last_repeat_dac_area_v_s": -1.7049136365518804e-10,
+    "last_repeat_rc_area_v_s": -2.948727337401014e-07,
+    "max_abs_dac_mv": 184.2118181818182
+  },
+  {
+    "kind": "post_post",
+    "mode": "fixed_time",
+    "tau_s": 0.001,
+    "compensation_duration_s": 0.0002,
+    "compensation_amplitude_v": 0.1666025,
+    "body_area_vs": 2.71e-05,
+    "body_dac_area_vs": 3.33205e-05,
+    "iir_state_before_reset_v": null,
+    "period_s": 0.0008150000000000001,
+    "compensation_end_s": [
+      0.000715,
+      0.0015300000000000003,
+      0.0023450000000000003,
+      0.00316,
+      0.003975
+    ],
+    "post_reset_rc_residual_mv": [
+      8.011504119206164,
+      11.557710674895475,
+      13.127401053657653,
+      13.822207700278863,
+      14.129756426267964
+    ],
+    "max_body_error_mv": 12.443213143552178,
+    "last_repeat_dac_area_v_s": -1.0164395367051604e-20,
+    "last_repeat_rc_area_v_s": -2.9100460244878073e-07,
+    "max_abs_dac_mv": 166.6025
+  }
+]

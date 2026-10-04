@@ -87,6 +87,11 @@ def main():
     parser.add_argument('--cross-capacitance', type=float, nargs=4,
                         default=(1., 0., 0., 1.), metavar=('M00', 'M01', 'M10', 'M11'),
                         help='Virtual-to-physical voltage matrix for the two-DAC grid.')
+    parser.add_argument('--grid-x-mv', type=float, nargs=2, default=(5.,15.))
+    parser.add_argument('--grid-y-mv', type=float, nargs=2, default=(5.,15.))
+    parser.add_argument('--reverse-axes', action='store_true')
+    parser.add_argument('--stability-sample-period-us', type=float, default=1.)
+    parser.add_argument('--stability-comp-duration-us', type=float, default=2.)
     args=parser.parse_args()
     if args.analyze_only:
         args.reuse_snapshot=True
@@ -95,8 +100,8 @@ def main():
     if args.grid_count and args.sweep_case:
         parser.error('Choose either the two-DAC voltage grid or a mixed sweep case.')
     coupled = tuple(args.cross_capacitance) != (1., 0., 0., 1.)
-    if coupled and (not args.grid_count or not args.run_tag):
-        parser.error('A virtual-gate matrix requires --grid-count and a distinct --run-tag.')
+    if coupled and not args.run_tag:
+        parser.error('A virtual-gate matrix requires a distinct --run-tag.')
     if args.v2_fixture and (not args.awg_v2 or not args.grid_count or not args.no_aux):
         parser.error('V2 fixtures require --awg-v2 --grid-count N --no-aux.')
     if args.run_tag and not re.fullmatch(r'[a-z0-9_]+',args.run_tag):
@@ -160,7 +165,8 @@ def main():
             # Leave a 600 ns zero hold for the dense dual-channel command
             # stream and nested-loop arithmetic to replenish queue lookahead.
             p.t=np.array([0,100,150,250,300,300+args.grid_zero_hold_ns],dtype=float)
-        axes=[QickSweepSpec('set_0',f'awg_{i}',5/800,15/800,args.grid_count) for i in range(2)]
+        axes=[QickSweepSpec('set_0',f'awg_{i}',limits[0]/800,limits[1]/800,args.grid_count)
+              for i,limits in enumerate((args.grid_x_mv,args.grid_y_mv))]
     if args.v2_fixture=='fast':
         for p in pulses:
             p.t=np.array([0,400,403,803,806,2006],dtype=float)
@@ -230,19 +236,24 @@ def main():
         code=f'''from stability_diagram import (StabilityDiagramConfig, StabilitySweepAxis, build_stability_hold_sequence)
 def build_program(soccfg):
     config=StabilityDiagramConfig(
-        x_axis=StabilitySweepAxis('awg_0',5.,15.,{args.grid_count}),
-        y_axis=StabilitySweepAxis('awg_1',5.,15.,{args.grid_count}),
+        x_axis=StabilitySweepAxis('awg_0',{args.grid_x_mv[0]},{args.grid_x_mv[1]},{args.grid_count}),
+        y_axis=StabilitySweepAxis('awg_1',{args.grid_y_mv[0]},{args.grid_y_mv[1]},{args.grid_count}),
         repetitions_per_point=2,settle_time_us=0.,trace_samples_per_point=1,
         bias_t_compensation_enabled=True,bias_t_compensation_type='dc_rc',
-        bias_t_compensation_mode='fixed_time',bias_t_compensation_duration_us=2.,
+        bias_t_compensation_mode={args.dc_mode!r},bias_t_compensation_duration_us={args.stability_comp_duration_us},
+        bias_t_compensation_voltage_mv={args.dc_voltage_mv},
         bias_t_filter_tau_us=300.)
     sequence=build_stability_hold_sequence(config,output_names=('awg_0','awg_1'),
-        fabric_mhz=300.,full_scale_mv=800.,sample_period_us=1.,
+        fabric_mhz=300.,full_scale_mv=800.,sample_period_us={args.stability_sample_period_us},
         cross_capacitance={np.asarray(args.cross_capacitance).reshape(2,2).tolist()!r},
         output_full_scales_mv={tuple(v*40 for v in args.dac_current_ma[:2])!r})
     return sequence.make_program(soccfg,awg_channels=(1,3),repetitions_per_sweep=2,
         compile_validation_mode='boundary')
 '''
+    if args.reverse_axes:
+        code=code.replace('    return sequence.make_program(', '    sequence.sweeps.reverse()\n    return sequence.make_program(')
+        code=code.replace('    return sequence\n', '    sequence.sweeps.reverse()\n    return sequence\n')
+        assert 'sequence.sweeps.reverse()' in code, 'Export did not apply requested axis order'
     (out/'gui_export.py').write_text(code,encoding='utf-8')
     ns={};exec(compile(code,str(out/'gui_export.py'),'exec'),ns)
     program=ns['build_program'](cfg);program.compile()
@@ -566,9 +577,18 @@ end
             requested=np.linspace(-799.,799.,args.grid_count) if args.v2_fixture=='fast' else np.linspace(5.,15.,args.grid_count)
             if coupled:
                 matrix=np.asarray(args.cross_capacitance).reshape(2,2)
-                requested_grid=matrix[ch,0]*requested[:,None]+matrix[ch,1]*requested[None,:]
+                x=np.linspace(*args.grid_x_mv,args.grid_count)
+                y=np.linspace(*args.grid_y_mv,args.grid_count)
+                requested_grid=matrix[ch,0]*x[:,None]+matrix[ch,1]*y[None,:]
+                if args.reverse_axes: requested_grid=requested_grid.T
                 scale=args.dac_current_ma[ch]*40
-                expected_codes=np.rint(requested_grid*32768/scale/4).astype(np.int64)*4
+                nearest=np.rint(requested_grid*32768/scale/4).astype(np.int64)*4
+                def rounded_delta(end):
+                    value=(int(end)-int(nearest[0,0]))/(args.grid_count-1)/4
+                    return int(np.copysign(np.floor(abs(value)+.5),value))*4
+                dx=rounded_delta(nearest[-1,0]); dy=rounded_delta(nearest[0,-1])
+                expected_codes=(nearest[0,0]+np.arange(args.grid_count)[:,None]*dx
+                                +np.arange(args.grid_count)[None,:]*dy)
                 assert np.array_equal(values[:,:,0],expected_codes), 'Virtual-gate target or axis rewind mismatch'
                 measured=values[:,:,0]*scale/32768
                 axes_report.append(dict(channel=ch,requested_physical_mv=requested_grid.tolist(),
@@ -608,7 +628,7 @@ end
         assert all(mode==expected_periodic for mode in periodic), 'RF output mode differs from requested whole-axis length policy'
         assert len(rf_stops)==sum(periodic),(len(rf_stops),sum(periodic))
         stop_iter=iter(rf_stops)
-        from qick_fine_tune_sweep import RfFrequencySweep, RfPowerSweep
+        from qick_fine_tune_sweep import RfFrequencySweep, RfPowerSweep, RfDurationSweep
         measurements=[]
         for shot,((wave,stop),event) in enumerate(zip(pulses,rf_starts)):
             values=np.array([v for _,word in wave for v in word])
@@ -623,7 +643,9 @@ end
             # periodic block boundary. Keep requested-width errors visible;
             # matching this architecture is not an exact-timing pass.
             architecture_width=((expected_width+block_cycles-1)//block_cycles)*block_cycles if periodic[shot] else expected_width
-            requested_width=(rf_duration_start+(rf_duration_stop-rf_duration_start)*(shot//2%args.sweep_count)/(args.sweep_count-1))*300 if args.sweep_case in ('rf_duration','rf_duration_fixed') else 30.
+            coordinates=program.sequence.sweep_coordinate(shot//2)
+            requested_width=next((float(value)*300 for axis,value in
+                zip(program.sequence.sweep_axes,coordinates) if isinstance(axis,RfDurationSweep)),30.)
             assert expected_width==round(requested_width),(shot,expected_width,requested_width)
             expected_gain=(event.word>>96)&0xffffffff
             # A finite sampled sine need not hit its continuous-time peak.

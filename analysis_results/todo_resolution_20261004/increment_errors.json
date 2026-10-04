@@ -1,0 +1,66 @@
+[
+  {
+    "mode": "fixed_time",
+    "channel": 0,
+    "full_scale_mv": 800.0,
+    "target_base_code": 120,
+    "axis_deltas_codes": [
+      4,
+      0
+    ],
+    "requested_last_mv": 16.61,
+    "actual_last_mv": 22.36328125,
+    "max_target_error_mv": 9.43328125,
+    "max_compensation_target_error_mv": 9.27734375,
+    "max_planned_area_residual_mv_us": 18.5107421875,
+    "dmem_table_words": 0
+  },
+  {
+    "mode": "fixed_time",
+    "channel": 1,
+    "full_scale_mv": 400.0,
+    "target_base_code": -808,
+    "axis_deltas_codes": [
+      0,
+      8
+    ],
+    "requested_last_mv": 4.449999999999999,
+    "actual_last_mv": 9.5703125,
+    "max_target_error_mv": 5.120312500000001,
+    "max_compensation_target_error_mv": 0.48828125,
+    "max_planned_area_residual_mv_us": 0.966796875,
+    "dmem_table_words": 0
+  },
+  {
+    "mode": "fixed_voltage",
+    "channel": 0,
+    "full_scale_mv": 800.0,
+    "target_base_code": 120,
+    "axis_deltas_codes": [
+      4,
+      0
+    ],
+    "requested_last_mv": 16.61,
+    "actual_last_mv": 22.36328125,
+    "max_target_error_mv": 9.43328125,
+    "max_compensation_target_error_mv": null,
+    "max_planned_area_residual_mv_us": 0.050455729166666664,
+    "dmem_table_words": 0
+  },
+  {
+    "mode": "fixed_voltage",
+    "channel": 1,
+    "full_scale_mv": 400.0,
+    "target_base_code": -808,
+    "axis_deltas_codes": [
+      0,
+      8
+    ],
+    "requested_last_mv": 4.449999999999999,
+    "actual_last_mv": 9.5703125,
+    "max_target_error_mv": 5.120312500000001,
+    "max_compensation_target_error_mv": null,
+    "max_planned_area_residual_mv_us": 0.050455729166666664,
+    "dmem_table_words": 0
+  }
+]

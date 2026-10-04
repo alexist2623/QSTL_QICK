@@ -6,9 +6,26 @@
 기준 커밋: QSTL_QICK `587f46d7`, GUI `3e78e0c`.
 이 문서는 후속 작업을 기록하며, 아래 미해결 항목을 수정 완료했다는 의미가 아니다.
 
+## 2026-10-04 작업 상태
+
+- 사용자가 점별 nearest-DAC-code 전압표 대신 기존 고정 증분/add/rewind 방식을 유지하도록 요청했다. 아래 1번의 종전 정확도 조건은 이 요청으로 대체한다.
+- Cartesian 전압표를 제거하고 duration에 따른 계수 행만 유지하도록 수정했다. 200×200 virtual gate 및 RF duration×voltage 소프트웨어 검사를 추가했다.
+- AWG v2의 32-bit Q18은 RAMP `step` 폭이다. SET 전압의 16-bit 코드/하위 2-bit 무효 조건은 바뀌지 않으며, 고정 정수 증분의 전압 및 fixed-time DC 보상 오차는 남는다. 이 오차가 없어진 것으로 보고하지 않는다.
+- 누적된 SET/DC 보상 코드가 범위를 벗어나면 RC 옵션과 무관하게 실행 전에 검출하도록 보완했다.
+- 실제 RTL 완료: 두 DAC AWG Tuning 및 Stability 각각 200×200×2, RF 복합 sweep 4종 각각 20×20×2의 `result.json`이 모두 passed다. 명령 값·시각 불일치 0이다. [최종 결과 및 그림](analysis_results/todo_resolution_20261004/FINAL_REPORT.md).
+- 추가 RTL에서 고정전압 20 mV 보상의 일부 1~2클록 SET 펄스가 실제로는 3클록이 되는 제한을 확인했다. 원래 RF 복합 sweep 두 실행은 실패 기록으로 보존한다. 현재는 실행 전 거부하며, 지원 가능한 별도 보상 전압(extend=0.5 mV / fixed=2 mV) RTL은 통과했다. 1~2클록 파형 자체를 지원하도록 수정한 것은 아니다. [근거와 수정 범위](analysis_results/todo_resolution_20261004/SHORT_DC_FINDING.md).
+- 검증 현황: [RTL/소프트웨어 보고서](analysis_results/todo_resolution_20261004/RTL_REPORT.md). [오차 수치](analysis_results/todo_resolution_20261004/increment_errors.json).
+- 추가 면적 누적 FPGA IP는 구현하지 않았다. 실제 LTspice R/C 회로에서 IIR 앞/뒤 면적 수집 및 보상 위치를 비교했다: [LTspice 보고서](analysis_results/todo_resolution_20261004/LTSPICE_REPORT.md).
+
 ## 1. Virtual gate + 대규모 2차원 voltage hardware sweep
 
-- [ ] Coupling으로 두 sweep 축에 의존하는 전압·ramp·DC 보상 값을 200×200에서도 DMEM 범위 내에서 처리하도록 개선한다.
+- [x] Coupling으로 두 sweep 축에 의존하는 전압·ramp·DC 보상 값을 200×200에서도 DMEM 범위 내에서 처리하도록 개선한다. 기존 정수 증분의 정확도 한계는 보존한다.
+
+**최종 확인 — 2026-10-04**
+
+- 실제 tProcessor/TMUX/AWG v2/IIR RTL: AWG Tuning 및 역방향·축반전 Stability 각각 40,000점×2회, 각 DAC reset 80,001회. 명령 값/시각 불일치 0이며 반복 및 축 초기화를 확인했다.
+- Sweep DMEM 0 word, PMEM은 각각 211/135 word이다. 전체 clock의 raw AWG 및 RC 정수 연산 검사를 통과했다. 이 대규모 grid에 아날로그 RC 모델은 적용하지 않았다.
+- 실제 SET 목표와 이상적인 요청 전압의 최대 차이는 AWG 9.43328125/5.1203125 mV, Stability 9.44203125/5.140234375 mV이다. 메모리 회귀 해결을 전압 정밀도 개선으로 해석하지 않는다.
 
 **현재 재현된 문제**
 
@@ -37,17 +54,24 @@
 **완료 조건**
 
 - DAC 양자화 전의 축별 기여를 분리하는 방식 등 메모리 절감 방법을 검토한다. 분리한 값을 각각 반올림해서 더할 경우 생기는 오차도 확인한다.
-- 기존의 점별 nearest-DAC-code 정확도를 유지하고, ramp와 DC 보상이 실제 양자화된 목표값에 일치하도록 한다.
+- 2026-10-04 사용자 지시: 점별 nearest-DAC-code 표로 해결하지 않고 기존 고정 증분/add/rewind를 유지한다. 이 방식의 요청 전압 오차, ramp 및 DC 보상 오차를 별도로 수치화하며, 명령 실행 검사의 통과와 구분한다.
 - 두 DAC, 양·음 coupling, 정방향·역방향, 두 축 순서, DC/RC 옵션, 채널별 서로 다른 full-scale을 검증한다.
 - 200×200 명령 실행 모델과 실제 RTL 결과를 구분해 기록하고, 지원 한계를 넘으면 실행 전에 명확한 오류를 표시한다.
 
-관련 코드: GUI `DCWaveformGeneratorGUI/qick_fine_tune_sweep.py`의 `_exact_voltage_field_model()`, `_build_sweep_register_plan()` 및 DMEM 테이블 할당 부분.
+관련 코드: GUI `DCWaveformGeneratorGUI/qick_fine_tune_sweep.py`의 `_build_sweep_register_plan()`, `_linear_bias_t_models()`, `_boundary_bias_models_from_values()` 및 DMEM 테이블 할당 부분. 회귀를 만든 `_exact_voltage_field_model()`은 이번 수정에서 제거했다.
 
 검증 자료: [결과 요약](analysis_results/virtual_gate_voltage_20261003/summary.json), [소프트웨어 재현 결과](analysis_results/virtual_gate_voltage_20261003/software_results.json). 이 자료들은 현재 로컬 검증 산출물이다.
 
 ## 2. RF duration sweep + voltage sweep
 
-- [ ] 이전에 논의한 RF duration + voltage 복합 hardware sweep의 남은 제한과 미검증 조합을 점검한다.
+- [x] 이전에 논의한 RF duration + voltage 복합 hardware sweep의 남은 제한과 미검증 조합을 점검한다. 아래 지원 범위와 명시적 사전 거부 조건을 확인했다.
+
+**최종 확인 — 2026-10-04**
+
+- RF segment fixed/extend × DC fixed_time/fixed_voltage 네 조합의 실제 RTL 20×20×2 통과. 각각 RF 800개, 각 AWG reset 801회, 명령 값/시각 및 RF width 불일치 0이다.
+- 원래 보상 20 mV fixed_voltage 두 실행의 62/80개 시각 불일치는 실패 기록으로 남긴다. 재검증은 각각 0.5/2 mV의 지원 가능한 조건이며 원래 설정을 자동 수정한 것은 아니다.
+- 1~2 tProcessor clock DC SET 보상은 하드웨어 최소 간격 때문에 실행 전에 오류로 안내한다. 내부 면적 0 교차도 증분 계수에서 검출한다. 자동 시간/전압 조정 정책 및 하드웨어 변경은 구현하지 않았다.
+- RF 200×200은 방향·축 순서·DC 모드별 소프트웨어 검증이다. 최종 13개 모듈 413개 검사, 모두 정상 exit=0. 실제 RF 200×200 RTL을 실행한 것으로 보고하지 않는다.
 
 **기존 이슈 및 현재 상태**
 
@@ -64,6 +88,7 @@
 - 기존 `fixed_voltage` 200×200 사례에는 전체 point table 대신 계수 행을 사용하는 소프트웨어 검사가 있다. 이것을 모든 조합의 지원 또는 200×200 전체 RTL 검증으로 확대 해석하지 않는다.
 - Voltage × duration에 의존하는 DC 보상 및 기타 필드가 큰 joint table을 요구하는 조건을 재현하고, DMEM 절감 시 전압 반올림·보상 정확도·축 초기화를 함께 검증한다.
 - Virtual gate를 추가한 조합도 별도 검증한다. 위 1번의 coupling 메모리 문제와 동시에 발생할 수 있다.
+- 2026-10-04 추가 발견: tProcessor v1 같은 포트의 연속 SET 최소 간격은 3클록(300 MHz에서 10 ns)이다. 1~2클록 고정전압 DC 보상은 그대로 정확히 출력할 수 없어 실행 전에 출력/지점을 명시해 거부한다. 내부 면적 0 교차는 파형 전체 컴파일 대신 기존 affine 계수에 정수 구간식을 적용해 검출한다. 자동으로 전압을 낮추거나 시간을 늘리지는 않는다.
 - 긴 periodic RF의 요청 길이와 실제 길이 차이를 사용자에게 어떻게 표시할지 검토한다. 기존에 요청된 긴 펄스 정책을 임의로 바꾸지 않는다.
 
 관련 코드: GUI `DCWaveformGeneratorGUI/qick_fine_tune_sweep.py`, `test_rf_duration_oneshot.py`, `test_rc_sweep_matrix.py`.
@@ -114,9 +139,18 @@
 
 ## 4. 설정 복원 후 Windows offscreen Qt 테스트 프로세스 종료 오류
 
-- [ ] 설정 파일을 불러온 MainWindow가 닫힌 뒤 Python/Qt 정리 단계에서 발생하는 native access violation을 조사한다.
+- [x] 설정 파일을 불러온 MainWindow가 닫힌 뒤 Python/Qt 정리 단계에서 발생하는 native access violation을 조사하고 종료 순서 및 테스트 객체 수명을 수정한다.
 - 2026-10-04 전원 중단 후 재검사에서 GUI assertion은 모두 통과했으나, 프로세스 종료 시 `0xC0000005`가 발생했다. `-X faulthandler` 출력에는 Python frame이 없다.
 - 새 FIR/DC 코드 이전 GUI `610b9cc`의 `DCWaveform_Generator.py`를 별도 파일로 읽어 동일 환경에서 `MainWindow → save settings → load settings → close`를 실행해 같은 종료 오류를 재현했다. 단순 창 생성·close는 정상 종료였다. 체크아웃/브랜치를 변경하지 않았다.
 - 여기서 사용한 환경은 Codex bundled Python/PyQt5와 `QT_QPA_PLATFORM=offscreen`이다. 실제 사용자 GUI 환경에서의 재현 여부 및 Qt 객체/타이머 수명 문제는 추가 확인이 필요하다. 시스템 전원 중단으로 파일이 손상되었다는 증거는 아니다.
 - 새 RF Readout 패널과 FIR/DC timing dialog만 실행한 두 GUI 검사는 정상 종료했고, MainWindow 설정 복원 검사 및 기존 GUI 종합 검사는 종료 오류를 보였다. 실험 데이터·RTL 타이밍 검증과 이 종료 오류를 구분한다.
 - 증거: [분리 실행 exit codes](analysis_results/fir_dc_order_20261003/software_modules/exit_codes.json), [복구 확인](analysis_results/fir_dc_order_20261003/RECOVERY.md).
+
+**수정 및 재검사 — 2026-10-04**
+
+- 실제 GUI 진입점에서 event loop 종료 후 MainWindow의 deferred deletion → Python 참조 순환 정리 → 소유한 QApplication 파괴 순서를 명시했다. `os._exit()`로 충돌을 숨기는 방식은 사용하지 않았다.
+- headless 테스트도 생성한 MainWindow를 QApplication 수명 안에서 정리하도록 수정했다. 저장·복원 뒤 단순 `close()`만 호출하고 Python 종료에 객체 정리를 맡기던 경우와 구분했다.
+- 별도 프로세스에서 실제 `main()` 진입점과 Qt event loop를 실행하여 설정 복원 0/1/5회 후 정상 exit=0을 확인했다. 기존 GUI 검사 78개와 FIR/DC 검사 53개도 각각 정상 종료했다.
+- 최신 전체 회귀 결과는 [프로세스 종료 코드](analysis_results/todo_resolution_20261004/software/exit_codes.json)에 보존한다. Windows offscreen 환경의 검사이며 실제 보드에 연결한 GUI 측정 시험은 아니다.
+- 수정 후 관련 12개 테스트 모듈, 총 403개 검사를 통과했고 모든 테스트 프로세스의 종료 코드가 0이다.
+- 이후 DC 최소 SET 간격 검사를 포함한 최종 소프트웨어 결과는 13개 모듈 413개 통과, 모든 프로세스 exit=0이다. 지원 불가 조건의 거부 검사와 지원 가능한 낮은 보상 전압 검사를 구분한다. [최종 exit codes](analysis_results/todo_resolution_20261004/software_final/exit_codes.json).

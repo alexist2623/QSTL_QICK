@@ -1,0 +1,18 @@
+Area domain comparison: fixed_voltage_tau1000us
+* Analysis only, ideal DAC and linear AC coupling.
+.options plotwinsize=0 reltol=1e-7 abstol=1e-12 vntol=1e-10
+.tran 0 0.0191479500428858 0 1e-06
+.save V(xpre) V(xpost_pre) V(xpost_post) V(upre) V(upost_pre) V(upost_post) V(ypre) V(ypost_pre) V(ypost_post)
+Vxpre xpre 0 PWL FILE="C:/JeonghyunPark/Workspace/QSTL_QICK/analysis_results/todo_resolution_20261004/ltspice/fixed_voltage_tau1000us_xpre.pwl"
+Vupre upre 0 PWL FILE="C:/JeonghyunPark/Workspace/QSTL_QICK/analysis_results/todo_resolution_20261004/ltspice/fixed_voltage_tau1000us_upre.pwl"
+Cpre upre ypre 1e-06
+Rpre ypre 0 1000
+Vxpost_pre xpost_pre 0 PWL FILE="C:/JeonghyunPark/Workspace/QSTL_QICK/analysis_results/todo_resolution_20261004/ltspice/fixed_voltage_tau1000us_xpost_pre.pwl"
+Vupost_pre upost_pre 0 PWL FILE="C:/JeonghyunPark/Workspace/QSTL_QICK/analysis_results/todo_resolution_20261004/ltspice/fixed_voltage_tau1000us_upost_pre.pwl"
+Cpost_pre upost_pre ypost_pre 1e-06
+Rpost_pre ypost_pre 0 1000
+Vxpost_post xpost_post 0 PWL FILE="C:/JeonghyunPark/Workspace/QSTL_QICK/analysis_results/todo_resolution_20261004/ltspice/fixed_voltage_tau1000us_xpost_post.pwl"
+Vupost_post upost_post 0 PWL FILE="C:/JeonghyunPark/Workspace/QSTL_QICK/analysis_results/todo_resolution_20261004/ltspice/fixed_voltage_tau1000us_upost_post.pwl"
+Cpost_post upost_post ypost_post 1e-06
+Rpost_post ypost_post 0 1000
+.end

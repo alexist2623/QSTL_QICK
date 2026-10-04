@@ -1,0 +1,454 @@
+...............F....FF.........F.                                        [100%]
+================================== FAILURES ===================================
+_ test_mixed_sweeps_preserve_commands_timing_and_resets[fixed_voltage-ramp_rate] _
+
+kind = 'ramp_rate', dc_mode = 'fixed_voltage'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002287EEB37D0>
+
+    @pytest.mark.parametrize('kind', KINDS)
+    @pytest.mark.parametrize('dc_mode', [None, 'fixed_time', 'fixed_voltage'])
+    def test_mixed_sweeps_preserve_commands_timing_and_resets(kind, dc_mode, monkeypatch):
+        cfg, seq, rf = make_case(kind, dc_mode)
+        preview = validate_sequence_rc_range(seq, 300., 800.)
+        assert {r['point_index'] for r in preview} == set(sweep_corners(seq))
+        programs, traces = {}, {}
+        for mode in ('full', 'boundary'):
+>           prog = seq.make_program(cfg, awg_channels=(1,), rf_pulse=rf,
+                repetitions_per_sweep=2, compile_validation_mode=mode)
+
+test_rc_sweep_matrix.py:58: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+qick_fine_tune_sweep.py:2359: in make_program
+    return FineTuneAmplitudeSweepProgram(
+qick_fine_tune_sweep.py:2675: in __init__
+    super().__init__(soccfg, cfg)
+..\..\QSTL_QICK\qick\qick_lib\qick\averager_program.py:211: in __init__
+    self.make_program()
+qick_fine_tune_sweep.py:7049: in make_program
+    self.initialize()
+qick_fine_tune_sweep.py:2797: in initialize
+    self._build_sweep_register_plan()
+qick_fine_tune_sweep.py:4320: in _build_sweep_register_plan
+    self._validate_bias_t_set_spacing(model)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <qick_fine_tune_sweep.FineTuneAmplitudeSweepProgram object at 0x000002287E804770>
+model = {'key': ('bias_t', 0, 'bias_t_duration_q'), 'register_name': 'bias_t_duration_q', 'base': 384, 'axis_deltas': (0, 0), ...}
+
+    def _validate_bias_t_set_spacing(self, model):
+        """Reject pulse widths the v1 timed-output FIFO cannot emit exactly.
+    
+        READ -> WAIT -> SET takes at least three clocks between SETs. Check
+        affine coefficient rows, including interior zero crossings, without
+        compiling every sweep point or adding a Cartesian hardware table.
+        """
+        if model["register_name"] != "bias_t_duration_q":
+            duration = int(model["fixed_duration_tproc_cycles"])
+            values = self._bias_t_target_code_actual[:, int(model["output_index"])]
+            bad = 0 if duration < TPROC_V1_MIN_SET_INTERVAL and np.any(values) else None
+        else:
+            shape = tuple(axis.count for axis in self.sequence.sweep_axes)
+            scale = 1 << int(model["duration_frac_bits"])
+            # Sub-cycle durations round to zero and are already skipped.
+            lo = scale // 2
+            hi = TPROC_V1_MIN_SET_INTERVAL * scale - lo - 1
+            bands = ((lo, hi), (-hi, -lo))
+            if "duration_table_bases" in model:
+                duration_axes = tuple(model["duration_axis_indices"])
+                rows = enumerate(model["duration_table_bases"])
+            else:
+                duration_axes = ()
+                rows = ((0, model["base"]),)
+            bad = None
+            for row, base in rows:
+                self._check_cancel()
+                coordinates = [0] * len(shape)
+                if duration_axes:
+                    for axis, index in zip(duration_axes, np.unravel_index(row, model["duration_table_shape"])):
+                        coordinates[axis] = int(index)
+                    deltas = {int(axis): int(ds[row]) for axis, ds in model["duration_table_axis_deltas"].items()}
+                else:
+                    deltas = dict(enumerate(map(int, model["axis_deltas"])))
+                active = [a for a, delta in deltas.items() if delta and shape[a] > 1]
+                solve_axis = max(active, key=lambda a: shape[a]) if active else None
+                others = [a for a in active if a != solve_axis]
+                for indices in product(*(range(shape[a]) for a in others)):
+                    origin = int(base)
+                    for axis, index in zip(others, indices):
+                        coordinates[axis] = index
+                        origin += index * deltas[axis]
+                    for lower, upper in bands:
+                        if solve_axis is None:
+                            found = lower <= origin <= upper
+                            value = origin
+                        else:
+                            delta = deltas[solve_axis]
+                            # Solve lower <= origin + i*delta <= upper in integers.
+                            if delta > 0:
+                                first = -((origin - lower) // delta)
+                                last = (upper - origin) // delta
+                            else:
+                                first = -((upper - origin) // (-delta))
+                                last = (origin - lower) // (-delta)
+                            index = max(0, first)
+                            found = index <= min(shape[solve_axis] - 1, last)
+                            value = origin + index * delta
+                            coordinates[solve_axis] = index
+                        if found:
+                            bad = int(np.ravel_multi_index(tuple(coordinates), shape)) if shape else 0
+                            duration = (abs(value) + lo) // scale
+                            break
+                    if bad is not None:
+                        break
+                if bad is not None:
+                    break
+        if bad is not None:
+            output = self.sequence.output_names[int(model["output_index"])]
+>           raise ValueError(
+                f"Bias-T compensation on {output} at sweep point {bad} requires {duration} "
+                f"tProcessor clocks, below the {TPROC_V1_MIN_SET_INTERVAL}-clock SET interval "
+                f"({TPROC_V1_MIN_SET_INTERVAL / self.tproc_mhz * 1000:g} ns). "
+                "Use a lower fixed compensation voltage or a longer fixed compensation time. "
+                "The compensation voltage and duration have not been changed automatically."
+            )
+E           ValueError: Bias-T compensation on awg_0 at sweep point 0 requires 2 tProcessor clocks, below the 3-clock SET interval (10 ns). Use a lower fixed compensation voltage or a longer fixed compensation time. The compensation voltage and duration have not been changed automatically.
+
+qick_fine_tune_sweep.py:3972: ValueError
+_ test_mixed_sweeps_preserve_commands_timing_and_resets[fixed_voltage-combined] _
+
+kind = 'combined', dc_mode = 'fixed_voltage'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002287EF34B30>
+
+    @pytest.mark.parametrize('kind', KINDS)
+    @pytest.mark.parametrize('dc_mode', [None, 'fixed_time', 'fixed_voltage'])
+    def test_mixed_sweeps_preserve_commands_timing_and_resets(kind, dc_mode, monkeypatch):
+        cfg, seq, rf = make_case(kind, dc_mode)
+        preview = validate_sequence_rc_range(seq, 300., 800.)
+        assert {r['point_index'] for r in preview} == set(sweep_corners(seq))
+        programs, traces = {}, {}
+        for mode in ('full', 'boundary'):
+>           prog = seq.make_program(cfg, awg_channels=(1,), rf_pulse=rf,
+                repetitions_per_sweep=2, compile_validation_mode=mode)
+
+test_rc_sweep_matrix.py:58: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+qick_fine_tune_sweep.py:2359: in make_program
+    return FineTuneAmplitudeSweepProgram(
+qick_fine_tune_sweep.py:2675: in __init__
+    super().__init__(soccfg, cfg)
+..\..\QSTL_QICK\qick\qick_lib\qick\averager_program.py:211: in __init__
+    self.make_program()
+qick_fine_tune_sweep.py:7049: in make_program
+    self.initialize()
+qick_fine_tune_sweep.py:2797: in initialize
+    self._build_sweep_register_plan()
+qick_fine_tune_sweep.py:4320: in _build_sweep_register_plan
+    self._validate_bias_t_set_spacing(model)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <qick_fine_tune_sweep.FineTuneAmplitudeSweepProgram object at 0x0000022857304680>
+model = {'key': ('bias_t', 0, 'bias_t_duration_q'), 'register_name': 'bias_t_duration_q', 'base': 1922, 'axis_deltas': (0, 0, 0, 0, 0, 0), ...}
+
+    def _validate_bias_t_set_spacing(self, model):
+        """Reject pulse widths the v1 timed-output FIFO cannot emit exactly.
+    
+        READ -> WAIT -> SET takes at least three clocks between SETs. Check
+        affine coefficient rows, including interior zero crossings, without
+        compiling every sweep point or adding a Cartesian hardware table.
+        """
+        if model["register_name"] != "bias_t_duration_q":
+            duration = int(model["fixed_duration_tproc_cycles"])
+            values = self._bias_t_target_code_actual[:, int(model["output_index"])]
+            bad = 0 if duration < TPROC_V1_MIN_SET_INTERVAL and np.any(values) else None
+        else:
+            shape = tuple(axis.count for axis in self.sequence.sweep_axes)
+            scale = 1 << int(model["duration_frac_bits"])
+            # Sub-cycle durations round to zero and are already skipped.
+            lo = scale // 2
+            hi = TPROC_V1_MIN_SET_INTERVAL * scale - lo - 1
+            bands = ((lo, hi), (-hi, -lo))
+            if "duration_table_bases" in model:
+                duration_axes = tuple(model["duration_axis_indices"])
+                rows = enumerate(model["duration_table_bases"])
+            else:
+                duration_axes = ()
+                rows = ((0, model["base"]),)
+            bad = None
+            for row, base in rows:
+                self._check_cancel()
+                coordinates = [0] * len(shape)
+                if duration_axes:
+                    for axis, index in zip(duration_axes, np.unravel_index(row, model["duration_table_shape"])):
+                        coordinates[axis] = int(index)
+                    deltas = {int(axis): int(ds[row]) for axis, ds in model["duration_table_axis_deltas"].items()}
+                else:
+                    deltas = dict(enumerate(map(int, model["axis_deltas"])))
+                active = [a for a, delta in deltas.items() if delta and shape[a] > 1]
+                solve_axis = max(active, key=lambda a: shape[a]) if active else None
+                others = [a for a in active if a != solve_axis]
+                for indices in product(*(range(shape[a]) for a in others)):
+                    origin = int(base)
+                    for axis, index in zip(others, indices):
+                        coordinates[axis] = index
+                        origin += index * deltas[axis]
+                    for lower, upper in bands:
+                        if solve_axis is None:
+                            found = lower <= origin <= upper
+                            value = origin
+                        else:
+                            delta = deltas[solve_axis]
+                            # Solve lower <= origin + i*delta <= upper in integers.
+                            if delta > 0:
+                                first = -((origin - lower) // delta)
+                                last = (upper - origin) // delta
+                            else:
+                                first = -((upper - origin) // (-delta))
+                                last = (origin - lower) // (-delta)
+                            index = max(0, first)
+                            found = index <= min(shape[solve_axis] - 1, last)
+                            value = origin + index * delta
+                            coordinates[solve_axis] = index
+                        if found:
+                            bad = int(np.ravel_multi_index(tuple(coordinates), shape)) if shape else 0
+                            duration = (abs(value) + lo) // scale
+                            break
+                    if bad is not None:
+                        break
+                if bad is not None:
+                    break
+        if bad is not None:
+            output = self.sequence.output_names[int(model["output_index"])]
+>           raise ValueError(
+                f"Bias-T compensation on {output} at sweep point {bad} requires {duration} "
+                f"tProcessor clocks, below the {TPROC_V1_MIN_SET_INTERVAL}-clock SET interval "
+                f"({TPROC_V1_MIN_SET_INTERVAL / self.tproc_mhz * 1000:g} ns). "
+                "Use a lower fixed compensation voltage or a longer fixed compensation time. "
+                "The compensation voltage and duration have not been changed automatically."
+            )
+E           ValueError: Bias-T compensation on awg_0 at sweep point 72 requires 2 tProcessor clocks, below the 3-clock SET interval (10 ns). Use a lower fixed compensation voltage or a longer fixed compensation time. The compensation voltage and duration have not been changed automatically.
+
+qick_fine_tune_sweep.py:3972: ValueError
+__________________ test_descending_duration_axes[ramp_rate] ___________________
+
+kind = 'ramp_rate'
+
+    @pytest.mark.parametrize('kind', ['ramp_rate', 'hold_duration', 'rf_duration_extend'])
+    def test_descending_duration_axes(kind):
+        cfg, seq, rf = make_case(kind, descending=True)
+>       prog = seq.make_program(cfg, awg_channels=(1,), rf_pulse=rf, compile_validation_mode='boundary')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_rc_sweep_matrix.py:127: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+qick_fine_tune_sweep.py:2359: in make_program
+    return FineTuneAmplitudeSweepProgram(
+qick_fine_tune_sweep.py:2675: in __init__
+    super().__init__(soccfg, cfg)
+..\..\QSTL_QICK\qick\qick_lib\qick\averager_program.py:211: in __init__
+    self.make_program()
+qick_fine_tune_sweep.py:7049: in make_program
+    self.initialize()
+qick_fine_tune_sweep.py:2797: in initialize
+    self._build_sweep_register_plan()
+qick_fine_tune_sweep.py:4320: in _build_sweep_register_plan
+    self._validate_bias_t_set_spacing(model)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <qick_fine_tune_sweep.FineTuneAmplitudeSweepProgram object at 0x000002287EB21610>
+model = {'key': ('bias_t', 0, 'bias_t_duration_q'), 'register_name': 'bias_t_duration_q', 'base': -384, 'axis_deltas': (0, 0), ...}
+
+    def _validate_bias_t_set_spacing(self, model):
+        """Reject pulse widths the v1 timed-output FIFO cannot emit exactly.
+    
+        READ -> WAIT -> SET takes at least three clocks between SETs. Check
+        affine coefficient rows, including interior zero crossings, without
+        compiling every sweep point or adding a Cartesian hardware table.
+        """
+        if model["register_name"] != "bias_t_duration_q":
+            duration = int(model["fixed_duration_tproc_cycles"])
+            values = self._bias_t_target_code_actual[:, int(model["output_index"])]
+            bad = 0 if duration < TPROC_V1_MIN_SET_INTERVAL and np.any(values) else None
+        else:
+            shape = tuple(axis.count for axis in self.sequence.sweep_axes)
+            scale = 1 << int(model["duration_frac_bits"])
+            # Sub-cycle durations round to zero and are already skipped.
+            lo = scale // 2
+            hi = TPROC_V1_MIN_SET_INTERVAL * scale - lo - 1
+            bands = ((lo, hi), (-hi, -lo))
+            if "duration_table_bases" in model:
+                duration_axes = tuple(model["duration_axis_indices"])
+                rows = enumerate(model["duration_table_bases"])
+            else:
+                duration_axes = ()
+                rows = ((0, model["base"]),)
+            bad = None
+            for row, base in rows:
+                self._check_cancel()
+                coordinates = [0] * len(shape)
+                if duration_axes:
+                    for axis, index in zip(duration_axes, np.unravel_index(row, model["duration_table_shape"])):
+                        coordinates[axis] = int(index)
+                    deltas = {int(axis): int(ds[row]) for axis, ds in model["duration_table_axis_deltas"].items()}
+                else:
+                    deltas = dict(enumerate(map(int, model["axis_deltas"])))
+                active = [a for a, delta in deltas.items() if delta and shape[a] > 1]
+                solve_axis = max(active, key=lambda a: shape[a]) if active else None
+                others = [a for a in active if a != solve_axis]
+                for indices in product(*(range(shape[a]) for a in others)):
+                    origin = int(base)
+                    for axis, index in zip(others, indices):
+                        coordinates[axis] = index
+                        origin += index * deltas[axis]
+                    for lower, upper in bands:
+                        if solve_axis is None:
+                            found = lower <= origin <= upper
+                            value = origin
+                        else:
+                            delta = deltas[solve_axis]
+                            # Solve lower <= origin + i*delta <= upper in integers.
+                            if delta > 0:
+                                first = -((origin - lower) // delta)
+                                last = (upper - origin) // delta
+                            else:
+                                first = -((upper - origin) // (-delta))
+                                last = (origin - lower) // (-delta)
+                            index = max(0, first)
+                            found = index <= min(shape[solve_axis] - 1, last)
+                            value = origin + index * delta
+                            coordinates[solve_axis] = index
+                        if found:
+                            bad = int(np.ravel_multi_index(tuple(coordinates), shape)) if shape else 0
+                            duration = (abs(value) + lo) // scale
+                            break
+                    if bad is not None:
+                        break
+                if bad is not None:
+                    break
+        if bad is not None:
+            output = self.sequence.output_names[int(model["output_index"])]
+>           raise ValueError(
+                f"Bias-T compensation on {output} at sweep point {bad} requires {duration} "
+                f"tProcessor clocks, below the {TPROC_V1_MIN_SET_INTERVAL}-clock SET interval "
+                f"({TPROC_V1_MIN_SET_INTERVAL / self.tproc_mhz * 1000:g} ns). "
+                "Use a lower fixed compensation voltage or a longer fixed compensation time. "
+                "The compensation voltage and duration have not been changed automatically."
+            )
+E           ValueError: Bias-T compensation on awg_0 at sweep point 0 requires 2 tProcessor clocks, below the 3-clock SET interval (10 ns). Use a lower fixed compensation voltage or a longer fixed compensation time. The compensation voltage and duration have not been changed automatically.
+
+qick_fine_tune_sweep.py:3972: ValueError
+_____ test_200_by_200_rf_extension_uses_coefficient_rows_not_point_table ______
+
+    def test_200_by_200_rf_extension_uses_coefficient_rows_not_point_table():
+        cfg, seq, rf = make_case('rf_duration_extend', 'fixed_voltage')
+        seq.sweeps.clear()
+        seq.add_amplitude_sweep('gate', 'awg_0', .001, .003, 200)
+        seq.add_rf_duration_sweep('gate', 0, .4, 40.2, 200,
+            segment_length_mode='extend_by_rf_duration', sequence_fabric_mhz=300.)
+        seq.set_rc_compensation(300.)
+>       prog = seq.make_program(cfg, awg_channels=(1,), rf_pulse=rf, compile_validation_mode='boundary')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_rc_sweep_matrix.py:178: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+qick_fine_tune_sweep.py:2359: in make_program
+    return FineTuneAmplitudeSweepProgram(
+qick_fine_tune_sweep.py:2675: in __init__
+    super().__init__(soccfg, cfg)
+..\..\QSTL_QICK\qick\qick_lib\qick\averager_program.py:211: in __init__
+    self.make_program()
+qick_fine_tune_sweep.py:7049: in make_program
+    self.initialize()
+qick_fine_tune_sweep.py:2797: in initialize
+    self._build_sweep_register_plan()
+qick_fine_tune_sweep.py:4320: in _build_sweep_register_plan
+    self._validate_bias_t_set_spacing(model)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <qick_fine_tune_sweep.FineTuneAmplitudeSweepProgram object at 0x000002287F46AEA0>
+model = {'key': ('bias_t', 0, 'bias_t_duration_q'), 'register_name': 'bias_t_duration_q', 'base': -14966, 'axis_deltas': (0, 0), ...}
+
+    def _validate_bias_t_set_spacing(self, model):
+        """Reject pulse widths the v1 timed-output FIFO cannot emit exactly.
+    
+        READ -> WAIT -> SET takes at least three clocks between SETs. Check
+        affine coefficient rows, including interior zero crossings, without
+        compiling every sweep point or adding a Cartesian hardware table.
+        """
+        if model["register_name"] != "bias_t_duration_q":
+            duration = int(model["fixed_duration_tproc_cycles"])
+            values = self._bias_t_target_code_actual[:, int(model["output_index"])]
+            bad = 0 if duration < TPROC_V1_MIN_SET_INTERVAL and np.any(values) else None
+        else:
+            shape = tuple(axis.count for axis in self.sequence.sweep_axes)
+            scale = 1 << int(model["duration_frac_bits"])
+            # Sub-cycle durations round to zero and are already skipped.
+            lo = scale // 2
+            hi = TPROC_V1_MIN_SET_INTERVAL * scale - lo - 1
+            bands = ((lo, hi), (-hi, -lo))
+            if "duration_table_bases" in model:
+                duration_axes = tuple(model["duration_axis_indices"])
+                rows = enumerate(model["duration_table_bases"])
+            else:
+                duration_axes = ()
+                rows = ((0, model["base"]),)
+            bad = None
+            for row, base in rows:
+                self._check_cancel()
+                coordinates = [0] * len(shape)
+                if duration_axes:
+                    for axis, index in zip(duration_axes, np.unravel_index(row, model["duration_table_shape"])):
+                        coordinates[axis] = int(index)
+                    deltas = {int(axis): int(ds[row]) for axis, ds in model["duration_table_axis_deltas"].items()}
+                else:
+                    deltas = dict(enumerate(map(int, model["axis_deltas"])))
+                active = [a for a, delta in deltas.items() if delta and shape[a] > 1]
+                solve_axis = max(active, key=lambda a: shape[a]) if active else None
+                others = [a for a in active if a != solve_axis]
+                for indices in product(*(range(shape[a]) for a in others)):
+                    origin = int(base)
+                    for axis, index in zip(others, indices):
+                        coordinates[axis] = index
+                        origin += index * deltas[axis]
+                    for lower, upper in bands:
+                        if solve_axis is None:
+                            found = lower <= origin <= upper
+                            value = origin
+                        else:
+                            delta = deltas[solve_axis]
+                            # Solve lower <= origin + i*delta <= upper in integers.
+                            if delta > 0:
+                                first = -((origin - lower) // delta)
+                                last = (upper - origin) // delta
+                            else:
+                                first = -((upper - origin) // (-delta))
+                                last = (origin - lower) // (-delta)
+                            index = max(0, first)
+                            found = index <= min(shape[solve_axis] - 1, last)
+                            value = origin + index * delta
+                            coordinates[solve_axis] = index
+                        if found:
+                            bad = int(np.ravel_multi_index(tuple(coordinates), shape)) if shape else 0
+                            duration = (abs(value) + lo) // scale
+                            break
+                    if bad is not None:
+                        break
+                if bad is not None:
+                    break
+        if bad is not None:
+            output = self.sequence.output_names[int(model["output_index"])]
+>           raise ValueError(
+                f"Bias-T compensation on {output} at sweep point {bad} requires {duration} "
+                f"tProcessor clocks, below the {TPROC_V1_MIN_SET_INTERVAL}-clock SET interval "
+                f"({TPROC_V1_MIN_SET_INTERVAL / self.tproc_mhz * 1000:g} ns). "
+                "Use a lower fixed compensation voltage or a longer fixed compensation time. "
+                "The compensation voltage and duration have not been changed automatically."
+            )
+E           ValueError: Bias-T compensation on awg_0 at sweep point 101 requires 1 tProcessor clocks, below the 3-clock SET interval (10 ns). Use a lower fixed compensation voltage or a longer fixed compensation time. The compensation voltage and duration have not been changed automatically.
+
+qick_fine_tune_sweep.py:3972: ValueError
+=========================== short test summary info ===========================
+FAILED test_rc_sweep_matrix.py::test_mixed_sweeps_preserve_commands_timing_and_resets[fixed_voltage-ramp_rate]
+FAILED test_rc_sweep_matrix.py::test_mixed_sweeps_preserve_commands_timing_and_resets[fixed_voltage-combined]
+FAILED test_rc_sweep_matrix.py::test_descending_duration_axes[ramp_rate] - Va...
+FAILED test_rc_sweep_matrix.py::test_200_by_200_rf_extension_uses_coefficient_rows_not_point_table
+4 failed, 29 passed in 5.36s
