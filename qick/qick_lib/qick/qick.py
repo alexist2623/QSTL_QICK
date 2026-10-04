@@ -22,7 +22,7 @@ from .drivers.generator import *
 from .drivers.readout import *
 from .drivers.tproc import *
 from .awg_tuning import *
-from .square_pulse import AxisSquarePulseV1
+from .drivers.square_pulse import AxisSquarePulseV1
 from .dac_current import DacCurrentControl
 
 logger = logging.getLogger(__name__)

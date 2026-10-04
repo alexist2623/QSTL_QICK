@@ -39,6 +39,8 @@ class TestSquarePulse(unittest.TestCase):
         self.assertEqual(prog._gen_mgrs[0].last_cmd_words[-1], 0x03000000)
 
     def test_driver_description(self):
+        from qick.drivers.square_pulse import AxisSquarePulseV1 as BoardDriver
+        self.assertIs(AxisSquarePulseV1, BoardDriver)
         ip=AxisSquarePulseV1(dict(type='QICK:QICK:axis_square_pulse_v1:1.0',fullpath='square',parameters={}))
         self.assertEqual(ip['gen_type'],'square_pulse')
         self.assertTrue(ip['phase_continuous'])
