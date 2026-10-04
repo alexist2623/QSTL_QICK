@@ -1,0 +1,582 @@
+{
+  "branch": "awg_tuning_v2",
+  "qick_commit": "587f46d7",
+  "gui_commit": "3e78e0c",
+  "existing_regression_tests_passed": 91,
+  "gui_virtual_gate_tests_passed": 2,
+  "software": [
+    {
+      "kind": "awg",
+      "count": 20,
+      "axes": 1,
+      "points": 20,
+      "repetitions": 2,
+      "dc": false,
+      "status": "passed",
+      "dmem_words": 160,
+      "command_checks": [
+        200,
+        200
+      ],
+      "commands": 562,
+      "max_target_error_mv": [
+        0.04728618421052566,
+        0.021525493421052477
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.23
+        ],
+        [
+          -0.17,
+          1.0
+        ]
+      ],
+      "full_scale_mv": [
+        800.0,
+        400.0
+      ],
+      "timing_conflicts": 0,
+      "repeat_mismatches": 0,
+      "axis_rewind_mismatches": 0
+    },
+    {
+      "kind": "awg",
+      "count": 20,
+      "axes": 1,
+      "points": 20,
+      "repetitions": 2,
+      "dc": true,
+      "status": "passed",
+      "dmem_words": 200,
+      "command_checks": [
+        200,
+        200
+      ],
+      "commands": 722,
+      "max_target_error_mv": [
+        0.04728618421052566,
+        0.021525493421052477
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.23
+        ],
+        [
+          -0.17,
+          1.0
+        ]
+      ],
+      "full_scale_mv": [
+        800.0,
+        400.0
+      ],
+      "timing_conflicts": 0,
+      "repeat_mismatches": 0,
+      "axis_rewind_mismatches": 0
+    },
+    {
+      "kind": "awg",
+      "count": 200,
+      "axes": 1,
+      "points": 200,
+      "repetitions": 2,
+      "dc": false,
+      "status": "passed",
+      "dmem_words": 1600,
+      "command_checks": [
+        2000,
+        2000
+      ],
+      "commands": 5602,
+      "max_target_error_mv": [
+        0.04868090452261242,
+        0.024403266331658013
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.23
+        ],
+        [
+          -0.17,
+          1.0
+        ]
+      ],
+      "full_scale_mv": [
+        800.0,
+        400.0
+      ],
+      "timing_conflicts": 0,
+      "repeat_mismatches": 0,
+      "axis_rewind_mismatches": 0
+    },
+    {
+      "kind": "awg",
+      "count": 200,
+      "axes": 1,
+      "points": 200,
+      "repetitions": 2,
+      "dc": true,
+      "status": "passed",
+      "dmem_words": 2000,
+      "command_checks": [
+        2000,
+        2000
+      ],
+      "commands": 7202,
+      "max_target_error_mv": [
+        0.04868090452261242,
+        0.024403266331658013
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.23
+        ],
+        [
+          -0.17,
+          1.0
+        ]
+      ],
+      "full_scale_mv": [
+        800.0,
+        400.0
+      ],
+      "timing_conflicts": 0,
+      "repeat_mismatches": 0,
+      "axis_rewind_mismatches": 0
+    },
+    {
+      "kind": "awg",
+      "count": 20,
+      "axes": 2,
+      "points": 400,
+      "repetitions": 2,
+      "dc": false,
+      "status": "passed",
+      "dmem_words": 3200,
+      "command_checks": [
+        4000,
+        4000
+      ],
+      "commands": 11202,
+      "max_target_error_mv": [
+        0.04870065789473621,
+        0.024403782894736104
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.23
+        ],
+        [
+          -0.17,
+          1.0
+        ]
+      ],
+      "full_scale_mv": [
+        800.0,
+        400.0
+      ],
+      "timing_conflicts": 0,
+      "repeat_mismatches": 0,
+      "axis_rewind_mismatches": 0
+    },
+    {
+      "kind": "awg",
+      "count": 20,
+      "axes": 2,
+      "points": 400,
+      "repetitions": 2,
+      "dc": true,
+      "status": "passed",
+      "dmem_words": 4000,
+      "command_checks": [
+        4000,
+        4000
+      ],
+      "commands": 14394,
+      "max_target_error_mv": [
+        0.04870065789473621,
+        0.024403782894736104
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.23
+        ],
+        [
+          -0.17,
+          1.0
+        ]
+      ],
+      "full_scale_mv": [
+        800.0,
+        400.0
+      ],
+      "timing_conflicts": 0,
+      "repeat_mismatches": 0,
+      "axis_rewind_mismatches": 0
+    },
+    {
+      "kind": "stability",
+      "count": 20,
+      "axes": 2,
+      "points": 400,
+      "repetitions": 2,
+      "dc": false,
+      "status": "passed",
+      "dmem_words": 800,
+      "command_checks": [
+        800,
+        800
+      ],
+      "commands": 4802,
+      "max_target_error_mv": [
+        0.04870065789473621,
+        0.024403782894736104
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.23
+        ],
+        [
+          -0.17,
+          1.0
+        ]
+      ],
+      "full_scale_mv": [
+        800.0,
+        400.0
+      ],
+      "timing_conflicts": 0,
+      "repeat_mismatches": 0,
+      "axis_rewind_mismatches": 0
+    },
+    {
+      "kind": "stability",
+      "count": 20,
+      "axes": 2,
+      "points": 400,
+      "repetitions": 2,
+      "dc": true,
+      "status": "passed",
+      "dmem_words": 1600,
+      "command_checks": [
+        800,
+        800
+      ],
+      "commands": 7994,
+      "max_target_error_mv": [
+        0.04870065789473621,
+        0.024403782894736104
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.23
+        ],
+        [
+          -0.17,
+          1.0
+        ]
+      ],
+      "full_scale_mv": [
+        800.0,
+        400.0
+      ],
+      "timing_conflicts": 0,
+      "repeat_mismatches": 0,
+      "axis_rewind_mismatches": 0
+    },
+    {
+      "kind": "awg",
+      "count": 200,
+      "axes": 2,
+      "status": "blocked_by_dmem",
+      "error": "exact voltage sweep field (1, 0, 0, 'target') requires 40000 dependent rows; tProcessor DMEM cannot hold this coupled voltage/duration grid"
+    },
+    {
+      "kind": "stability",
+      "count": 200,
+      "axes": 2,
+      "status": "blocked_by_dmem",
+      "error": "exact voltage sweep field (0, 0, 0, 'target') requires 40000 dependent rows; tProcessor DMEM cannot hold this coupled voltage/duration grid"
+    }
+  ],
+  "rtl": {
+    "awg": {
+      "points": 400,
+      "repetitions": 2,
+      "commands": 14386,
+      "cycle_offset": 79362,
+      "command_value_mismatches": 0,
+      "command_timing_mismatches": 0,
+      "voltage_grid_policy": "nearest_dac_code_per_point",
+      "compiled_target_error_codes": 0,
+      "compiled_step_error_units": 0,
+      "awg_ip_version": 2,
+      "v2_fixture": null,
+      "raw_awg_results": [
+        "RAW_AWG_V2_RESULT ch=0 samples=7426480 ramps=1600 sets=4784",
+        "RAW_AWG_V2_RESULT ch=1 samples=7426480 ramps=1600 sets=4800"
+      ],
+      "dac_current_ma": [
+        20.0,
+        10.0,
+        20.0
+      ],
+      "cross_capacitance": [
+        [
+          1.0,
+          0.23
+        ],
+        [
+          -0.17,
+          1.0
+        ]
+      ],
+      "dc_mode": "fixed_time",
+      "dc_voltage_mv": 20.0,
+      "sweep_case": null,
+      "run_tag": "virtual_gate_20261003",
+      "rf_length_boundary": null,
+      "rc_range_corners": [
+        {
+          "point_index": 0,
+          "gen_ch": 1,
+          "minimum_normalized": -0.01139433191455265,
+          "maximum_normalized": 0.008009929057502394
+        },
+        {
+          "point_index": 0,
+          "gen_ch": 3,
+          "minimum_normalized": -0.03835241708063493,
+          "maximum_normalized": 0.017450028280420124
+        },
+        {
+          "point_index": 19,
+          "gen_ch": 1,
+          "minimum_normalized": -0.011357710867373805,
+          "maximum_normalized": 0.010968922745724117
+        },
+        {
+          "point_index": 19,
+          "gen_ch": 3,
+          "minimum_normalized": -0.06976942962364147,
+          "maximum_normalized": 0.03630873989055528
+        },
+        {
+          "point_index": 380,
+          "gen_ch": 1,
+          "minimum_normalized": -0.011287057599984721,
+          "maximum_normalized": 0.020633989684241263
+        },
+        {
+          "point_index": 380,
+          "gen_ch": 3,
+          "minimum_normalized": -0.03295226044527472,
+          "maximum_normalized": 0.0173678648091297
+        },
+        {
+          "point_index": 399,
+          "gen_ch": 1,
+          "minimum_normalized": -0.012393119928991943,
+          "maximum_normalized": 0.023608641584355165
+        },
+        {
+          "point_index": 399,
+          "gen_ch": 3,
+          "minimum_normalized": -0.06436927308432389,
+          "maximum_normalized": 0.03196482012846531
+        }
+      ],
+      "square_amplitude_sweep": false,
+      "rc_reset_each_repeat": true,
+      "no_aux": true,
+      "grid_count": 20,
+      "waveform_capture_cycles": 12000,
+      "reset_results": [
+        "REPEAT_RESET_RESULT ch=0 resets=801 zero_checks=801",
+        "REPEAT_RESET_RESULT ch=1 resets=801 zero_checks=801"
+      ],
+      "cycles": 384793,
+      "analog_results": [],
+      "exact_awg_results": [
+        "EXACT_AWG_RESULT ch=0 samples=7426000",
+        "EXACT_AWG_RESULT ch=1 samples=7426000"
+      ],
+      "retained_cells": [
+        "axis_awg_tuning_v1_4",
+        "axis_awg_tuning_v1_5",
+        "axis_register_slice_10",
+        "axis_register_slice_12",
+        "axis_register_slice_21",
+        "axis_register_slice_23",
+        "axis_register_slice_8",
+        "axis_register_slice_9",
+        "axis_set_reg_0",
+        "axis_square_pulse_v1_0",
+        "axis_tmux_v1_0",
+        "axis_tmux_v1_1",
+        "axis_tmux_v1_3",
+        "axis_tproc64x32_x8_0",
+        "qick_vec2bit_0",
+        "xlconstant_0",
+        "xlconstant_1",
+        "xlconstant_2",
+        "xlconstant_3",
+        "xlconstant_4"
+      ],
+      "pmem_words": 259,
+      "dmem_words": 2400,
+      "grid_target_error_mv": [
+        0.04880756578947398,
+        0.02440378289473699
+      ],
+      "compile_validation_mode": "boundary",
+      "validation_status": "passed"
+    },
+    "stability": {
+      "points": 400,
+      "repetitions": 2,
+      "commands": 8002,
+      "cycle_offset": 52962,
+      "command_value_mismatches": 0,
+      "command_timing_mismatches": 0,
+      "voltage_grid_policy": "nearest_dac_code_per_point",
+      "compiled_target_error_codes": 0,
+      "compiled_step_error_units": 0,
+      "awg_ip_version": 2,
+      "v2_fixture": "stability",
+      "raw_awg_results": [
+        "RAW_AWG_V2_RESULT ch=0 samples=18498480 ramps=0 sets=3200",
+        "RAW_AWG_V2_RESULT ch=1 samples=18498480 ramps=0 sets=3200"
+      ],
+      "dac_current_ma": [
+        20.0,
+        10.0,
+        20.0
+      ],
+      "cross_capacitance": [
+        [
+          1.0,
+          0.23
+        ],
+        [
+          -0.17,
+          1.0
+        ]
+      ],
+      "dc_mode": "fixed_time",
+      "dc_voltage_mv": 20.0,
+      "sweep_case": null,
+      "run_tag": "virtual_gate_20261003",
+      "rf_length_boundary": null,
+      "rc_range_corners": [
+        {
+          "point_index": 0,
+          "gen_ch": 1,
+          "minimum_normalized": -0.007752153778076782,
+          "maximum_normalized": 0.007803423309372199
+        },
+        {
+          "point_index": 0,
+          "gen_ch": 3,
+          "minimum_normalized": -0.010437941233317882,
+          "maximum_normalized": 0.010507114410462492
+        },
+        {
+          "point_index": 19,
+          "gen_ch": 1,
+          "minimum_normalized": -0.010682103729248889,
+          "maximum_normalized": 0.010752904510561608
+        },
+        {
+          "point_index": 19,
+          "gen_ch": 3,
+          "minimum_normalized": -0.0354645970662463,
+          "maximum_normalized": 0.03570059967062203
+        },
+        {
+          "point_index": 380,
+          "gen_ch": 1,
+          "minimum_normalized": -0.02020444107055824,
+          "maximum_normalized": 0.02033871841442719
+        },
+        {
+          "point_index": 380,
+          "gen_ch": 3,
+          "minimum_normalized": -0.006165097554525224,
+          "maximum_normalized": 0.006205787658727936
+        },
+        {
+          "point_index": 399,
+          "gen_ch": 1,
+          "minimum_normalized": -0.023134391021730347,
+          "maximum_normalized": 0.0232881996156166
+        },
+        {
+          "point_index": 399,
+          "gen_ch": 3,
+          "minimum_normalized": -0.03119175338745364,
+          "maximum_normalized": 0.03139927291888747
+        }
+      ],
+      "square_amplitude_sweep": false,
+      "rc_reset_each_repeat": true,
+      "no_aux": true,
+      "grid_count": 20,
+      "waveform_capture_cycles": 12000,
+      "reset_results": [
+        "REPEAT_RESET_RESULT ch=0 resets=801 zero_checks=801",
+        "REPEAT_RESET_RESULT ch=1 resets=801 zero_checks=801"
+      ],
+      "cycles": 1103193,
+      "analog_results": [],
+      "exact_awg_results": [
+        "EXACT_AWG_RESULT ch=0 samples=18498000",
+        "EXACT_AWG_RESULT ch=1 samples=18498000"
+      ],
+      "retained_cells": [
+        "axis_awg_tuning_v1_4",
+        "axis_awg_tuning_v1_5",
+        "axis_register_slice_10",
+        "axis_register_slice_12",
+        "axis_register_slice_21",
+        "axis_register_slice_23",
+        "axis_register_slice_8",
+        "axis_register_slice_9",
+        "axis_set_reg_0",
+        "axis_square_pulse_v1_0",
+        "axis_tmux_v1_0",
+        "axis_tmux_v1_1",
+        "axis_tmux_v1_3",
+        "axis_tproc64x32_x8_0",
+        "qick_vec2bit_0",
+        "xlconstant_0",
+        "xlconstant_1",
+        "xlconstant_2",
+        "xlconstant_3",
+        "xlconstant_4"
+      ],
+      "pmem_words": 173,
+      "dmem_words": 1600,
+      "grid_target_error_mv": [
+        0.04880756578947398,
+        0.02440378289473699
+      ],
+      "compile_validation_mode": "boundary",
+      "validation_status": "passed"
+    }
+  },
+  "limitations": [
+    "Digital RTL and instruction model; no physical board measurement.",
+    "Full-grid analog RC response is not simulated in these runs.",
+    "Coupled 200x200 hardware grids exceed 4096-word DMEM in both tested builders."
+  ]
+}

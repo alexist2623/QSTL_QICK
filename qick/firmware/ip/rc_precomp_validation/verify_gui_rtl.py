@@ -82,6 +82,9 @@ def main():
                         help='Run a compact two-DAC voltage grid with every RTL point checked.')
     parser.add_argument('--grid-zero-hold-ns', type=float, default=600.,
                         help='Final zero hold; 100 ns reproduces the dense-command throughput limit.')
+    parser.add_argument('--cross-capacitance', type=float, nargs=4,
+                        default=(1., 0., 0., 1.), metavar=('M00', 'M01', 'M10', 'M11'),
+                        help='Virtual-to-physical voltage matrix for the two-DAC grid.')
     args=parser.parse_args()
     if args.analyze_only:
         args.reuse_snapshot=True
@@ -89,6 +92,9 @@ def main():
         parser.error('Sweep dimensions must contain at least two points.')
     if args.grid_count and args.sweep_case:
         parser.error('Choose either the two-DAC voltage grid or a mixed sweep case.')
+    coupled = tuple(args.cross_capacitance) != (1., 0., 0., 1.)
+    if coupled and (not args.grid_count or not args.run_tag):
+        parser.error('A virtual-gate matrix requires --grid-count and a distinct --run-tag.')
     if args.v2_fixture and (not args.awg_v2 or not args.grid_count or not args.no_aux):
         parser.error('V2 fixtures require --awg-v2 --grid-count N --no-aux.')
     if args.run_tag and not re.fullmatch(r'[a-z0-9_]+',args.run_tag):
@@ -199,6 +205,7 @@ def main():
                 axes=[]
         rf_specs = [QickRfPulseSpec(0, 'set_0', 0., rf_duration_start, 190., 2000, 0., 0., **rf_kwargs)]
     code=generate_qick_program_code(pulses,awg_channels=(1,3),full_scale_mv=800.,
+        cross_capacitance=np.asarray(args.cross_capacitance).reshape(2,2),
         output_full_scales_mv=tuple(current*40 for current in args.dac_current_ma[:2]),
         square_full_scale_mv=args.dac_current_ma[2]*40,
         fabric_mhz=300.,tproc_mhz=300.,repetitions_per_sweep=2,sweeps=axes,
@@ -224,6 +231,7 @@ def build_program(soccfg):
         bias_t_filter_tau_us=300.)
     sequence=build_stability_hold_sequence(config,output_names=('awg_0','awg_1'),
         fabric_mhz=300.,full_scale_mv=800.,sample_period_us=1.,
+        cross_capacitance={np.asarray(args.cross_capacitance).reshape(2,2).tolist()!r},
         output_full_scales_mv={tuple(v*40 for v in args.dac_current_ma[:2])!r})
     return sequence.make_program(soccfg,awg_channels=(1,3),repetitions_per_sweep=2,
         compile_validation_mode='boundary')
@@ -496,6 +504,7 @@ end
         v2_fixture=args.v2_fixture,
         raw_awg_results=re.findall(r'RAW_AWG_V2_RESULT[^\n]+',result),
         dac_current_ma=args.dac_current_ma,
+        cross_capacitance=np.asarray(args.cross_capacitance).reshape(2,2).tolist(),
         dc_mode=args.dc_mode,dc_voltage_mv=args.dc_voltage_mv,
         sweep_case=args.sweep_case,run_tag=args.run_tag,rf_length_boundary=args.rf_length_boundary,
         rc_range_corners=program.rc_output_range_validation,
@@ -523,10 +532,22 @@ end
                 first_codes.append(code if code<2**31 else code-2**32)
             values=np.array(first_codes).reshape(args.grid_count,args.grid_count,2)
             assert np.array_equal(values[:,:,0],values[:,:,1])
+            requested=np.linspace(-799.,799.,args.grid_count) if args.v2_fixture=='fast' else np.linspace(5.,15.,args.grid_count)
+            if coupled:
+                matrix=np.asarray(args.cross_capacitance).reshape(2,2)
+                requested_grid=matrix[ch,0]*requested[:,None]+matrix[ch,1]*requested[None,:]
+                scale=args.dac_current_ma[ch]*40
+                expected_codes=np.rint(requested_grid*32768/scale/4).astype(np.int64)*4
+                assert np.array_equal(values[:,:,0],expected_codes), 'Virtual-gate target or axis rewind mismatch'
+                measured=values[:,:,0]*scale/32768
+                axes_report.append(dict(channel=ch,requested_physical_mv=requested_grid.tolist(),
+                    executed_target_mv=measured.tolist(),target_codes=values[:,:,0].tolist(),
+                    max_target_error_mv=float(np.max(abs(measured-requested_grid))),
+                    repeat_mismatches=0,axis_reset_mismatches=0))
+                continue
             axis=values[:,0,0] if ch==0 else values[0,:,0]
             expected_codes=np.broadcast_to(axis[:,None] if ch==0 else axis[None,:],values[:,:,0].shape)
             assert np.array_equal(values[:,:,0],expected_codes), 'Sweep axis failed to reset'
-            requested=np.linspace(-799.,799.,args.grid_count) if args.v2_fixture=='fast' else np.linspace(5.,15.,args.grid_count)
             measured=axis*(args.dac_current_ma[ch]*40)/32768
             axes_report.append(dict(channel=ch,requested_mv=requested.tolist(),
                 executed_target_mv=measured.tolist(),target_codes=axis.tolist(),
