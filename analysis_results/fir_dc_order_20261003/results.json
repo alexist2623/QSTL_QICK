@@ -1,0 +1,1244 @@
+[
+  {
+    "points": 9,
+    "repetitions": 2,
+    "commands": 452,
+    "cycle_offset": 657,
+    "command_value_mismatches": 0,
+    "command_timing_mismatches": 0,
+    "voltage_grid_policy": "nearest_dac_code_per_point",
+    "compiled_target_error_codes": 0,
+    "compiled_step_error_units": 0,
+    "awg_ip_version": 2,
+    "v2_fixture": null,
+    "raw_awg_results": [
+      "RAW_AWG_V2_RESULT ch=0 samples=1080608 ramps=36 sets=108",
+      "RAW_AWG_V2_RESULT ch=1 samples=1080608 ramps=36 sets=108"
+    ],
+    "dac_current_ma": [
+      20.0,
+      20.0,
+      20.0
+    ],
+    "cross_capacitance": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "dc_mode": "fixed_time",
+    "dc_voltage_mv": 20.0,
+    "dc_readout_policy": "after_readout",
+    "ddr_capture_results": [
+      "FIR_DC_CAPTURE_RESULT triggers=18 samples=144 AXI_writes=72 delay_cycles=8712"
+    ],
+    "sweep_case": "hold_duration",
+    "run_tag": "fir_dc4_hold_after",
+    "rf_length_boundary": null,
+    "rc_range_corners": [
+      {
+        "point_index": 0,
+        "gen_ch": 1,
+        "minimum_normalized": -0.01338824078290614,
+        "maximum_normalized": 0.00818556310701183
+      },
+      {
+        "point_index": 0,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007064624617717491,
+        "maximum_normalized": 0.006444543190761213
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 1,
+        "minimum_normalized": -0.012039172293544835,
+        "maximum_normalized": 0.020962562412061993
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007064624617717491,
+        "maximum_normalized": 0.006444543190761213
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 1,
+        "minimum_normalized": -0.012827938048608089,
+        "maximum_normalized": 0.007658225252121448
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007624927352015543,
+        "maximum_normalized": 0.005884240456463161
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 1,
+        "minimum_normalized": -0.022897448393498207,
+        "maximum_normalized": 0.022675371656618433
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007624927352015543,
+        "maximum_normalized": 0.005884240456463161
+      }
+    ],
+    "square_amplitude_sweep": false,
+    "rc_reset_each_repeat": true,
+    "no_aux": false,
+    "grid_count": 0,
+    "waveform_capture_cycles": 12000,
+    "reset_results": [
+      "REPEAT_RESET_RESULT ch=0 resets=19 zero_checks=19",
+      "REPEAT_RESET_RESULT ch=1 resets=19 zero_checks=19"
+    ],
+    "cycles": 66881,
+    "analog_results": [
+      "GUI_RC_RESULT ch=0 max_error_codes=3.120051",
+      "GUI_RC_RESULT ch=1 max_error_codes=3.364539",
+      "GUI_RC_RESULT ch=2 max_error_codes=0.000000"
+    ],
+    "exact_awg_results": [
+      "EXACT_AWG_RESULT ch=0 samples=1080128",
+      "EXACT_AWG_RESULT ch=1 samples=1080128"
+    ],
+    "retained_cells": [
+      "axis_awg_tuning_v1_4",
+      "axis_awg_tuning_v1_5",
+      "axis_register_slice_0",
+      "axis_register_slice_10",
+      "axis_register_slice_12",
+      "axis_register_slice_21",
+      "axis_register_slice_23",
+      "axis_register_slice_4",
+      "axis_register_slice_8",
+      "axis_register_slice_9",
+      "axis_set_reg_0",
+      "axis_signal_gen_v6_0",
+      "axis_square_pulse_v1_0",
+      "axis_tmux_v1_0",
+      "axis_tmux_v1_1",
+      "axis_tmux_v1_3",
+      "axis_tproc64x32_x8_0",
+      "qick_vec2bit_0",
+      "xlconstant_0",
+      "xlconstant_1",
+      "xlconstant_2",
+      "xlconstant_3",
+      "xlconstant_4"
+    ],
+    "pmem_words": 317,
+    "dmem_words": 15,
+    "rf_measurements": {
+      "pulses": 18,
+      "periodic": false,
+      "repetition_command_mismatches": 0,
+      "frequency_error_max_mhz": 0.0017737272988540553,
+      "peak_error_max_codes": 0,
+      "amplitude_error_max_codes": 0.15180738991057297,
+      "fit_residual_max_codes": 1.5315025007610075,
+      "width_mismatch_pulses": 0,
+      "width_error_max_cycles": 0,
+      "gain_codes": [
+        2000
+      ],
+      "requested_width_error_max_cycles": 0.0,
+      "widths_cycles": [
+        30
+      ],
+      "latency_cycles": 42
+    },
+    "validation_status": "passed",
+    "preview_dc_commands_verified": 36,
+    "case_directory": "C:\\JeonghyunPark\\Workspace\\Vivado_Output\\gui_rtl6\\rc_precomp_repeat_reset_hold_duration_3x3_fir_dc4_hold_after_after_readout_awg_v2"
+  },
+  {
+    "points": 9,
+    "repetitions": 2,
+    "commands": 452,
+    "cycle_offset": 657,
+    "command_value_mismatches": 0,
+    "command_timing_mismatches": 0,
+    "voltage_grid_policy": "nearest_dac_code_per_point",
+    "compiled_target_error_codes": 0,
+    "compiled_step_error_units": 0,
+    "awg_ip_version": 2,
+    "v2_fixture": null,
+    "raw_awg_results": [
+      "RAW_AWG_V2_RESULT ch=0 samples=975488 ramps=36 sets=108",
+      "RAW_AWG_V2_RESULT ch=1 samples=975488 ramps=36 sets=108"
+    ],
+    "dac_current_ma": [
+      20.0,
+      20.0,
+      20.0
+    ],
+    "cross_capacitance": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "dc_mode": "fixed_time",
+    "dc_voltage_mv": 20.0,
+    "dc_readout_policy": "overlap_readout",
+    "ddr_capture_results": [
+      "FIR_DC_CAPTURE_RESULT triggers=18 samples=144 AXI_writes=72 delay_cycles=8712"
+    ],
+    "sweep_case": "hold_duration",
+    "run_tag": "fir_dc4_hold_overlap",
+    "rf_length_boundary": null,
+    "rc_range_corners": [
+      {
+        "point_index": 0,
+        "gen_ch": 1,
+        "minimum_normalized": -0.01338824078290614,
+        "maximum_normalized": 0.00818556310701183
+      },
+      {
+        "point_index": 0,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007064624617717491,
+        "maximum_normalized": 0.006444543190761213
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 1,
+        "minimum_normalized": -0.012039172293544835,
+        "maximum_normalized": 0.020962562412061993
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007064624617717491,
+        "maximum_normalized": 0.006444543190761213
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 1,
+        "minimum_normalized": -0.012827938048608089,
+        "maximum_normalized": 0.007658225252121448
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007624927352015543,
+        "maximum_normalized": 0.005884240456463161
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 1,
+        "minimum_normalized": -0.022897448393498207,
+        "maximum_normalized": 0.022675371656618433
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007624927352015543,
+        "maximum_normalized": 0.005884240456463161
+      }
+    ],
+    "square_amplitude_sweep": false,
+    "rc_reset_each_repeat": true,
+    "no_aux": false,
+    "grid_count": 0,
+    "waveform_capture_cycles": 12000,
+    "reset_results": [
+      "REPEAT_RESET_RESULT ch=0 resets=19 zero_checks=19",
+      "REPEAT_RESET_RESULT ch=1 resets=19 zero_checks=19"
+    ],
+    "cycles": 60311,
+    "analog_results": [
+      "GUI_RC_RESULT ch=0 max_error_codes=2.511546",
+      "GUI_RC_RESULT ch=1 max_error_codes=2.360627",
+      "GUI_RC_RESULT ch=2 max_error_codes=0.000000"
+    ],
+    "exact_awg_results": [
+      "EXACT_AWG_RESULT ch=0 samples=975008",
+      "EXACT_AWG_RESULT ch=1 samples=975008"
+    ],
+    "retained_cells": [
+      "axis_awg_tuning_v1_4",
+      "axis_awg_tuning_v1_5",
+      "axis_register_slice_0",
+      "axis_register_slice_10",
+      "axis_register_slice_12",
+      "axis_register_slice_21",
+      "axis_register_slice_23",
+      "axis_register_slice_4",
+      "axis_register_slice_8",
+      "axis_register_slice_9",
+      "axis_set_reg_0",
+      "axis_signal_gen_v6_0",
+      "axis_square_pulse_v1_0",
+      "axis_tmux_v1_0",
+      "axis_tmux_v1_1",
+      "axis_tmux_v1_3",
+      "axis_tproc64x32_x8_0",
+      "qick_vec2bit_0",
+      "xlconstant_0",
+      "xlconstant_1",
+      "xlconstant_2",
+      "xlconstant_3",
+      "xlconstant_4"
+    ],
+    "pmem_words": 349,
+    "dmem_words": 15,
+    "rf_measurements": {
+      "pulses": 18,
+      "periodic": false,
+      "repetition_command_mismatches": 0,
+      "frequency_error_max_mhz": 0.0010635021497478192,
+      "peak_error_max_codes": 0,
+      "amplitude_error_max_codes": 0.14116865038317883,
+      "fit_residual_max_codes": 1.5250291700936316,
+      "width_mismatch_pulses": 0,
+      "width_error_max_cycles": 0,
+      "gain_codes": [
+        2000
+      ],
+      "requested_width_error_max_cycles": 0.0,
+      "widths_cycles": [
+        30
+      ],
+      "latency_cycles": 42
+    },
+    "validation_status": "passed",
+    "preview_dc_commands_verified": 36,
+    "case_directory": "C:\\JeonghyunPark\\Workspace\\Vivado_Output\\gui_rtl6\\rc_precomp_repeat_reset_hold_duration_3x3_fir_dc4_hold_overlap_overlap_readout_awg_v2"
+  },
+  {
+    "points": 9,
+    "repetitions": 2,
+    "commands": 380,
+    "cycle_offset": 756,
+    "command_value_mismatches": 0,
+    "command_timing_mismatches": 0,
+    "voltage_grid_policy": "nearest_dac_code_per_point",
+    "compiled_target_error_codes": 0,
+    "compiled_step_error_units": 0,
+    "awg_ip_version": 2,
+    "v2_fixture": null,
+    "raw_awg_results": [
+      "RAW_AWG_V2_RESULT ch=0 samples=992912 ramps=36 sets=108",
+      "RAW_AWG_V2_RESULT ch=1 samples=992912 ramps=36 sets=108"
+    ],
+    "dac_current_ma": [
+      20.0,
+      20.0,
+      20.0
+    ],
+    "cross_capacitance": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "dc_mode": "fixed_voltage",
+    "dc_voltage_mv": 20.0,
+    "dc_readout_policy": "after_readout",
+    "ddr_capture_results": [
+      "FIR_DC_CAPTURE_RESULT triggers=18 samples=144 AXI_writes=72 delay_cycles=8712"
+    ],
+    "sweep_case": null,
+    "run_tag": "fir_dc4_voltage_after",
+    "rf_length_boundary": null,
+    "rc_range_corners": [
+      {
+        "point_index": 0,
+        "gen_ch": 1,
+        "minimum_normalized": -0.012846704179702337,
+        "maximum_normalized": 0.02522014625659691
+      },
+      {
+        "point_index": 0,
+        "gen_ch": 3,
+        "minimum_normalized": -0.025224622189591463,
+        "maximum_normalized": 0.006698946080441154
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 1,
+        "minimum_normalized": -0.012846704179702337,
+        "maximum_normalized": 0.02522014625659691
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 3,
+        "minimum_normalized": -0.025217603253725775,
+        "maximum_normalized": 0.0193039281790013
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 1,
+        "minimum_normalized": -0.02522248604468827,
+        "maximum_normalized": 0.0193039319042916
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 3,
+        "minimum_normalized": -0.025224622189591463,
+        "maximum_normalized": 0.006698946080441154
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 1,
+        "minimum_normalized": -0.02522248604468827,
+        "maximum_normalized": 0.0193039319042916
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 3,
+        "minimum_normalized": -0.025217603253725775,
+        "maximum_normalized": 0.0193039281790013
+      }
+    ],
+    "square_amplitude_sweep": false,
+    "rc_reset_each_repeat": true,
+    "no_aux": true,
+    "grid_count": 3,
+    "waveform_capture_cycles": 12000,
+    "reset_results": [
+      "REPEAT_RESET_RESULT ch=0 resets=19 zero_checks=19",
+      "REPEAT_RESET_RESULT ch=1 resets=19 zero_checks=19"
+    ],
+    "cycles": 61301,
+    "analog_results": [
+      "GUI_RC_RESULT ch=0 max_error_codes=3.605375",
+      "GUI_RC_RESULT ch=1 max_error_codes=3.356875",
+      "GUI_RC_RESULT ch=2 max_error_codes=0.000000"
+    ],
+    "exact_awg_results": [
+      "EXACT_AWG_RESULT ch=0 samples=992432",
+      "EXACT_AWG_RESULT ch=1 samples=992432"
+    ],
+    "retained_cells": [
+      "axis_awg_tuning_v1_4",
+      "axis_awg_tuning_v1_5",
+      "axis_register_slice_10",
+      "axis_register_slice_12",
+      "axis_register_slice_21",
+      "axis_register_slice_23",
+      "axis_register_slice_8",
+      "axis_register_slice_9",
+      "axis_set_reg_0",
+      "axis_square_pulse_v1_0",
+      "axis_tmux_v1_0",
+      "axis_tmux_v1_1",
+      "axis_tmux_v1_3",
+      "axis_tproc64x32_x8_0",
+      "qick_vec2bit_0",
+      "xlconstant_0",
+      "xlconstant_1",
+      "xlconstant_2",
+      "xlconstant_3",
+      "xlconstant_4"
+    ],
+    "pmem_words": 266,
+    "dmem_words": 18,
+    "grid_target_error_mv": [
+      0.0390625,
+      0.0390625
+    ],
+    "compile_validation_mode": "boundary",
+    "validation_status": "passed",
+    "preview_dc_commands_verified": 36,
+    "case_directory": "C:\\JeonghyunPark\\Workspace\\Vivado_Output\\gui_rtl6\\rc_precomp_repeat_reset_no_aux_grid_3x3_fir_dc4_voltage_after_after_readout_awg_v2"
+  },
+  {
+    "points": 9,
+    "repetitions": 2,
+    "commands": 380,
+    "cycle_offset": 756,
+    "command_value_mismatches": 0,
+    "command_timing_mismatches": 0,
+    "voltage_grid_policy": "nearest_dac_code_per_point",
+    "compiled_target_error_codes": 0,
+    "compiled_step_error_units": 0,
+    "awg_ip_version": 2,
+    "v2_fixture": null,
+    "raw_awg_results": [
+      "RAW_AWG_V2_RESULT ch=0 samples=965552 ramps=36 sets=108",
+      "RAW_AWG_V2_RESULT ch=1 samples=965552 ramps=36 sets=108"
+    ],
+    "dac_current_ma": [
+      20.0,
+      20.0,
+      20.0
+    ],
+    "cross_capacitance": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "dc_mode": "fixed_voltage",
+    "dc_voltage_mv": 20.0,
+    "dc_readout_policy": "overlap_readout",
+    "ddr_capture_results": [
+      "FIR_DC_CAPTURE_RESULT triggers=18 samples=144 AXI_writes=72 delay_cycles=8712"
+    ],
+    "sweep_case": null,
+    "run_tag": "fir_dc4_voltage_overlap",
+    "rf_length_boundary": null,
+    "rc_range_corners": [
+      {
+        "point_index": 0,
+        "gen_ch": 1,
+        "minimum_normalized": -0.012846704179702337,
+        "maximum_normalized": 0.02522014625659691
+      },
+      {
+        "point_index": 0,
+        "gen_ch": 3,
+        "minimum_normalized": -0.025224622189591463,
+        "maximum_normalized": 0.006698946080441154
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 1,
+        "minimum_normalized": -0.012846704179702337,
+        "maximum_normalized": 0.02522014625659691
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 3,
+        "minimum_normalized": -0.025217603253725775,
+        "maximum_normalized": 0.0193039281790013
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 1,
+        "minimum_normalized": -0.02522248604468827,
+        "maximum_normalized": 0.0193039319042916
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 3,
+        "minimum_normalized": -0.025224622189591463,
+        "maximum_normalized": 0.006698946080441154
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 1,
+        "minimum_normalized": -0.02522248604468827,
+        "maximum_normalized": 0.0193039319042916
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 3,
+        "minimum_normalized": -0.025217603253725775,
+        "maximum_normalized": 0.0193039281790013
+      }
+    ],
+    "square_amplitude_sweep": false,
+    "rc_reset_each_repeat": true,
+    "no_aux": true,
+    "grid_count": 3,
+    "waveform_capture_cycles": 12000,
+    "reset_results": [
+      "REPEAT_RESET_RESULT ch=0 resets=19 zero_checks=19",
+      "REPEAT_RESET_RESULT ch=1 resets=19 zero_checks=19"
+    ],
+    "cycles": 59591,
+    "analog_results": [
+      "GUI_RC_RESULT ch=0 max_error_codes=2.282582",
+      "GUI_RC_RESULT ch=1 max_error_codes=2.228482",
+      "GUI_RC_RESULT ch=2 max_error_codes=0.000000"
+    ],
+    "exact_awg_results": [
+      "EXACT_AWG_RESULT ch=0 samples=965072",
+      "EXACT_AWG_RESULT ch=1 samples=965072"
+    ],
+    "retained_cells": [
+      "axis_awg_tuning_v1_4",
+      "axis_awg_tuning_v1_5",
+      "axis_register_slice_10",
+      "axis_register_slice_12",
+      "axis_register_slice_21",
+      "axis_register_slice_23",
+      "axis_register_slice_8",
+      "axis_register_slice_9",
+      "axis_set_reg_0",
+      "axis_square_pulse_v1_0",
+      "axis_tmux_v1_0",
+      "axis_tmux_v1_1",
+      "axis_tmux_v1_3",
+      "axis_tproc64x32_x8_0",
+      "qick_vec2bit_0",
+      "xlconstant_0",
+      "xlconstant_1",
+      "xlconstant_2",
+      "xlconstant_3",
+      "xlconstant_4"
+    ],
+    "pmem_words": 285,
+    "dmem_words": 18,
+    "grid_target_error_mv": [
+      0.0390625,
+      0.0390625
+    ],
+    "compile_validation_mode": "boundary",
+    "validation_status": "passed",
+    "preview_dc_commands_verified": 36,
+    "case_directory": "C:\\JeonghyunPark\\Workspace\\Vivado_Output\\gui_rtl6\\rc_precomp_repeat_reset_no_aux_grid_3x3_fir_dc4_voltage_overlap_overlap_readout_awg_v2"
+  },
+  {
+    "points": 9,
+    "repetitions": 2,
+    "commands": 452,
+    "cycle_offset": 954,
+    "command_value_mismatches": 0,
+    "command_timing_mismatches": 0,
+    "voltage_grid_policy": "nearest_dac_code_per_point",
+    "compiled_target_error_codes": 0,
+    "compiled_step_error_units": 0,
+    "awg_ip_version": 2,
+    "v2_fixture": null,
+    "raw_awg_results": [
+      "RAW_AWG_V2_RESULT ch=0 samples=1016656 ramps=36 sets=108",
+      "RAW_AWG_V2_RESULT ch=1 samples=1016656 ramps=36 sets=108"
+    ],
+    "dac_current_ma": [
+      20.0,
+      20.0,
+      20.0
+    ],
+    "cross_capacitance": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "dc_mode": "fixed_voltage",
+    "dc_voltage_mv": 20.0,
+    "dc_readout_policy": "after_readout",
+    "ddr_capture_results": [
+      "FIR_DC_CAPTURE_RESULT triggers=18 samples=144 AXI_writes=72 delay_cycles=8712"
+    ],
+    "sweep_case": "ramp_rate",
+    "run_tag": "fir_dc4_ramp_after",
+    "rf_length_boundary": null,
+    "rc_range_corners": [
+      {
+        "point_index": 0,
+        "gen_ch": 1,
+        "minimum_normalized": -0.013423211455314422,
+        "maximum_normalized": 0.02522065584972817
+      },
+      {
+        "point_index": 0,
+        "gen_ch": 3,
+        "minimum_normalized": -0.025219232510989786,
+        "maximum_normalized": 0.0065439740354785655
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 1,
+        "minimum_normalized": -0.02522330052605489,
+        "maximum_normalized": 0.020995804083567455
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 3,
+        "minimum_normalized": -0.025219232510989786,
+        "maximum_normalized": 0.0065439740354785655
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 1,
+        "minimum_normalized": -0.013520265569167855,
+        "maximum_normalized": 0.025222698570365486
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 3,
+        "minimum_normalized": -0.02522289991144066,
+        "maximum_normalized": 0.006547641435929439
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 1,
+        "minimum_normalized": -0.025223512786887253,
+        "maximum_normalized": 0.02099602224588056
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 3,
+        "minimum_normalized": -0.02522289991144066,
+        "maximum_normalized": 0.006547641435929439
+      }
+    ],
+    "square_amplitude_sweep": false,
+    "rc_reset_each_repeat": true,
+    "no_aux": false,
+    "grid_count": 0,
+    "waveform_capture_cycles": 12000,
+    "reset_results": [
+      "REPEAT_RESET_RESULT ch=0 resets=19 zero_checks=19",
+      "REPEAT_RESET_RESULT ch=1 resets=19 zero_checks=19"
+    ],
+    "cycles": 62587,
+    "analog_results": [
+      "GUI_RC_RESULT ch=0 max_error_codes=3.192761",
+      "GUI_RC_RESULT ch=1 max_error_codes=3.585950",
+      "GUI_RC_RESULT ch=2 max_error_codes=0.000000"
+    ],
+    "exact_awg_results": [
+      "EXACT_AWG_RESULT ch=0 samples=1016176",
+      "EXACT_AWG_RESULT ch=1 samples=1016176"
+    ],
+    "retained_cells": [
+      "axis_awg_tuning_v1_4",
+      "axis_awg_tuning_v1_5",
+      "axis_register_slice_0",
+      "axis_register_slice_10",
+      "axis_register_slice_12",
+      "axis_register_slice_21",
+      "axis_register_slice_23",
+      "axis_register_slice_4",
+      "axis_register_slice_8",
+      "axis_register_slice_9",
+      "axis_set_reg_0",
+      "axis_signal_gen_v6_0",
+      "axis_square_pulse_v1_0",
+      "axis_tmux_v1_0",
+      "axis_tmux_v1_1",
+      "axis_tmux_v1_3",
+      "axis_tproc64x32_x8_0",
+      "qick_vec2bit_0",
+      "xlconstant_0",
+      "xlconstant_1",
+      "xlconstant_2",
+      "xlconstant_3",
+      "xlconstant_4"
+    ],
+    "pmem_words": 348,
+    "dmem_words": 24,
+    "rf_measurements": {
+      "pulses": 18,
+      "periodic": false,
+      "repetition_command_mismatches": 0,
+      "frequency_error_max_mhz": 0.0015584800175361124,
+      "peak_error_max_codes": 0,
+      "amplitude_error_max_codes": 0.15308657391574343,
+      "fit_residual_max_codes": 1.5602322902668107,
+      "width_mismatch_pulses": 0,
+      "width_error_max_cycles": 0,
+      "gain_codes": [
+        2000
+      ],
+      "requested_width_error_max_cycles": 0.0,
+      "widths_cycles": [
+        30
+      ],
+      "latency_cycles": 42
+    },
+    "validation_status": "passed",
+    "preview_dc_commands_verified": 36,
+    "case_directory": "C:\\JeonghyunPark\\Workspace\\Vivado_Output\\gui_rtl6\\rc_precomp_repeat_reset_ramp_rate_3x3_fir_dc4_ramp_after_after_readout_awg_v2"
+  },
+  {
+    "points": 9,
+    "repetitions": 2,
+    "commands": 452,
+    "cycle_offset": 954,
+    "command_value_mismatches": 0,
+    "command_timing_mismatches": 0,
+    "voltage_grid_policy": "nearest_dac_code_per_point",
+    "compiled_target_error_codes": 0,
+    "compiled_step_error_units": 0,
+    "awg_ip_version": 2,
+    "v2_fixture": null,
+    "raw_awg_results": [
+      "RAW_AWG_V2_RESULT ch=0 samples=980240 ramps=36 sets=108",
+      "RAW_AWG_V2_RESULT ch=1 samples=980240 ramps=36 sets=108"
+    ],
+    "dac_current_ma": [
+      20.0,
+      20.0,
+      20.0
+    ],
+    "cross_capacitance": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "dc_mode": "fixed_voltage",
+    "dc_voltage_mv": 20.0,
+    "dc_readout_policy": "overlap_readout",
+    "ddr_capture_results": [
+      "FIR_DC_CAPTURE_RESULT triggers=18 samples=144 AXI_writes=72 delay_cycles=8712"
+    ],
+    "sweep_case": "ramp_rate",
+    "run_tag": "fir_dc4_ramp_overlap",
+    "rf_length_boundary": null,
+    "rc_range_corners": [
+      {
+        "point_index": 0,
+        "gen_ch": 1,
+        "minimum_normalized": -0.013423211455314422,
+        "maximum_normalized": 0.02522065584972817
+      },
+      {
+        "point_index": 0,
+        "gen_ch": 3,
+        "minimum_normalized": -0.025219232510989786,
+        "maximum_normalized": 0.0065439740354785655
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 1,
+        "minimum_normalized": -0.02522330052605489,
+        "maximum_normalized": 0.020995804083567455
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 3,
+        "minimum_normalized": -0.025219232510989786,
+        "maximum_normalized": 0.0065439740354785655
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 1,
+        "minimum_normalized": -0.013520265569167855,
+        "maximum_normalized": 0.025222698570365486
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 3,
+        "minimum_normalized": -0.02522289991144066,
+        "maximum_normalized": 0.006547641435929439
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 1,
+        "minimum_normalized": -0.025223512786887253,
+        "maximum_normalized": 0.02099602224588056
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 3,
+        "minimum_normalized": -0.02522289991144066,
+        "maximum_normalized": 0.006547641435929439
+      }
+    ],
+    "square_amplitude_sweep": false,
+    "rc_reset_each_repeat": true,
+    "no_aux": false,
+    "grid_count": 0,
+    "waveform_capture_cycles": 12000,
+    "reset_results": [
+      "REPEAT_RESET_RESULT ch=0 resets=19 zero_checks=19",
+      "REPEAT_RESET_RESULT ch=1 resets=19 zero_checks=19"
+    ],
+    "cycles": 60311,
+    "analog_results": [
+      "GUI_RC_RESULT ch=0 max_error_codes=2.382753",
+      "GUI_RC_RESULT ch=1 max_error_codes=2.506309",
+      "GUI_RC_RESULT ch=2 max_error_codes=0.000000"
+    ],
+    "exact_awg_results": [
+      "EXACT_AWG_RESULT ch=0 samples=979760",
+      "EXACT_AWG_RESULT ch=1 samples=979760"
+    ],
+    "retained_cells": [
+      "axis_awg_tuning_v1_4",
+      "axis_awg_tuning_v1_5",
+      "axis_register_slice_0",
+      "axis_register_slice_10",
+      "axis_register_slice_12",
+      "axis_register_slice_21",
+      "axis_register_slice_23",
+      "axis_register_slice_4",
+      "axis_register_slice_8",
+      "axis_register_slice_9",
+      "axis_set_reg_0",
+      "axis_signal_gen_v6_0",
+      "axis_square_pulse_v1_0",
+      "axis_tmux_v1_0",
+      "axis_tmux_v1_1",
+      "axis_tmux_v1_3",
+      "axis_tproc64x32_x8_0",
+      "qick_vec2bit_0",
+      "xlconstant_0",
+      "xlconstant_1",
+      "xlconstant_2",
+      "xlconstant_3",
+      "xlconstant_4"
+    ],
+    "pmem_words": 380,
+    "dmem_words": 24,
+    "rf_measurements": {
+      "pulses": 18,
+      "periodic": false,
+      "repetition_command_mismatches": 0,
+      "frequency_error_max_mhz": 0.0012855912422651272,
+      "peak_error_max_codes": 0,
+      "amplitude_error_max_codes": 0.14800170264834378,
+      "fit_residual_max_codes": 1.6175850290477456,
+      "width_mismatch_pulses": 0,
+      "width_error_max_cycles": 0,
+      "gain_codes": [
+        2000
+      ],
+      "requested_width_error_max_cycles": 0.0,
+      "widths_cycles": [
+        30
+      ],
+      "latency_cycles": 42
+    },
+    "validation_status": "passed",
+    "preview_dc_commands_verified": 36,
+    "case_directory": "C:\\JeonghyunPark\\Workspace\\Vivado_Output\\gui_rtl6\\rc_precomp_repeat_reset_ramp_rate_3x3_fir_dc4_ramp_overlap_overlap_readout_awg_v2"
+  },
+  {
+    "points": 9,
+    "repetitions": 2,
+    "commands": 436,
+    "cycle_offset": 855,
+    "command_value_mismatches": 0,
+    "command_timing_mismatches": 0,
+    "voltage_grid_policy": "nearest_dac_code_per_point",
+    "compiled_target_error_codes": 0,
+    "compiled_step_error_units": 0,
+    "awg_ip_version": 2,
+    "v2_fixture": null,
+    "raw_awg_results": [
+      "RAW_AWG_V2_RESULT ch=0 samples=1072128 ramps=36 sets=104",
+      "RAW_AWG_V2_RESULT ch=1 samples=1072128 ramps=36 sets=96"
+    ],
+    "dac_current_ma": [
+      20.0,
+      20.0,
+      20.0
+    ],
+    "cross_capacitance": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "dc_mode": "fixed_time",
+    "dc_voltage_mv": 20.0,
+    "dc_readout_policy": "after_readout",
+    "ddr_capture_results": [
+      "FIR_DC_CAPTURE_RESULT triggers=18 samples=144 AXI_writes=72 delay_cycles=8712"
+    ],
+    "sweep_case": "rf_duration",
+    "run_tag": "fir_dc4_rf_after",
+    "rf_length_boundary": null,
+    "rc_range_corners": [
+      {
+        "point_index": 0,
+        "gen_ch": 1,
+        "minimum_normalized": -0.01332598492353969,
+        "maximum_normalized": 0.007576432247636662
+      },
+      {
+        "point_index": 0,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007126880477083941,
+        "maximum_normalized": 0.006382287331394763
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 1,
+        "minimum_normalized": -0.01313921734544034,
+        "maximum_normalized": 0.007346945955289197
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007313648055183292,
+        "maximum_normalized": 0.006195519753295412
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 1,
+        "minimum_normalized": -0.011851184012320652,
+        "maximum_normalized": 0.021150550693286176
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007126880477083941,
+        "maximum_normalized": 0.006382287331394763
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 1,
+        "minimum_normalized": -0.013477119617459411,
+        "maximum_normalized": 0.021714515536958724
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007313648055183292,
+        "maximum_normalized": 0.006195519753295412
+      }
+    ],
+    "square_amplitude_sweep": false,
+    "rc_reset_each_repeat": true,
+    "no_aux": false,
+    "grid_count": 0,
+    "waveform_capture_cycles": 12000,
+    "reset_results": [
+      "REPEAT_RESET_RESULT ch=0 resets=19 zero_checks=19",
+      "REPEAT_RESET_RESULT ch=1 resets=19 zero_checks=19"
+    ],
+    "cycles": 66153,
+    "analog_results": [
+      "GUI_RC_RESULT ch=0 max_error_codes=3.642283",
+      "GUI_RC_RESULT ch=1 max_error_codes=3.183359",
+      "GUI_RC_RESULT ch=2 max_error_codes=0.000000"
+    ],
+    "exact_awg_results": [
+      "EXACT_AWG_RESULT ch=0 samples=1071648",
+      "EXACT_AWG_RESULT ch=1 samples=1071648"
+    ],
+    "retained_cells": [
+      "axis_awg_tuning_v1_4",
+      "axis_awg_tuning_v1_5",
+      "axis_register_slice_0",
+      "axis_register_slice_10",
+      "axis_register_slice_12",
+      "axis_register_slice_21",
+      "axis_register_slice_23",
+      "axis_register_slice_4",
+      "axis_register_slice_8",
+      "axis_register_slice_9",
+      "axis_set_reg_0",
+      "axis_signal_gen_v6_0",
+      "axis_square_pulse_v1_0",
+      "axis_tmux_v1_0",
+      "axis_tmux_v1_1",
+      "axis_tmux_v1_3",
+      "axis_tproc64x32_x8_0",
+      "qick_vec2bit_0",
+      "xlconstant_0",
+      "xlconstant_1",
+      "xlconstant_2",
+      "xlconstant_3",
+      "xlconstant_4"
+    ],
+    "pmem_words": 345,
+    "dmem_words": 21,
+    "rf_measurements": {
+      "pulses": 18,
+      "periodic": false,
+      "repetition_command_mismatches": 0,
+      "frequency_error_max_mhz": 0.0015584800175361124,
+      "peak_error_max_codes": 0,
+      "amplitude_error_max_codes": 0.15182874836887095,
+      "fit_residual_max_codes": 1.6146284342534614,
+      "width_mismatch_pulses": 0,
+      "width_error_max_cycles": 0,
+      "gain_codes": [
+        2000
+      ],
+      "requested_width_error_max_cycles": 0.0,
+      "widths_cycles": [
+        30,
+        75,
+        120
+      ],
+      "latency_cycles": 42
+    },
+    "validation_status": "passed",
+    "preview_dc_commands_verified": 28,
+    "case_directory": "C:\\JeonghyunPark\\Workspace\\Vivado_Output\\gui_rtl6\\rc_precomp_repeat_reset_rf_duration_3x3_fir_dc4_rf_after_after_readout_awg_v2"
+  },
+  {
+    "points": 9,
+    "repetitions": 2,
+    "commands": 436,
+    "cycle_offset": 855,
+    "command_value_mismatches": 0,
+    "command_timing_mismatches": 0,
+    "voltage_grid_policy": "nearest_dac_code_per_point",
+    "compiled_target_error_codes": 0,
+    "compiled_step_error_units": 0,
+    "awg_ip_version": 2,
+    "v2_fixture": null,
+    "raw_awg_results": [
+      "RAW_AWG_V2_RESULT ch=0 samples=978656 ramps=36 sets=104",
+      "RAW_AWG_V2_RESULT ch=1 samples=978656 ramps=36 sets=96"
+    ],
+    "dac_current_ma": [
+      20.0,
+      20.0,
+      20.0
+    ],
+    "cross_capacitance": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "dc_mode": "fixed_time",
+    "dc_voltage_mv": 20.0,
+    "dc_readout_policy": "overlap_readout",
+    "ddr_capture_results": [
+      "FIR_DC_CAPTURE_RESULT triggers=18 samples=144 AXI_writes=72 delay_cycles=8712"
+    ],
+    "sweep_case": "rf_duration",
+    "run_tag": "fir_dc4_rf_overlap",
+    "rf_length_boundary": null,
+    "rc_range_corners": [
+      {
+        "point_index": 0,
+        "gen_ch": 1,
+        "minimum_normalized": -0.01332598492353969,
+        "maximum_normalized": 0.007576432247636662
+      },
+      {
+        "point_index": 0,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007126880477083941,
+        "maximum_normalized": 0.006382287331394763
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 1,
+        "minimum_normalized": -0.01313921734544034,
+        "maximum_normalized": 0.007346945955289197
+      },
+      {
+        "point_index": 2,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007313648055183292,
+        "maximum_normalized": 0.006195519753295412
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 1,
+        "minimum_normalized": -0.011851184012320652,
+        "maximum_normalized": 0.021150550693286176
+      },
+      {
+        "point_index": 6,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007126880477083941,
+        "maximum_normalized": 0.006382287331394763
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 1,
+        "minimum_normalized": -0.013477119617459411,
+        "maximum_normalized": 0.021714515536958724
+      },
+      {
+        "point_index": 8,
+        "gen_ch": 3,
+        "minimum_normalized": -0.007313648055183292,
+        "maximum_normalized": 0.006195519753295412
+      }
+    ],
+    "square_amplitude_sweep": false,
+    "rc_reset_each_repeat": true,
+    "no_aux": false,
+    "grid_count": 0,
+    "waveform_capture_cycles": 12000,
+    "reset_results": [
+      "REPEAT_RESET_RESULT ch=0 resets=19 zero_checks=19",
+      "REPEAT_RESET_RESULT ch=1 resets=19 zero_checks=19"
+    ],
+    "cycles": 60311,
+    "analog_results": [
+      "GUI_RC_RESULT ch=0 max_error_codes=2.664013",
+      "GUI_RC_RESULT ch=1 max_error_codes=2.362826",
+      "GUI_RC_RESULT ch=2 max_error_codes=0.000000"
+    ],
+    "exact_awg_results": [
+      "EXACT_AWG_RESULT ch=0 samples=978176",
+      "EXACT_AWG_RESULT ch=1 samples=978176"
+    ],
+    "retained_cells": [
+      "axis_awg_tuning_v1_4",
+      "axis_awg_tuning_v1_5",
+      "axis_register_slice_0",
+      "axis_register_slice_10",
+      "axis_register_slice_12",
+      "axis_register_slice_21",
+      "axis_register_slice_23",
+      "axis_register_slice_4",
+      "axis_register_slice_8",
+      "axis_register_slice_9",
+      "axis_set_reg_0",
+      "axis_signal_gen_v6_0",
+      "axis_square_pulse_v1_0",
+      "axis_tmux_v1_0",
+      "axis_tmux_v1_1",
+      "axis_tmux_v1_3",
+      "axis_tproc64x32_x8_0",
+      "qick_vec2bit_0",
+      "xlconstant_0",
+      "xlconstant_1",
+      "xlconstant_2",
+      "xlconstant_3",
+      "xlconstant_4"
+    ],
+    "pmem_words": 388,
+    "dmem_words": 21,
+    "rf_measurements": {
+      "pulses": 18,
+      "periodic": false,
+      "repetition_command_mismatches": 0,
+      "frequency_error_max_mhz": 0.001558667178471751,
+      "peak_error_max_codes": 0,
+      "amplitude_error_max_codes": 0.13343428169832805,
+      "fit_residual_max_codes": 1.6008065321245226,
+      "width_mismatch_pulses": 0,
+      "width_error_max_cycles": 0,
+      "gain_codes": [
+        2000
+      ],
+      "requested_width_error_max_cycles": 0.0,
+      "widths_cycles": [
+        30,
+        75,
+        120
+      ],
+      "latency_cycles": 42
+    },
+    "validation_status": "passed",
+    "preview_dc_commands_verified": 28,
+    "case_directory": "C:\\JeonghyunPark\\Workspace\\Vivado_Output\\gui_rtl6\\rc_precomp_repeat_reset_rf_duration_3x3_fir_dc4_rf_overlap_overlap_readout_awg_v2"
+  }
+]

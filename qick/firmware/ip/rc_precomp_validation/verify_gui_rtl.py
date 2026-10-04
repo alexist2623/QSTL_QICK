@@ -68,6 +68,8 @@ def main():
     parser.add_argument('--dac-current-ma', type=float, nargs=3, default=(20.,20.,20.),
                         help='AWG1, AWG2, SquarePulse current for voltage scaling validation.')
     parser.add_argument('--dc-mode', choices=('fixed_time','fixed_voltage'), default='fixed_time')
+    parser.add_argument('--dc-readout-policy', choices=('after_readout','overlap_readout'))
+    parser.add_argument('--stored-fir-samples', type=int, default=8)
     parser.add_argument('--dc-voltage-mv', type=float, default=20.)
     parser.add_argument('--rf-length-boundary', choices=('oneshot','periodic'),
                         help='Use a 2 x 2 zero-AWG fixture around the RF 16-bit length boundary.')
@@ -118,6 +120,8 @@ def main():
         case_name += '_boundary_' + args.rf_length_boundary
     if args.run_tag:
         case_name += '_' + args.run_tag
+    if args.dc_readout_policy:
+        case_name += '_' + args.dc_readout_policy
     if args.awg_v2:
         case_name += '_awg_v2'
     if args.v2_fixture:
@@ -134,7 +138,7 @@ def main():
     from qick import QickConfig
     from qick.awg_tuning import TProcV1BehaviorModel
     from dc_waveform_core import (PulseSequence,QickSweepSpec,generate_qick_program_code,
-        QickRampRateSweepSpec,QickHoldDurationSweepSpec,QickRfPulseSpec)
+        QickRampRateSweepSpec,QickHoldDurationSweepSpec,QickRfPulseSpec,QickDdrReadoutSpec)
     import numpy as np
 
     cfg=QickConfig(json.loads((PROJECT/'soccfg.json').read_text()))
@@ -213,6 +217,9 @@ def main():
         bias_t_compensation_mode=args.dc_mode,bias_t_compensation_voltage_mv=args.dc_voltage_mv,
         bias_t_compensation_duration_us=.1 if args.grid_count else 1.,bias_t_filter_tau_us=10.,
         rf_pulse_specs=rf_specs,
+        ddr_readout_spec=(QickDdrReadoutSpec(0, 'set_0', 0., args.stored_fir_samples,
+            margin_input_samples=0, dc_compensation_timing=args.dc_readout_policy)
+            if args.dc_readout_policy else None),
         square_pulse_settings=None if args.no_aux or args.sweep_case else square,
         output_trigger_settings=None if args.no_aux else dict(enabled=True,pin=0,scope='loop',edge='both',width_us=.1))
     if args.grid_count:
@@ -254,6 +261,10 @@ def build_program(soccfg):
         resets = [e for e in model.output_events if e.word & (1 << 149) and e.word & (1 << 147)]
         assert len(resets) == 2*(shots+1)
     cycles=max(e['cycle'] for e in expected)+2000
+    if args.dc_readout_policy:
+        cycles += 12000  # Drain delayed DDR captures after tProcessor END.
+        (out/'fir_dc_timing.json').write_text(json.dumps(
+            [program.fir_dc_timing_preview(i) for i in range(points)], indent=2))
     if not args.grid_count:
         (out/'expected.json').write_text(json.dumps(dict(events=expected,cycles=cycles),indent=2))
     # Large grids retain reproducible PMEM/DMEM and checked summaries instead
@@ -296,6 +307,11 @@ def build_program(soccfg):
  if(dut.sim_bd_i.axis_tproc64x32_x8_0.m4_axis_tvalid)
   $fwrite(events_file,"%0d,%0d,3,%040h\\n",cycle,tproc_time,dut.sim_bd_i.axis_tproc64x32_x8_0.m4_axis_tdata);''',1)
     body=body.replace('integer cycle=0,','integer rc_file;\ninteger cycle=0,')
+    if args.dc_readout_policy:
+        body=body.replace('always @(posedge clk_300000000) if(resetn) begin', '''always @(posedge clk_300000000) if(resetn) begin
+ if(dut.sim_bd_i.axis_tproc64x32_x8_0.m5_axis_tvalid)
+  $fwrite(events_file,"%0d,%0d,4,%040h\\n",cycle,tproc_time,dut.sim_bd_i.axis_tproc64x32_x8_0.m5_axis_tdata);''',1)
+        body=body.replace('cycle_at_start=cycle;host_write', 'wait(ddr_armed);\n cycle_at_start=cycle;host_write')
     body=body.replace('events_file=$fopen', 'rc_file=$fopen({output_dir,"/rc_analog.csv"},"w");\n $fwrite(rc_file,"cycle,channel,target,dac,after_rc\\n");\n events_file=$fopen',1)
     if args.capture_cycles:
         # Keep a small diagnostic trace; command/timestamp and sample oracles
@@ -441,12 +457,21 @@ end
  .clk(clk_300000000),.rstn(resetn),.command_valid({root}.s_axis_tvalid),
  .command({root}.s_axis_tdata),.raw_samples({root}.core_samples));\n'''
         top=top.replace('endmodule',raw_checks+'endmodule')
+    if args.dc_readout_policy:
+        # Add after generate-block monitors so their insertion anchors survive.
+        # Real DDR controller with timestamp tags, not a numerical FIR model.
+        ddr_monitor = (HERE/'fir_dc_capture_monitor.svh').read_text()
+        ddr_monitor = ddr_monitor.replace('@SHOTS@',str(shots)).replace('@SAMPLES@',str(args.stored_fir_samples))
+        top=top.replace('endmodule', ddr_monitor+'\nendmodule')
     (out/'tb_rc_gui.sv').write_text(top)
     rtl=[]
     for folder in ('axis_awg_tuning_v2' if args.awg_v2 else 'axis_awg_tuning_v1','axis_square_pulse_v1'):
         rtl += [p for p in (HERE.parent/folder/'src').glob('*.sv') if not p.name.startswith('tb_')]
     if args.awg_v2:
         rtl.append(HERE.parent/'axis_awg_tuning_v2/validation/awg_v2_raw_checker.sv')
+    if args.dc_readout_policy:
+        rtl.extend(HERE.parent/'axis_buffer_ddr_sample_v3/src'/name for name in
+                   ('axis_buffer_ddr_sample_v3.sv','tb_axis_buffer_ddr_sample_v3.sv'))
     files=rtl+[out/n for n in ('rc_bd.v','rc_wrapper.v','tb_rc_gui.sv')]
     (out/'sources.prj').write_text(''.join(f'sv xil_defaultlib "{f.as_posix()}"\n' for f in files)+'nosort\n')
     fingerprint=hashlib.sha256(b''.join(p.read_bytes() for p in files+[out/'pmem.hex',out/'dmem.txt'])).hexdigest()
@@ -486,6 +511,10 @@ end
     (out/'options.txt').write_text('\n'.join(options)+'\n')
     result=(out/'xsim.log').read_text() if args.analyze_only else execute('xsim',['-f',str(out/'options.txt')])
     assert 'RTL COMPLETE' in result and 'Fatal:' not in result and 'ERROR:' not in result
+    if args.repeat_reset:
+        assert len(re.findall(r'REPEAT_RESET_RESULT',result))==2, 'Missing repeat-reset monitors'
+    if args.dc_readout_policy:
+        assert 'FIR_DC_CAPTURE_RESULT' in result, 'Missing DDR capture monitor'
     with (out/'rtl_events.csv').open() as f: actual=list(csv.DictReader(f))
     # Hardware pipeline has one fixed origin offset from the instruction model.
     expected.sort(key=lambda e:(e['cycle'],e['port']))
@@ -506,6 +535,8 @@ end
         dac_current_ma=args.dac_current_ma,
         cross_capacitance=np.asarray(args.cross_capacitance).reshape(2,2).tolist(),
         dc_mode=args.dc_mode,dc_voltage_mv=args.dc_voltage_mv,
+        dc_readout_policy=args.dc_readout_policy,
+        ddr_capture_results=re.findall(r'FIR_DC_CAPTURE_RESULT[^\n]+',result),
         sweep_case=args.sweep_case,run_tag=args.run_tag,rf_length_boundary=args.rf_length_boundary,
         rc_range_corners=program.rc_output_range_validation,
         square_amplitude_sweep=args.square_sweep,
