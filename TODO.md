@@ -154,3 +154,17 @@
 - 최신 전체 회귀 결과는 [프로세스 종료 코드](analysis_results/todo_resolution_20261004/software/exit_codes.json)에 보존한다. Windows offscreen 환경의 검사이며 실제 보드에 연결한 GUI 측정 시험은 아니다.
 - 수정 후 관련 12개 테스트 모듈, 총 403개 검사를 통과했고 모든 테스트 프로세스의 종료 코드가 0이다.
 - 이후 DC 최소 SET 간격 검사를 포함한 최종 소프트웨어 결과는 13개 모듈 413개 통과, 모든 프로세스 exit=0이다. 지원 불가 조건의 거부 검사와 지원 가능한 낮은 보상 전압 검사를 구분한다. [최종 exit codes](analysis_results/todo_resolution_20261004/software_final/exit_codes.json).
+
+## 5. Waveform Plot 확대·축소 시 시간 표시 단위 자동 전환
+
+- [x] 현재 보이는 시간 범위에 맞춰 x축 표시 단위를 `ns / µs / ms / s`로 자동 전환한다. 눈금 간격뿐 아니라 눈금 숫자와 축의 단위 표기를 함께 갱신한다.
+- 등록일: 2026-10-06 (America/Vancouver). 사용자 첨부 화면에서 확대·축소 후에도 `time [µs]` 단위가 유지되는 현상을 기준으로 한다.
+- 2026-10-06 구현: 보이는 시간 폭을 기준으로 표시 단위를 선택한다. 1 µs 미만은 ns, 1 ms 미만은 us, 1 s 미만은 ms, 그 이상은 s로 표시한다. 입력칸의 시간 단위 선택과 Waveform Plot의 자동 표시를 분리했다.
+- Virtual / Physical / RC compensation 곡선과 sweep 범위 표시 모두 같은 시간축 배율을 사용한다.
+- 단위 전환은 표시만 변경한다. 내부 시간 데이터, 입력한 pulse duration, sweep 값, grid snapping 및 실제 출력 타이밍은 유지한다.
+- 검증: 확대·축소 및 Fit 시 단위와 눈금 숫자가 일치하고, 동일한 파형 지점의 실제 시간이 바뀌지 않는지 확인한다. 단위 경계에서 반복 전환하거나 눈금이 겹치는 현상도 확인한다.
+- 긴 파형의 뒤쪽을 확대할 때 기본 6자리 유효숫자 포맷으로 눈금 값이 중복되던 문제도 수정했다. 눈금 간격으로 소수 자릿수를 결정하며 내부 시간 데이터는 ns를 유지한다.
+- 관련 GUI 회귀 검사 125개 통과, 프로세스 exit=0. 실제 Qt 휠 이벤트의 양방향 전환과 Fit, 단위 경계·pan·y축 확대, 입력 단위 변경, Virtual/Physical/RC/sweep 데이터 및 snapping 유지, 설정 복원 후 정상 종료를 확인했다. Windows offscreen GUI 검사이며 FPGA 변경은 없다.
+- 검증 자료: [결과](analysis_results/waveform_time_axis_20261006/REPORT.md), [GUI 화면](analysis_results/waveform_time_axis_20261006/waveform_time_units.png), [휠 이벤트 기록](analysis_results/waveform_time_axis_20261006/zoom_checks.json).
+
+관련 코드: GUI `DCWaveformGeneratorGUI/dc_waveform_widgets.py`의 `WaveformPlotWidget`, `set_time_unit()`, `_refresh_grid_tick_spacing()` 및 view range 변경 처리.
