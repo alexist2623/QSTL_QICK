@@ -1,0 +1,26 @@
+--- successful_v2/build_vivado_2023_1.tcl
++++ a3full6/build_vivado_2023_1.tcl
+@@ -1,19 +1,19 @@
+ # Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
+ #
+-# Reproducible Vivado 2023.1 build for qstl_awg_v2.
++# Reproducible Vivado 2023.1 build for qstl_awg_v3.
+ # The optional first Tcl argument is a fresh output directory.
+ 
+ set script_dir [file dirname [file normalize [info script]]]
+ set repo_dir [file normalize [file join $script_dir .. .. .. ..]]
+ set workspace_dir [file dirname $repo_dir]
+-set project_name qstl_awg_v2
+-set jobs 5
++set project_name qstl_awg_v3
++set jobs 3
+ 
+ if {$argc > 0} {
+     set output_dir [file normalize [lindex $argv 0]]
+ } else {
+     set output_dir [file normalize [file join \
+-        $workspace_dir Vivado_Output awg2]]
++        $workspace_dir Vivado_Output awg3]]
+ }
+ 
+ set vivado_version [version -short]

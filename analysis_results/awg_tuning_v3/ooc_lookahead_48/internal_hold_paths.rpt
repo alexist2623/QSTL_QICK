@@ -1,0 +1,853 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2023.1 (win64) Build 3865809 Sun May  7 15:05:29 MDT 2023
+| Date              : Wed Oct  7 04:44:39 2026
+| Host              : ECE-CDW-JS03 running 64-bit major release  (build 9200)
+| Command           : report_timing -from [all_registers] -to [all_registers] -max_paths 20 -delay_type min -file F:/Vivado_Output/a3o48pipe2/48/internal_hold_paths.rpt
+| Design            : v3_awg_dc_area
+| Device            : xczu49dr-ffvf1760
+| Speed File        : -2  PRODUCTION 1.32 01-31-2021
+| Design State      : Routed
+| Temperature Grade : E
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.029ns  (arrival time - required time)
+  Source:                 raw_reg[1][0]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            raw_reg[2][0]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.081ns  (logic 0.039ns (48.148%)  route 0.042ns (51.852%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.006ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.018ns
+    Source Clock Delay      (SCD):    0.012ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.012     0.012    clk
+    SLICE_X98Y113        FDRE                                         r  raw_reg[1][0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X98Y113        FDRE (Prop_BFF_SLICEL_C_Q)
+                                                      0.039     0.051 r  raw_reg[1][0]/Q
+                         net (fo=1, routed)           0.042     0.093    raw_reg[1][0]
+    SLICE_X98Y113        FDRE                                         r  raw_reg[2][0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.018     0.018    clk
+    SLICE_X98Y113        FDRE                                         r  raw_reg[2][0]/C
+                         clock pessimism              0.000     0.018    
+    SLICE_X98Y113        FDRE (Hold_CFF_SLICEL_C_D)
+                                                      0.046     0.064    raw_reg[2][0]
+  -------------------------------------------------------------------
+                         required time                         -0.064    
+                         arrival time                           0.093    
+  -------------------------------------------------------------------
+                         slack                                  0.029    
+
+Slack (MET) :             0.029ns  (arrival time - required time)
+  Source:                 raw_reg[1][29]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            raw_reg[2][29]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.081ns  (logic 0.039ns (48.148%)  route 0.042ns (51.852%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.006ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.018ns
+    Source Clock Delay      (SCD):    0.012ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.012     0.012    clk
+    SLICE_X100Y159       FDRE                                         r  raw_reg[1][29]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X100Y159       FDRE (Prop_BFF_SLICEL_C_Q)
+                                                      0.039     0.051 r  raw_reg[1][29]/Q
+                         net (fo=1, routed)           0.042     0.093    raw_reg[1][29]
+    SLICE_X100Y159       FDRE                                         r  raw_reg[2][29]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.018     0.018    clk
+    SLICE_X100Y159       FDRE                                         r  raw_reg[2][29]/C
+                         clock pessimism              0.000     0.018    
+    SLICE_X100Y159       FDRE (Hold_CFF_SLICEL_C_D)
+                                                      0.046     0.064    raw_reg[2][29]
+  -------------------------------------------------------------------
+                         required time                         -0.064    
+                         arrival time                           0.093    
+  -------------------------------------------------------------------
+                         slack                                  0.029    
+
+Slack (MET) :             0.036ns  (arrival time - required time)
+  Source:                 raw_reg[3][228]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            samples_o_reg[228]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.088ns  (logic 0.059ns (67.045%)  route 0.029ns (32.955%))
+  Logic Levels:           1  (LUT4=1)
+  Clock Path Skew:        0.005ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.018ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X88Y121        FDRE                                         r  raw_reg[3][228]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X88Y121        FDRE (Prop_GFF_SLICEL_C_Q)
+                                                      0.039     0.052 r  raw_reg[3][228]/Q
+                         net (fo=1, routed)           0.023     0.075    raw_reg[3][228]
+    SLICE_X88Y121        LUT4 (Prop_D5LUT_SLICEL_I1_O)
+                                                      0.020     0.095 r  samples_o[228]_i_1/O
+                         net (fo=1, routed)           0.006     0.101    samples_o[228]_i_1_n_0
+    SLICE_X88Y121        FDRE                                         r  samples_o_reg[228]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.018     0.018    clk
+    SLICE_X88Y121        FDRE                                         r  samples_o_reg[228]/C
+                         clock pessimism              0.000     0.018    
+    SLICE_X88Y121        FDRE (Hold_DFF2_SLICEL_C_D)
+                                                      0.047     0.065    samples_o_reg[228]
+  -------------------------------------------------------------------
+                         required time                         -0.065    
+                         arrival time                           0.101    
+  -------------------------------------------------------------------
+                         slack                                  0.036    
+
+Slack (MET) :             0.036ns  (arrival time - required time)
+  Source:                 raw_reg[3][252]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            samples_o_reg[252]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.088ns  (logic 0.059ns (67.045%)  route 0.029ns (32.955%))
+  Logic Levels:           1  (LUT4=1)
+  Clock Path Skew:        0.005ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.018ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X98Y115        FDRE                                         r  raw_reg[3][252]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X98Y115        FDRE (Prop_GFF_SLICEL_C_Q)
+                                                      0.039     0.052 r  raw_reg[3][252]/Q
+                         net (fo=1, routed)           0.023     0.075    raw_reg[3][252]
+    SLICE_X98Y115        LUT4 (Prop_D5LUT_SLICEL_I1_O)
+                                                      0.020     0.095 r  samples_o[252]_i_1/O
+                         net (fo=1, routed)           0.006     0.101    samples_o[252]_i_1_n_0
+    SLICE_X98Y115        FDRE                                         r  samples_o_reg[252]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.018     0.018    clk
+    SLICE_X98Y115        FDRE                                         r  samples_o_reg[252]/C
+                         clock pessimism              0.000     0.018    
+    SLICE_X98Y115        FDRE (Hold_DFF2_SLICEL_C_D)
+                                                      0.047     0.065    samples_o_reg[252]
+  -------------------------------------------------------------------
+                         required time                         -0.065    
+                         arrival time                           0.101    
+  -------------------------------------------------------------------
+                         slack                                  0.036    
+
+Slack (MET) :             0.036ns  (arrival time - required time)
+  Source:                 raw_reg[3][80]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            samples_o_reg[80]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.088ns  (logic 0.059ns (67.045%)  route 0.029ns (32.955%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.005ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.018ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X98Y116        FDRE                                         r  raw_reg[3][80]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X98Y116        FDRE (Prop_GFF_SLICEL_C_Q)
+                                                      0.039     0.052 r  raw_reg[3][80]/Q
+                         net (fo=1, routed)           0.023     0.075    raw_reg[3][80]
+    SLICE_X98Y116        LUT2 (Prop_D5LUT_SLICEL_I0_O)
+                                                      0.020     0.095 r  samples_o[80]_i_1/O
+                         net (fo=1, routed)           0.006     0.101    samples_o[80]_i_1_n_0
+    SLICE_X98Y116        FDRE                                         r  samples_o_reg[80]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.018     0.018    clk
+    SLICE_X98Y116        FDRE                                         r  samples_o_reg[80]/C
+                         clock pessimism              0.000     0.018    
+    SLICE_X98Y116        FDRE (Hold_DFF2_SLICEL_C_D)
+                                                      0.047     0.065    samples_o_reg[80]
+  -------------------------------------------------------------------
+                         required time                         -0.065    
+                         arrival time                           0.101    
+  -------------------------------------------------------------------
+                         slack                                  0.036    
+
+Slack (MET) :             0.044ns  (arrival time - required time)
+  Source:                 raw_reg[2][12]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            raw_reg[3][12]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.098ns  (logic 0.039ns (39.758%)  route 0.059ns (60.242%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.007ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.019ns
+    Source Clock Delay      (SCD):    0.012ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.012     0.012    clk
+    SLICE_X101Y158       FDRE                                         r  raw_reg[2][12]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X101Y158       FDRE (Prop_CFF_SLICEL_C_Q)
+                                                      0.039     0.051 r  raw_reg[2][12]/Q
+                         net (fo=2, routed)           0.059     0.110    raw_reg[2][12]
+    SLICE_X101Y156       FDRE                                         r  raw_reg[3][12]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.019     0.019    clk
+    SLICE_X101Y156       FDRE                                         r  raw_reg[3][12]/C
+                         clock pessimism              0.000     0.019    
+    SLICE_X101Y156       FDRE (Hold_GFF2_SLICEL_C_D)
+                                                      0.047     0.066    raw_reg[3][12]
+  -------------------------------------------------------------------
+                         required time                         -0.066    
+                         arrival time                           0.110    
+  -------------------------------------------------------------------
+                         slack                                  0.044    
+
+Slack (MET) :             0.045ns  (arrival time - required time)
+  Source:                 raw_reg[0][21]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            raw_reg[1][21]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.098ns  (logic 0.038ns (38.776%)  route 0.060ns (61.224%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.006ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.019ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X103Y131       FDRE                                         r  raw_reg[0][21]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X103Y131       FDRE (Prop_AFF_SLICEM_C_Q)
+                                                      0.038     0.051 r  raw_reg[0][21]/Q
+                         net (fo=1, routed)           0.060     0.111    raw_reg[0][21]
+    SLICE_X103Y131       FDRE                                         r  raw_reg[1][21]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.019     0.019    clk
+    SLICE_X103Y131       FDRE                                         r  raw_reg[1][21]/C
+                         clock pessimism              0.000     0.019    
+    SLICE_X103Y131       FDRE (Hold_AFF2_SLICEM_C_D)
+                                                      0.047     0.066    raw_reg[1][21]
+  -------------------------------------------------------------------
+                         required time                         -0.066    
+                         arrival time                           0.111    
+  -------------------------------------------------------------------
+                         slack                                  0.045    
+
+Slack (MET) :             0.046ns  (arrival time - required time)
+  Source:                 raw_reg[1][186]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            raw_reg[2][186]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.099ns  (logic 0.039ns (39.394%)  route 0.060ns (60.606%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.006ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.019ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X88Y132        FDRE                                         r  raw_reg[1][186]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X88Y132        FDRE (Prop_FFF_SLICEL_C_Q)
+                                                      0.039     0.052 r  raw_reg[1][186]/Q
+                         net (fo=1, routed)           0.060     0.112    raw_reg[1][186]
+    SLICE_X88Y131        FDRE                                         r  raw_reg[2][186]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.019     0.019    clk
+    SLICE_X88Y131        FDRE                                         r  raw_reg[2][186]/C
+                         clock pessimism              0.000     0.019    
+    SLICE_X88Y131        FDRE (Hold_FFF2_SLICEL_C_D)
+                                                      0.047     0.066    raw_reg[2][186]
+  -------------------------------------------------------------------
+                         required time                         -0.066    
+                         arrival time                           0.112    
+  -------------------------------------------------------------------
+                         slack                                  0.046    
+
+Slack (MET) :             0.046ns  (arrival time - required time)
+  Source:                 raw_reg[0][44]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            raw_reg[1][44]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.099ns  (logic 0.039ns (39.394%)  route 0.060ns (60.606%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.007ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.019ns
+    Source Clock Delay      (SCD):    0.012ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.012     0.012    clk
+    SLICE_X98Y162        FDRE                                         r  raw_reg[0][44]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X98Y162        FDRE (Prop_BFF_SLICEL_C_Q)
+                                                      0.039     0.051 r  raw_reg[0][44]/Q
+                         net (fo=1, routed)           0.060     0.111    raw_reg[0][44]
+    SLICE_X98Y162        FDRE                                         r  raw_reg[1][44]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.019     0.019    clk
+    SLICE_X98Y162        FDRE                                         r  raw_reg[1][44]/C
+                         clock pessimism              0.000     0.019    
+    SLICE_X98Y162        FDRE (Hold_GFF_SLICEL_C_D)
+                                                      0.046     0.065    raw_reg[1][44]
+  -------------------------------------------------------------------
+                         required time                         -0.065    
+                         arrival time                           0.111    
+  -------------------------------------------------------------------
+                         slack                                  0.046    
+
+Slack (MET) :             0.047ns  (arrival time - required time)
+  Source:                 raw_reg[1][242]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            raw_reg[2][242]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.100ns  (logic 0.037ns (37.000%)  route 0.063ns (63.000%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.006ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.019ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X97Y116        FDRE                                         r  raw_reg[1][242]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X97Y116        FDRE (Prop_FFF_SLICEM_C_Q)
+                                                      0.037     0.050 r  raw_reg[1][242]/Q
+                         net (fo=1, routed)           0.063     0.113    raw_reg[1][242]
+    SLICE_X97Y115        FDRE                                         r  raw_reg[2][242]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.019     0.019    clk
+    SLICE_X97Y115        FDRE                                         r  raw_reg[2][242]/C
+                         clock pessimism              0.000     0.019    
+    SLICE_X97Y115        FDRE (Hold_GFF2_SLICEM_C_D)
+                                                      0.047     0.066    raw_reg[2][242]
+  -------------------------------------------------------------------
+                         required time                         -0.066    
+                         arrival time                           0.113    
+  -------------------------------------------------------------------
+                         slack                                  0.047    
+
+Slack (MET) :             0.047ns  (arrival time - required time)
+  Source:                 raw_reg[2][238]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            raw_reg[3][238]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.100ns  (logic 0.037ns (37.000%)  route 0.063ns (63.000%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.006ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.019ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X94Y114        FDRE                                         r  raw_reg[2][238]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X94Y114        FDRE (Prop_FFF_SLICEM_C_Q)
+                                                      0.037     0.050 r  raw_reg[2][238]/Q
+                         net (fo=2, routed)           0.063     0.113    raw_reg[2][238]
+    SLICE_X94Y115        FDRE                                         r  raw_reg[3][238]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.019     0.019    clk
+    SLICE_X94Y115        FDRE                                         r  raw_reg[3][238]/C
+                         clock pessimism              0.000     0.019    
+    SLICE_X94Y115        FDRE (Hold_GFF2_SLICEM_C_D)
+                                                      0.047     0.066    raw_reg[3][238]
+  -------------------------------------------------------------------
+                         required time                         -0.066    
+                         arrival time                           0.113    
+  -------------------------------------------------------------------
+                         slack                                  0.047    
+
+Slack (MET) :             0.048ns  (arrival time - required time)
+  Source:                 used_area1_reg[13]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            used_area2_reg[13]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.101ns  (logic 0.040ns (39.604%)  route 0.061ns (60.396%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.006ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.019ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X101Y141       FDRE                                         r  used_area1_reg[13]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X101Y141       FDRE (Prop_FFF2_SLICEL_C_Q)
+                                                      0.040     0.053 r  used_area1_reg[13]/Q
+                         net (fo=1, routed)           0.061     0.114    used_area1_reg__0[13]
+    SLICE_X101Y142       FDRE                                         r  used_area2_reg[13]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.019     0.019    clk
+    SLICE_X101Y142       FDRE                                         r  used_area2_reg[13]/C
+                         clock pessimism              0.000     0.019    
+    SLICE_X101Y142       FDRE (Hold_HFF2_SLICEL_C_D)
+                                                      0.047     0.066    used_area2_reg[13]
+  -------------------------------------------------------------------
+                         required time                         -0.066    
+                         arrival time                           0.114    
+  -------------------------------------------------------------------
+                         slack                                  0.048    
+
+Slack (MET) :             0.048ns  (arrival time - required time)
+  Source:                 raw_reg[0][105]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            raw_reg[1][105]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.101ns  (logic 0.038ns (37.624%)  route 0.063ns (62.376%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.006ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.019ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X96Y153        FDRE                                         r  raw_reg[0][105]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X96Y153        FDRE (Prop_EFF_SLICEM_C_Q)
+                                                      0.038     0.051 r  raw_reg[0][105]/Q
+                         net (fo=1, routed)           0.063     0.114    raw_reg[0][105]
+    SLICE_X96Y153        FDRE                                         r  raw_reg[1][105]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.019     0.019    clk
+    SLICE_X96Y153        FDRE                                         r  raw_reg[1][105]/C
+                         clock pessimism              0.000     0.019    
+    SLICE_X96Y153        FDRE (Hold_EFF2_SLICEM_C_D)
+                                                      0.047     0.066    raw_reg[1][105]
+  -------------------------------------------------------------------
+                         required time                         -0.066    
+                         arrival time                           0.114    
+  -------------------------------------------------------------------
+                         slack                                  0.048    
+
+Slack (MET) :             0.048ns  (arrival time - required time)
+  Source:                 raw_reg[0][239]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            raw_reg[1][239]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.101ns  (logic 0.038ns (37.624%)  route 0.063ns (62.376%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.006ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.019ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X94Y115        FDRE                                         r  raw_reg[0][239]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X94Y115        FDRE (Prop_EFF_SLICEM_C_Q)
+                                                      0.038     0.051 r  raw_reg[0][239]/Q
+                         net (fo=1, routed)           0.063     0.114    raw_reg[0][239]
+    SLICE_X94Y115        FDRE                                         r  raw_reg[1][239]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.019     0.019    clk
+    SLICE_X94Y115        FDRE                                         r  raw_reg[1][239]/C
+                         clock pessimism              0.000     0.019    
+    SLICE_X94Y115        FDRE (Hold_EFF2_SLICEM_C_D)
+                                                      0.047     0.066    raw_reg[1][239]
+  -------------------------------------------------------------------
+                         required time                         -0.066    
+                         arrival time                           0.114    
+  -------------------------------------------------------------------
+                         slack                                  0.048    
+
+Slack (MET) :             0.048ns  (arrival time - required time)
+  Source:                 raw_reg[0][253]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            raw_reg[1][253]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.101ns  (logic 0.038ns (37.624%)  route 0.063ns (62.376%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.006ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.019ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X97Y114        FDRE                                         r  raw_reg[0][253]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X97Y114        FDRE (Prop_EFF_SLICEM_C_Q)
+                                                      0.038     0.051 r  raw_reg[0][253]/Q
+                         net (fo=1, routed)           0.063     0.114    raw_reg[0][253]
+    SLICE_X97Y114        FDRE                                         r  raw_reg[1][253]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.019     0.019    clk
+    SLICE_X97Y114        FDRE                                         r  raw_reg[1][253]/C
+                         clock pessimism              0.000     0.019    
+    SLICE_X97Y114        FDRE (Hold_EFF2_SLICEM_C_D)
+                                                      0.047     0.066    raw_reg[1][253]
+  -------------------------------------------------------------------
+                         required time                         -0.066    
+                         arrival time                           0.114    
+  -------------------------------------------------------------------
+                         slack                                  0.048    
+
+Slack (MET) :             0.048ns  (arrival time - required time)
+  Source:                 raw_reg[2][237]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            raw_reg[3][237]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.100ns  (logic 0.040ns (39.867%)  route 0.060ns (60.133%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.005ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.018ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X92Y117        FDRE                                         r  raw_reg[2][237]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X92Y117        FDRE (Prop_GFF2_SLICEL_C_Q)
+                                                      0.040     0.053 r  raw_reg[2][237]/Q
+                         net (fo=2, routed)           0.060     0.113    raw_reg[2][237]
+    SLICE_X92Y119        FDRE                                         r  raw_reg[3][237]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.018     0.018    clk
+    SLICE_X92Y119        FDRE                                         r  raw_reg[3][237]/C
+                         clock pessimism              0.000     0.018    
+    SLICE_X92Y119        FDRE (Hold_DFF2_SLICEL_C_D)
+                                                      0.047     0.065    raw_reg[3][237]
+  -------------------------------------------------------------------
+                         required time                         -0.065    
+                         arrival time                           0.113    
+  -------------------------------------------------------------------
+                         slack                                  0.048    
+
+Slack (MET) :             0.049ns  (arrival time - required time)
+  Source:                 raw_reg[3][124]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            samples_o_reg[124]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.100ns  (logic 0.061ns (61.000%)  route 0.039ns (39.000%))
+  Logic Levels:           1  (LUT4=1)
+  Clock Path Skew:        0.005ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.018ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X102Y156       FDRE                                         r  raw_reg[3][124]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X102Y156       FDRE (Prop_GFF_SLICEL_C_Q)
+                                                      0.039     0.052 r  raw_reg[3][124]/Q
+                         net (fo=1, routed)           0.023     0.075    raw_reg[3][124]
+    SLICE_X102Y156       LUT4 (Prop_D6LUT_SLICEL_I1_O)
+                                                      0.022     0.097 r  samples_o[124]_i_1/O
+                         net (fo=1, routed)           0.016     0.113    samples_o[124]_i_1_n_0
+    SLICE_X102Y156       FDRE                                         r  samples_o_reg[124]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.018     0.018    clk
+    SLICE_X102Y156       FDRE                                         r  samples_o_reg[124]/C
+                         clock pessimism              0.000     0.018    
+    SLICE_X102Y156       FDRE (Hold_DFF_SLICEL_C_D)
+                                                      0.046     0.064    samples_o_reg[124]
+  -------------------------------------------------------------------
+                         required time                         -0.064    
+                         arrival time                           0.113    
+  -------------------------------------------------------------------
+                         slack                                  0.049    
+
+Slack (MET) :             0.050ns  (arrival time - required time)
+  Source:                 fault_o_reg/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            fault_o_reg/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.102ns  (logic 0.062ns (60.784%)  route 0.040ns (39.216%))
+  Logic Levels:           1  (LUT6=1)
+  Clock Path Skew:        0.006ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.019ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X98Y144        FDRE                                         r  fault_o_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X98Y144        FDRE (Prop_HFF_SLICEL_C_Q)
+                                                      0.039     0.052 r  fault_o_reg/Q
+                         net (fo=1, routed)           0.023     0.075    reciprocal_mult/fault_o
+    SLICE_X98Y144        LUT6 (Prop_H6LUT_SLICEL_I0_O)
+                                                      0.023     0.098 r  reciprocal_mult/fault_o_i_1/O
+                         net (fo=1, routed)           0.017     0.115    reciprocal_mult_n_0
+    SLICE_X98Y144        FDRE                                         r  fault_o_reg/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.019     0.019    clk
+    SLICE_X98Y144        FDRE                                         r  fault_o_reg/C
+                         clock pessimism              0.000     0.019    
+    SLICE_X98Y144        FDRE (Hold_HFF_SLICEL_C_D)
+                                                      0.046     0.065    fault_o_reg
+  -------------------------------------------------------------------
+                         required time                         -0.065    
+                         arrival time                           0.115    
+  -------------------------------------------------------------------
+                         slack                                  0.050    
+
+Slack (MET) :             0.050ns  (arrival time - required time)
+  Source:                 raw_reg[0][125]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            raw_reg[1][125]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.103ns  (logic 0.038ns (36.893%)  route 0.065ns (63.107%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.006ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.019ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X104Y156       FDRE                                         r  raw_reg[0][125]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X104Y156       FDRE (Prop_EFF_SLICEM_C_Q)
+                                                      0.038     0.051 r  raw_reg[0][125]/Q
+                         net (fo=1, routed)           0.065     0.116    raw_reg[0][125]
+    SLICE_X104Y156       FDRE                                         r  raw_reg[1][125]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.019     0.019    clk
+    SLICE_X104Y156       FDRE                                         r  raw_reg[1][125]/C
+                         clock pessimism              0.000     0.019    
+    SLICE_X104Y156       FDRE (Hold_EFF2_SLICEM_C_D)
+                                                      0.047     0.066    raw_reg[1][125]
+  -------------------------------------------------------------------
+                         required time                         -0.066    
+                         arrival time                           0.116    
+  -------------------------------------------------------------------
+                         slack                                  0.050    
+
+Slack (MET) :             0.050ns  (arrival time - required time)
+  Source:                 raw_reg[0][130]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            raw_reg[1][130]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (fabric rise@0.000ns - fabric rise@0.000ns)
+  Data Path Delay:        0.103ns  (logic 0.038ns (36.893%)  route 0.065ns (63.107%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.006ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.019ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.013     0.013    clk
+    SLICE_X94Y120        FDRE                                         r  raw_reg[0][130]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X94Y120        FDRE (Prop_EFF_SLICEM_C_Q)
+                                                      0.038     0.051 r  raw_reg[0][130]/Q
+                         net (fo=1, routed)           0.065     0.116    raw_reg[0][130]
+    SLICE_X94Y120        FDRE                                         r  raw_reg[1][130]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=3351, unset)         0.019     0.019    clk
+    SLICE_X94Y120        FDRE                                         r  raw_reg[1][130]/C
+                         clock pessimism              0.000     0.019    
+    SLICE_X94Y120        FDRE (Hold_EFF2_SLICEM_C_D)
+                                                      0.047     0.066    raw_reg[1][130]
+  -------------------------------------------------------------------
+                         required time                         -0.066    
+                         arrival time                           0.116    
+  -------------------------------------------------------------------
+                         slack                                  0.050    
+
+
+
+

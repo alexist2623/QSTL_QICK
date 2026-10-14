@@ -3,3 +3,10 @@ qick/firmware/projects/qstl_awg_tuning_fir_1msps_v2/bitstream.* -text
 qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64/bitstream.* -text
 qick/firmware/projects/qstl_awg_tuning_fir_1msps_iq64_sq_pulse/bitstream.* -text
 qick/firmware/projects/qstl_awg_v2/bitstream.* -text
+# Preserve v3 firmware, constraints and source/evidence fingerprints byte-for-byte.
+qick/firmware/projects/qstl_awg_v3/** -text
+qick/firmware/ip/axis_awg_tuning_v3/** -text
+analysis_results/awg_tuning_v3/** -text
+analysis_results/quantum_circuit_20261008/** -text
+analysis_results/quantum_circuit_loop_20261008/** -text
+analysis_results/rc_tau_4400_audit_20261004/** -text

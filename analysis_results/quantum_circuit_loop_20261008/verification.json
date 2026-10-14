@@ -1,0 +1,44 @@
+{
+  "complete": true,
+  "final_unique_test_count": 311,
+  "all_final_tests_passed": true,
+  "test_modules": {
+    "test_quantum_circuit_loops": 32,
+    "test_quantum_circuit_integration": 15,
+    "test_quantum_circuit_model": 67,
+    "test_quantum_circuit_widgets": 24,
+    "test_quantum_circuit_execution": 32,
+    "test_dc_waveform_gui_rf": 78,
+    "test_bias_control": 11,
+    "test_gui_shutdown": 3,
+    "test_acquisition_preview": 19,
+    "test_qick_square_wave": 30
+  },
+  "test_evidence": [
+    "regression.xml",
+    "square_wave_final.xml"
+  ],
+  "note": "The initial combined run had one pre-existing stale Square Wave error-message assertion. Only that expected message was updated; the entire Square Wave module was rerun successfully. Original failing evidence is preserved.",
+  "core_files_unchanged": {
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py": true,
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_qcodes_experiment.py": true,
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\dc_waveform_core.py": true,
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\dc_waveform_widgets.py": true
+  },
+  "hardware_run": false,
+  "new_verilog_simulation": false,
+  "files_sha256": {
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\quantum_circuit_execution.py": "d12517cdd61b298515e4e105b6e3184c6a09c0cf95ff2f2dabf301a0bd7738d1",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\quantum_circuit_loops.py": "3e9c3cb3d69bcbfe8ab6bb91ac0f70606365389622d96c88df8bb922545d06d0",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\quantum_circuit_model.py": "1c255206a8593997f8f03b8c3f33932f37d6fece6d2cd97a5fe2d6f8b923522f",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\quantum_circuit_widgets.py": "35ecea469a90ad4bab266094d1a26d6d7a265db631ae89e15759ec4cdb1f28e2",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_quantum_circuit_execution.py": "45aeb93b7731bd8b12750f7d4a69b00bee49c1c10135dd2e10b6a3c73d9baddd",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_quantum_circuit_integration.py": "3b61eb4f6b30b48ebd444e14d7045dac01358e3aed4c6b0115b88899083388a7",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_quantum_circuit_loops.py": "0ce3d7408bd3c2feea75f8b9cf6ced1b653315571cb00f38bd22c26a1e3a793a",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_quantum_circuit_model.py": "a7dc1855a6a2a27448d370b985089957bf7493f6ca83dd6c0678285c3e6e2cee",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_quantum_circuit_widgets.py": "b7833b9416afd2dc4a315581d087fa799f14ce544166bbb2d9e2a40ecefaf4b4",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py": "f42cc4d499ccd57e3437014deb7d7678074af77be56a2fc9c07611e58a9c5a92",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\QUANTUM_CIRCUIT.md": "ea282a2d0667ed63742f6c8a8cc762eb074f1dfd85dc83d01bae66310a50d3dc",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_qick_square_wave.py": "afd081028d4cdde5dffb6e727165411e7edb6ac67d09ac349230473a4fdc9139"
+  }
+}

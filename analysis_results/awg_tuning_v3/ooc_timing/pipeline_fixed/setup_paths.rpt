@@ -1,0 +1,1768 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2023.1 (win64) Build 3865809 Sun May  7 15:05:29 MDT 2023
+| Date              : Tue Oct  6 23:36:05 2026
+| Host              : ECE-CDW-JS03 running 64-bit major release  (build 9200)
+| Command           : report_timing -max_paths 20 -delay_type max -file F:/Vivado_Output/a3o48r2/48/setup_paths.rpt
+| Design            : v3_awg_dc_area
+| Device            : xczu49dr-ffvf1760
+| Speed File        : -2  PRODUCTION 1.32 01-31-2021
+| Design State      : Routed
+| Temperature Grade : E
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.334ns  (required time - arrival time)
+  Source:                 area_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            reciprocal_mult/pp_reg[2][3]/DSP_A_B_DATA_INST/CEA2
+                            (rising edge-triggered cell DSP_A_B_DATA clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.818ns  (logic 0.809ns (28.707%)  route 2.009ns (71.293%))
+  Logic Levels:           11  (CARRY8=8 LUT2=1 LUT4=1 LUT6=1)
+  Clock Path Skew:        0.013ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.043ns = ( 3.376 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.030ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.030     0.030    clk
+    SLICE_X94Y212        FDRE                                         r  area_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X94Y212        FDRE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     0.108 r  area_reg[1]/Q
+                         net (fo=5, routed)           0.278     0.386    reciprocal_mult/Q[1]
+    SLICE_X97Y212        LUT4 (Prop_B6LUT_SLICEM_I0_O)
+                                                      0.100     0.486 r  reciprocal_mult/pp_reg[0][3]_i_24/O
+                         net (fo=1, routed)           0.016     0.502    reciprocal_mult/pp_reg[0][3]_i_24_n_0
+    SLICE_X97Y212        CARRY8 (Prop_CARRY8_SLICEM_S[1]_CO[7])
+                                                      0.190     0.692 r  reciprocal_mult/pp_reg[0][3]_i_16/CO[7]
+                         net (fo=1, routed)           0.026     0.718    reciprocal_mult/pp_reg[0][3]_i_16_n_0
+    SLICE_X97Y213        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     0.733 r  reciprocal_mult/area_reg[15]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     0.759    reciprocal_mult/area_reg[15]_i_2_n_0
+    SLICE_X97Y214        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     0.774 r  reciprocal_mult/area_reg[23]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     0.800    reciprocal_mult/area_reg[23]_i_2_n_0
+    SLICE_X97Y215        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     0.815 r  reciprocal_mult/area_reg[31]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     0.841    reciprocal_mult/area_reg[31]_i_2_n_0
+    SLICE_X97Y216        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     0.856 r  reciprocal_mult/area_reg[39]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     0.882    reciprocal_mult/area_reg[39]_i_2_n_0
+    SLICE_X97Y217        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     0.897 r  reciprocal_mult/area_reg[47]_i_6/CO[7]
+                         net (fo=1, routed)           0.026     0.923    reciprocal_mult/area_reg[47]_i_6_n_0
+    SLICE_X97Y218        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[0])
+                                                      0.066     0.989 r  reciprocal_mult/negative_reg_i_1/CO[0]
+                         net (fo=156, routed)         0.412     1.400    reciprocal_mult/CO[0]
+    SLICE_X100Y213       LUT2 (Prop_A6LUT_SLICEL_I1_O)
+                                                      0.050     1.450 r  reciprocal_mult/area[47]_i_13/O
+                         net (fo=1, routed)           0.009     1.459    reciprocal_mult/area[47]_i_13_n_0
+    SLICE_X100Y213       CARRY8 (Prop_CARRY8_SLICEL_S[0]_CO[5])
+                                                      0.199     1.658 f  reciprocal_mult/area_reg[47]_i_5/CO[5]
+                         net (fo=7, routed)           0.315     1.973    reciprocal_mult/area[47]_i_13_0[0]
+    SLICE_X96Y215        LUT6 (Prop_F6LUT_SLICEM_I2_O)
+                                                      0.051     2.024 r  reciprocal_mult/pp_reg[3][3]_i_1/O
+                         net (fo=150, routed)         0.824     2.848    reciprocal_mult/pp_reg[2][3]/CEA2
+    DSP48E2_X20Y99       DSP_A_B_DATA                                 r  reciprocal_mult/pp_reg[2][3]/DSP_A_B_DATA_INST/CEA2
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.043     3.376    reciprocal_mult/pp_reg[2][3]/CLK
+    DSP48E2_X20Y99       DSP_A_B_DATA                                 r  reciprocal_mult/pp_reg[2][3]/DSP_A_B_DATA_INST/CLK
+                         clock pessimism              0.000     3.376    
+                         clock uncertainty           -0.035     3.341    
+    DSP48E2_X20Y99       DSP_A_B_DATA (Setup_DSP_A_B_DATA_DSP48E2_CLK_CEA2)
+                                                     -0.159     3.182    reciprocal_mult/pp_reg[2][3]/DSP_A_B_DATA_INST
+  -------------------------------------------------------------------
+                         required time                          3.182    
+                         arrival time                          -2.848    
+  -------------------------------------------------------------------
+                         slack                                  0.334    
+
+Slack (MET) :             0.354ns  (required time - arrival time)
+  Source:                 area_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            reciprocal_mult/pp_reg[2][3]/DSP_A_B_DATA_INST/CEB2
+                            (rising edge-triggered cell DSP_A_B_DATA clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.813ns  (logic 0.809ns (28.758%)  route 2.004ns (71.242%))
+  Logic Levels:           11  (CARRY8=8 LUT2=1 LUT4=1 LUT6=1)
+  Clock Path Skew:        0.013ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.043ns = ( 3.376 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.030ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.030     0.030    clk
+    SLICE_X94Y212        FDRE                                         r  area_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X94Y212        FDRE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     0.108 r  area_reg[1]/Q
+                         net (fo=5, routed)           0.278     0.386    reciprocal_mult/Q[1]
+    SLICE_X97Y212        LUT4 (Prop_B6LUT_SLICEM_I0_O)
+                                                      0.100     0.486 r  reciprocal_mult/pp_reg[0][3]_i_24/O
+                         net (fo=1, routed)           0.016     0.502    reciprocal_mult/pp_reg[0][3]_i_24_n_0
+    SLICE_X97Y212        CARRY8 (Prop_CARRY8_SLICEM_S[1]_CO[7])
+                                                      0.190     0.692 r  reciprocal_mult/pp_reg[0][3]_i_16/CO[7]
+                         net (fo=1, routed)           0.026     0.718    reciprocal_mult/pp_reg[0][3]_i_16_n_0
+    SLICE_X97Y213        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     0.733 r  reciprocal_mult/area_reg[15]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     0.759    reciprocal_mult/area_reg[15]_i_2_n_0
+    SLICE_X97Y214        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     0.774 r  reciprocal_mult/area_reg[23]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     0.800    reciprocal_mult/area_reg[23]_i_2_n_0
+    SLICE_X97Y215        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     0.815 r  reciprocal_mult/area_reg[31]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     0.841    reciprocal_mult/area_reg[31]_i_2_n_0
+    SLICE_X97Y216        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     0.856 r  reciprocal_mult/area_reg[39]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     0.882    reciprocal_mult/area_reg[39]_i_2_n_0
+    SLICE_X97Y217        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     0.897 r  reciprocal_mult/area_reg[47]_i_6/CO[7]
+                         net (fo=1, routed)           0.026     0.923    reciprocal_mult/area_reg[47]_i_6_n_0
+    SLICE_X97Y218        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[0])
+                                                      0.066     0.989 r  reciprocal_mult/negative_reg_i_1/CO[0]
+                         net (fo=156, routed)         0.412     1.400    reciprocal_mult/CO[0]
+    SLICE_X100Y213       LUT2 (Prop_A6LUT_SLICEL_I1_O)
+                                                      0.050     1.450 r  reciprocal_mult/area[47]_i_13/O
+                         net (fo=1, routed)           0.009     1.459    reciprocal_mult/area[47]_i_13_n_0
+    SLICE_X100Y213       CARRY8 (Prop_CARRY8_SLICEL_S[0]_CO[5])
+                                                      0.199     1.658 f  reciprocal_mult/area_reg[47]_i_5/CO[5]
+                         net (fo=7, routed)           0.315     1.973    reciprocal_mult/area[47]_i_13_0[0]
+    SLICE_X96Y215        LUT6 (Prop_F6LUT_SLICEM_I2_O)
+                                                      0.051     2.024 r  reciprocal_mult/pp_reg[3][3]_i_1/O
+                         net (fo=150, routed)         0.819     2.843    reciprocal_mult/pp_reg[2][3]/CEB2
+    DSP48E2_X20Y99       DSP_A_B_DATA                                 r  reciprocal_mult/pp_reg[2][3]/DSP_A_B_DATA_INST/CEB2
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.043     3.376    reciprocal_mult/pp_reg[2][3]/CLK
+    DSP48E2_X20Y99       DSP_A_B_DATA                                 r  reciprocal_mult/pp_reg[2][3]/DSP_A_B_DATA_INST/CLK
+                         clock pessimism              0.000     3.376    
+                         clock uncertainty           -0.035     3.341    
+    DSP48E2_X20Y99       DSP_A_B_DATA (Setup_DSP_A_B_DATA_DSP48E2_CLK_CEB2)
+                                                     -0.144     3.197    reciprocal_mult/pp_reg[2][3]/DSP_A_B_DATA_INST
+  -------------------------------------------------------------------
+                         required time                          3.197    
+                         arrival time                          -2.843    
+  -------------------------------------------------------------------
+                         slack                                  0.354    
+
+Slack (MET) :             0.360ns  (required time - arrival time)
+  Source:                 remainder_reg[37]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            area_reg[41]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.953ns  (logic 1.355ns (45.887%)  route 1.598ns (54.113%))
+  Logic Levels:           15  (CARRY8=10 LUT2=2 LUT4=2 LUT5=1)
+  Clock Path Skew:        -0.010ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.020ns = ( 3.353 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.030ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.030     0.030    clk
+    SLICE_X97Y233        FDRE                                         r  remainder_reg[37]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X97Y233        FDRE (Prop_GFF_SLICEM_C_Q)
+                                                      0.078     0.108 f  remainder_reg[37]/Q
+                         net (fo=9, routed)           0.241     0.349    remainder_reg_n_0_[37]
+    SLICE_X101Y232       LUT2 (Prop_C6LUT_SLICEL_I0_O)
+                                                      0.096     0.445 r  samples_o[243]_i_38/O
+                         net (fo=1, routed)           0.010     0.455    samples_o[243]_i_38_n_0
+    SLICE_X101Y232       CARRY8 (Prop_CARRY8_SLICEL_S[2]_CO[7])
+                                                      0.155     0.610 f  samples_o_reg[243]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     0.636    samples_o_reg[243]_i_7_n_0
+    SLICE_X101Y233       CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     0.658 f  samples_o_reg[243]_i_4/CO[7]
+                         net (fo=73, routed)          0.475     1.132    extra1
+    SLICE_X98Y213        LUT2 (Prop_A6LUT_SLICEL_I1_O)
+                                                      0.035     1.167 r  remaining[15]_i_13/O
+                         net (fo=1, routed)           0.009     1.176    remaining[15]_i_13_n_0
+    SLICE_X98Y213        CARRY8 (Prop_CARRY8_SLICEL_S[0]_CO[7])
+                                                      0.190     1.366 r  remaining_reg[15]_i_11/CO[7]
+                         net (fo=1, routed)           0.026     1.392    remaining_reg[15]_i_11_n_0
+    SLICE_X98Y214        CARRY8 (Prop_CARRY8_SLICEL_CI_O[3])
+                                                      0.082     1.474 f  remaining_reg[23]_i_11/O[3]
+                         net (fo=3, routed)           0.283     1.757    time_word_area[14]
+    SLICE_X96Y213        LUT5 (Prop_F6LUT_SLICEM_I1_O)
+                                                      0.051     1.808 r  area[23]_i_31/O
+                         net (fo=1, routed)           0.022     1.830    area[23]_i_31_n_0
+    SLICE_X96Y213        CARRY8 (Prop_CARRY8_SLICEM_S[5]_CO[7])
+                                                      0.159     1.989 r  area_reg[23]_i_27/CO[7]
+                         net (fo=1, routed)           0.026     2.015    area_reg[23]_i_27_n_0
+    SLICE_X96Y214        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     2.071 r  area_reg[23]_i_24/O[0]
+                         net (fo=1, routed)           0.221     2.292    emitted_signed0[17]
+    SLICE_X95Y213        LUT4 (Prop_B6LUT_SLICEL_I3_O)
+                                                      0.051     2.343 r  area[23]_i_22/O
+                         net (fo=1, routed)           0.009     2.352    area[23]_i_22_n_0
+    SLICE_X95Y213        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     2.538 r  area_reg[23]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.564    area_reg[23]_i_3_n_0
+    SLICE_X95Y214        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     2.579 r  area_reg[31]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.605    area_reg[31]_i_3_n_0
+    SLICE_X95Y215        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     2.620 r  area_reg[39]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.646    area_reg[39]_i_3_n_0
+    SLICE_X95Y216        CARRY8 (Prop_CARRY8_SLICEL_CI_O[1])
+                                                      0.076     2.722 r  area_reg[47]_i_7/O[1]
+                         net (fo=1, routed)           0.123     2.845    area_reg[47]_i_7_n_14
+    SLICE_X95Y217        LUT4 (Prop_C6LUT_SLICEL_I2_O)
+                                                      0.088     2.933 r  area[41]_i_1/O
+                         net (fo=1, routed)           0.050     2.983    area[41]_i_1_n_0
+    SLICE_X95Y217        FDRE                                         r  area_reg[41]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.020     3.353    clk
+    SLICE_X95Y217        FDRE                                         r  area_reg[41]/C
+                         clock pessimism              0.000     3.353    
+                         clock uncertainty           -0.035     3.318    
+    SLICE_X95Y217        FDRE (Setup_CFF_SLICEL_C_D)
+                                                      0.025     3.343    area_reg[41]
+  -------------------------------------------------------------------
+                         required time                          3.343    
+                         arrival time                          -2.983    
+  -------------------------------------------------------------------
+                         slack                                  0.360    
+
+Slack (MET) :             0.370ns  (required time - arrival time)
+  Source:                 remainder_reg[37]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            area_reg[45]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.943ns  (logic 1.343ns (45.635%)  route 1.600ns (54.365%))
+  Logic Levels:           15  (CARRY8=10 LUT2=2 LUT4=2 LUT5=1)
+  Clock Path Skew:        -0.010ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.020ns = ( 3.353 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.030ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.030     0.030    clk
+    SLICE_X97Y233        FDRE                                         r  remainder_reg[37]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X97Y233        FDRE (Prop_GFF_SLICEM_C_Q)
+                                                      0.078     0.108 f  remainder_reg[37]/Q
+                         net (fo=9, routed)           0.241     0.349    remainder_reg_n_0_[37]
+    SLICE_X101Y232       LUT2 (Prop_C6LUT_SLICEL_I0_O)
+                                                      0.096     0.445 r  samples_o[243]_i_38/O
+                         net (fo=1, routed)           0.010     0.455    samples_o[243]_i_38_n_0
+    SLICE_X101Y232       CARRY8 (Prop_CARRY8_SLICEL_S[2]_CO[7])
+                                                      0.155     0.610 f  samples_o_reg[243]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     0.636    samples_o_reg[243]_i_7_n_0
+    SLICE_X101Y233       CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     0.658 f  samples_o_reg[243]_i_4/CO[7]
+                         net (fo=73, routed)          0.475     1.132    extra1
+    SLICE_X98Y213        LUT2 (Prop_A6LUT_SLICEL_I1_O)
+                                                      0.035     1.167 r  remaining[15]_i_13/O
+                         net (fo=1, routed)           0.009     1.176    remaining[15]_i_13_n_0
+    SLICE_X98Y213        CARRY8 (Prop_CARRY8_SLICEL_S[0]_CO[7])
+                                                      0.190     1.366 r  remaining_reg[15]_i_11/CO[7]
+                         net (fo=1, routed)           0.026     1.392    remaining_reg[15]_i_11_n_0
+    SLICE_X98Y214        CARRY8 (Prop_CARRY8_SLICEL_CI_O[3])
+                                                      0.082     1.474 f  remaining_reg[23]_i_11/O[3]
+                         net (fo=3, routed)           0.283     1.757    time_word_area[14]
+    SLICE_X96Y213        LUT5 (Prop_F6LUT_SLICEM_I1_O)
+                                                      0.051     1.808 r  area[23]_i_31/O
+                         net (fo=1, routed)           0.022     1.830    area[23]_i_31_n_0
+    SLICE_X96Y213        CARRY8 (Prop_CARRY8_SLICEM_S[5]_CO[7])
+                                                      0.159     1.989 r  area_reg[23]_i_27/CO[7]
+                         net (fo=1, routed)           0.026     2.015    area_reg[23]_i_27_n_0
+    SLICE_X96Y214        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     2.071 r  area_reg[23]_i_24/O[0]
+                         net (fo=1, routed)           0.221     2.292    emitted_signed0[17]
+    SLICE_X95Y213        LUT4 (Prop_B6LUT_SLICEL_I3_O)
+                                                      0.051     2.343 r  area[23]_i_22/O
+                         net (fo=1, routed)           0.009     2.352    area[23]_i_22_n_0
+    SLICE_X95Y213        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     2.538 r  area_reg[23]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.564    area_reg[23]_i_3_n_0
+    SLICE_X95Y214        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     2.579 r  area_reg[31]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.605    area_reg[31]_i_3_n_0
+    SLICE_X95Y215        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     2.620 r  area_reg[39]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.646    area_reg[39]_i_3_n_0
+    SLICE_X95Y216        CARRY8 (Prop_CARRY8_SLICEL_CI_O[5])
+                                                      0.116     2.762 r  area_reg[47]_i_7/O[5]
+                         net (fo=1, routed)           0.126     2.888    area_reg[47]_i_7_n_10
+    SLICE_X95Y217        LUT4 (Prop_D6LUT_SLICEL_I2_O)
+                                                      0.036     2.924 r  area[45]_i_1/O
+                         net (fo=1, routed)           0.049     2.973    area[45]_i_1_n_0
+    SLICE_X95Y217        FDRE                                         r  area_reg[45]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.020     3.353    clk
+    SLICE_X95Y217        FDRE                                         r  area_reg[45]/C
+                         clock pessimism              0.000     3.353    
+                         clock uncertainty           -0.035     3.318    
+    SLICE_X95Y217        FDRE (Setup_DFF_SLICEL_C_D)
+                                                      0.025     3.343    area_reg[45]
+  -------------------------------------------------------------------
+                         required time                          3.343    
+                         arrival time                          -2.973    
+  -------------------------------------------------------------------
+                         slack                                  0.370    
+
+Slack (MET) :             0.373ns  (required time - arrival time)
+  Source:                 remainder_reg[37]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            area_reg[36]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.941ns  (logic 1.315ns (44.714%)  route 1.626ns (55.286%))
+  Logic Levels:           14  (CARRY8=9 LUT2=2 LUT4=2 LUT5=1)
+  Clock Path Skew:        -0.009ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.021ns = ( 3.354 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.030ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.030     0.030    clk
+    SLICE_X97Y233        FDRE                                         r  remainder_reg[37]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X97Y233        FDRE (Prop_GFF_SLICEM_C_Q)
+                                                      0.078     0.108 f  remainder_reg[37]/Q
+                         net (fo=9, routed)           0.241     0.349    remainder_reg_n_0_[37]
+    SLICE_X101Y232       LUT2 (Prop_C6LUT_SLICEL_I0_O)
+                                                      0.096     0.445 r  samples_o[243]_i_38/O
+                         net (fo=1, routed)           0.010     0.455    samples_o[243]_i_38_n_0
+    SLICE_X101Y232       CARRY8 (Prop_CARRY8_SLICEL_S[2]_CO[7])
+                                                      0.155     0.610 f  samples_o_reg[243]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     0.636    samples_o_reg[243]_i_7_n_0
+    SLICE_X101Y233       CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     0.658 f  samples_o_reg[243]_i_4/CO[7]
+                         net (fo=73, routed)          0.475     1.132    extra1
+    SLICE_X98Y213        LUT2 (Prop_A6LUT_SLICEL_I1_O)
+                                                      0.035     1.167 r  remaining[15]_i_13/O
+                         net (fo=1, routed)           0.009     1.176    remaining[15]_i_13_n_0
+    SLICE_X98Y213        CARRY8 (Prop_CARRY8_SLICEL_S[0]_CO[7])
+                                                      0.190     1.366 r  remaining_reg[15]_i_11/CO[7]
+                         net (fo=1, routed)           0.026     1.392    remaining_reg[15]_i_11_n_0
+    SLICE_X98Y214        CARRY8 (Prop_CARRY8_SLICEL_CI_O[3])
+                                                      0.082     1.474 f  remaining_reg[23]_i_11/O[3]
+                         net (fo=3, routed)           0.283     1.757    time_word_area[14]
+    SLICE_X96Y213        LUT5 (Prop_F6LUT_SLICEM_I1_O)
+                                                      0.051     1.808 r  area[23]_i_31/O
+                         net (fo=1, routed)           0.022     1.830    area[23]_i_31_n_0
+    SLICE_X96Y213        CARRY8 (Prop_CARRY8_SLICEM_S[5]_CO[7])
+                                                      0.159     1.989 r  area_reg[23]_i_27/CO[7]
+                         net (fo=1, routed)           0.026     2.015    area_reg[23]_i_27_n_0
+    SLICE_X96Y214        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     2.071 r  area_reg[23]_i_24/O[0]
+                         net (fo=1, routed)           0.221     2.292    emitted_signed0[17]
+    SLICE_X95Y213        LUT4 (Prop_B6LUT_SLICEL_I3_O)
+                                                      0.051     2.343 r  area[23]_i_22/O
+                         net (fo=1, routed)           0.009     2.352    area[23]_i_22_n_0
+    SLICE_X95Y213        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     2.538 r  area_reg[23]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.564    area_reg[23]_i_3_n_0
+    SLICE_X95Y214        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     2.579 r  area_reg[31]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.605    area_reg[31]_i_3_n_0
+    SLICE_X95Y215        CARRY8 (Prop_CARRY8_SLICEL_CI_O[4])
+                                                      0.086     2.691 r  area_reg[39]_i_3/O[4]
+                         net (fo=1, routed)           0.174     2.865    area_reg[39]_i_3_n_11
+    SLICE_X96Y216        LUT4 (Prop_A6LUT_SLICEM_I2_O)
+                                                      0.053     2.918 r  area[36]_i_1/O
+                         net (fo=1, routed)           0.053     2.971    area[36]_i_1_n_0
+    SLICE_X96Y216        FDRE                                         r  area_reg[36]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.021     3.354    clk
+    SLICE_X96Y216        FDRE                                         r  area_reg[36]/C
+                         clock pessimism              0.000     3.354    
+                         clock uncertainty           -0.035     3.319    
+    SLICE_X96Y216        FDRE (Setup_AFF_SLICEM_C_D)
+                                                      0.025     3.344    area_reg[36]
+  -------------------------------------------------------------------
+                         required time                          3.344    
+                         arrival time                          -2.971    
+  -------------------------------------------------------------------
+                         slack                                  0.373    
+
+Slack (MET) :             0.379ns  (required time - arrival time)
+  Source:                 remainder_reg[37]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            area_reg[47]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.934ns  (logic 1.342ns (45.741%)  route 1.592ns (54.259%))
+  Logic Levels:           15  (CARRY8=10 LUT2=2 LUT4=2 LUT5=1)
+  Clock Path Skew:        -0.010ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.020ns = ( 3.353 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.030ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.030     0.030    clk
+    SLICE_X97Y233        FDRE                                         r  remainder_reg[37]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X97Y233        FDRE (Prop_GFF_SLICEM_C_Q)
+                                                      0.078     0.108 f  remainder_reg[37]/Q
+                         net (fo=9, routed)           0.241     0.349    remainder_reg_n_0_[37]
+    SLICE_X101Y232       LUT2 (Prop_C6LUT_SLICEL_I0_O)
+                                                      0.096     0.445 r  samples_o[243]_i_38/O
+                         net (fo=1, routed)           0.010     0.455    samples_o[243]_i_38_n_0
+    SLICE_X101Y232       CARRY8 (Prop_CARRY8_SLICEL_S[2]_CO[7])
+                                                      0.155     0.610 f  samples_o_reg[243]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     0.636    samples_o_reg[243]_i_7_n_0
+    SLICE_X101Y233       CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     0.658 f  samples_o_reg[243]_i_4/CO[7]
+                         net (fo=73, routed)          0.475     1.132    extra1
+    SLICE_X98Y213        LUT2 (Prop_A6LUT_SLICEL_I1_O)
+                                                      0.035     1.167 r  remaining[15]_i_13/O
+                         net (fo=1, routed)           0.009     1.176    remaining[15]_i_13_n_0
+    SLICE_X98Y213        CARRY8 (Prop_CARRY8_SLICEL_S[0]_CO[7])
+                                                      0.190     1.366 r  remaining_reg[15]_i_11/CO[7]
+                         net (fo=1, routed)           0.026     1.392    remaining_reg[15]_i_11_n_0
+    SLICE_X98Y214        CARRY8 (Prop_CARRY8_SLICEL_CI_O[3])
+                                                      0.082     1.474 f  remaining_reg[23]_i_11/O[3]
+                         net (fo=3, routed)           0.283     1.757    time_word_area[14]
+    SLICE_X96Y213        LUT5 (Prop_F6LUT_SLICEM_I1_O)
+                                                      0.051     1.808 r  area[23]_i_31/O
+                         net (fo=1, routed)           0.022     1.830    area[23]_i_31_n_0
+    SLICE_X96Y213        CARRY8 (Prop_CARRY8_SLICEM_S[5]_CO[7])
+                                                      0.159     1.989 r  area_reg[23]_i_27/CO[7]
+                         net (fo=1, routed)           0.026     2.015    area_reg[23]_i_27_n_0
+    SLICE_X96Y214        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     2.071 r  area_reg[23]_i_24/O[0]
+                         net (fo=1, routed)           0.221     2.292    emitted_signed0[17]
+    SLICE_X95Y213        LUT4 (Prop_B6LUT_SLICEL_I3_O)
+                                                      0.051     2.343 r  area[23]_i_22/O
+                         net (fo=1, routed)           0.009     2.352    area[23]_i_22_n_0
+    SLICE_X95Y213        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     2.538 r  area_reg[23]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.564    area_reg[23]_i_3_n_0
+    SLICE_X95Y214        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     2.579 r  area_reg[31]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.605    area_reg[31]_i_3_n_0
+    SLICE_X95Y215        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     2.620 r  area_reg[39]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.646    area_reg[39]_i_3_n_0
+    SLICE_X95Y216        CARRY8 (Prop_CARRY8_SLICEL_CI_O[7])
+                                                      0.116     2.762 r  area_reg[47]_i_7/O[7]
+                         net (fo=1, routed)           0.119     2.881    area_reg[47]_i_7_n_8
+    SLICE_X95Y217        LUT4 (Prop_A6LUT_SLICEL_I2_O)
+                                                      0.035     2.916 r  area[47]_i_3/O
+                         net (fo=1, routed)           0.048     2.964    area[47]_i_3_n_0
+    SLICE_X95Y217        FDRE                                         r  area_reg[47]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.020     3.353    clk
+    SLICE_X95Y217        FDRE                                         r  area_reg[47]/C
+                         clock pessimism              0.000     3.353    
+                         clock uncertainty           -0.035     3.318    
+    SLICE_X95Y217        FDRE (Setup_AFF_SLICEL_C_D)
+                                                      0.025     3.343    area_reg[47]
+  -------------------------------------------------------------------
+                         required time                          3.343    
+                         arrival time                          -2.964    
+  -------------------------------------------------------------------
+                         slack                                  0.379    
+
+Slack (MET) :             0.386ns  (required time - arrival time)
+  Source:                 remainder_reg[37]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            area_reg[38]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.927ns  (logic 1.314ns (44.894%)  route 1.613ns (55.106%))
+  Logic Levels:           14  (CARRY8=9 LUT2=2 LUT4=2 LUT5=1)
+  Clock Path Skew:        -0.010ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.020ns = ( 3.353 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.030ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.030     0.030    clk
+    SLICE_X97Y233        FDRE                                         r  remainder_reg[37]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X97Y233        FDRE (Prop_GFF_SLICEM_C_Q)
+                                                      0.078     0.108 f  remainder_reg[37]/Q
+                         net (fo=9, routed)           0.241     0.349    remainder_reg_n_0_[37]
+    SLICE_X101Y232       LUT2 (Prop_C6LUT_SLICEL_I0_O)
+                                                      0.096     0.445 r  samples_o[243]_i_38/O
+                         net (fo=1, routed)           0.010     0.455    samples_o[243]_i_38_n_0
+    SLICE_X101Y232       CARRY8 (Prop_CARRY8_SLICEL_S[2]_CO[7])
+                                                      0.155     0.610 f  samples_o_reg[243]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     0.636    samples_o_reg[243]_i_7_n_0
+    SLICE_X101Y233       CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     0.658 f  samples_o_reg[243]_i_4/CO[7]
+                         net (fo=73, routed)          0.475     1.132    extra1
+    SLICE_X98Y213        LUT2 (Prop_A6LUT_SLICEL_I1_O)
+                                                      0.035     1.167 r  remaining[15]_i_13/O
+                         net (fo=1, routed)           0.009     1.176    remaining[15]_i_13_n_0
+    SLICE_X98Y213        CARRY8 (Prop_CARRY8_SLICEL_S[0]_CO[7])
+                                                      0.190     1.366 r  remaining_reg[15]_i_11/CO[7]
+                         net (fo=1, routed)           0.026     1.392    remaining_reg[15]_i_11_n_0
+    SLICE_X98Y214        CARRY8 (Prop_CARRY8_SLICEL_CI_O[3])
+                                                      0.082     1.474 f  remaining_reg[23]_i_11/O[3]
+                         net (fo=3, routed)           0.283     1.757    time_word_area[14]
+    SLICE_X96Y213        LUT5 (Prop_F6LUT_SLICEM_I1_O)
+                                                      0.051     1.808 r  area[23]_i_31/O
+                         net (fo=1, routed)           0.022     1.830    area[23]_i_31_n_0
+    SLICE_X96Y213        CARRY8 (Prop_CARRY8_SLICEM_S[5]_CO[7])
+                                                      0.159     1.989 r  area_reg[23]_i_27/CO[7]
+                         net (fo=1, routed)           0.026     2.015    area_reg[23]_i_27_n_0
+    SLICE_X96Y214        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     2.071 r  area_reg[23]_i_24/O[0]
+                         net (fo=1, routed)           0.221     2.292    emitted_signed0[17]
+    SLICE_X95Y213        LUT4 (Prop_B6LUT_SLICEL_I3_O)
+                                                      0.051     2.343 r  area[23]_i_22/O
+                         net (fo=1, routed)           0.009     2.352    area[23]_i_22_n_0
+    SLICE_X95Y213        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     2.538 r  area_reg[23]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.564    area_reg[23]_i_3_n_0
+    SLICE_X95Y214        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     2.579 r  area_reg[31]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.605    area_reg[31]_i_3_n_0
+    SLICE_X95Y215        CARRY8 (Prop_CARRY8_SLICEL_CI_O[6])
+                                                      0.103     2.708 r  area_reg[39]_i_3/O[6]
+                         net (fo=1, routed)           0.168     2.876    area_reg[39]_i_3_n_9
+    SLICE_X95Y218        LUT4 (Prop_E6LUT_SLICEL_I2_O)
+                                                      0.035     2.911 r  area[38]_i_1/O
+                         net (fo=1, routed)           0.046     2.957    area[38]_i_1_n_0
+    SLICE_X95Y218        FDRE                                         r  area_reg[38]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.020     3.353    clk
+    SLICE_X95Y218        FDRE                                         r  area_reg[38]/C
+                         clock pessimism              0.000     3.353    
+                         clock uncertainty           -0.035     3.318    
+    SLICE_X95Y218        FDRE (Setup_EFF_SLICEL_C_D)
+                                                      0.025     3.343    area_reg[38]
+  -------------------------------------------------------------------
+                         required time                          3.343    
+                         arrival time                          -2.957    
+  -------------------------------------------------------------------
+                         slack                                  0.386    
+
+Slack (MET) :             0.386ns  (required time - arrival time)
+  Source:                 remaining_reg[4]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            samples_o_reg[93]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.928ns  (logic 0.825ns (28.181%)  route 2.103ns (71.819%))
+  Logic Levels:           9  (CARRY8=2 LUT4=2 LUT6=4 MUXF7=1)
+  Clock Path Skew:        -0.009ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.021ns = ( 3.354 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.030ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.030     0.030    clk
+    SLICE_X97Y214        FDRE                                         r  remaining_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X97Y214        FDRE (Prop_EFF2_SLICEM_C_Q)
+                                                      0.079     0.109 r  remaining_reg[4]/Q
+                         net (fo=106, routed)         0.695     0.804    remaining_reg_n_0_[4]
+    SLICE_X90Y193        LUT4 (Prop_C6LUT_SLICEM_I2_O)
+                                                      0.088     0.892 r  samples_o[95]_i_39/O
+                         net (fo=1, routed)           0.021     0.913    samples_o[95]_i_39_n_0
+    SLICE_X90Y193        CARRY8 (Prop_CARRY8_SLICEM_S[2]_CO[7])
+                                                      0.161     1.074 f  samples_o_reg[95]_i_13/CO[7]
+                         net (fo=1, routed)           0.026     1.100    samples_o_reg[95]_i_13_n_0
+    SLICE_X90Y194        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[0])
+                                                      0.052     1.152 f  samples_o_reg[95]_i_8/CO[0]
+                         net (fo=14, routed)          0.450     1.601    samples_o_reg[95]_i_8_n_7
+    SLICE_X94Y189        LUT6 (Prop_D6LUT_SLICEM_I5_O)
+                                                      0.051     1.652 r  samples_o[83]_i_5/O
+                         net (fo=1, routed)           0.025     1.677    samples_o[83]_i_5_n_0
+    SLICE_X94Y189        MUXF7 (Prop_F7MUX_CD_SLICEM_I0_O)
+                                                      0.069     1.746 r  samples_o_reg[83]_i_3/O
+                         net (fo=4, routed)           0.254     2.000    samples_o_reg[83]_i_3_n_0
+    SLICE_X93Y191        LUT6 (Prop_H6LUT_SLICEM_I0_O)
+                                                      0.090     2.090 f  samples_o[85]_i_2/O
+                         net (fo=6, routed)           0.237     2.327    samples_o[85]_i_2_n_0
+    SLICE_X91Y191        LUT6 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.124     2.451 f  samples_o[90]_i_3/O
+                         net (fo=5, routed)           0.151     2.603    samples_o[90]_i_3_n_0
+    SLICE_X89Y191        LUT4 (Prop_F5LUT_SLICEM_I2_O)
+                                                      0.074     2.677 r  samples_o[93]_i_2/O
+                         net (fo=1, routed)           0.178     2.855    samples_o[93]_i_2_n_0
+    SLICE_X89Y191        LUT6 (Prop_C6LUT_SLICEM_I3_O)
+                                                      0.037     2.892 r  samples_o[93]_i_1/O
+                         net (fo=1, routed)           0.066     2.958    samples_o[93]_i_1_n_0
+    SLICE_X89Y191        FDRE                                         r  samples_o_reg[93]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.021     3.354    clk
+    SLICE_X89Y191        FDRE                                         r  samples_o_reg[93]/C
+                         clock pessimism              0.000     3.354    
+                         clock uncertainty           -0.035     3.319    
+    SLICE_X89Y191        FDRE (Setup_CFF_SLICEM_C_D)
+                                                      0.025     3.344    samples_o_reg[93]
+  -------------------------------------------------------------------
+                         required time                          3.344    
+                         arrival time                          -2.958    
+  -------------------------------------------------------------------
+                         slack                                  0.386    
+
+Slack (MET) :             0.390ns  (required time - arrival time)
+  Source:                 remainder_reg[37]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            area_reg[46]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.923ns  (logic 1.329ns (45.468%)  route 1.594ns (54.532%))
+  Logic Levels:           15  (CARRY8=10 LUT2=2 LUT4=2 LUT5=1)
+  Clock Path Skew:        -0.010ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.020ns = ( 3.353 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.030ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.030     0.030    clk
+    SLICE_X97Y233        FDRE                                         r  remainder_reg[37]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X97Y233        FDRE (Prop_GFF_SLICEM_C_Q)
+                                                      0.078     0.108 f  remainder_reg[37]/Q
+                         net (fo=9, routed)           0.241     0.349    remainder_reg_n_0_[37]
+    SLICE_X101Y232       LUT2 (Prop_C6LUT_SLICEL_I0_O)
+                                                      0.096     0.445 r  samples_o[243]_i_38/O
+                         net (fo=1, routed)           0.010     0.455    samples_o[243]_i_38_n_0
+    SLICE_X101Y232       CARRY8 (Prop_CARRY8_SLICEL_S[2]_CO[7])
+                                                      0.155     0.610 f  samples_o_reg[243]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     0.636    samples_o_reg[243]_i_7_n_0
+    SLICE_X101Y233       CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     0.658 f  samples_o_reg[243]_i_4/CO[7]
+                         net (fo=73, routed)          0.475     1.132    extra1
+    SLICE_X98Y213        LUT2 (Prop_A6LUT_SLICEL_I1_O)
+                                                      0.035     1.167 r  remaining[15]_i_13/O
+                         net (fo=1, routed)           0.009     1.176    remaining[15]_i_13_n_0
+    SLICE_X98Y213        CARRY8 (Prop_CARRY8_SLICEL_S[0]_CO[7])
+                                                      0.190     1.366 r  remaining_reg[15]_i_11/CO[7]
+                         net (fo=1, routed)           0.026     1.392    remaining_reg[15]_i_11_n_0
+    SLICE_X98Y214        CARRY8 (Prop_CARRY8_SLICEL_CI_O[3])
+                                                      0.082     1.474 f  remaining_reg[23]_i_11/O[3]
+                         net (fo=3, routed)           0.283     1.757    time_word_area[14]
+    SLICE_X96Y213        LUT5 (Prop_F6LUT_SLICEM_I1_O)
+                                                      0.051     1.808 r  area[23]_i_31/O
+                         net (fo=1, routed)           0.022     1.830    area[23]_i_31_n_0
+    SLICE_X96Y213        CARRY8 (Prop_CARRY8_SLICEM_S[5]_CO[7])
+                                                      0.159     1.989 r  area_reg[23]_i_27/CO[7]
+                         net (fo=1, routed)           0.026     2.015    area_reg[23]_i_27_n_0
+    SLICE_X96Y214        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     2.071 r  area_reg[23]_i_24/O[0]
+                         net (fo=1, routed)           0.221     2.292    emitted_signed0[17]
+    SLICE_X95Y213        LUT4 (Prop_B6LUT_SLICEL_I3_O)
+                                                      0.051     2.343 r  area[23]_i_22/O
+                         net (fo=1, routed)           0.009     2.352    area[23]_i_22_n_0
+    SLICE_X95Y213        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     2.538 r  area_reg[23]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.564    area_reg[23]_i_3_n_0
+    SLICE_X95Y214        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     2.579 r  area_reg[31]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.605    area_reg[31]_i_3_n_0
+    SLICE_X95Y215        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     2.620 r  area_reg[39]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.646    area_reg[39]_i_3_n_0
+    SLICE_X95Y216        CARRY8 (Prop_CARRY8_SLICEL_CI_O[6])
+                                                      0.103     2.749 r  area_reg[47]_i_7/O[6]
+                         net (fo=1, routed)           0.118     2.867    area_reg[47]_i_7_n_9
+    SLICE_X95Y217        LUT4 (Prop_F6LUT_SLICEL_I2_O)
+                                                      0.035     2.902 r  area[46]_i_1/O
+                         net (fo=1, routed)           0.051     2.953    area[46]_i_1_n_0
+    SLICE_X95Y217        FDRE                                         r  area_reg[46]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.020     3.353    clk
+    SLICE_X95Y217        FDRE                                         r  area_reg[46]/C
+                         clock pessimism              0.000     3.353    
+                         clock uncertainty           -0.035     3.318    
+    SLICE_X95Y217        FDRE (Setup_FFF_SLICEL_C_D)
+                                                      0.025     3.343    area_reg[46]
+  -------------------------------------------------------------------
+                         required time                          3.343    
+                         arrival time                          -2.953    
+  -------------------------------------------------------------------
+                         slack                                  0.390    
+
+Slack (MET) :             0.390ns  (required time - arrival time)
+  Source:                 area_reg[1]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            state_reg[2]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.924ns  (logic 1.128ns (38.582%)  route 1.796ns (61.418%))
+  Logic Levels:           14  (CARRY8=8 LUT2=1 LUT3=1 LUT4=2 LUT6=2)
+  Clock Path Skew:        -0.009ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.021ns = ( 3.354 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.030ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.030     0.030    clk
+    SLICE_X94Y212        FDRE                                         r  area_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X94Y212        FDRE (Prop_DFF_SLICEM_C_Q)
+                                                      0.078     0.108 r  area_reg[1]/Q
+                         net (fo=5, routed)           0.278     0.386    reciprocal_mult/Q[1]
+    SLICE_X97Y212        LUT4 (Prop_B6LUT_SLICEM_I0_O)
+                                                      0.100     0.486 r  reciprocal_mult/pp_reg[0][3]_i_24/O
+                         net (fo=1, routed)           0.016     0.502    reciprocal_mult/pp_reg[0][3]_i_24_n_0
+    SLICE_X97Y212        CARRY8 (Prop_CARRY8_SLICEM_S[1]_CO[7])
+                                                      0.190     0.692 r  reciprocal_mult/pp_reg[0][3]_i_16/CO[7]
+                         net (fo=1, routed)           0.026     0.718    reciprocal_mult/pp_reg[0][3]_i_16_n_0
+    SLICE_X97Y213        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     0.733 r  reciprocal_mult/area_reg[15]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     0.759    reciprocal_mult/area_reg[15]_i_2_n_0
+    SLICE_X97Y214        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     0.774 r  reciprocal_mult/area_reg[23]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     0.800    reciprocal_mult/area_reg[23]_i_2_n_0
+    SLICE_X97Y215        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     0.815 r  reciprocal_mult/area_reg[31]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     0.841    reciprocal_mult/area_reg[31]_i_2_n_0
+    SLICE_X97Y216        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     0.856 r  reciprocal_mult/area_reg[39]_i_2/CO[7]
+                         net (fo=1, routed)           0.026     0.882    reciprocal_mult/area_reg[39]_i_2_n_0
+    SLICE_X97Y217        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[7])
+                                                      0.015     0.897 r  reciprocal_mult/area_reg[47]_i_6/CO[7]
+                         net (fo=1, routed)           0.026     0.923    reciprocal_mult/area_reg[47]_i_6_n_0
+    SLICE_X97Y218        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[0])
+                                                      0.066     0.989 r  reciprocal_mult/negative_reg_i_1/CO[0]
+                         net (fo=156, routed)         0.412     1.400    reciprocal_mult/CO[0]
+    SLICE_X100Y213       LUT2 (Prop_A6LUT_SLICEL_I1_O)
+                                                      0.050     1.450 r  reciprocal_mult/area[47]_i_13/O
+                         net (fo=1, routed)           0.009     1.459    reciprocal_mult/area[47]_i_13_n_0
+    SLICE_X100Y213       CARRY8 (Prop_CARRY8_SLICEL_S[0]_CO[5])
+                                                      0.199     1.658 r  reciprocal_mult/area_reg[47]_i_5/CO[5]
+                         net (fo=7, routed)           0.350     2.009    reciprocal_mult/area[47]_i_13_0[0]
+    SLICE_X94Y213        LUT3 (Prop_H5LUT_SLICEM_I2_O)
+                                                      0.096     2.105 r  reciprocal_mult/fault_o_i_16/O
+                         net (fo=1, routed)           0.180     2.285    reciprocal_mult/fault_o_i_16_n_0
+    SLICE_X94Y211        LUT6 (Prop_H6LUT_SLICEM_I5_O)
+                                                      0.053     2.338 r  reciprocal_mult/fault_o_i_7/O
+                         net (fo=3, routed)           0.177     2.515    reciprocal_mult_n_123
+    SLICE_X96Y215        LUT4 (Prop_D6LUT_SLICEM_I3_O)
+                                                      0.122     2.637 f  state[2]_i_4/O
+                         net (fo=1, routed)           0.146     2.783    state[2]_i_4_n_0
+    SLICE_X94Y216        LUT6 (Prop_D6LUT_SLICEM_I4_O)
+                                                      0.099     2.882 r  state[2]_i_2/O
+                         net (fo=1, routed)           0.072     2.954    state[2]_i_2_n_0
+    SLICE_X94Y216        FDRE                                         r  state_reg[2]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.021     3.354    clk
+    SLICE_X94Y216        FDRE                                         r  state_reg[2]/C
+                         clock pessimism              0.000     3.354    
+                         clock uncertainty           -0.035     3.319    
+    SLICE_X94Y216        FDRE (Setup_DFF_SLICEM_C_D)
+                                                      0.025     3.344    state_reg[2]
+  -------------------------------------------------------------------
+                         required time                          3.344    
+                         arrival time                          -2.954    
+  -------------------------------------------------------------------
+                         slack                                  0.390    
+
+Slack (MET) :             0.396ns  (required time - arrival time)
+  Source:                 raw_reg[3][10]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            lane_after_reg[1][12]/CE
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.832ns  (logic 0.813ns (28.705%)  route 2.019ns (71.295%))
+  Logic Levels:           15  (CARRY8=11 LUT3=1 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.008ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.021ns = ( 3.354 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.029ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.029     0.029    clk
+    SLICE_X100Y185       FDRE                                         r  raw_reg[3][10]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X100Y185       FDRE (Prop_FFF_SLICEL_C_Q)
+                                                      0.079     0.108 f  raw_reg[3][10]/Q
+                         net (fo=2, routed)           0.280     0.388    reciprocal_mult/raw_reg[3][10]
+    SLICE_X92Y185        LUT3 (Prop_D6LUT_SLICEL_I1_O)
+                                                      0.122     0.510 r  reciprocal_mult/samples_o[255]_i_202/O
+                         net (fo=1, routed)           0.009     0.519    reciprocal_mult/samples_o[255]_i_202_n_0
+    SLICE_X92Y185        CARRY8 (Prop_CARRY8_SLICEL_S[3]_CO[7])
+                                                      0.154     0.673 f  reciprocal_mult/samples_o_reg[255]_i_189/CO[7]
+                         net (fo=1, routed)           0.026     0.699    reciprocal_mult/samples_o_reg[255]_i_189_n_0
+    SLICE_X92Y186        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.714 f  reciprocal_mult/samples_o_reg[255]_i_180/CO[7]
+                         net (fo=1, routed)           0.026     0.740    reciprocal_mult/samples_o_reg[255]_i_180_n_0
+    SLICE_X92Y187        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.755 f  reciprocal_mult/samples_o_reg[255]_i_171/CO[7]
+                         net (fo=1, routed)           0.026     0.781    reciprocal_mult/samples_o_reg[255]_i_171_n_0
+    SLICE_X92Y188        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.796 f  reciprocal_mult/samples_o_reg[255]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     0.822    reciprocal_mult/samples_o_reg[255]_i_162_n_0
+    SLICE_X92Y189        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.837 f  reciprocal_mult/samples_o_reg[255]_i_153/CO[7]
+                         net (fo=1, routed)           0.026     0.863    reciprocal_mult/samples_o_reg[255]_i_153_n_0
+    SLICE_X92Y190        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.878 f  reciprocal_mult/samples_o_reg[255]_i_128/CO[7]
+                         net (fo=1, routed)           0.026     0.904    reciprocal_mult/samples_o_reg[255]_i_128_n_0
+    SLICE_X92Y191        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.919 f  reciprocal_mult/samples_o_reg[255]_i_102/CO[7]
+                         net (fo=1, routed)           0.026     0.945    reciprocal_mult/samples_o_reg[255]_i_102_n_0
+    SLICE_X92Y192        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.960 f  reciprocal_mult/samples_o_reg[255]_i_60/CO[7]
+                         net (fo=1, routed)           0.026     0.986    reciprocal_mult/samples_o_reg[255]_i_60_n_0
+    SLICE_X92Y193        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     1.001 f  reciprocal_mult/samples_o_reg[255]_i_25/CO[7]
+                         net (fo=1, routed)           0.026     1.027    reciprocal_mult/samples_o_reg[255]_i_25_n_0
+    SLICE_X92Y194        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     1.042 f  reciprocal_mult/samples_o_reg[255]_i_14/CO[7]
+                         net (fo=1, routed)           0.026     1.068    reciprocal_mult/samples_o_reg[255]_i_14_n_0
+    SLICE_X92Y195        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     1.145 f  reciprocal_mult/samples_o_reg[255]_i_9/CO[5]
+                         net (fo=1, routed)           0.386     1.531    reciprocal_mult/invalid_busy226_in
+    SLICE_X94Y213        LUT6 (Prop_C6LUT_SLICEM_I1_O)
+                                                      0.098     1.629 r  reciprocal_mult/samples_o[255]_i_3/O
+                         net (fo=11, routed)          0.217     1.846    reciprocal_mult/valid_reg[3]
+    SLICE_X94Y218        LUT4 (Prop_A6LUT_SLICEM_I3_O)
+                                                      0.038     1.884 f  reciprocal_mult/fault_o_i_2/O
+                         net (fo=7, routed)           0.099     1.983    invalid_busy
+    SLICE_X95Y218        LUT5 (Prop_C5LUT_SLICEL_I4_O)
+                                                      0.110     2.093 r  lane_after[0][13]_i_1/O
+                         net (fo=264, routed)         0.768     2.861    lane_after
+    SLICE_X96Y179        FDRE                                         r  lane_after_reg[1][12]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.021     3.354    clk
+    SLICE_X96Y179        FDRE                                         r  lane_after_reg[1][12]/C
+                         clock pessimism              0.000     3.354    
+                         clock uncertainty           -0.035     3.319    
+    SLICE_X96Y179        FDRE (Setup_EFF_SLICEM_C_CE)
+                                                     -0.061     3.258    lane_after_reg[1][12]
+  -------------------------------------------------------------------
+                         required time                          3.258    
+                         arrival time                          -2.861    
+  -------------------------------------------------------------------
+                         slack                                  0.396    
+
+Slack (MET) :             0.396ns  (required time - arrival time)
+  Source:                 raw_reg[3][10]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            lane_after_reg[1][13]/CE
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.832ns  (logic 0.813ns (28.705%)  route 2.019ns (71.295%))
+  Logic Levels:           15  (CARRY8=11 LUT3=1 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.008ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.021ns = ( 3.354 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.029ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.029     0.029    clk
+    SLICE_X100Y185       FDRE                                         r  raw_reg[3][10]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X100Y185       FDRE (Prop_FFF_SLICEL_C_Q)
+                                                      0.079     0.108 f  raw_reg[3][10]/Q
+                         net (fo=2, routed)           0.280     0.388    reciprocal_mult/raw_reg[3][10]
+    SLICE_X92Y185        LUT3 (Prop_D6LUT_SLICEL_I1_O)
+                                                      0.122     0.510 r  reciprocal_mult/samples_o[255]_i_202/O
+                         net (fo=1, routed)           0.009     0.519    reciprocal_mult/samples_o[255]_i_202_n_0
+    SLICE_X92Y185        CARRY8 (Prop_CARRY8_SLICEL_S[3]_CO[7])
+                                                      0.154     0.673 f  reciprocal_mult/samples_o_reg[255]_i_189/CO[7]
+                         net (fo=1, routed)           0.026     0.699    reciprocal_mult/samples_o_reg[255]_i_189_n_0
+    SLICE_X92Y186        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.714 f  reciprocal_mult/samples_o_reg[255]_i_180/CO[7]
+                         net (fo=1, routed)           0.026     0.740    reciprocal_mult/samples_o_reg[255]_i_180_n_0
+    SLICE_X92Y187        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.755 f  reciprocal_mult/samples_o_reg[255]_i_171/CO[7]
+                         net (fo=1, routed)           0.026     0.781    reciprocal_mult/samples_o_reg[255]_i_171_n_0
+    SLICE_X92Y188        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.796 f  reciprocal_mult/samples_o_reg[255]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     0.822    reciprocal_mult/samples_o_reg[255]_i_162_n_0
+    SLICE_X92Y189        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.837 f  reciprocal_mult/samples_o_reg[255]_i_153/CO[7]
+                         net (fo=1, routed)           0.026     0.863    reciprocal_mult/samples_o_reg[255]_i_153_n_0
+    SLICE_X92Y190        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.878 f  reciprocal_mult/samples_o_reg[255]_i_128/CO[7]
+                         net (fo=1, routed)           0.026     0.904    reciprocal_mult/samples_o_reg[255]_i_128_n_0
+    SLICE_X92Y191        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.919 f  reciprocal_mult/samples_o_reg[255]_i_102/CO[7]
+                         net (fo=1, routed)           0.026     0.945    reciprocal_mult/samples_o_reg[255]_i_102_n_0
+    SLICE_X92Y192        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.960 f  reciprocal_mult/samples_o_reg[255]_i_60/CO[7]
+                         net (fo=1, routed)           0.026     0.986    reciprocal_mult/samples_o_reg[255]_i_60_n_0
+    SLICE_X92Y193        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     1.001 f  reciprocal_mult/samples_o_reg[255]_i_25/CO[7]
+                         net (fo=1, routed)           0.026     1.027    reciprocal_mult/samples_o_reg[255]_i_25_n_0
+    SLICE_X92Y194        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     1.042 f  reciprocal_mult/samples_o_reg[255]_i_14/CO[7]
+                         net (fo=1, routed)           0.026     1.068    reciprocal_mult/samples_o_reg[255]_i_14_n_0
+    SLICE_X92Y195        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     1.145 f  reciprocal_mult/samples_o_reg[255]_i_9/CO[5]
+                         net (fo=1, routed)           0.386     1.531    reciprocal_mult/invalid_busy226_in
+    SLICE_X94Y213        LUT6 (Prop_C6LUT_SLICEM_I1_O)
+                                                      0.098     1.629 r  reciprocal_mult/samples_o[255]_i_3/O
+                         net (fo=11, routed)          0.217     1.846    reciprocal_mult/valid_reg[3]
+    SLICE_X94Y218        LUT4 (Prop_A6LUT_SLICEM_I3_O)
+                                                      0.038     1.884 f  reciprocal_mult/fault_o_i_2/O
+                         net (fo=7, routed)           0.099     1.983    invalid_busy
+    SLICE_X95Y218        LUT5 (Prop_C5LUT_SLICEL_I4_O)
+                                                      0.110     2.093 r  lane_after[0][13]_i_1/O
+                         net (fo=264, routed)         0.768     2.861    lane_after
+    SLICE_X96Y179        FDRE                                         r  lane_after_reg[1][13]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.021     3.354    clk
+    SLICE_X96Y179        FDRE                                         r  lane_after_reg[1][13]/C
+                         clock pessimism              0.000     3.354    
+                         clock uncertainty           -0.035     3.319    
+    SLICE_X96Y179        FDRE (Setup_FFF_SLICEM_C_CE)
+                                                     -0.061     3.258    lane_after_reg[1][13]
+  -------------------------------------------------------------------
+                         required time                          3.258    
+                         arrival time                          -2.861    
+  -------------------------------------------------------------------
+                         slack                                  0.396    
+
+Slack (MET) :             0.396ns  (required time - arrival time)
+  Source:                 raw_reg[3][10]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            lane_after_reg[1][14]/CE
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.832ns  (logic 0.813ns (28.705%)  route 2.019ns (71.295%))
+  Logic Levels:           15  (CARRY8=11 LUT3=1 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.008ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.021ns = ( 3.354 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.029ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.029     0.029    clk
+    SLICE_X100Y185       FDRE                                         r  raw_reg[3][10]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X100Y185       FDRE (Prop_FFF_SLICEL_C_Q)
+                                                      0.079     0.108 f  raw_reg[3][10]/Q
+                         net (fo=2, routed)           0.280     0.388    reciprocal_mult/raw_reg[3][10]
+    SLICE_X92Y185        LUT3 (Prop_D6LUT_SLICEL_I1_O)
+                                                      0.122     0.510 r  reciprocal_mult/samples_o[255]_i_202/O
+                         net (fo=1, routed)           0.009     0.519    reciprocal_mult/samples_o[255]_i_202_n_0
+    SLICE_X92Y185        CARRY8 (Prop_CARRY8_SLICEL_S[3]_CO[7])
+                                                      0.154     0.673 f  reciprocal_mult/samples_o_reg[255]_i_189/CO[7]
+                         net (fo=1, routed)           0.026     0.699    reciprocal_mult/samples_o_reg[255]_i_189_n_0
+    SLICE_X92Y186        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.714 f  reciprocal_mult/samples_o_reg[255]_i_180/CO[7]
+                         net (fo=1, routed)           0.026     0.740    reciprocal_mult/samples_o_reg[255]_i_180_n_0
+    SLICE_X92Y187        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.755 f  reciprocal_mult/samples_o_reg[255]_i_171/CO[7]
+                         net (fo=1, routed)           0.026     0.781    reciprocal_mult/samples_o_reg[255]_i_171_n_0
+    SLICE_X92Y188        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.796 f  reciprocal_mult/samples_o_reg[255]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     0.822    reciprocal_mult/samples_o_reg[255]_i_162_n_0
+    SLICE_X92Y189        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.837 f  reciprocal_mult/samples_o_reg[255]_i_153/CO[7]
+                         net (fo=1, routed)           0.026     0.863    reciprocal_mult/samples_o_reg[255]_i_153_n_0
+    SLICE_X92Y190        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.878 f  reciprocal_mult/samples_o_reg[255]_i_128/CO[7]
+                         net (fo=1, routed)           0.026     0.904    reciprocal_mult/samples_o_reg[255]_i_128_n_0
+    SLICE_X92Y191        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.919 f  reciprocal_mult/samples_o_reg[255]_i_102/CO[7]
+                         net (fo=1, routed)           0.026     0.945    reciprocal_mult/samples_o_reg[255]_i_102_n_0
+    SLICE_X92Y192        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.960 f  reciprocal_mult/samples_o_reg[255]_i_60/CO[7]
+                         net (fo=1, routed)           0.026     0.986    reciprocal_mult/samples_o_reg[255]_i_60_n_0
+    SLICE_X92Y193        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     1.001 f  reciprocal_mult/samples_o_reg[255]_i_25/CO[7]
+                         net (fo=1, routed)           0.026     1.027    reciprocal_mult/samples_o_reg[255]_i_25_n_0
+    SLICE_X92Y194        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     1.042 f  reciprocal_mult/samples_o_reg[255]_i_14/CO[7]
+                         net (fo=1, routed)           0.026     1.068    reciprocal_mult/samples_o_reg[255]_i_14_n_0
+    SLICE_X92Y195        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     1.145 f  reciprocal_mult/samples_o_reg[255]_i_9/CO[5]
+                         net (fo=1, routed)           0.386     1.531    reciprocal_mult/invalid_busy226_in
+    SLICE_X94Y213        LUT6 (Prop_C6LUT_SLICEM_I1_O)
+                                                      0.098     1.629 r  reciprocal_mult/samples_o[255]_i_3/O
+                         net (fo=11, routed)          0.217     1.846    reciprocal_mult/valid_reg[3]
+    SLICE_X94Y218        LUT4 (Prop_A6LUT_SLICEM_I3_O)
+                                                      0.038     1.884 f  reciprocal_mult/fault_o_i_2/O
+                         net (fo=7, routed)           0.099     1.983    invalid_busy
+    SLICE_X95Y218        LUT5 (Prop_C5LUT_SLICEL_I4_O)
+                                                      0.110     2.093 r  lane_after[0][13]_i_1/O
+                         net (fo=264, routed)         0.768     2.861    lane_after
+    SLICE_X96Y179        FDRE                                         r  lane_after_reg[1][14]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.021     3.354    clk
+    SLICE_X96Y179        FDRE                                         r  lane_after_reg[1][14]/C
+                         clock pessimism              0.000     3.354    
+                         clock uncertainty           -0.035     3.319    
+    SLICE_X96Y179        FDRE (Setup_GFF_SLICEM_C_CE)
+                                                     -0.061     3.258    lane_after_reg[1][14]
+  -------------------------------------------------------------------
+                         required time                          3.258    
+                         arrival time                          -2.861    
+  -------------------------------------------------------------------
+                         slack                                  0.396    
+
+Slack (MET) :             0.397ns  (required time - arrival time)
+  Source:                 raw_reg[3][10]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            lane_after_reg[9][4]/CE
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.831ns  (logic 0.813ns (28.714%)  route 2.018ns (71.286%))
+  Logic Levels:           15  (CARRY8=11 LUT3=1 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.009ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.020ns = ( 3.353 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.029ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.029     0.029    clk
+    SLICE_X100Y185       FDRE                                         r  raw_reg[3][10]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X100Y185       FDRE (Prop_FFF_SLICEL_C_Q)
+                                                      0.079     0.108 f  raw_reg[3][10]/Q
+                         net (fo=2, routed)           0.280     0.388    reciprocal_mult/raw_reg[3][10]
+    SLICE_X92Y185        LUT3 (Prop_D6LUT_SLICEL_I1_O)
+                                                      0.122     0.510 r  reciprocal_mult/samples_o[255]_i_202/O
+                         net (fo=1, routed)           0.009     0.519    reciprocal_mult/samples_o[255]_i_202_n_0
+    SLICE_X92Y185        CARRY8 (Prop_CARRY8_SLICEL_S[3]_CO[7])
+                                                      0.154     0.673 f  reciprocal_mult/samples_o_reg[255]_i_189/CO[7]
+                         net (fo=1, routed)           0.026     0.699    reciprocal_mult/samples_o_reg[255]_i_189_n_0
+    SLICE_X92Y186        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.714 f  reciprocal_mult/samples_o_reg[255]_i_180/CO[7]
+                         net (fo=1, routed)           0.026     0.740    reciprocal_mult/samples_o_reg[255]_i_180_n_0
+    SLICE_X92Y187        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.755 f  reciprocal_mult/samples_o_reg[255]_i_171/CO[7]
+                         net (fo=1, routed)           0.026     0.781    reciprocal_mult/samples_o_reg[255]_i_171_n_0
+    SLICE_X92Y188        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.796 f  reciprocal_mult/samples_o_reg[255]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     0.822    reciprocal_mult/samples_o_reg[255]_i_162_n_0
+    SLICE_X92Y189        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.837 f  reciprocal_mult/samples_o_reg[255]_i_153/CO[7]
+                         net (fo=1, routed)           0.026     0.863    reciprocal_mult/samples_o_reg[255]_i_153_n_0
+    SLICE_X92Y190        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.878 f  reciprocal_mult/samples_o_reg[255]_i_128/CO[7]
+                         net (fo=1, routed)           0.026     0.904    reciprocal_mult/samples_o_reg[255]_i_128_n_0
+    SLICE_X92Y191        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.919 f  reciprocal_mult/samples_o_reg[255]_i_102/CO[7]
+                         net (fo=1, routed)           0.026     0.945    reciprocal_mult/samples_o_reg[255]_i_102_n_0
+    SLICE_X92Y192        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.960 f  reciprocal_mult/samples_o_reg[255]_i_60/CO[7]
+                         net (fo=1, routed)           0.026     0.986    reciprocal_mult/samples_o_reg[255]_i_60_n_0
+    SLICE_X92Y193        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     1.001 f  reciprocal_mult/samples_o_reg[255]_i_25/CO[7]
+                         net (fo=1, routed)           0.026     1.027    reciprocal_mult/samples_o_reg[255]_i_25_n_0
+    SLICE_X92Y194        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     1.042 f  reciprocal_mult/samples_o_reg[255]_i_14/CO[7]
+                         net (fo=1, routed)           0.026     1.068    reciprocal_mult/samples_o_reg[255]_i_14_n_0
+    SLICE_X92Y195        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     1.145 f  reciprocal_mult/samples_o_reg[255]_i_9/CO[5]
+                         net (fo=1, routed)           0.386     1.531    reciprocal_mult/invalid_busy226_in
+    SLICE_X94Y213        LUT6 (Prop_C6LUT_SLICEM_I1_O)
+                                                      0.098     1.629 r  reciprocal_mult/samples_o[255]_i_3/O
+                         net (fo=11, routed)          0.217     1.846    reciprocal_mult/valid_reg[3]
+    SLICE_X94Y218        LUT4 (Prop_A6LUT_SLICEM_I3_O)
+                                                      0.038     1.884 f  reciprocal_mult/fault_o_i_2/O
+                         net (fo=7, routed)           0.099     1.983    invalid_busy
+    SLICE_X95Y218        LUT5 (Prop_C5LUT_SLICEL_I4_O)
+                                                      0.110     2.093 r  lane_after[0][13]_i_1/O
+                         net (fo=264, routed)         0.768     2.860    lane_after
+    SLICE_X88Y189        FDRE                                         r  lane_after_reg[9][4]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.020     3.353    clk
+    SLICE_X88Y189        FDRE                                         r  lane_after_reg[9][4]/C
+                         clock pessimism              0.000     3.353    
+                         clock uncertainty           -0.035     3.318    
+    SLICE_X88Y189        FDRE (Setup_EFF_SLICEL_C_CE)
+                                                     -0.060     3.258    lane_after_reg[9][4]
+  -------------------------------------------------------------------
+                         required time                          3.258    
+                         arrival time                          -2.860    
+  -------------------------------------------------------------------
+                         slack                                  0.397    
+
+Slack (MET) :             0.397ns  (required time - arrival time)
+  Source:                 raw_reg[3][10]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            lane_after_reg[9][5]/CE
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.831ns  (logic 0.813ns (28.714%)  route 2.018ns (71.286%))
+  Logic Levels:           15  (CARRY8=11 LUT3=1 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.009ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.020ns = ( 3.353 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.029ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.029     0.029    clk
+    SLICE_X100Y185       FDRE                                         r  raw_reg[3][10]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X100Y185       FDRE (Prop_FFF_SLICEL_C_Q)
+                                                      0.079     0.108 f  raw_reg[3][10]/Q
+                         net (fo=2, routed)           0.280     0.388    reciprocal_mult/raw_reg[3][10]
+    SLICE_X92Y185        LUT3 (Prop_D6LUT_SLICEL_I1_O)
+                                                      0.122     0.510 r  reciprocal_mult/samples_o[255]_i_202/O
+                         net (fo=1, routed)           0.009     0.519    reciprocal_mult/samples_o[255]_i_202_n_0
+    SLICE_X92Y185        CARRY8 (Prop_CARRY8_SLICEL_S[3]_CO[7])
+                                                      0.154     0.673 f  reciprocal_mult/samples_o_reg[255]_i_189/CO[7]
+                         net (fo=1, routed)           0.026     0.699    reciprocal_mult/samples_o_reg[255]_i_189_n_0
+    SLICE_X92Y186        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.714 f  reciprocal_mult/samples_o_reg[255]_i_180/CO[7]
+                         net (fo=1, routed)           0.026     0.740    reciprocal_mult/samples_o_reg[255]_i_180_n_0
+    SLICE_X92Y187        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.755 f  reciprocal_mult/samples_o_reg[255]_i_171/CO[7]
+                         net (fo=1, routed)           0.026     0.781    reciprocal_mult/samples_o_reg[255]_i_171_n_0
+    SLICE_X92Y188        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.796 f  reciprocal_mult/samples_o_reg[255]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     0.822    reciprocal_mult/samples_o_reg[255]_i_162_n_0
+    SLICE_X92Y189        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.837 f  reciprocal_mult/samples_o_reg[255]_i_153/CO[7]
+                         net (fo=1, routed)           0.026     0.863    reciprocal_mult/samples_o_reg[255]_i_153_n_0
+    SLICE_X92Y190        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.878 f  reciprocal_mult/samples_o_reg[255]_i_128/CO[7]
+                         net (fo=1, routed)           0.026     0.904    reciprocal_mult/samples_o_reg[255]_i_128_n_0
+    SLICE_X92Y191        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.919 f  reciprocal_mult/samples_o_reg[255]_i_102/CO[7]
+                         net (fo=1, routed)           0.026     0.945    reciprocal_mult/samples_o_reg[255]_i_102_n_0
+    SLICE_X92Y192        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.960 f  reciprocal_mult/samples_o_reg[255]_i_60/CO[7]
+                         net (fo=1, routed)           0.026     0.986    reciprocal_mult/samples_o_reg[255]_i_60_n_0
+    SLICE_X92Y193        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     1.001 f  reciprocal_mult/samples_o_reg[255]_i_25/CO[7]
+                         net (fo=1, routed)           0.026     1.027    reciprocal_mult/samples_o_reg[255]_i_25_n_0
+    SLICE_X92Y194        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     1.042 f  reciprocal_mult/samples_o_reg[255]_i_14/CO[7]
+                         net (fo=1, routed)           0.026     1.068    reciprocal_mult/samples_o_reg[255]_i_14_n_0
+    SLICE_X92Y195        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     1.145 f  reciprocal_mult/samples_o_reg[255]_i_9/CO[5]
+                         net (fo=1, routed)           0.386     1.531    reciprocal_mult/invalid_busy226_in
+    SLICE_X94Y213        LUT6 (Prop_C6LUT_SLICEM_I1_O)
+                                                      0.098     1.629 r  reciprocal_mult/samples_o[255]_i_3/O
+                         net (fo=11, routed)          0.217     1.846    reciprocal_mult/valid_reg[3]
+    SLICE_X94Y218        LUT4 (Prop_A6LUT_SLICEM_I3_O)
+                                                      0.038     1.884 f  reciprocal_mult/fault_o_i_2/O
+                         net (fo=7, routed)           0.099     1.983    invalid_busy
+    SLICE_X95Y218        LUT5 (Prop_C5LUT_SLICEL_I4_O)
+                                                      0.110     2.093 r  lane_after[0][13]_i_1/O
+                         net (fo=264, routed)         0.768     2.860    lane_after
+    SLICE_X88Y189        FDRE                                         r  lane_after_reg[9][5]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.020     3.353    clk
+    SLICE_X88Y189        FDRE                                         r  lane_after_reg[9][5]/C
+                         clock pessimism              0.000     3.353    
+                         clock uncertainty           -0.035     3.318    
+    SLICE_X88Y189        FDRE (Setup_FFF_SLICEL_C_CE)
+                                                     -0.060     3.258    lane_after_reg[9][5]
+  -------------------------------------------------------------------
+                         required time                          3.258    
+                         arrival time                          -2.860    
+  -------------------------------------------------------------------
+                         slack                                  0.397    
+
+Slack (MET) :             0.397ns  (required time - arrival time)
+  Source:                 raw_reg[3][10]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            lane_after_reg[9][6]/CE
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.831ns  (logic 0.813ns (28.714%)  route 2.018ns (71.286%))
+  Logic Levels:           15  (CARRY8=11 LUT3=1 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.009ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.020ns = ( 3.353 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.029ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.029     0.029    clk
+    SLICE_X100Y185       FDRE                                         r  raw_reg[3][10]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X100Y185       FDRE (Prop_FFF_SLICEL_C_Q)
+                                                      0.079     0.108 f  raw_reg[3][10]/Q
+                         net (fo=2, routed)           0.280     0.388    reciprocal_mult/raw_reg[3][10]
+    SLICE_X92Y185        LUT3 (Prop_D6LUT_SLICEL_I1_O)
+                                                      0.122     0.510 r  reciprocal_mult/samples_o[255]_i_202/O
+                         net (fo=1, routed)           0.009     0.519    reciprocal_mult/samples_o[255]_i_202_n_0
+    SLICE_X92Y185        CARRY8 (Prop_CARRY8_SLICEL_S[3]_CO[7])
+                                                      0.154     0.673 f  reciprocal_mult/samples_o_reg[255]_i_189/CO[7]
+                         net (fo=1, routed)           0.026     0.699    reciprocal_mult/samples_o_reg[255]_i_189_n_0
+    SLICE_X92Y186        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.714 f  reciprocal_mult/samples_o_reg[255]_i_180/CO[7]
+                         net (fo=1, routed)           0.026     0.740    reciprocal_mult/samples_o_reg[255]_i_180_n_0
+    SLICE_X92Y187        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.755 f  reciprocal_mult/samples_o_reg[255]_i_171/CO[7]
+                         net (fo=1, routed)           0.026     0.781    reciprocal_mult/samples_o_reg[255]_i_171_n_0
+    SLICE_X92Y188        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.796 f  reciprocal_mult/samples_o_reg[255]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     0.822    reciprocal_mult/samples_o_reg[255]_i_162_n_0
+    SLICE_X92Y189        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.837 f  reciprocal_mult/samples_o_reg[255]_i_153/CO[7]
+                         net (fo=1, routed)           0.026     0.863    reciprocal_mult/samples_o_reg[255]_i_153_n_0
+    SLICE_X92Y190        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.878 f  reciprocal_mult/samples_o_reg[255]_i_128/CO[7]
+                         net (fo=1, routed)           0.026     0.904    reciprocal_mult/samples_o_reg[255]_i_128_n_0
+    SLICE_X92Y191        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.919 f  reciprocal_mult/samples_o_reg[255]_i_102/CO[7]
+                         net (fo=1, routed)           0.026     0.945    reciprocal_mult/samples_o_reg[255]_i_102_n_0
+    SLICE_X92Y192        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.960 f  reciprocal_mult/samples_o_reg[255]_i_60/CO[7]
+                         net (fo=1, routed)           0.026     0.986    reciprocal_mult/samples_o_reg[255]_i_60_n_0
+    SLICE_X92Y193        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     1.001 f  reciprocal_mult/samples_o_reg[255]_i_25/CO[7]
+                         net (fo=1, routed)           0.026     1.027    reciprocal_mult/samples_o_reg[255]_i_25_n_0
+    SLICE_X92Y194        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     1.042 f  reciprocal_mult/samples_o_reg[255]_i_14/CO[7]
+                         net (fo=1, routed)           0.026     1.068    reciprocal_mult/samples_o_reg[255]_i_14_n_0
+    SLICE_X92Y195        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     1.145 f  reciprocal_mult/samples_o_reg[255]_i_9/CO[5]
+                         net (fo=1, routed)           0.386     1.531    reciprocal_mult/invalid_busy226_in
+    SLICE_X94Y213        LUT6 (Prop_C6LUT_SLICEM_I1_O)
+                                                      0.098     1.629 r  reciprocal_mult/samples_o[255]_i_3/O
+                         net (fo=11, routed)          0.217     1.846    reciprocal_mult/valid_reg[3]
+    SLICE_X94Y218        LUT4 (Prop_A6LUT_SLICEM_I3_O)
+                                                      0.038     1.884 f  reciprocal_mult/fault_o_i_2/O
+                         net (fo=7, routed)           0.099     1.983    invalid_busy
+    SLICE_X95Y218        LUT5 (Prop_C5LUT_SLICEL_I4_O)
+                                                      0.110     2.093 r  lane_after[0][13]_i_1/O
+                         net (fo=264, routed)         0.768     2.860    lane_after
+    SLICE_X88Y189        FDRE                                         r  lane_after_reg[9][6]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.020     3.353    clk
+    SLICE_X88Y189        FDRE                                         r  lane_after_reg[9][6]/C
+                         clock pessimism              0.000     3.353    
+                         clock uncertainty           -0.035     3.318    
+    SLICE_X88Y189        FDRE (Setup_GFF_SLICEL_C_CE)
+                                                     -0.060     3.258    lane_after_reg[9][6]
+  -------------------------------------------------------------------
+                         required time                          3.258    
+                         arrival time                          -2.860    
+  -------------------------------------------------------------------
+                         slack                                  0.397    
+
+Slack (MET) :             0.397ns  (required time - arrival time)
+  Source:                 raw_reg[3][10]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            lane_after_reg[9][7]/CE
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.831ns  (logic 0.813ns (28.714%)  route 2.018ns (71.286%))
+  Logic Levels:           15  (CARRY8=11 LUT3=1 LUT4=1 LUT5=1 LUT6=1)
+  Clock Path Skew:        -0.009ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.020ns = ( 3.353 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.029ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.029     0.029    clk
+    SLICE_X100Y185       FDRE                                         r  raw_reg[3][10]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X100Y185       FDRE (Prop_FFF_SLICEL_C_Q)
+                                                      0.079     0.108 f  raw_reg[3][10]/Q
+                         net (fo=2, routed)           0.280     0.388    reciprocal_mult/raw_reg[3][10]
+    SLICE_X92Y185        LUT3 (Prop_D6LUT_SLICEL_I1_O)
+                                                      0.122     0.510 r  reciprocal_mult/samples_o[255]_i_202/O
+                         net (fo=1, routed)           0.009     0.519    reciprocal_mult/samples_o[255]_i_202_n_0
+    SLICE_X92Y185        CARRY8 (Prop_CARRY8_SLICEL_S[3]_CO[7])
+                                                      0.154     0.673 f  reciprocal_mult/samples_o_reg[255]_i_189/CO[7]
+                         net (fo=1, routed)           0.026     0.699    reciprocal_mult/samples_o_reg[255]_i_189_n_0
+    SLICE_X92Y186        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.714 f  reciprocal_mult/samples_o_reg[255]_i_180/CO[7]
+                         net (fo=1, routed)           0.026     0.740    reciprocal_mult/samples_o_reg[255]_i_180_n_0
+    SLICE_X92Y187        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.755 f  reciprocal_mult/samples_o_reg[255]_i_171/CO[7]
+                         net (fo=1, routed)           0.026     0.781    reciprocal_mult/samples_o_reg[255]_i_171_n_0
+    SLICE_X92Y188        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.796 f  reciprocal_mult/samples_o_reg[255]_i_162/CO[7]
+                         net (fo=1, routed)           0.026     0.822    reciprocal_mult/samples_o_reg[255]_i_162_n_0
+    SLICE_X92Y189        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.837 f  reciprocal_mult/samples_o_reg[255]_i_153/CO[7]
+                         net (fo=1, routed)           0.026     0.863    reciprocal_mult/samples_o_reg[255]_i_153_n_0
+    SLICE_X92Y190        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.878 f  reciprocal_mult/samples_o_reg[255]_i_128/CO[7]
+                         net (fo=1, routed)           0.026     0.904    reciprocal_mult/samples_o_reg[255]_i_128_n_0
+    SLICE_X92Y191        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.919 f  reciprocal_mult/samples_o_reg[255]_i_102/CO[7]
+                         net (fo=1, routed)           0.026     0.945    reciprocal_mult/samples_o_reg[255]_i_102_n_0
+    SLICE_X92Y192        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     0.960 f  reciprocal_mult/samples_o_reg[255]_i_60/CO[7]
+                         net (fo=1, routed)           0.026     0.986    reciprocal_mult/samples_o_reg[255]_i_60_n_0
+    SLICE_X92Y193        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     1.001 f  reciprocal_mult/samples_o_reg[255]_i_25/CO[7]
+                         net (fo=1, routed)           0.026     1.027    reciprocal_mult/samples_o_reg[255]_i_25_n_0
+    SLICE_X92Y194        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     1.042 f  reciprocal_mult/samples_o_reg[255]_i_14/CO[7]
+                         net (fo=1, routed)           0.026     1.068    reciprocal_mult/samples_o_reg[255]_i_14_n_0
+    SLICE_X92Y195        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[5])
+                                                      0.077     1.145 f  reciprocal_mult/samples_o_reg[255]_i_9/CO[5]
+                         net (fo=1, routed)           0.386     1.531    reciprocal_mult/invalid_busy226_in
+    SLICE_X94Y213        LUT6 (Prop_C6LUT_SLICEM_I1_O)
+                                                      0.098     1.629 r  reciprocal_mult/samples_o[255]_i_3/O
+                         net (fo=11, routed)          0.217     1.846    reciprocal_mult/valid_reg[3]
+    SLICE_X94Y218        LUT4 (Prop_A6LUT_SLICEM_I3_O)
+                                                      0.038     1.884 f  reciprocal_mult/fault_o_i_2/O
+                         net (fo=7, routed)           0.099     1.983    invalid_busy
+    SLICE_X95Y218        LUT5 (Prop_C5LUT_SLICEL_I4_O)
+                                                      0.110     2.093 r  lane_after[0][13]_i_1/O
+                         net (fo=264, routed)         0.768     2.860    lane_after
+    SLICE_X88Y189        FDRE                                         r  lane_after_reg[9][7]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.020     3.353    clk
+    SLICE_X88Y189        FDRE                                         r  lane_after_reg[9][7]/C
+                         clock pessimism              0.000     3.353    
+                         clock uncertainty           -0.035     3.318    
+    SLICE_X88Y189        FDRE (Setup_HFF_SLICEL_C_CE)
+                                                     -0.060     3.258    lane_after_reg[9][7]
+  -------------------------------------------------------------------
+                         required time                          3.258    
+                         arrival time                          -2.860    
+  -------------------------------------------------------------------
+                         slack                                  0.397    
+
+Slack (MET) :             0.398ns  (required time - arrival time)
+  Source:                 remaining_reg[4]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            samples_o_reg[94]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.915ns  (logic 0.802ns (27.510%)  route 2.113ns (72.490%))
+  Logic Levels:           9  (CARRY8=2 LUT4=1 LUT5=1 LUT6=4 MUXF7=1)
+  Clock Path Skew:        -0.009ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.021ns = ( 3.354 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.030ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.030     0.030    clk
+    SLICE_X97Y214        FDRE                                         r  remaining_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X97Y214        FDRE (Prop_EFF2_SLICEM_C_Q)
+                                                      0.079     0.109 r  remaining_reg[4]/Q
+                         net (fo=106, routed)         0.695     0.804    remaining_reg_n_0_[4]
+    SLICE_X90Y193        LUT4 (Prop_C6LUT_SLICEM_I2_O)
+                                                      0.088     0.892 r  samples_o[95]_i_39/O
+                         net (fo=1, routed)           0.021     0.913    samples_o[95]_i_39_n_0
+    SLICE_X90Y193        CARRY8 (Prop_CARRY8_SLICEM_S[2]_CO[7])
+                                                      0.161     1.074 f  samples_o_reg[95]_i_13/CO[7]
+                         net (fo=1, routed)           0.026     1.100    samples_o_reg[95]_i_13_n_0
+    SLICE_X90Y194        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[0])
+                                                      0.052     1.152 f  samples_o_reg[95]_i_8/CO[0]
+                         net (fo=14, routed)          0.450     1.601    samples_o_reg[95]_i_8_n_7
+    SLICE_X94Y189        LUT6 (Prop_D6LUT_SLICEM_I5_O)
+                                                      0.051     1.652 r  samples_o[83]_i_5/O
+                         net (fo=1, routed)           0.025     1.677    samples_o[83]_i_5_n_0
+    SLICE_X94Y189        MUXF7 (Prop_F7MUX_CD_SLICEM_I0_O)
+                                                      0.069     1.746 r  samples_o_reg[83]_i_3/O
+                         net (fo=4, routed)           0.254     2.000    samples_o_reg[83]_i_3_n_0
+    SLICE_X93Y191        LUT6 (Prop_H6LUT_SLICEM_I0_O)
+                                                      0.090     2.090 f  samples_o[85]_i_2/O
+                         net (fo=6, routed)           0.237     2.327    samples_o[85]_i_2_n_0
+    SLICE_X91Y191        LUT6 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.124     2.451 f  samples_o[90]_i_3/O
+                         net (fo=5, routed)           0.257     2.709    samples_o[90]_i_3_n_0
+    SLICE_X89Y190        LUT6 (Prop_C6LUT_SLICEM_I2_O)
+                                                      0.051     2.760 r  samples_o[95]_i_4/O
+                         net (fo=2, routed)           0.090     2.849    samples_o[95]_i_4_n_0
+    SLICE_X89Y191        LUT5 (Prop_B6LUT_SLICEM_I4_O)
+                                                      0.037     2.886 r  samples_o[94]_i_1/O
+                         net (fo=1, routed)           0.059     2.945    samples_o[94]_i_1_n_0
+    SLICE_X89Y191        FDRE                                         r  samples_o_reg[94]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.021     3.354    clk
+    SLICE_X89Y191        FDRE                                         r  samples_o_reg[94]/C
+                         clock pessimism              0.000     3.354    
+                         clock uncertainty           -0.035     3.319    
+    SLICE_X89Y191        FDRE (Setup_BFF_SLICEM_C_D)
+                                                      0.025     3.344    samples_o_reg[94]
+  -------------------------------------------------------------------
+                         required time                          3.344    
+                         arrival time                          -2.945    
+  -------------------------------------------------------------------
+                         slack                                  0.398    
+
+Slack (MET) :             0.399ns  (required time - arrival time)
+  Source:                 remaining_reg[4]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            samples_o_reg[91]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.915ns  (logic 0.840ns (28.820%)  route 2.075ns (71.181%))
+  Logic Levels:           9  (CARRY8=2 LUT2=1 LUT4=1 LUT6=4 MUXF7=1)
+  Clock Path Skew:        -0.009ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.021ns = ( 3.354 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.030ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.030     0.030    clk
+    SLICE_X97Y214        FDRE                                         r  remaining_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X97Y214        FDRE (Prop_EFF2_SLICEM_C_Q)
+                                                      0.079     0.109 r  remaining_reg[4]/Q
+                         net (fo=106, routed)         0.695     0.804    remaining_reg_n_0_[4]
+    SLICE_X90Y193        LUT4 (Prop_C6LUT_SLICEM_I2_O)
+                                                      0.088     0.892 r  samples_o[95]_i_39/O
+                         net (fo=1, routed)           0.021     0.913    samples_o[95]_i_39_n_0
+    SLICE_X90Y193        CARRY8 (Prop_CARRY8_SLICEM_S[2]_CO[7])
+                                                      0.161     1.074 r  samples_o_reg[95]_i_13/CO[7]
+                         net (fo=1, routed)           0.026     1.100    samples_o_reg[95]_i_13_n_0
+    SLICE_X90Y194        CARRY8 (Prop_CARRY8_SLICEM_CI_CO[0])
+                                                      0.052     1.152 r  samples_o_reg[95]_i_8/CO[0]
+                         net (fo=14, routed)          0.450     1.601    samples_o_reg[95]_i_8_n_7
+    SLICE_X94Y189        LUT6 (Prop_D6LUT_SLICEM_I5_O)
+                                                      0.051     1.652 f  samples_o[83]_i_5/O
+                         net (fo=1, routed)           0.025     1.677    samples_o[83]_i_5_n_0
+    SLICE_X94Y189        MUXF7 (Prop_F7MUX_CD_SLICEM_I0_O)
+                                                      0.069     1.746 f  samples_o_reg[83]_i_3/O
+                         net (fo=4, routed)           0.254     2.000    samples_o_reg[83]_i_3_n_0
+    SLICE_X93Y191        LUT6 (Prop_H6LUT_SLICEM_I0_O)
+                                                      0.090     2.090 r  samples_o[85]_i_2/O
+                         net (fo=6, routed)           0.237     2.327    samples_o[85]_i_2_n_0
+    SLICE_X91Y191        LUT6 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.124     2.451 r  samples_o[90]_i_3/O
+                         net (fo=5, routed)           0.211     2.663    samples_o[90]_i_3_n_0
+    SLICE_X89Y190        LUT2 (Prop_E6LUT_SLICEM_I1_O)
+                                                      0.037     2.700 r  samples_o[91]_i_3/O
+                         net (fo=1, routed)           0.097     2.797    samples_o[91]_i_3_n_0
+    SLICE_X89Y188        LUT6 (Prop_B6LUT_SLICEM_I3_O)
+                                                      0.089     2.886 r  samples_o[91]_i_1/O
+                         net (fo=1, routed)           0.059     2.945    samples_o[91]_i_1_n_0
+    SLICE_X89Y188        FDRE                                         r  samples_o_reg[91]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.021     3.354    clk
+    SLICE_X89Y188        FDRE                                         r  samples_o_reg[91]/C
+                         clock pessimism              0.000     3.354    
+                         clock uncertainty           -0.035     3.319    
+    SLICE_X89Y188        FDRE (Setup_BFF_SLICEM_C_D)
+                                                      0.025     3.344    samples_o_reg[91]
+  -------------------------------------------------------------------
+                         required time                          3.344    
+                         arrival time                          -2.945    
+  -------------------------------------------------------------------
+                         slack                                  0.399    
+
+Slack (MET) :             0.400ns  (required time - arrival time)
+  Source:                 remainder_reg[37]/C
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Destination:            area_reg[37]/D
+                            (rising edge-triggered cell FDRE clocked by fabric  {rise@0.000ns fall@1.666ns period=3.333ns})
+  Path Group:             fabric
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            3.333ns  (fabric rise@3.333ns - fabric rise@0.000ns)
+  Data Path Delay:        2.914ns  (logic 1.330ns (45.643%)  route 1.584ns (54.357%))
+  Logic Levels:           14  (CARRY8=9 LUT2=2 LUT4=2 LUT5=1)
+  Clock Path Skew:        -0.009ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.021ns = ( 3.354 - 3.333 ) 
+    Source Clock Delay      (SCD):    0.030ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock fabric rise edge)     0.000     0.000 r  
+                                                      0.000     0.000 r  clk (IN)
+                         net (fo=2821, unset)         0.030     0.030    clk
+    SLICE_X97Y233        FDRE                                         r  remainder_reg[37]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X97Y233        FDRE (Prop_GFF_SLICEM_C_Q)
+                                                      0.078     0.108 f  remainder_reg[37]/Q
+                         net (fo=9, routed)           0.241     0.349    remainder_reg_n_0_[37]
+    SLICE_X101Y232       LUT2 (Prop_C6LUT_SLICEL_I0_O)
+                                                      0.096     0.445 r  samples_o[243]_i_38/O
+                         net (fo=1, routed)           0.010     0.455    samples_o[243]_i_38_n_0
+    SLICE_X101Y232       CARRY8 (Prop_CARRY8_SLICEL_S[2]_CO[7])
+                                                      0.155     0.610 f  samples_o_reg[243]_i_7/CO[7]
+                         net (fo=1, routed)           0.026     0.636    samples_o_reg[243]_i_7_n_0
+    SLICE_X101Y233       CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.022     0.658 f  samples_o_reg[243]_i_4/CO[7]
+                         net (fo=73, routed)          0.475     1.132    extra1
+    SLICE_X98Y213        LUT2 (Prop_A6LUT_SLICEL_I1_O)
+                                                      0.035     1.167 r  remaining[15]_i_13/O
+                         net (fo=1, routed)           0.009     1.176    remaining[15]_i_13_n_0
+    SLICE_X98Y213        CARRY8 (Prop_CARRY8_SLICEL_S[0]_CO[7])
+                                                      0.190     1.366 r  remaining_reg[15]_i_11/CO[7]
+                         net (fo=1, routed)           0.026     1.392    remaining_reg[15]_i_11_n_0
+    SLICE_X98Y214        CARRY8 (Prop_CARRY8_SLICEL_CI_O[3])
+                                                      0.082     1.474 f  remaining_reg[23]_i_11/O[3]
+                         net (fo=3, routed)           0.283     1.757    time_word_area[14]
+    SLICE_X96Y213        LUT5 (Prop_F6LUT_SLICEM_I1_O)
+                                                      0.051     1.808 r  area[23]_i_31/O
+                         net (fo=1, routed)           0.022     1.830    area[23]_i_31_n_0
+    SLICE_X96Y213        CARRY8 (Prop_CARRY8_SLICEM_S[5]_CO[7])
+                                                      0.159     1.989 r  area_reg[23]_i_27/CO[7]
+                         net (fo=1, routed)           0.026     2.015    area_reg[23]_i_27_n_0
+    SLICE_X96Y214        CARRY8 (Prop_CARRY8_SLICEM_CI_O[0])
+                                                      0.056     2.071 r  area_reg[23]_i_24/O[0]
+                         net (fo=1, routed)           0.221     2.292    emitted_signed0[17]
+    SLICE_X95Y213        LUT4 (Prop_B6LUT_SLICEL_I3_O)
+                                                      0.051     2.343 r  area[23]_i_22/O
+                         net (fo=1, routed)           0.009     2.352    area[23]_i_22_n_0
+    SLICE_X95Y213        CARRY8 (Prop_CARRY8_SLICEL_S[1]_CO[7])
+                                                      0.186     2.538 r  area_reg[23]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.564    area_reg[23]_i_3_n_0
+    SLICE_X95Y214        CARRY8 (Prop_CARRY8_SLICEL_CI_CO[7])
+                                                      0.015     2.579 r  area_reg[31]_i_3/CO[7]
+                         net (fo=1, routed)           0.026     2.605    area_reg[31]_i_3_n_0
+    SLICE_X95Y215        CARRY8 (Prop_CARRY8_SLICEL_CI_O[5])
+                                                      0.116     2.721 r  area_reg[39]_i_3/O[5]
+                         net (fo=1, routed)           0.132     2.853    area_reg[39]_i_3_n_10
+    SLICE_X96Y215        LUT4 (Prop_A6LUT_SLICEM_I2_O)
+                                                      0.038     2.891 r  area[37]_i_1/O
+                         net (fo=1, routed)           0.053     2.944    area[37]_i_1_n_0
+    SLICE_X96Y215        FDRE                                         r  area_reg[37]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock fabric rise edge)     3.333     3.333 r  
+                                                      0.000     3.333 r  clk (IN)
+                         net (fo=2821, unset)         0.021     3.354    clk
+    SLICE_X96Y215        FDRE                                         r  area_reg[37]/C
+                         clock pessimism              0.000     3.354    
+                         clock uncertainty           -0.035     3.319    
+    SLICE_X96Y215        FDRE (Setup_AFF_SLICEM_C_D)
+                                                      0.025     3.344    area_reg[37]
+  -------------------------------------------------------------------
+                         required time                          3.344    
+                         arrival time                          -2.944    
+  -------------------------------------------------------------------
+                         slack                                  0.400    
+
+
+
+

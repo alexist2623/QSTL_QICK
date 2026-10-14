@@ -1,0 +1,13 @@
+--- successful_v2/proj.tcl
++++ a3full6/proj.tcl
+@@ -2,8 +2,8 @@
+ set script_dir [file dirname [file normalize [info script]]]
+ set repo_dir [file normalize [file join $script_dir .. .. .. ..]]
+ set workspace_dir [file dirname $repo_dir]
+-set output_dir [file normalize [file join $workspace_dir Vivado_Output sq_pulse]]
+-set project_name qstl_awg_v2
++set output_dir [file normalize [file join $workspace_dir Vivado_Output awg3]]
++set project_name qstl_awg_v3
+ 
+ file mkdir $output_dir
+ 

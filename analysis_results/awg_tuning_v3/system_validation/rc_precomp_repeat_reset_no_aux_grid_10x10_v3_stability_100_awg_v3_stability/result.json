@@ -1,0 +1,130 @@
+{
+  "points": 100,
+  "repetitions": 2,
+  "commands": 1206,
+  "cycle_offset": 162,
+  "command_value_mismatches": 0,
+  "command_timing_mismatches": 0,
+  "voltage_grid_policy": "constant_quantized_increment",
+  "compiled_target_error_codes": 16,
+  "compiled_step_error_units": 0,
+  "awg_ip_version": 3,
+  "hardware_area_results": [
+    "AREA_V3_RESULT ch=0 shots=200 samples=4366128 reset_checks=200 residual=0",
+    "AREA_V3_RESULT ch=1 shots=200 samples=4366128 reset_checks=200 residual=0"
+  ],
+  "v2_fixture": "stability",
+  "raw_awg_results": [
+    "RAW_AWG_V2_RESULT ch=0 samples=4366208 ramps=0 sets=401",
+    "RAW_AWG_V2_RESULT ch=1 samples=4366208 ramps=0 sets=401"
+  ],
+  "dac_current_ma": [
+    20.0,
+    10.0,
+    20.0
+  ],
+  "cross_capacitance": [
+    [
+      1.0,
+      0.23
+    ],
+    [
+      -0.17,
+      1.0
+    ]
+  ],
+  "dc_mode": "fixed_time",
+  "dc_voltage_mv": 20.0,
+  "dc_readout_policy": null,
+  "ddr_capture_results": [],
+  "sweep_case": null,
+  "run_tag": "v3_stability_100",
+  "rf_length_boundary": null,
+  "rc_range_corners": [
+    {
+      "point_index": 0,
+      "gen_ch": 1,
+      "minimum_normalized": -0.014562651062097929,
+      "maximum_normalized": 0.014466622416179529
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 3,
+      "minimum_normalized": -0.04388820317586611,
+      "maximum_normalized": 0.04418035812404158
+    },
+    {
+      "point_index": 9,
+      "gen_ch": 1,
+      "minimum_normalized": -0.023012309773764842,
+      "maximum_normalized": 0.02316530456556704
+    },
+    {
+      "point_index": 9,
+      "gen_ch": 3,
+      "minimum_normalized": -0.030703428395591623,
+      "maximum_normalized": 0.030907692718689237
+    },
+    {
+      "point_index": 90,
+      "gen_ch": 1,
+      "minimum_normalized": -0.023411094665666154,
+      "maximum_normalized": 0.02325647226969585
+    },
+    {
+      "point_index": 90,
+      "gen_ch": 3,
+      "minimum_normalized": -0.031153482818788356,
+      "maximum_normalized": 0.030947590891522634
+    },
+    {
+      "point_index": 99,
+      "gen_ch": 1,
+      "minimum_normalized": -0.01422245992024852,
+      "maximum_normalized": 0.014316860961998811
+    },
+    {
+      "point_index": 99,
+      "gen_ch": 3,
+      "minimum_normalized": -0.0444261482241407,
+      "maximum_normalized": 0.04413236567179712
+    }
+  ],
+  "square_amplitude_sweep": false,
+  "rc_reset_each_repeat": true,
+  "no_aux": true,
+  "grid_count": 10,
+  "waveform_capture_cycles": 12000,
+  "reset_results": [],
+  "cycles": 272726,
+  "analog_results": [],
+  "exact_awg_results": [
+    "EXACT_AWG_RESULT ch=0 samples=4365728",
+    "EXACT_AWG_RESULT ch=1 samples=4365728"
+  ],
+  "retained_cells": [
+    "axis_awg_tuning_v1_4",
+    "axis_awg_tuning_v1_5",
+    "axis_register_slice_10",
+    "axis_register_slice_12",
+    "axis_register_slice_21",
+    "axis_register_slice_23",
+    "axis_register_slice_8",
+    "axis_register_slice_9",
+    "axis_set_reg_0",
+    "axis_square_pulse_v1_0",
+    "axis_tmux_v1_0",
+    "axis_tmux_v1_1",
+    "axis_tmux_v1_3",
+    "axis_tproc64x32_x8_0",
+    "qick_vec2bit_0",
+    "xlconstant_0",
+    "xlconstant_1",
+    "xlconstant_2",
+    "xlconstant_3",
+    "xlconstant_4"
+  ],
+  "pmem_words": 125,
+  "dmem_words": 0,
+  "validation_status": "passed"
+}

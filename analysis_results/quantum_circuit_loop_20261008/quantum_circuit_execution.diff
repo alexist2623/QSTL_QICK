@@ -1,0 +1,188 @@
+--- before/quantum_circuit_execution.py
++++ after/quantum_circuit_execution.py
+@@ -10,6 +10,10 @@
+ from math import ceil, isclose, isfinite
+ from collections.abc import Mapping
+ from copy import deepcopy
++from hashlib import sha256
++import inspect
++import json
++import uuid
+ 
+ try:
+     from .quantum_circuit_model import validate_document, build_timeline
+@@ -25,6 +29,10 @@
+     from qick_fine_tune_sweep import FineTuneSequence
+     from fir_ddr_profile import resolve_fir_ddr_profile
+     import qick_qcodes_experiment as experiment
++try:
++    from .quantum_circuit_loops import sweep_axis, point_document
++except ImportError:
++    from quantum_circuit_loops import sweep_axis, point_document
+ 
+ # Front-panel numbering, matching DCWaveform_Generator.DEFAULT_QSTL_*_CHANNELS.
+ DEFAULT_AWG_CHANNEL_MAP = (1, 3, 5, 7, 8, 9, 10, 11)
+@@ -304,7 +312,7 @@
+         if not isclose(float(gens[gen_ch]["f_fabric"]), tproc_mhz, rel_tol=0, abs_tol=1e-9):
+             raise ValueError("Circuit RF and tProcessor clocks must match for exact pulse timing")
+         template = templates[gen_ch]
+-        items, frequencies = [], []
++        items, frequencies, frequency_names = [], [], {}
+         first_start = _ticks(lane["events"][0]["start_us"], tproc_mhz, "RF pulse start")
+         cursor_us = first_start / tproc_mhz
+         for index, event in enumerate(lane["events"]):
+@@ -320,9 +328,12 @@
+             gap_us = start / tproc_mhz - cursor_us
+             if gap_us > 1e-10:
+                 items.append(QickRfCompositeItemSpec(kind="delay", name=f"gap_{index}", duration_us=gap_us))
+-            frequencies.append(QickRfFrequencyParameterSpec(name=f"f{index}", frequency_mhz=event["frequency_mhz"]))
++            frequency = event['frequency_mhz']
++            if frequency not in frequency_names:
++                frequency_names[frequency] = f'f{len(frequencies)}'
++                frequencies.append(QickRfFrequencyParameterSpec(name=frequency_names[frequency], frequency_mhz=frequency))
+             items.append(QickRfCompositeItemSpec(kind="pulse", name=f"{event['gate_id']}:RF{lane['channel']}:{index}",
+-                                                duration_us=duration, frequency_parameter=f"f{index}",
++                                                duration_us=duration, frequency_parameter=frequency_names[frequency],
+                                                 gain=event["gain"], phase_degrees=event["phase_deg"]))
+             cursor_us = event["end_us"]
+         rf_specs.append(QickRfPulseSpec(
+@@ -347,6 +358,11 @@
+         rf_specs=tuple(rf_specs), readout_spec=readout,
+         compile_validation_mode=compile_validation_mode, cancel_check=cancel_check)
+     program.compile()  # Enforce instruction/memory/register limits before I/O.
++    capacity = int(soccfg['tprocs'][0].get('pmem_size', 0))
++    if document.get('loops') and capacity <= 0:
++        raise ValueError('Loop execution requires the loaded tProcessor PMEM capacity in HWH metadata.')
++    if capacity > 0 and len(program.binprog) > capacity:
++        raise ValueError(f'Circuit needs {len(program.binprog)} PMEM words, but loaded capacity is {capacity}; reduce loop n.')
+     anchor_tick = program.timing["segment_starts"][0]
+     origin_us = (anchor_tick + pre_roll) / tproc_mhz
+     for requested, actual in zip(segment_starts, program.timing["segment_starts"]):
+@@ -386,6 +402,7 @@
+         if not isclose(preview[field] - origin_us, expected, rel_tol=0, abs_tol=1e-8):
+             raise ValueError("The compiled FIR acquisition does not match the circuit's input window")
+     metadata = dict(version=1, circuit_origin_us=origin_us,
++                    loops=deepcopy(timeline.get('loops', [])), expanded_gate_count=len(timeline['gates']),
+                     startup_pre_roll_us=pre_roll / tproc_mhz,
+                     circuit_duration_us=duration_ticks / tproc_mhz,
+                     terminal_hold_extension_us=max(0, logical_cursor - final_end) / tproc_mhz,
+@@ -404,7 +421,7 @@
+                             document["shots"], program, metadata)
+ 
+ 
+-def run_quantum_circuit_experiment(*, connection_config, run_config, document,
++def _run_quantum_circuit_point(*, connection_config, run_config, document,
+                                   gui_settings, readout_template,
+                                   output_full_scales_mv, dac_current_settings=None,
+                                   awg_channel_map=DEFAULT_AWG_CHANNEL_MAP,
+@@ -414,7 +431,8 @@
+                                   compile_validation_mode="boundary",
+                                   iq_storage_mode=experiment.DEFAULT_IQ_STORAGE_MODE, progress=False,
+                                   connector=None, progress_callback=None,
+-                                  event_callback=None, cancel_check=None):
++                                  event_callback=None, cancel_check=None,
++                                  _sweep_context=None, _expected_program_hash=None):
+     """Connect once, preflight against live HWH, then use the existing runner."""
+     if cancel_check:
+         cancel_check()
+@@ -431,6 +449,10 @@
+         rf_output_latency_tproc_cycles=rf_output_latency_tproc_cycles,
+         compile_validation_mode=compile_validation_mode,
+         cancel_check=cancel_check)
++    if _expected_program_hash is not None and _program_hash(execution) != _expected_program_hash:
++        raise ValueError('Loop sweep program changed after preflight; execution stopped.')
++    if _sweep_context is not None:
++        execution.metadata['loop_count_sweep'] = deepcopy(_sweep_context)
+     # Keep the editor snapshot for restoration, but never label its unrelated
+     # waveforms, sweeps or SquarePulse settings as the executed experiment.
+     snapshot = deepcopy(dict(gui_settings))
+@@ -466,3 +488,89 @@
+         connector=lambda **_kwargs: (soc, soccfg),
+         progress_callback=progress_callback, event_callback=event_callback,
+         cancel_check=cancel_check)
++
++
++def _program_hash(execution):
++    return sha256(experiment._json_text(execution.program.binprog).encode('utf-8')).hexdigest()
++
++
++def run_quantum_circuit_experiment(**kwargs):
++    """Run a fixed circuit or an ordered n sweep through the existing runner.
++
++    Each n has one normal QCoDeS Run. A durable index connects every completed
++    Run to its n value, including when a later point fails or is cancelled.
++    All programs are preflighted before the first hardware acquisition.
++    """
++    inspect.signature(_run_quantum_circuit_point).bind(**kwargs)
++    document = validate_document(kwargs['document'])
++    loop_id, values = sweep_axis(document)
++    if loop_id is None:
++        return _run_quantum_circuit_point(**kwargs)
++    experiment.normalize_iq_storage_mode(kwargs.get('iq_storage_mode', experiment.DEFAULT_IQ_STORAGE_MODE))
++    cancel = kwargs.get('cancel_check')
++    progress = kwargs.get('progress_callback')
++    if cancel:
++        cancel()
++    soc, soccfg = experiment.connect_qick(kwargs['connection_config'], connector=kwargs.get('connector'))
++    build_names = ('readout_template', 'output_full_scales_mv', 'dac_current_settings',
++                   'awg_channel_map', 'rf_channel_map', 'compensation', 'rf_templates',
++                   'rf_output_latency_tproc_cycles', 'compile_validation_mode', 'cancel_check')
++    build_kwargs = {key: kwargs[key] for key in build_names if key in kwargs}
++    hashes = []
++    for index, n in enumerate(values):
++        if cancel:
++            cancel()
++        if progress:
++            progress(round(index / len(values) * 20), f'Preflight loop n={n} ({index + 1}/{len(values)})')
++        execution = build_circuit_execution(point_document(document, index), soccfg, **build_kwargs)
++        hashes.append(_program_hash(execution))
++    del execution  # Do not retain every compiled program / waveform in memory.
++    sweep_id = uuid.uuid4().hex
++    database = kwargs['run_config'].resolved_database_path
++    manifest_path = database.with_name(f'{database.stem}.circuit-sweep-{sweep_id}.json')
++    manifest = dict(version=1, sweep_id=sweep_id, loop_id=loop_id, n_values=values,
++                    shots_per_point=document['shots'], status='running', points=[],
++                    circuit=document, preflight_program_sha256=hashes)
++
++    def save_index():
++        manifest_path.parent.mkdir(parents=True, exist_ok=True)
++        temporary = manifest_path.with_suffix('.json.tmp')
++        temporary.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
++        temporary.replace(manifest_path)
++
++    last_result = None
++    save_index()
++    try:
++        for index, n in enumerate(values):
++            if cancel:
++                cancel()
++            context = dict(sweep_id=sweep_id, loop_id=loop_id, index=index, n=n,
++                           n_values=values, manifest_path=str(manifest_path))
++            point_kwargs = dict(kwargs, document=point_document(document, index),
++                                connector=lambda **_unused: (soc, soccfg),
++                                _sweep_context=context, _expected_program_hash=hashes[index])
++            if progress:
++                point_kwargs['progress_callback'] = lambda percent, message, i=index, count=n: progress(
++                    min(99, round(20 + 80 * (i + percent / 100) / len(values))),
++                    f'n={count} ({i + 1}/{len(values)}) · {message}')
++            last_result = _run_quantum_circuit_point(**point_kwargs)
++            manifest['points'].append(dict(index=index, n=n, run_id=last_result.run_id,
++                                           database_path=str(last_result.database_path)))
++            save_index()
++            last_result.detach_dataset()
++        manifest['status'] = 'complete'
++        save_index()
++    except Exception as error:
++        if last_result is not None:
++            last_result.detach_dataset()
++        manifest['status'] = 'cancelled' if isinstance(error, experiment.ExperimentCancelled) else 'failed'
++        manifest['error'] = str(error)
++        save_index()
++        detail = f"Loop sweep {manifest['status']}: {len(manifest['points'])}/{len(values)} Runs saved. Index: {manifest_path}. {error}"
++        if isinstance(error, experiment.ExperimentCancelled):
++            raise experiment.ExperimentCancelled(detail) from error
++        raise RuntimeError(detail) from error
++    last_result.circuit_loop_sweep = dict(manifest, manifest_path=str(manifest_path))
++    if progress:
++        progress(100, f'Loop sweep complete: {len(values)} Runs saved')
++    return last_result

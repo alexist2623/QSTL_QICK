@@ -6,6 +6,21 @@
 기준 커밋: QSTL_QICK `587f46d7`, GUI `3e78e0c`.
 이 문서는 후속 작업을 기록하며, 아래 미해결 항목을 수정 완료했다는 의미가 아니다.
 
+## 2026-10-07 v3 후속 작업 상태
+
+- 현재 두 저장소 브랜치는 `awg_tuning_v3`입니다. 아래 2026-10-04 기록은 v2 결과이며 그대로 보존합니다.
+- [x] IIR 전단의 실제 DAC 샘플 면적을 합산하고, DC 보상 및 마지막 0 경계 처리 뒤 shot마다 면적/IIR을 초기화하는 v3 IP를 구현했습니다.
+- [x] 32/48/64비트의 동일 100점 sweep·두 DC 모드 RTL 비교와 누적 오차 그래프를 저장했습니다. 48/64 수치가 같아 48비트를 선택했습니다. 32비트는 34회 overflow로 실패를 명시했습니다.
+- [x] GUI/Python에서 새 IP를 인식하고 두 DC 모드, RC, RF/DDR 타이밍을 반영했습니다. GUI 생성 결과 그대로 두 DC 모드 각각 100점×2회 실제 tProcessor/TMUX/AWG/RF/DDR RTL을 통과했습니다. 별도 축반전 및 Stability builder 100점×2회도 통과했습니다.
+- [x] 모든 검증 shot의 디지털 잔여 면적 0, shot 초기화, 명령 값·시각 일치를 확인했습니다. 기존 SET sweep 정수 증분 오차는 사용자 지시에 따라 보존하며, 이상 목표 전압이 정확해진 것으로 해석하지 않습니다.
+- [x] 기존 SET/RAMP/SquarePulse/IIR/RF/DDR 주요 로직을 원복하고 53개 보호 소스 해시를 확인했습니다. 현 소스로 GUI→RTL 네 조건과 소프트웨어986개, 48비트 단위5개, 기존 출력·지연 회귀를 통과했습니다. 초기 실패와 테스트 환경 재검사 기록을 보존합니다.
+- [x] 선택된 48비트의 긴 RC 검증 200회를 완료하고 누적오차 그림2개를 갱신·확인했습니다. overflow/수집오차/잔여·누적면적0, 최대RC오차0.05461681895mV, 종료잔류0.000863350555mV입니다. 32/64비트 폭 선택 비교는 재실행하지 않았습니다.
+- [x] 저장소 밖 새 프로젝트 `F:/Vivado_Output/a3full7`의 전체 빌드가 **2026-10-07 17:34:58 PDT**에 완료됐습니다. **jobs=4 / maxThreads=5**, 원본 v2 XDC와 바이트 동일한 실제 프로젝트 제약을 유지했습니다. 최종 setup WNS **+0.011847 ns**, hold WHS **+0.009619 ns**, TNS/THS 0, pulse-width 위반 0, bus-skew 14개 모두 통과(최소 여유 +2.429 ns), 배선 오류 0입니다.
+- [x] 최신 소스·기능 검증·전체 timing·7개 48비트 AWG와 공통 300 MHz 구성을 검사한 뒤, 같은 성공 XSA에서 BIT/HWH를 추출하여 [펌웨어 폴더](qick/firmware/projects/qstl_awg_v3/README.md)에 교체했습니다. [배포 manifest](qick/firmware/projects/qstl_awg_v3/build_manifest.json)에 소스·증거·펌웨어 해시를 저장했습니다. commit/push는 수행하지 않았습니다.
+- 실패 이력은 보존합니다. `a3full1`(-0.554 ns), `a3full3`(-0.092 ns)은 배포하지 않았습니다. `a3full7`의 초기 FIR 메모리 할당/SmartConnect Tcl 오류는 두 실패 IP만 같은 조건으로 재시도해 통과했고, 완료된 IP 결과를 유지한 채 상위 합성·구현을 마쳤습니다.
+- 검증 한계: 원본 제약 기준 timing closure이며, 외부 I/O 지연 미지정 28포트 및 CDC/동기화 속성·기존 max-delay 덮어쓰기 경고는 남습니다. 보드 아날로그 측정을 수행한 결과가 아니며, 기존 SET 정수 증분의 이상 목표 전압 양자화 오차를 해결한 것으로 해석하지 않습니다.
+- [최종 결과 및 펌웨어](analysis_results/awg_tuning_v3/FINAL_REPORT.md), [결과 및 검증 범위](analysis_results/awg_tuning_v3/VALIDATION_REPORT.md), [GUI → 실제 RTL](analysis_results/awg_tuning_v3/system_validation/REPORT.md), [현재 48비트 RC 검증](analysis_results/awg_tuning_v3/selected48_validation/REPORT.md), [역사적 32/48/64 비교](analysis_results/awg_tuning_v3/width_comparison/WIDTH_COMPARISON.md).
+
 ## 2026-10-04 작업 상태
 
 - 사용자가 점별 nearest-DAC-code 전압표 대신 기존 고정 증분/add/rewind 방식을 유지하도록 요청했다. 아래 1번의 종전 정확도 조건은 이 요청으로 대체한다.

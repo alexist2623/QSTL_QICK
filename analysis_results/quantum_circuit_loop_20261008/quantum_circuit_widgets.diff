@@ -1,0 +1,342 @@
+--- before/quantum_circuit_widgets.py
++++ after/quantum_circuit_widgets.py
+@@ -14,6 +14,10 @@
+     from .quantum_circuit_model import default_document, validate_document, build_timeline
+ except ImportError:
+     from quantum_circuit_model import default_document, validate_document, build_timeline
++try:
++    from .quantum_circuit_loops import sweep_axis, point_document
++except ImportError:
++    from quantum_circuit_loops import sweep_axis, point_document
+ 
+ 
+ GATE_PRESETS = ('Init', 'X', 'Y', 'Z', 'H', 'CNOT', 'CZ', 'Readout', 'Wait', 'Custom')
+@@ -354,8 +358,80 @@
+         super().accept()
+ 
+ 
++class LoopEditor(QtWidgets.QDialog):
++    """Select a complete time block and its integer repeat/sweep counts."""
++
++    def __init__(self, document, loop=None, selected=(), parent=None):
++        super().__init__(parent)
++        self._document = copy.deepcopy(document)
++        self._id = loop['id'] if loop else 'l_' + uuid.uuid4().hex[:12]
++        row = loop or dict(name='Loop', gate_ids=list(selected), count=2, sweep=None)
++        self.result_document = None
++        self.setWindowTitle('Edit Loop' if loop else 'Add Loop')
++        self.resize(600, 530)
++        layout = QtWidgets.QVBoxLayout(self)
++        note = QtWidgets.QLabel('Select every gate in the repeated time interval. Gates after the block move with n.\n'
++                               'Relative AWG changes continue from the preceding iteration. n = 0 skips the block.')
++        note.setWordWrap(True)
++        layout.addWidget(note)
++        form = QtWidgets.QFormLayout()
++        self.name_edit = QtWidgets.QLineEdit(row['name'])
++        form.addRow('Name', self.name_edit)
++        self.count_spin = QtWidgets.QSpinBox()
++        self.count_spin.setRange(0, 1000000)
++        self.count_spin.setValue(row['count'])
++        form.addRow('Repeat n', self.count_spin)
++        layout.addLayout(form)
++        self.gate_list = QtWidgets.QListWidget()
++        for gate in sorted(document['gates'], key=lambda g: (g['start_us'], g['id'])):
++            item = QtWidgets.QListWidgetItem(f"{gate['name']} · {gate['start_us']:g}–{gate['start_us'] + gate['duration_us']:g} µs")
++            item.setData(QtCore.Qt.UserRole, gate['id'])
++            item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
++            item.setCheckState(QtCore.Qt.Checked if gate['id'] in row['gate_ids'] else QtCore.Qt.Unchecked)
++            self.gate_list.addItem(item)
++        layout.addWidget(self.gate_list, 1)
++        self.sweep_group = QtWidgets.QGroupBox('Sweep n (inclusive integer range)')
++        self.sweep_group.setCheckable(True)
++        self.sweep_group.setChecked(row.get('sweep') is not None)
++        sweep_form = QtWidgets.QFormLayout(self.sweep_group)
++        self.sweep_spins = {}
++        for key, default in (('start', 0), ('stop', 10), ('step', 1)):
++            spin = QtWidgets.QSpinBox()
++            spin.setRange(-1000000 if key == 'step' else 0, 1000000)
++            spin.setValue((row.get('sweep') or {}).get(key, default))
++            self.sweep_spins[key] = spin
++            sweep_form.addRow(key.title(), spin)
++        layout.addWidget(self.sweep_group)
++        self.error_label = QtWidgets.QLabel()
++        self.error_label.setWordWrap(True)
++        self.error_label.setStyleSheet('color: #c54848;')
++        layout.addWidget(self.error_label)
++        buttons = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel)
++        buttons.accepted.connect(self.accept)
++        buttons.rejected.connect(self.reject)
++        layout.addWidget(buttons)
++
++    def accept(self):
++        candidate = copy.deepcopy(self._document)
++        candidate['version'] = 2
++        row = dict(id=self._id, name=self.name_edit.text(), count=self.count_spin.value(),
++                   gate_ids=[self.gate_list.item(i).data(QtCore.Qt.UserRole)
++                             for i in range(self.gate_list.count())
++                             if self.gate_list.item(i).checkState() == QtCore.Qt.Checked],
++                   sweep={key: spin.value() for key, spin in self.sweep_spins.items()}
++                   if self.sweep_group.isChecked() else None)
++        candidate['loops'] = [l for l in candidate.get('loops', []) if l['id'] != self._id] + [row]
++        try:
++            self.result_document = validate_document(candidate)
++        except ValueError as error:
++            self.error_label.setText(str(error))
++            return
++        super().accept()
++
++
+ class QuantumCircuitPanel(QtWidgets.QWidget):
+     document_changed = QtCore.pyqtSignal(object)
++    preview_changed = QtCore.pyqtSignal(object)
+     selection_changed = QtCore.pyqtSignal(str)
+     run_requested = QtCore.pyqtSignal()
+     stop_requested = QtCore.pyqtSignal()
+@@ -381,8 +457,9 @@
+         self.add_qubit_button.clicked.connect(self.add_qubit)
+         self.remove_qubit_button.clicked.connect(self.remove_qubit)
+         edit_layout.addLayout(_button_row(self.add_qubit_button, self.remove_qubit_button))
+-        edit_layout.addWidget(QtWidgets.QLabel('Gates'))
++        edit_layout.addWidget(QtWidgets.QLabel('Gates (one-pass times)'))
+         self.gate_list = QtWidgets.QListWidget()
++        self.gate_list.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+         self.gate_list.setMinimumHeight(155)
+         self.gate_list.itemDoubleClicked.connect(lambda item: self.edit_gate(item.data(QtCore.Qt.UserRole)))
+         self.gate_list.currentItemChanged.connect(self._selection_changed)
+@@ -396,6 +473,24 @@
+         self.edit_gate_button.clicked.connect(lambda: self.edit_gate(self.selected_gate_id()))
+         self.delete_gate_button.clicked.connect(lambda: self.delete_gate(self.selected_gate_id()))
+         edit_layout.addLayout(_button_row(self.add_gate_button, self.edit_gate_button, self.delete_gate_button))
++        self.loop_list = QtWidgets.QListWidget()
++        self.loop_list.setMaximumHeight(85)
++        self.loop_list.itemDoubleClicked.connect(lambda item: self.edit_loop(item.data(QtCore.Qt.UserRole)))
++        edit_layout.addWidget(self.loop_list)
++        self.add_loop_button = QtWidgets.QPushButton('Add Loop')
++        self.edit_loop_button = QtWidgets.QPushButton('Edit Loop')
++        self.delete_loop_button = QtWidgets.QPushButton('Remove Loop')
++        self.add_loop_button.clicked.connect(self.add_loop)
++        self.edit_loop_button.clicked.connect(lambda: self.edit_loop(self.selected_loop_id()))
++        self.delete_loop_button.clicked.connect(lambda: self.delete_loop(self.selected_loop_id()))
++        edit_layout.addLayout(_button_row(self.add_loop_button, self.edit_loop_button, self.delete_loop_button))
++        preview_row = QtWidgets.QHBoxLayout()
++        preview_row.addWidget(QtWidgets.QLabel('Preview n'))
++        self.preview_combo = QtWidgets.QComboBox()
++        self.preview_combo.setToolTip('Preview one n value. Run executes every enabled sweep point, each as a linked QCoDeS Run.')
++        self.preview_combo.currentIndexChanged.connect(self._preview_changed)
++        preview_row.addWidget(self.preview_combo, 1)
++        edit_layout.addLayout(preview_row)
+         self.baselines_button = QtWidgets.QPushButton('Initial AWG voltages…')
+         self.baselines_button.clicked.connect(self.edit_baselines)
+         edit_layout.addWidget(self.baselines_button)
+@@ -424,6 +519,7 @@
+         self.status_label.setWordWrap(True)
+         layout.addWidget(self.status_label)
+         self.run_button = QtWidgets.QPushButton('Run')
++        self.run_button.setToolTip('Run the circuit, or all n values when Loop sweep is enabled. Shots applies to every n.')
+         self.stop_button = QtWidgets.QPushButton('Stop')
+         self.run_button.clicked.connect(self.run_requested)
+         self.stop_button.clicked.connect(self.stop_requested)
+@@ -440,6 +536,7 @@
+         self.error_label.clear()
+         self._refresh()
+         self.document_changed.emit(self.document())
++        self._preview_changed()
+ 
+     def _commit(self, data, selected=None):
+         try:
+@@ -451,6 +548,7 @@
+         self.error_label.clear()
+         self._refresh(selected)
+         self.document_changed.emit(self.document())
++        self._preview_changed()
+         return True
+ 
+     def _refresh(self, selected=None):
+@@ -472,6 +570,25 @@
+             if gate['id'] == selected:
+                 self.gate_list.setCurrentItem(item)
+         self.shots_spin.setValue(self._document.get('shots', 1))
++        selected_loop = self.selected_loop_id()
++        self.loop_list.clear()
++        for row in self._document.get('loops', []):
++            sweep = row.get('sweep')
++            description = f"n {sweep['start']} → {sweep['stop']} (step {sweep['step']})" if sweep else f"×{row['count']}"
++            item = QtWidgets.QListWidgetItem(f"{row['name']} · {description}")
++            item.setData(QtCore.Qt.UserRole, row['id'])
++            self.loop_list.addItem(item)
++            if row['id'] == selected_loop:
++                self.loop_list.setCurrentItem(item)
++        preview_index = max(0, self.preview_combo.currentIndex())
++        self.preview_combo.clear()
++        _, values = sweep_axis(self._document)
++        for index, value in enumerate(values):
++            self.preview_combo.addItem(f'{value}  (point {index + 1}/{len(values)})', index)
++        if not values:
++            self.preview_combo.addItem('Fixed counts', 0)
++        self.preview_combo.setCurrentIndex(min(preview_index, self.preview_combo.count() - 1))
++        self.preview_combo.setEnabled(bool(values))
+         rows = self._document.get('awg_baselines', [])
+         self.baseline_label.setText((' · '.join(f"AWG {r['channel']}: {r['voltage_mv']:g} mV" for r in rows) + '\n'
+                                      if rows else '') + 'Unlisted AWGs start at 0 mV.')
+@@ -565,7 +682,44 @@
+             return
+         document = self.document()
+         document['gates'] = [g for g in document['gates'] if g['id'] != gate_id]
++        if 'loops' in document:
++            for row in document['loops']:
++                row['gate_ids'] = [identifier for identifier in row['gate_ids'] if identifier != gate_id]
++            document['loops'] = [row for row in document['loops'] if row['gate_ids']]
+         self._commit(document)
++
++    def selected_loop_id(self):
++        item = self.loop_list.currentItem()
++        return item.data(QtCore.Qt.UserRole) if item else ''
++
++    def add_loop(self):
++        if self._running:
++            return
++        selected = [item.data(QtCore.Qt.UserRole) for item in self.gate_list.selectedItems()]
++        dialog = LoopEditor(self._document, selected=selected, parent=self)
++        if dialog.exec_() == QtWidgets.QDialog.Accepted:
++            self._commit(dialog.result_document)
++
++    def edit_loop(self, loop_id):
++        if self._running:
++            return
++        row = next((l for l in self._document.get('loops', []) if l['id'] == loop_id), None)
++        if row is None:
++            return
++        dialog = LoopEditor(self._document, loop=row, parent=self)
++        if dialog.exec_() == QtWidgets.QDialog.Accepted:
++            self._commit(dialog.result_document)
++
++    def delete_loop(self, loop_id):
++        if self._running or not loop_id:
++            return
++        document = self.document()
++        document['loops'] = [row for row in document.get('loops', []) if row['id'] != loop_id]
++        self._commit(document)
++
++    def _preview_changed(self, *_unused):
++        if not self._loading:
++            self.preview_changed.emit(point_document(self._document, max(0, self.preview_combo.currentIndex())))
+ 
+     def edit_baselines(self):
+         if self._running:
+@@ -608,6 +762,8 @@
+     edit_requested = QtCore.pyqtSignal(str)
+     delete_requested = QtCore.pyqtSignal(str)
+     selection_changed = QtCore.pyqtSignal(str)
++    loop_edit_requested = QtCore.pyqtSignal(str)
++    loop_delete_requested = QtCore.pyqtSignal(str)
+ 
+     def __init__(self, parent=None):
+         super().__init__(parent)
+@@ -642,7 +798,18 @@
+             self._show_gate_menu(gate_id, event.globalPos())
+             event.accept()
+         else:
+-            event.ignore()
++            loop_id = next((item.data(1) for item in self.items(event.pos()) if item.data(1)), None)
++            if loop_id:
++                menu = QtWidgets.QMenu(self)
++                edit, delete = menu.addAction('Edit Loop'), menu.addAction('Remove Loop')
++                action = menu.exec_(event.globalPos())
++                if action == edit:
++                    self.loop_edit_requested.emit(loop_id)
++                elif action == delete:
++                    self.loop_delete_requested.emit(loop_id)
++                event.accept()
++            else:
++                event.ignore()
+ 
+     def mouseDoubleClickEvent(self, event):
+         gate_id = self.gate_at(event.pos())
+@@ -673,6 +840,8 @@
+     edit_requested = QtCore.pyqtSignal(str)
+     delete_requested = QtCore.pyqtSignal(str)
+     selection_changed = QtCore.pyqtSignal(str)
++    loop_edit_requested = QtCore.pyqtSignal(str)
++    loop_delete_requested = QtCore.pyqtSignal(str)
+ 
+     def __init__(self, parent=None):
+         super().__init__(parent)
+@@ -699,6 +868,8 @@
+         self.graphics_view.edit_requested.connect(self.edit_requested)
+         self.graphics_view.delete_requested.connect(self.delete_requested)
+         self.graphics_view.selection_changed.connect(self.selection_changed)
++        self.graphics_view.loop_edit_requested.connect(self.loop_edit_requested)
++        self.graphics_view.loop_delete_requested.connect(self.loop_delete_requested)
+         layout.addWidget(self.graphics_view, 1)
+         hint = QtWidgets.QLabel('Right-click a gate to edit or delete · Ctrl + wheel to zoom')
+         hint.setWordWrap(True)
+@@ -739,7 +910,7 @@
+         scene.setBackgroundBrush(background)
+         timeline = build_timeline(self._document)
+         duration = max(1., timeline['duration_us'])
+-        x0, x1 = 130., 1130.
++        x0, x1 = 130., 130. + max(1000., len(timeline['gates']) * 48.)
+         x = lambda time: x0 + float(time) / duration * (x1 - x0)
+         font = QtGui.QFont(self.font())
+         font.setPointSizeF(11.)
+@@ -755,16 +926,16 @@
+             item.setBrush(QtGui.QBrush(color))
+             item.setPos(xpos, ypos)
+             if gate_id:
+-                item.setData(0, gate_id)
++                item.setData(0, timeline.get('gate_origins', {}).get(gate_id, gate_id))
+             text_items.append(item)
+             return item
+ 
+         def mark(item, gate_id, tooltip=''):
+-            item.setData(0, gate_id)
++            item.setData(0, timeline.get('gate_origins', {}).get(gate_id, gate_id))
+             item.setToolTip(tooltip)
+             return item
+ 
+-        y = 32.
++        y = 60. if timeline.get('loops') else 32.
+         lane_count = len(timeline['awg']) + len(timeline['rf']) + bool(timeline['acquisition'])
+         if lane_count:
+             title = text('Requested digital output and acquisition timing', 12., 2.)
+@@ -828,7 +999,7 @@
+             center_y = qubit_y[qubit['id']]
+             text(qubit['name'], 12., center_y - 12.)
+             scene.addLine(x0, center_y, x1, center_y, QtGui.QPen(foreground, 2.))
+-        for gate in self._document['gates']:
++        for gate in timeline['gates']:
+             ys = [qubit_y[q] for q in gate['qubits']]
+             left, right = x(gate['start_us']), x(gate['start_us'] + gate['duration_us'])
+             center_x = (left + right) / 2.
+@@ -874,6 +1045,22 @@
+                     label.setPos(center_x - label.boundingRect().width() / 2., (min(group) + max(group)) / 2. - 11.)
+                     label.setToolTip(tooltip)
+         bottom = y + (len(self._document['qubits']) - 1) * 86. + 53.
++        for region in timeline.get('loops', []):
++            left, right = x(region['start_us']), x(region['end_us'])
++            color = QtGui.QColor('#be8500')
++            fill = QtGui.QColor('#ffcf55')
++            fill.setAlpha(32)
++            block = scene.addRect(left, 51., max(6., right - left), bottom - 48.,
++                                  QtGui.QPen(color, 1.5), QtGui.QBrush(fill))
++            block.setZValue(-2.)
++            block.setData(1, region['id'])
++            label = text(f"{region['name']} ×{region['count']}" + (' (skipped)' if not region['count'] else ''),
++                         left + 4., 28., color, small=True)
++            label.setData(1, region['id'])
++            label.setToolTip('Right-click to edit or remove this loop. Gates are shown at their expanded times.')
++            for repetition in range(1, min(region['count'], 200)):
++                pos = x(region['start_us'] + repetition * region['period_us'])
++                scene.addLine(pos, 51., pos, bottom, QtGui.QPen(color, .6, QtCore.Qt.DotLine)).setZValue(-1.)
+         for index in range(11):
+             time = duration * index / 10.
+             xpos = x(time)
+@@ -884,6 +1071,6 @@
+         if not self._document['gates']:
+             text('Add a gate from the left panel to begin.', x0 + 80., bottom + 66.)
+             bottom += 42.
+-        scene.setSceneRect(0., 0., 1160., bottom + 70.)
++        scene.setSceneRect(0., 0., x1 + 30., bottom + 70.)
+         self.summary_label.setText(f"{len(self._document['qubits'])} qubit{'s' if len(self._document['qubits']) != 1 else ''}"
+-                                   f" · {len(self._document['gates'])} gates · {timeline['duration_us']:g} µs")
++                                   f" · {len(timeline['gates'])} gate instances · {timeline['duration_us']:g} µs")

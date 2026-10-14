@@ -1,0 +1,73 @@
+{
+  "complete": true,
+  "synthetic_offline_guard_checks": true,
+  "production_results_edited": false,
+  "publisher_sha256": "b2bea5420f6db01ba61e472fc4d3bb7c3e7a418d3fff728ead6a73063ea95c7f",
+  "checks": [
+    {
+      "name": "current_completed_evidence",
+      "passed": true,
+      "evidence_count": 15
+    },
+    {
+      "name": "missing_selected48_result",
+      "passed": true,
+      "rejected_as": "FileNotFoundError"
+    },
+    {
+      "name": "incomplete_selected48",
+      "passed": true,
+      "rejected_as": "RuntimeError"
+    },
+    {
+      "name": "selected48_nonzero_residual",
+      "passed": true,
+      "rejected_as": "AssertionError"
+    },
+    {
+      "name": "selected48_overflow",
+      "passed": true,
+      "rejected_as": "AssertionError"
+    },
+    {
+      "name": "wrong_width",
+      "passed": true,
+      "rejected_as": "AssertionError"
+    },
+    {
+      "name": "stale_area_source",
+      "passed": true,
+      "rejected_as": "RuntimeError"
+    },
+    {
+      "name": "regular_failed_stage",
+      "passed": true,
+      "rejected_as": "RuntimeError"
+    },
+    {
+      "name": "missing_regular_stage",
+      "passed": true,
+      "rejected_as": "RuntimeError"
+    },
+    {
+      "name": "stale_compiler",
+      "passed": true,
+      "rejected_as": "RuntimeError"
+    },
+    {
+      "name": "mismatched_replayed_PMEM",
+      "passed": true,
+      "rejected_as": "AssertionError"
+    },
+    {
+      "name": "incomplete_system",
+      "passed": true,
+      "rejected_as": "RuntimeError"
+    },
+    {
+      "name": "command_timing_error",
+      "passed": true,
+      "rejected_as": "AssertionError"
+    }
+  ]
+}

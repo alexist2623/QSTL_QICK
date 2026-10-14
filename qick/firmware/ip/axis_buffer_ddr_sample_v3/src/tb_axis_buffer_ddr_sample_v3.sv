@@ -142,8 +142,12 @@ module tb_axis_buffer_ddr_sample_v3 #(
     always #3 m_axi_aclk = ~m_axi_aclk;
 
     initial begin
-        #600000;
-        $fatal(1, "FAIL: global simulation timeout");
+        // The embedding integration bench owns its run-length watchdog.
+        // Its full sweep may exceed the standalone regression's 600 us.
+        if (RUN_REGRESSION) begin
+            #600000;
+            $fatal(1, "FAIL: global simulation timeout");
+        end
     end
 
     axis_buffer_ddr_sample_v3 #(

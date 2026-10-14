@@ -1,0 +1,309 @@
+--- before/DCWaveform_Generator.py
++++ after/DCWaveform_Generator.py
+@@ -26,6 +26,12 @@
+     from fir_ddr_profile import result_iq_in_input_units
+ 
+ from PyQt5 import QtCore, QtGui, QtWidgets
++try:
++    from .quantum_circuit_model import default_document, validate_document
++    from .quantum_circuit_widgets import QuantumCircuitPanel, QuantumCircuitView
++except ImportError:
++    from quantum_circuit_model import default_document, validate_document
++    from quantum_circuit_widgets import QuantumCircuitPanel, QuantumCircuitView
+ try:
+     from .qick_square_dds_panel import SquarePulsePanel, SquarePulsePortsPanel, TriggeringPanel
+ except ImportError:
+@@ -469,7 +475,7 @@
+ DEFAULT_GUI_RAMP_NS = 1000.0
+ DEFAULT_GUI_FLAT_NS = 1000.0
+ SETTINGS_SCHEMA = "qstl-pulse-generator-gui"
+-SETTINGS_VERSION = 43
++SETTINGS_VERSION = 44
+ SUPPORTED_SETTINGS_VERSIONS = tuple(range(1, SETTINGS_VERSION + 1))
+ DEFAULT_GUI_COMPILE_VALIDATION_MODE = COMPILE_VALIDATION_BOUNDARY
+ DEFAULT_QICK_HOST = "192.168.2.99"
+@@ -8804,6 +8810,31 @@
+         self.finished.emit(result)
+ 
+ 
++class QuantumCircuitWorker(QickExperimentWorker):
++    """Lower a saved circuit against live QICK metadata before running it."""
++
++    @QtCore.pyqtSlot()
++    def run(self) -> None:
++        try:
++            try:
++                from .quantum_circuit_execution import run_quantum_circuit_experiment
++            except ImportError:
++                from quantum_circuit_execution import run_quantum_circuit_experiment
++            kwargs = dict(self._kwargs)
++            kwargs["progress_callback"] = self.progress_changed.emit
++            kwargs["event_callback"] = self.event_changed.emit
++            kwargs["cancel_check"] = self._check_cancel
++            result = run_quantum_circuit_experiment(**kwargs)
++            result.detach_dataset()
++        except ExperimentCancelled as exc:
++            self.cancelled.emit(str(exc))
++            return
++        except Exception:
++            self.failed.emit(traceback.format_exc())
++            return
++        self.finished.emit(result)
++
++
+ class QickProgramWorker(QtCore.QObject):
+     """Compile a QICK program from live HWH metadata without running it."""
+ 
+@@ -9932,6 +9963,23 @@
+         )
+         self._bias_panel = BiasControlPanel(self)
+         self._square_wave_panel = SquareWavePanel(self)
++        self._quantum_circuit_panel = QuantumCircuitPanel(self)
++        self._quantum_circuit_view = QuantumCircuitView(self)
++        self._quantum_circuit_panel.document_changed.connect(
++            self._quantum_circuit_view.set_document)
++        self._quantum_circuit_view.edit_requested.connect(
++            self._quantum_circuit_panel.edit_gate)
++        self._quantum_circuit_view.delete_requested.connect(
++            self._quantum_circuit_panel.delete_gate)
++        self._quantum_circuit_view.selection_changed.connect(
++            self._quantum_circuit_panel.select_gate)
++        self._quantum_circuit_view.set_document(
++            self._quantum_circuit_panel.document())
++        self._quantum_circuit_panel.run_requested.connect(self._run_quantum_circuit)
++        self._quantum_circuit_panel.stop_requested.connect(self._stop_quantum_circuit)
++        self._quantum_circuit_panel.execution_settings_requested.connect(
++            self._show_quantum_execution_settings)
++        self._last_circuit_result = None
+         self._square_wave_panel.start_requested.connect(self._start_square_wave)
+         self._square_wave_panel.stop_requested.connect(self._stop_square_wave)
+         self._square_wave_panel.front_panel_requested.connect(
+@@ -10121,6 +10169,8 @@
+         self._control_tabs.addTab(self._noise_panel, "Noise Analysis")
+         self._control_tabs.addTab(self._bias_panel, "Bias")
+         self._control_tabs.addTab(self._square_wave_panel, "QICK Square Wave")
++        # Append to preserve the saved indices of existing control tabs.
++        self._control_tabs.addTab(self._quantum_circuit_panel, "Quantum Circuit")
+         self._control_tabs.setCurrentWidget(self._awg_tuning_page)
+         self._control_tabs.currentChanged.connect(self._on_control_tab_changed)
+         control_container = QtWidgets.QWidget(self)
+@@ -10285,6 +10335,9 @@
+         )
+         self._dock_noise.setWidget(self._noise_plot)
+ 
++        self._dock_quantum_circuit = QtWidgets.QDockWidget("Quantum Circuit", self)
++        self._dock_quantum_circuit.setWidget(self._quantum_circuit_view)
++
+         for dock in (
+             self._dock_ctrl,
+             self._dock_plot,
+@@ -10293,6 +10346,7 @@
+             self._dock_awg_sweep,
+             self._dock_sparameter,
+             self._dock_noise,
++            self._dock_quantum_circuit,
+         ):
+             dock.setFeatures(
+                 QtWidgets.QDockWidget.DockWidgetMovable |
+@@ -10307,6 +10361,7 @@
+         self.tabifyDockWidget(self._dock_trace, self._dock_awg_sweep)
+         self.tabifyDockWidget(self._dock_trace, self._dock_sparameter)
+         self.tabifyDockWidget(self._dock_trace, self._dock_noise)
++        self.tabifyDockWidget(self._dock_plot, self._dock_quantum_circuit)
+         self.resizeDocks(
+             [self._dock_ctrl, self._dock_plot, self._dock_trace],
+             [200, 400, 300],
+@@ -11594,7 +11649,29 @@
+ 
+     def _on_control_tab_changed(self, _index: int) -> None:
+         current = self._control_tabs.currentWidget()
+-        if current is self._stability_panel:
++        # Give the circuit the right-hand workspace, then restore the result
++        # panes exactly as they were when the user returns to another tab.
++        if current is self._quantum_circuit_panel:
++            if getattr(self, "_circuit_saved_result_docks", None) is None:
++                result_docks = (self._dock_trace, self._dock_stability,
++                                self._dock_awg_sweep, self._dock_sparameter,
++                                self._dock_noise)
++                self._circuit_saved_result_docks = [
++                    dock for dock in result_docks if not dock.isHidden()]
++                self._circuit_saved_active_dock = next(
++                    (dock for dock in result_docks if not dock.visibleRegion().isEmpty()), None)
++                for dock in result_docks:
++                    dock.hide()
++        elif getattr(self, "_circuit_saved_result_docks", None) is not None:
++            for dock in self._circuit_saved_result_docks:
++                dock.show()
++            if self._circuit_saved_active_dock is not None:
++                self._circuit_saved_active_dock.raise_()
++            self._circuit_saved_result_docks = None
++        if current is self._quantum_circuit_panel:
++            self._dock_quantum_circuit.show()
++            self._dock_quantum_circuit.raise_()
++        elif current is self._stability_panel:
+             self._dock_stability.show()
+             self._dock_stability.raise_()
+         elif current is self._sparameter_panel:
+@@ -13616,6 +13693,121 @@
+         )
+         dialog.exec_()
+ 
++    def _show_quantum_execution_settings(self) -> None:
++        self._control_tabs.setCurrentWidget(self._awg_tuning_page)
++        self._awg_tuning_tabs.setCurrentWidget(self._experiment_panel)
++        self._dock_ctrl.show()
++        self._dock_ctrl.raise_()
++
++    def _quantum_circuit_run_arguments(self) -> dict:
++        """Snapshot circuit settings without replacing the AWG editor's state."""
++        document = validate_document(self._quantum_circuit_panel.document())
++        if not document["gates"]:
++            raise ValueError("Add and configure gates before running the circuit.")
++        connection, run = self._experiment_panel.connection_values()
++        readout = self._rf_readout_panel.spec()
++        if readout is None:
++            raise ValueError(
++                "Configure and enable AWG Tuning > RF Readout for the circuit's "
++                "Acquisition gate. Its input/calibration settings will be used; "
++                "the circuit supplies the measurement time and duration.")
++        panel = self._experiment_panel
++        circuit_rf_channels = {
++            DEFAULT_QSTL_RF_CHANNELS[pulse["channel"] - 1]
++            for gate in document["gates"] for pulse in gate["rf"]
++            if pulse["channel"] <= len(DEFAULT_QSTL_RF_CHANNELS)
++        }
++        compensation = {
++            "bias_t_compensation_enabled": panel.bias_t_group.isChecked(),
++            "bias_t_compensation_type": str(panel.bias_t_type.currentData()),
++            "bias_t_compensation_voltage_mv": panel.bias_t_compensation_mv.value(),
++            "bias_t_compensation_mode": str(panel.bias_t_mode.currentData()),
++            "bias_t_compensation_duration_us": panel.bias_t_duration_us.value(),
++            "bias_t_filter_tau_us": panel.bias_t_filter_tau_us.value(),
++        }
++        return {
++            "connection_config": connection,
++            "run_config": run,
++            "document": document,
++            "gui_settings": self._settings_to_dict(),
++            "readout_template": readout,
++            "output_full_scales_mv": {
++                channel: self._dac_current_state.scale(channel)
++                for channel in DEFAULT_QSTL_AWG_CHANNELS},
++            "dac_current_settings": self._dac_current_state.snapshot(
++                DEFAULT_QSTL_AWG_CHANNELS),
++            "awg_channel_map": DEFAULT_QSTL_AWG_CHANNELS,
++            "rf_channel_map": DEFAULT_QSTL_RF_CHANNELS,
++            "rf_templates": tuple(
++                editor.configured_spec() for editor in self._rf_ports_panel._panels
++                if editor.gen_ch.value() in circuit_rf_channels),
++            "compensation": compensation,
++            "iq_storage_mode": normalize_iq_storage_mode(panel.iq_storage_mode.currentData()),
++            "compile_validation_mode": str(panel.compile_validation_mode.currentData()),
++            "progress": False,
++        }
++
++    def _run_quantum_circuit(self) -> None:
++        if self._experiment_thread is not None and self._experiment_thread.isRunning():
++            QtWidgets.QMessageBox.information(
++                self, "QICK busy", "Wait for the current QICK operation to finish.")
++            return
++        try:
++            arguments = self._quantum_circuit_run_arguments()
++        except (ImportError, RuntimeError, TypeError, ValueError) as exc:
++            self._quantum_circuit_panel.set_status(str(exc))
++            QtWidgets.QMessageBox.warning(self, "Cannot run quantum circuit", str(exc))
++            return
++        self._quantum_circuit_panel.set_running(True)
++        self._quantum_circuit_panel.set_status("Connecting and validating circuit timing…")
++        self._experiment_panel.start_run_timeline("Quantum Circuit Run requested")
++        self._experiment_panel.set_running(True, "Preparing quantum circuit", can_cancel=True)
++        self.statusBar().showMessage("Quantum circuit running")
++        thread = QtCore.QThread(self)
++        worker = QuantumCircuitWorker(arguments)
++        worker.moveToThread(thread)
++        thread.started.connect(worker.run)
++        worker.finished.connect(self._on_quantum_circuit_finished)
++        worker.failed.connect(self._on_quantum_circuit_failed)
++        worker.cancelled.connect(self._on_quantum_circuit_cancelled)
++        worker.progress_changed.connect(self._on_quantum_circuit_progress)
++        worker.event_changed.connect(self._on_experiment_event)
++        for signal in (worker.finished, worker.failed, worker.cancelled):
++            signal.connect(thread.quit)
++            signal.connect(worker.deleteLater)
++        thread.finished.connect(thread.deleteLater)
++        thread.finished.connect(self._clear_experiment_thread)
++        self._experiment_thread = thread
++        self._experiment_worker = worker
++        thread.start()
++
++    def _stop_quantum_circuit(self) -> None:
++        if isinstance(self._experiment_worker, QuantumCircuitWorker):
++            self._stop_qick_experiment()
++            self._quantum_circuit_panel.set_status("Stop requested; waiting for a safe stopping point…")
++
++    def _on_quantum_circuit_progress(self, percent: int, message: str) -> None:
++        self._on_experiment_progress(percent, message)
++        self._quantum_circuit_panel.set_status(f"{percent}% — {message}")
++
++    def _on_quantum_circuit_finished(self, result) -> None:
++        self._last_circuit_result = result
++        self._experiment_panel.show_result(result)
++        self._experiment_panel.finish_run_timeline(
++            f"Quantum Circuit QCoDeS Run {result.run_id} completed", success=True)
++        message = f"Run {result.run_id} saved to {result.database_path}"
++        self._quantum_circuit_panel.set_status(message)
++        self.statusBar().showMessage(message)
++
++    def _on_quantum_circuit_failed(self, details: str) -> None:
++        lines = [line for line in details.rstrip().splitlines() if line.strip()]
++        self._quantum_circuit_panel.set_status(lines[-1] if lines else "Circuit execution failed")
++        self._on_experiment_failed(details)
++
++    def _on_quantum_circuit_cancelled(self, message: str) -> None:
++        self._quantum_circuit_panel.set_status(str(message))
++        self._on_experiment_cancelled(message)
++
+     def _run_qick_experiment(self) -> None:
+         if self._experiment_thread is not None and self._experiment_thread.isRunning():
+             QtWidgets.QMessageBox.information(
+@@ -14000,6 +14192,7 @@
+     def _clear_experiment_thread(self) -> None:
+         self._experiment_thread = None
+         self._experiment_worker = None
++        self._quantum_circuit_panel.set_running(False)
+ 
+     def _refresh_acquisition_timeline(self) -> None:
+         timeline = getattr(self, "_acquisition_timeline", None)
+@@ -14553,6 +14746,7 @@
+             "square_wave": self._square_wave_panel.settings_dict(),
+             "square_pulse": self._square_dds_panel.settings_dict(),
+             "output_trigger": self._experiment_panel.triggering_panel.settings_dict(),
++            "quantum_circuit": self._quantum_circuit_panel.document(),
+         }
+ 
+     @staticmethod
+@@ -15192,7 +15386,7 @@
+         if selected_tab >= self._control_tabs.count():
+             raise ValueError("selected control tab is out of range")
+         # Restore the same view after moving Experiment behind SquarePulse.
+-        tab_name = display.get("selected_awg_tuning_tab_name") if settings_version == SETTINGS_VERSION else None
++        tab_name = display.get("selected_awg_tuning_tab_name") if settings_version >= 43 else None
+         if tab_name is not None:
+             names = [self._awg_tuning_tabs.tabText(i) for i in range(self._awg_tuning_tabs.count())]
+             if tab_name not in names:
+@@ -16259,6 +16453,7 @@
+             "square_wave": square_wave_settings,
+             "square_pulse": data.get("square_pulse", {}),
+             "output_trigger": data.get("output_trigger", {}),
++            "quantum_circuit": validate_document(data.get("quantum_circuit", default_document())),
+         }
+ 
+     def _apply_decoded_settings(self, settings: dict) -> None:
+@@ -16371,6 +16566,7 @@
+         self._bias_panel.load_settings(settings["bias"])
+         self._square_wave_panel.load_settings(settings["square_wave"])
+         self._experiment_panel.triggering_panel.load_settings(settings.get("output_trigger", {}))
++        self._quantum_circuit_panel.load_document(settings.get("quantum_circuit", default_document()))
+         self._sync_shared_qick_controls()
+         self._qick_front_panel.set_path_values(
+             self._sparameter_panel.front_panel_values()

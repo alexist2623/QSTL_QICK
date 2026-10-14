@@ -124,7 +124,7 @@ class AxisAwgTuningV1(AbsPulsedSignalGen):
         if step_width != self.STEP_WIDTH:
             raise ValueError(f"{type(self).__name__} expects STEP_WIDTH={self.STEP_WIDTH}")
         if self.STEP_WIDTH == 32 and frac != 18:
-            raise ValueError("axis_awg_tuning_v2 expects FRAC=18")
+            raise ValueError("axis_awg_tuning_v2/v3 expects FRAC=18")
         if duration_width != self.DURATION_WIDTH:
             raise ValueError("axis_awg_tuning_v1 currently expects DURATION_WIDTH=23")
 
@@ -604,6 +604,33 @@ class AxisAwgTuningV2(AxisAwgTuningV1):
     FRAC_DEFAULT = 18
     STEP_MIN = -(1 << 31)
     STEP_MAX = (1 << 31) - 1
+
+
+class AxisAwgTuningV3(AxisAwgTuningV2):
+    """V2 ramps with a 48-bit per-shot area engine before the RC filter."""
+
+    bindto = ["QICK:QICK:axis_awg_tuning_v3:1.0",
+              "user.org:user:axis_awg_tuning_v3:1.0"]
+
+    def _init_config(self, description):
+        super()._init_config(description)
+        from .dc_area import AREA_BITS, AREA_PIPELINE_CYCLES, DC_START_CYCLES
+        params = description.get("parameters", {})
+        version = self._param_int(params, "DC_AREA_VERSION", 1)
+        bits = self._param_int(params, "DC_AREA_BITS", AREA_BITS)
+        if version != 1 or bits != AREA_BITS or self.cfg["n_pts"] != 16 or self.cfg["b"] != 16:
+            raise ValueError("AWG v3 requires DC area v1, 48-bit area, and 16 x 16-bit DAC lanes")
+        self.cfg["dc_area_version"] = version
+        self.cfg["dc_area_bits"] = bits
+        self.cfg["dc_area_pipeline_cycles"] = AREA_PIPELINE_CYCLES
+        self.cfg["dc_start_cycles"] = DC_START_CYCLES
+        self.cfg["output_latency_cycles"] += AREA_PIPELINE_CYCLES
+
+    def dc_area_status(self):
+        """Read hardware area status; reading does not reset a shot or fault."""
+        status = int(self.status_reg)
+        return dict(enabled=bool(status & (1 << 16)), busy=bool(status & (1 << 17)),
+                    fault=bool(status & (1 << 18)))
 
 
 @dataclass
@@ -2237,6 +2264,7 @@ class QstlAwgTuningProjectSimulator:
 __all__ = [
     "AxisAwgTuningV1",
     "AxisAwgTuningV2",
+    "AxisAwgTuningV3",
     "TimedCommandEvent",
     "CommandEvent",
     "TimingConflict",

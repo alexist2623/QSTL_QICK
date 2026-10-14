@@ -1,0 +1,121 @@
+[
+  {
+    "ProcessId": 30012,
+    "ParentProcessId": 21712,
+    "Name": "vivado.exe",
+    "CreationDate": "2026-10-07T10:39:54.673226-07:00",
+    "CommandLine": "\"F:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/vivado.exe\"   -mode batch -notrace -nojournal -nolog -source C:/GIT_Workspace/QSTL_QICK/qick/firmware/projects/qstl_awg_v3/build_vivado_2023_1.tcl -tclargs F:/Vivado_Output/a3full4"
+  },
+  {
+    "ProcessId": 1504,
+    "ParentProcessId": 31652,
+    "Name": "python.exe",
+    "CreationDate": "2026-10-07T10:40:49.551047-07:00",
+    "CommandLine": "\"C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe\" -X utf8 -X faulthandler qick/firmware/ip/axis_awg_tuning_v3/validation/run_system_validation.py --build F:/Vivado_Output/a3sim1 --gui C:/GIT_Workspace/PulseGenerator --resume-preparation"
+  },
+  {
+    "ProcessId": 12108,
+    "ParentProcessId": 1504,
+    "Name": "python.exe",
+    "CreationDate": "2026-10-07T10:42:01.133401-07:00",
+    "CommandLine": "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe -X utf8 -X faulthandler C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\rc_precomp_validation\\verify_gui_rtl.py --build F:\\Vivado_Output\\a3sim1 --gui C:\\GIT_Workspace\\PulseGenerator --vivado F:\\Xilinx\\Vivado\\2023.1\\bin --awg-v3 --repeat-reset --isolated-run --cross-capacitance 1 .23 -.17 1 --dac-current-ma 20 10 20 --sweep-case rf_duration --sweep-count 10 --dc-mode fixed_voltage --dc-readout-policy overlap_readout --stored-fir-samples 4 --verify-gui-widgets --run-tag v3_pipe4_voltage_gui --reuse-snapshot"
+  },
+  {
+    "ProcessId": 31576,
+    "ParentProcessId": 1504,
+    "Name": "python.exe",
+    "CreationDate": "2026-10-07T10:42:01.133792-07:00",
+    "CommandLine": "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe -X utf8 -X faulthandler C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\rc_precomp_validation\\verify_gui_rtl.py --build F:\\Vivado_Output\\a3sim1 --gui C:\\GIT_Workspace\\PulseGenerator --vivado F:\\Xilinx\\Vivado\\2023.1\\bin --awg-v3 --repeat-reset --isolated-run --cross-capacitance 1 .23 -.17 1 --dac-current-ma 20 10 20 --sweep-case rf_duration --sweep-count 10 --dc-mode fixed_voltage --dc-readout-policy overlap_readout --stored-fir-samples 4 --verify-gui-widgets --reverse-axes --run-tag v3_pipe4_voltage_reverse --reuse-snapshot"
+  },
+  {
+    "ProcessId": 31284,
+    "ParentProcessId": 1504,
+    "Name": "python.exe",
+    "CreationDate": "2026-10-07T10:42:01.137991-07:00",
+    "CommandLine": "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe -X utf8 -X faulthandler C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\rc_precomp_validation\\verify_gui_rtl.py --build F:\\Vivado_Output\\a3sim1 --gui C:\\GIT_Workspace\\PulseGenerator --vivado F:\\Xilinx\\Vivado\\2023.1\\bin --awg-v3 --repeat-reset --isolated-run --cross-capacitance 1 .23 -.17 1 --dac-current-ma 20 10 20 --sweep-case rf_duration_fixed --sweep-count 10 --dc-mode fixed_time --dc-readout-policy after_readout --stored-fir-samples 4 --verify-gui-widgets --run-tag v3_pipe4_time_gui --reuse-snapshot"
+  },
+  {
+    "ProcessId": 14648,
+    "ParentProcessId": 12108,
+    "Name": "cmd.exe",
+    "CreationDate": "2026-10-07T10:42:07.677913-07:00",
+    "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /c F:\\Xilinx\\Vivado\\2023.1\\bin\\xsim.bat -f F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rf_duration_v3_pipe4_voltage_gui_overlap_readout_awg_v3\\options.txt"
+  },
+  {
+    "ProcessId": 17252,
+    "ParentProcessId": 31576,
+    "Name": "cmd.exe",
+    "CreationDate": "2026-10-07T10:42:07.679664-07:00",
+    "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /c F:\\Xilinx\\Vivado\\2023.1\\bin\\xsim.bat -f F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rf_duration_v3_pipe4_voltage_reverse_overlap_readout_awg_v3\\options.txt"
+  },
+  {
+    "ProcessId": 28888,
+    "ParentProcessId": 31284,
+    "Name": "cmd.exe",
+    "CreationDate": "2026-10-07T10:42:07.763106-07:00",
+    "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /c F:\\Xilinx\\Vivado\\2023.1\\bin\\xsim.bat -f F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rf_duration_fixed_v3_pipe4_time_gui_after_readout_awg_v3\\options.txt"
+  },
+  {
+    "ProcessId": 6068,
+    "ParentProcessId": 14648,
+    "Name": "xsim.exe",
+    "CreationDate": "2026-10-07T10:42:09.10807-07:00",
+    "CommandLine": "\"F:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/xsim.exe\"   -f F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rf_duration_v3_pipe4_voltage_gui_overlap_readout_awg_v3\\options.txt"
+  },
+  {
+    "ProcessId": 8872,
+    "ParentProcessId": 17252,
+    "Name": "xsim.exe",
+    "CreationDate": "2026-10-07T10:42:09.110008-07:00",
+    "CommandLine": "\"F:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/xsim.exe\"   -f F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rf_duration_v3_pipe4_voltage_reverse_overlap_readout_awg_v3\\options.txt"
+  },
+  {
+    "ProcessId": 24592,
+    "ParentProcessId": 28888,
+    "Name": "xsim.exe",
+    "CreationDate": "2026-10-07T10:42:09.304973-07:00",
+    "CommandLine": "\"F:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/xsim.exe\"   -f F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rf_duration_fixed_v3_pipe4_time_gui_after_readout_awg_v3\\options.txt"
+  },
+  {
+    "ProcessId": 28784,
+    "ParentProcessId": 6068,
+    "Name": "xsimk.exe",
+    "CreationDate": "2026-10-07T10:42:11.173974-07:00",
+    "CommandLine": "xsim.dir/rc_gui/xsimk.exe -simmode gui -testplusarg CASE=F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_rf_duration_v3_pipe4_voltage_gui_overlap_readout_awg_v3 -testplusarg OUT=F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_rf_duration_v3_pipe4_voltage_gui_overlap_readout_awg_v3 -testplusarg CYCLES=299723 -wdb rc_gui.wdb -simrunnum 0 -socket 61324"
+  },
+  {
+    "ProcessId": 19744,
+    "ParentProcessId": 8872,
+    "Name": "xsimk.exe",
+    "CreationDate": "2026-10-07T10:42:11.014407-07:00",
+    "CommandLine": "xsim.dir/rc_gui/xsimk.exe -simmode gui -testplusarg CASE=F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_rf_duration_v3_pipe4_voltage_reverse_overlap_readout_awg_v3 -testplusarg OUT=F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_rf_duration_v3_pipe4_voltage_reverse_overlap_readout_awg_v3 -testplusarg CYCLES=299723 -wdb rc_gui.wdb -simrunnum 0 -socket 61323"
+  },
+  {
+    "ProcessId": 29236,
+    "ParentProcessId": 24592,
+    "Name": "xsimk.exe",
+    "CreationDate": "2026-10-07T10:42:11.649796-07:00",
+    "CommandLine": "xsim.dir/rc_gui/xsimk.exe -simmode gui -testplusarg CASE=F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_rf_duration_fixed_v3_pipe4_time_gui_after_readout_awg_v3 -testplusarg OUT=F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_rf_duration_fixed_v3_pipe4_time_gui_after_readout_awg_v3 -testplusarg CYCLES=351723 -wdb rc_gui.wdb -simrunnum 0 -socket 61327"
+  },
+  {
+    "ProcessId": 26888,
+    "ParentProcessId": 28784,
+    "Name": "conhost.exe",
+    "CreationDate": "2026-10-07T10:42:11.265738-07:00",
+    "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4"
+  },
+  {
+    "ProcessId": 31676,
+    "ParentProcessId": 19744,
+    "Name": "conhost.exe",
+    "CreationDate": "2026-10-07T10:42:11.065195-07:00",
+    "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4"
+  },
+  {
+    "ProcessId": 4192,
+    "ParentProcessId": 29236,
+    "Name": "conhost.exe",
+    "CreationDate": "2026-10-07T10:42:11.716268-07:00",
+    "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4"
+  }
+]

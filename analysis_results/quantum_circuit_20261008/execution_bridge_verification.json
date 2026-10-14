@@ -1,0 +1,456 @@
+{
+  "complete": true,
+  "created_utc": "2026-10-08T07:27:16.117081+00:00",
+  "scope": "Circuit document to existing production Python compiler and QCoDeS save; mock hardware acquisition. This is not a new circuit Verilog or physical-board measurement.",
+  "tests": {
+    "passed": 32,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "execution_bridge_tests.log",
+    "junit": "execution_bridge_tests.xml"
+  },
+  "coverage": [
+    "absolute and relative AWG targets",
+    "simultaneous two-AWG RAMP timing and guard accounting",
+    "multiple RF pulses on one generator via existing composite spec",
+    "live FIR 1 MSPS and 50 kSPS input-window alignment",
+    "scoped RF digital-path pipeline correction and unknown-profile rejection",
+    "RC-only and both DC compensation modes",
+    "3-clock SET and shared-port collision rejection",
+    "periodic RF stop-word exactness",
+    "cancellation before runner",
+    "one live connection with precompile before hardware boundary",
+    "preflight/execution compiler PMEM equality",
+    "existing QCoDeS runner and actual temporary SQLite save with acquisition boundary mocked",
+    "editor input snapshot preservation and actual experiment provenance"
+  ],
+  "rf_profile": {
+    "name": "qstl_v3_rf_v6_300mhz_tmux_digital",
+    "latency_tproc_cycles": 42,
+    "required_metadata": {
+      "RF": {
+        "type": "axis_signal_gen_v6",
+        "revision": 6,
+        "samps_per_clk": 16,
+        "tmux_ch": 0,
+        "f_fabric": 300
+      },
+      "all_selected_AWG": {
+        "type": "axis_awg_tuning_v3",
+        "dc_area_version": 1,
+        "dc_area_bits": 48,
+        "output_latency_cycles": 16
+      },
+      "tproc_f_time": 300
+    },
+    "evidence": "../awg_tuning_v3/hold_acquisition_20261007/HOLD_RTL_REPORT.md",
+    "scope": "Profile-based digital-interface alignment. Does not establish analog RFDC/cable latency or remeasure connected hardware."
+  },
+  "explicit_limits": [
+    "exactly one FIR acquisition and at least one explicit AWG lane",
+    "synchronous ramp boundaries across outputs; no other AWG transition during a ramp",
+    "independent AWG tProcessor ports and matched AWG/RF/tProcessor clocks",
+    "whole acquisition samples and exactly clock-representable event times",
+    "named gates need explicit pulse/acquisition configuration; only Wait/Idle/Delay can be intentionally empty",
+    "existing front-panel RF attenuation/filter settings remain separate from Run",
+    "existing DAC/RF quantization and continuous FIR sample-phase uncertainty remain"
+  ],
+  "example_document": {
+    "version": 1,
+    "shots": 3,
+    "qubits": [
+      {
+        "id": "q1",
+        "name": "Q1"
+      },
+      {
+        "id": "q2",
+        "name": "Q2"
+      }
+    ],
+    "awg_baselines": [
+      {
+        "channel": 1,
+        "voltage_mv": 10
+      },
+      {
+        "channel": 2,
+        "voltage_mv": -20
+      }
+    ],
+    "gates": [
+      {
+        "id": "prepare",
+        "name": "prepare",
+        "qubits": [
+          "q1"
+        ],
+        "start_us": 0,
+        "duration_us": 10,
+        "awg": [
+          {
+            "channel": 1,
+            "mode": "absolute",
+            "value_mv": 100,
+            "ramp_us": 0
+          },
+          {
+            "channel": 2,
+            "mode": "absolute",
+            "value_mv": -100,
+            "ramp_us": 0
+          }
+        ],
+        "rf": [
+          {
+            "channel": 1,
+            "delay_us": 1,
+            "duration_us": 2,
+            "frequency_mhz": 50,
+            "phase_deg": 90,
+            "gain": 1000
+          },
+          {
+            "channel": 1,
+            "delay_us": 5,
+            "duration_us": 2,
+            "frequency_mhz": 70,
+            "phase_deg": 90,
+            "gain": 2000
+          }
+        ],
+        "acquisition": null
+      },
+      {
+        "id": "ramp",
+        "name": "ramp",
+        "qubits": [
+          "q1"
+        ],
+        "start_us": 10,
+        "duration_us": 30,
+        "awg": [
+          {
+            "channel": 1,
+            "mode": "relative",
+            "value_mv": 20,
+            "ramp_us": 5
+          },
+          {
+            "channel": 2,
+            "mode": "relative",
+            "value_mv": 50,
+            "ramp_us": 5
+          }
+        ],
+        "rf": [],
+        "acquisition": {
+          "delay_us": 10,
+          "duration_us": 20
+        }
+      }
+    ]
+  },
+  "compiled_examples": [
+    {
+      "fir_profile": "1_msps",
+      "metadata": {
+        "version": 1,
+        "circuit_origin_us": 7.99,
+        "startup_pre_roll_us": 0.043333333333333335,
+        "circuit_duration_us": 40.0,
+        "terminal_hold_extension_us": 0.0,
+        "tproc_mhz": 300.0,
+        "awg_channels": [
+          1,
+          3
+        ],
+        "rf_pulse_count": 2,
+        "shots": 3,
+        "rf_output_latency_tproc_cycles": {
+          "0": 42
+        },
+        "rf_output_latency_profiles": {
+          "0": "qstl_v3_rf_v6_300mhz_tmux_digital"
+        },
+        "rf_latency_evidence": "analysis_results/awg_tuning_v3/hold_acquisition_20261007/HOLD_RTL_REPORT.md; prior RF output latency 42 clocks",
+        "rf_timing_scope": "Profile-based RF digital-interface alignment; not a new hardware measurement, RFDC analog or cable-delay calibration.",
+        "acquisition_samples": 20,
+        "sample_rate_hz": 1000000.0,
+        "acquisition_input_start_us": 20.0,
+        "acquisition_input_end_us": 40.0,
+        "fir_timing": {
+          "point_index": 0,
+          "policy": "after_readout",
+          "stored_samples": 20,
+          "user_pulse_end_us": 47.99,
+          "trigger_us": 56.913333333333334,
+          "input_end_barrier_us": 80.32666666666667,
+          "storage_start_us": 56.913333333333334,
+          "storage_end_us": 76.91333333333333,
+          "group_delay_referenced_input_start_us": 27.99,
+          "group_delay_referenced_input_end_us": 47.99,
+          "stored_sample_period_us": 1.0,
+          "dc_outputs": []
+        },
+        "timing_note": "FIR input bounds are group-delay referenced; continuous decimation can move a stored edge by one sample period. DAC/RF quantization is unchanged.",
+        "compensation": {}
+      },
+      "program_instruction_count": 146,
+      "pmem_sha256": "b3456b167698d9277113a04b4521d24019392680d4268954d4a48a0ab705a356",
+      "awgs": [
+        {
+          "segment": "circuit_anchor",
+          "kind": "set",
+          "physical_segment_start_relative_to_circuit_us": -0.04333333333333389,
+          "duration_fabric_cycles": 13,
+          "commands": [
+            {
+              "generator": 1,
+              "target_code": 408,
+              "ramp_step": 0,
+              "command_time_tproc_cycles": 2368
+            },
+            {
+              "generator": 3,
+              "target_code": -1640,
+              "ramp_step": 0,
+              "command_time_tproc_cycles": 2368
+            }
+          ]
+        },
+        {
+          "segment": "circuit_set_0",
+          "kind": "set",
+          "physical_segment_start_relative_to_circuit_us": 0.0,
+          "duration_fabric_cycles": 3000,
+          "commands": [
+            {
+              "generator": 1,
+              "target_code": 4096,
+              "ramp_step": 0,
+              "command_time_tproc_cycles": 2381
+            },
+            {
+              "generator": 3,
+              "target_code": -8192,
+              "ramp_step": 0,
+              "command_time_tproc_cycles": 2381
+            }
+          ]
+        },
+        {
+          "segment": "circuit_ramp_1",
+          "kind": "ramp",
+          "physical_segment_start_relative_to_circuit_us": 9.999999999999998,
+          "duration_fabric_cycles": 1500,
+          "commands": [
+            {
+              "generator": 1,
+              "target_code": 4916,
+              "ramp_step": 8956,
+              "command_time_tproc_cycles": 5374
+            },
+            {
+              "generator": 3,
+              "target_code": -4096,
+              "ramp_step": 44741,
+              "command_time_tproc_cycles": 5374
+            }
+          ]
+        },
+        {
+          "segment": "circuit_set_1",
+          "kind": "set",
+          "physical_segment_start_relative_to_circuit_us": 15.003333333333332,
+          "duration_fabric_cycles": 7499,
+          "commands": [
+            {
+              "generator": 1,
+              "target_code": 4916,
+              "ramp_step": 0,
+              "command_time_tproc_cycles": 6882
+            },
+            {
+              "generator": 3,
+              "target_code": -4096,
+              "ramp_step": 0,
+              "command_time_tproc_cycles": 6882
+            }
+          ]
+        }
+      ],
+      "rf": [
+        {
+          "generator": 0,
+          "command_start_relative_to_circuit_us": 0.8599999999999994,
+          "profile_digital_output_start_relative_to_circuit_us": 1.0,
+          "profile_digital_output_end_relative_to_circuit_us": 3.0,
+          "latency_tproc_cycles": 42
+        },
+        {
+          "generator": 0,
+          "command_start_relative_to_circuit_us": 4.859999999999999,
+          "profile_digital_output_start_relative_to_circuit_us": 5.0,
+          "profile_digital_output_end_relative_to_circuit_us": 7.0,
+          "latency_tproc_cycles": 42
+        }
+      ]
+    },
+    {
+      "fir_profile": "50_ksps",
+      "metadata": {
+        "version": 1,
+        "circuit_origin_us": 0.09666666666666666,
+        "startup_pre_roll_us": 0.043333333333333335,
+        "circuit_duration_us": 40.0,
+        "terminal_hold_extension_us": 0.0,
+        "tproc_mhz": 300.0,
+        "awg_channels": [
+          1,
+          3
+        ],
+        "rf_pulse_count": 2,
+        "shots": 3,
+        "rf_output_latency_tproc_cycles": {
+          "0": 42
+        },
+        "rf_output_latency_profiles": {
+          "0": "qstl_v3_rf_v6_300mhz_tmux_digital"
+        },
+        "rf_latency_evidence": "analysis_results/awg_tuning_v3/hold_acquisition_20261007/HOLD_RTL_REPORT.md; prior RF output latency 42 clocks",
+        "rf_timing_scope": "Profile-based RF digital-interface alignment; not a new hardware measurement, RFDC analog or cable-delay calibration.",
+        "acquisition_samples": 1,
+        "sample_rate_hz": 50000.0,
+        "acquisition_input_start_us": 20.0,
+        "acquisition_input_end_us": 40.0,
+        "fir_timing": {
+          "point_index": 0,
+          "policy": "after_readout",
+          "stored_samples": 1,
+          "user_pulse_end_us": 40.096666666666664,
+          "trigger_us": 1008.8533333333334,
+          "input_end_barrier_us": 1032.2666666666667,
+          "storage_start_us": 1009.02,
+          "storage_end_us": 1029.02,
+          "group_delay_referenced_input_start_us": 20.096666666666668,
+          "group_delay_referenced_input_end_us": 40.096666666666664,
+          "stored_sample_period_us": 20.0,
+          "dc_outputs": []
+        },
+        "timing_note": "FIR input bounds are group-delay referenced; continuous decimation can move a stored edge by one sample period. DAC/RF quantization is unchanged.",
+        "compensation": {}
+      },
+      "program_instruction_count": 146,
+      "pmem_sha256": "1294b5cf1c582dffff5dc8713f466fd002b79da6b9d8670a3b377ebd273347de",
+      "awgs": [
+        {
+          "segment": "circuit_anchor",
+          "kind": "set",
+          "physical_segment_start_relative_to_circuit_us": -0.04333333333333333,
+          "duration_fabric_cycles": 13,
+          "commands": [
+            {
+              "generator": 1,
+              "target_code": 408,
+              "ramp_step": 0,
+              "command_time_tproc_cycles": 0
+            },
+            {
+              "generator": 3,
+              "target_code": -1640,
+              "ramp_step": 0,
+              "command_time_tproc_cycles": 0
+            }
+          ]
+        },
+        {
+          "segment": "circuit_set_0",
+          "kind": "set",
+          "physical_segment_start_relative_to_circuit_us": 0.0,
+          "duration_fabric_cycles": 3000,
+          "commands": [
+            {
+              "generator": 1,
+              "target_code": 4096,
+              "ramp_step": 0,
+              "command_time_tproc_cycles": 13
+            },
+            {
+              "generator": 3,
+              "target_code": -8192,
+              "ramp_step": 0,
+              "command_time_tproc_cycles": 13
+            }
+          ]
+        },
+        {
+          "segment": "circuit_ramp_1",
+          "kind": "ramp",
+          "physical_segment_start_relative_to_circuit_us": 10.0,
+          "duration_fabric_cycles": 1500,
+          "commands": [
+            {
+              "generator": 1,
+              "target_code": 4916,
+              "ramp_step": 8956,
+              "command_time_tproc_cycles": 3006
+            },
+            {
+              "generator": 3,
+              "target_code": -4096,
+              "ramp_step": 44741,
+              "command_time_tproc_cycles": 3006
+            }
+          ]
+        },
+        {
+          "segment": "circuit_set_1",
+          "kind": "set",
+          "physical_segment_start_relative_to_circuit_us": 15.003333333333334,
+          "duration_fabric_cycles": 7499,
+          "commands": [
+            {
+              "generator": 1,
+              "target_code": 4916,
+              "ramp_step": 0,
+              "command_time_tproc_cycles": 4514
+            },
+            {
+              "generator": 3,
+              "target_code": -4096,
+              "ramp_step": 0,
+              "command_time_tproc_cycles": 4514
+            }
+          ]
+        }
+      ],
+      "rf": [
+        {
+          "generator": 0,
+          "command_start_relative_to_circuit_us": 0.86,
+          "profile_digital_output_start_relative_to_circuit_us": 1.0,
+          "profile_digital_output_end_relative_to_circuit_us": 3.0,
+          "latency_tproc_cycles": 42
+        },
+        {
+          "generator": 0,
+          "command_start_relative_to_circuit_us": 4.86,
+          "profile_digital_output_start_relative_to_circuit_us": 5.0,
+          "profile_digital_output_end_relative_to_circuit_us": 7.0,
+          "latency_tproc_cycles": 42
+        }
+      ]
+    }
+  ],
+  "source_hashes": {
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\quantum_circuit_execution.py": "4964251217ebc5e91231d3a2d57c57082d97dd7e1e223507c833968f7c9e5be0",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_quantum_circuit_execution.py": "45aeb93b7731bd8b12750f7d4a69b00bee49c1c10135dd2e10b6a3c73d9baddd",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\quantum_circuit_model.py": "563d6a9bcbb8a5a5db7c5c0d9addbefa4bfdb8b44ba6fa22002f52c1577a995e",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py": "f90868f142e11d3599b967b01d693160b1e4a9afff5aac8cd374620e950aa70d",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_qcodes_experiment.py": "b3e87e9d8edcf38c26bea01528f926512277fd93f57e52f081c2928731b0fab1",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\dc_waveform_core.py": "c1277360a84dba1a18e96c82a4d6c024dbff670fb0c845dfdda60293d1112294",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\fir_ddr_profile.py": "b67af1c9186225e639cebd428018904f9713948c887679781400457a9ec7ce64"
+  }
+}

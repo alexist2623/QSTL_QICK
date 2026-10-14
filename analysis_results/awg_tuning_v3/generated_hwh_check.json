@@ -1,0 +1,306 @@
+{
+  "state": "generated_before_route_not_deployed",
+  "hardware": {
+    "square_dac": "13",
+    "square_fabric_clock_hz": 300000000,
+    "samples_per_clock": 16,
+    "awg_ip_version": 3,
+    "dc_area_bits": 48,
+    "dc_area_version": 1,
+    "awg_output_latency_cycles": 16,
+    "dc_start_cycles": 17,
+    "awg_step_bits": 32,
+    "awg_step_fraction_bits": 18,
+    "square_scalar_sample_rate_hz": 4800000000,
+    "nominal_gen_ch": 7,
+    "iq_component_bits": 64,
+    "fir_decimation": 300,
+    "trigger_delay_cycles": 8712,
+    "rc_precomp_version": 1,
+    "rc_output_latency_cycles": 11,
+    "rc_fraction_bits": 48,
+    "rc_accumulator_bits": 72,
+    "square_command_latency_cycles": 15
+  },
+  "clocks": [
+    {
+      "instance": "axis_awg_tuning_v3_10",
+      "type": "axis_awg_tuning_v3",
+      "ports": [
+        {
+          "CLKFREQUENCY": "99999985",
+          "DIR": "I",
+          "NAME": "s_axi_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "zynq_ultra_ps_e_0_pl_clk0"
+        },
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "I",
+          "NAME": "aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "dac_clk_buf_BUFG_O"
+        }
+      ]
+    },
+    {
+      "instance": "axis_awg_tuning_v3_11",
+      "type": "axis_awg_tuning_v3",
+      "ports": [
+        {
+          "CLKFREQUENCY": "99999985",
+          "DIR": "I",
+          "NAME": "s_axi_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "zynq_ultra_ps_e_0_pl_clk0"
+        },
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "I",
+          "NAME": "aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "dac_clk_buf_BUFG_O"
+        }
+      ]
+    },
+    {
+      "instance": "axis_awg_tuning_v3_4",
+      "type": "axis_awg_tuning_v3",
+      "ports": [
+        {
+          "CLKFREQUENCY": "99999985",
+          "DIR": "I",
+          "NAME": "s_axi_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "zynq_ultra_ps_e_0_pl_clk0"
+        },
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "I",
+          "NAME": "aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "dac_clk_buf_BUFG_O"
+        }
+      ]
+    },
+    {
+      "instance": "axis_awg_tuning_v3_5",
+      "type": "axis_awg_tuning_v3",
+      "ports": [
+        {
+          "CLKFREQUENCY": "99999985",
+          "DIR": "I",
+          "NAME": "s_axi_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "zynq_ultra_ps_e_0_pl_clk0"
+        },
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "I",
+          "NAME": "aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "dac_clk_buf_BUFG_O"
+        }
+      ]
+    },
+    {
+      "instance": "axis_awg_tuning_v3_6",
+      "type": "axis_awg_tuning_v3",
+      "ports": [
+        {
+          "CLKFREQUENCY": "99999985",
+          "DIR": "I",
+          "NAME": "s_axi_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "zynq_ultra_ps_e_0_pl_clk0"
+        },
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "I",
+          "NAME": "aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "dac_clk_buf_BUFG_O"
+        }
+      ]
+    },
+    {
+      "instance": "axis_awg_tuning_v3_8",
+      "type": "axis_awg_tuning_v3",
+      "ports": [
+        {
+          "CLKFREQUENCY": "99999985",
+          "DIR": "I",
+          "NAME": "s_axi_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "zynq_ultra_ps_e_0_pl_clk0"
+        },
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "I",
+          "NAME": "aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "dac_clk_buf_BUFG_O"
+        }
+      ]
+    },
+    {
+      "instance": "axis_awg_tuning_v3_9",
+      "type": "axis_awg_tuning_v3",
+      "ports": [
+        {
+          "CLKFREQUENCY": "99999985",
+          "DIR": "I",
+          "NAME": "s_axi_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "zynq_ultra_ps_e_0_pl_clk0"
+        },
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "I",
+          "NAME": "aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "dac_clk_buf_BUFG_O"
+        }
+      ]
+    },
+    {
+      "instance": "axis_tproc64x32_x8_0",
+      "type": "axis_tproc64x32_x8",
+      "ports": [
+        {
+          "CLKFREQUENCY": "99999985",
+          "DIR": "I",
+          "NAME": "s_axi_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "zynq_ultra_ps_e_0_pl_clk0"
+        },
+        {
+          "CLKFREQUENCY": "99999985",
+          "DIR": "I",
+          "NAME": "s0_axis_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "zynq_ultra_ps_e_0_pl_clk0"
+        },
+        {
+          "CLKFREQUENCY": "99999985",
+          "DIR": "I",
+          "NAME": "m0_axis_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "zynq_ultra_ps_e_0_pl_clk0"
+        },
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "I",
+          "NAME": "aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "dac_clk_buf_BUFG_O"
+        }
+      ]
+    },
+    {
+      "instance": "ddr4_axis_buffer_ddr_sample_v3_0",
+      "type": "axis_buffer_ddr_sample_v3",
+      "ports": [
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "I",
+          "NAME": "s_axis_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "dac_clk_buf_BUFG_O"
+        },
+        {
+          "CLKFREQUENCY": "333250000",
+          "DIR": "I",
+          "NAME": "m_axi_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "ddr4_ddr4_0_c0_ddr4_ui_clk"
+        },
+        {
+          "CLKFREQUENCY": "99999985",
+          "DIR": "I",
+          "NAME": "s_axi_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "zynq_ultra_ps_e_0_pl_clk0"
+        }
+      ]
+    },
+    {
+      "instance": "ddr4_axis_fir_decim_300to1_v2_0",
+      "type": "axis_fir_decim_300to1_v2",
+      "ports": [
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "I",
+          "NAME": "aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "dac_clk_buf_BUFG_O"
+        }
+      ]
+    },
+    {
+      "instance": "usp_rf_data_converter_0",
+      "type": "usp_rf_data_converter",
+      "ports": [
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "O",
+          "NAME": "clk_adc2",
+          "SIGIS": "clk"
+        },
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "O",
+          "NAME": "clk_dac0",
+          "SIGIS": "clk"
+        },
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "O",
+          "NAME": "clk_dac1",
+          "SIGIS": "clk"
+        },
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "O",
+          "NAME": "clk_dac2",
+          "SIGIS": "clk"
+        },
+        {
+          "CLKFREQUENCY": "99999985",
+          "DIR": "I",
+          "NAME": "s_axi_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "zynq_ultra_ps_e_0_pl_clk0"
+        },
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "I",
+          "NAME": "m2_axis_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "dac_clk_buf_BUFG_O"
+        },
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "I",
+          "NAME": "s0_axis_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "dac_clk_buf_BUFG_O"
+        },
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "I",
+          "NAME": "s1_axis_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "dac_clk_buf_BUFG_O"
+        },
+        {
+          "CLKFREQUENCY": "300000000",
+          "DIR": "I",
+          "NAME": "s2_axis_aclk",
+          "SIGIS": "clk",
+          "SIGNAME": "dac_clk_buf_BUFG_O"
+        }
+      ]
+    }
+  ]
+}

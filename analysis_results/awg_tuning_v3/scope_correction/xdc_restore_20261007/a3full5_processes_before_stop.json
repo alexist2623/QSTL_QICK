@@ -1,0 +1,114 @@
+[
+  {
+    "ProcessId": 18512,
+    "ParentProcessId": 26928,
+    "Name": "vivado.exe",
+    "CreationDate": "2026-10-07T10:53:13.964762-07:00",
+    "CommandLine": "\"F:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/vivado.exe\"   -mode batch -notrace -nojournal -nolog -source C:/GIT_Workspace/QSTL_QICK/qick/firmware/projects/qstl_awg_v3/build_vivado_2023_1.tcl -tclargs F:/Vivado_Output/a3full5"
+  },
+  {
+    "ProcessId": 21024,
+    "ParentProcessId": 18512,
+    "Name": "cmd.exe",
+    "CreationDate": "2026-10-07T11:00:01.785316-07:00",
+    "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /c F:/Xilinx/Vivado/2023.1/bin/loader.bat -m64 -exec vrs F:/Vivado_Output/a3full5/qstl_awg_v3.runs/.jobs/vrs_config_1.xml -j 3"
+  },
+  {
+    "ProcessId": 16304,
+    "ParentProcessId": 21024,
+    "Name": "vrs.exe",
+    "CreationDate": "2026-10-07T11:00:03.537007-07:00",
+    "CommandLine": "\"F:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/vrs.exe\"   F:/Vivado_Output/a3full5/qstl_awg_v3.runs/.jobs/vrs_config_1.xml -j 3"
+  },
+  {
+    "ProcessId": 30640,
+    "ParentProcessId": 16304,
+    "Name": "cmd.exe",
+    "CreationDate": "2026-10-07T11:08:34.021251-07:00",
+    "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /c F:/Vivado_Output/a3full5/qstl_awg_v3.runs/d_1_rst_100_0_synth_1/runme.bat -quiet"
+  },
+  {
+    "ProcessId": 30380,
+    "ParentProcessId": 16304,
+    "Name": "cmd.exe",
+    "CreationDate": "2026-10-07T11:08:43.636132-07:00",
+    "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /c F:/Vivado_Output/a3full5/qstl_awg_v3.runs/d_1_rst_adc2_0_synth_1/runme.bat -quiet"
+  },
+  {
+    "ProcessId": 31512,
+    "ParentProcessId": 16304,
+    "Name": "cmd.exe",
+    "CreationDate": "2026-10-07T11:09:47.273642-07:00",
+    "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /c F:/Vivado_Output/a3full5/qstl_awg_v3.runs/d_1_util_ds_buf_0_0_synth_1/runme.bat -quiet"
+  },
+  {
+    "ProcessId": 27572,
+    "ParentProcessId": 30640,
+    "Name": "cscript.exe",
+    "CreationDate": "2026-10-07T11:08:34.758428-07:00",
+    "CommandLine": "cscript  /nologo /E:JScript \"F:\\Vivado_Output\\a3full5\\qstl_awg_v3.runs\\d_1_rst_100_0_synth_1\\\\rundef.js\" -quiet"
+  },
+  {
+    "ProcessId": 24612,
+    "ParentProcessId": 30380,
+    "Name": "cscript.exe",
+    "CreationDate": "2026-10-07T11:08:43.984113-07:00",
+    "CommandLine": "cscript  /nologo /E:JScript \"F:\\Vivado_Output\\a3full5\\qstl_awg_v3.runs\\d_1_rst_adc2_0_synth_1\\\\rundef.js\" -quiet"
+  },
+  {
+    "ProcessId": 24792,
+    "ParentProcessId": 31512,
+    "Name": "cscript.exe",
+    "CreationDate": "2026-10-07T11:09:47.924964-07:00",
+    "CommandLine": "cscript  /nologo /E:JScript \"F:\\Vivado_Output\\a3full5\\qstl_awg_v3.runs\\d_1_util_ds_buf_0_0_synth_1\\\\rundef.js\" -quiet"
+  },
+  {
+    "ProcessId": 14008,
+    "ParentProcessId": 27572,
+    "Name": "cmd.exe",
+    "CreationDate": "2026-10-07T11:08:35.265748-07:00",
+    "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /c vivado.bat -log d_1_rst_100_0.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source d_1_rst_100_0.tcl 2>&1"
+  },
+  {
+    "ProcessId": 16584,
+    "ParentProcessId": 24612,
+    "Name": "cmd.exe",
+    "CreationDate": "2026-10-07T11:08:44.411474-07:00",
+    "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /c vivado.bat -log d_1_rst_adc2_0.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source d_1_rst_adc2_0.tcl 2>&1"
+  },
+  {
+    "ProcessId": 23620,
+    "ParentProcessId": 24792,
+    "Name": "cmd.exe",
+    "CreationDate": "2026-10-07T11:09:48.304557-07:00",
+    "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /c vivado.bat -log d_1_util_ds_buf_0_0.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source d_1_util_ds_buf_0_0.tcl 2>&1"
+  },
+  {
+    "ProcessId": 1944,
+    "ParentProcessId": 14008,
+    "Name": "vivado.exe",
+    "CreationDate": "2026-10-07T11:08:58.108368-07:00",
+    "CommandLine": null
+  },
+  {
+    "ProcessId": 25376,
+    "ParentProcessId": 16584,
+    "Name": "vivado.exe",
+    "CreationDate": "2026-10-07T11:09:46.513888-07:00",
+    "CommandLine": "\"F:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/vivado.exe\"   -log d_1_rst_adc2_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source d_1_rst_adc2_0.tcl"
+  },
+  {
+    "ProcessId": 6460,
+    "ParentProcessId": 1944,
+    "Name": "cmd.exe",
+    "CreationDate": "2026-10-07T11:09:40.70768-07:00",
+    "CommandLine": " /c F:/Xilinx/Vivado/2023.1/bin/vivado -exec parallel_synth_helper --key LaunchHelperProcessKey_1944_1791396580 --partid xczu49dr-ffvf1760-2-e --parent_pid 1944 --parent_exe vivado"
+  },
+  {
+    "ProcessId": 29776,
+    "ParentProcessId": 25376,
+    "Name": "cmd.exe",
+    "CreationDate": "2026-10-07T11:10:28.128103-07:00",
+    "CommandLine": " /c F:/Xilinx/Vivado/2023.1/bin/vivado -exec parallel_synth_helper --key LaunchHelperProcessKey_25376_1791396628 --partid xczu49dr-ffvf1760-2-e --parent_pid 25376 --parent_exe vivado"
+  }
+]

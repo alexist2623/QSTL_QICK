@@ -1,0 +1,93 @@
+[
+  {
+    "ProcessId": 18860,
+    "ParentProcessId": 1736,
+    "Name": "python.exe",
+    "CreationDate": "2026-10-07T10:06:02.007882-07:00",
+    "CommandLine": "\"C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe\" -X utf8 qick/firmware/ip/axis_awg_tuning_v3/validation/run_width_comparison.py --build F:/Vivado_Output/a3width_pipe3"
+  },
+  {
+    "ProcessId": 29520,
+    "ParentProcessId": 18860,
+    "Name": "cmd.exe",
+    "CreationDate": "2026-10-07T10:06:07.951192-07:00",
+    "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /c F:\\Xilinx\\Vivado\\2023.1\\bin\\xsim.bat tb_width48 -runall"
+  },
+  {
+    "ProcessId": 28064,
+    "ParentProcessId": 18860,
+    "Name": "cmd.exe",
+    "CreationDate": "2026-10-07T10:06:07.956899-07:00",
+    "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /c F:\\Xilinx\\Vivado\\2023.1\\bin\\xsim.bat tb_width64 -runall"
+  },
+  {
+    "ProcessId": 29548,
+    "ParentProcessId": 18860,
+    "Name": "cmd.exe",
+    "CreationDate": "2026-10-07T10:06:08.823167-07:00",
+    "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /c F:\\Xilinx\\Vivado\\2023.1\\bin\\xsim.bat tb_width32 -runall"
+  },
+  {
+    "ProcessId": 23056,
+    "ParentProcessId": 29520,
+    "Name": "xsim.exe",
+    "CreationDate": "2026-10-07T10:06:08.528913-07:00",
+    "CommandLine": "\"F:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/xsim.exe\"   tb_width48 -runall"
+  },
+  {
+    "ProcessId": 16792,
+    "ParentProcessId": 28064,
+    "Name": "xsim.exe",
+    "CreationDate": "2026-10-07T10:06:08.534397-07:00",
+    "CommandLine": "\"F:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/xsim.exe\"   tb_width64 -runall"
+  },
+  {
+    "ProcessId": 30148,
+    "ParentProcessId": 29548,
+    "Name": "xsim.exe",
+    "CreationDate": "2026-10-07T10:06:09.537255-07:00",
+    "CommandLine": "\"F:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/xsim.exe\"   tb_width32 -runall"
+  },
+  {
+    "ProcessId": 21924,
+    "ParentProcessId": 23056,
+    "Name": "xsimk.exe",
+    "CreationDate": "2026-10-07T10:06:09.87254-07:00",
+    "CommandLine": "xsim.dir/tb_width48/xsimk.exe -runall -simmode gui -wdb tb_width48.wdb -simrunnum 0 -socket 51050"
+  },
+  {
+    "ProcessId": 28628,
+    "ParentProcessId": 16792,
+    "Name": "xsimk.exe",
+    "CreationDate": "2026-10-07T10:06:09.721472-07:00",
+    "CommandLine": "xsim.dir/tb_width64/xsimk.exe -runall -simmode gui -wdb tb_width64.wdb -simrunnum 0 -socket 51047"
+  },
+  {
+    "ProcessId": 2744,
+    "ParentProcessId": 30148,
+    "Name": "xsimk.exe",
+    "CreationDate": "2026-10-07T10:06:10.740473-07:00",
+    "CommandLine": "xsim.dir/tb_width32/xsimk.exe -runall -simmode gui -wdb tb_width32.wdb -simrunnum 0 -socket 51054"
+  },
+  {
+    "ProcessId": 21172,
+    "ParentProcessId": 21924,
+    "Name": "conhost.exe",
+    "CreationDate": "2026-10-07T10:06:09.88528-07:00",
+    "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4"
+  },
+  {
+    "ProcessId": 28276,
+    "ParentProcessId": 28628,
+    "Name": "conhost.exe",
+    "CreationDate": "2026-10-07T10:06:09.733958-07:00",
+    "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4"
+  },
+  {
+    "ProcessId": 13356,
+    "ParentProcessId": 2744,
+    "Name": "conhost.exe",
+    "CreationDate": "2026-10-07T10:06:10.752505-07:00",
+    "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4"
+  }
+]

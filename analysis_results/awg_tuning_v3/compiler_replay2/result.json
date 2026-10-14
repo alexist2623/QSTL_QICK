@@ -1,0 +1,42 @@
+{
+  "complete": true,
+  "simulator_started": false,
+  "cases": {
+    "rc_precomp_repeat_reset_rf_duration_v3_scoped1_voltage_gui_overlap_readout_awg_v3": {
+      "export_equal": true,
+      "pmem_sha256": "dd8e7a51bc7fefe45b9ca32011ec10334a22d17f00504a987ffd45efc86cefab",
+      "dmem_sha256": "d65f884faf514c6c9d2fa69f38de735e04ab70780cc0aedaa0e0a93ab4aaf464",
+      "export_sha256": "36881513929ace987164956e8ed2bce2a7609d23388cb39bed3d6320c0df1f79",
+      "gui_widgets_replayed": true,
+      "gui_input_sha256": "7836d46978dbba8bbae3b9357164e01124d66d216bd0f1cacd0aae1166032309",
+      "sequence_mutations": []
+    },
+    "rc_precomp_repeat_reset_rf_duration_v3_scoped1_voltage_reverse_overlap_readout_awg_v3": {
+      "export_equal": true,
+      "pmem_sha256": "ebfec69d85024803fec6800c7b07be9bca2af6014194b52c170aa4a4414655ca",
+      "dmem_sha256": "d65f884faf514c6c9d2fa69f38de735e04ab70780cc0aedaa0e0a93ab4aaf464",
+      "export_sha256": "68be327b35d1bf4f8f59d5e18595856a3c212f12a567feea42f500519c7e35cb",
+      "gui_widgets_replayed": true,
+      "gui_input_sha256": "7836d46978dbba8bbae3b9357164e01124d66d216bd0f1cacd0aae1166032309",
+      "sequence_mutations": [
+        "reverse sweep axes after GUI input"
+      ]
+    },
+    "rc_precomp_repeat_reset_rf_duration_fixed_v3_seq48_time_gui_after_readout_awg_v3": {
+      "export_equal": true,
+      "pmem_sha256": "868ed5b83c80a1002e63f980c2408542391b129e5c6607de2bf679b31a372974",
+      "dmem_sha256": "d65f884faf514c6c9d2fa69f38de735e04ab70780cc0aedaa0e0a93ab4aaf464",
+      "export_sha256": "304702cd0be2daa6cc4f9ef251ea73540f924843276f897a4eafa0f6a0aef826",
+      "gui_widgets_replayed": true,
+      "gui_input_sha256": "548267dde7d8a600431f0e99e8944ab4227a5ecd1a7cff6999a053bdb077bc10",
+      "sequence_mutations": []
+    },
+    "rc_precomp_repeat_reset_no_aux_grid_10x10_v3_scoped1_stability_awg_v3_stability": {
+      "export_equal": true,
+      "pmem_sha256": "d4935bf8ff235204337b0a0771e625f7859e5ca97fb55e99af1268731c5b39af",
+      "dmem_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "export_sha256": "e2d8f56b55bacc8fe0d9735c54552c50ad28271da2ac6c6f822a7959e37f532f",
+      "gui_widgets_replayed": false
+    }
+  }
+}

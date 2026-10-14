@@ -1,0 +1,50 @@
+{
+  "qick_qick_test_awg_tuning_v2": {
+    "state": "passed",
+    "exit_code": 0,
+    "log": "F:\\Vivado_Output\\a3regular48_final\\qick_qick_test_awg_tuning_v2.retry1.log",
+    "command": [
+      "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+      "-X",
+      "utf8",
+      "-X",
+      "faulthandler",
+      "-m",
+      "pytest",
+      "C:\\GIT_Workspace\\QSTL_QICK\\qick\\qick_lib\\qick\\test_awg_tuning_v2.py",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "--basetemp",
+      "F:\\Vivado_Output\\a3regular48_final\\pytest_temp\\qick_qick_test_awg_tuning_v2_retry1"
+    ],
+    "started": 1791397476.4390512,
+    "elapsed_s": 0.732616662979126,
+    "reason": "Missing basetemp parent repaired; production sources and assertions unchanged",
+    "module_sha256": "95b1819a5dab57b2bde184501cd328929064e4188521f7e2a827a30b9f3d4559"
+  },
+  "gui_DCWaveformGeneratorGUI_test_awg_sweep_map": {
+    "state": "passed",
+    "exit_code": 0,
+    "log": "F:\\Vivado_Output\\a3regular48_final\\gui_DCWaveformGeneratorGUI_test_awg_sweep_map.retry1.log",
+    "command": [
+      "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+      "-X",
+      "utf8",
+      "-X",
+      "faulthandler",
+      "-m",
+      "pytest",
+      "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_awg_sweep_map.py",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "--basetemp",
+      "F:\\Vivado_Output\\a3regular48_final\\pytest_temp\\gui_DCWaveformGeneratorGUI_test_awg_sweep_map_retry1"
+    ],
+    "started": 1791397477.1716678,
+    "elapsed_s": 8.750155448913574,
+    "reason": "Missing basetemp parent repaired; production sources and assertions unchanged",
+    "module_sha256": "7f49a669b9d84852ce0fda81e499250817d6532b5b156658596543f9d0cf820b"
+  }
+}

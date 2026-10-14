@@ -1,0 +1,86 @@
+{
+  "verified_at": "2026-10-07T19:28:22.669310-07:00",
+  "published": true,
+  "build_exit_code": 0,
+  "build_finished_local": "2026-10-07T17:34:58-07:00",
+  "build": "F:\\Vivado_Output\\a3full7",
+  "firmware": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v3",
+  "jobs": 4,
+  "maxThreads": 5,
+  "setup_wns_ns": 0.011847,
+  "hold_whs_ns": 0.009619,
+  "setup_tns_ns": 0.0,
+  "hold_ths_ns": 0.0,
+  "pulse_width_violations": 0,
+  "bus_skew_constraints": 14,
+  "minimum_bus_skew_slack_ns": 2.429,
+  "routing_errors": 0,
+  "fully_routed_nets": 577428,
+  "no_clock": 0,
+  "unconstrained_internal_endpoints": 0,
+  "input_ports_without_delay": 4,
+  "output_ports_without_delay": 24,
+  "hardware": {
+    "square_dac": "13",
+    "square_fabric_clock_hz": 300000000,
+    "samples_per_clock": 16,
+    "awg_ip_version": 3,
+    "dc_area_bits": 48,
+    "dc_area_version": 1,
+    "tproc_fabric_clock_hz": 300000000,
+    "common_fabric_clock_net": "dac_clk_buf_BUFG_O",
+    "awg_ramp_startup_cycles": 7,
+    "awg_output_latency_cycles": 16,
+    "dc_start_cycles": 17,
+    "awg_step_bits": 32,
+    "awg_step_fraction_bits": 18,
+    "square_scalar_sample_rate_hz": 4800000000,
+    "nominal_gen_ch": 7,
+    "iq_component_bits": 64,
+    "fir_decimation": 300,
+    "trigger_delay_cycles": 8712,
+    "rc_precomp_version": 1,
+    "rc_output_latency_cycles": 11,
+    "rc_fraction_bits": 48,
+    "rc_accumulator_bits": 72,
+    "square_command_latency_cycles": 15
+  },
+  "functional_evidence_count": 15,
+  "artifact_xsa_byte_match": true,
+  "source_hashes_match": true,
+  "artifacts": [
+    {
+      "path": "bitstream.bit",
+      "bytes": 34437473,
+      "sha256": "d36762cce6f8fc3f79a61085b222817d05d7d8537a54a14f8d78d89aac3fa11b"
+    },
+    {
+      "path": "bitstream.hwh",
+      "bytes": 2610456,
+      "sha256": "f664dd16ee4790322a482193dfec85f6c72fbaefbf84c1447be5219b8bb82da7"
+    },
+    {
+      "path": "bitstream.xsa",
+      "bytes": 21191242,
+      "sha256": "a174920455287d77c9a7c86c5ec8fad1e8495605babc1e62df9bfb76f05826d1"
+    }
+  ],
+  "recovery_provenance": [
+    {
+      "path": "resume_top_synth_20261007.tcl",
+      "sha256": "4235866da5bafef206b44a92bdfa60cf1a168fb5f602ab58d3108510c9d57770"
+    },
+    {
+      "path": "resume_failed_ip_retry2_20261007.tcl",
+      "sha256": "629bd9e49f5c05c32809618eef2819ad2a9157e30ef263cda637995903254c2d"
+    },
+    {
+      "path": "a3full7_resume_top_synth_20261007.log",
+      "sha256": "544ceabd22aba00b5f0a8de173fa0574edee58ac7438537a932232fae7132888"
+    },
+    {
+      "path": "a3full7_resume_failed_ip_retry2_20261007.log",
+      "sha256": "322f2228fa68c5e00b3ab86cceb130b9907530919a8cf0a8a90d854bcf67b645"
+    }
+  ]
+}

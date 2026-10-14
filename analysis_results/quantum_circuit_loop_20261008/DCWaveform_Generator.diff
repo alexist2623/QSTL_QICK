@@ -1,0 +1,50 @@
+--- before/DCWaveform_Generator.py
++++ after/DCWaveform_Generator.py
+@@ -475,7 +475,7 @@
+ DEFAULT_GUI_RAMP_NS = 1000.0
+ DEFAULT_GUI_FLAT_NS = 1000.0
+ SETTINGS_SCHEMA = "qstl-pulse-generator-gui"
+-SETTINGS_VERSION = 44
++SETTINGS_VERSION = 45
+ SUPPORTED_SETTINGS_VERSIONS = tuple(range(1, SETTINGS_VERSION + 1))
+ DEFAULT_GUI_COMPILE_VALIDATION_MODE = COMPILE_VALIDATION_BOUNDARY
+ DEFAULT_QICK_HOST = "192.168.2.99"
+@@ -9967,6 +9967,12 @@
+         self._quantum_circuit_view = QuantumCircuitView(self)
+         self._quantum_circuit_panel.document_changed.connect(
+             self._quantum_circuit_view.set_document)
++        self._quantum_circuit_panel.preview_changed.connect(
++            self._quantum_circuit_view.set_document)
++        self._quantum_circuit_view.loop_edit_requested.connect(
++            self._quantum_circuit_panel.edit_loop)
++        self._quantum_circuit_view.loop_delete_requested.connect(
++            self._quantum_circuit_panel.delete_loop)
+         self._quantum_circuit_view.edit_requested.connect(
+             self._quantum_circuit_panel.edit_gate)
+         self._quantum_circuit_view.delete_requested.connect(
+@@ -10168,7 +10174,7 @@
+         self._control_tabs.addTab(self._calibration_panel, "Calibration")
+         self._control_tabs.addTab(self._noise_panel, "Noise Analysis")
+         self._control_tabs.addTab(self._bias_panel, "Bias")
+-        self._control_tabs.addTab(self._square_wave_panel, "QICK Square Wave")
++        self._control_tabs.addTab(self._square_wave_panel, "Square Wave")
+         # Append to preserve the saved indices of existing control tabs.
+         self._control_tabs.addTab(self._quantum_circuit_panel, "Quantum Circuit")
+         self._control_tabs.setCurrentWidget(self._awg_tuning_page)
+@@ -13795,7 +13801,15 @@
+         self._experiment_panel.show_result(result)
+         self._experiment_panel.finish_run_timeline(
+             f"Quantum Circuit QCoDeS Run {result.run_id} completed", success=True)
+-        message = f"Run {result.run_id} saved to {result.database_path}"
++        sweep = getattr(result, 'circuit_loop_sweep', None)
++        if sweep:
++            first, last = sweep['points'][0], sweep['points'][-1]
++            message = (f"Loop sweep completed: {len(sweep['points'])} points. "
++                       f"First n={first['n']} → Run {first['run_id']}; last n={last['n']} → Run {last['run_id']}.\n"
++                       f"Index: {sweep['manifest_path']}")
++            self._experiment_panel.finish_run_timeline('Loop sweep completed', success=True)
++        else:
++            message = f"Run {result.run_id} saved to {result.database_path}"
+         self._quantum_circuit_panel.set_status(message)
+         self.statusBar().showMessage(message)
+ 

@@ -1,0 +1,7 @@
+Synthetic offline guard harness attempt 1 exited 1 while serializing its final report:
+TypeError: Object of type Tcl_Obj is not JSON serializable
+
+The implementation safeguards were not modified. The harness was corrected to
+serialize the empty Tcl command result as text. Initial synthetic fixtures remain
+under F:/Vivado_Output/a3_guard_check; the retry uses a new run2 subdirectory.
+This was a harness reporting error, not a Vivado/RTL or FPGA timing result.

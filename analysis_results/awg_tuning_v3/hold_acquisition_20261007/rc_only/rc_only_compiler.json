@@ -1,0 +1,241 @@
+{
+  "dc_compensation": null,
+  "rc_compensation": {
+    "tau_us": 10.0
+  },
+  "hardware_dc_area": false,
+  "dc_disable_commands": 2,
+  "dc_execute_commands": 0,
+  "rc_reset_commands": 66,
+  "program_summary": {
+    "outputs": [
+      "awg_0",
+      "awg_1"
+    ],
+    "awg_channels": [
+      1,
+      3
+    ],
+    "sweep_points": "[[1.         0.00625   ]\n [1.         0.01041667]\n [1.         0.01458333]\n [1.         0.01875   ]\n [1.3        0.00625   ]\n [1.3        0.01041667]\n [1.3        0.01458333]\n [1.3        0.01875   ]\n [1.6        0.00625   ]\n [1.6        0.01041667]\n [1.6        0.01458333]\n [1.6        0.01875   ]\n [1.9        0.00625   ]\n [1.9        0.01041667]\n [1.9        0.01458333]\n [1.9        0.01875   ]]",
+    "sweep_axes": [
+      "HoldDurationSweep(segment_name='set_0', start=1.0, stop=1.9, count=4, sequence_fabric_mhz=300.0)",
+      "AmplitudeSweep(segment_name='set_0', output_name='awg_0', start=0.00625, stop=0.01875, count=4)"
+    ],
+    "sweep_shape": [
+      4,
+      4
+    ],
+    "cartesian_point_count": 16,
+    "compile_validation_mode": "full",
+    "compile_validation_point_count": 16,
+    "compile_validation_point_indices": null,
+    "cross_capacitance": "[[ 1.    0.23]\n [-0.17  1.  ]]",
+    "segments": [
+      "set_0",
+      "ramp_0_to_1",
+      "set_1",
+      "ramp_1_to_2",
+      "set_2"
+    ],
+    "repetitions_per_sweep": 2,
+    "repetitions_per_sweep_point": 2,
+    "total_acquisitions": 32,
+    "commands_per_point": 10,
+    "sweep_execution": "tproc_loop_and_add",
+    "sweep_dynamic_register_fields": 9,
+    "sweep_dynamic_dmem_fields": 5,
+    "sweep_uses_point_table": false,
+    "voltage_grid_policy": "constant_quantized_increment",
+    "sweep_table_layout": "dependent_axes",
+    "output_trigger": {
+      "enabled": true,
+      "pin": 0,
+      "scope": "loop",
+      "edge": "both",
+      "width_us": 0.1,
+      "port": 7,
+      "bit": 64,
+      "width": 30,
+      "name": "SPARE1_1V8",
+      "start_reference": "first AWG sequence timestamp",
+      "end_reference": "after readout, compensation and recovery"
+    },
+    "rf_point_table_count": 0,
+    "rf_point_table_words": 0,
+    "rf_frequency_sweeps": 0,
+    "rf_power_sweeps": 0,
+    "ramp_rate_coefficient_table_words": 0,
+    "runtime_sweep_table_words": 0,
+    "ramp_rate_coefficient_table_base": null,
+    "ramp_rate_coefficient_table_last": null,
+    "sweep_max_target_quantization_error": 4,
+    "sweep_max_step_quantization_error": 729,
+    "sweep_max_duration_quantization_error": 0,
+    "bias_t_compensation": false,
+    "bias_t_compensation_type": null,
+    "hardware_dc_area": false,
+    "hardware_dc_validation": [],
+    "rc_compensation": "RCCompensationConfig(tau_us=10.0)",
+    "rc_reset_each_repeat": true,
+    "rc_output_range_validation": [
+      {
+        "point_index": 0,
+        "gen_ch": 1,
+        "minimum_normalized": -0.012036956016492802,
+        "maximum_normalized": 0.005464668617201855
+      },
+      {
+        "point_index": 0,
+        "gen_ch": 3,
+        "minimum_normalized": -0.016363657249237794,
+        "maximum_normalized": 0.017204758459505996
+      },
+      {
+        "point_index": 3,
+        "gen_ch": 1,
+        "minimum_normalized": -0.010694304725237264,
+        "maximum_normalized": 0.01930731868533044
+      },
+      {
+        "point_index": 3,
+        "gen_ch": 3,
+        "minimum_normalized": -0.021329171244714316,
+        "maximum_normalized": 0.01673312976446525
+      },
+      {
+        "point_index": 12,
+        "gen_ch": 1,
+        "minimum_normalized": -0.011608489219676645,
+        "maximum_normalized": 0.0058931354140180124
+      },
+      {
+        "point_index": 12,
+        "gen_ch": 3,
+        "minimum_normalized": -0.01768201662405674,
+        "maximum_normalized": 0.01588639908468705
+      },
+      {
+        "point_index": 15,
+        "gen_ch": 1,
+        "minimum_normalized": -0.009145232459825004,
+        "maximum_normalized": 0.0208563909507427
+      },
+      {
+        "point_index": 15,
+        "gen_ch": 3,
+        "minimum_normalized": -0.023043038431978944,
+        "maximum_normalized": 0.015019262577200624
+      }
+    ],
+    "awg_output_latency_tproc_cycles": 16,
+    "bias_t_compensation_config": null,
+    "bias_t_compensation_mode": null,
+    "bias_t_duration_execution": null,
+    "bias_t_dynamic_register_fields": 0,
+    "bias_t_dynamic_dmem_fields": 0,
+    "bias_t_dmem_addresses": [],
+    "bias_t_max_duration_q_error": 0,
+    "bias_t_max_target_code_error": 0,
+    "bias_t_simultaneous_start": false,
+    "bias_t_simultaneous_start_lead_cycles": 0,
+    "bias_t_max_duration_dmem_address": null,
+    "startup_lead_tproc_cycles_once": 128,
+    "square_marker_startup_lead_tproc_cycles_once": 128,
+    "tproc_mhz": 300.0,
+    "hwh_tproc_mhz": 300.0,
+    "tproc_clock_is_manual": true,
+    "point_end_tproc_cycles": 1216,
+    "point_end_tproc_cycles_max": 1308,
+    "program_instructions": 273,
+    "tproc_pmem_words_used": 273,
+    "tproc_dmem_words_reserved": 6,
+    "tproc_dmem_words_required": 4096,
+    "tproc_dmem_addresses": [
+      1,
+      4091,
+      4092,
+      4093,
+      4094,
+      4095
+    ],
+    "tproc_pmem_capacity": 8192,
+    "tproc_dmem_capacity": 4096,
+    "tproc_memory_within_4096": true,
+    "rf_pulse": true,
+    "rf_pulse_count": 1,
+    "rf_duration_sweeps": [],
+    "ramp_duration_sweeps": [],
+    "hold_duration_sweeps": [
+      "HoldDurationSweep(segment_name='set_0', start=1.0, stop=1.9, count=4, sequence_fabric_mhz=300.0)"
+    ],
+    "fir_ddr_readout": true,
+    "avg_buffer_readout": false,
+    "acquisition_source": "fir_ddr",
+    "fir_rate_profile": "1_msps",
+    "fir_output_sample_rate_hz": 1000000.0,
+    "fir_software_warmup_compensation": false,
+    "fir_software_trigger_delay_output_samples": 0,
+    "fir_software_trigger_delay_input_samples": 0,
+    "fir_software_trigger_delay_tproc_cycles": 0,
+    "fir_fpga_trigger_delay_samples": 8712,
+    "fir_fpga_trigger_delay_units": "s_axis_aclk_cycles",
+    "total_ddr_triggers": 32,
+    "aux_timing": {
+      "ddr_readout_start": 0,
+      "ddr_trigger_time": 16,
+      "ddr_capture_end": 1216,
+      "fir_warmup_tproc_cycles": 0,
+      "fir_software_trigger_delay_tproc_cycles": 0,
+      "fir_software_trigger_delay_output_samples": 0,
+      "fir_software_trigger_delay_input_samples": 0,
+      "fir_feed_input_samples": 18589,
+      "fir_rate_profile": "1_msps",
+      "fir_output_sample_rate_hz": 1000000.0,
+      "fir_software_warmup_compensation": false,
+      "fir_fpga_trigger_delay_samples": 8712,
+      "fir_fpga_trigger_delay_units": "s_axis_aclk_cycles",
+      "rf_0_requested_start": 16,
+      "rf_0_start": 16,
+      "rf_0_end": 46,
+      "rf_0_mode": "oneshot",
+      "rf_0_command_skew_tproc_cycles": 0,
+      "rf_0_stop_skew_tproc_cycles": 0,
+      "rf_pulses": [
+        {
+          "index": 0,
+          "gen_ch": 0,
+          "requested_start": 16,
+          "start": 16,
+          "requested_end": 46,
+          "end": 46,
+          "mode": "oneshot",
+          "command_skew_tproc_cycles": 0,
+          "stop_skew_tproc_cycles": 0
+        }
+      ],
+      "rf_requested_start": 16,
+      "rf_start": 16,
+      "rf_end": 46,
+      "rf_mode": "oneshot",
+      "rf_command_skew_tproc_cycles": 0,
+      "rf_stop_skew_tproc_cycles": 0,
+      "bias_t_user_pulse_end": 1022,
+      "bias_t_static_end": 1308
+    },
+    "dc_compensation_timing": "after_readout",
+    "fir_dc_timing_first_point": {
+      "point_index": 0,
+      "policy": "after_readout",
+      "stored_samples": 4,
+      "user_pulse_end_us": 3.46,
+      "trigger_us": 0.05333333333333334,
+      "input_end_barrier_us": 4.053333333333334,
+      "storage_start_us": 29.093333333333334,
+      "storage_end_us": 33.093333333333334,
+      "group_delay_referenced_input_start_us": 0.17,
+      "group_delay_referenced_input_end_us": 4.17,
+      "stored_sample_period_us": 1.0,
+      "dc_outputs": []
+    }
+  }
+}

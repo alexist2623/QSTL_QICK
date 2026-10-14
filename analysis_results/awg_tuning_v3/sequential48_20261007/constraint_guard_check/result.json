@@ -1,0 +1,395 @@
+{
+  "kind": "synthetic_offline_guard_checks",
+  "fpga_timing_validation": false,
+  "vivado_or_xsim_launched": false,
+  "created_utc": "2026-10-07T18:38:46.353657+00:00",
+  "complete": true,
+  "passed": 32,
+  "total": 32,
+  "fixture_directory": "F:\\Vivado_Output\\a3_guard_check\\run2",
+  "source_hashes": {
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v3\\build_vivado_2023_1.tcl": "9d627f1cf2acf9c19b2900cc9ac7062ef58a2855209a499fc97851770e56f254",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v3\\publish_build.py": "b2bea5420f6db01ba61e472fc4d3bb7c3e7a418d3fff728ead6a73063ea95c7f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v3\\timing.xdc": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v3\\ios.xdc": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v2\\timing.xdc": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v2\\ios.xdc": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7"
+  },
+  "harness_sha256": "5ecc172061f034aa08ff83e7aec986339afbdeaa9875dfe3700c47eba7f4e07c",
+  "checks": [
+    {
+      "name": "actual_Vivado_2023_1_XPR_attribute_shape",
+      "passed": true,
+      "detail": {
+        "read_only_previous_project": "F:\\Vivado_Output\\a3full6\\qstl_awg_v3.xpr",
+        "vivado": "2023.1",
+        "files": [
+          {
+            "path": "C:/GIT_Workspace/QSTL_QICK/qick/firmware/projects/qstl_awg_v3/timing.xdc",
+            "used_in": [
+              "implementation",
+              "synthesis"
+            ]
+          },
+          {
+            "path": "C:/GIT_Workspace/QSTL_QICK/qick/firmware/projects/qstl_awg_v3/ios.xdc",
+            "used_in": [
+              "implementation",
+              "synthesis"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Tcl_reject_qick_root",
+      "passed": true,
+      "detail": {
+        "target": "C:\\GIT_Workspace\\QSTL_QICK",
+        "rejected": true,
+        "create_project_called": false,
+        "jobs": 4,
+        "maxThreads": 5,
+        "message": "Build output must be outside both Git repositories: C:/GIT_Workspace/QSTL_QICK"
+      }
+    },
+    {
+      "name": "Tcl_reject_qick_child",
+      "passed": true,
+      "detail": {
+        "target": "C:\\GIT_Workspace\\QSTL_QICK\\guard_check_must_not_create",
+        "rejected": true,
+        "create_project_called": false,
+        "jobs": 4,
+        "maxThreads": 5,
+        "message": "Build output must be outside both Git repositories: C:/GIT_Workspace/QSTL_QICK/guard_check_must_not_create"
+      }
+    },
+    {
+      "name": "Tcl_reject_gui_root",
+      "passed": true,
+      "detail": {
+        "target": "C:\\GIT_Workspace\\PulseGenerator",
+        "rejected": true,
+        "create_project_called": false,
+        "jobs": 4,
+        "maxThreads": 5,
+        "message": "Build output must be outside both Git repositories: C:/GIT_Workspace/PulseGenerator"
+      }
+    },
+    {
+      "name": "Tcl_reject_gui_child",
+      "passed": true,
+      "detail": {
+        "target": "C:\\GIT_Workspace\\PulseGenerator\\guard_check_must_not_create",
+        "rejected": true,
+        "create_project_called": false,
+        "jobs": 4,
+        "maxThreads": 5,
+        "message": "Build output must be outside both Git repositories: C:/GIT_Workspace/PulseGenerator/guard_check_must_not_create"
+      }
+    },
+    {
+      "name": "Tcl_reject_mixed_case_gui",
+      "passed": true,
+      "detail": {
+        "target": "c:\\git_workspace\\pulsegenerator\\guard_check_must_not_create",
+        "rejected": true,
+        "create_project_called": false,
+        "jobs": 4,
+        "maxThreads": 5,
+        "message": "Build output must be outside both Git repositories: C:/GIT_Workspace/PulseGenerator/guard_check_must_not_create"
+      }
+    },
+    {
+      "name": "Tcl_accept_path_external",
+      "passed": true,
+      "detail": {
+        "target": "F:\\Vivado_Output\\a3_guard_check\\run2\\uncreated_guard_target",
+        "rejected": false,
+        "create_project_called": false,
+        "jobs": 4,
+        "maxThreads": 5,
+        "message": "OFFLINE_STOP_BEFORE_VIVADO"
+      }
+    },
+    {
+      "name": "Tcl_accept_path_sibling_name_boundary",
+      "passed": true,
+      "detail": {
+        "target": "C:\\GIT_Workspace\\QSTL_QICK_extra_guard",
+        "rejected": false,
+        "create_project_called": false,
+        "jobs": 4,
+        "maxThreads": 5,
+        "message": "OFFLINE_STOP_BEFORE_VIVADO"
+      }
+    },
+    {
+      "name": "actual_certutil_sha256_timing.xdc",
+      "passed": true,
+      "detail": {
+        "file": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v3\\timing.xdc",
+        "actual_certutil_sha256": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb"
+      }
+    },
+    {
+      "name": "actual_certutil_sha256_ios.xdc",
+      "passed": true,
+      "detail": {
+        "file": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v3\\ios.xdc",
+        "actual_certutil_sha256": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7"
+      }
+    },
+    {
+      "name": "parser_localized_header_uppercase_spaced_digest",
+      "passed": true,
+      "detail": {
+        "sha256": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb",
+        "synthetic_certutil_output": true
+      }
+    },
+    {
+      "name": "parser_reject_missing_digest",
+      "passed": true,
+      "detail": {
+        "rejected": true,
+        "exception": "TclError",
+        "message": "Could not read one SHA256 for C:/GIT_Workspace/QSTL_QICK/qick/firmware/projects/qstl_awg_v3/timing.xdc"
+      }
+    },
+    {
+      "name": "parser_reject_two_digests",
+      "passed": true,
+      "detail": {
+        "rejected": true,
+        "exception": "TclError",
+        "message": "Could not read one SHA256 for C:/GIT_Workspace/QSTL_QICK/qick/firmware/projects/qstl_awg_v3/timing.xdc"
+      }
+    },
+    {
+      "name": "publisher_accept_absolute",
+      "passed": true,
+      "detail": {
+        "fixture": "F:\\Vivado_Output\\a3_guard_check\\run2\\valid_absolute",
+        "accepted": true,
+        "records": [
+          {
+            "name": "timing.xdc",
+            "source": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v3\\timing.xdc",
+            "snapshot": "F:\\Vivado_Output\\a3_guard_check\\run2\\valid_absolute\\constraints\\timing.xdc",
+            "bytes": 3294,
+            "sha256": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb"
+          },
+          {
+            "name": "ios.xdc",
+            "source": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v3\\ios.xdc",
+            "snapshot": "F:\\Vivado_Output\\a3_guard_check\\run2\\valid_absolute\\constraints\\ios.xdc",
+            "bytes": 13413,
+            "sha256": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7"
+          }
+        ]
+      }
+    },
+    {
+      "name": "publisher_accept_project_variable",
+      "passed": true,
+      "detail": {
+        "fixture": "F:\\Vivado_Output\\a3_guard_check\\run2\\valid_project_variable",
+        "accepted": true,
+        "records": [
+          {
+            "name": "timing.xdc",
+            "source": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v3\\timing.xdc",
+            "snapshot": "F:\\Vivado_Output\\a3_guard_check\\run2\\valid_project_variable\\constraints\\timing.xdc",
+            "bytes": 3294,
+            "sha256": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb"
+          },
+          {
+            "name": "ios.xdc",
+            "source": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v3\\ios.xdc",
+            "snapshot": "F:\\Vivado_Output\\a3_guard_check\\run2\\valid_project_variable\\constraints\\ios.xdc",
+            "bytes": 13413,
+            "sha256": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7"
+          }
+        ]
+      }
+    },
+    {
+      "name": "publisher_accept_relative",
+      "passed": true,
+      "detail": {
+        "fixture": "F:\\Vivado_Output\\a3_guard_check\\run2\\valid_relative",
+        "accepted": true,
+        "records": [
+          {
+            "name": "timing.xdc",
+            "source": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v3\\timing.xdc",
+            "snapshot": "F:\\Vivado_Output\\a3_guard_check\\run2\\valid_relative\\constraints\\timing.xdc",
+            "bytes": 3294,
+            "sha256": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb"
+          },
+          {
+            "name": "ios.xdc",
+            "source": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v3\\ios.xdc",
+            "snapshot": "F:\\Vivado_Output\\a3_guard_check\\run2\\valid_relative\\constraints\\ios.xdc",
+            "bytes": 13413,
+            "sha256": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7"
+          }
+        ]
+      }
+    },
+    {
+      "name": "publisher_reject_old_wrong_timing",
+      "passed": true,
+      "detail": {
+        "fixture": "F:\\Vivado_Output\\a3_guard_check\\run2\\old_wrong_timing",
+        "rejected": true,
+        "exception": "RuntimeError",
+        "message": "Built/original v2/v3 constraints differ: timing.xdc"
+      }
+    },
+    {
+      "name": "publisher_reject_corrupted_ios",
+      "passed": true,
+      "detail": {
+        "fixture": "F:\\Vivado_Output\\a3_guard_check\\run2\\corrupted_ios",
+        "rejected": true,
+        "exception": "RuntimeError",
+        "message": "Built/original v2/v3 constraints differ: ios.xdc"
+      }
+    },
+    {
+      "name": "publisher_reject_wrong_source_hash",
+      "passed": true,
+      "detail": {
+        "fixture": "F:\\Vivado_Output\\a3_guard_check\\run2\\wrong_source_hash",
+        "rejected": true,
+        "exception": "RuntimeError",
+        "message": "Missing or stale build constraint provenance: timing.xdc/source"
+      }
+    },
+    {
+      "name": "publisher_reject_wrong_snapshot_hash",
+      "passed": true,
+      "detail": {
+        "fixture": "F:\\Vivado_Output\\a3_guard_check\\run2\\wrong_snapshot_hash",
+        "rejected": true,
+        "exception": "RuntimeError",
+        "message": "Missing or stale build constraint provenance: timing.xdc/snapshot"
+      }
+    },
+    {
+      "name": "publisher_reject_wrong_source_record_path",
+      "passed": true,
+      "detail": {
+        "fixture": "F:\\Vivado_Output\\a3_guard_check\\run2\\wrong_source_record_path",
+        "rejected": true,
+        "exception": "RuntimeError",
+        "message": "Missing or stale build constraint provenance: timing.xdc/source"
+      }
+    },
+    {
+      "name": "publisher_reject_wrong_snapshot_record_path",
+      "passed": true,
+      "detail": {
+        "fixture": "F:\\Vivado_Output\\a3_guard_check\\run2\\wrong_snapshot_record_path",
+        "rejected": true,
+        "exception": "RuntimeError",
+        "message": "Missing or stale build constraint provenance: timing.xdc/snapshot"
+      }
+    },
+    {
+      "name": "publisher_reject_project_uses_repository_XDC",
+      "passed": true,
+      "detail": {
+        "fixture": "F:\\Vivado_Output\\a3_guard_check\\run2\\project_uses_repository_XDC",
+        "rejected": true,
+        "exception": "RuntimeError",
+        "message": "Built project must use exactly the original build-local XDC snapshots"
+      }
+    },
+    {
+      "name": "publisher_reject_wrong_project_snapshot_path",
+      "passed": true,
+      "detail": {
+        "fixture": "F:\\Vivado_Output\\a3_guard_check\\run2\\wrong_project_snapshot_path",
+        "rejected": true,
+        "exception": "RuntimeError",
+        "message": "Built project must use exactly the original build-local XDC snapshots"
+      }
+    },
+    {
+      "name": "publisher_reject_project_unresolved_variable",
+      "passed": true,
+      "detail": {
+        "fixture": "F:\\Vivado_Output\\a3_guard_check\\run2\\project_unresolved_variable",
+        "rejected": true,
+        "exception": "RuntimeError",
+        "message": "Unresolved project constraint path: $UNEXPECTED/constraints/timing.xdc"
+      }
+    },
+    {
+      "name": "publisher_reject_missing_UsedIn_synthesis",
+      "passed": true,
+      "detail": {
+        "fixture": "F:\\Vivado_Output\\a3_guard_check\\run2\\missing_UsedIn_synthesis",
+        "rejected": true,
+        "exception": "RuntimeError",
+        "message": "Constraint is not enabled in both build stages: F:\\Vivado_Output\\a3_guard_check\\run2\\missing_UsedIn_synthesis\\constraints\\timing.xdc"
+      }
+    },
+    {
+      "name": "publisher_reject_missing_UsedIn_implementation",
+      "passed": true,
+      "detail": {
+        "fixture": "F:\\Vivado_Output\\a3_guard_check\\run2\\missing_UsedIn_implementation",
+        "rejected": true,
+        "exception": "RuntimeError",
+        "message": "Constraint is not enabled in both build stages: F:\\Vivado_Output\\a3_guard_check\\run2\\missing_UsedIn_implementation\\constraints\\timing.xdc"
+      }
+    },
+    {
+      "name": "publisher_reject_missing_ios_project_reference",
+      "passed": true,
+      "detail": {
+        "fixture": "F:\\Vivado_Output\\a3_guard_check\\run2\\missing_ios_project_reference",
+        "rejected": true,
+        "exception": "RuntimeError",
+        "message": "Built project must use exactly the original build-local XDC snapshots"
+      }
+    },
+    {
+      "name": "publisher_reject_wrong_self_consistent_fixed_baseline",
+      "passed": true,
+      "detail": {
+        "rejected": true,
+        "exception": "RuntimeError",
+        "message": "Constraints differ from the successful v2 baseline: timing.xdc"
+      }
+    },
+    {
+      "name": "Tcl_snapshot_guard_accepts_correct_copy",
+      "passed": true,
+      "detail": {
+        "result": ""
+      }
+    },
+    {
+      "name": "Tcl_snapshot_guard_rejects_archived_wrong_XDC",
+      "passed": true,
+      "detail": {
+        "rejected": true,
+        "exception": "TclError",
+        "message": "Build constraint snapshot changed: timing.xdc"
+      }
+    },
+    {
+      "name": "source_and_real_constraints_unchanged",
+      "passed": true,
+      "detail": {
+        "unchanged": true
+      }
+    }
+  ]
+}

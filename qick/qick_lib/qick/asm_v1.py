@@ -579,24 +579,26 @@ class AwgTuningGenManager(AbsRegisterManager):
         "awg_ramp": ["style", "target", "duration"],
         "awg_nop": ["style"],
         "awg_rc": ["style", "coefficient"],
+        "awg_dc": ["style", "action"],
     }
     PARAMS_OPTIONAL = {
         "awg_set": ["hold_zero", "clear", "saturate"],
         "awg_ramp": ["step", "hold_zero", "clear"],
         "awg_nop": ["clear", "duration"],
         "awg_rc": ["enable", "reset"],
+        "awg_dc": ["amplitude", "words"],
     }
     UNSUPPORTED_STANDARD_STYLES = {"const", "arb", "flat_top"}
 
     def __init__(self, prog, gen_ch):
         self.ch = gen_ch
         self.gencfg = prog.soccfg["gens"][self.ch]
-        expected_width = 32 if self.gencfg.get("type") == "axis_awg_tuning_v2" else 24
+        expected_width = 32 if self.gencfg.get("type") in ("axis_awg_tuning_v2", "axis_awg_tuning_v3") else 24
         self.STEP_WIDTH = int(self.gencfg.get("step_width", expected_width))
         if self.STEP_WIDTH != expected_width:
             raise ValueError("AWG step width does not match the firmware IP version")
         if expected_width == 32 and int(self.gencfg["frac"]) != 18:
-            raise ValueError("axis_awg_tuning_v2 expects FRAC=18")
+            raise ValueError("axis_awg_tuning_v2/v3 expects FRAC=18")
         self.STEP_MIN = -(1 << (self.STEP_WIDTH - 1))
         self.STEP_MAX = (1 << (self.STEP_WIDTH - 1)) - 1
         self.tmux_ch = self.gencfg.get("tmux_ch")
@@ -766,7 +768,15 @@ class AwgTuningGenManager(AbsRegisterManager):
             raise RuntimeError("default_pulse_registers is not supported for axis_awg_tuning_v1")
 
         style = params["style"]
-        if style == "awg_rc":
+        if style == "awg_dc":
+            from .dc_area import dc_area_words
+            if self.gencfg.get("dc_area_version") != 1:
+                raise ValueError("This AWG firmware does not support per-shot hardware DC compensation")
+            words = dc_area_words(params["action"], amplitude=params.get("amplitude", 0),
+                                  words=params.get("words", 0))
+            self._write_command_regs(self._words_to_cmd(words))
+            self.next_pulse["length"] = 1
+        elif style == "awg_rc":
             from .precompensation import awg_rc_words
             if not self.gencfg.get("rc_precomp_version"):
                 raise ValueError("This AWG firmware does not support RC precompensation")
@@ -882,6 +892,7 @@ class QickProgram(AbsQickProgram):
                 'axis_sg_mux8_v1': MultiplexedGenManager,
                 'axis_awg_tuning_v1': AwgTuningGenManager,
                 'axis_awg_tuning_v2': AwgTuningGenManager,
+                'axis_awg_tuning_v3': AwgTuningGenManager,
                 'axis_square_pulse_v1': SquarePulseGenManager}
 
     # Gaussian and DRAG definitions use incorrect original definition, which gives a pulse that is too narrow by sqrt(2)

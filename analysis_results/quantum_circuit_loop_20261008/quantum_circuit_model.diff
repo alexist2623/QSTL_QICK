@@ -1,0 +1,66 @@
+--- before/quantum_circuit_model.py
++++ after/quantum_circuit_model.py
+@@ -7,6 +7,10 @@
+ from __future__ import annotations
+ 
+ import math
++try:
++    from .quantum_circuit_loops import normalize_loops, _expand_validated
++except ImportError:
++    from quantum_circuit_loops import normalize_loops, _expand_validated
+ 
+ 
+ MAX_QUBITS = 32
+@@ -137,8 +141,10 @@
+     RF channels occupy only their pulse intervals.  Touching intervals are
+     allowed.  Input order is retained for editing; AWG values resolve by time.
+     """
+-    data = _object(data, "Circuit", ("version", "qubits", "gates"), ("awg_baselines", "shots"))
+-    _integer(data["version"], "Circuit version", 1, 1)
++    data = _object(data, "Circuit", ("version", "qubits", "gates"), ("awg_baselines", "shots", "loops"))
++    version = _integer(data["version"], "Circuit version", 1, 2)
++    if version == 1 and data.get('loops'):
++        raise ValueError('Loops require circuit version 2.')
+     shots = _integer(data.get("shots", 1), "Shots", 1, 1_000_000)
+     qubits = []
+     qubit_ids = set()
+@@ -230,18 +236,21 @@
+     _check_overlaps(qubit_intervals, "Qubit")
+     _check_overlaps(awg_intervals, "AWG")
+     _check_overlaps(rf_intervals, "RF")
+-    result = {"version": 1, "shots": shots, "qubits": qubits, "awg_baselines": baselines, "gates": gates}
+-    _awg_events(result)  # Reject relative overflow before accepting an edit.
++    result = {"version": version, "shots": shots, "qubits": qubits, "awg_baselines": baselines, "gates": gates}
++    if version == 2:
++        result['loops'] = normalize_loops(data.get('loops', []), gates)
++    _awg_events({**result, 'gates': _expand_validated(result)['gates']})
+     return result
+ 
+ 
+ def build_timeline(document) -> dict:
+     """Build an ideal, unquantized pulse preview from a validated copy."""
+     document = validate_document(document)
+-    gates = document["gates"]
+-    duration = max((gate["start_us"] + gate["duration_us"] for gate in gates), default=0.0)
++    expanded = _expand_validated(document)
++    gates = expanded['gates']
++    duration = expanded.get('duration_us', max((gate["start_us"] + gate["duration_us"] for gate in gates), default=0.0))
+     baseline = {row["channel"]: row["voltage_mv"] for row in document["awg_baselines"]}
+-    awg_events = _awg_events(document)
++    awg_events = _awg_events({**document, 'gates': gates})
+     awg = []
+     for channel in sorted(baseline.keys() | awg_events.keys()):
+         points = [[0.0, baseline.get(channel, 0.0)]]
+@@ -270,8 +279,11 @@
+             window = gate["acquisition"]
+             start = gate["start_us"] + window["delay_us"]
+             acquisition.append({"gate_id": gate["id"], "start_us": start, "end_us": start + window["duration_us"]})
+-    return {"duration_us": duration, "awg": awg,
++    result = {"duration_us": duration, "awg": awg,
+             "rf": [{"channel": channel, "events": sorted(events, key=lambda item: (item["start_us"], item["gate_id"]))}
+                    for channel, events in sorted(rf_events.items())],
+             "acquisition": sorted(acquisition, key=lambda item: (item["start_us"], item["gate_id"])),
+             "gates": gates}
++    if document.get('loops'):
++        result.update(loops=expanded['regions'], gate_origins=expanded['origins'])
++    return result
