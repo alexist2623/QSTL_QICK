@@ -1,0 +1,13 @@
+PREPARED points=1 shots=2 cycles=29343 events=65
+xsim
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v4\hold10us_gui_rtl\verify_hold2_generated.py", line 831, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v4\hold10us_gui_rtl\verify_hold2_generated.py", line 821, in main
+    summary['output_sum']=analyze(out,result,model,offset,shots,2)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v4\hold10us_gui_rtl\hold10us_support.py", line 92, in analyze
+    assert row['dac']==expected, ('physical sum mismatch',suffix,row['cycle'])
+           ^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('physical sum mismatch', 4, 2221)

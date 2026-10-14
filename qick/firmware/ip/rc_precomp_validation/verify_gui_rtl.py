@@ -56,6 +56,8 @@ def main():
     parser.add_argument('--square-sweep',action='store_true')
     parser.add_argument('--awg-v2',action='store_true', help='Use production 32-bit Q18 AWG RTL and driver metadata.')
     parser.add_argument('--awg-v3',action='store_true', help='Use 48-bit hardware area compensation before IIR.')
+    parser.add_argument('--output-sum',action='store_true', help='Exercise the separate v4 post-IIR output stage.')
+    parser.add_argument('--sum-rf-delay-us',type=float,default=0.,help='RF delay for the v4 all-pair timing fixture.')
     parser.add_argument('--rc-only',action='store_true', help='Verify GUI RC enabled with DC compensation disabled (v3 only).')
     parser.add_argument('--verify-gui-widgets',action='store_true', help='Also build through actual MainWindow controls and compare PMEM/DMEM.')
     parser.add_argument('--vivado',type=Path,default=Path('C:/Xilinx/Vivado/2023.1/bin'))
@@ -97,6 +99,8 @@ def main():
     parser.add_argument('--stability-sample-period-us', type=float, default=1.)
     parser.add_argument('--stability-comp-duration-us', type=float, default=2.)
     args=parser.parse_args()
+    if args.output_sum and (not args.awg_v3 or not args.sweep_case):
+        parser.error('--output-sum requires --awg-v3 and --sweep-case')
     if args.rc_only and (not args.awg_v3 or not args.verify_gui_widgets or not args.sweep_case):
         parser.error('--rc-only requires --awg-v3 --verify-gui-widgets and a mixed sweep case.')
     if args.awg_v3:
@@ -135,6 +139,8 @@ def main():
         case_name += '_boundary_' + args.rf_length_boundary
     if args.run_tag:
         case_name += '_' + args.run_tag
+    if args.output_sum:
+        case_name += '_output_sum'
     if args.dc_readout_policy:
         case_name += '_' + args.dc_readout_policy
     if args.awg_v3:
@@ -168,8 +174,12 @@ def main():
             if args.awg_v3:
                 g.update(type='axis_awg_tuning_v3',dc_area_version=1,dc_area_bits=48,
                          output_latency_cycles=16,dc_start_cycles=17)
+    if args.output_sum:
+        sys.path.insert(0,str(HERE.parent/'axis_output_sum_v1/validation'))
+        import gui_rtl_extension as sum_validation
+        sum_validation.configure(cfg)
     pulses=[]
-    for scale in (1.,-.5):
+    for scale in ((1.,-.5,.25) if args.output_sum else (1.,-.5)):
         p=PulseSequence()
         p.t=np.array([0,1000,1200,2200,2400,3400],dtype=float)
         p.v=np.array([10,10,-10,-10,0,0],dtype=float)*scale
@@ -229,9 +239,18 @@ def main():
             if args.sweep_case=='rf_frequency_power':
                 axes=[]
         rf_specs = [QickRfPulseSpec(0, 'set_0', 0., rf_duration_start, 190., 2000, 0., 0., **rf_kwargs)]
-    code=generate_qick_program_code(pulses,awg_channels=(1,3),full_scale_mv=800.,
-        cross_capacitance=np.asarray(args.cross_capacitance).reshape(2,2),
-        output_full_scales_mv=tuple(current*40 for current in args.dac_current_ma[:2]),
+    awg_channels=(1,3,5) if args.output_sum else (1,3)
+    matrix=np.asarray(args.cross_capacitance).reshape(2,2)
+    scales=tuple(current*40 for current in args.dac_current_ma[:2])
+    if args.output_sum:
+        from dataclasses import replace
+        rf_specs=[replace(rf_specs[0],gen_ch=ch,delay_us=args.sum_rf_delay_us,
+                          duration_sweep_enabled=rf_specs[0].duration_sweep_enabled and ch==0,
+                          segment_length_mode=rf_specs[0].segment_length_mode if ch==0 else 'fixed') for ch in (0,2,4)]
+        extended=np.eye(3);extended[:2,:2]=matrix;matrix=extended;scales=scales+(800.,)
+    code=generate_qick_program_code(pulses,awg_channels=awg_channels,full_scale_mv=800.,
+        cross_capacitance=matrix,
+        output_full_scales_mv=scales,
         square_full_scale_mv=args.dac_current_ma[2]*40,
         fabric_mhz=300.,tproc_mhz=300.,repetitions_per_sweep=2,sweeps=axes,
         bias_t_compensation_enabled=args.v2_fixture!='fast',bias_t_compensation_type='filter' if args.rc_only else 'dc_rc',
@@ -298,9 +317,9 @@ def build_program(soccfg):
         assert program.sequence.rc_compensation is not None
         assert not program.summary()['hardware_dc_area']
         dc_commands=[e for e in model.output_events if e.word & (1<<150) and not e.word & (1<<149)]
-        assert len(dc_commands)==2 and all((e.word>>146)&3==3 for e in dc_commands), 'Only initial DC DISABLE is permitted'
+        assert len(dc_commands)==len(awg_channels) and all((e.word>>146)&3==3 for e in dc_commands), 'Only initial DC DISABLE is permitted'
         rc_resets=[e for e in model.output_events if e.word & (1<<149) and e.word & (1<<147)]
-        assert len(rc_resets)==2*(shots+1), 'Missing per-shot RC reset'
+        assert len(rc_resets)==len(awg_channels)*(shots+1), 'Missing per-shot RC reset'
         (out/'rc_only_compiler.json').write_text(json.dumps(dict(dc_compensation=None,
             rc_compensation=vars(program.sequence.rc_compensation), hardware_dc_area=False,
             dc_disable_commands=len(dc_commands), dc_execute_commands=0,
@@ -330,21 +349,30 @@ def build_program(soccfg):
           'axis_set_reg_0','qick_vec2bit_0',*('xlconstant_'+str(i) for i in range(5))}
     if args.sweep_case:
         keep.update(('axis_signal_gen_v6_0', 'axis_register_slice_0', 'axis_register_slice_4'))
+    if args.output_sum:
+        keep.update(('axis_awg_tuning_v1_6','axis_tmux_v1_2',
+            'axis_signal_gen_v6_1','axis_signal_gen_v6_3',
+            'axis_register_slice_1','axis_register_slice_3','axis_register_slice_5',
+            'axis_register_slice_7','axis_register_slice_11','axis_register_slice_22'))
     pattern=re.compile(r'^  (sim_bd_\w+) (\w+)\s*\n.*?\);',re.M|re.S)
     found=list(pattern.finditer(text));assert keep<={m[2] for m in found}
     text=pattern.sub(lambda m:m[0] if m[2] in keep else '',text)
     text=text.replace('module sim_bd\n','module rc_bd\n',1)
-    for i in (4,5):
+    for i in ((4,5,6) if args.output_sum else (4,5)):
         text=text.replace(f'sim_bd_axis_awg_tuning_v1_{i}_0 axis_awg',
                           'axis_awg_tuning_v1 #(.EXTRA_Y_PIPE_STAGES(3)) axis_awg')
     text=text.replace('sim_bd_axis_square_pulse_v1_0_0 axis_square','axis_square_pulse_v1 axis_square')
     if args.awg_v2:
         text=text.replace('axis_awg_tuning_v1 #(', 'axis_awg_tuning_v3 #(' if args.awg_v3 else 'axis_awg_tuning_v2 #(')
     ties=[f"assign axis_clk_cnvrt_avg_{i}_M_AXIS_TDATA=64'b0;\nassign axis_clk_cnvrt_avg_{i}_M_AXIS_TVALID=1'b0;" for i in range(4)]
-    ties += [f"assign axis_tproc64x32_x8_0_m{i}_axis_TREADY=1'b1;" for i in (3,5,6,7)]
+    ties += [f"assign axis_tproc64x32_x8_0_m{i}_axis_TREADY=1'b1;" for i in ((5,6,7) if args.output_sum else (3,5,6,7))]
+    if args.output_sum:
+        ties += [f"assign axis_switch_gen_M0{i}_AXIS_TDATA=32'b0; assign axis_switch_gen_M0{i}_AXIS_TVALID=1'b0;" for i in (1,3)]
     if args.sweep_case:
         ties += ["assign axis_switch_gen_M00_AXIS_TDATA=32'b0; assign axis_switch_gen_M00_AXIS_TVALID=1'b0;"]
     text=text.replace('endmodule','\n'.join(ties)+'\nendmodule')
+    if args.output_sum:
+        text=sum_validation.connect(text)
     (out/'rc_bd.v').write_text(text)
     wrapper=Path((args.build/'wrapper_path.txt').read_text().strip()).read_text()
     wrapper=wrapper.replace('module sim_bd_wrapper','module rc_wrapper',1).replace('sim_bd sim_bd_i','rc_bd sim_bd_i',1)
@@ -538,12 +566,16 @@ end
                                       for i in range(points) for _ in range(2)))
             top=top.replace('endmodule','generate\n'+area_monitor(ch,f'dut.sim_bd_i.{cell}',shots,planned)+'endgenerate\nendmodule')
         assert top.count('AREA_V3_RESULT')==2, 'Area monitors were not inserted'
+    if args.output_sum:
+        top=sum_validation.monitor(top, shots, program, out, args)
     (out/'tb_rc_gui.sv').write_text(top)
     rtl=[]
     for folder in ('axis_awg_tuning_v3' if args.awg_v3 else 'axis_awg_tuning_v2' if args.awg_v2 else 'axis_awg_tuning_v1','axis_square_pulse_v1'):
         rtl += [p for p in (HERE.parent/folder/'src').glob('*.sv') if not p.name.startswith('tb_')]
     if args.awg_v2:
         rtl.append(HERE.parent/'axis_awg_tuning_v2/validation/awg_v2_raw_checker.sv')
+    if args.output_sum:
+        rtl.append(HERE.parent/'axis_output_sum_v1/src/axis_output_sum_v1.sv')
     if args.dc_readout_policy:
         rtl.extend(HERE.parent/'axis_buffer_ddr_sample_v3/src'/name for name in
                    ('axis_buffer_ddr_sample_v3.sv','tb_axis_buffer_ddr_sample_v3.sv'))
@@ -553,6 +585,8 @@ end
     if args.reuse_snapshot:
         prepared=json.loads((out/'prepared.json').read_text())
         assert prepared['fingerprint']==fingerprint, 'Prepared snapshot/input mismatch'
+        if args.output_sum:
+            assert prepared['program_source_hashes']==sum_validation.source_hashes(args.gui), 'v4 compiler/GUI source changed after preparation'
     def execute(tool,params):
         print(tool,flush=True)
         r=subprocess.run([str(args.vivado/f'{tool}.bat'),*params],cwd=run,
@@ -576,7 +610,9 @@ end
             shutil.copy2(run/'xsim.ini',isolated/'xsim.ini')
         run=isolated
     if not args.reuse_snapshot:
-        (out/'prepared.json').write_text(json.dumps(dict(points=points,shots=shots,cycles=cycles,fingerprint=fingerprint,capture_version=capture_version)))
+        prepared=dict(points=points,shots=shots,cycles=cycles,fingerprint=fingerprint,capture_version=capture_version)
+        if args.output_sum:prepared['program_source_hashes']=sum_validation.source_hashes(args.gui)
+        (out/'prepared.json').write_text(json.dumps(prepared))
     if args.prepare_only:
         return
     (out/'run.tcl').write_text('run all\nquit\n')
@@ -589,9 +625,9 @@ end
     if args.repeat_reset and not args.awg_v3:
         assert len(re.findall(r'REPEAT_RESET_RESULT',result))==2, 'Missing repeat-reset monitors'
     if args.awg_v3 and args.rc_only:
-        assert len(re.findall(r'RC_ONLY_RESULT',result))==2, 'Missing RC-only monitors'
+        assert len(re.findall(r'RC_ONLY_RESULT',result))==len(awg_channels), 'Missing RC-only monitors'
     elif args.awg_v3:
-        assert len(re.findall(r'AREA_V3_RESULT',result))==2, 'Missing hardware area monitors'
+        assert len(re.findall(r'AREA_V3_RESULT',result))==len(awg_channels), 'Missing hardware area monitors'
     if args.dc_readout_policy:
         assert 'FIR_DC_CAPTURE_RESULT' in result, 'Missing DDR capture monitor'
     with (out/'rtl_events.csv').open() as f: actual=list(csv.DictReader(f))
@@ -765,6 +801,8 @@ end
             widths_cycles=sorted({r['width_cycles'] for r in measurements}),
             latency_cycles=measurements[0]['latency_cycles'])
     summary['validation_status']='passed'
+    if args.output_sum:
+        summary['output_sum']=sum_validation.analyze(out,result,model,offset,shots,args.sum_rf_delay_us)
     if summary.get('rf_measurements',{}).get('width_mismatch_pulses',0):
         summary['validation_status']='completed_with_timing_findings'
         summary['findings']=['RF periodic block boundaries delay the output stop by up to two fabric clocks; requested duration is not exact.']

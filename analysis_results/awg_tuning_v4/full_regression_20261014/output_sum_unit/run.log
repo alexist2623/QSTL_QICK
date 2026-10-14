@@ -1,0 +1,35 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_output_sum_v1/src/axis_output_sum_v1.sv" into library work
+INFO: [VRFC 10-311] analyzing module axis_output_sum_v1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_output_sum_v1/validation/tb_output_sum.sv" into library work
+INFO: [VRFC 10-311] analyzing module tb_output_sum
+Vivado Simulator v2023.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: F:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/xelab.exe tb_output_sum -s output_sum 
+Multi-threading is on. Using 6 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.axis_output_sum_v1
+Compiling module work.axis_output_sum_v1(BYPASS=1)
+Compiling module work.tb_output_sum
+Built simulation snapshot output_sum
+
+****** xsim v2023.1 (64-bit)
+  **** SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+  **** IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+  **** SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/output_sum/xsim_script.tcl
+# xsim {output_sum} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+OUTPUT_SUM_PASS samples=1114160 positive_clips=149495 negative_clips=83952 rounding_checks=549930 stages=2
+$finish called at time : 232174769 ps : File "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_output_sum_v1/validation/tb_output_sum.sv" Line 88
+exit
+INFO: [Common 17-206] Exiting xsim at Wed Oct 14 07:22:13 2026...

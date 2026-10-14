@@ -1,0 +1,70 @@
+{
+  "segment_starts": [
+    18,
+    318,
+    3319,
+    6319,
+    9320
+  ],
+  "segment_ends": [
+    318,
+    3319,
+    6319,
+    9320,
+    12320
+  ],
+  "timing_repr": "{'command_times': {(0, 0): 0, (0, 1): 0, (0, 2): 0, (1, 0): 293, (1, 1): 293, (1, 2): 293, (2, 0): 3301, (2, 1): 3301, (2, 2): 3301, (3, 0): 6294, (3, 1): 6294, (3, 2): 6294, (4, 0): 9302, (4, 1): 9302, (4, 2): 9302}, 'segment_starts': (18, 318, 3319, 6319, 9320), 'segment_ends': (318, 3319, 6319, 9320, 12320), 'point_end': 12320}",
+  "aux_timing_repr": "{'rf_0_requested_start': 3319, 'rf_0_start': 3288, 'rf_0_end': 6288, 'rf_0_mode': 'oneshot', 'rf_0_output_latency': 31, 'rf_0_command_skew_tproc_cycles': 0, 'rf_0_stop_skew_tproc_cycles': 0, 'rf_1_requested_start': 3319, 'rf_1_start': 3288, 'rf_1_end': 6288, 'rf_1_mode': 'oneshot', 'rf_1_output_latency': 31, 'rf_1_command_skew_tproc_cycles': 0, 'rf_1_stop_skew_tproc_cycles': 0, 'rf_2_requested_start': 3319, 'rf_2_start': 3288, 'rf_2_end': 6288, 'rf_2_mode': 'oneshot', 'rf_2_output_latency': 31, 'rf_2_command_skew_tproc_cycles': 0, 'rf_2_stop_skew_tproc_cycles': 0, 'rf_pulses': ({'index': 0, 'gen_ch': 0, 'requested_start': 3319, 'start': 3288, 'requested_end': 6288, 'end': 6288, 'mode': 'oneshot', 'command_skew_tproc_cycles': 0, 'stop_skew_tproc_cycles': 0, 'output_latency_tproc_cycles': 31, 'physical_start': 3319, 'physical_end': 6319}, {'index': 1, 'gen_ch': 2, 'requested_start': 3319, 'start': 3288, 'requested_end': 6288, 'end': 6288, 'mode': 'oneshot', 'command_skew_tproc_cycles': 0, 'stop_skew_tproc_cycles': 0, 'output_latency_tproc_cycles': 31, 'physical_start': 3319, 'physical_end': 6319}, {'index': 2, 'gen_ch': 4, 'requested_start': 3319, 'start': 3288, 'requested_end': 6288, 'end': 6288, 'mode': 'oneshot', 'command_skew_tproc_cycles': 0, 'stop_skew_tproc_cycles': 0, 'output_latency_tproc_cycles': 31, 'physical_start': 3319, 'physical_end': 6319}), 'bias_t_user_pulse_end': 12302, 'bias_t_static_end': 12320}",
+  "segments": [
+    {
+      "name": "set_0",
+      "kind": "set",
+      "amplitudes": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "duration_cycles": 300
+    },
+    {
+      "name": "ramp_0_to_1",
+      "kind": "ramp",
+      "amplitudes": [
+        null,
+        null,
+        null
+      ],
+      "duration_cycles": 3000
+    },
+    {
+      "name": "set_1",
+      "kind": "set",
+      "amplitudes": [
+        0.0125,
+        -0.00625,
+        0.003125
+      ],
+      "duration_cycles": 3000
+    },
+    {
+      "name": "ramp_1_to_2",
+      "kind": "ramp",
+      "amplitudes": [
+        null,
+        null,
+        null
+      ],
+      "duration_cycles": 3000
+    },
+    {
+      "name": "set_2",
+      "kind": "set",
+      "amplitudes": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "duration_cycles": 3000
+    }
+  ]
+}

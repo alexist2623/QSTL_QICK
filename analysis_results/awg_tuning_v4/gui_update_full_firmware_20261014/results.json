@@ -1,0 +1,40 @@
+{
+  "created_utc": "2026-10-14T18:43:34.112912+00:00",
+  "tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "55",
+    "time": "5.647",
+    "timestamp": "2026-10-14T11:40:28.607031-07:00",
+    "hostname": "ECE-CDW-JS03"
+  },
+  "firmware_versions": 19,
+  "actual_local_reviews": 6,
+  "board_read_only_inspection_passed": true,
+  "board_update_executed": false,
+  "server_restarted": false,
+  "pip_install_executed": false,
+  "protected_files_unchanged": 59,
+  "completed_regression_snapshot_files": 174,
+  "snapshot_changes": [
+    "PulseGenerator/DCWaveformGeneratorGUI/DCWaveform_Generator.py"
+  ],
+  "existing_gui_menu_change_still_matches_previous_evidence": true,
+  "full_regression_results_unchanged": true,
+  "sources": {
+    "qick_update.py": "15e98e32875fadb12505c7dc3869c8c64a5a4a390255b597609a1a71de1b97b8",
+    "qick_update_remote.py": "26d053de95e6a6a03c5d047e2110f8e0651e6a3cd630fd09d5ce6586bcc6414c",
+    "qick_update_dialog.py": "78645ce8c3f6f5b9a07994968c7059e882bb971e66c0219c5f36b2048038ef87",
+    "test_qick_update_transactions.py": "933cdcf26f9cc4240ece1f5d14727d4356907ecf68fd6fa394ee1d78df1bfbca",
+    "test_qick_update_ui.py": "812c4e25e73494594cb4ad415d766a6529b83bf1bb5b04dca0378e7264971278",
+    "QICK_UPDATE.md": "bc3de6552a39a348fc46c3b49d34d73a61fc427fe5ef140f960608dd3fddd952"
+  },
+  "branches": {
+    "C:\\GIT_Workspace\\QSTL_QICK": "awg_tuning_v4",
+    "C:\\GIT_Workspace\\PulseGenerator": "awg_tuning_v4"
+  },
+  "test_environment": "qcodes2 Python; pytest provided through existing validation dependency path; Qt offscreen",
+  "initial_capture_failure": "QMessageBox.exec_ access violation reproducible in a minimal offscreen example; replaced new confirmation with QDialog; final actual confirmation/cancel capture exits 0"
+}

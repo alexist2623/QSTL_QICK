@@ -1,0 +1,73 @@
+{
+  "passed": true,
+  "checked_utc": "2026-10-14T18:00:49.825929+00:00",
+  "local_review": {
+    "identity": "508fac54e97adbe46b2ecf1e316dc1222a7e82f4d5f68029bb811fbeed5d67b9",
+    "file_count": 106,
+    "total_bytes": 148849699,
+    "setup_wns_ns": "0.002841",
+    "hold_whs_ns": "0.009116"
+  },
+  "format": 2,
+  "library_scope": "qick-package-only",
+  "installation_contract": {
+    "name": "qick",
+    "version": "0.2.357",
+    "requires_python": ">=3.6, <4",
+    "requirements": [
+      "numpy",
+      "tqdm",
+      "[:platform_machine == \"aarch64\" or platform_machine == \"armv7l\"]",
+      "pynq>=2.6",
+      "[full]",
+      "pyro4"
+    ],
+    "top_level": [
+      "qick"
+    ],
+    "entry_points": []
+  },
+  "board": {
+    "python": "3.8.2 (default, Mar 13 2020, 10:14:16) \n[GCC 9.3.0]",
+    "installation": {
+      "contract": {
+        "name": "qick",
+        "version": "0.2.357",
+        "requires_python": ">=3.6, <4",
+        "requirements": [
+          "numpy",
+          "tqdm",
+          "[:platform_machine == \"aarch64\" or platform_machine == \"armv7l\"]",
+          "pynq>=2.6",
+          "[full]",
+          "pyro4"
+        ],
+        "top_level": [
+          "qick"
+        ],
+        "entry_points": []
+      },
+      "egg_info": {
+        "PKG-INFO": "dc0b8d4a0d00f3224acbab42fac9344798cd845ec58c173aff7951c096dfc1d0",
+        "SOURCES.txt": "6c9d6a997353b87ffa1d21aa584d910a2a0f627fc9acd66fcc3038b65d0c3d68",
+        "dependency_links.txt": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "requires.txt": "c5dc072c18c3ddb1ff662abd1609aaab3f9cf57790c895761be10934eeac04a4",
+        "top_level.txt": "e3585a6021f551be51e5f7c71aef6d7dfc0b9e96beb42ae956a8f6f088d212a2"
+      },
+      "egg_links": {
+        "/usr/local/share/pynq-venv/lib/python3.8/site-packages/qick.egg-link": "a0bf17be85f5af83373528d535bd151a21236e187b3a696993810fdb896a2bfa"
+      }
+    }
+  },
+  "board_helper_exit_code": 0,
+  "python38_syntax_pass": true,
+  "board_reads_only": true,
+  "upload": false,
+  "replacement": false,
+  "pip_install_on_board": false,
+  "sources": {
+    "qick_update.py": "9af1102b6915e2afe26d018e5e70c6717299bd885e983d1a8c9d3a1049162df9",
+    "qick_update_remote.py": "716a8156800643903383ed1b2d7417045c35dcdb37b0087e76d9f2209c943f13",
+    "qick_update_dialog.py": "321b619558cacfed188e6ed133e9b24a46c4bb978d47f115d1e0685b1ced3e5c"
+  }
+}

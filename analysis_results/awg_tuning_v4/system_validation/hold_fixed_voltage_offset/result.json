@@ -1,0 +1,239 @@
+{
+  "points": 100,
+  "repetitions": 2,
+  "commands": 6009,
+  "cycle_offset": 309,
+  "command_value_mismatches": 0,
+  "command_timing_mismatches": 0,
+  "voltage_grid_policy": "constant_quantized_increment",
+  "compiled_target_error_codes": 16,
+  "compiled_step_error_units": 727,
+  "awg_ip_version": 3,
+  "hardware_area_results": [
+    "AREA_V3_RESULT ch=0 shots=200 samples=5478576 reset_checks=200 residual=0",
+    "AREA_V3_RESULT ch=1 shots=200 samples=5478576 reset_checks=200 residual=0",
+    "AREA_V3_RESULT ch=3 shots=200 samples=5478576 reset_checks=200 residual=0"
+  ],
+  "rc_only": false,
+  "rc_only_results": [],
+  "v2_fixture": null,
+  "raw_awg_results": [
+    "RAW_AWG_V2_RESULT ch=0 samples=5478656 ramps=400 sets=801",
+    "RAW_AWG_V2_RESULT ch=1 samples=5478656 ramps=400 sets=801",
+    "RAW_AWG_V2_RESULT ch=3 samples=5478656 ramps=400 sets=801"
+  ],
+  "dac_current_ma": [
+    20.0,
+    20.0,
+    20.0
+  ],
+  "cross_capacitance": [
+    [
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0
+    ]
+  ],
+  "dc_mode": "fixed_voltage",
+  "dc_voltage_mv": 20.0,
+  "dc_readout_policy": "overlap_readout",
+  "ddr_capture_results": [
+    "FIR_DC_CAPTURE_RESULT triggers=200 samples=800 AXI_writes=400 delay_cycles=8712"
+  ],
+  "sweep_case": "hold_duration",
+  "run_tag": "v4_final2_hold_fixed_voltage_offset",
+  "rf_length_boundary": null,
+  "rc_range_corners": [
+    {
+      "point_index": 0,
+      "gen_ch": 1,
+      "minimum_normalized": -0.013526442178557734,
+      "maximum_normalized": 0.025293473263242584
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 3,
+      "minimum_normalized": -0.025288238352447215,
+      "maximum_normalized": 0.006614002215803045
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 5,
+      "minimum_normalized": -0.0035612108059878333,
+      "maximum_normalized": 0.02529318380027019
+    },
+    {
+      "point_index": 9,
+      "gen_ch": 1,
+      "minimum_normalized": -0.025276562896375684,
+      "maximum_normalized": 0.020996593118678953
+    },
+    {
+      "point_index": 9,
+      "gen_ch": 3,
+      "minimum_normalized": -0.025288238352447215,
+      "maximum_normalized": 0.006614002215803045
+    },
+    {
+      "point_index": 9,
+      "gen_ch": 5,
+      "minimum_normalized": -0.0035612108059878333,
+      "maximum_normalized": 0.02529318380027019
+    },
+    {
+      "point_index": 90,
+      "gen_ch": 1,
+      "minimum_normalized": -0.012966139444259683,
+      "maximum_normalized": 0.02529333339100953
+    },
+    {
+      "point_index": 90,
+      "gen_ch": 3,
+      "minimum_normalized": -0.007792311181745159,
+      "maximum_normalized": 0.025293482289620976
+    },
+    {
+      "point_index": 90,
+      "gen_ch": 5,
+      "minimum_normalized": -0.025288445946266936,
+      "maximum_normalized": 0.004160687952812897
+    },
+    {
+      "point_index": 99,
+      "gen_ch": 1,
+      "minimum_normalized": -0.025293258554739278,
+      "maximum_normalized": 0.022661225279908676
+    },
+    {
+      "point_index": 99,
+      "gen_ch": 3,
+      "minimum_normalized": -0.007792311181745159,
+      "maximum_normalized": 0.025293482289620976
+    },
+    {
+      "point_index": 99,
+      "gen_ch": 5,
+      "minimum_normalized": -0.025288445946266936,
+      "maximum_normalized": 0.004160687952812897
+    }
+  ],
+  "square_amplitude_sweep": false,
+  "rc_reset_each_repeat": true,
+  "no_aux": false,
+  "grid_count": 0,
+  "waveform_capture_cycles": 12000,
+  "reset_results": [],
+  "cycles": 342107,
+  "analog_results": [
+    "GUI_RC_RESULT ch=0 max_error_codes=2.487797",
+    "GUI_RC_RESULT ch=1 max_error_codes=2.664862",
+    "GUI_RC_RESULT ch=2 max_error_codes=0.000000"
+  ],
+  "exact_awg_results": [
+    "EXACT_AWG_RESULT ch=0 samples=5478176",
+    "EXACT_AWG_RESULT ch=1 samples=5478176"
+  ],
+  "retained_cells": [
+    "axis_awg_tuning_v1_4",
+    "axis_awg_tuning_v1_5",
+    "axis_awg_tuning_v1_6",
+    "axis_register_slice_0",
+    "axis_register_slice_1",
+    "axis_register_slice_10",
+    "axis_register_slice_11",
+    "axis_register_slice_12",
+    "axis_register_slice_21",
+    "axis_register_slice_22",
+    "axis_register_slice_23",
+    "axis_register_slice_3",
+    "axis_register_slice_4",
+    "axis_register_slice_5",
+    "axis_register_slice_7",
+    "axis_register_slice_8",
+    "axis_register_slice_9",
+    "axis_set_reg_0",
+    "axis_signal_gen_v6_0",
+    "axis_signal_gen_v6_1",
+    "axis_signal_gen_v6_3",
+    "axis_square_pulse_v1_0",
+    "axis_tmux_v1_0",
+    "axis_tmux_v1_1",
+    "axis_tmux_v1_2",
+    "axis_tmux_v1_3",
+    "axis_tproc64x32_x8_0",
+    "qick_vec2bit_0",
+    "xlconstant_0",
+    "xlconstant_1",
+    "xlconstant_2",
+    "xlconstant_3",
+    "xlconstant_4"
+  ],
+  "pmem_words": 407,
+  "dmem_words": 0,
+  "rf_measurements": {
+    "pulses": 200,
+    "periodic": false,
+    "repetition_command_mismatches": 0,
+    "frequency_error_max_mhz": 0.0018144051903448144,
+    "peak_error_max_codes": 0,
+    "amplitude_error_max_codes": 0.15288058651981373,
+    "fit_residual_max_codes": 1.6567751660900285,
+    "width_mismatch_pulses": 0,
+    "width_error_max_cycles": 0,
+    "gain_codes": [
+      2000
+    ],
+    "requested_width_error_max_cycles": 0.0,
+    "widths_cycles": [
+      30
+    ],
+    "latency_cycles": 42
+  },
+  "validation_status": "passed",
+  "output_sum": {
+    "sample_oracles": [
+      [
+        "4",
+        "5478656"
+      ],
+      [
+        "5",
+        "5478656"
+      ],
+      [
+        "6",
+        "5478656"
+      ]
+    ],
+    "pairs": [
+      {
+        "suffix": 4,
+        "shots": 200,
+        "start_skew_cycles": 0,
+        "width_mismatches": 0,
+        "rf_command_to_sum_input_cycles": 32,
+        "requested_delay_cycles": 30
+      },
+      {
+        "suffix": 5,
+        "shots": 200,
+        "start_skew_cycles": 0,
+        "width_mismatches": 0,
+        "rf_command_to_sum_input_cycles": 32,
+        "requested_delay_cycles": 30
+      },
+      {
+        "suffix": 6,
+        "shots": 200,
+        "start_skew_cycles": 0,
+        "width_mismatches": 0,
+        "rf_command_to_sum_input_cycles": 32,
+        "requested_delay_cycles": 30
+      }
+    ],
+    "combiner_pipeline_cycles": 2
+  }
+}

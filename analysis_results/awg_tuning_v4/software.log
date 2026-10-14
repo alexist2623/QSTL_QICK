@@ -1,0 +1,16 @@
+
+=================================== ERRORS ====================================
+___ ERROR collecting DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py ____
+ImportError while importing test module 'C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\test_qick_qcodes_experiment.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\Measurement2\.conda\envs\qcodes2\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\test_qick_qcodes_experiment.py:16: in <module>
+    from plottr.data.qcodes_dataset import ds_to_datadicts
+E   ModuleNotFoundError: No module named 'plottr'
+=========================== short test summary info ===========================
+ERROR DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 2.17s

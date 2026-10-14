@@ -1,0 +1,167 @@
+{
+  "versions": [
+    {
+      "label": "qick_tprocv1_111_rfbv1_standard/out/qick_111_rfbv1.bit",
+      "bit": "projects/qick_tprocv1_111_rfbv1_standard/out/qick_111_rfbv1.bit",
+      "has_manifest": false
+    },
+    {
+      "label": "qick_tprocv1_111_rfbv2_standard/out/qick_111_rfbv2.bit",
+      "bit": "projects/qick_tprocv1_111_rfbv2_standard/out/qick_111_rfbv2.bit",
+      "has_manifest": false
+    },
+    {
+      "label": "qick_tprocv1_111_standard/out/qick_111.bit",
+      "bit": "projects/qick_tprocv1_111_standard/out/qick_111.bit",
+      "has_manifest": false
+    },
+    {
+      "label": "qick_tprocv1_216_standard/out/qick_216.bit",
+      "bit": "projects/qick_tprocv1_216_standard/out/qick_216.bit",
+      "has_manifest": false
+    },
+    {
+      "label": "qick_tprocv1_4x2_standard/out/qick_4x2.bit",
+      "bit": "projects/qick_tprocv1_4x2_standard/out/qick_4x2.bit",
+      "has_manifest": false
+    },
+    {
+      "label": "qick_tprocv2_111_standard/out/qick_111.bit",
+      "bit": "projects/qick_tprocv2_111_standard/out/qick_111.bit",
+      "has_manifest": false
+    },
+    {
+      "label": "qick_tprocv2_216_demo/out/qick_216.bit",
+      "bit": "projects/qick_tprocv2_216_demo/out/qick_216.bit",
+      "has_manifest": false
+    },
+    {
+      "label": "qick_tprocv2_216_rfbv2_standard/out/qick_216_rfbv2.bit",
+      "bit": "projects/qick_tprocv2_216_rfbv2_standard/out/qick_216_rfbv2.bit",
+      "has_manifest": false
+    },
+    {
+      "label": "qick_tprocv2_216_standard/out/qick_216.bit",
+      "bit": "projects/qick_tprocv2_216_standard/out/qick_216.bit",
+      "has_manifest": false
+    },
+    {
+      "label": "qick_tprocv2_4x2_standard/out/qick_4x2.bit",
+      "bit": "projects/qick_tprocv2_4x2_standard/out/qick_4x2.bit",
+      "has_manifest": false
+    },
+    {
+      "label": "qstl_awg_tuning",
+      "bit": "projects/qstl_awg_tuning/bitstream.bit",
+      "has_manifest": false
+    },
+    {
+      "label": "qstl_awg_tuning_fir",
+      "bit": "projects/qstl_awg_tuning_fir/bitstream.bit",
+      "has_manifest": false
+    },
+    {
+      "label": "qstl_awg_tuning_fir_1msps_iq64",
+      "bit": "projects/qstl_awg_tuning_fir_1msps_iq64/bitstream.bit",
+      "has_manifest": true
+    },
+    {
+      "label": "qstl_awg_tuning_fir_1msps_iq64_sq_pulse",
+      "bit": "projects/qstl_awg_tuning_fir_1msps_iq64_sq_pulse/bitstream.bit",
+      "has_manifest": true
+    },
+    {
+      "label": "qstl_awg_tuning_fir_1msps_v2",
+      "bit": "projects/qstl_awg_tuning_fir_1msps_v2/bitstream.bit",
+      "has_manifest": false
+    },
+    {
+      "label": "qstl_awg_tuning_fir_50ksps_notch",
+      "bit": "projects/qstl_awg_tuning_fir_50ksps_notch/bitstream.bit",
+      "has_manifest": false
+    },
+    {
+      "label": "qstl_awg_v2",
+      "bit": "projects/qstl_awg_v2/bitstream.bit",
+      "has_manifest": true
+    },
+    {
+      "label": "qstl_awg_v3",
+      "bit": "projects/qstl_awg_v3/bitstream.bit",
+      "has_manifest": true
+    },
+    {
+      "label": "qstl_awg_v4",
+      "bit": "projects/qstl_awg_v4/bitstream.bit",
+      "has_manifest": true
+    }
+  ],
+  "reviews": [
+    {
+      "identity": "ccf37532ea10bd741b1e918526cc37ca55d5d653e757b637fee541c6a27d972f",
+      "file_count": 2033,
+      "total_bytes": 767907912,
+      "firmware_file_count": 1929,
+      "firmware_bytes": 656155331,
+      "setup_wns_ns": null,
+      "hold_whs_ns": null,
+      "active": "projects/qstl_awg_tuning/bitstream.bit",
+      "validation": "file_pair_only"
+    },
+    {
+      "identity": "8d15800619bbf8b1d7cb8b813fcbec1538eb56e5cfe203875d86e986d2ce55df",
+      "file_count": 2033,
+      "total_bytes": 767907912,
+      "firmware_file_count": 1929,
+      "firmware_bytes": 656155331,
+      "setup_wns_ns": "0.019190",
+      "hold_whs_ns": "0.009340",
+      "active": "projects/qstl_awg_tuning_fir_1msps_iq64/bitstream.bit",
+      "validation": "build_manifest_and_xsa"
+    },
+    {
+      "identity": "f37c0b35fb1df92af098aab40232f0f1f364eaf6c3a78488c8bfa9b095ad6650",
+      "file_count": 2033,
+      "total_bytes": 767907912,
+      "firmware_file_count": 1929,
+      "firmware_bytes": 656155331,
+      "setup_wns_ns": "0.041301",
+      "hold_whs_ns": "0.009500",
+      "active": "projects/qstl_awg_tuning_fir_1msps_iq64_sq_pulse/bitstream.bit",
+      "validation": "build_manifest_and_xsa"
+    },
+    {
+      "identity": "e43384863b05f5fdfe5b36ff7c1c69a79477de44945e65e81591b8a6f7d3f48d",
+      "file_count": 2033,
+      "total_bytes": 767907912,
+      "firmware_file_count": 1929,
+      "firmware_bytes": 656155331,
+      "setup_wns_ns": "0.006120",
+      "hold_whs_ns": "0.009412",
+      "active": "projects/qstl_awg_v2/bitstream.bit",
+      "validation": "build_manifest_and_xsa"
+    },
+    {
+      "identity": "853711a5b8f76ef10d9c6ec3816da856422d399637db8b9b3800f6db423ed6ad",
+      "file_count": 2033,
+      "total_bytes": 767907912,
+      "firmware_file_count": 1929,
+      "firmware_bytes": 656155331,
+      "setup_wns_ns": "0.011847",
+      "hold_whs_ns": "0.009619",
+      "active": "projects/qstl_awg_v3/bitstream.bit",
+      "validation": "build_manifest_and_xsa"
+    },
+    {
+      "identity": "2abf6f0d423d6687a8ac3ea9a9384d88c4c44ed43602f9e3927e8e32ca0eea22",
+      "file_count": 2033,
+      "total_bytes": 767907912,
+      "firmware_file_count": 1929,
+      "firmware_bytes": 656155331,
+      "setup_wns_ns": "0.002841",
+      "hold_whs_ns": "0.009116",
+      "active": "projects/qstl_awg_v4/bitstream.bit",
+      "validation": "build_manifest_and_xsa"
+    }
+  ]
+}

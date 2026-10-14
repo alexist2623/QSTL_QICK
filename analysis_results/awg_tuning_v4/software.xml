@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="1" time="2.162" timestamp="2026-10-13T18:27:04.829550-07:00" hostname="ECE-CDW-JS03"><testcase classname="" name="DCWaveformGeneratorGUI.test_qick_qcodes_experiment" time="0.000"><error message="collection failure">ImportError while importing test module 'C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\test_qick_qcodes_experiment.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\Measurement2\.conda\envs\qcodes2\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\test_qick_qcodes_experiment.py:16: in &lt;module&gt;
+    from plottr.data.qcodes_dataset import ds_to_datadicts
+E   ModuleNotFoundError: No module named 'plottr'</error></testcase></testsuite></testsuites>

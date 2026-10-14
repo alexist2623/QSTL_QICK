@@ -1,0 +1,28 @@
+{
+  "verified_utc": "2026-10-14T15:12:37.971582+00:00",
+  "sources": [
+    {
+      "path": "qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_dc_area.sv",
+      "matches": true
+    },
+    {
+      "path": "qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_rc_precomp.sv",
+      "matches": true
+    },
+    {
+      "path": "qick/firmware/ip/axis_awg_tuning_v3/validation/tb_dc_width.sv",
+      "matches": true
+    }
+  ],
+  "plots_opened_and_visually_checked": [
+    {
+      "path": "accumulated_error_48.png",
+      "sha256": "fb4fa704282d2e434245f35bded68bf8986babffa69b9f035a552f249f7d4c1f"
+    },
+    {
+      "path": "rc_error_48.png",
+      "sha256": "fb2d106c4e50837256772e5c1bc17d8a04ab1d1110dd45537c5cb3322caa43cc"
+    }
+  ],
+  "assessment": "200 shots의 잔여·누적 면적 0, RC 최대/종료 잔류 그림이 수치와 일치하며 축·범례가 표시됩니다."
+}

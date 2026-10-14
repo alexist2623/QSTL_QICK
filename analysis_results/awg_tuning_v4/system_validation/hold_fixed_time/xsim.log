@@ -1,0 +1,38 @@
+
+****** xsim v2023.1 (64-bit)
+  **** SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+  **** IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+  **** SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/rc_gui/xsim_script.tcl
+# xsim {rc_gui} -testplusarg CASE=F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_hold_duration_v4_final2_hold_fixed_time_output_sum_after_readout_awg_v3 -testplusarg OUT=F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_hold_duration_v4_final2_hold_fixed_time_output_sum_after_readout_awg_v3 -testplusarg CYCLES=379907 -autoloadwcfg -tclbatch {F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_hold_duration_v4_final2_hold_fixed_time_output_sum_after_readout_awg_v3/run.tcl}
+Time resolution is 1 fs
+source F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_hold_duration_v4_final2_hold_fixed_time_output_sum_after_readout_awg_v3/run.tcl
+## run all
+Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
+Time: 0 fs  Iteration: 0  Process: /tb_rc_gui/dut/sim_bd_i/axis_tproc64x32_x8_0/inst/tproc_i/alu_i/math_i/line__104  File: F:/Vivado_Output/a3sim1/namespaced/073_math.vhd
+Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
+Time: 0 fs  Iteration: 0  Process: /tb_rc_gui/dut/sim_bd_i/axis_tproc64x32_x8_0/inst/tproc_i/alu_i/math_i/line__103  File: F:/Vivado_Output/a3sim1/namespaced/073_math.vhd
+RTL COMPLETE two-AWG samples/channel=6083200 errors=0
+RAW_AWG_V2_RESULT ch=0 samples=6083456 ramps=400 sets=801
+RAW_AWG_V2_RESULT ch=1 samples=6083456 ramps=400 sets=801
+RAW_AWG_V2_RESULT ch=3 samples=6083456 ramps=400 sets=801
+GUI_RC_RESULT ch=0 max_error_codes=2.607621
+GUI_RC_RESULT ch=1 max_error_codes=2.788361
+GUI_RC_RESULT ch=2 max_error_codes=0.000000
+EXACT_AWG_RESULT ch=0 samples=6082976
+EXACT_AWG_RESULT ch=1 samples=6082976
+FIR_DC_CAPTURE_RESULT triggers=200 samples=800 AXI_writes=400 delay_cycles=8712
+AREA_V3_RESULT ch=0 shots=200 samples=6083376 reset_checks=200 residual=0
+AREA_V3_RESULT ch=1 shots=200 samples=6083376 reset_checks=200 residual=0
+OUTPUT_SUM_RESULT suffix=4 samples=6083456
+OUTPUT_SUM_RESULT suffix=5 samples=6083456
+OUTPUT_SUM_RESULT suffix=6 samples=6083456
+AREA_V3_RESULT ch=3 shots=200 samples=6083376 reset_checks=200 residual=0
+$finish called at time : 1267886920244 fs : File "F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_hold_duration_v4_final2_hold_fixed_time_output_sum_after_readout_awg_v3/tb_rc_gui.sv" Line 1805
+run: Time (s): cpu = 00:00:01 ; elapsed = 00:56:40 . Memory (MB): peak = 200.305 ; gain = 0.000
+## quit
+INFO: xsimkernel Simulation Memory Usage: 63416 KB (Peak: 63416 KB), Simulation CPU Usage: 3365015 ms
+INFO: [Common 17-206] Exiting xsim at Tue Oct 13 19:34:50 2026...

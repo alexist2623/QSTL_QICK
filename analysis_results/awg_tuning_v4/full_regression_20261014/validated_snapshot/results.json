@@ -1,0 +1,286 @@
+{
+  "complete": true,
+  "verified_utc": "2026-10-14T16:05:42.244518+00:00",
+  "version": "awg_tuning_v4",
+  "fresh_rerun": true,
+  "software_modules": 72,
+  "software_tests": 1194,
+  "additional_tests": 29,
+  "software_total": 1223,
+  "reviewed_initial_failures": [
+    "gui_DCWaveformGeneratorGUI_test_sparameter_phase_storage",
+    "gui_DCWaveformGeneratorGUI_test_trigger_output_panel",
+    "gui_DCWaveformGeneratorGUI_test_rc_precompensation"
+  ],
+  "basic_rtl": {
+    "tb_dc_area": {
+      "bench": "tb_dc_area",
+      "passed": true,
+      "selected_width": 48
+    },
+    "tb_dc_boundaries": {
+      "bench": "tb_dc_boundaries",
+      "passed": true,
+      "selected_width": 48
+    },
+    "tb_width_awg": {
+      "bench": "tb_width_awg",
+      "passed": true,
+      "selected_width": 48
+    },
+    "tb_dc_faults": {
+      "bench": "tb_dc_faults",
+      "passed": true,
+      "selected_width": 48
+    },
+    "tb_set_saturation": {
+      "bench": "tb_set_saturation",
+      "passed": true,
+      "selected_width": 48
+    },
+    "legacy_outputs": {
+      "passed": true,
+      "sources": {
+        "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_awg_tuning_v3\\src\\v3_awg_tuning_ctrl.sv": "96654e4c3d2815e95da778c6fe861c5e3cfd67b03a0dbfa7443485e1fe170ff6",
+        "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_square_pulse_v1\\src\\square_rc_precomp.sv": "e851be04a50211c5feb2e802ff3a62dff17e277b485aa9d604c6288696637e43",
+        "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_awg_tuning_v2\\validation\\awg_v2_raw_checker.sv": "9c3c64072dd16ce538d4d69f65387062658470c6bd71579a32f4a7c7a99ae33c",
+        "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_awg_tuning_v3\\validation\\tb_timing_tail.sv": "6126c91eeca718b46349696584819bc90fa7a554273916c82324af5cbd577d46",
+        "F:\\Xilinx\\Vivado\\2023.1\\data\\verilog\\src\\glbl.v": "6270251cf35e1fce3119fc79f8fb968912f7983027e43cf030409ba68f048936"
+      }
+    }
+  },
+  "output_sum_unit": {
+    "passed": true,
+    "stage": "xsim",
+    "exit_code": 0,
+    "samples": 1114160,
+    "positive_clips": 149495,
+    "negative_clips": 83952,
+    "rounding_checks": 549930,
+    "stages": 2
+  },
+  "cases": {
+    "hold_fixed_time": {
+      "state": "passed",
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_v4_all_20261014_hold_fixed_time_output_sum_after_readout_awg_v3",
+      "points": 100,
+      "repetitions": 2,
+      "checks": [
+        [
+          "4",
+          "6083456"
+        ],
+        [
+          "5",
+          "6083456"
+        ],
+        [
+          "6",
+          "6083456"
+        ]
+      ],
+      "result_sha256": "740c16700cdcd3514413244a2ceeb0f33892f821a4c60d41ec05825c782b2044",
+      "input_fingerprint": "304987fdd8a7898ae3178df8c3cdbe109e7f4445d094c130fb1a21ed89c76370"
+    },
+    "hold_fixed_voltage_offset": {
+      "state": "passed",
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_v4_all_20261014_hold_fixed_voltage_offset_output_sum_overlap_readout_awg_v3",
+      "points": 100,
+      "repetitions": 2,
+      "checks": [
+        [
+          "4",
+          "5478656"
+        ],
+        [
+          "5",
+          "5478656"
+        ],
+        [
+          "6",
+          "5478656"
+        ]
+      ],
+      "result_sha256": "b873c88590b8907c7dccc4aa2fb7bbd21a4e8481ad075dc09dbafe34eb6756fc",
+      "input_fingerprint": "d9df3cc545be75fc44e98ae348cee4eaaf54bc67622022d2c75da3077ff53777"
+    },
+    "rf_duration_extend": {
+      "state": "passed",
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rf_duration_2x2_v4_all_20261014_rf_duration_extend_output_sum_overlap_readout_awg_v3",
+      "points": 4,
+      "repetitions": 2,
+      "checks": [
+        [
+          "4",
+          "446336"
+        ],
+        [
+          "5",
+          "446336"
+        ],
+        [
+          "6",
+          "446336"
+        ]
+      ],
+      "result_sha256": "0aec4790cd5f4f1571838f64fa0fc69f1792ed46fa400133cbaa6a91d569432f",
+      "input_fingerprint": "6c213643827b6840481e59a195a545843c834e7443f4a0af4749803eeecff3a1"
+    },
+    "rf_duration_fixed": {
+      "state": "passed",
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rf_duration_fixed_2x2_v4_all_20261014_rf_duration_fixed_output_sum_after_readout_awg_v3",
+      "points": 4,
+      "repetitions": 2,
+      "checks": [
+        [
+          "4",
+          "475904"
+        ],
+        [
+          "5",
+          "475904"
+        ],
+        [
+          "6",
+          "475904"
+        ]
+      ],
+      "result_sha256": "fb28f2a34580dab60e5e303894dec5c18f46e3b521792f1df30733605a53c3c6",
+      "input_fingerprint": "66f5deb10f3d127a1bcb3789219a367cb5ef4c59df3f272a5eda09e161648cf6"
+    },
+    "rc_only": {
+      "state": "passed",
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rc_only_hold_duration_4x4_v4_all_20261014_rc_only_output_sum_after_readout_awg_v3",
+      "points": 16,
+      "repetitions": 2,
+      "checks": [
+        [
+          "4",
+          "1020160"
+        ],
+        [
+          "5",
+          "1020160"
+        ],
+        [
+          "6",
+          "1020160"
+        ]
+      ],
+      "result_sha256": "89d1bc982c59e067a7412adb8a84c0a7b9db26e39ede11e594b7c9828b0b9106",
+      "input_fingerprint": "57c13995919ec1f249a60676b32192cbd47959bf0f044bcce811ec152b7628f7"
+    },
+    "reversed_axes": {
+      "state": "passed",
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rf_duration_v4_all_20261014_reversed_axes_output_sum_overlap_readout_awg_v3",
+      "points": 100,
+      "repetitions": 2,
+      "checks": [
+        [
+          "4",
+          "4959984"
+        ],
+        [
+          "5",
+          "4959984"
+        ],
+        [
+          "6",
+          "4959984"
+        ]
+      ],
+      "result_sha256": "af0eb0537d2af636337bd2bd97a2d00145c812214c1a58c9b3c3463ecdc5be34",
+      "input_fingerprint": "02a9e2f179f3ec8a30482e93a8b803fcfb8545e78fce5fb7cb62b84d0f22fe11"
+    },
+    "stability": {
+      "state": "passed",
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_no_aux_grid_10x10_v4_all_20261014_stability_output_sum_awg_v3_stability",
+      "points": 100,
+      "repetitions": 2,
+      "checks": [
+        [
+          "4",
+          "4481152"
+        ],
+        [
+          "5",
+          "4481152"
+        ],
+        [
+          "6",
+          "4481152"
+        ]
+      ],
+      "result_sha256": "129c33a5ac7be4091179f796be501927810828848eb1c25a12ea6c2468c00e3c",
+      "input_fingerprint": "fa6c033a9ebcdea8c0177ed7a2f4d28d00a75de46a33da45c8ff423c81547d6f"
+    },
+    "exact10us_hold1": {
+      "state": "passed",
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_2x2_v4_all_20261014_exact10us_hold1_output_sum_awg_v3",
+      "points": 1,
+      "repetitions": 2,
+      "checks": [
+        [
+          "4",
+          "472080"
+        ],
+        [
+          "5",
+          "472080"
+        ],
+        [
+          "6",
+          "472080"
+        ]
+      ],
+      "result_sha256": "f2e61d7420eb211d5396a0fa37f42656533d5e766294a6cc4faed61a99c2224b",
+      "input_fingerprint": "130a1842cecb8fd983fc2da5f87f23a4cbb4bedd3362812168bc3ca82ef23e53"
+    },
+    "exact10us_hold2": {
+      "state": "passed",
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_2x2_v4_all_20261014_exact10us_hold2_output_sum_awg_v3",
+      "points": 1,
+      "repetitions": 2,
+      "checks": [
+        [
+          "4",
+          "472080"
+        ],
+        [
+          "5",
+          "472080"
+        ],
+        [
+          "6",
+          "472080"
+        ]
+      ],
+      "result_sha256": "b68586981a0c4ae69d03497a3ecc7e1e7030566b82dc91c70cbbf591cd5c766e",
+      "input_fingerprint": "72f2952dc9a10bf9608c3c7ec784fdff9bdbf4d780ebcdabba9bf6705005c7a3"
+    }
+  },
+  "rc48": {
+    "complete": true,
+    "selected_width": 48,
+    "comparison_performed": false,
+    "build": "F:\\Vivado_Output\\a4reg_rc48",
+    "widths": {
+      "48": {
+        "complete": true,
+        "points_finished": 200,
+        "completed_shots": 200,
+        "overflow_points": 0,
+        "max_residual_effective_code_samples": 0,
+        "max_cumulative_effective_code_samples": 0,
+        "max_collection_error_without_overflow": 0,
+        "final_cumulative_effective_code_samples": 0,
+        "max_rc_error_mv": 0.05461681895,
+        "max_end_rc_mv": 0.000863350555,
+        "csv_sha256": "e1485ae9d4c0c2731109dcbb7f92a4e1e5a006e4864622f3224e99bdde517240"
+      }
+    },
+    "analog_capacitor_reset_between_shots": false
+  },
+  "changed_sources_settings_or_firmware": [],
+  "synthesis_repeated": false
+}

@@ -1,0 +1,139 @@
+{
+  "sample_oracles": [
+    [
+      "4",
+      "472080"
+    ],
+    [
+      "5",
+      "472080"
+    ],
+    [
+      "6",
+      "472080"
+    ]
+  ],
+  "pairs": [
+    {
+      "suffix": 4,
+      "shots": 2,
+      "hold": 1,
+      "measurements": [
+        {
+          "shot": 0,
+          "first_ramp_sum_input_cycle": 2189,
+          "rf_sum_input_start_cycle": 5190,
+          "rf_sum_input_stop_cycle": 8190,
+          "physical_start_cycle": 5202,
+          "physical_stop_cycle": 8202,
+          "start_relative_first_ramp_us": 10.003333333333334,
+          "stop_relative_first_ramp_us": 20.003333333333334,
+          "width_cycles": 3000,
+          "start_skew_cycles": 0,
+          "existing_ramp_guard_cycles": 1,
+          "offset_from_ideal_10us_timeline_cycles": 1
+        },
+        {
+          "shot": 1,
+          "first_ramp_sum_input_cycle": 15007,
+          "rf_sum_input_start_cycle": 18008,
+          "rf_sum_input_stop_cycle": 21008,
+          "physical_start_cycle": 18020,
+          "physical_stop_cycle": 21020,
+          "start_relative_first_ramp_us": 10.003333333333334,
+          "stop_relative_first_ramp_us": 20.003333333333334,
+          "width_cycles": 3000,
+          "start_skew_cycles": 0,
+          "existing_ramp_guard_cycles": 1,
+          "offset_from_ideal_10us_timeline_cycles": 1
+        }
+      ],
+      "physical_sample_checks": 471440,
+      "start_skew_cycles": 0,
+      "width_mismatches": 0,
+      "unexpected_rf_pulses": 0
+    },
+    {
+      "suffix": 5,
+      "shots": 2,
+      "hold": 1,
+      "measurements": [
+        {
+          "shot": 0,
+          "first_ramp_sum_input_cycle": 2189,
+          "rf_sum_input_start_cycle": 5190,
+          "rf_sum_input_stop_cycle": 8190,
+          "physical_start_cycle": 5202,
+          "physical_stop_cycle": 8202,
+          "start_relative_first_ramp_us": 10.003333333333334,
+          "stop_relative_first_ramp_us": 20.003333333333334,
+          "width_cycles": 3000,
+          "start_skew_cycles": 0,
+          "existing_ramp_guard_cycles": 1,
+          "offset_from_ideal_10us_timeline_cycles": 1
+        },
+        {
+          "shot": 1,
+          "first_ramp_sum_input_cycle": 15007,
+          "rf_sum_input_start_cycle": 18008,
+          "rf_sum_input_stop_cycle": 21008,
+          "physical_start_cycle": 18020,
+          "physical_stop_cycle": 21020,
+          "start_relative_first_ramp_us": 10.003333333333334,
+          "stop_relative_first_ramp_us": 20.003333333333334,
+          "width_cycles": 3000,
+          "start_skew_cycles": 0,
+          "existing_ramp_guard_cycles": 1,
+          "offset_from_ideal_10us_timeline_cycles": 1
+        }
+      ],
+      "physical_sample_checks": 471440,
+      "start_skew_cycles": 0,
+      "width_mismatches": 0,
+      "unexpected_rf_pulses": 0
+    },
+    {
+      "suffix": 6,
+      "shots": 2,
+      "hold": 1,
+      "measurements": [
+        {
+          "shot": 0,
+          "first_ramp_sum_input_cycle": 2189,
+          "rf_sum_input_start_cycle": 5190,
+          "rf_sum_input_stop_cycle": 8190,
+          "physical_start_cycle": 5202,
+          "physical_stop_cycle": 8202,
+          "start_relative_first_ramp_us": 10.003333333333334,
+          "stop_relative_first_ramp_us": 20.003333333333334,
+          "width_cycles": 3000,
+          "start_skew_cycles": 0,
+          "existing_ramp_guard_cycles": 1,
+          "offset_from_ideal_10us_timeline_cycles": 1
+        },
+        {
+          "shot": 1,
+          "first_ramp_sum_input_cycle": 15007,
+          "rf_sum_input_start_cycle": 18008,
+          "rf_sum_input_stop_cycle": 21008,
+          "physical_start_cycle": 18020,
+          "physical_stop_cycle": 21020,
+          "start_relative_first_ramp_us": 10.003333333333334,
+          "stop_relative_first_ramp_us": 20.003333333333334,
+          "width_cycles": 3000,
+          "start_skew_cycles": 0,
+          "existing_ramp_guard_cycles": 1,
+          "offset_from_ideal_10us_timeline_cycles": 1
+        }
+      ],
+      "physical_sample_checks": 471440,
+      "start_skew_cycles": 0,
+      "width_mismatches": 0,
+      "unexpected_rf_pulses": 0
+    }
+  ],
+  "combiner_pipeline_cycles": 2,
+  "output_register_cycles": 10,
+  "rf_duration_us": 10,
+  "gui_initial_set_us": 1
+}

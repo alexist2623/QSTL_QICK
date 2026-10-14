@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="20" time="3.269" timestamp="2026-10-14T00:32:29.688435-07:00" hostname="ECE-CDW-JS03"><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_published_artifacts_and_original_evidence_are_intact" time="0.352" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_final_driver_pairs_and_physical_latency[0-1-10]" time="0.108" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_final_driver_pairs_and_physical_latency[2-3-11]" time="0.001" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_final_driver_pairs_and_physical_latency[4-5-12]" time="0.001" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_remaining_awg_outputs_have_matching_delay[8-20]" time="0.001" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_remaining_awg_outputs_have_matching_delay[9-21]" time="0.001" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_remaining_awg_outputs_have_matching_delay[10-22]" time="0.001" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_remaining_awg_outputs_have_matching_delay[11-23]" time="0.001" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_rf4_and_square_are_unchanged[6-02]" time="0.183" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_rf4_and_square_are_unchanged[7-13]" time="0.001" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_v3_still_has_separate_rf_outputs" time="0.000" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_gui_selects_both_generators_on_the_same_physical_sma[0-1-10]" time="0.196" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_gui_selects_both_generators_on_the_same_physical_sma[2-3-11]" time="0.004" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_gui_selects_both_generators_on_the_same_physical_sma[4-5-12]" time="0.004" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_rf_editor_uses_the_awg_physical_card_and_preserves_legacy[0-1-10]" time="0.027" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_rf_editor_uses_the_awg_physical_card_and_preserves_legacy[2-3-11]" time="0.012" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_rf_editor_uses_the_awg_physical_card_and_preserves_legacy[4-5-12]" time="0.012" /><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_rf_setup_uses_dc_path_and_rejects_old_rf_settings[0-1-10]" time="0.001"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'v4 RF generator'&#10;  Actual message: 'RF output-power calibration database path is required'">v4 = {'board': 'ZCU216', 'fw_timestamp': 'Tue Oct 13 19:51:41 2026', 'gens': [{'fullpath': 'axis_signal_gen_v6_0', 'type': ...uning_v3_6', 'type': 'axis_awg_tuning_v3', 'output_latency_cycles': 18, 'revision': 3, ...}, ...], 'readouts': [], ...}
+rf = 0, awg = 1, dac = '10'
+
+    @pytest.mark.parametrize('rf,awg,dac', PAIRS)
+    def test_rf_setup_uses_dc_path_and_rejects_old_rf_settings(v4, rf, awg, dac):
+        class Soc:
+            def __init__(self): self.calls = []
+            def get_cfg(self): return v4
+            def rfb_set_gen_dc(self, ch): self.calls.append(('dc', ch))
+            def rfb_set_gen_rf(self, *args): pytest.fail('Must not configure old RF output')
+            def rfb_set_gen_filter(self, *args, **kwargs): pytest.fail('Must not configure RF filter')
+        soc = Soc()
+        spec = QickRfPulseSpec(rf, 'hold', 0., .1, 1., 2000, 0., 0.)
+        result = configure_rf_output(soc, spec)
+        assert soc.calls == [('dc', rf)]
+        assert result['board_type'] == 'DC_Out' and not result['attenuators_present']
+        for kwargs in [dict(att1_db=1.), dict(filter_type='lowpass'), dict(power_calibration_enabled=True)]:
+&gt;           with pytest.raises(ValueError, match='v4 RF generator'):
+E           AssertionError: Regex pattern did not match.
+E             Expected regex: 'v4 RF generator'
+E             Actual message: 'RF output-power calibration database path is required'
+
+analysis_results\awg_tuning_v4\test_final_firmware_integration.py:216: AssertionError</failure></testcase><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_rf_setup_uses_dc_path_and_rejects_old_rf_settings[2-3-11]" time="0.001"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'v4 RF generator'&#10;  Actual message: 'RF output-power calibration database path is required'">v4 = {'board': 'ZCU216', 'fw_timestamp': 'Tue Oct 13 19:51:41 2026', 'gens': [{'fullpath': 'axis_signal_gen_v6_0', 'type': ...uning_v3_6', 'type': 'axis_awg_tuning_v3', 'output_latency_cycles': 18, 'revision': 3, ...}, ...], 'readouts': [], ...}
+rf = 2, awg = 3, dac = '11'
+
+    @pytest.mark.parametrize('rf,awg,dac', PAIRS)
+    def test_rf_setup_uses_dc_path_and_rejects_old_rf_settings(v4, rf, awg, dac):
+        class Soc:
+            def __init__(self): self.calls = []
+            def get_cfg(self): return v4
+            def rfb_set_gen_dc(self, ch): self.calls.append(('dc', ch))
+            def rfb_set_gen_rf(self, *args): pytest.fail('Must not configure old RF output')
+            def rfb_set_gen_filter(self, *args, **kwargs): pytest.fail('Must not configure RF filter')
+        soc = Soc()
+        spec = QickRfPulseSpec(rf, 'hold', 0., .1, 1., 2000, 0., 0.)
+        result = configure_rf_output(soc, spec)
+        assert soc.calls == [('dc', rf)]
+        assert result['board_type'] == 'DC_Out' and not result['attenuators_present']
+        for kwargs in [dict(att1_db=1.), dict(filter_type='lowpass'), dict(power_calibration_enabled=True)]:
+&gt;           with pytest.raises(ValueError, match='v4 RF generator'):
+E           AssertionError: Regex pattern did not match.
+E             Expected regex: 'v4 RF generator'
+E             Actual message: 'RF output-power calibration database path is required'
+
+analysis_results\awg_tuning_v4\test_final_firmware_integration.py:216: AssertionError</failure></testcase><testcase classname="analysis_results.awg_tuning_v4.test_final_firmware_integration" name="test_rf_setup_uses_dc_path_and_rejects_old_rf_settings[4-5-12]" time="0.002"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'v4 RF generator'&#10;  Actual message: 'RF output-power calibration database path is required'">v4 = {'board': 'ZCU216', 'fw_timestamp': 'Tue Oct 13 19:51:41 2026', 'gens': [{'fullpath': 'axis_signal_gen_v6_0', 'type': ...uning_v3_6', 'type': 'axis_awg_tuning_v3', 'output_latency_cycles': 18, 'revision': 3, ...}, ...], 'readouts': [], ...}
+rf = 4, awg = 5, dac = '12'
+
+    @pytest.mark.parametrize('rf,awg,dac', PAIRS)
+    def test_rf_setup_uses_dc_path_and_rejects_old_rf_settings(v4, rf, awg, dac):
+        class Soc:
+            def __init__(self): self.calls = []
+            def get_cfg(self): return v4
+            def rfb_set_gen_dc(self, ch): self.calls.append(('dc', ch))
+            def rfb_set_gen_rf(self, *args): pytest.fail('Must not configure old RF output')
+            def rfb_set_gen_filter(self, *args, **kwargs): pytest.fail('Must not configure RF filter')
+        soc = Soc()
+        spec = QickRfPulseSpec(rf, 'hold', 0., .1, 1., 2000, 0., 0.)
+        result = configure_rf_output(soc, spec)
+        assert soc.calls == [('dc', rf)]
+        assert result['board_type'] == 'DC_Out' and not result['attenuators_present']
+        for kwargs in [dict(att1_db=1.), dict(filter_type='lowpass'), dict(power_calibration_enabled=True)]:
+&gt;           with pytest.raises(ValueError, match='v4 RF generator'):
+E           AssertionError: Regex pattern did not match.
+E             Expected regex: 'v4 RF generator'
+E             Actual message: 'RF output-power calibration database path is required'
+
+analysis_results\awg_tuning_v4\test_final_firmware_integration.py:216: AssertionError</failure></testcase></testsuite></testsuites>

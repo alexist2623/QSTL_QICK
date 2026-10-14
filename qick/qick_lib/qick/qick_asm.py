@@ -1314,6 +1314,8 @@ class AbsQickProgram(ABC):
                 'ro_ch': ro_ch
                 }
         gencfg = self.soccfg['gens'][ch]
+        from qick.output_sum import validate_shared_dac_config
+        validate_shared_dac_config(gencfg, nqz, mixer_freq)
         if gencfg['has_mixer']:
             if mixer_freq is None:
                 raise RuntimeError("generator %d has a digital mixer, but no mixer_freq was defined" % (ch))

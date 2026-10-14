@@ -1,0 +1,25 @@
+..........F                                                              [100%]
+================================== FAILURES ===================================
+___________ test_selected_sma_reaches_correct_tprocessor_output_bit ___________
+
+panel = <qick_square_dds_panel.TriggeringPanel object at 0x00000275B4F47530>
+
+    def test_selected_sma_reaches_correct_tprocessor_output_bit(panel):
+>       from qick.awg_tuning import TProcV1BehaviorModel
+
+DCWaveformGeneratorGUI\test_trigger_output_panel.py:135: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\QSTL_QICK\qick\qick_lib\qick\awg_tuning.py:46: in <module>
+    from qick.drivers.generator import AbsPulsedSignalGen
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    """
+    Drivers for signal generators: FPGA blocks that send data to DACs.
+    """
+>   from pynq.buffer import allocate
+E   ModuleNotFoundError: No module named 'pynq'
+
+..\QSTL_QICK\qick\qick_lib\qick\drivers\generator.py:4: ModuleNotFoundError
+=========================== short test summary info ===========================
+FAILED DCWaveformGeneratorGUI/test_trigger_output_panel.py::test_selected_sma_reaches_correct_tprocessor_output_bit
+1 failed, 10 passed in 0.51s

@@ -1,0 +1,111 @@
+{
+  "completed_utc": "2026-10-14T18:07:25.368791+00:00",
+  "implementation_and_scoped_tests_complete": true,
+  "real_board_deployment_executed": false,
+  "paramiko_environment": "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+  "installed_versions": {
+    "paramiko": "4.0.0",
+    "bcrypt": "5.0.0",
+    "cryptography": "50.0.2",
+    "invoke": "3.0.3",
+    "pynacl": "1.6.2",
+    "cffi": "2.1.1"
+  },
+  "transaction_tests": {
+    "tests": 27,
+    "failures": 0,
+    "errors": 0,
+    "scope": "Temporary local folders; no board writes"
+  },
+  "gui_live_browsing": {
+    "passed": true,
+    "checks": 11,
+    "successful_directory_reads": 6,
+    "offscreen": true,
+    "screenshots_visually_inspected": true
+  },
+  "board_metadata_read_only": {
+    "python": "3.8.2 (default, Mar 13 2020, 10:14:16) \n[GCC 9.3.0]",
+    "installation": {
+      "contract": {
+        "name": "qick",
+        "version": "0.2.357",
+        "requires_python": ">=3.6, <4",
+        "requirements": [
+          "numpy",
+          "tqdm",
+          "[:platform_machine == \"aarch64\" or platform_machine == \"armv7l\"]",
+          "pynq>=2.6",
+          "[full]",
+          "pyro4"
+        ],
+        "top_level": [
+          "qick"
+        ],
+        "entry_points": []
+      },
+      "egg_info": {
+        "PKG-INFO": "dc0b8d4a0d00f3224acbab42fac9344798cd845ec58c173aff7951c096dfc1d0",
+        "SOURCES.txt": "6c9d6a997353b87ffa1d21aa584d910a2a0f627fc9acd66fcc3038b65d0c3d68",
+        "dependency_links.txt": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "requires.txt": "c5dc072c18c3ddb1ff662abd1609aaab3f9cf57790c895761be10934eeac04a4",
+        "top_level.txt": "e3585a6021f551be51e5f7c71aef6d7dfc0b9e96beb42ae956a8f6f088d212a2"
+      },
+      "egg_links": {
+        "/usr/local/share/pynq-venv/lib/python3.8/site-packages/qick.egg-link": "a0bf17be85f5af83373528d535bd151a21236e187b3a696993810fdb896a2bfa"
+      }
+    },
+    "launcher": {
+      "old_bitfile": "/home/QSTL_QICK/qick/firmware/projects/qstl_awg_v2/bitstream.bit",
+      "new_bitfile": "/home/QSTL_QICK/qick/firmware/projects/qstl_awg_v4/bitstream.bit",
+      "only_bitfile_changed": true,
+      "board_file_unchanged": true,
+      "before_sha256": "dfd08415ef07eb5665cb42e8d87e503ae8a450253e7e1d2c8a74c0256e4cc697",
+      "local_preview_sha256": "77b641db434054ef70e1b2168e64cdc45710a6eb70ddbfba387be981668c10c7"
+    }
+  },
+  "protected_files_unchanged": 59,
+  "previous_regression_results_unchanged": true,
+  "previous_regression_source_changes": [
+    "PulseGenerator/DCWaveformGeneratorGUI/DCWaveform_Generator.py"
+  ],
+  "main_gui_menu_source_unchanged_since_initial_updater": true,
+  "branches": {
+    "QSTL_QICK": "awg_tuning_v4",
+    "PulseGenerator": "awg_tuning_v4"
+  },
+  "sources": {
+    "qick_update.py": "4073bd43abac84b31bce3e1fb25b875bfb26f5898aeee7f2c52fade539f36ce5",
+    "qick_update_remote.py": "fe5b83f8897d2f23387416369759845084d588576d4dee552d0fb01fcd7bb157",
+    "qick_update_dialog.py": "244120911fc527416399713ff9d697c8c5caa8740ec7d849c7f2f69509923b13",
+    "test_qick_update_transactions.py": "7bbd4498af5779803a106547d350dc7396d0e5786063f679505549874bd0118e",
+    "QICK_UPDATE.md": "979937abad3240e0b757371e47879772b4d75468756ca20916def364a7c72549",
+    "requirements-updater.txt": "a95eee6f61ed6dd716f7073f7f5880c3fae6fdf306d9c2884c95cd59dc2dcb68"
+  },
+  "evidence": {
+    "transaction_tests.xml": "f18c42e8fe56503468f47ff100ebe3c0dcca3a1b73c86906cc260eccf112c745",
+    "local_and_board_metadata.json": "668e56309b8f4a87f3ab885632be91f44566716e1347d8c92823a0355cec7a29",
+    "browse/results.json": "a622c8d97ff1f51557db0a7b3c9cbff71ffd7b96dc3cb45a2cba59df98abbbf3",
+    "board_pyro_cli_before.py": "dfd08415ef07eb5665cb42e8d87e503ae8a450253e7e1d2c8a74c0256e4cc697",
+    "board_pyro_cli_preview.py": "77b641db434054ef70e1b2168e64cdc45710a6eb70ddbfba387be981668c10c7"
+  },
+  "not_executed": [
+    "board upload",
+    "board package replacement",
+    "board firmware replacement",
+    "board pip installation",
+    "server restart",
+    "FPGA download",
+    "analog outputs",
+    "new synthesis",
+    "commit",
+    "push"
+  ],
+  "remaining_validation": [
+    "actual staged upload and file replacement on a test board",
+    "manual server restart and runtime firmware verification",
+    "process kill/power loss and concurrent update recovery",
+    "remaining negative-input combinations"
+  ],
+  "existing_unrelated_diff_check_issue": "QSTL_QICK awg_tuning_v3/VALIDATION_CHECKLIST.md CRLF trailing whitespace; unchanged in this task"
+}

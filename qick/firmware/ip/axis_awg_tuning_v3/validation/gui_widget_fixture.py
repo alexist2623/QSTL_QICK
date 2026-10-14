@@ -21,7 +21,11 @@ def build_from_widgets(cfg, pulses, axes, rf_specs, options, out):
     app.setStyle('Fusion')
     window=gui.MainWindow()
     currents={}
-    for channel,ma in zip((1,3,7),options.dac_current_ma):
+    summed=bool(getattr(options,'output_sum',False))
+    awg_channels=(1,3,5) if summed else (1,3)
+    channels=(1,3,5,7) if summed else (1,3,7)
+    current_values=(*options.dac_current_ma[:2],20.,options.dac_current_ma[2]) if summed else options.dac_current_ma
+    for channel,ma in zip(channels,current_values):
         dac=cfg['gens'][channel]['dac']
         currents[dac]=dict(converter_id=dac,channels=[channel],dc_output=True,
             current_ua=int(ma*1000),adjustable=True,reason='RTL input fixture')
@@ -30,10 +34,12 @@ def build_from_widgets(cfg, pulses, axes, rf_specs, options, out):
     data=window._settings_to_dict()
     data['awg']['outputs']=[p.to_dict() for p in pulses]
     data['awg']['cross_capacitance']=[list(options.cross_capacitance[:2]),list(options.cross_capacitance[2:])]
+    if summed:
+        data['awg']['cross_capacitance']=[row+[0.] for row in data['awg']['cross_capacitance']]+[[0.,0.,1.]]
     data['awg']['sweeps']=[dict(axis_kind=s.axis_kind,segment_name=s.segment_name,
         output_name=s.output_name,start=s.start,stop=s.stop,count=s.count) for s in axes]
     data['qick'].update(fabric_mhz=300.,tproc_mhz=300.,full_scale_mv=800.,
-        awg_channels=[1,3],repetitions_per_sweep=2,compile_validation_mode='boundary',
+        awg_channels=list(awg_channels),repetitions_per_sweep=2,compile_validation_mode='boundary',
         dac_current_settings=currents)
     rc_only=bool(getattr(options,'rc_only',False))
     data['qick']['bias_t_compensation']=dict(enabled=True,type='filter' if rc_only else 'dc_rc',mode=options.dc_mode,

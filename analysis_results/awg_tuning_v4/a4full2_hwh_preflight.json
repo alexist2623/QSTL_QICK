@@ -1,0 +1,107 @@
+{
+  "passed": true,
+  "hwh": "F:\\Vivado_Output\\a4full2\\qstl_awg_v4.gen\\sources_1\\bd\\d_1\\hw_handoff\\d_1.hwh",
+  "sha256": "535b3dabbfb28bf5ee79b6b85a19a05296305a01be010f3ab28b3d5deebd3aec",
+  "pairs": [
+    {
+      "awg": "axis_awg_tuning_v3_4",
+      "rf": "axis_signal_gen_v6_0",
+      "dac": "10",
+      "route": {
+        "output_sum_version": 1,
+        "output_sum_block": "axis_output_sum_4",
+        "output_sum_role": "awg",
+        "output_sum_bypass": false,
+        "output_sum_awg": "axis_awg_tuning_v3_4",
+        "output_sum_rf": "axis_signal_gen_v6_0",
+        "post_output_latency_cycles": 2
+      }
+    },
+    {
+      "awg": "axis_awg_tuning_v3_5",
+      "rf": "axis_signal_gen_v6_1",
+      "dac": "11",
+      "route": {
+        "output_sum_version": 1,
+        "output_sum_block": "axis_output_sum_5",
+        "output_sum_role": "awg",
+        "output_sum_bypass": false,
+        "output_sum_awg": "axis_awg_tuning_v3_5",
+        "output_sum_rf": "axis_signal_gen_v6_1",
+        "post_output_latency_cycles": 2
+      }
+    },
+    {
+      "awg": "axis_awg_tuning_v3_6",
+      "rf": "axis_signal_gen_v6_3",
+      "dac": "12",
+      "route": {
+        "output_sum_version": 1,
+        "output_sum_block": "axis_output_sum_6",
+        "output_sum_role": "awg",
+        "output_sum_bypass": false,
+        "output_sum_awg": "axis_awg_tuning_v3_6",
+        "output_sum_rf": "axis_signal_gen_v6_3",
+        "post_output_latency_cycles": 2
+      }
+    },
+    {
+      "awg": "axis_awg_tuning_v3_8",
+      "rf": null,
+      "dac": "20",
+      "route": {
+        "output_sum_version": 1,
+        "output_sum_block": "axis_output_sum_8",
+        "output_sum_role": "awg",
+        "output_sum_bypass": true,
+        "output_sum_awg": "axis_awg_tuning_v3_8",
+        "output_sum_rf": null,
+        "post_output_latency_cycles": 2
+      }
+    },
+    {
+      "awg": "axis_awg_tuning_v3_9",
+      "rf": null,
+      "dac": "21",
+      "route": {
+        "output_sum_version": 1,
+        "output_sum_block": "axis_output_sum_9",
+        "output_sum_role": "awg",
+        "output_sum_bypass": true,
+        "output_sum_awg": "axis_awg_tuning_v3_9",
+        "output_sum_rf": null,
+        "post_output_latency_cycles": 2
+      }
+    },
+    {
+      "awg": "axis_awg_tuning_v3_10",
+      "rf": null,
+      "dac": "22",
+      "route": {
+        "output_sum_version": 1,
+        "output_sum_block": "axis_output_sum_10",
+        "output_sum_role": "awg",
+        "output_sum_bypass": true,
+        "output_sum_awg": "axis_awg_tuning_v3_10",
+        "output_sum_rf": null,
+        "post_output_latency_cycles": 2
+      }
+    },
+    {
+      "awg": "axis_awg_tuning_v3_11",
+      "rf": null,
+      "dac": "23",
+      "route": {
+        "output_sum_version": 1,
+        "output_sum_block": "axis_output_sum_11",
+        "output_sum_role": "awg",
+        "output_sum_bypass": true,
+        "output_sum_awg": "axis_awg_tuning_v3_11",
+        "output_sum_rf": null,
+        "post_output_latency_cycles": 2
+      }
+    }
+  ],
+  "awg_latency": 18,
+  "clock_mhz": 300
+}

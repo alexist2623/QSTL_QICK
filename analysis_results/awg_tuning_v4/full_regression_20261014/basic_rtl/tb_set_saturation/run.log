@@ -1,0 +1,73 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/axis_awg_tuning_v3.sv" into library work
+INFO: [VRFC 10-311] analyzing module axis_awg_tuning_v3
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_dc_area.sv" into library work
+INFO: [VRFC 10-311] analyzing module v3_dc_mul64
+INFO: [VRFC 10-311] analyzing module v3_awg_dc_area
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_rc_precomp.sv" into library work
+INFO: [VRFC 10-311] analyzing module v3_awg_rc_precomp
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" into library work
+INFO: [VRFC 10-311] analyzing module v3_dsp48e2_mul_step_const
+INFO: [VRFC 10-311] analyzing module v3_dsp48e2_mul_step_lane
+INFO: [VRFC 10-311] analyzing module v3_dsp48e2_mul_step_npts
+INFO: [VRFC 10-311] analyzing module v3_dsp48e2_add48
+INFO: [VRFC 10-311] analyzing module v3_awg_tuning_ctrl
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_axi_slv_awg_tuning_v1.sv" into library work
+INFO: [VRFC 10-311] analyzing module v3_axi_slv_awg_tuning_v1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v2/validation/awg_v2_raw_checker.sv" into library work
+INFO: [VRFC 10-311] analyzing module awg_v2_raw_checker
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/validation/tb_set_saturation.sv" into library work
+INFO: [VRFC 10-311] analyzing module tb_set_saturation
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "F:/Xilinx/Vivado/2023.1/data/verilog/src/glbl.v" into library work
+INFO: [VRFC 10-311] analyzing module glbl
+Vivado Simulator v2023.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: F:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/xelab.exe --relax --timescale 1ns/1ps -L unisims_ver tb_set_saturation glbl -s unit 
+Multi-threading is on. Using 6 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.v3_dsp48e2_mul_step_const_defaul...
+Compiling module unisims_ver.DSP48E2(ACASCREG=0,ADREG=0,ALUMO...
+Compiling module work.v3_dsp48e2_add48_default
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module work.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module unisims_ver.DSP48E2(ACASCREG=0,ADREG=0,ALUMO...
+Compiling module work.v3_dsp48e2_add48(REGISTER_OUTPUT...
+Compiling module work.v3_awg_tuning_ctrl(EXTRA_Y_PIPE_...
+Compiling module work.tb_set_saturation
+Compiling module work.glbl
+Built simulation snapshot unit
+
+****** xsim v2023.1 (64-bit)
+  **** SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+  **** IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+  **** SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/unit/xsim_script.tcl
+# xsim {unit} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+PASS SET/override/terminal RAMP saturation: 86357 all-lane output checks
+$finish called at time : 288616145 ps : File "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/validation/tb_set_saturation.sv" Line 72
+exit
+INFO: [Common 17-206] Exiting xsim at Wed Oct 14 07:21:25 2026...

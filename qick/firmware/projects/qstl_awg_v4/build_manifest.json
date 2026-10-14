@@ -1,0 +1,220 @@
+{
+  "published_utc": "2026-10-14T07:28:11.832091+00:00",
+  "build": "F:\\Vivado_Output\\a4full2",
+  "conditions": {
+    "project": "qstl_awg_v4",
+    "vivado_version": "2023.1",
+    "part": "xczu49dr-ffvf1760-2-e",
+    "board_part": "xilinx.com:zcu216:part0:2.0",
+    "launch_jobs": "4",
+    "general.maxThreads": "5",
+    "synthesis_strategy": "Vivado Synthesis Defaults",
+    "implementation_strategy": "Vivado Implementation Defaults",
+    "manual_routing": "disabled",
+    "repo_dir": "C:/GIT_Workspace/QSTL_QICK",
+    "project_source_dir": "C:/GIT_Workspace/QSTL_QICK/qick/firmware/projects/qstl_awg_v4",
+    "output_dir": "F:/Vivado_Output/a4full2",
+    "constraint.timing.xdc.source_path": "C:/GIT_Workspace/QSTL_QICK/qick/firmware/projects/qstl_awg_v4/timing.xdc",
+    "constraint.timing.xdc.source_sha256": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb",
+    "constraint.timing.xdc.snapshot_path": "F:/Vivado_Output/a4full2/constraints/timing.xdc",
+    "constraint.timing.xdc.snapshot_sha256": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb",
+    "constraint.ios.xdc.source_path": "C:/GIT_Workspace/QSTL_QICK/qick/firmware/projects/qstl_awg_v4/ios.xdc",
+    "constraint.ios.xdc.source_sha256": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7",
+    "constraint.ios.xdc.snapshot_path": "F:/Vivado_Output/a4full2/constraints/ios.xdc",
+    "constraint.ios.xdc.snapshot_sha256": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7",
+    "TEMP": "C:\\Users\\MEASUR~1\\AppData\\Local\\Temp",
+    "TMP": "C:\\Users\\MEASUR~1\\AppData\\Local\\Temp",
+    "predicted_impl_temp_path": "F:/Vivado_Output/a4full2/qstl_awg_v4.runs/impl_1/.Xil/Vivado-92796-ece-cdw-js03",
+    "predicted_impl_temp_path_length": "79",
+    "git_branch": "awg_tuning_v4",
+    "git_commit": "94f4fafb06654fbe091fed53db9e0486b4fa1810"
+  },
+  "timing": {
+    "synthesis_status": "synth_design Complete!",
+    "implementation_status": "write_bitstream Complete!",
+    "setup_wns_ns": "0.002841",
+    "setup_tns_ns": "0.000000",
+    "hold_whs_ns": "0.009116",
+    "hold_ths_ns": "0.000000",
+    "timing_closed": "YES",
+    "bitstream": "F:/Vivado_Output/a4full2/bitstream.bit",
+    "xsa": "F:/Vivado_Output/a4full2/bitstream.xsa",
+    "hwh": "F:/Vivado_Output/a4full2/bitstream.hwh"
+  },
+  "constraints": [
+    {
+      "name": "timing.xdc",
+      "source": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v4\\timing.xdc",
+      "snapshot": "F:\\Vivado_Output\\a4full2\\constraints\\timing.xdc",
+      "bytes": 3294,
+      "sha256": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb"
+    },
+    {
+      "name": "ios.xdc",
+      "source": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v4\\ios.xdc",
+      "snapshot": "F:\\Vivado_Output\\a4full2\\constraints\\ios.xdc",
+      "bytes": 13413,
+      "sha256": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7"
+    }
+  ],
+  "hardware": {
+    "square_dac": "13",
+    "square_fabric_clock_hz": 300000000,
+    "samples_per_clock": 16,
+    "awg_ip_version": 3,
+    "dc_area_bits": 48,
+    "dc_area_version": 1,
+    "tproc_fabric_clock_hz": 300000000,
+    "common_fabric_clock_net": "dac_clk_buf_BUFG_O",
+    "awg_ramp_startup_cycles": 7,
+    "awg_output_latency_cycles": 18,
+    "dc_start_cycles": 17,
+    "awg_step_bits": 32,
+    "awg_step_fraction_bits": 18,
+    "square_scalar_sample_rate_hz": 4800000000,
+    "nominal_gen_ch": 7,
+    "iq_component_bits": 64,
+    "fir_decimation": 300,
+    "trigger_delay_cycles": 8712,
+    "rc_precomp_version": 1,
+    "rc_output_latency_cycles": 11,
+    "rc_fraction_bits": 48,
+    "rc_accumulator_bits": 72,
+    "square_command_latency_cycles": 15,
+    "output_sum_pipeline_cycles": 2,
+    "rf_output_latency_cycles": 31
+  },
+  "topology": {
+    "passed": true,
+    "hwh": "F:\\Vivado_Output\\a4full2\\bitstream.hwh",
+    "sha256": "535b3dabbfb28bf5ee79b6b85a19a05296305a01be010f3ab28b3d5deebd3aec",
+    "pairs": [
+      {
+        "awg": "axis_awg_tuning_v3_4",
+        "rf": "axis_signal_gen_v6_0",
+        "dac": "10",
+        "route": {
+          "output_sum_version": 1,
+          "output_sum_block": "axis_output_sum_4",
+          "output_sum_role": "awg",
+          "output_sum_bypass": false,
+          "output_sum_awg": "axis_awg_tuning_v3_4",
+          "output_sum_rf": "axis_signal_gen_v6_0",
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v3_5",
+        "rf": "axis_signal_gen_v6_1",
+        "dac": "11",
+        "route": {
+          "output_sum_version": 1,
+          "output_sum_block": "axis_output_sum_5",
+          "output_sum_role": "awg",
+          "output_sum_bypass": false,
+          "output_sum_awg": "axis_awg_tuning_v3_5",
+          "output_sum_rf": "axis_signal_gen_v6_1",
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v3_6",
+        "rf": "axis_signal_gen_v6_3",
+        "dac": "12",
+        "route": {
+          "output_sum_version": 1,
+          "output_sum_block": "axis_output_sum_6",
+          "output_sum_role": "awg",
+          "output_sum_bypass": false,
+          "output_sum_awg": "axis_awg_tuning_v3_6",
+          "output_sum_rf": "axis_signal_gen_v6_3",
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v3_8",
+        "rf": null,
+        "dac": "20",
+        "route": {
+          "output_sum_version": 1,
+          "output_sum_block": "axis_output_sum_8",
+          "output_sum_role": "awg",
+          "output_sum_bypass": true,
+          "output_sum_awg": "axis_awg_tuning_v3_8",
+          "output_sum_rf": null,
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v3_9",
+        "rf": null,
+        "dac": "21",
+        "route": {
+          "output_sum_version": 1,
+          "output_sum_block": "axis_output_sum_9",
+          "output_sum_role": "awg",
+          "output_sum_bypass": true,
+          "output_sum_awg": "axis_awg_tuning_v3_9",
+          "output_sum_rf": null,
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v3_10",
+        "rf": null,
+        "dac": "22",
+        "route": {
+          "output_sum_version": 1,
+          "output_sum_block": "axis_output_sum_10",
+          "output_sum_role": "awg",
+          "output_sum_bypass": true,
+          "output_sum_awg": "axis_awg_tuning_v3_10",
+          "output_sum_rf": null,
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v3_11",
+        "rf": null,
+        "dac": "23",
+        "route": {
+          "output_sum_version": 1,
+          "output_sum_block": "axis_output_sum_11",
+          "output_sum_role": "awg",
+          "output_sum_bypass": true,
+          "output_sum_awg": "axis_awg_tuning_v3_11",
+          "output_sum_rf": null,
+          "post_output_latency_cycles": 2
+        }
+      }
+    ],
+    "awg_latency": 18,
+    "clock_mhz": 300
+  },
+  "xsa_members": {
+    "bit": "bitstream.bit",
+    "hwh": "d_1.hwh"
+  },
+  "functional_gate": {
+    "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\prebuild_gate.json",
+    "bytes": 64575,
+    "sha256": "b8704a76c9a5926390b50f80e0b1ae39404217ae48f311fd9f3fb62a80f29a9a"
+  },
+  "artifacts": [
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v4\\bitstream.bit",
+      "bytes": 34437473,
+      "sha256": "dd1534cc6c1e176dadb821c0bc6918f4311d1ecccafe780d4961617082321cb6"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v4\\bitstream.hwh",
+      "bytes": 2659645,
+      "sha256": "535b3dabbfb28bf5ee79b6b85a19a05296305a01be010f3ab28b3d5deebd3aec"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v4\\bitstream.xsa",
+      "bytes": 21154445,
+      "sha256": "64e3df98f15aeb1188f87d821f456cc244d4524ce53adf75d4e430aad6ed3631"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "gui_DCWaveformGeneratorGUI_test_sparameter_phase_storage": {
+    "first_attempt": {
+      "state": "failed",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-X",
+        "utf8",
+        "-X",
+        "faulthandler",
+        "-m",
+        "pytest",
+        "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_sparameter_phase_storage.py",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp",
+        "F:\\Vivado_Output\\a4reg1\\pytest_temp\\gui_DCWaveformGeneratorGUI_test_sparameter_phase_storage"
+      ],
+      "log": "F:\\Vivado_Output\\a4reg1\\gui_DCWaveformGeneratorGUI_test_sparameter_phase_storage.log",
+      "started": 1791987521.3025851,
+      "exit_code": 3221225477,
+      "elapsed_s": 16.168314933776855
+    },
+    "command": [
+      "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+      "-X",
+      "utf8",
+      "-X",
+      "faulthandler",
+      "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_awg_tuning_v3\\validation\\phase_storage_lifecycle.py",
+      "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_sparameter_phase_storage.py",
+      "F:/Vivado_Output/a4reg_phase_retry_tmp"
+    ],
+    "reason": "All 14 assertions passed before Qt teardown access violation; explicitly own/destroy QApplication.",
+    "module": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_sparameter_phase_storage.py",
+    "module_sha256": "b9c8dbba137fcf70da166619c3689892a47903660dfc5e173e81c713a14181a4",
+    "harness": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_awg_tuning_v3\\validation\\phase_storage_lifecycle.py",
+    "harness_sha256": "b49217e22e7df3e7c94f098db816d8f5a090a0191ca64c9ca30a91cb9e0f64fb",
+    "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\full_regression_20261014\\test_sparameter_phase_storage.reviewed_retry.log",
+    "state": "passed",
+    "started": 1791987683.5385,
+    "exit_code": 0,
+    "elapsed_s": 16.900654077529907
+  },
+  "gui_DCWaveformGeneratorGUI_test_trigger_output_panel": {
+    "first_attempt": {
+      "state": "failed",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-X",
+        "utf8",
+        "-X",
+        "faulthandler",
+        "-m",
+        "pytest",
+        "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_trigger_output_panel.py",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp",
+        "F:\\Vivado_Output\\a4reg1\\pytest_temp\\gui_DCWaveformGeneratorGUI_test_trigger_output_panel"
+      ],
+      "log": "F:\\Vivado_Output\\a4reg1\\gui_DCWaveformGeneratorGUI_test_trigger_output_panel.log",
+      "started": 1791987585.3235385,
+      "exit_code": 1,
+      "elapsed_s": 0.9606273174285889
+    },
+    "command": [
+      "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+      "-X",
+      "utf8",
+      "-X",
+      "faulthandler",
+      "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_awg_tuning_v3\\validation\\retry_desktop_regressions.py",
+      "--build",
+      "F:\\Vivado_Output\\a4reg1",
+      "--gui",
+      "C:\\GIT_Workspace\\PulseGenerator",
+      "--worker",
+      "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_trigger_output_panel.py",
+      "--basetemp",
+      "F:/Vivado_Output/a4reg_trigger_retry_tmp"
+    ],
+    "reason": "Initialize the existing qick.sim desktop bootstrap; no board imports/writes.",
+    "module": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_trigger_output_panel.py",
+    "module_sha256": "fc5e041e0f86f66349e9395394a011c57f2b0f3eb7173ee3fe1b649c6507567d",
+    "harness": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_awg_tuning_v3\\validation\\retry_desktop_regressions.py",
+    "harness_sha256": "b1e5c99ef2a8465a39ceaa7625f8dbb950033245c3d8a18e5c46cc21c1cb706b",
+    "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\full_regression_20261014\\test_trigger_output_panel.reviewed_retry.log",
+    "state": "passed",
+    "started": 1791987700.4401536,
+    "exit_code": 0,
+    "elapsed_s": 0.8367006778717041
+  }
+}

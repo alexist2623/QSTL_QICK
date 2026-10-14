@@ -1,0 +1,86 @@
+{
+  "inspection": {
+    "repository": "/home/QSTL_QICK",
+    "python": "/usr/local/share/pynq-venv/bin/python3",
+    "python_version": "3.8.2",
+    "qick_import_path": "/home/QSTL_QICK/qick/qick_lib/qick/__init__.py",
+    "installation_contract": {
+      "name": "qick",
+      "version": "0.2.357",
+      "requires_python": ">=3.6, <4",
+      "requirements": [
+        "numpy",
+        "tqdm",
+        "[:platform_machine == \"aarch64\" or platform_machine == \"armv7l\"]",
+        "pynq>=2.6",
+        "[full]",
+        "pyro4"
+      ],
+      "top_level": [
+        "qick"
+      ],
+      "entry_points": []
+    },
+    "free_bytes": 16721801216,
+    "runtime": {
+      "queried": false,
+      "known_server_processes": [],
+      "manual_stop_confirmation_required": true,
+      "note": "File updates use SSH only. Runtime firmware verification is optional."
+    },
+    "transactions": [
+      {
+        "release": "077331d21ebe423c8682d576cff24b38",
+        "state": "prepared",
+        "launcher_patch": {
+          "relative": "qick_lib/qick/pyro_cli.py",
+          "before_bitfile": "/home/QSTL_QICK/qick/firmware/projects/qstl_awg_v2/bitstream.bit",
+          "after_bitfile": "/home/QSTL_QICK/qick/firmware/projects/qstl_awg_v4/bitstream.bit",
+          "before_sha256": "dfd08415ef07eb5665cb42e8d87e503ae8a450253e7e1d2c8a74c0256e4cc697",
+          "after_sha256": "77b641db434054ef70e1b2168e64cdc45710a6eb70ddbfba387be981668c10c7"
+        },
+        "firmware": "qick/firmware/projects/qstl_awg_v4/bitstream.bit",
+        "identity": "88c9e1454d11bfdf8395514ae8b846e5231327ea1b8bfe29cf43d2cc87c111e7",
+        "library_version": "0.2.357",
+        "firmware_timestamp": "Tue Oct 13 19:51:41 2026"
+      },
+      {
+        "release": "306751f9f1ea41a69b3712859139b3aa",
+        "state": "prepared",
+        "launcher_patch": {
+          "relative": "qick_lib/qick/pyro_cli.py",
+          "before_bitfile": "/home/QSTL_QICK/qick/firmware/projects/qstl_awg_v2/bitstream.bit",
+          "after_bitfile": "/home/QSTL_QICK/qick/firmware/projects/qstl_awg_v4/bitstream.bit",
+          "before_sha256": "dfd08415ef07eb5665cb42e8d87e503ae8a450253e7e1d2c8a74c0256e4cc697",
+          "after_sha256": "77b641db434054ef70e1b2168e64cdc45710a6eb70ddbfba387be981668c10c7"
+        },
+        "firmware": "qick/firmware/projects/qstl_awg_v4/bitstream.bit",
+        "identity": "88c9e1454d11bfdf8395514ae8b846e5231327ea1b8bfe29cf43d2cc87c111e7",
+        "library_version": "0.2.357",
+        "firmware_timestamp": "Tue Oct 13 19:51:41 2026"
+      }
+    ],
+    "update_lock_exists": false
+  },
+  "folders": {
+    "path": "/home/QSTL_QICK/qick",
+    "directories": [
+      "aws",
+      "docs",
+      "firmware",
+      "graphics",
+      "hardware",
+      "pyro4",
+      "qick_demos",
+      "qick_lib"
+    ]
+  },
+  "launcher_sha256_before": "dfd08415ef07eb5665cb42e8d87e503ae8a450253e7e1d2c8a74c0256e4cc697",
+  "launcher_sha256_after": "dfd08415ef07eb5665cb42e8d87e503ae8a450253e7e1d2c8a74c0256e4cc697",
+  "unchanged": true,
+  "allowed_actions": [
+    "inspect",
+    "list_directories"
+  ],
+  "update_executed": false
+}

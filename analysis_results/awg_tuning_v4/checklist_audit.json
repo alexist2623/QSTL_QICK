@@ -1,0 +1,249 @@
+{
+  "audit_complete": true,
+  "verified_utc": "2026-10-14T14:04:07.462181+00:00",
+  "branches": {
+    "C:\\GIT_Workspace\\QSTL_QICK": "awg_tuning_v4",
+    "C:\\GIT_Workspace\\PulseGenerator": "awg_tuning_v4"
+  },
+  "all_basic_tests_rerun_on_current_v4": false,
+  "results": {
+    "v3_regular": {
+      "stages_passed": 73,
+      "tests_passed": 986,
+      "recorded_logs_present": true,
+      "source_comparison": {
+        "files": 158,
+        "matches": 146,
+        "differences": [
+          "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py",
+          "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\dc_waveform_widgets.py",
+          "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py",
+          "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_front_panel.py",
+          "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_qcodes_experiment.py",
+          "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_bias_control.py",
+          "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_dc_waveform_gui_rf.py",
+          "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_qick_square_wave.py",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\qick_lib\\qick\\dac_current.py",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\qick_lib\\qick\\ip.py",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\qick_lib\\qick\\qick_asm.py",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\qick_lib\\qick\\drivers\\generator.py"
+        ]
+      },
+      "current_v4_full_986_suite_rerun": false
+    },
+    "v3_basic_rtl": {
+      "tb_dc_area": {
+        "passed": true,
+        "result_sha256": "9b5f1e3efee997557bfb0e278929d8c7a706d9ef4b8d932ce79eafde37481e43",
+        "sources": {
+          "files": 8,
+          "matches": 8,
+          "differences": []
+        },
+        "log": "F:\\Vivado_Output\\a3regular48_final\\tb_dc_area.log",
+        "log_sha256": "17d58701d795a55e51ea6f5971a4149abc871189f64a0ae535c7455aa16fb2c6",
+        "execution_generation": "v3; unchanged RTL"
+      },
+      "tb_dc_boundaries": {
+        "passed": true,
+        "result_sha256": "e70e28d03bb5eb756a527d638c6f76f6429865fc30d725c075ed4bbb3445b30e",
+        "sources": {
+          "files": 8,
+          "matches": 8,
+          "differences": []
+        },
+        "log": "F:\\Vivado_Output\\a3regular48_final\\tb_dc_boundaries.log",
+        "log_sha256": "c0892d44b28bfacf5659a06689a4212284713e57912e87a21b8472bbe4975427",
+        "execution_generation": "v3; unchanged RTL"
+      },
+      "tb_width_awg": {
+        "passed": true,
+        "result_sha256": "3d39c86db93a2f4aad4cd990d9b36d662d2e9a495e3395ffa66396cd5ea5e588",
+        "sources": {
+          "files": 8,
+          "matches": 8,
+          "differences": []
+        },
+        "log": "F:\\Vivado_Output\\a3regular48_final\\tb_width_awg.log",
+        "log_sha256": "f8ea6d9752f036406b88ccfe80328c538752463a0cef5dbaf916625ca44deeba",
+        "execution_generation": "v3; unchanged RTL"
+      },
+      "tb_dc_faults": {
+        "passed": true,
+        "result_sha256": "5a66ea2b3627361a2dd3b39076452369397253be9263f66d2c9a8a1b4980bf41",
+        "sources": {
+          "files": 8,
+          "matches": 8,
+          "differences": []
+        },
+        "log": "F:\\Vivado_Output\\a3regular48_final\\tb_dc_faults.log",
+        "log_sha256": "77a5940d1bac3f97a7e1b8679c225b615519fdc71b473000bc2796346ae6a2a4",
+        "execution_generation": "v3; unchanged RTL"
+      },
+      "tb_set_saturation": {
+        "passed": true,
+        "result_sha256": "bf14f8bedd8cf4a2b6600c4f0b545c7b8e4bd40de24bd8e143f2bdb7eaecee53",
+        "sources": {
+          "files": 8,
+          "matches": 8,
+          "differences": []
+        },
+        "log": "F:\\Vivado_Output\\a3regular48_final\\tb_set_saturation.log",
+        "log_sha256": "f94c81ddb4aaa3147f9b3e247f8f403405e062e53c4d9082055d6c49699ed25d",
+        "execution_generation": "v3; unchanged RTL"
+      },
+      "legacy_outputs": {
+        "passed": true,
+        "result_sha256": "7eea25857b8613d842de5234547328db36fcb7b010b289a2c8ef62d91d9fbfb1",
+        "sources": {
+          "files": 5,
+          "matches": 5,
+          "differences": []
+        },
+        "log": "F:\\Vivado_Output\\a3regular48_final\\legacy_outputs.log",
+        "log_sha256": "99237c58f8f2ff9126a2cf6c5f72c10836132ae1212cecade0c8171cc0fa1758",
+        "execution_generation": "v3; unchanged RTL"
+      }
+    },
+    "v3_continuous_rc": {
+      "result": {
+        "complete": true,
+        "selected_width": 48,
+        "comparison_performed": false,
+        "build": "F:\\Vivado_Output\\a3width48_final",
+        "widths": {
+          "48": {
+            "complete": true,
+            "points_finished": 200,
+            "completed_shots": 200,
+            "overflow_points": 0,
+            "max_residual_effective_code_samples": 0,
+            "max_cumulative_effective_code_samples": 0,
+            "max_collection_error_without_overflow": 0,
+            "final_cumulative_effective_code_samples": 0,
+            "max_rc_error_mv": 0.05461681895,
+            "max_end_rc_mv": 0.000863350555,
+            "csv_sha256": "e1485ae9d4c0c2731109dcbb7f92a4e1e5a006e4864622f3224e99bdde517240"
+          }
+        },
+        "analog_capacitor_reset_between_shots": false
+      },
+      "sources": {
+        "files": 3,
+        "matches": 3,
+        "differences": []
+      },
+      "csv_hash_matched": true
+    },
+    "v3_system": {
+      "cases_passed": 4,
+      "case_names": [
+        "GUI RF duration + voltage / fixed voltage",
+        "Reversed axes / fixed voltage",
+        "GUI RF duration + voltage / fixed time",
+        "Stability / fixed time"
+      ],
+      "v4_axis_reversal_stability_full_rtl_rerun": false
+    },
+    "v4_protected": {
+      "files": 59,
+      "matches": 59,
+      "differences": []
+    },
+    "v4_sum_unit": {
+      "result": {
+        "passed": true,
+        "stage": "xsim",
+        "exit_code": 0,
+        "samples": 1114160,
+        "positive_clips": 149495,
+        "negative_clips": 83952,
+        "rounding_checks": 549930,
+        "stages": 2
+      },
+      "sources": {
+        "files": 2,
+        "matches": 2,
+        "differences": []
+      }
+    },
+    "v4_system_and_software": {
+      "rtl_cases_passed": 5,
+      "software_tests_passed": 274,
+      "software_modules": {
+        "QSTL_QICK.analysis_results.awg_tuning_v4.test_final_firmware_integration": 23,
+        "PulseGenerator.DCWaveformGeneratorGUI.test_acquisition_segment_timing": 8,
+        "PulseGenerator.DCWaveformGeneratorGUI.test_dc_readout_timing": 53,
+        "PulseGenerator.DCWaveformGeneratorGUI.test_output_sum_v4": 19,
+        "PulseGenerator.DCWaveformGeneratorGUI.test_qick_dc_area": 24,
+        "PulseGenerator.DCWaveformGeneratorGUI.test_qick_fine_tune_sweep": 54,
+        "PulseGenerator.DCWaveformGeneratorGUI.test_qick_front_panel": 18,
+        "PulseGenerator.DCWaveformGeneratorGUI.test_qick_qcodes_experiment": 33,
+        "PulseGenerator.DCWaveformGeneratorGUI.test_qick_rc_validation": 12,
+        "PulseGenerator.DCWaveformGeneratorGUI.test_rc_precompensation": 13,
+        "PulseGenerator.DCWaveformGeneratorGUI.test_dac_current": 17
+      },
+      "gui_replay_cases": 5,
+      "current_sources": {
+        "files": 197,
+        "matches": 197,
+        "differences": []
+      },
+      "original_evidence": {
+        "files": 168,
+        "matches": 168,
+        "differences": []
+      },
+      "postpublication_evidence": {
+        "files": 8,
+        "matches": 8,
+        "differences": []
+      },
+      "preserved_prebuild_source_differences": [
+        "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_front_panel.py",
+        "C:\\GIT_Workspace\\QSTL_QICK\\qick\\qick_lib\\qick\\dac_current.py"
+      ]
+    },
+    "v4_hold10us": {
+      "cases_passed": 2,
+      "evidence": {
+        "files": 60,
+        "matches": 60,
+        "differences": []
+      },
+      "finding": "Existing one-clock guard follows each RAMP; GUI ideal preview omits it. RF starts exactly at the compiled/RTL HOLD and lasts 3000 clocks.",
+      "physical_samples": 2828640
+    },
+    "v4_firmware": {
+      "artifacts_verified": 3,
+      "xsa_members_identical": true,
+      "timing": {
+        "synthesis_status": "synth_design Complete!",
+        "implementation_status": "write_bitstream Complete!",
+        "setup_wns_ns": "0.002841",
+        "setup_tns_ns": "0.000000",
+        "hold_whs_ns": "0.009116",
+        "hold_ths_ns": "0.000000",
+        "timing_closed": "YES",
+        "bitstream": "F:/Vivado_Output/a4full2/bitstream.bit",
+        "xsa": "F:/Vivado_Output/a4full2/bitstream.xsa",
+        "hwh": "F:/Vivado_Output/a4full2/bitstream.hwh"
+      },
+      "bus_skew_met": 14,
+      "minimum_bus_skew_slack_ns": 2.201,
+      "unchanged_v3_constraints": true
+    }
+  },
+  "gaps": [
+    "The full 986-test v3 software suite has not been rerun on current v4; 274 relevant tests passed.",
+    "Axis-reversal/Stability full RTL cases are v3 evidence, not a new v4 end-to-end run.",
+    "The ideal GUI preview omits the existing one-clock guard after each RAMP."
+  ],
+  "excluded": [
+    "Analog board measurement",
+    "ADC/FIR numeric response",
+    "Unimplemented RC partition/checkpoint runner"
+  ],
+  "simulations_started": 0,
+  "synthesis_started": 0
+}

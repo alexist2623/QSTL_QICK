@@ -1,0 +1,655 @@
+{
+  "complete": true,
+  "verified_utc": "2026-10-14T13:05:23.885285+00:00",
+  "cases": {
+    "hold1": {
+      "build_folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_2x2_v4_exact10us_hold1_output_sum_awg_v3",
+      "result": {
+        "points": 1,
+        "repetitions": 2,
+        "commands": 65,
+        "cycle_offset": 162,
+        "command_value_mismatches": 0,
+        "command_timing_mismatches": 0,
+        "voltage_grid_policy": "constant_quantized_increment",
+        "compiled_target_error_codes": 0,
+        "compiled_step_error_units": 0,
+        "awg_ip_version": 3,
+        "hardware_area_results": [
+          "AREA_V3_RESULT ch=0 shots=2 samples=472000 reset_checks=2 residual=0",
+          "AREA_V3_RESULT ch=1 shots=2 samples=472000 reset_checks=2 residual=0",
+          "AREA_V3_RESULT ch=3 shots=2 samples=472000 reset_checks=2 residual=0"
+        ],
+        "rc_only": false,
+        "rc_only_results": [],
+        "v2_fixture": null,
+        "raw_awg_results": [
+          "RAW_AWG_V2_RESULT ch=0 samples=472080 ramps=4 sets=9",
+          "RAW_AWG_V2_RESULT ch=1 samples=472080 ramps=4 sets=9",
+          "RAW_AWG_V2_RESULT ch=3 samples=472080 ramps=4 sets=9"
+        ],
+        "dac_current_ma": [
+          20.0,
+          20.0,
+          20.0
+        ],
+        "cross_capacitance": [
+          [
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "dc_mode": "fixed_time",
+        "dc_voltage_mv": 20.0,
+        "dc_readout_policy": null,
+        "ddr_capture_results": [],
+        "sweep_case": "hold_duration",
+        "run_tag": "v4_exact10us_hold1",
+        "rf_length_boundary": null,
+        "rc_range_corners": [
+          {
+            "point_index": 0,
+            "gen_ch": 1,
+            "minimum_normalized": -0.24981214740597274,
+            "maximum_normalized": 0.03326417162274909
+          },
+          {
+            "point_index": 0,
+            "gen_ch": 3,
+            "minimum_normalized": -0.016799493429077376,
+            "maximum_normalized": 0.12708672886448227
+          },
+          {
+            "point_index": 0,
+            "gen_ch": 5,
+            "minimum_normalized": -0.06290877708846647,
+            "maximum_normalized": 0.008713176400540559
+          }
+        ],
+        "square_amplitude_sweep": false,
+        "rc_reset_each_repeat": true,
+        "no_aux": false,
+        "grid_count": 0,
+        "waveform_capture_cycles": 60000,
+        "reset_results": [],
+        "cycles": 29343,
+        "analog_results": [
+          "GUI_RC_RESULT ch=0 max_error_codes=2.121335",
+          "GUI_RC_RESULT ch=1 max_error_codes=2.110873",
+          "GUI_RC_RESULT ch=2 max_error_codes=0.000000"
+        ],
+        "exact_awg_results": [
+          "EXACT_AWG_RESULT ch=0 samples=471600",
+          "EXACT_AWG_RESULT ch=1 samples=471600"
+        ],
+        "retained_cells": [
+          "axis_awg_tuning_v1_4",
+          "axis_awg_tuning_v1_5",
+          "axis_awg_tuning_v1_6",
+          "axis_register_slice_0",
+          "axis_register_slice_1",
+          "axis_register_slice_10",
+          "axis_register_slice_11",
+          "axis_register_slice_12",
+          "axis_register_slice_21",
+          "axis_register_slice_22",
+          "axis_register_slice_23",
+          "axis_register_slice_3",
+          "axis_register_slice_4",
+          "axis_register_slice_5",
+          "axis_register_slice_7",
+          "axis_register_slice_8",
+          "axis_register_slice_9",
+          "axis_set_reg_0",
+          "axis_signal_gen_v6_0",
+          "axis_signal_gen_v6_1",
+          "axis_signal_gen_v6_3",
+          "axis_square_pulse_v1_0",
+          "axis_tmux_v1_0",
+          "axis_tmux_v1_1",
+          "axis_tmux_v1_2",
+          "axis_tmux_v1_3",
+          "axis_tproc64x32_x8_0",
+          "qick_vec2bit_0",
+          "xlconstant_0",
+          "xlconstant_1",
+          "xlconstant_2",
+          "xlconstant_3",
+          "xlconstant_4"
+        ],
+        "pmem_words": 289,
+        "dmem_words": 0,
+        "rf_measurements": {
+          "pulses": 2,
+          "periodic": false,
+          "repetition_command_mismatches": 0,
+          "frequency_error_max_mhz": 4.416023131170732e-06,
+          "peak_error_max_codes": 0,
+          "amplitude_error_max_codes": 0.11915332487842534,
+          "fit_residual_max_codes": 1.5755097024186853,
+          "width_mismatch_pulses": 0,
+          "width_error_max_cycles": 0,
+          "gain_codes": [
+            2000
+          ],
+          "requested_width_error_max_cycles": 0.0,
+          "widths_cycles": [
+            3000
+          ],
+          "latency_cycles": 42
+        },
+        "validation_status": "passed",
+        "output_sum": {
+          "sample_oracles": [
+            [
+              "4",
+              "472080"
+            ],
+            [
+              "5",
+              "472080"
+            ],
+            [
+              "6",
+              "472080"
+            ]
+          ],
+          "pairs": [
+            {
+              "suffix": 4,
+              "shots": 2,
+              "hold": 1,
+              "measurements": [
+                {
+                  "shot": 0,
+                  "first_ramp_sum_input_cycle": 2189,
+                  "rf_sum_input_start_cycle": 5190,
+                  "rf_sum_input_stop_cycle": 8190,
+                  "physical_start_cycle": 5202,
+                  "physical_stop_cycle": 8202,
+                  "start_relative_first_ramp_us": 10.003333333333334,
+                  "stop_relative_first_ramp_us": 20.003333333333334,
+                  "width_cycles": 3000,
+                  "start_skew_cycles": 0,
+                  "existing_ramp_guard_cycles": 1,
+                  "offset_from_ideal_10us_timeline_cycles": 1
+                },
+                {
+                  "shot": 1,
+                  "first_ramp_sum_input_cycle": 15007,
+                  "rf_sum_input_start_cycle": 18008,
+                  "rf_sum_input_stop_cycle": 21008,
+                  "physical_start_cycle": 18020,
+                  "physical_stop_cycle": 21020,
+                  "start_relative_first_ramp_us": 10.003333333333334,
+                  "stop_relative_first_ramp_us": 20.003333333333334,
+                  "width_cycles": 3000,
+                  "start_skew_cycles": 0,
+                  "existing_ramp_guard_cycles": 1,
+                  "offset_from_ideal_10us_timeline_cycles": 1
+                }
+              ],
+              "physical_sample_checks": 471440,
+              "start_skew_cycles": 0,
+              "width_mismatches": 0,
+              "unexpected_rf_pulses": 0
+            },
+            {
+              "suffix": 5,
+              "shots": 2,
+              "hold": 1,
+              "measurements": [
+                {
+                  "shot": 0,
+                  "first_ramp_sum_input_cycle": 2189,
+                  "rf_sum_input_start_cycle": 5190,
+                  "rf_sum_input_stop_cycle": 8190,
+                  "physical_start_cycle": 5202,
+                  "physical_stop_cycle": 8202,
+                  "start_relative_first_ramp_us": 10.003333333333334,
+                  "stop_relative_first_ramp_us": 20.003333333333334,
+                  "width_cycles": 3000,
+                  "start_skew_cycles": 0,
+                  "existing_ramp_guard_cycles": 1,
+                  "offset_from_ideal_10us_timeline_cycles": 1
+                },
+                {
+                  "shot": 1,
+                  "first_ramp_sum_input_cycle": 15007,
+                  "rf_sum_input_start_cycle": 18008,
+                  "rf_sum_input_stop_cycle": 21008,
+                  "physical_start_cycle": 18020,
+                  "physical_stop_cycle": 21020,
+                  "start_relative_first_ramp_us": 10.003333333333334,
+                  "stop_relative_first_ramp_us": 20.003333333333334,
+                  "width_cycles": 3000,
+                  "start_skew_cycles": 0,
+                  "existing_ramp_guard_cycles": 1,
+                  "offset_from_ideal_10us_timeline_cycles": 1
+                }
+              ],
+              "physical_sample_checks": 471440,
+              "start_skew_cycles": 0,
+              "width_mismatches": 0,
+              "unexpected_rf_pulses": 0
+            },
+            {
+              "suffix": 6,
+              "shots": 2,
+              "hold": 1,
+              "measurements": [
+                {
+                  "shot": 0,
+                  "first_ramp_sum_input_cycle": 2189,
+                  "rf_sum_input_start_cycle": 5190,
+                  "rf_sum_input_stop_cycle": 8190,
+                  "physical_start_cycle": 5202,
+                  "physical_stop_cycle": 8202,
+                  "start_relative_first_ramp_us": 10.003333333333334,
+                  "stop_relative_first_ramp_us": 20.003333333333334,
+                  "width_cycles": 3000,
+                  "start_skew_cycles": 0,
+                  "existing_ramp_guard_cycles": 1,
+                  "offset_from_ideal_10us_timeline_cycles": 1
+                },
+                {
+                  "shot": 1,
+                  "first_ramp_sum_input_cycle": 15007,
+                  "rf_sum_input_start_cycle": 18008,
+                  "rf_sum_input_stop_cycle": 21008,
+                  "physical_start_cycle": 18020,
+                  "physical_stop_cycle": 21020,
+                  "start_relative_first_ramp_us": 10.003333333333334,
+                  "stop_relative_first_ramp_us": 20.003333333333334,
+                  "width_cycles": 3000,
+                  "start_skew_cycles": 0,
+                  "existing_ramp_guard_cycles": 1,
+                  "offset_from_ideal_10us_timeline_cycles": 1
+                }
+              ],
+              "physical_sample_checks": 471440,
+              "start_skew_cycles": 0,
+              "width_mismatches": 0,
+              "unexpected_rf_pulses": 0
+            }
+          ],
+          "combiner_pipeline_cycles": 2,
+          "output_register_cycles": 10,
+          "rf_duration_us": 10,
+          "gui_initial_set_us": 1
+        }
+      },
+      "gui_match": {
+        "pmem_equal": true,
+        "dmem_equal": true,
+        "gui_sequence_unmodified": true,
+        "sequence_mutations": [],
+        "pmem_sha256": "4937d0d5e40511393856eb7fe3f0868fd39696efce1a6315a097d4731d812ba6"
+      }
+    },
+    "hold2": {
+      "build_folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_2x2_v4_exact10us_hold2_output_sum_awg_v3",
+      "result": {
+        "points": 1,
+        "repetitions": 2,
+        "commands": 65,
+        "cycle_offset": 162,
+        "command_value_mismatches": 0,
+        "command_timing_mismatches": 0,
+        "voltage_grid_policy": "constant_quantized_increment",
+        "compiled_target_error_codes": 0,
+        "compiled_step_error_units": 0,
+        "awg_ip_version": 3,
+        "hardware_area_results": [
+          "AREA_V3_RESULT ch=0 shots=2 samples=472000 reset_checks=2 residual=0",
+          "AREA_V3_RESULT ch=1 shots=2 samples=472000 reset_checks=2 residual=0",
+          "AREA_V3_RESULT ch=3 shots=2 samples=472000 reset_checks=2 residual=0"
+        ],
+        "rc_only": false,
+        "rc_only_results": [],
+        "v2_fixture": null,
+        "raw_awg_results": [
+          "RAW_AWG_V2_RESULT ch=0 samples=472080 ramps=4 sets=9",
+          "RAW_AWG_V2_RESULT ch=1 samples=472080 ramps=4 sets=9",
+          "RAW_AWG_V2_RESULT ch=3 samples=472080 ramps=4 sets=9"
+        ],
+        "dac_current_ma": [
+          20.0,
+          20.0,
+          20.0
+        ],
+        "cross_capacitance": [
+          [
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "dc_mode": "fixed_time",
+        "dc_voltage_mv": 20.0,
+        "dc_readout_policy": null,
+        "ddr_capture_results": [],
+        "sweep_case": "hold_duration",
+        "run_tag": "v4_exact10us_hold2",
+        "rf_length_boundary": null,
+        "rc_range_corners": [
+          {
+            "point_index": 0,
+            "gen_ch": 1,
+            "minimum_normalized": -0.24981214740597274,
+            "maximum_normalized": 0.03326417162274909
+          },
+          {
+            "point_index": 0,
+            "gen_ch": 3,
+            "minimum_normalized": -0.016799493429077376,
+            "maximum_normalized": 0.12708672886448227
+          },
+          {
+            "point_index": 0,
+            "gen_ch": 5,
+            "minimum_normalized": -0.06290877708846647,
+            "maximum_normalized": 0.008713176400540559
+          }
+        ],
+        "square_amplitude_sweep": false,
+        "rc_reset_each_repeat": true,
+        "no_aux": false,
+        "grid_count": 0,
+        "waveform_capture_cycles": 60000,
+        "reset_results": [],
+        "cycles": 29343,
+        "analog_results": [
+          "GUI_RC_RESULT ch=0 max_error_codes=2.121335",
+          "GUI_RC_RESULT ch=1 max_error_codes=2.110873",
+          "GUI_RC_RESULT ch=2 max_error_codes=0.000000"
+        ],
+        "exact_awg_results": [
+          "EXACT_AWG_RESULT ch=0 samples=471600",
+          "EXACT_AWG_RESULT ch=1 samples=471600"
+        ],
+        "retained_cells": [
+          "axis_awg_tuning_v1_4",
+          "axis_awg_tuning_v1_5",
+          "axis_awg_tuning_v1_6",
+          "axis_register_slice_0",
+          "axis_register_slice_1",
+          "axis_register_slice_10",
+          "axis_register_slice_11",
+          "axis_register_slice_12",
+          "axis_register_slice_21",
+          "axis_register_slice_22",
+          "axis_register_slice_23",
+          "axis_register_slice_3",
+          "axis_register_slice_4",
+          "axis_register_slice_5",
+          "axis_register_slice_7",
+          "axis_register_slice_8",
+          "axis_register_slice_9",
+          "axis_set_reg_0",
+          "axis_signal_gen_v6_0",
+          "axis_signal_gen_v6_1",
+          "axis_signal_gen_v6_3",
+          "axis_square_pulse_v1_0",
+          "axis_tmux_v1_0",
+          "axis_tmux_v1_1",
+          "axis_tmux_v1_2",
+          "axis_tmux_v1_3",
+          "axis_tproc64x32_x8_0",
+          "qick_vec2bit_0",
+          "xlconstant_0",
+          "xlconstant_1",
+          "xlconstant_2",
+          "xlconstant_3",
+          "xlconstant_4"
+        ],
+        "pmem_words": 289,
+        "dmem_words": 0,
+        "rf_measurements": {
+          "pulses": 2,
+          "periodic": false,
+          "repetition_command_mismatches": 0,
+          "frequency_error_max_mhz": 4.958618575301443e-06,
+          "peak_error_max_codes": 0,
+          "amplitude_error_max_codes": 0.11794810924493504,
+          "fit_residual_max_codes": 1.5261706437911755,
+          "width_mismatch_pulses": 0,
+          "width_error_max_cycles": 0,
+          "gain_codes": [
+            2000
+          ],
+          "requested_width_error_max_cycles": 0.0,
+          "widths_cycles": [
+            3000
+          ],
+          "latency_cycles": 42
+        },
+        "validation_status": "passed",
+        "output_sum": {
+          "sample_oracles": [
+            [
+              "4",
+              "472080"
+            ],
+            [
+              "5",
+              "472080"
+            ],
+            [
+              "6",
+              "472080"
+            ]
+          ],
+          "pairs": [
+            {
+              "suffix": 4,
+              "shots": 2,
+              "hold": 2,
+              "measurements": [
+                {
+                  "shot": 0,
+                  "first_ramp_sum_input_cycle": 2189,
+                  "rf_sum_input_start_cycle": 11191,
+                  "rf_sum_input_stop_cycle": 14191,
+                  "physical_start_cycle": 11203,
+                  "physical_stop_cycle": 14203,
+                  "start_relative_first_ramp_us": 30.006666666666668,
+                  "stop_relative_first_ramp_us": 40.00666666666667,
+                  "width_cycles": 3000,
+                  "start_skew_cycles": 0,
+                  "existing_ramp_guard_cycles": 1,
+                  "offset_from_ideal_10us_timeline_cycles": 2
+                },
+                {
+                  "shot": 1,
+                  "first_ramp_sum_input_cycle": 15007,
+                  "rf_sum_input_start_cycle": 24009,
+                  "rf_sum_input_stop_cycle": 27009,
+                  "physical_start_cycle": 24021,
+                  "physical_stop_cycle": 27021,
+                  "start_relative_first_ramp_us": 30.006666666666668,
+                  "stop_relative_first_ramp_us": 40.00666666666667,
+                  "width_cycles": 3000,
+                  "start_skew_cycles": 0,
+                  "existing_ramp_guard_cycles": 1,
+                  "offset_from_ideal_10us_timeline_cycles": 2
+                }
+              ],
+              "physical_sample_checks": 471440,
+              "start_skew_cycles": 0,
+              "width_mismatches": 0,
+              "unexpected_rf_pulses": 0
+            },
+            {
+              "suffix": 5,
+              "shots": 2,
+              "hold": 2,
+              "measurements": [
+                {
+                  "shot": 0,
+                  "first_ramp_sum_input_cycle": 2189,
+                  "rf_sum_input_start_cycle": 11191,
+                  "rf_sum_input_stop_cycle": 14191,
+                  "physical_start_cycle": 11203,
+                  "physical_stop_cycle": 14203,
+                  "start_relative_first_ramp_us": 30.006666666666668,
+                  "stop_relative_first_ramp_us": 40.00666666666667,
+                  "width_cycles": 3000,
+                  "start_skew_cycles": 0,
+                  "existing_ramp_guard_cycles": 1,
+                  "offset_from_ideal_10us_timeline_cycles": 2
+                },
+                {
+                  "shot": 1,
+                  "first_ramp_sum_input_cycle": 15007,
+                  "rf_sum_input_start_cycle": 24009,
+                  "rf_sum_input_stop_cycle": 27009,
+                  "physical_start_cycle": 24021,
+                  "physical_stop_cycle": 27021,
+                  "start_relative_first_ramp_us": 30.006666666666668,
+                  "stop_relative_first_ramp_us": 40.00666666666667,
+                  "width_cycles": 3000,
+                  "start_skew_cycles": 0,
+                  "existing_ramp_guard_cycles": 1,
+                  "offset_from_ideal_10us_timeline_cycles": 2
+                }
+              ],
+              "physical_sample_checks": 471440,
+              "start_skew_cycles": 0,
+              "width_mismatches": 0,
+              "unexpected_rf_pulses": 0
+            },
+            {
+              "suffix": 6,
+              "shots": 2,
+              "hold": 2,
+              "measurements": [
+                {
+                  "shot": 0,
+                  "first_ramp_sum_input_cycle": 2189,
+                  "rf_sum_input_start_cycle": 11191,
+                  "rf_sum_input_stop_cycle": 14191,
+                  "physical_start_cycle": 11203,
+                  "physical_stop_cycle": 14203,
+                  "start_relative_first_ramp_us": 30.006666666666668,
+                  "stop_relative_first_ramp_us": 40.00666666666667,
+                  "width_cycles": 3000,
+                  "start_skew_cycles": 0,
+                  "existing_ramp_guard_cycles": 1,
+                  "offset_from_ideal_10us_timeline_cycles": 2
+                },
+                {
+                  "shot": 1,
+                  "first_ramp_sum_input_cycle": 15007,
+                  "rf_sum_input_start_cycle": 24009,
+                  "rf_sum_input_stop_cycle": 27009,
+                  "physical_start_cycle": 24021,
+                  "physical_stop_cycle": 27021,
+                  "start_relative_first_ramp_us": 30.006666666666668,
+                  "stop_relative_first_ramp_us": 40.00666666666667,
+                  "width_cycles": 3000,
+                  "start_skew_cycles": 0,
+                  "existing_ramp_guard_cycles": 1,
+                  "offset_from_ideal_10us_timeline_cycles": 2
+                }
+              ],
+              "physical_sample_checks": 471440,
+              "start_skew_cycles": 0,
+              "width_mismatches": 0,
+              "unexpected_rf_pulses": 0
+            }
+          ],
+          "combiner_pipeline_cycles": 2,
+          "output_register_cycles": 10,
+          "rf_duration_us": 10,
+          "gui_initial_set_us": 1
+        }
+      },
+      "gui_match": {
+        "pmem_equal": true,
+        "dmem_equal": true,
+        "gui_sequence_unmodified": true,
+        "sequence_mutations": [],
+        "pmem_sha256": "1840f186edc42853941ef0a2cfdccc2dc892f3ea97b662478b2dacbc4d23cd60"
+      }
+    }
+  },
+  "production_source_unchanged": true,
+  "published_manifest_unchanged": true,
+  "firmware_artifacts_unchanged": 3,
+  "protected_files_unchanged": 59,
+  "rtl_constraint_build_sources_unchanged": 34,
+  "previous_final_integration_manifest_sha256": "3aa3d217469dbd0f4dc73e5b7e8278daaae62f957b775e0fd9f1b1242d8f7f3f",
+  "evidence_sha256": {
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\result.json": "c8f67f22552958cd99eb82f85837166d7b28c31ee7bd6c6e179693b6d5001d8c",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\output_sum_result.json": "3b57a8ea39f089342372c9191bc8d98462e617a0a1da9848680ab401f1902944",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\gui_widget_match.json": "ebf42c2a89b5230f11ba1db940b035896c9699a2473cf3d34b780d0127e67a88",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\gui_widget_pmem.hex": "4937d0d5e40511393856eb7fe3f0868fd39696efce1a6315a097d4731d812ba6",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\gui_input.json": "8945c5a8f622efbea65d250bebe7ade816d54c445c79e027e5cf85de01910d04",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\gui_input.png": "819333af792af44cf30e8360b827ed66d6e8e2bd4d9f0ff0e3fe1c97f9e50850",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\gui_compiled_timing.png": "c27f891cc6ef7bc58dc1e15518f28a1843a10666a54a4981dfa06f420ce05cc2",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\compiled_timing.json": "1b2fdb9388f5b0e974751f6ee89e7eef1e74d2de779fba8d60800b48714dfc31",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\pmem.hex": "4937d0d5e40511393856eb7fe3f0868fd39696efce1a6315a097d4731d812ba6",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\dmem.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\program.asm": "55e7600d77b3db6e1912d0d3bcca4ff8d6754ec6d3a617f7d7cf4a679157ffaa",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\gui_export.py": "3a15ef58bf5892bb5a6545f3ad4a3e395f8828e7cd07b3e236af9398d34e398f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\prepared.json": "a479a778f9cc014662dc277c601eb17e5630ab69e5ef7a4705a95765795ba913",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\expected.json": "fb321d6d9719b0c29a3abbc3f2d83fae57817eabd3f24cefcd7fdb01db690d77",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\tb_rc_gui.sv": "0646d2ed62edb5a0a8dcfdcc7b97179e369db7a677785e077519cd9dc7627afa",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\sources.prj": "2080cf4ffc89ac477abe824f09458ab88d1f4462abd6e79fcef697aa8ff6bf4a",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\rtl_events.csv": "f3c342bae81e90393a6bb19de14e5aef718064892c362a03b615e3edbb3e6e49",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\rf_measurements.json": "7b450a2b7237078809d3224be41dc61318b43bf1549bd2e5271b3c53d70db680",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\xsim.log": "f8ce6dd7b887e65f2382facd6575c68bfecf93745f3b26b7b0120135caf60344",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\xvlog.log": "73c30743fd21a707e14e3ca30aeec8a1b3c5a6b039d39e327f1f50d56c191e26",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\xelab.log": "c7452abc29afa0738e11d9c5b974bbb8119bb82cb3b6c7d0d1a1eb1c4af260ed",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\area_ch0.csv": "71657f8c6bbcba5c701089903d8bc0f39b16cca27521f344c110fc47d29538ca",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\area_ch1.csv": "3c1deb96764c806b19f13703c86361f6fe7d0888a82a13d82f52b0071c56ae08",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold1\\area_ch3.csv": "a9a55cd8b6f3506e946751e042933cd32f9c909d745c3179c6a629d99f85554e",
+    "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_2x2_v4_exact10us_hold1_output_sum_awg_v3\\physical_4.csv": "84e4b5d0ed3301a5fd53105612f402a894d0f346a78803cfa831386f49d1f3b0",
+    "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_2x2_v4_exact10us_hold1_output_sum_awg_v3\\physical_5.csv": "5c88d2ccd08fb945d2022c48f26ac577cfdf346f9311f91495ced10674f53b31",
+    "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_2x2_v4_exact10us_hold1_output_sum_awg_v3\\physical_6.csv": "5a6eb54978624c41f82f2881a66b0fbd9b4b82a4c6822ba193b91c0e0956d7b3",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\result.json": "1a15bff280441b99e82f727f519869716eb6c5cbddc31a3e16449a6537c899e4",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\output_sum_result.json": "46308267757d58e40615f9728247afb68b8d782dd1b1be1adf4c0a5068feb1a8",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\gui_widget_match.json": "5de7f89c150e7689fd9b8a5e46a3fad3df93a9f57c4f4f3507de24ebe837d15b",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\gui_widget_pmem.hex": "1840f186edc42853941ef0a2cfdccc2dc892f3ea97b662478b2dacbc4d23cd60",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\gui_input.json": "a5afa228fa0ebd6831d0b825727ecb059da002c04578409695de5bccfa5cc739",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\gui_input.png": "78cdbb92d7977ff486226aacb7dfd91a845774845d77345714eefcf99338a42f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\gui_compiled_timing.png": "c27f891cc6ef7bc58dc1e15518f28a1843a10666a54a4981dfa06f420ce05cc2",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\compiled_timing.json": "de3efc5f2b8c0fd13cc069d71a7f610fb8891ab700935900da2cf53afe6a9445",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\pmem.hex": "1840f186edc42853941ef0a2cfdccc2dc892f3ea97b662478b2dacbc4d23cd60",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\dmem.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\program.asm": "be656ebb4a7ea29eb841cec998b47b07e2fb6ac9dd2f4a9ddad70dce6ee2fdf9",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\gui_export.py": "350f80589f075e9d9024e381858f42cba758446684f27a2691eb26c071a57aa9",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\prepared.json": "a9798d0c5c3c315100309cc1136f848e59ea1bda6be1607a3a667d843e59b638",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\expected.json": "310e073fe768dfeafd84362a1eeaffe6d61e1392c8a141d74a66a8feffc1c512",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\tb_rc_gui.sv": "6db0a528e49416c0dff15fc29d989c1b35b9eeebf37e218e32b1356172893423",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\sources.prj": "a9cf412f816b70e9794d69db59d6f0899a08ac0bca947ef080adae24461578ea",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\rtl_events.csv": "d394d2d2094c9d4da937cd79f108a8316f055b5872afb35f103bce341f7ce911",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\rf_measurements.json": "0133b93b598b3bfca983cca1f77324e03f06c605b93c5a5c54da2f6df70d40f2",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\xsim.log": "b569ea9af88c1db1b6864b3ace5c88010520b6d1bded4a96210186af62b8d7fc",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\xvlog.log": "6d03ba3e75ea75702e5eed2d89a06f99fcb3ee7fcdd6b0c982bde7e9331b3fc3",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\xelab.log": "c7452abc29afa0738e11d9c5b974bbb8119bb82cb3b6c7d0d1a1eb1c4af260ed",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\area_ch0.csv": "71657f8c6bbcba5c701089903d8bc0f39b16cca27521f344c110fc47d29538ca",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\area_ch1.csv": "3c1deb96764c806b19f13703c86361f6fe7d0888a82a13d82f52b0071c56ae08",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold2\\area_ch3.csv": "a9a55cd8b6f3506e946751e042933cd32f9c909d745c3179c6a629d99f85554e",
+    "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_2x2_v4_exact10us_hold2_output_sum_awg_v3\\physical_4.csv": "84dedbcbcbf26252487a5eaa1dbc33801aa5b7791ad6f454f93ea9544d7ebf73",
+    "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_2x2_v4_exact10us_hold2_output_sum_awg_v3\\physical_5.csv": "19db2a5d0a29653270f3c90a3f0be524e3fec528274448c8ef58a8151179af19",
+    "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_2x2_v4_exact10us_hold2_output_sum_awg_v3\\physical_6.csv": "ae53179efa4aeef4bea6cbd4dff8d2e222ecde0e6b8ab64dd62f6b7fc49f4514",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\rtl_hold10us.png": "ddac5a68b2134a301b59dd8c69d24fbad24b86f1350b43c47e86443eafd0cca4",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\hold10us_support.py": "69c62be4275fb7e77a8ea6f25cc70dd8461ca56a199e60f787104663f2d683c6",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\report.py": "108f43574e7691353154718661060fdb6b2a6681d409f2332d528b7b654a0f92",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\run_case.py": "4acd78018717e809b4d6e36cda046ff409d2ca2c5d097d5008eb5b3bf1e65ae9",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\verify_hold1_generated.py": "6c1be5fdda90d22b1ce4d794cee1cb23d6a687d0f69c8e61ea42491a82634aac",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\hold10us_gui_rtl\\verify_hold2_generated.py": "e6d697e1b9628c8d20a3119546d3404cc2f10b47706004eb8985fdb381cfe582"
+  },
+  "finding": "Existing one-clock guard follows each RAMP; GUI ideal preview omits it. RF starts exactly at the compiled/RTL HOLD and lasts 3000 clocks.",
+  "reran_synthesis": false,
+  "board_analog_measured": false
+}

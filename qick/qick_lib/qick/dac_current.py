@@ -2,18 +2,39 @@
 import math
 
 
+def _dc_generator(gen):
+    return (str(gen.get('type', '')).startswith(('axis_awg_tuning', 'axis_square_pulse'))
+            or gen.get('gen_type') in ('awg_tuning', 'square_pulse'))
+
+
+def _summed_awg_output(generators):
+    """Recognize only the two HWH-linked inputs of a v4 AWG physical output."""
+    if len(generators) != 2:
+        return False
+    by_role = {g.get('output_sum_role'): g for _, g in generators}
+    if set(by_role) != {'awg', 'rf'}:
+        return False
+    awg, rf = by_role['awg'], by_role['rf']
+    return (_dc_generator(awg) and rf.get('type') == 'axis_signal_gen_v6'
+            and bool(awg.get('output_sum_block'))
+            and all(g.get('output_sum_version') == 1
+                    and g.get('output_sum_bypass') is False
+                    and g.get('output_sum_block') == awg['output_sum_block']
+                    and g.get('output_sum_awg') == awg.get('fullpath')
+                    and g.get('output_sum_rf') == rf.get('fullpath')
+                    for g in (awg, rf)))
+
+
 class DacCurrentControl:
     def get_dac_current_settings(self):
-        """Read hardware current; only exclusively DC-generator DACs are writable."""
+        """Read current for DC outputs, including an HWH-verified AWG/RF sum."""
         grouped = {}
         for channel, gen in enumerate(self['gens']):
             dac = str(gen['dac'])
             grouped.setdefault(dac, []).append((channel, gen))
         result = {}
         for dac, generators in grouped.items():
-            dc = all(str(g.get('type', '')).startswith(('axis_awg_tuning', 'axis_square_pulse'))
-                     or g.get('gen_type') in ('awg_tuning', 'square_pulse')
-                     for _, g in generators)
+            dc = all(_dc_generator(g) for _, g in generators) or _summed_awg_output(generators)
             record = dict(converter_id=dac, channels=[ch for ch, _ in generators],
                           dc_output=dc, adjustable=False, current_ua=None,
                           min_current_ua=6425, max_current_ua=32000, reason='')

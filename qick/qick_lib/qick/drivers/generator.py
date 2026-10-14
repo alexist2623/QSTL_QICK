@@ -33,6 +33,9 @@ class AbsSignalGen(SocIP):
 
         self.soc = soc
 
+        from qick.output_sum import output_sum_config, apply_output_sum_config
+        apply_output_sum_config(self.cfg, output_sum_config(soc.metadata, self['fullpath']))
+
         # what RFDC port does this generator drive?
         block, port, _ = soc.metadata.trace_forward(self['fullpath'], 'm_axis', ["usp_rf_data_converter"])
 
