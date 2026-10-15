@@ -1,0 +1,12 @@
+AUDIT_CASE remainders_ch0_gain4000
+AUDIT_CASE remainders_ch2_gain4000
+AUDIT_CASE remainders_ch4_gain4000
+AUDIT_CASE short_1_to_31_gain4000
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\software_followup\gui_rtl\reporting\audit_fine.py", line 84, in main
+    comparisons=[compare_spec(a,b) for a,b in zip(data['rf_outputs'],actual)]
+                 ^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\software_followup\gui_rtl\reporting\audit_fine.py", line 32, in compare_spec
+    assert round(aa[key]*300)==round(bb[key]*300),(key,aa[key],bb[key])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('delay_us', 4.128333333333334, 4.1283333330000005)

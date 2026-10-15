@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\qick\firmware\ip\axis_output_sum_v1\validation\virtual_gate\run_retry.py", line 18, in <module>
+    exec(compile(text,str(target),'exec'),{'__name__':'__main__','__file__':str(target)})
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v4\virtual_gate_rtl_20261014\verify_compensation_off_retry1.py", line 822, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v4\virtual_gate_rtl_20261014\verify_compensation_off_retry1.py", line 327, in main
+    assert len(rc_resets)==len(awg_channels)*(shots+1), 'Missing per-shot RC reset'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Missing per-shot RC reset

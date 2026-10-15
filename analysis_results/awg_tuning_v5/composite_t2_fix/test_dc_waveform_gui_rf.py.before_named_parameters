@@ -1,0 +1,3820 @@
+"""Headless tests for GUI time units and RF port/readout integration.
+
+Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
+"""
+
+from __future__ import annotations
+
+import ast
+from dataclasses import asdict
+import json
+import os
+from types import SimpleNamespace
+
+os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
+
+from PyQt5 import QtCore, QtGui, QtTest, QtWidgets
+import numpy as np
+import pytest
+
+import DCWaveform_Generator as gui
+from dc_waveform_core import (
+    DEFAULT_QICK_FULL_SCALE_MV,
+    PulseSequence,
+    QickDdrReadoutSpec,
+    QickHoldDurationSweepSpec,
+    QickRampRateSweepSpec,
+    QickRfCompositeItemSpec,
+    QickRfDurationParameterSpec,
+    QickRfFrequencyParameterSpec,
+    QickRfPulseSpec,
+    QickSweepSpec,
+    adc_iq_to_voltage,
+    build_predefined_composite_items,
+    dc_iq_to_current,
+    generate_qick_program_code,
+)
+from stability_diagram import (
+    DEFAULT_STABILITY_POINT_GUARD_US,
+    DEFAULT_STABILITY_RF_START_GUARD_TPROC_CYCLES,
+)
+from qick_fine_tune_sweep import FineTuneSequence
+from qick_qcodes_experiment import (
+    IQ_STORAGE_FULL_TRACES,
+    IQ_STORAGE_MEAN_IQ,
+)
+
+
+def _application():
+    return QtWidgets.QApplication.instance() or QtWidgets.QApplication([])
+
+
+@pytest.fixture(autouse=True)
+def _dispose_test_windows():
+    """Release restored editors before this test's QApplication can disappear."""
+    import gc
+    app = _application()
+    yield
+    app.processEvents()
+    for window in app.topLevelWidgets():
+        if isinstance(window, gui.MainWindow):
+            window.close()
+            window.deleteLater()
+    QtCore.QCoreApplication.sendPostedEvents(None, QtCore.QEvent.DeferredDelete)
+    gc.collect()
+
+
+def _send_wheel(widget, delta=120):
+    local_position = QtCore.QPointF(widget.rect().center())
+    global_position = QtCore.QPointF(
+        widget.mapToGlobal(widget.rect().center())
+    )
+    event = QtGui.QWheelEvent(
+        local_position,
+        global_position,
+        QtCore.QPoint(),
+        QtCore.QPoint(0, delta),
+        QtCore.Qt.NoButton,
+        QtCore.Qt.NoModifier,
+        QtCore.Qt.ScrollUpdate,
+        False,
+    )
+    QtWidgets.QApplication.sendEvent(widget, event)
+
+
+def test_mouse_wheel_does_not_change_value_inputs():
+    app = _application()
+    window = gui.MainWindow()
+
+    spin_box = window._experiment_panel.fabric_mhz
+    spin_box.setValue(300.0)
+    spin_box.setFocus()
+    _send_wheel(spin_box, 120)
+    _send_wheel(spin_box, -120)
+    assert spin_box.value() == 300.0
+
+    combo_box = window._time_unit_combo
+    combo_box.setCurrentText("us")
+    combo_box.setFocus()
+    _send_wheel(combo_box, 120)
+    _send_wheel(combo_box, -120)
+    assert combo_box.currentText() == "us"
+
+    scroll_area = QtWidgets.QScrollArea()
+    scroll_content = QtWidgets.QWidget()
+    scroll_content.resize(180, 1200)
+    nested_spin_box = QtWidgets.QSpinBox(scroll_content)
+    nested_spin_box.move(10, 10)
+    nested_spin_box.setValue(5)
+    scroll_area.setWidget(scroll_content)
+    scroll_area.resize(200, 200)
+    scroll_area.show()
+    app.processEvents()
+
+    _send_wheel(nested_spin_box, -120)
+    app.processEvents()
+    assert nested_spin_box.value() == 5
+    assert scroll_area.verticalScrollBar().value() > 0
+
+    scroll_area.close()
+    app.processEvents()
+    window.close()
+
+
+def test_gui_defaults_and_time_unit_round_trip():
+    app = _application()
+    window = gui.MainWindow()
+    control = window._multi_ctrl._ctrl_pannels[0]
+
+    assert window._time_unit == "us"
+    assert window._experiment_panel.fabric_mhz.value() == 300.0
+    assert window._experiment_panel.tproc_mhz.value() == 300.0
+    assert DEFAULT_QICK_FULL_SCALE_MV == 800.0
+    assert window._experiment_panel.full_scale_mv.value() == 800.0
+    assert window._qick_full_scale_mv == 800.0
+    assert window._pulse[0].v_bounds == (-800.0, 800.0)
+    assert window._experiment_panel.bias_t_group.isChecked() is False
+    assert window._experiment_panel.bias_t_type.currentData() == "dc"
+    assert window._experiment_panel.bias_t_mode.currentData() == "fixed_voltage"
+    assert window._experiment_panel.bias_t_compensation_mv.value() == 80.0
+    assert window._experiment_panel.bias_t_duration_us.value() == 1.0
+    assert window._experiment_panel.bias_t_filter_tau_us.value() == 100.0
+    assert window._experiment_panel.bias_t_compensation_mv.isEnabledTo(
+        window._experiment_panel.bias_t_group
+    ) is True
+    assert window._experiment_panel.bias_t_duration_us.isEnabledTo(
+        window._experiment_panel.bias_t_group
+    ) is False
+    assert window._experiment_panel.bias_t_filter_tau_us.isEnabledTo(
+        window._experiment_panel.bias_t_group
+    ) is False
+    assert window._pulse[0].t.tolist() == [0.0, 1000.0]
+    assert window._pulse[0].v.tolist() == [100.0, 100.0]
+    assert control.edit_ramp.text() == "1"
+    assert control.edit_flat.text() == "1"
+    assert control.edit_v.text() == "100"
+    assert window._plot.grid_settings == (1000.0, 100.0, False, True)
+    file_actions = [
+        action.text()
+        for action in window.menuBar().actions()[0].menu().actions()
+        if not action.isSeparator()
+    ]
+    assert file_actions[:2] == [
+        "Save Settings JSON...",
+        "Load Settings JSON...",
+    ]
+
+    window._time_unit_combo.setCurrentText("ns")
+    app.processEvents()
+    assert control.edit_ramp.text() == "1000"
+    assert control.table.horizontalHeaderItem(1).text() == "Name"
+    assert control.table.horizontalHeaderItem(3).text() == "Flat [ns]"
+
+    window._time_unit_combo.setCurrentText("ms")
+    app.processEvents()
+    assert control.edit_ramp.text() == "0.001"
+
+    window._time_unit_combo.setCurrentText("us")
+    app.processEvents()
+    assert control.edit_ramp.text() == "1"
+    assert window._plot.getPlotItem().getAxis("bottom").labelText == "time [us]"
+    window.close()
+
+
+def test_shared_qick_setup_replaces_duplicate_tab_controls():
+    app = _application()
+    window = gui.MainWindow()
+
+    menu_names = [action.text().replace("&", "") for action in window.menuBar().actions()]
+    assert "Setup" in menu_names
+    setup_menu = next(
+        action.menu()
+        for action in window.menuBar().actions()
+        if action.text().replace("&", "") == "Setup"
+    )
+    assert "QICK Connection and Clocks..." in [
+        action.text() for action in setup_menu.actions()
+    ]
+
+    experiment_labels = {
+        label.text() for label in window._experiment_panel.findChildren(QtWidgets.QLabel)
+    }
+    assert "QICK IP/host:" not in experiment_labels
+    assert "Pyro nameserver port:" not in experiment_labels
+    assert "Pyro proxy name:" not in experiment_labels
+    assert "AWG fabric clock:" not in experiment_labels
+    assert "tProcessor clock:" not in experiment_labels
+    assert "AWG generator indices:" not in experiment_labels
+    noise_labels = {
+        label.text() for label in window._noise_panel.findChildren(QtWidgets.QLabel)
+    }
+    assert "QICK connection:" not in noise_labels
+    assert window._noise_panel.acquisition_host.isHidden()
+    assert window._noise_panel.acquisition_port.isHidden()
+    assert window._noise_panel.acquisition_proxy.isHidden()
+
+    connection = gui.QickConnectionConfig(
+        host="192.0.2.88",
+        ns_port=9777,
+        proxy_name="shared-qick",
+    )
+    window._apply_shared_qick_setup(connection, 312.5, 287.5)
+    assert window._experiment_panel.qick_host.text() == "192.0.2.88"
+    assert window._experiment_panel.ns_port.value() == 9777
+    assert window._experiment_panel.proxy_name.text() == "shared-qick"
+    assert window._experiment_panel.fabric_mhz.value() == 312.5
+    assert window._experiment_panel.tproc_mhz.value() == 287.5
+    assert window._noise_panel.acquisition_host.text() == "192.0.2.88"
+    assert window._noise_panel.acquisition_port.value() == 9777
+    assert window._noise_panel.acquisition_proxy.text() == "shared-qick"
+    app.processEvents()
+    window.close()
+
+
+def test_awg_front_panel_mapping_and_horizontal_port_scroll():
+    app = _application()
+    window = gui.MainWindow()
+    window.resize(860, 720)
+    window.show()
+    for _ in range(3):
+        window._add_port()
+    app.processEvents()
+
+    multi = window._multi_ctrl
+    assert multi.front_panel_preview._scope == "output"
+    assert multi.panel_table.columnCount() == 5
+    assert multi.splitter.minimumWidth() >= 4 * 310
+    assert multi.panel_scroll.horizontalScrollBar().maximum() > 0
+    assert window._selected_port_idx == 3
+    assert "awg_3" in multi.mapping_summary.text()
+    assert "generator 7" in multi.mapping_summary.text()
+
+    multi.set_selected_port(0)
+    multi.apply_front_panel_settings({"output_ch": 3})
+    assert window._qick_awg_channels == (3, 1, 5, 7)
+    assert multi.panel_table.item(0, 2).text() == "gen 3"
+    assert multi.panel_table.item(1, 2).text() == "gen 1"
+    assert window._experiment_panel.awg_channels.text() == "3, 1, 5, 7"
+    window._port_select(3)
+    window._delete_port(3)
+    assert window._selected_port_idx == 2
+    assert window._qick_awg_channels == (3, 1, 5)
+    assert len(multi._ctrl_pannels) == 3
+    app.processEvents()
+    window.close()
+
+
+def test_rf_readout_input_condition_stays_single_row_height():
+    app = _application()
+    pulse = PulseSequence(100.0, initial_duration_ns=1000.0)
+    panel = gui.RfReadoutPanel(pulse, time_unit="us")
+    panel.setChecked(True)
+    panel.resize(640, 900)
+    panel.show()
+    app.processEvents()
+
+    expected_height = max(
+        panel.attenuation_db.sizeHint().height(),
+        panel.dc_gain_db.sizeHint().height(),
+    )
+    assert panel.input_condition_stack.height() == expected_height
+    assert (
+        panel.input_condition_stack.sizePolicy().verticalPolicy()
+        == QtWidgets.QSizePolicy.Fixed
+    )
+    panel.input_board_type.setCurrentText("DC_In")
+    app.processEvents()
+    assert panel.input_condition_stack.height() == expected_height
+    panel.close()
+
+
+def test_segment_sweep_dialog_uses_voltage_values_but_returns_normalized_spec():
+    app = _application()
+    dialog = gui.SweepSettingsDialog(
+        output_name="awg_2",
+        segment_name="gate",
+        current_amplitude=0.25,
+        full_scale_mv=200.0,
+        initial=QickSweepSpec("gate", "awg_2", -0.5, 0.75, 7),
+    )
+
+    assert dialog.start.suffix() == " mV"
+    assert dialog.start.value() == -100.0
+    assert dialog.stop.value() == 150.0
+    dialog.start.setValue(-40.0)
+    dialog.stop.setValue(80.0)
+    spec = dialog.value()
+    assert spec.start == -0.2
+    assert spec.stop == 0.4
+    assert spec.count == 7
+    app.processEvents()
+    dialog.close()
+
+
+def test_ramp_rate_sweep_dialog_uses_duration_and_reports_derived_rate():
+    app = _application()
+    initial = QickRampRateSweepSpec("ramp_0_to_1", 0.08, 0.12, 5)
+    dialog = gui.RampRateSweepSettingsDialog(
+        segment_name="ramp_0_to_1",
+        current_duration_us=0.1,
+        voltage_delta_mv=200.0,
+        initial=initial,
+        cartesian_base_count=7,
+    )
+
+    assert dialog.start.value() == 0.08
+    assert dialog.stop.value() == 0.12
+    assert dialog.count.value() == 5
+    assert "2500" in dialog.rate_summary.text()
+    assert "1666.666" in dialog.rate_summary.text()
+    assert dialog.cartesian_summary.text() == "7 x 5 = 35 points"
+    assert dialog.value() == initial
+    app.processEvents()
+    dialog.close()
+
+
+def test_hold_duration_sweep_dialog_uses_shared_set_timing():
+    app = _application()
+    initial = QickHoldDurationSweepSpec("set_1", 1.0, 5.0, 5)
+    dialog = gui.HoldDurationSweepSettingsDialog(
+        segment_name="set_1",
+        current_duration_us=2.0,
+        initial=initial,
+        cartesian_base_count=7,
+    )
+
+    assert dialog.start.value() == 1.0
+    assert dialog.stop.value() == 5.0
+    assert dialog.count.value() == 5
+    assert dialog.cartesian_summary.text() == "7 x 5 = 35 points"
+    assert dialog.value() == initial
+    app.processEvents()
+    dialog.close()
+
+
+def test_export_sweep_editor_displays_mv_and_tracks_full_scale():
+    app = _application()
+    dialog = gui.QickExportDialog(
+        pulse_count=1,
+        set_names=("set_0", "set_1"),
+        initial_full_scale_mv=200.0,
+        initial_sweeps=(QickSweepSpec("set_1", "awg_0", -0.5, 0.5, 5),),
+    )
+    app.processEvents()
+
+    assert dialog.sweep_table.horizontalHeaderItem(2).text() == "Start (mV)"
+    assert dialog.sweep_start.value() == -100.0
+    assert dialog.sweep_stop.value() == 100.0
+    dialog.sweep_start.setValue(-40.0)
+    dialog.sweep_stop.setValue(60.0)
+    assert dialog._current_sweep_spec().start == -0.2
+    assert dialog._current_sweep_spec().stop == 0.3
+
+    dialog.full_scale_mv.setValue(400.0)
+    app.processEvents()
+    assert dialog.sweep_start.value() == -80.0
+    assert dialog.sweep_stop.value() == 120.0
+    assert dialog._current_sweep_spec().start == -0.2
+    assert dialog._current_sweep_spec().stop == 0.3
+    dialog.close()
+
+
+def test_export_dialog_preserves_multiple_ramp_rate_axes():
+    app = _application()
+    ramp_a = QickRampRateSweepSpec("ramp_0_to_1", 0.08, 0.12, 3)
+    ramp_b = QickRampRateSweepSpec("ramp_1_to_2", 0.10, 0.16, 4)
+    hold = QickHoldDurationSweepSpec("set_1", 0.5, 1.0, 2)
+    voltage = QickSweepSpec("set_2", "awg_0", -0.5, 0.5, 5)
+    dialog = gui.QickExportDialog(
+        pulse_count=1,
+        set_names=("set_0", "set_1", "set_2"),
+        initial_full_scale_mv=200.0,
+        initial_sweeps=(ramp_a, ramp_b, hold, voltage),
+    )
+    app.processEvents()
+
+    assert dialog._effective_sweeps() == (ramp_a, ramp_b, hold, voltage)
+    assert dialog.sweep_total.text() == "3 x 4 x 2 x 5 = 120 combinations"
+    dialog.sweep_group.setChecked(False)
+    app.processEvents()
+    assert dialog._effective_sweeps() == (ramp_a, ramp_b, hold)
+    assert dialog.sweep_total.text() == "3 x 4 x 2 = 24 combinations"
+    dialog.close()
+
+
+def test_awg_tuning_tab_groups_awg_rf_and_experiment_controls():
+    app = _application()
+    window = gui.MainWindow()
+    assert [
+        window._control_tabs.tabText(i)
+        for i in range(window._control_tabs.count())
+    ] == [
+        "AWG Tuning",
+        "Stability Diagram",
+        "RF S-Parameter",
+        "Calibration",
+        "Noise Analysis",
+        "Bias",
+        "Square Wave",
+        "Quantum Circuit",
+    ]
+    assert [
+        window._awg_tuning_tabs.tabText(i)
+        for i in range(window._awg_tuning_tabs.count())
+    ] == [
+        "AWG Outputs",
+        "RF Outputs",
+        "RF Readout",
+        "SquarePulse",
+        "Experiment",
+    ]
+    window._show_rf_editor()
+    assert window._control_tabs.currentWidget() is window._awg_tuning_page
+    assert window._awg_tuning_tabs.currentWidget() is window._rf_ports_panel
+    toolbar_labels = [action.text() for bar in window.findChildren(QtWidgets.QToolBar)
+                      for action in bar.actions()]
+    assert "RF Pulse" not in toolbar_labels
+
+    first = window._rf_ports_panel._panels[0]
+    first.setChecked(True)
+    first.filter_type.setCurrentText("lowpass")
+    first.filter_cutoff.setValue(2.25)
+    first.filter_bandwidth.setValue(0.75)
+    window._rf_ports_panel.add_port()
+    second = window._rf_ports_panel._panels[1]
+    second.setChecked(True)
+    app.processEvents()
+    specs = window._rf_ports_panel.specs()
+    assert [spec.gen_ch for spec in specs] == [0, 2]
+    assert all(spec.duration_us == 1.0 for spec in specs)
+    assert specs[0].filter_type == "lowpass"
+    assert specs[0].filter_cutoff == 2.25
+    assert specs[0].filter_bandwidth == 0.75
+    assert len(window._rf_timelines) == 2
+
+    window._rf_ports_panel.remove_port(second)
+    app.processEvents()
+    assert len(window._rf_ports_panel.specs()) == 1
+    assert len(window._rf_timelines) == 1
+    window.close()
+
+
+def test_composite_rf_editor_round_trip_and_timeline_omit_delays():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    settings = {
+        **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+        "enabled": True,
+        "pulse_mode": "composite",
+        "delay_us": 0.1,
+        "frequency_parameters": [
+            asdict(QickRfFrequencyParameterSpec(
+                "f0", 100.0, True, 100.0, 120.0, 3
+            )),
+            asdict(QickRfFrequencyParameterSpec("f1", 250.0)),
+        ],
+        "composite_items": [
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "prepare", 0.2, "f0", 12000, 15.0
+            )),
+            asdict(QickRfCompositeItemSpec("delay", "wait", 0.1)),
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "read", 0.2, "f1", 8000, -30.0
+            )),
+        ],
+    }
+    panel.load_settings(settings)
+    app.processEvents()
+
+    spec = panel.configured_spec()
+    assert spec.pulse_mode == "composite"
+    assert [event.name for event in spec.pulse_events] == ["prepare", "read"]
+    assert [event.delay_us for event in spec.pulse_events] == [0.1, 0.4]
+    assert [event.frequency_mhz for event in spec.pulse_events] == [100.0, 250.0]
+    assert [(axis.parameter_name, axis.count) for axis in spec.sweep_axes] == [
+        ("f0", 3)
+    ]
+    assert len(window._rf_timelines) == 1
+    timeline = window._rf_timelines[0]
+    assert timeline.pulse_names == ("prepare", "read")
+    assert [
+        label.textItem.toPlainText() for label in timeline._pulse_labels
+    ] == ["prepare", "read"]
+    assert [label.pos().x() for label in timeline._pulse_labels] == [200.0, 500.0]
+
+    restored = gui.RfPulsePortPanel(window._pulse[0], 0, time_unit="us")
+    restored.load_settings(panel.settings_dict())
+    assert restored.configured_spec() == spec
+    assert restored.composite_mode.isChecked() is True
+    restored.close()
+    window.close()
+
+
+def test_composite_rf_rows_follow_vertical_header_drag_order():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    panel.load_settings({
+        **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+        "enabled": True,
+        "pulse_mode": "composite",
+        "frequency_parameters": [
+            asdict(QickRfFrequencyParameterSpec("f0", 100.0)),
+        ],
+        "duration_parameters": [
+            asdict(QickRfDurationParameterSpec("d0", 0.2)),
+        ],
+        "composite_items": [
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "prepare", 0.2, "f0", 12000, 15.0,
+                duration_parameter="d0",
+            )),
+            asdict(QickRfCompositeItemSpec("delay", "wait", 0.1)),
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "read", 0.2, "f0", 8000, -30.0,
+                duration_parameter="d0",
+            )),
+        ],
+    })
+    app.processEvents()
+
+    header = panel.composite_row_header
+    assert header.sectionsMovable() is True
+    panel.composite_item_table.selectRow(0)
+    header.moveSection(header.visualIndex(0), 2)
+    assert header.visualOrder() == (1, 2, 0)
+    header.commitVisualOrder()
+    app.processEvents()
+
+    assert header.visualOrder() == (0, 1, 2)
+    assert [
+        panel.composite_item_table.cellWidget(row, 1).text()
+        for row in range(panel.composite_item_table.rowCount())
+    ] == ["wait", "read", "prepare"]
+    assert [
+        item.name for item in panel.configured_spec().composite_items
+    ] == ["wait", "read", "prepare"]
+    assert [
+        item["name"] for item in panel.settings_dict()["composite_items"]
+    ] == ["wait", "read", "prepare"]
+    assert panel.composite_item_table.currentRow() == 2
+
+    window.close()
+
+
+def test_composite_parameter_rename_keeps_existing_pulse_references():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    panel.load_settings({
+        **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+        "enabled": True,
+        "pulse_mode": "composite",
+        "frequency_parameters": [
+            asdict(QickRfFrequencyParameterSpec("f0", 100.0)),
+            asdict(QickRfFrequencyParameterSpec("f1", 250.0)),
+        ],
+        "duration_parameters": [
+            asdict(QickRfDurationParameterSpec("d0", 0.1)),
+            asdict(QickRfDurationParameterSpec("d1", 0.4)),
+        ],
+        "composite_items": [
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "read", 0.4, "f1", 8000, -30.0,
+                duration_parameter="d1",
+            )),
+        ],
+    })
+    app.processEvents()
+
+    frequency_name = panel.frequency_parameter_table.cellWidget(1, 0)
+    frequency_name.setText("read_frequency")
+    frequency_name.editingFinished.emit()
+    duration_name = panel.duration_parameter_table.cellWidget(1, 0)
+    duration_name.setText("read_duration")
+    duration_name.editingFinished.emit()
+    app.processEvents()
+
+    assert panel.composite_item_table.cellWidget(0, 4).currentText() == (
+        "read_frequency"
+    )
+    assert panel.composite_item_table.cellWidget(0, 3).currentText() == (
+        "read_duration"
+    )
+    spec = panel.configured_spec()
+    assert spec.composite_items[0].frequency_parameter == "read_frequency"
+    assert spec.composite_items[0].duration_parameter == "read_duration"
+    assert spec.pulse_events[0].frequency_mhz == 250.0
+    assert spec.pulse_events[0].duration_us == 0.4
+
+    frequency_name.setText("f0")
+    frequency_name.editingFinished.emit()
+    assert frequency_name.text() == "read_frequency"
+    assert panel.composite_item_table.cellWidget(0, 4).currentText() == (
+        "read_frequency"
+    )
+    duration_name.setText("not a valid name")
+    duration_name.editingFinished.emit()
+    assert duration_name.text() == "read_duration"
+    assert panel.composite_item_table.cellWidget(0, 3).currentText() == (
+        "read_duration"
+    )
+
+    window.close()
+
+
+def test_composite_editor_prevents_deleting_its_last_pulse():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    panel.load_settings({
+        **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+        "enabled": True,
+        "pulse_mode": "composite",
+        "composite_items": [
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "only_pulse", 1.0, "f0", 1000, 0.0,
+                duration_parameter="d0",
+            )),
+            asdict(QickRfCompositeItemSpec("delay", "tail", 2.0)),
+        ],
+    })
+    app.processEvents()
+
+    panel.composite_item_table.selectRow(0)
+    panel._remove_composite_item()
+    app.processEvents()
+
+    assert panel.composite_item_table.rowCount() == 2
+    assert [
+        panel.composite_item_table.cellWidget(row, 1).text()
+        for row in range(2)
+    ] == ["only_pulse", "tail"]
+    assert [item.kind for item in panel.configured_spec().composite_items] == [
+        "pulse",
+        "delay",
+    ]
+
+    only_name = panel.composite_item_table.cellWidget(0, 1)
+    only_name.setText("")
+    only_name.editingFinished.emit()
+    assert only_name.text() == "only_pulse"
+    tail_name = panel.composite_item_table.cellWidget(1, 1)
+    tail_name.setText("only_pulse")
+    tail_name.editingFinished.emit()
+    assert tail_name.text() == "tail"
+
+    only_kind = panel.composite_item_table.cellWidget(0, 0)
+    assert only_kind.isEnabled() is False
+    only_kind.setCurrentIndex(only_kind.findData("delay"))
+    assert only_kind.currentData() == "pulse"
+
+    panel._add_composite_item("pulse")
+    assert only_kind.isEnabled() is True
+    only_kind.setCurrentIndex(only_kind.findData("delay"))
+    assert only_kind.currentData() == "delay"
+    assert sum(
+        item.kind == "pulse"
+        for item in panel.configured_spec().composite_items
+    ) == 1
+
+    window.close()
+
+
+def test_composite_editor_repeated_mutation_and_load_leave_no_stale_rows():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    initial = {
+        **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+        "enabled": True,
+        "pulse_mode": "composite",
+        "require_within_segment": False,
+        "output_board_type": "RF_Out",
+        "frequency_parameters": [
+            asdict(QickRfFrequencyParameterSpec("f0", 100.0)),
+            asdict(QickRfFrequencyParameterSpec("f1", 225.0)),
+        ],
+        "duration_parameters": [
+            asdict(QickRfDurationParameterSpec("d0", 0.2)),
+            asdict(QickRfDurationParameterSpec("d1", 0.6)),
+        ],
+        "composite_items": [
+            asdict(QickRfCompositeItemSpec(
+                "pulse",
+                "calibrated_old",
+                0.2,
+                "f0",
+                1234,
+                11.0,
+                power_calibration_enabled=True,
+                power_calibration_database_path="old_calibration.db",
+                power_calibration_run_id=17,
+                target_output_power_dbm=-31.0,
+                duration_parameter="d0",
+            )),
+            asdict(QickRfCompositeItemSpec("delay", "old_wait", 0.3)),
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "keeper", 0.6, "f1", 7000, -20.0,
+                duration_parameter="d1",
+            )),
+        ],
+    }
+    panel.load_settings(initial)
+    app.processEvents()
+
+    panel.composite_item_table.selectRow(0)
+    panel._remove_composite_item()
+    panel._add_composite_item("pulse")
+    new_pulse_row = panel.composite_item_table.rowCount() - 1
+    new_power = panel.composite_item_table.cellWidget(new_pulse_row, 6)
+    assert new_power.power_calibration_enabled is False
+    assert panel.composite_item_table.cellWidget(new_pulse_row, 5).value() == 20000
+    assert panel.composite_item_table.cellWidget(new_pulse_row, 7).value() == 0.0
+
+    panel.composite_item_table.cellWidget(new_pulse_row, 1).setText("fresh")
+    panel.composite_item_table.cellWidget(new_pulse_row, 3).setCurrentText("d1")
+    panel.composite_item_table.cellWidget(new_pulse_row, 4).setCurrentText("f1")
+    panel.composite_item_table.cellWidget(new_pulse_row, 5).setValue(-2345)
+    panel.composite_item_table.cellWidget(new_pulse_row, 7).setValue(45.0)
+    panel.frequency_parameter_table.cellWidget(1, 1).setValue(333.0)
+    panel.duration_parameter_table.cellWidget(1, 1).setValue(0.75)
+    panel._add_composite_item("delay")
+    new_delay_row = panel.composite_item_table.rowCount() - 1
+    panel.composite_item_table.cellWidget(new_delay_row, 1).setText("fresh_wait")
+    panel.composite_item_table.cellWidget(new_delay_row, 2).setValue(0.125)
+
+    panel.composite_item_table.cellWidget(new_pulse_row, 0).setCurrentIndex(1)
+    panel.composite_item_table.cellWidget(new_pulse_row, 0).setCurrentIndex(0)
+    assert panel.composite_item_table.cellWidget(new_pulse_row, 5).value() == -2345
+    assert panel.composite_item_table.cellWidget(new_pulse_row, 7).value() == 45.0
+
+    header = panel.composite_row_header
+    header.moveSection(header.visualIndex(new_delay_row), 0)
+    header.commitVisualOrder()
+    app.processEvents()
+    edited_spec = panel.configured_spec()
+    edited_settings = panel.settings_dict()
+    assert [item.name for item in edited_spec.composite_items] == [
+        "fresh_wait",
+        "old_wait",
+        "keeper",
+        "fresh",
+    ]
+    assert edited_spec.pulse_events[-1].frequency_mhz == 333.0
+    assert edited_spec.pulse_events[-1].duration_us == 0.75
+    app.processEvents()
+    assert window._rf_timelines[0].pulse_names == ("keeper", "fresh")
+
+    replacement = {
+        **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+        "enabled": True,
+        "pulse_mode": "composite",
+        "require_within_segment": False,
+        "frequency_parameters": [
+            asdict(QickRfFrequencyParameterSpec("replacement_f", 19.0)),
+        ],
+        "duration_parameters": [
+            asdict(QickRfDurationParameterSpec("replacement_d", 0.05)),
+        ],
+        "composite_items": [
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "replacement", 0.05, "replacement_f", 99, 3.0,
+                duration_parameter="replacement_d",
+            )),
+        ],
+    }
+    for _ in range(3):
+        panel.load_settings(replacement)
+        app.processEvents()
+        assert panel.composite_item_table.rowCount() == 1
+        assert panel.frequency_parameter_table.rowCount() == 1
+        assert panel.duration_parameter_table.rowCount() == 1
+        assert panel.configured_spec().composite_items[0].name == "replacement"
+        assert "old_calibration.db" not in json.dumps(panel.settings_dict())
+        assert window._rf_timelines[0].pulse_names == ("replacement",)
+
+        panel.load_settings(edited_settings)
+        app.processEvents()
+        assert panel.configured_spec() == edited_spec
+
+    window.close()
+
+
+def test_composite_embedded_editor_focus_selects_the_row_to_remove():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    panel.load_settings({
+        **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+        "enabled": True,
+        "pulse_mode": "composite",
+        "frequency_parameters": [
+            asdict(QickRfFrequencyParameterSpec("f0", 100.0)),
+            asdict(QickRfFrequencyParameterSpec("f1", 200.0)),
+        ],
+        "duration_parameters": [
+            asdict(QickRfDurationParameterSpec("d0", 0.1)),
+            asdict(QickRfDurationParameterSpec("d1", 0.2)),
+        ],
+        "composite_items": [
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "first", 0.1, "f0", 1000, 0.0,
+                duration_parameter="d0",
+            )),
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "second", 0.2, "f1", 2000, 10.0,
+                duration_parameter="d1",
+            )),
+            asdict(QickRfCompositeItemSpec("delay", "tail", 0.3)),
+        ],
+    })
+    app.processEvents()
+
+    second_name = panel.composite_item_table.cellWidget(1, 1)
+    QtWidgets.QApplication.sendEvent(
+        second_name,
+        QtGui.QFocusEvent(QtCore.QEvent.FocusIn),
+    )
+    assert panel.composite_item_table.currentRow() == 1
+    panel._remove_composite_item()
+    assert [
+        item.name for item in panel.configured_spec().composite_items
+    ] == ["first", "tail"]
+
+    panel._add_composite_item("pulse")
+    assert panel.composite_item_table.currentRow() == 2
+    assert panel.composite_item_table.cellWidget(2, 1).text() == "pulse_0"
+    assert panel.composite_item_table.cellWidget(2, 4).currentText() == "f0"
+    assert panel.composite_item_table.cellWidget(2, 3).currentText() == "d0"
+
+    second_frequency_name = panel.frequency_parameter_table.cellWidget(1, 0)
+    QtWidgets.QApplication.sendEvent(
+        second_frequency_name,
+        QtGui.QFocusEvent(QtCore.QEvent.FocusIn),
+    )
+    assert panel.frequency_parameter_table.currentRow() == 1
+    panel._remove_frequency_parameter()
+    assert panel.frequency_parameter_table.rowCount() == 1
+    assert all(
+        panel.composite_item_table.cellWidget(row, 4).currentText() == "f0"
+        for row in (0, 2)
+    )
+
+    second_duration_name = panel.duration_parameter_table.cellWidget(1, 0)
+    QtWidgets.QApplication.sendEvent(
+        second_duration_name,
+        QtGui.QFocusEvent(QtCore.QEvent.FocusIn),
+    )
+    assert panel.duration_parameter_table.currentRow() == 1
+    panel._remove_duration_parameter()
+    assert panel.duration_parameter_table.rowCount() == 1
+    assert all(
+        panel.composite_item_table.cellWidget(row, 3).currentText() == "d0"
+        for row in (0, 2)
+    )
+    assert panel.configured_spec().pulse_events[1].frequency_mhz == 100.0
+    assert panel.configured_spec().pulse_events[1].duration_us == 0.1
+
+    window.close()
+
+
+@pytest.mark.parametrize("template", ["cpmg", "udd", "custom"])
+@pytest.mark.parametrize("parameter_kind", ["duration", "frequency"])
+def test_composite_parameter_click_and_typing_keep_editor_focus(
+    template, parameter_kind,
+):
+    app = _application()
+    window = gui.MainWindow()
+    try:
+        panel = window._rf_ports_panel._panels[0]
+        panel.setChecked(True)
+        panel.composite_mode.setChecked(True)
+        panel.require_within.setChecked(False)
+        getattr(panel, f"_add_{parameter_kind}_parameter")()
+        panel.predefined_template.setCurrentIndex(
+            panel.predefined_template.findData(template)
+        )
+        window._awg_tuning_tabs.setCurrentWidget(window._rf_ports_panel)
+        window.show()
+        app.processEvents()
+
+        table = getattr(panel, f"{parameter_kind}_parameter_table")
+        value = "0.25" if parameter_kind == "duration" else "190.5"
+        # A shown window and real mouse events reproduce the native focus
+        # recursion that setValue() and synthetic FocusIn alone do not catch.
+        for row in (0, 1, 0):
+            editor = table.cellWidget(row, 1)
+            for target in (editor, editor.lineEdit()):
+                QtTest.QTest.mouseClick(target, QtCore.Qt.LeftButton)
+                app.processEvents()
+                assert editor.hasFocus()
+                assert table.currentRow() == row
+                assert table.currentColumn() == 1
+                assert [
+                    index.row()
+                    for index in table.selectionModel().selectedRows()
+                ] == [row]
+            editor.selectAll()
+            QtTest.QTest.keyClicks(editor, value)
+            QtTest.QTest.keyClick(editor, QtCore.Qt.Key_Tab)
+            app.processEvents()
+            assert editor.value() == float(value)
+
+        spec = panel.configured_spec()
+        parameters = getattr(spec, f"{parameter_kind}_parameters")
+        field = "duration_us" if parameter_kind == "duration" else "frequency_mhz"
+        assert [getattr(parameter, field) for parameter in parameters] == [
+            float(value), float(value),
+        ]
+        assert all(getattr(event, field) == float(value) for event in spec.pulse_events)
+    finally:
+        window.close()
+        app.processEvents()
+
+
+def test_composite_predefined_transitions_replace_every_generated_row():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    custom_settings = {
+        **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+        "enabled": True,
+        "pulse_mode": "composite",
+        "frequency_parameters": [
+            asdict(QickRfFrequencyParameterSpec("f0", 60.0)),
+            asdict(QickRfFrequencyParameterSpec("f1", 120.0)),
+        ],
+        "duration_parameters": [
+            asdict(QickRfDurationParameterSpec("d0", 0.05)),
+            asdict(QickRfDurationParameterSpec("d1", 0.08)),
+        ],
+        "composite_items": [
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "manual", 0.08, "f1", 3210, 90.0,
+                duration_parameter="d1",
+            )),
+        ],
+    }
+    panel.load_settings(custom_settings)
+    app.processEvents()
+
+    for n_pulses in (1, 2, 5, 3):
+        panel.predefined_template.setCurrentIndex(
+            panel.predefined_template.findData("cpmg")
+        )
+        panel.predefined_n.setValue(n_pulses)
+        panel.predefined_tau.setValue(7.5)
+        panel.predefined_frequency_parameter.setCurrentText("f1")
+        panel.predefined_duration_parameter.setCurrentText("d1")
+        app.processEvents()
+        cpmg = panel.configured_spec()
+        assert len(cpmg.composite_items) == 2 * n_pulses + 1
+        assert sum(item.kind == "pulse" for item in cpmg.composite_items) == (
+            n_pulses
+        )
+        assert all(
+            item.name.startswith("CPMG_")
+            for item in cpmg.composite_items
+        )
+        assert all(
+            item.frequency_parameter == "f1"
+            and item.duration_parameter == "d1"
+            for item in cpmg.composite_items
+            if item.kind == "pulse"
+        )
+
+        panel.predefined_template.setCurrentIndex(
+            panel.predefined_template.findData("udd")
+        )
+        app.processEvents()
+        udd = panel.configured_spec()
+        assert len(udd.composite_items) == 2 * n_pulses + 1
+        assert all(item.name.startswith("UDD_") for item in udd.composite_items)
+        assert not any(
+            item.name.startswith("CPMG_") for item in udd.composite_items
+        )
+
+    panel.predefined_template.setCurrentIndex(
+        panel.predefined_template.findData("custom")
+    )
+    app.processEvents()
+    assert panel.composite_item_table.isEnabled() is True
+    assert panel.composite_row_header.sectionsMovable() is True
+
+    panel.load_settings(custom_settings)
+    app.processEvents()
+    assert [
+        item.name for item in panel.configured_spec().composite_items
+    ] == ["manual"]
+    assert not any(
+        prefix in json.dumps(panel.settings_dict())
+        for prefix in ("CPMG_", "UDD_")
+    )
+
+    window.close()
+
+
+def test_composite_editor_stress_round_trip_across_row_counts():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+
+    for pulse_count in range(1, 9):
+        items = []
+        for pulse_index in range(pulse_count):
+            if pulse_index:
+                items.append(asdict(QickRfCompositeItemSpec(
+                    "delay",
+                    f"wait_{pulse_count}_{pulse_index}",
+                    0.01 * pulse_index,
+                )))
+            items.append(asdict(QickRfCompositeItemSpec(
+                "pulse",
+                f"pulse_{pulse_count}_{pulse_index}",
+                0.02 * (pulse_index + 1),
+                f"f{pulse_index % 3}",
+                1000 + pulse_index,
+                float(pulse_index * 15),
+                duration_parameter=f"d{pulse_index % 3}",
+            )))
+        settings = {
+            **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+            "enabled": True,
+            "pulse_mode": "composite",
+            "require_within_segment": False,
+            "frequency_parameters": [
+                asdict(QickRfFrequencyParameterSpec(f"f{index}", 50.0 + index))
+                for index in range(3)
+            ],
+            "duration_parameters": [
+                asdict(QickRfDurationParameterSpec(
+                    f"d{index}", 0.02 * (index + 1)
+                ))
+                for index in range(3)
+            ],
+            "composite_items": items,
+        }
+        panel.load_settings(settings)
+        app.processEvents()
+        assert panel.composite_item_table.rowCount() == 2 * pulse_count - 1
+        assert len(panel.configured_spec().pulse_events) == pulse_count
+
+        panel._add_composite_item("delay")
+        added_row = panel.composite_item_table.rowCount() - 1
+        panel.composite_item_table.cellWidget(added_row, 1).setText(
+            f"added_wait_{pulse_count}"
+        )
+        panel.composite_item_table.cellWidget(added_row, 2).setValue(0.007)
+        panel.composite_row_header.moveSection(
+            panel.composite_row_header.visualIndex(added_row),
+            0,
+        )
+        panel.composite_row_header.commitVisualOrder()
+        app.processEvents()
+
+        expected = panel.configured_spec()
+        serialized = panel.settings_dict()
+        panel.load_settings(serialized)
+        app.processEvents()
+        assert panel.configured_spec() == expected
+        assert panel.configured_spec().composite_items[0].name == (
+            f"added_wait_{pulse_count}"
+        )
+
+    window.close()
+
+
+def test_composite_sweep_axes_exclude_unreferenced_parameters():
+    spec = QickRfPulseSpec(
+        gen_ch=0,
+        segment_name="set_0",
+        delay_us=0.0,
+        duration_us=1.0,
+        frequency_mhz=50.0,
+        gain=1000,
+        att1_db=0.0,
+        att2_db=0.0,
+        pulse_mode="composite",
+        frequency_parameters=(
+            QickRfFrequencyParameterSpec("f_used", 100.0, True, 90.0, 110.0, 3),
+            QickRfFrequencyParameterSpec("f_orphan", 200.0, True, 180.0, 220.0, 5),
+        ),
+        duration_parameters=(
+            QickRfDurationParameterSpec("d_used", 0.1, True, 0.08, 0.12, 3),
+            QickRfDurationParameterSpec("d_orphan", 0.2, True, 0.15, 0.25, 5),
+        ),
+        composite_items=(
+            QickRfCompositeItemSpec(
+                "pulse",
+                "kept",
+                0.1,
+                "f_used",
+                1000,
+                0.0,
+                duration_parameter="d_used",
+            ),
+        ),
+    )
+
+    assert [
+        (axis.axis_kind, axis.parameter_name)
+        for axis in spec.sweep_axes
+    ] == [
+        ("rf_duration", "d_used"),
+        ("rf_frequency", "f_used"),
+    ]
+
+
+def test_composite_editor_mutation_matrix_keeps_timeline_and_sweeps_attached():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    panel.load_settings({
+        **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+        "enabled": True,
+        "pulse_mode": "composite",
+        "require_within_segment": False,
+        "frequency_parameters": [
+            asdict(QickRfFrequencyParameterSpec(
+                f"f{index}", 100.0 * (index + 1), True,
+                90.0 * (index + 1), 110.0 * (index + 1), index + 2,
+            ))
+            for index in range(4)
+        ],
+        "duration_parameters": [
+            asdict(QickRfDurationParameterSpec(
+                f"d{index}", 0.1 * (index + 1), True,
+                0.08 * (index + 1), 0.12 * (index + 1), index + 2,
+            ))
+            for index in range(4)
+        ],
+        "composite_items": [
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "P0", 0.1, "f0", 1000, 0.0,
+                duration_parameter="d0",
+            )),
+            asdict(QickRfCompositeItemSpec("delay", "wait", 0.05)),
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "P1", 0.2, "f1", 2000, 10.0,
+                duration_parameter="d1",
+            )),
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "P2", 0.3, "f2", 3000, 20.0,
+                duration_parameter="d2",
+            )),
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "P3", 0.4, "f3", 4000, 30.0,
+                duration_parameter="d3",
+            )),
+        ],
+    })
+
+    def row_named(table, name, column):
+        return next(
+            row
+            for row in range(table.rowCount())
+            if table.cellWidget(row, column).text() == name
+        )
+
+    def parameter_row(table, name):
+        return row_named(table, name, 0)
+
+    def assert_consistent():
+        app.processEvents()
+        spec = panel.configured_spec()
+        pulse_items = tuple(
+            item for item in spec.composite_items if item.kind == "pulse"
+        )
+        pulse_names = tuple(item.name for item in pulse_items)
+        assert window._rf_pulse_specs == [spec]
+        assert window._rf_timelines[0].pulse_names == pulse_names
+        assert tuple(
+            label.textItem.toPlainText()
+            for label in window._rf_timelines[0]._pulse_labels
+        ) == pulse_names
+        expected_centers = tuple(
+            (start_us + end_us) * 500.0
+            for _event, start_us, end_us in (
+                gui.rf_pulse_event_absolute_times_us(window._pulse[0], spec)
+            )
+        )
+        assert tuple(
+            label.pos().x()
+            for label in window._rf_timelines[0]._pulse_labels
+        ) == pytest.approx(expected_centers)
+        referenced = {
+            "rf_frequency": {item.frequency_parameter for item in pulse_items},
+            "rf_duration": {item.duration_parameter for item in pulse_items},
+        }
+        assert all(
+            axis.parameter_name in referenced[axis.axis_kind]
+            for axis in spec.sweep_axes
+        )
+        assert all(
+            item.name != "P1"
+            for item in spec.composite_items
+        ) or "P1" in pulse_names
+        assert [
+            item["name"] for item in panel.settings_dict()["composite_items"]
+        ] == [item.name for item in spec.composite_items]
+        return spec
+
+    initial = assert_consistent()
+    initial_bindings = {
+        item.name: (item.frequency_parameter, item.duration_parameter)
+        for item in initial.composite_items
+        if item.kind == "pulse"
+    }
+
+    # Reorder first: identity and named-parameter bindings must follow the pulse.
+    p3_row = row_named(panel.composite_item_table, "P3", 1)
+    header = panel.composite_row_header
+    header.moveSection(header.visualIndex(p3_row), 0)
+    header.commitVisualOrder()
+    reordered = assert_consistent()
+    assert tuple(item.name for item in reordered.composite_items) == (
+        "P3", "P0", "wait", "P1", "P2"
+    )
+    assert {
+        item.name: (item.frequency_parameter, item.duration_parameter)
+        for item in reordered.composite_items
+        if item.kind == "pulse"
+    } == initial_bindings
+
+    # Deleting a uniquely referenced pulse disables only that pulse's sweeps.
+    p1_row = row_named(panel.composite_item_table, "P1", 1)
+    panel.composite_item_table.selectRow(p1_row)
+    panel._remove_composite_item()
+    after_delete = assert_consistent()
+    assert "P1" not in window._rf_timelines[0].pulse_names
+    assert not panel.frequency_parameter_table.cellWidget(
+        parameter_row(panel.frequency_parameter_table, "f1"), 2
+    ).isChecked()
+    assert not panel.duration_parameter_table.cellWidget(
+        parameter_row(panel.duration_parameter_table, "d1"), 2
+    ).isChecked()
+    assert not any(
+        axis.parameter_name in {"f1", "d1"}
+        for axis in after_delete.sweep_axes
+    )
+
+    # A new pulse must not inherit the deleted pulse's old active sweep.
+    panel._add_composite_item("pulse")
+    new_row = panel.composite_item_table.rowCount() - 1
+    name_editor = panel.composite_item_table.cellWidget(new_row, 1)
+    name_editor.setText("replacement")
+    name_editor.editingFinished.emit()
+    panel.composite_item_table.cellWidget(new_row, 4).setCurrentText("f1")
+    panel.composite_item_table.cellWidget(new_row, 3).setCurrentText("d1")
+    replacement = assert_consistent()
+    assert not any(
+        axis.parameter_name in {"f1", "d1"}
+        for axis in replacement.sweep_axes
+    )
+
+    # Explicitly re-enabling the named parameters attaches them to replacement.
+    f1_row = parameter_row(panel.frequency_parameter_table, "f1")
+    d1_row = parameter_row(panel.duration_parameter_table, "d1")
+    panel.frequency_parameter_table.cellWidget(f1_row, 2).setChecked(True)
+    panel.duration_parameter_table.cellWidget(d1_row, 2).setChecked(True)
+    reenabled = assert_consistent()
+    assert {
+        (axis.axis_kind, axis.parameter_name)
+        for axis in reenabled.sweep_axes
+    }.issuperset({
+        ("rf_frequency", "f1"),
+        ("rf_duration", "d1"),
+    })
+
+    # Moving the replacement cannot transfer its parameter bindings to a row.
+    replacement_row = row_named(panel.composite_item_table, "replacement", 1)
+    header.moveSection(header.visualIndex(replacement_row), 1)
+    header.commitVisualOrder()
+    moved = assert_consistent()
+    moved_replacement = next(
+        item for item in moved.composite_items if item.name == "replacement"
+    )
+    assert (
+        moved_replacement.frequency_parameter,
+        moved_replacement.duration_parameter,
+    ) == ("f1", "d1")
+
+    # Remove and recreate parameter rows in opposite orders. Deleted sweeps do
+    # not survive, while every pulse selector remains valid.
+    f2_row = parameter_row(panel.frequency_parameter_table, "f2")
+    panel.frequency_parameter_table.selectRow(f2_row)
+    panel._remove_frequency_parameter()
+    d2_row = parameter_row(panel.duration_parameter_table, "d2")
+    panel.duration_parameter_table.selectRow(d2_row)
+    panel._remove_duration_parameter()
+    without_f2_d2 = assert_consistent()
+    assert not any(
+        axis.parameter_name in {"f2", "d2"}
+        for axis in without_f2_d2.sweep_axes
+    )
+    panel._add_duration_parameter()
+    panel._add_frequency_parameter()
+    recreated = assert_consistent()
+    assert "d2" in {item.name for item in recreated.duration_parameters}
+    assert "f2" in {item.name for item in recreated.frequency_parameters}
+    assert not any(
+        axis.parameter_name in {"f2", "d2"}
+        for axis in recreated.sweep_axes
+    )
+    assert "P1" not in json.dumps(panel.settings_dict())
+
+    window.close()
+
+
+def test_composite_shared_sweeps_survive_until_the_last_pulse_reference():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    panel.load_settings({
+        **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+        "enabled": True,
+        "pulse_mode": "composite",
+        "require_within_segment": False,
+        "frequency_parameters": [
+            asdict(QickRfFrequencyParameterSpec(
+                "f_shared", 100.0, True, 90.0, 110.0, 3
+            )),
+            asdict(QickRfFrequencyParameterSpec(
+                "f_unique", 200.0, True, 180.0, 220.0, 5
+            )),
+        ],
+        "duration_parameters": [
+            asdict(QickRfDurationParameterSpec(
+                "d_shared", 0.1, True, 0.08, 0.12, 3
+            )),
+            asdict(QickRfDurationParameterSpec(
+                "d_unique", 0.2, True, 0.15, 0.25, 5
+            )),
+        ],
+        "composite_items": [
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "A", 0.1, "f_shared", 1000, 0.0,
+                duration_parameter="d_shared",
+            )),
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "B", 0.1, "f_shared", 2000, 0.0,
+                duration_parameter="d_shared",
+            )),
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "C", 0.2, "f_unique", 3000, 0.0,
+                duration_parameter="d_unique",
+            )),
+        ],
+    })
+
+    def row_named(name):
+        return next(
+            row
+            for row in range(panel.composite_item_table.rowCount())
+            if panel.composite_item_table.cellWidget(row, 1).text() == name
+        )
+
+    def parameter_row(table, name):
+        return next(
+            row
+            for row in range(table.rowCount())
+            if table.cellWidget(row, 0).text() == name
+        )
+
+    def enabled_axes():
+        return {
+            (axis.axis_kind, axis.parameter_name)
+            for axis in panel.configured_spec().sweep_axes
+        }
+
+    def assert_timeline(*names):
+        app.processEvents()
+        assert window._rf_timelines[0].pulse_names == tuple(names)
+        assert tuple(
+            label.textItem.toPlainText()
+            for label in window._rf_timelines[0]._pulse_labels
+        ) == tuple(names)
+
+    assert_timeline("A", "B", "C")
+    assert enabled_axes() == {
+        ("rf_duration", "d_shared"),
+        ("rf_duration", "d_unique"),
+        ("rf_frequency", "f_shared"),
+        ("rf_frequency", "f_unique"),
+    }
+
+    # Rebinding C removes the final references to its old parameters. Those
+    # sweeps must stop rather than silently attaching to a future pulse.
+    c_row = row_named("C")
+    panel.composite_item_table.cellWidget(c_row, 4).setCurrentText("f_shared")
+    panel.composite_item_table.cellWidget(c_row, 3).setCurrentText("d_shared")
+    assert_timeline("A", "B", "C")
+    assert enabled_axes() == {
+        ("rf_duration", "d_shared"),
+        ("rf_frequency", "f_shared"),
+    }
+    assert not panel.frequency_parameter_table.cellWidget(
+        parameter_row(panel.frequency_parameter_table, "f_unique"), 2
+    ).isChecked()
+    assert not panel.duration_parameter_table.cellWidget(
+        parameter_row(panel.duration_parameter_table, "d_unique"), 2
+    ).isChecked()
+
+    # Removing one of several shared references cannot disable the shared axes.
+    a_row = row_named("A")
+    panel.composite_item_table.cellWidget(a_row, 0).setCurrentIndex(1)
+    assert_timeline("B", "C")
+    assert enabled_axes() == {
+        ("rf_duration", "d_shared"),
+        ("rf_frequency", "f_shared"),
+    }
+    b_row = row_named("B")
+    panel.composite_item_table.selectRow(b_row)
+    panel._remove_composite_item()
+    assert_timeline("C")
+    assert enabled_axes() == {
+        ("rf_duration", "d_shared"),
+        ("rf_frequency", "f_shared"),
+    }
+
+    # Add another shared pulse, move it ahead of C, then remove C. Parameter
+    # identity follows the pulse and the timeline drops the deleted label.
+    panel._add_composite_item("pulse")
+    d_row = panel.composite_item_table.rowCount() - 1
+    d_name = panel.composite_item_table.cellWidget(d_row, 1)
+    d_name.setText("D")
+    d_name.editingFinished.emit()
+    panel.composite_item_table.cellWidget(d_row, 4).setCurrentText("f_shared")
+    panel.composite_item_table.cellWidget(d_row, 3).setCurrentText("d_shared")
+    header = panel.composite_row_header
+    header.moveSection(header.visualIndex(d_row), 0)
+    header.commitVisualOrder()
+    assert_timeline("D", "C")
+    moved_d = next(
+        item
+        for item in panel.configured_spec().composite_items
+        if item.name == "D"
+    )
+    assert (
+        moved_d.frequency_parameter,
+        moved_d.duration_parameter,
+    ) == ("f_shared", "d_shared")
+    c_row = row_named("C")
+    panel.composite_item_table.selectRow(c_row)
+    panel._remove_composite_item()
+    assert_timeline("D")
+    assert enabled_axes() == {
+        ("rf_duration", "d_shared"),
+        ("rf_frequency", "f_shared"),
+    }
+
+    # Once a different pulse exists, converting the last shared pulse to a
+    # delay removes the final reference and disables both shared sweeps.
+    panel._add_composite_item("pulse")
+    e_row = panel.composite_item_table.rowCount() - 1
+    e_name = panel.composite_item_table.cellWidget(e_row, 1)
+    e_name.setText("E")
+    e_name.editingFinished.emit()
+    panel.composite_item_table.cellWidget(e_row, 4).setCurrentText("f_unique")
+    panel.composite_item_table.cellWidget(e_row, 3).setCurrentText("d_unique")
+    d_row = row_named("D")
+    panel.composite_item_table.cellWidget(d_row, 0).setCurrentIndex(1)
+    assert_timeline("E")
+    assert enabled_axes() == set()
+    assert not panel.frequency_parameter_table.cellWidget(
+        parameter_row(panel.frequency_parameter_table, "f_shared"), 2
+    ).isChecked()
+    assert not panel.duration_parameter_table.cellWidget(
+        parameter_row(panel.duration_parameter_table, "d_shared"), 2
+    ).isChecked()
+
+    window.close()
+
+
+def test_named_composite_sweeps_edit_and_remove_the_actual_parameter_rows():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    panel.load_settings({
+        **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+        "enabled": True,
+        "pulse_mode": "composite",
+        "frequency_parameters": [
+            asdict(QickRfFrequencyParameterSpec(
+                "read_frequency", 100.0, True, 90.0, 110.0, 3
+            )),
+        ],
+        "duration_parameters": [
+            asdict(QickRfDurationParameterSpec(
+                "read_duration", 0.2, True, 0.1, 0.3, 3
+            )),
+        ],
+        "composite_items": [
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "read", 0.2, "read_frequency", 1000, 0.0,
+                duration_parameter="read_duration",
+            )),
+        ],
+    })
+    app.processEvents()
+    axes = {
+        axis.axis_kind: axis for axis in window._active_map_sweep_specs()
+    }
+
+    window._update_sweep_parameter(axes["rf_frequency"], 80.0, 140.0, 7)
+    app.processEvents()
+    frequency = panel.configured_spec().frequency_parameters[0]
+    assert (
+        frequency.sweep_start_mhz,
+        frequency.sweep_stop_mhz,
+        frequency.sweep_count,
+    ) == (80.0, 140.0, 7)
+
+    duration_axis = next(
+        axis
+        for axis in window._active_map_sweep_specs()
+        if axis.axis_kind == "rf_duration"
+    )
+    window._update_sweep_parameter(duration_axis, 0.25, 0.75, 6)
+    app.processEvents()
+    duration = panel.configured_spec().duration_parameters[0]
+    assert (
+        duration.sweep_start_us,
+        duration.sweep_stop_us,
+        duration.sweep_count,
+    ) == pytest.approx((0.25, 0.75, 6))
+
+    frequency_axis = next(
+        axis
+        for axis in window._active_map_sweep_specs()
+        if axis.axis_kind == "rf_frequency"
+    )
+    window._remove_sweep_parameter(frequency_axis)
+    app.processEvents()
+    assert panel.configured_spec().frequency_parameters[0].sweep_enabled is False
+    assert not any(
+        axis.axis_kind == "rf_frequency"
+        for axis in window._active_map_sweep_specs()
+    )
+
+    duration_axis = next(
+        axis
+        for axis in window._active_map_sweep_specs()
+        if axis.axis_kind == "rf_duration"
+    )
+    window._remove_sweep_parameter(duration_axis)
+    app.processEvents()
+    assert panel.configured_spec().duration_parameters[0].sweep_enabled is False
+    assert not any(
+        axis.axis_kind in {"rf_frequency", "rf_duration"}
+        for axis in window._active_map_sweep_specs()
+    )
+    window.close()
+
+
+def test_composite_rf_duration_parameters_are_shared_sweep_axes():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    settings = {
+        **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+        "enabled": True,
+        "pulse_mode": "composite",
+        "segment_length_mode": "extend_by_rf_duration",
+        "delay_us": 0.1,
+        "frequency_parameters": [
+            asdict(QickRfFrequencyParameterSpec("f0", 100.0)),
+        ],
+        "duration_parameters": [
+            asdict(QickRfDurationParameterSpec(
+                "d0", 0.2, True, 0.1, 0.3, 3
+            )),
+            asdict(QickRfDurationParameterSpec("d1", 0.4)),
+        ],
+        "composite_items": [
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "prepare", 0.2, "f0", 12000, 15.0,
+                duration_parameter="d0",
+            )),
+            asdict(QickRfCompositeItemSpec("delay", "wait", 0.1)),
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "read", 0.4, "f0", 8000, -30.0,
+                duration_parameter="d1",
+            )),
+        ],
+    }
+    panel.load_settings(settings)
+    app.processEvents()
+
+    spec = panel.configured_spec()
+    assert [item.name for item in spec.duration_parameters] == ["d0", "d1"]
+    assert [item.duration_parameter for item in spec.composite_items] == [
+        "d0", "", "d1"
+    ]
+    assert [event.duration_us for event in spec.pulse_events] == [0.1, 0.4]
+    assert [event.delay_us for event in spec.pulse_events] == pytest.approx(
+        [0.1, 0.3]
+    )
+    assert spec.pulse_events[1].preceding_duration_parameters == ("d0",)
+    assert spec.segment_extension_duration_us == pytest.approx(0.7)
+    assert spec.duration_parameter_reference_counts == (("d0", 1),)
+    assert [
+        (axis.axis_kind, axis.parameter_name, axis.count)
+        for axis in spec.sweep_axes
+    ] == [("rf_duration", "d0", 3)]
+    assert panel.composite_item_table.cellWidget(0, 3).currentText() == "d0"
+    assert panel.composite_item_table.cellWidget(2, 3).currentText() == "d1"
+    assert panel.segment_length_mode.isHidden() is False
+    assert panel.segment_length_mode.isEnabled() is True
+    assert panel.segment_length_mode.currentData() == "extend_by_rf_duration"
+    assert "total composite sequence time" in panel.segment_length_mode.itemText(1)
+
+    arguments = window._experiment_run_arguments(
+        require_readout=False,
+        require_run_config=False,
+    )
+    sequence = arguments["sequence"]
+    set_index = next(
+        index
+        for index, segment in enumerate(sequence.segments)
+        if segment.name == spec.segment_name
+    )
+    original_cycles = sequence.segments[set_index].duration_cycles
+    assert [
+        sequence.segment_duration_cycles_at(point_index, set_index)
+        - original_cycles
+        for point_index in range(3)
+    ] == [210, 240, 270]
+
+    restored = gui.RfPulsePortPanel(window._pulse[0], 0, time_unit="us")
+    restored.load_settings(panel.settings_dict())
+    assert restored.configured_spec() == spec
+    restored.close()
+    window.close()
+
+
+def test_predefined_cpmg_and_udd_item_timing():
+    cpmg = build_predefined_composite_items(
+        "cpmg",
+        n_pulses=4,
+        tau_us=10.0,
+        frequency_parameter="f0",
+        duration_parameter="d0",
+    )
+    assert [item.name for item in cpmg if item.kind == "pulse"] == [
+        "CPMG_X1",
+        "CPMG_X2",
+        "CPMG_X3",
+        "CPMG_X4",
+    ]
+    assert [item.duration_us for item in cpmg if item.kind == "delay"] == [
+        5.0,
+        10.0,
+        10.0,
+        10.0,
+        5.0,
+    ]
+
+    udd = build_predefined_composite_items(
+        "udd",
+        n_pulses=4,
+        tau_us=10.0,
+        frequency_parameter="f0",
+        duration_parameter="d0",
+    )
+    udd_delays = [item.duration_us for item in udd if item.kind == "delay"]
+    assert len(udd_delays) == 5
+    assert sum(udd_delays) == pytest.approx(10.0)
+    assert np.cumsum(udd_delays[:-1]) == pytest.approx(
+        [
+            10.0 * np.sin(np.pi * index / 10.0) ** 2
+            for index in range(1, 5)
+        ]
+    )
+
+
+def test_predefined_composite_editor_round_trip_and_software_axes():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    settings = {
+        **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+        "enabled": True,
+        "pulse_mode": "composite",
+        "predefined_template": "cpmg",
+        "predefined_n": 4,
+        "predefined_tau_us": 8.0,
+        "predefined_n_sweep_enabled": True,
+        "predefined_n_sweep_start": 2,
+        "predefined_n_sweep_stop": 4,
+        "predefined_n_sweep_count": 3,
+        "predefined_tau_sweep_enabled": True,
+        "predefined_tau_sweep_start_us": 4.0,
+        "predefined_tau_sweep_stop_us": 8.0,
+        "predefined_tau_sweep_count": 2,
+    }
+    panel.load_settings(settings)
+    app.processEvents()
+
+    spec = panel.configured_spec()
+    assert spec.predefined_template == "cpmg"
+    assert len(spec.composite_items) == 9
+    assert [axis.axis_kind for axis in spec.software_sweep_axes] == [
+        "rf_template_n",
+        "rf_template_tau",
+    ]
+    assert spec.software_sweep_axes[0].points.tolist() == [2, 3, 4]
+    assert spec.software_sweep_axes[1].points.tolist() == [4.0, 8.0]
+    assert "6 Cartesian point(s)" in (
+        window._experiment_panel.ddr_usage_summary.text()
+    )
+    assert panel.composite_item_table.rowCount() == 9
+    assert panel.composite_item_table.cellWidget(1, 1).text() == "CPMG_X1"
+    assert panel.add_composite_pulse_button.isEnabled() is False
+    assert panel.composite_row_header.sectionsMovable() is False
+
+    decoded = window._decode_settings(window._settings_to_dict())
+    decoded_rf = decoded["rf_outputs"][0]
+    assert decoded_rf["predefined_template"] == "cpmg"
+    assert decoded_rf["predefined_n_sweep_enabled"] is True
+    assert decoded_rf["predefined_tau_sweep_count"] == 2
+
+    restored = gui.RfPulsePortPanel(window._pulse[0], 0, time_unit="us")
+    restored.load_settings(panel.settings_dict())
+    assert restored.configured_spec() == spec
+    restored.close()
+    window.close()
+
+
+def test_predefined_software_sweep_can_be_edited_and_removed_from_experiment():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    panel.load_settings({
+        **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+        "enabled": True,
+        "pulse_mode": "composite",
+        "predefined_template": "udd",
+        "predefined_n_sweep_enabled": True,
+        "predefined_n_sweep_start": 2,
+        "predefined_n_sweep_stop": 4,
+        "predefined_n_sweep_count": 3,
+    })
+    app.processEvents()
+    n_axis = next(
+        axis
+        for axis in window._active_map_sweep_specs()
+        if axis.axis_kind == "rf_template_n"
+    )
+
+    window._update_sweep_parameter(n_axis, 3.0, 5.0, 3)
+    app.processEvents()
+    updated = next(
+        axis
+        for axis in window._active_map_sweep_specs()
+        if axis.axis_kind == "rf_template_n"
+    )
+    assert updated.points.tolist() == [3, 4, 5]
+
+    window._remove_sweep_parameter(updated)
+    app.processEvents()
+    assert not any(
+        axis.axis_kind == "rf_template_n"
+        for axis in window._active_map_sweep_specs()
+    )
+    window.close()
+
+
+def test_composite_rf_power_calibration_is_independent_per_pulse():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    settings = {
+        **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+        "enabled": True,
+        "pulse_mode": "composite",
+        "output_board_type": "RF_Out",
+        "frequency_parameters": [
+            asdict(QickRfFrequencyParameterSpec(
+                "f0", 100.0, True, 100.0, 120.0, 3
+            )),
+        ],
+        "composite_items": [
+            asdict(QickRfCompositeItemSpec(
+                "pulse",
+                "calibrated",
+                0.2,
+                "f0",
+                1234,
+                0.0,
+                power_calibration_enabled=True,
+                power_calibration_database_path="pulse_calibration.db",
+                power_calibration_run_id=73,
+                target_output_power_dbm=-31.5,
+            )),
+            asdict(QickRfCompositeItemSpec(
+                "pulse", "manual", 0.2, "f0", 8000, 90.0
+            )),
+        ],
+    }
+    panel.load_settings(settings)
+    app.processEvents()
+
+    spec = panel.configured_spec()
+    calibrated, manual = spec.composite_items
+    assert calibrated.power_calibration_enabled is True
+    assert calibrated.power_calibration_database_path == "pulse_calibration.db"
+    assert calibrated.power_calibration_run_id == 73
+    assert calibrated.target_output_power_dbm == -31.5
+    assert manual.power_calibration_enabled is False
+    assert manual.gain == 8000
+
+    calibrated_button = panel.composite_item_table.cellWidget(0, 6)
+    manual_button = panel.composite_item_table.cellWidget(1, 6)
+    assert calibrated_button.text() == "-31.5 dBm | Run 73"
+    assert manual_button.text() == "Manual gain"
+    assert panel.composite_item_table.cellWidget(0, 5).isEnabled() is False
+    assert panel.composite_item_table.cellWidget(1, 5).isEnabled() is True
+
+    decoded = window._decode_settings(window._settings_to_dict())
+    decoded_items = decoded["rf_outputs"][0]["composite_items"]
+    assert decoded_items[0]["power_calibration_enabled"] is True
+    assert decoded_items[0]["power_calibration_run_id"] == 73
+    assert decoded_items[0]["target_output_power_dbm"] == -31.5
+    assert decoded_items[1]["power_calibration_enabled"] is False
+
+    restored = gui.RfPulsePortPanel(window._pulse[0], 0, time_unit="us")
+    restored.load_settings(panel.settings_dict())
+    assert restored.configured_spec() == spec
+    restored.close()
+    window.close()
+
+
+def test_rf_duration_sweep_controls_build_sequence_axis_and_round_trip():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    panel.setChecked(True)
+    panel.gen_ch.setValue(0)
+    panel.segment.setCurrentIndex(panel.segment.findData("set_0"))
+    panel.duration_sweep_enabled.setChecked(True)
+    panel.duration_sweep_start.setValue(0.25)
+    panel.duration_sweep_stop.setValue(1.25)
+    panel.duration_sweep_count.setValue(5)
+    panel.segment_length_mode.setCurrentIndex(
+        panel.segment_length_mode.findData("extend_by_rf_duration")
+    )
+    app.processEvents()
+
+    arguments = window._experiment_run_arguments(
+        require_readout=False,
+        require_run_config=False,
+    )
+    axes = arguments["sequence"].sweep_axes
+    assert len(axes) == 1
+    assert axes[0].axis_kind == "rf_duration"
+    assert axes[0].gen_ch == 0
+    assert axes[0].start == 0.25
+    assert axes[0].stop == 1.25
+    assert axes[0].count == 5
+    assert axes[0].segment_length_mode == "extend_by_rf_duration"
+    assert window._experiment_panel.sweep_map_x.itemText(0).startswith(
+        "RF gen 0"
+    )
+
+    settings = panel.settings_dict()
+    restored = gui.RfPulsePortPanel(
+        window._pulse[0],
+        0,
+        time_unit="us",
+    )
+    restored.load_settings(settings)
+    restored_spec = restored.spec()
+    assert restored_spec is not None
+    assert restored_spec.duration_sweep_enabled is True
+    assert restored_spec.duration_sweep_start_us == 0.25
+    assert restored_spec.duration_sweep_stop_us == 1.25
+    assert restored_spec.duration_sweep_count == 5
+    assert restored_spec.segment_length_mode == "extend_by_rf_duration"
+    window.close()
+
+
+def test_rf_frequency_and_power_sweep_controls_round_trip():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    panel.setChecked(True)
+    panel.gen_ch.setValue(0)
+    panel.segment.setCurrentIndex(panel.segment.findData("set_0"))
+    panel.frequency_sweep_enabled.setChecked(True)
+    panel.frequency_sweep_start_mhz.setValue(100.0)
+    panel.frequency_sweep_stop_mhz.setValue(200.0)
+    panel.frequency_sweep_count.setValue(11)
+    panel.power_calibration_group.setChecked(True)
+    panel.power_calibration_database_path.setText("calibration.db")
+    panel.power_sweep_enabled.setChecked(True)
+    panel.power_sweep_start_dbm.setValue(-40.0)
+    panel.power_sweep_stop_dbm.setValue(-20.0)
+    panel.power_sweep_count.setValue(5)
+    app.processEvents()
+
+    spec = panel.configured_spec()
+    assert [
+        (axis.axis_kind, axis.start, axis.stop, axis.count)
+        for axis in spec.sweep_axes
+    ] == [
+        ("rf_frequency", 100.0, 200.0, 11),
+        ("rf_power", -40.0, -20.0, 5),
+    ]
+    settings = panel.settings_dict()
+    restored = gui.RfPulsePortPanel(
+        window._pulse[0],
+        0,
+        time_unit="us",
+    )
+    restored.load_settings(settings)
+    restored_spec = restored.configured_spec()
+    assert restored_spec.frequency_sweep_enabled is True
+    assert restored_spec.frequency_sweep_start_mhz == 100.0
+    assert restored_spec.frequency_sweep_stop_mhz == 200.0
+    assert restored_spec.frequency_sweep_count == 11
+    assert restored_spec.power_sweep_enabled is True
+    assert restored_spec.power_sweep_start_dbm == -40.0
+    assert restored_spec.power_sweep_stop_dbm == -20.0
+    assert restored_spec.power_sweep_count == 5
+    assert restored_spec.power_calibration_database_path == "calibration.db"
+    restored.close()
+    window.close()
+
+
+def test_settings_restore_rf_frequency_slice_and_ignore_removed_slice(tmp_path):
+    app = _application()
+    window = gui.MainWindow()
+    window._add_port()
+    window._sweep_specs = [
+        QickSweepSpec("set_0", "awg_0", -0.1, 0.1, 3),
+        QickSweepSpec("set_0", "awg_1", -0.2, 0.2, 5),
+    ]
+
+    rf_panel = window._rf_ports_panel._panels[0]
+    rf_panel.setChecked(True)
+    rf_panel.gen_ch.setValue(0)
+    rf_panel.segment.setCurrentIndex(rf_panel.segment.findData("set_0"))
+    rf_panel.frequency_sweep_enabled.setChecked(True)
+    rf_panel.frequency_sweep_start_mhz.setValue(100.0)
+    rf_panel.frequency_sweep_stop_mhz.setValue(200.0)
+    rf_panel.frequency_sweep_count.setValue(11)
+    app.processEvents()
+    window._refresh_sweep_overlay()
+
+    axis_settings = {
+        "x_axis": {
+            "output_name": "awg_0",
+            "segment_name": "set_0",
+        },
+        "y_axis": {
+            "output_name": "awg_1",
+            "segment_name": "set_0",
+        },
+        "slice_axes": [
+            {
+                "output_name": "rf_gen_0_frequency",
+                "segment_name": "set_0",
+                "mode": "value",
+                "value": 150.0,
+            },
+        ],
+    }
+    window._awg_sweep_plot.load_axis_selection_settings(axis_settings)
+    saved_path = window._save_settings_json(tmp_path / "rf_frequency_slice")
+
+    restored = gui.MainWindow()
+    restored._load_settings_json(saved_path)
+    app.processEvents()
+    assert restored._awg_sweep_plot.axis_selection_settings() == axis_settings
+
+    document = json.loads(saved_path.read_text(encoding="utf-8"))
+    document["rf_outputs"][0]["frequency_sweep_enabled"] = False
+    stale_path = tmp_path / "removed_rf_frequency_slice.json"
+    stale_path.write_text(json.dumps(document), encoding="utf-8")
+    restored._load_settings_json(stale_path)
+    app.processEvents()
+    assert restored._awg_sweep_plot.axis_selection_settings() == {
+        "x_axis": {
+            "output_name": "awg_0",
+            "segment_name": "set_0",
+        },
+        "y_axis": {
+            "output_name": "awg_1",
+            "segment_name": "set_0",
+        },
+        "slice_axes": [],
+    }
+
+    restored.close()
+    window.close()
+    restored.deleteLater()
+    window.deleteLater()
+    app.processEvents()
+
+
+def test_settings_clamp_stale_indexed_rf_anchors(tmp_path):
+    app = _application()
+    source = gui.MainWindow()
+    pulse = PulseSequence(0.0, initial_duration_ns=1000.0)
+    pulse.add_flat_ramp(100.0, 100.0, 1000.0)
+    pulse.add_flat_ramp(200.0, 100.0, 1000.0)
+    document = source._settings_to_dict()
+    document["awg"]["outputs"] = [pulse.to_dict()]
+    document["rf_outputs"][0]["enabled"] = True
+    document["rf_outputs"][0]["segment_name"] = "set_4"
+    document["rf_readout"]["enabled"] = True
+    document["rf_readout"]["segment_name"] = "set_3"
+    path = tmp_path / "stale_rf_anchors.json"
+    path.write_text(json.dumps(document), encoding="utf-8")
+
+    restored = gui.MainWindow()
+    restored._load_settings_json(path)
+    app.processEvents()
+
+    assert restored._rf_ports_panel._panels[0].segment.currentData() == "set_2"
+    assert restored._rf_readout_panel.segment.currentData() == "set_2"
+    upgraded = restored._settings_to_dict()
+    assert upgraded["rf_outputs"][0]["segment_name"] == "set_2"
+    assert upgraded["rf_readout"]["segment_name"] == "set_2"
+
+    malformed = json.loads(json.dumps(document))
+    malformed["rf_readout"]["segment_name"] = "measurement"
+    with pytest.raises(
+        ValueError,
+        match="unknown RF readout anchor 'measurement'",
+    ):
+        source._decode_settings(malformed)
+
+    restored.close()
+    source.close()
+    restored.deleteLater()
+    source.deleteLater()
+    app.processEvents()
+
+
+def test_rf_output_power_calibration_applies_matching_gain_and_round_trips(
+    monkeypatch,
+):
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    panel.setChecked(True)
+    panel.output_board_type.setCurrentText("RF_Out")
+    panel.frequency_mhz.setValue(450.0)
+    panel.att1_db.setValue(10.0)
+    panel.att2_db.setValue(5.0)
+    panel.nqz.setValue(2)
+    panel.filter_type.setCurrentText("highpass")
+    panel.filter_cutoff.setValue(1.5)
+    panel.filter_bandwidth.setValue(0.4)
+    panel.power_calibration_database_path.setText("calibration.db")
+    panel.power_calibration_run_id.setValue(0)
+    panel.target_output_power_dbm.setValue(-25.0)
+    panel.power_calibration_group.setChecked(True)
+    app.processEvents()
+
+    calls = {}
+
+    class FakeCalibration:
+        summary = SimpleNamespace(run_id=42)
+
+        def frequency_response_dbm(self, frequencies):
+            calls["response_frequencies"] = list(frequencies)
+            return np.asarray([-5.0])
+
+        def nominal_gain_for_power(self, target, **kwargs):
+            calls["nominal"] = (target, kwargs)
+            return 1234
+
+        def output_power_dbm(self, frequencies, gains, **kwargs):
+            calls["predicted"] = (list(frequencies), list(gains), kwargs)
+            return np.asarray([-25.0])
+
+    class FakeCalibrationDatabase:
+        def __init__(self, path):
+            calls["database_path"] = path
+
+        def output_calibration_candidates(self, *_args, **_kwargs):
+            return (
+                SimpleNamespace(
+                    exact_match=True,
+                    display_label=(
+                        "Run 42 | PCB RF_Out | NQZ 2 | highpass "
+                        "(fc 1.5 GHz, BW 0.4 GHz) | exact match"
+                    ),
+                    detail_text=(
+                        "Exact PCB, frequency coverage, Nyquist zone, "
+                        "and filter match."
+                    ),
+                    summary=SimpleNamespace(
+                        run_id=42,
+                        board_type="RF_Out",
+                    ),
+                ),
+                SimpleNamespace(
+                    exact_match=False,
+                    display_label=(
+                        "Run 41 | PCB DC_Out | NQZ 1 | lowpass "
+                        "(fc 2.5 GHz, BW 1 GHz) | candidate"
+                    ),
+                    detail_text="PCB DC_Out != RF_Out",
+                    summary=SimpleNamespace(
+                        run_id=41,
+                        board_type="DC_Out",
+                    ),
+                ),
+            )
+
+        def output_calibration(self, board_type, frequencies, **kwargs):
+            calls["lookup"] = (board_type, list(frequencies), kwargs)
+            return FakeCalibration()
+
+    monkeypatch.setattr(gui, "CalibrationDatabase", FakeCalibrationDatabase)
+
+    assert panel._apply_calibrated_output_power() == 1234
+    assert panel.gain.value() == 1234
+    assert panel.power_calibration_run.currentData() == 0
+    assert "Run 42" in panel.power_calibration_run.currentText()
+    assert calls["database_path"] == "calibration.db"
+    board_type, frequencies, lookup = calls["lookup"]
+    assert board_type == "RF_Out"
+    assert frequencies == [450.0]
+    assert lookup == {
+        "run_id": 42,
+        "nqz": 2,
+        "output_filter_type": "highpass",
+        "output_filter_cutoff_ghz": 1.5,
+        "output_filter_bandwidth_ghz": 0.4,
+    }
+    assert calls["nominal"] == (
+        -25.0,
+        {
+            "reference_response_dbm": -5.0,
+            "output_att1_db": 10.0,
+            "output_att2_db": 5.0,
+        },
+    )
+    assert calls["predicted"] == (
+        [450.0],
+        [1234],
+        {
+            "output_att1_db": 10.0,
+            "output_att2_db": 5.0,
+        },
+    )
+    assert "Run 42" in panel.power_calibration_status.text()
+
+    settings = panel.settings_dict()
+    restored = gui.RfPulsePortPanel(
+        window._pulse[0],
+        0,
+        time_unit="us",
+    )
+    restored.load_settings(settings)
+    assert restored.power_calibration_group.isChecked() is True
+    assert restored.power_calibration_database_path.text() == "calibration.db"
+    assert restored.power_calibration_run_id.value() == 0
+    assert restored.target_output_power_dbm.value() == -25.0
+
+    panel.validate_power_calibration()
+    panel.gain.setValue(1235)
+    with pytest.raises(ValueError, match="click Apply calibrated gain"):
+        panel.validate_power_calibration()
+    restored.close()
+    window.close()
+
+
+def test_rf_output_power_calibration_allows_explicit_mismatch_override(
+    monkeypatch,
+):
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    panel.setChecked(True)
+    panel.output_board_type.setCurrentText("RF_Out")
+    panel.frequency_mhz.setValue(450.0)
+    panel.nqz.setValue(2)
+    panel.filter_type.setCurrentText("highpass")
+    panel.filter_cutoff.setValue(1.5)
+    panel.filter_bandwidth.setValue(0.4)
+    panel.power_calibration_database_path.setText("calibration.db")
+    panel.power_calibration_group.setChecked(True)
+    app.processEvents()
+
+    candidate = SimpleNamespace(
+        exact_match=False,
+        display_label=(
+            "Run 73 | PCB DC_Out | NQZ 1 | lowpass "
+            "(fc 2.5 GHz, BW 1 GHz) | candidate"
+        ),
+        detail_text=(
+            "PCB DC_Out != RF_Out; Nyquist zone 1 != 2; "
+            "filter lowpass != highpass"
+        ),
+        summary=SimpleNamespace(run_id=73, board_type="DC_Out"),
+    )
+    calls = {}
+
+    class FakeCalibration:
+        summary = SimpleNamespace(run_id=73)
+
+        def frequency_response_dbm(self, _frequencies):
+            return np.asarray([-10.0])
+
+        def nominal_gain_for_power(self, _target, **_kwargs):
+            return 4321
+
+        def output_power_dbm(self, _frequencies, _gains, **_kwargs):
+            return np.asarray([-20.0])
+
+    class FakeCalibrationDatabase:
+        def __init__(self, _path):
+            pass
+
+        def output_calibration_candidates(self, *_args, **_kwargs):
+            return (candidate,)
+
+        def output_calibration(self, board_type, frequencies, **kwargs):
+            calls["lookup"] = (board_type, list(frequencies), kwargs)
+            return FakeCalibration()
+
+    monkeypatch.setattr(gui, "CalibrationDatabase", FakeCalibrationDatabase)
+    panel._refresh_power_calibration_runs()
+    run_index = panel.power_calibration_run.findData(73)
+    assert run_index > 0
+    panel.power_calibration_run.setCurrentIndex(run_index)
+
+    assert panel._apply_calibrated_output_power() == 4321
+    assert calls["lookup"] == (
+        "DC_Out",
+        [450.0],
+        {"run_id": 73},
+    )
+    assert "manually overridden" in panel.power_calibration_status.text()
+    assert "PCB DC_Out != RF_Out" in panel.power_calibration_status.text()
+    window.close()
+
+
+def test_rf_output_power_calibration_mismatch_preserves_gain(monkeypatch):
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_ports_panel._panels[0]
+    panel.output_board_type.setCurrentText("RF_Out")
+    panel.gain.setValue(20_000)
+    panel.power_calibration_database_path.setText("calibration.db")
+    panel.power_calibration_group.setChecked(True)
+    app.processEvents()
+
+    class FakeCalibrationDatabase:
+        def __init__(self, _path):
+            pass
+
+        def output_calibration(self, *_args, **_kwargs):
+            raise LookupError(
+                "no compatible calibration: Nyquist zone or filter mismatch"
+            )
+
+    warnings = []
+    monkeypatch.setattr(gui, "CalibrationDatabase", FakeCalibrationDatabase)
+    monkeypatch.setattr(
+        gui.QtWidgets.QMessageBox,
+        "warning",
+        lambda *args: warnings.append(args),
+    )
+
+    assert panel._apply_calibrated_output_power() is None
+    assert panel.gain.value() == 20_000
+    assert "filter mismatch" in panel.power_calibration_status.text()
+    assert len(warnings) == 1
+    window.close()
+
+
+def test_generated_qick_module_preserves_rf_duration_sweep_mode():
+    pulse = PulseSequence(0.0, initial_duration_ns=10_000.0)
+    rf_spec = QickRfPulseSpec(
+        0,
+        "set_0",
+        0.5,
+        1.0,
+        50.0,
+        12_000,
+        10.0,
+        12.0,
+        duration_sweep_enabled=True,
+        duration_sweep_start_us=1.0,
+        duration_sweep_stop_us=4.0,
+        duration_sweep_count=4,
+        segment_length_mode="extend_by_rf_duration",
+    )
+    code = generate_qick_program_code(
+        (pulse,),
+        output_names=("awg_0",),
+        awg_channels=(1,),
+        tproc_mhz=300.0,
+        rf_pulse_specs=(rf_spec,),
+    )
+    ast.parse(code)
+    namespace = {}
+    exec(compile(code, "<rf-duration-generated>", "exec"), namespace)
+
+    sequence = namespace["build_sequence"]()
+    assert len(sequence.sweep_axes) == 1
+    axis = sequence.sweep_axes[0]
+    assert axis.axis_kind == "rf_duration"
+    assert axis.points == (1.0, 2.0, 3.0, 4.0)
+    assert axis.segment_length_mode == "extend_by_rf_duration"
+    runtime_rf = namespace["build_rf_pulses"]({
+        "gens": [{"f_fabric": 300.0}],
+    })
+    assert len(runtime_rf) == 1
+    assert runtime_rf[0].length_cycles == 300
+
+
+def test_generated_qick_module_preserves_composite_rf_sequence():
+    pulse = PulseSequence(0.0, initial_duration_ns=10_000.0)
+    rf_spec = QickRfPulseSpec(
+        0,
+        "set_0",
+        0.1,
+        1.0,
+        50.0,
+        12000,
+        0.0,
+        0.0,
+        pulse_mode="composite",
+        segment_length_mode="extend_by_rf_duration",
+        frequency_parameters=(
+            QickRfFrequencyParameterSpec(
+                "f0", 100.0, True, 100.0, 120.0, 3
+            ),
+        ),
+        duration_parameters=(
+            QickRfDurationParameterSpec(
+                "d0", 0.2, True, 0.2, 0.4, 3
+            ),
+            QickRfDurationParameterSpec("d1", 0.2),
+        ),
+        composite_items=(
+            QickRfCompositeItemSpec(
+                "pulse", "prepare", 0.2, "f0", 12000, 0.0,
+                duration_parameter="d0",
+            ),
+            QickRfCompositeItemSpec("delay", "wait", 0.1),
+            QickRfCompositeItemSpec(
+                "pulse", "read", 0.2, "f0", 8000, 90.0,
+                duration_parameter="d1",
+            ),
+        ),
+    )
+    code = generate_qick_program_code(
+        (pulse,),
+        output_names=("awg_0",),
+        awg_channels=(1,),
+        tproc_mhz=300.0,
+        rf_pulse_specs=(rf_spec,),
+    )
+    ast.parse(code)
+    namespace = {}
+    exec(compile(code, "<composite-rf-generated>", "exec"), namespace)
+
+    sequence = namespace["build_sequence"]()
+    assert len(sequence.sweep_axes) == 2
+    assert [axis.parameter_name for axis in sequence.sweep_axes] == ["d0", "f0"]
+    assert [
+        sequence.segment_duration_cycles_at(point_index, 0)
+        for point_index in (0, 3, 6)
+    ] == [3180, 3210, 3240]
+    runtime = namespace["build_rf_pulses"]({
+        "tprocs": [{"f_time": 300.0}],
+        "gens": [{"f_fabric": 300.0}],
+    })
+    assert [item.pulse_name for item in runtime] == ["prepare", "read"]
+    assert [item.delay_tproc_cycles for item in runtime] == [30, 120]
+    assert [item.duration_parameter for item in runtime] == ["d0", "d1"]
+    assert runtime[1].preceding_duration_parameters == ("d0",)
+
+
+def test_generated_qick_module_preserves_multiple_ramp_rate_sweeps():
+    pulse = PulseSequence(0.0, initial_duration_ns=100.0)
+    pulse.add_flat_ramp(100.0, 200.0, 200.0)
+    pulse.add_flat_ramp(120.0, 150.0, -100.0)
+    ramp_sweep_a = QickRampRateSweepSpec(
+        "ramp_0_to_1",
+        0.08,
+        0.12,
+        3,
+    )
+    ramp_sweep_b = QickRampRateSweepSpec(
+        "ramp_1_to_2",
+        0.10,
+        0.16,
+        4,
+    )
+    code = generate_qick_program_code(
+        (pulse,),
+        output_names=("awg_0",),
+        awg_channels=(1,),
+        fabric_mhz=300.0,
+        tproc_mhz=300.0,
+        sweeps=(ramp_sweep_a, ramp_sweep_b),
+    )
+    ast.parse(code)
+    namespace = {}
+    exec(compile(code, "<ramp-rate-generated>", "exec"), namespace)
+
+    sequence = namespace["build_sequence"]()
+    assert len(sequence.sweep_axes) == 2
+    assert tuple(axis.segment_name for axis in sequence.sweep_axes) == (
+        "ramp_0_to_1",
+        "ramp_1_to_2",
+    )
+    assert sequence.sweep_axes[0].points == (0.08, 0.1, 0.12)
+    assert sequence.sweep_axes[1].points == (0.1, 0.12, 0.14, 0.16)
+
+
+def test_generated_qick_module_preserves_hold_duration_sweep():
+    pulse = PulseSequence(0.0, initial_duration_ns=1000.0)
+    pulse.add_flat_ramp(100.0, 2000.0, 200.0)
+    hold_sweep = QickHoldDurationSweepSpec("set_1", 1.0, 5.0, 5)
+    code = generate_qick_program_code(
+        (pulse,),
+        output_names=("awg_0",),
+        awg_channels=(1,),
+        fabric_mhz=300.0,
+        tproc_mhz=300.0,
+        sweeps=(hold_sweep,),
+    )
+    ast.parse(code)
+    namespace = {}
+    exec(compile(code, "<hold-duration-generated>", "exec"), namespace)
+
+    sequence = namespace["build_sequence"]()
+    assert len(sequence.sweep_axes) == 1
+    axis = sequence.sweep_axes[0]
+    assert axis.axis_kind == "hold_duration"
+    assert axis.segment_name == "set_1"
+    assert axis.points == (1.0, 2.0, 3.0, 4.0, 5.0)
+
+
+def test_rf_readout_panel_builds_analog_input_and_ddr_settings():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_readout_panel
+    panel.setChecked(True)
+    panel.ro_ch.setValue(2)
+    panel.delay.setValue(1.5)
+    panel.samples.setValue(128)
+    panel.frequency_mhz.setValue(75.0)
+    panel.attenuation_db.setValue(21.0)
+    panel.filter_type.setCurrentText("lowpass")
+    panel.filter_cutoff.setValue(2.5)
+    panel.filter_bandwidth.setValue(0.75)
+    app.processEvents()
+
+    calibration_row, _role = panel.layout().getWidgetPosition(
+        panel.dc_voltage_calibration_enabled
+    )
+    assert calibration_row >= 0
+    assert panel.measurement_unit.currentData() == "adc"
+
+    spec = panel.spec()
+    assert spec == QickDdrReadoutSpec(
+        ro_ch=2,
+        segment_name="set_0",
+        delay_us=1.5,
+        samples_per_trigger=128,
+        readout_frequency_mhz=75.0,
+        margin_input_samples=1024,
+        attenuation_db=21.0,
+        filter_type="lowpass",
+        filter_cutoff=2.5,
+        filter_bandwidth=0.75,
+        measurement_representation="adc",
+    )
+    window.close()
+
+
+def test_dc_measure_mode_converts_iq_and_is_available_only_for_dc_input():
+    raw_iq = np.asarray([[2.0, -4.0], [6.0, 8.0]])
+    np.testing.assert_array_equal(adc_iq_to_voltage(raw_iq), raw_iq)
+    np.testing.assert_allclose(
+        dc_iq_to_current(raw_iq, gain_v_per_a=2.0),
+        [[1.0, -2.0], [3.0, 4.0]],
+    )
+    with pytest.raises(ValueError, match="must be positive"):
+        dc_iq_to_current(raw_iq, gain_v_per_a=0.0)
+    with pytest.raises(ValueError, match="requires the DC_In"):
+        QickDdrReadoutSpec(
+            0,
+            "set_0",
+            0.0,
+            8,
+            input_board_type="RF_In",
+            dc_measure_mode=True,
+        )
+
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_readout_panel
+    panel.setChecked(True)
+    panel.input_board_type.setCurrentText("DC_In")
+    panel.measurement_unit.setCurrentIndex(
+        panel.measurement_unit.findData("current")
+    )
+    panel.dc_measure_gain_v_per_a.setValue(2.0)
+    app.processEvents()
+
+    spec = panel.spec()
+    assert spec is not None
+    assert spec.input_board_type == "DC_In"
+    assert spec.dc_measure_mode is True
+    assert spec.measurement_representation == "current"
+    assert spec.dc_measure_gain_v_per_a == 2.0
+    assert spec.measurement_unit == "A"
+    assert panel.dc_measure_gain_v_per_a.isEnabled() is True
+
+    panel.input_board_type.setCurrentText("RF_In")
+    app.processEvents()
+    assert panel.dc_measure_mode.isChecked() is False
+    assert panel.dc_measure_mode.isEnabled() is False
+    assert panel.measurement_unit.currentData() == "adc"
+    assert panel.measurement_unit.isEnabled() is False
+    assert panel.dc_measure_gain_v_per_a.isEnabled() is False
+    window.close()
+
+
+def test_awg_tuning_rf_readout_exposes_calibration_and_unit_selection(tmp_path):
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._rf_readout_panel
+    panel.setChecked(True)
+    panel.input_board_type.setCurrentText("DC_In")
+    panel.measurement_unit.setCurrentIndex(
+        panel.measurement_unit.findData("voltage")
+    )
+    panel.dc_voltage_calibration_enabled.setChecked(True)
+    panel.dc_voltage_calibration_path.setText(str(tmp_path / "calibration.db"))
+    panel.dc_voltage_calibration_run_id.setValue(17)
+    app.processEvents()
+
+    spec = panel.spec()
+    assert spec is not None
+    assert spec.effective_measurement_representation == "voltage"
+    assert spec.measurement_unit == "V"
+    assert spec.dc_voltage_calibration_enabled is True
+    assert spec.dc_voltage_calibration_run_id == 17
+    assert panel.dc_voltage_calibration_path.isHidden() is False
+    settings = panel.settings_dict()
+    assert settings["measurement_representation"] == "voltage"
+
+    restored = gui.RfReadoutPanel(window._pulse[0], time_unit="us")
+    restored.load_settings(settings)
+    assert restored.measurement_unit.currentData() == "voltage"
+    assert restored.dc_voltage_calibration_enabled.isChecked() is True
+    assert restored.dc_voltage_calibration_run_id.value() == 17
+    restored.close()
+    window.close()
+
+
+def test_generated_module_supports_multiple_rf_outputs_and_readout_chain():
+    pulse = PulseSequence(100.0, initial_duration_ns=1000.0)
+    pulse.add_flat_ramp(1000.0, 5000.0, 200.0)
+    rf_specs = (
+        QickRfPulseSpec(
+            0, "set_1", 0.0, 1.0, 50.0, 12000, 10.0, 12.0,
+            filter_type="lowpass", filter_cutoff=2.25, filter_bandwidth=0.75,
+        ),
+        QickRfPulseSpec(2, "set_1", 1.0, 1.0, 75.0, 8000, 8.0, 9.0),
+    )
+    readout = QickDdrReadoutSpec(
+        0,
+        "set_1",
+        0.0,
+        8,
+        50.0,
+        attenuation_db=21.0,
+        filter_type="lowpass",
+        filter_cutoff=2.5,
+    )
+    code = generate_qick_program_code(
+        (pulse,),
+        output_names=("awg_0",),
+        awg_channels=(1,),
+        tproc_mhz=300.0,
+        rf_pulse_specs=rf_specs,
+        ddr_readout_spec=readout,
+        bias_t_compensation_enabled=True,
+        bias_t_compensation_voltage_mv=125.0,
+        bias_t_compensation_mode="fixed_time",
+        bias_t_compensation_duration_us=2.5,
+    )
+    ast.parse(code)
+    namespace = {}
+    exec(compile(code, "<multi-rf-generated>", "exec"), namespace)
+    assert namespace["TPROC_MHZ"] == 300.0
+    assert namespace["BIAS_T_COMPENSATION_ENABLED"] is True
+    assert namespace["BIAS_T_COMPENSATION_VOLTAGE_MV"] == 125.0
+    assert namespace["BIAS_T_COMPENSATION_MODE"] == "fixed_time"
+    assert namespace["BIAS_T_COMPENSATION_DURATION_CYCLES"] == 750
+    bias_t_config = namespace["build_sequence"]().bias_t_compensation
+    assert bias_t_config.amplitude == 0.15625
+    assert bias_t_config.mode == "fixed_time"
+    assert bias_t_config.fixed_duration_cycles == 750
+    stale_hwh_soccfg = {
+        "tprocs": [{"f_time": 400.0}],
+        "gens": [
+            {"f_fabric": 300.0},
+            {"f_fabric": 300.0},
+            {"f_fabric": 300.0},
+        ],
+    }
+    generated_rf = namespace["build_rf_pulses"](stale_hwh_soccfg)
+    assert generated_rf[1].delay_tproc_cycles == 300
+
+    class FakeSoc:
+        def __init__(self):
+            self.calls = []
+
+        def rfb_set_gen_rf(self, gen_ch, att1, att2):
+            self.calls.append(("output", gen_ch, att1, att2))
+            return att1, att2
+
+        def rfb_set_gen_filter(self, gen_ch, **kwargs):
+            self.calls.append(("output_filter", gen_ch, kwargs))
+
+        def rfb_set_ro_rf(self, ro_ch, attenuation):
+            self.calls.append(("readout", ro_ch, attenuation))
+            return attenuation
+
+        def rfb_set_ro_filter(self, ro_ch, **kwargs):
+            self.calls.append(("filter", ro_ch, kwargs))
+
+    soc = FakeSoc()
+    assert namespace["configure_rf_chain"](soc) == (
+        (10.0, 12.0),
+        (8.0, 9.0),
+    )
+    assert ("output_filter", 0, {
+        "fc": 2.25, "bw": 0.75, "ftype": "lowpass"
+    }) in soc.calls
+    assert ("output_filter", 2, {
+        "fc": 2.5, "bw": 1.0, "ftype": "bypass"
+    }) in soc.calls
+    assert namespace["configure_readout_chain"](soc) == 21.0
+    assert soc.calls[-1] == (
+        "filter",
+        0,
+        {"fc": 2.5, "bw": 1.0, "ftype": "lowpass"},
+    )
+
+
+def test_settings_json_round_trip_restores_complete_gui_state(tmp_path):
+    app = _application()
+    window = gui.MainWindow()
+    window._add_segment(500.0, 2000.0, -250.0)
+    window._add_segment(750.0, 1500.0, 125.0)
+    window._add_port()
+    window._pulse[1].v[:] = [300.0, 300.0, 450.0, 450.0, -125.0, -125.0]
+    window._cross_capacitance = np.asarray(
+        ((1.0, 0.2), (-0.15, 1.0)), dtype=float
+    )
+    window._sweep_specs = [
+        QickRampRateSweepSpec("ramp_0_to_1", 0.08, 0.12, 3),
+        QickRampRateSweepSpec("ramp_1_to_2", 0.10, 0.16, 4),
+        QickHoldDurationSweepSpec("set_1", 1.0, 5.0, 5),
+        QickSweepSpec("set_2", "awg_0", -0.4, 0.6, 7),
+    ]
+    window._qick_fabric_mhz = 300.0
+    window._qick_full_scale_mv = 2000.0
+    window._qick_awg_channels = (1, 3)
+    window._qick_repetitions_per_sweep = 11
+    window._grid_configured = True
+    window._set_grid_settings(
+        time_step_ns=250.0,
+        voltage_step_mv=25.0,
+        snap_enabled=True,
+        visible=False,
+    )
+    window._time_unit_combo.setCurrentText("ms")
+    window._set_voltage_view("physical")
+    window._voltage_view_actions["physical"].setChecked(True)
+    window._port_select(1)
+    window._control_tabs.setCurrentWidget(window._awg_tuning_page)
+    window._awg_tuning_tabs.setCurrentWidget(window._rf_readout_panel)
+
+    rf_panel = window._rf_ports_panel._panels[0]
+    rf_panel.setChecked(True)
+    rf_panel.gen_ch.setValue(0)
+    rf_panel.segment.setCurrentIndex(rf_panel.segment.findData("set_1"))
+    rf_panel.delay.setValue(0.00025)
+    rf_panel.duration.setValue(0.0015)
+    rf_panel.frequency_mhz.setValue(123.5)
+    rf_panel.gain.setValue(12345)
+    rf_panel.att1_db.setValue(7.25)
+    rf_panel.att2_db.setValue(8.5)
+    rf_panel.filter_type.setCurrentText("highpass")
+    rf_panel.filter_cutoff.setValue(1.75)
+    rf_panel.filter_bandwidth.setValue(0.625)
+    window._rf_ports_panel.add_port()
+    disabled_rf_panel = window._rf_ports_panel._panels[1]
+    disabled_rf_panel.gen_ch.setValue(4)
+    disabled_rf_panel.frequency_mhz.setValue(80.0)
+
+    readout = window._rf_readout_panel
+    readout.setChecked(True)
+    readout.ro_ch.setValue(2)
+    readout.segment.setCurrentIndex(readout.segment.findData("set_1"))
+    readout.delay.setValue(0.0005)
+    readout.samples.setValue(256)
+    readout.frequency_mhz.setValue(42.0)
+    readout.attenuation_db.setValue(21.25)
+    readout.filter_type.setCurrentText("bandpass")
+    readout.filter_cutoff.setValue(2.25)
+    readout.filter_bandwidth.setValue(0.5)
+    readout.margin_samples.setValue(2048)
+    readout.force_overwrite.setChecked(True)
+    readout.input_board_type.setCurrentText("DC_In")
+    readout.dc_gain_db.setValue(12.0)
+    readout.dc_measure_mode.setChecked(True)
+    readout.dc_measure_gain_v_per_a.setValue(1.0e6)
+    window._stability_panel.apply_path_settings(
+        {
+            "output_ch": 2,
+            "output_att1_db": 12.25,
+            "readout_ch": 1,
+            "input_board_type": "RF_In",
+            "readout_attenuation_db": 9.5,
+        }
+    )
+    window._stability_panel.modulation_frequency_mhz.setValue(211.0)
+    window._stability_panel.trace_samples.setValue(321)
+    window._stability_panel.bias_t_group.setChecked(True)
+    window._stability_panel.bias_t_type.setCurrentIndex(
+        window._stability_panel.bias_t_type.findData("filter")
+    )
+    window._stability_panel.bias_t_filter_tau_us.setValue(42.0)
+    experiment = window._experiment_panel
+    experiment.qick_host.setText("192.0.2.44")
+    experiment.ns_port.setValue(9999)
+    experiment.proxy_name.setText("labqick")
+    experiment.database_path.setText(str(tmp_path / "experiment.db"))
+    experiment.experiment_name.setText("Fine tune sweep")
+    experiment.sample_name.setText("device A")
+    experiment.notes.setPlainText("JSON round-trip notes")
+    experiment.tproc_mhz.setValue(275.0)
+    experiment.bias_t_group.setChecked(True)
+    experiment.bias_t_compensation_mv.setValue(125.0)
+    experiment.bias_t_mode.setCurrentIndex(
+        experiment.bias_t_mode.findData("fixed_time")
+    )
+    experiment.bias_t_duration_us.setValue(2.5)
+    experiment.set_compile_validation_mode("full")
+    experiment.set_iq_storage_mode(IQ_STORAGE_MEAN_IQ)
+    window._stability_panel.iq_storage_mode.setCurrentIndex(
+        window._stability_panel.iq_storage_mode.findData(
+            IQ_STORAGE_MEAN_IQ
+        )
+    )
+    app.processEvents()
+
+    expected = window._settings_to_dict()
+    saved_path = window._save_settings_json(tmp_path / "complete_experiment")
+    assert saved_path.suffix == ".json"
+    document = json.loads(saved_path.read_text(encoding="utf-8"))
+    assert document["schema"] == gui.SETTINGS_SCHEMA
+    assert document["version"] == gui.SETTINGS_VERSION
+    assert document["qick"]["tproc_mhz"] == 275.0
+    assert document["qick"]["compile_validation_mode"] == "full"
+    assert document["qick"]["iq_storage_mode"] == IQ_STORAGE_MEAN_IQ
+    assert document["qick"]["bias_t_compensation"] == {
+        "enabled": True,
+        "type": "dc",
+        "mode": "fixed_time",
+        "voltage_mv": 125.0,
+        "duration_us": 2.5,
+        "filter_tau_us": 100.0,
+    }
+    assert len(document["awg"]["outputs"]) == 2
+    assert document["awg"]["sweeps"][0] == {
+        "axis_kind": "ramp_duration",
+        "segment_name": "ramp_0_to_1",
+        "output_name": "all_awg_outputs",
+        "start": 0.08,
+        "stop": 0.12,
+        "count": 3,
+    }
+    assert document["awg"]["sweeps"][1] == {
+        "axis_kind": "ramp_duration",
+        "segment_name": "ramp_1_to_2",
+        "output_name": "all_awg_outputs",
+        "start": 0.10,
+        "stop": 0.16,
+        "count": 4,
+    }
+    assert document["awg"]["sweeps"][2] == {
+        "axis_kind": "hold_duration",
+        "segment_name": "set_1",
+        "output_name": "all_awg_outputs",
+        "start": 1.0,
+        "stop": 5.0,
+        "count": 5,
+    }
+    assert len(document["rf_outputs"]) == 2
+    assert document["rf_outputs"][0]["filter_type"] == "highpass"
+    assert document["rf_outputs"][0]["filter_cutoff"] == 1.75
+    assert document["rf_outputs"][0]["filter_bandwidth"] == 0.625
+    assert document["rf_readout"]["input_board_type"] == "DC_In"
+    assert document["rf_readout"]["dc_measure_mode"] is True
+    assert document["rf_readout"]["dc_measure_gain_v_per_a"] == 1.0e6
+    assert document["stability_diagram"]["rf_path"]["output_ch"] == 2
+    assert document["stability_diagram"]["rf_path"]["output_att1_db"] == 12.25
+    assert document["stability_diagram"]["rf_path"]["readout_ch"] == 1
+    assert document["stability_diagram"]["rf_path"]["readout_attenuation_db"] == 9.5
+    assert document["stability_diagram"]["modulation_frequency_mhz"] == 211.0
+    assert "rf_outputs" not in document["stability_diagram"]
+    assert "rf_readout" not in document["stability_diagram"]
+    assert document["stability_diagram"]["trace_samples_per_point"] == 321
+    assert (
+        document["stability_diagram"]["iq_storage_mode"]
+        == IQ_STORAGE_MEAN_IQ
+    )
+    assert document["stability_diagram"]["bias_t_compensation"] == {
+        "enabled": True,
+        "type": "filter",
+        "mode": "fixed_voltage",
+        "voltage_mv": 80.0,
+        "duration_us": 1.0,
+        "filter_tau_us": 42.0,
+    }
+
+    restored = gui.MainWindow()
+    restored._load_settings_json(saved_path)
+    app.processEvents()
+    assert restored._settings_to_dict() == expected
+    assert restored._ddr_readout_spec == readout.spec()
+    assert len(restored._rf_pulse_specs) == 1
+    restored_stability_path = restored._stability_panel.front_panel_values()
+    assert restored_stability_path["output_ch"] == 2
+    assert restored_stability_path["output_att1_db"] == 12.25
+    assert restored_stability_path["readout_ch"] == 1
+    assert restored_stability_path["readout_attenuation_db"] == 9.5
+    assert restored._stability_panel.modulation_frequency_mhz.value() == 211.0
+    assert restored._stability_panel.trace_samples.value() == 321
+    assert restored._stability_panel.bias_t_group.isChecked() is True
+    assert restored._stability_panel.bias_t_type.currentData() == "filter"
+    assert restored._stability_panel.bias_t_filter_tau_us.value() == 42.0
+    assert restored._experiment_panel.qick_host.text() == "192.0.2.44"
+    assert restored._experiment_panel.tproc_mhz.value() == 275.0
+    assert restored._experiment_panel.bias_t_group.isChecked() is True
+    assert restored._experiment_panel.bias_t_type.currentData() == "dc"
+    assert restored._experiment_panel.bias_t_mode.currentData() == "fixed_time"
+    assert restored._experiment_panel.bias_t_compensation_mv.value() == 125.0
+    assert restored._experiment_panel.bias_t_duration_us.value() == 2.5
+    assert (
+        restored._experiment_panel.compile_validation_mode.currentData()
+        == "full"
+    )
+    assert (
+        restored._experiment_panel.iq_storage_mode.currentData()
+        == IQ_STORAGE_MEAN_IQ
+    )
+    assert (
+        restored._stability_panel.iq_storage_mode_value()
+        == IQ_STORAGE_MEAN_IQ
+    )
+    assert restored._control_tabs.currentWidget() is restored._awg_tuning_page
+    assert restored._awg_tuning_tabs.currentWidget() is restored._rf_readout_panel
+    assert restored._experiment_panel.database_path.text().endswith("experiment.db")
+    window.close()
+    restored.close()
+
+
+def test_experiment_panel_builds_hardware_run_snapshot(tmp_path):
+    app = _application()
+    window = gui.MainWindow()
+    window._experiment_panel.database_path.setText(str(tmp_path / "run.db"))
+    window._experiment_panel.experiment_name.setText("GUI run")
+    window._experiment_panel.sample_name.setText("sample 1")
+    window._rf_readout_panel.setChecked(True)
+    window._rf_readout_panel.samples.setValue(32)
+    window._experiment_panel.bias_t_group.setChecked(True)
+    window._experiment_panel.bias_t_compensation_mv.setValue(200.0)
+    window._experiment_panel.set_iq_storage_mode(IQ_STORAGE_MEAN_IQ)
+
+    arguments = window._experiment_run_arguments()
+    assert arguments["connection_config"].host == gui.DEFAULT_QICK_HOST
+    assert arguments["run_config"].resolved_database_path == (tmp_path / "run.db")
+    assert arguments["awg_channels"] == (1,)
+    assert arguments["compile_validation_mode"] == "boundary"
+    assert arguments["iq_storage_mode"] == IQ_STORAGE_MEAN_IQ
+    assert arguments["readout_spec"].samples_per_trigger == 32
+    assert arguments["gui_settings"]["qick"]["tproc_mhz"] == 300.0
+    assert arguments["sequence"].bias_t_compensation.amplitude == 0.25
+    assert "waveforms" not in arguments["gui_settings"]
+    assert arguments["gui_settings"]["awg"]["outputs"][0]["time_ns"] == [
+        0.0,
+        1000.0,
+    ]
+    window._experiment_panel.set_running(True, "Starting")
+    window._experiment_panel.update_progress(47, "Saving QCoDeS IQ rows")
+    assert window._experiment_panel.progress.minimum() == 0
+    assert window._experiment_panel.progress.maximum() == 100
+    assert window._experiment_panel.progress.value() == 47
+    assert "47%" in window._experiment_panel.run_status.text()
+    app.processEvents()
+    window.close()
+
+
+def test_stability_tab_builds_two_axis_hardware_sweep_without_database():
+    app = _application()
+    window = gui.MainWindow()
+    window._add_port()
+    window._rf_readout_panel.setChecked(True)
+    window._rf_readout_panel.samples.setValue(16)
+    window._rf_readout_panel.input_board_type.setCurrentText("RF_In")
+    window._rf_readout_panel.attenuation_db.setValue(5.0)
+    window._stability_panel.apply_path_settings(
+        {
+            "input_board_type": "DC_In",
+            "readout_ch": 0,
+            "output_board_type": "DC_Out",
+            "output_ch": 0,
+        }
+    )
+    window._stability_panel.dc_measure_mode.setChecked(True)
+    window._stability_panel.dc_measure_gain_v_per_a.setValue(2.0e6)
+    window._stability_panel.dc_calibration_group.setChecked(True)
+    window._stability_panel.dc_calibration_path.setText("dc_calibration.db")
+    window._stability_panel.dc_calibration_run_id.setValue(7)
+    window._stability_panel.modulation_frequency_mhz.setValue(0.0)
+    window._stability_panel.trace_samples.setValue(96)
+    window._stability_panel.x_axis.start_mv.setValue(-200.0)
+    window._stability_panel.x_axis.stop_mv.setValue(100.0)
+    window._stability_panel.x_axis.points.setValue(5)
+    window._stability_panel.y_axis.start_mv.setValue(-50.0)
+    window._stability_panel.y_axis.stop_mv.setValue(75.0)
+    window._stability_panel.y_axis.points.setValue(3)
+    window._stability_panel.repetitions.setValue(4)
+    window._experiment_panel.bias_t_group.setChecked(True)
+    window._experiment_panel.bias_t_type.setCurrentIndex(
+        window._experiment_panel.bias_t_type.findData("filter")
+    )
+    window._experiment_panel.bias_t_filter_tau_us.setValue(999.0)
+    window._stability_panel.bias_t_group.setChecked(True)
+    window._stability_panel.bias_t_mode.setCurrentIndex(
+        window._stability_panel.bias_t_mode.findData("fixed_time")
+    )
+    window._stability_panel.bias_t_duration_us.setValue(2.5)
+    window._stability_panel.iq_storage_mode.setCurrentIndex(
+        window._stability_panel.iq_storage_mode.findData(
+            IQ_STORAGE_MEAN_IQ
+        )
+    )
+    app.processEvents()
+
+    assert window._stability_panel.dc_measure_mode.isChecked() is True
+    assert window._stability_panel.dc_measure_mode.isEnabled() is True
+    assert window._stability_panel.dc_measure_gain_v_per_a.value() == 2.0e6
+    assert window._stability_panel.dc_calibration_group.isChecked() is True
+    assert (
+        window._stability_panel.dc_calibration_path.text()
+        == "dc_calibration.db"
+    )
+    assert window._stability_panel.dc_calibration_run_id.value() == 7
+    window._stability_panel.dc_measure_gain_v_per_a.setValue(3.0e6)
+    window._stability_panel.dc_calibration_run_id.setValue(8)
+    app.processEvents()
+    assert window._rf_readout_panel.input_board_type.currentText() == "RF_In"
+    assert window._rf_readout_panel.attenuation_db.value() == 5.0
+    assert window._rf_readout_panel.dc_measure_mode.isChecked() is False
+
+    with pytest.raises(ValueError, match='compensation time is too short'):
+        window._stability_run_arguments(save=False)
+    window._stability_panel.bias_t_duration_us.setValue(500.0)
+    arguments = window._stability_run_arguments(save=False)
+
+    assert arguments["run_config"] is None
+    assert arguments["iq_storage_mode"] == IQ_STORAGE_MEAN_IQ
+    assert arguments["gui_settings"] is None
+    assert arguments["repetitions_per_sweep"] == 4
+    assert arguments["sequence"].sweep_shape == (5, 3)
+    assert [axis.output_name for axis in arguments["sequence"].sweep_axes] == [
+        "awg_0",
+        "awg_1",
+    ]
+    assert arguments["sequence"].sweep_point_count == 15
+    assert arguments["sequence"].bias_t_compensation.compensation_type == "dc"
+    assert arguments["sequence"].bias_t_compensation.mode == "fixed_time"
+    assert arguments["sequence"].bias_t_compensation.fixed_duration_cycles == 150000
+    assert arguments["readout_spec"].samples_per_trigger == 96
+    assert window._rf_readout_panel.samples.value() == 16
+    assert arguments["stability_config"].trace_samples_per_point == 96
+    assert arguments["readout_spec"].dc_measure_mode is True
+    assert arguments["readout_spec"].dc_measure_gain_v_per_a == 3.0e6
+    assert arguments["readout_spec"].dc_voltage_calibration_enabled is True
+    assert arguments["readout_spec"].dc_voltage_calibration_run_id == 8
+    assert arguments["readout_spec"].readout_frequency_mhz == 0.0
+    assert arguments["rf_specs"][0].frequency_mhz == 0.0
+    assert arguments["rf_specs"][0].output_board_type == "DC_Out"
+    assert arguments["rf_specs"][0].delay_us == pytest.approx(
+        DEFAULT_STABILITY_RF_START_GUARD_TPROC_CYCLES / 300.0
+    )
+
+    window._stability_panel.bias_t_type.setCurrentIndex(
+        window._stability_panel.bias_t_type.findData("filter")
+    )
+    window._stability_panel.bias_t_filter_tau_us.setValue(25.0)
+    # The long stability hold requires -1376 mV with this tau, beyond the
+    # configured +/-800 mV range. Reject it before connecting or acquiring.
+    with pytest.raises(ValueError, match="RC-compensated DAC output exceeds range"):
+        window._stability_run_arguments(save=False)
+    window._stability_panel.bias_t_filter_tau_us.setValue(250.0)
+    filter_arguments = window._stability_run_arguments(save=False)
+    filter_compensation = filter_arguments["sequence"].rc_compensation
+    assert filter_compensation.tau_us == 250.0
+    assert filter_arguments["sequence"].bias_t_compensation is None
+    window.close()
+
+
+def test_stability_run_arguments_use_calibrated_modulation_power(monkeypatch):
+    app = _application()
+    window = gui.MainWindow()
+    window._add_port()
+    panel = window._stability_panel
+    panel.apply_path_settings({
+        "output_board_type": "RF_Out",
+        "output_ch": 0,
+        "output_nqz": 2,
+        "output_att1_db": 6.25,
+        "output_att2_db": 3.5,
+        "output_filter_type": "bandpass",
+        "output_filter_cutoff_ghz": 0.45,
+        "output_filter_bandwidth_ghz": 0.1,
+    })
+    panel.modulation_frequency_mhz.setValue(450.0)
+    panel.modulation_power_calibration_path.setText("stability_power.db")
+    panel.modulation_power_calibration_run_id.setValue(0)
+    panel.modulation_target_power_dbm.setValue(-42.5)
+    panel.modulation_power_calibration_group.setChecked(True)
+    calls = []
+
+    def resolve_gain(*, raise_on_error=False):
+        calls.append(raise_on_error)
+        panel.modulation_gain.setValue(4321)
+        panel._resolved_modulation_power_run_id = 88
+        return 4321
+
+    monkeypatch.setattr(panel, "resolve_modulation_gain", resolve_gain)
+    app.processEvents()
+
+    arguments = window._stability_run_arguments(save=False)
+    config = arguments["stability_config"]
+    spec = arguments["rf_specs"][0]
+
+    assert calls == [True]
+    assert config.modulation_power_calibration_enabled is True
+    assert config.modulation_gain == 4321
+    assert config.modulation_target_power_dbm == -42.5
+    assert spec.gain == 4321
+    assert spec.power_calibration_enabled is True
+    assert spec.power_calibration_database_path == "stability_power.db"
+    assert spec.power_calibration_run_id == 88
+    assert spec.target_output_power_dbm == -42.5
+    assert spec.frequency_mhz == 450.0
+    assert spec.nqz == 2
+    assert spec.att1_db == 6.25
+    assert spec.att2_db == 3.5
+    assert spec.filter_type == "bandpass"
+    assert spec.filter_cutoff == 0.45
+    assert spec.filter_bandwidth == 0.1
+    window.close()
+
+
+def test_stability_run_arguments_use_identified_50ksps_timing():
+    app = _application()
+    window = gui.MainWindow()
+    window._add_port()
+    window._qick_configuration = SimpleNamespace(
+        fir_sample_rate_hz=50_000.0,
+        fir_trigger_delay_us=1000.0,
+    )
+    window._stability_panel.trace_samples.setValue(100)
+    window._stability_panel.settle_time_us.setValue(25.0)
+
+    arguments = window._stability_run_arguments(save=False)
+
+    expected_hold_us = (
+        25.0
+        + 100 * 20.0
+        + DEFAULT_STABILITY_POINT_GUARD_US
+    )
+    assert arguments["sequence"].segments[0].duration_cycles == int(
+        np.ceil(expected_hold_us * 300.0)
+    )
+    assert arguments["rf_specs"][0].delay_us == pytest.approx(
+        DEFAULT_STABILITY_RF_START_GUARD_TPROC_CYCLES / 300.0
+    )
+    assert arguments["rf_specs"][0].duration_us == 2025.0
+    assert arguments["readout_spec"].fpga_trigger_delay_samples is None
+    assert arguments["readout_spec"].fpga_trigger_delay_us is None
+    assert arguments["stability_fabric_mhz"] == 300.0
+    app.processEvents()
+    window.close()
+
+
+def test_experiment_panel_exposes_show_program_action():
+    app = _application()
+    panel = gui.ExperimentPanel(
+        fabric_mhz=300.0,
+        tproc_mhz=300.0,
+        full_scale_mv=800.0,
+        awg_channels=(1,),
+        repetitions=1,
+    )
+    emitted = []
+    panel.show_program_requested.connect(lambda: emitted.append(True))
+
+    assert panel.show_program_button.text() == "Show QICK Program"
+    panel.show_program_button.click()
+    app.processEvents()
+    assert emitted == [True]
+
+    panel.set_running(True, "Compiling", show_progress=False)
+    assert panel.run_button.isEnabled() is False
+    assert panel.show_program_button.isEnabled() is False
+    assert panel.stop_button.isEnabled() is False
+    assert panel.progress.isVisible() is False
+    panel.close()
+
+
+def test_experiment_panel_stop_button_and_worker_cancellation(monkeypatch):
+    app = _application()
+    panel = gui.ExperimentPanel(
+        fabric_mhz=300.0,
+        tproc_mhz=300.0,
+        full_scale_mv=800.0,
+        awg_channels=(1,),
+        repetitions=1,
+    )
+    stop_requests = []
+    panel.stop_requested.connect(lambda: stop_requests.append(True))
+    panel.set_running(
+        True,
+        "Running",
+        show_progress=True,
+        can_cancel=True,
+    )
+    assert panel.stop_button.isEnabled() is True
+    panel.stop_button.click()
+    app.processEvents()
+    assert stop_requests == [True]
+    panel.set_running(False, "Stopped")
+    assert panel.stop_button.isEnabled() is False
+
+    def fake_run(**kwargs):
+        kwargs["cancel_check"]()
+        raise AssertionError("cancel_check should have raised")
+
+    monkeypatch.setattr(gui, "run_qick_qcodes_experiment", fake_run)
+    worker = gui.QickExperimentWorker({})
+    cancellations = []
+    failures = []
+    worker.cancelled.connect(cancellations.append)
+    worker.failed.connect(failures.append)
+    worker.request_cancel()
+    worker.run()
+    assert cancellations == ["Experiment stopped by user"]
+    assert failures == []
+    panel.close()
+
+
+def test_experiment_panel_result_display_does_not_query_qcodes_dataset():
+    app = _application()
+    panel = gui.ExperimentPanel(
+        fabric_mhz=300.0,
+        tproc_mhz=300.0,
+        full_scale_mv=800.0,
+        awg_channels=(1,),
+        repetitions=1,
+    )
+
+    class ThreadBoundDataset:
+        def get_metadata(self, _name):
+            raise AssertionError("GUI must not query a worker-thread dataset")
+
+    result = SimpleNamespace(
+        run_id=7,
+        row_count=4,
+        database_path="experiment.db",
+        dataset=ThreadBoundDataset(),
+        ddr_result=None,
+        rf_settings={},
+        iq_storage_mode=IQ_STORAGE_MEAN_IQ,
+    )
+
+    panel.show_result(result)
+    app.processEvents()
+
+    assert "4 mean I/Q points" in panel.run_status.text()
+    panel.close()
+
+
+def test_experiment_worker_detaches_qcodes_dataset_before_emit(monkeypatch):
+    class FakeResult:
+        def __init__(self):
+            self.detached = False
+
+        def detach_dataset(self):
+            self.detached = True
+            return self
+
+    result = FakeResult()
+    monkeypatch.setattr(
+        gui,
+        "run_qick_qcodes_experiment",
+        lambda **_kwargs: result,
+    )
+    worker = gui.QickExperimentWorker({})
+    finished = []
+    failures = []
+    worker.finished.connect(finished.append)
+    worker.failed.connect(failures.append)
+
+    worker.run()
+
+    assert result.detached is True
+    assert finished == [result]
+    assert failures == []
+
+
+def test_experiment_panel_records_run_elapsed_time_and_stage_events():
+    app = _application()
+    panel = gui.ExperimentPanel(
+        fabric_mhz=300.0,
+        tproc_mhz=300.0,
+        full_scale_mv=800.0,
+        awg_channels=(1,),
+        repetitions=1,
+    )
+
+    panel.start_run_timeline("Run requested")
+    panel.record_run_event("validation", "started", "Checking settings")
+    panel.record_run_event("validation", "completed", "Settings validated")
+    panel.record_run_event("compile", "started", "Compiling")
+    panel.record_run_event("compile", "completed", "Compiled")
+    panel.finish_run_timeline("Run completed", success=True)
+    app.processEvents()
+
+    log = panel.run_event_log.toPlainText()
+    assert "Experiment STARTED" in log
+    assert "Run validation COMPLETED" in log
+    assert "tProcessor compile STARTED" in log
+    assert "tProcessor compile COMPLETED" in log
+    assert "stage 00:00:" in log
+    assert "Experiment COMPLETED" in log
+    assert "Finished | Started " in panel.run_elapsed_label.text()
+    assert panel.clear_run_log_button.isEnabled() is True
+    panel.close()
+
+
+def test_experiment_panel_defaults_to_parametric_awg_metadata():
+    app = _application()
+    panel = gui.ExperimentPanel(
+        fabric_mhz=300.0,
+        tproc_mhz=300.0,
+        full_scale_mv=800.0,
+        awg_channels=(1,),
+        repetitions=1,
+    )
+    emitted = []
+    panel.awg_metadata_requested.connect(lambda: emitted.append(True))
+
+    assert panel.awg_metadata_mode.currentData() == "parametric"
+    assert panel.values(1)["awg_metadata_mode"] == "parametric"
+    assert panel.compile_validation_mode.currentData() == "boundary"
+    assert panel.values(1)["compile_validation_mode"] == "boundary"
+    assert panel.iq_storage_mode.currentData() == IQ_STORAGE_FULL_TRACES
+    assert panel.values(1)["iq_storage_mode"] == IQ_STORAGE_FULL_TRACES
+    panel.awg_metadata_button.click()
+    app.processEvents()
+    assert emitted == [True]
+
+    panel.set_awg_metadata_mode("expanded")
+    assert panel.values(1)["awg_metadata_mode"] == "expanded"
+    panel.set_compile_validation_mode("full")
+    assert panel.values(1)["compile_validation_mode"] == "full"
+    panel.set_iq_storage_mode(IQ_STORAGE_MEAN_IQ)
+    assert panel.values(1)["iq_storage_mode"] == IQ_STORAGE_MEAN_IQ
+    panel.close()
+
+
+def test_experiment_panel_visualizes_sweep_repetition_ddr_usage():
+    app = _application()
+    panel = gui.ExperimentPanel(
+        fabric_mhz=300.0,
+        tproc_mhz=300.0,
+        full_scale_mv=800.0,
+        awg_channels=(1,),
+        repetitions=3,
+    )
+    panel.set_sweep_specs(
+        (
+            SimpleNamespace(
+                axis_kind="amplitude",
+                output_name="awg_0",
+                segment_name="set_0",
+                start=-0.1,
+                stop=0.1,
+                count=5,
+            ),
+            SimpleNamespace(
+                axis_kind="rf_frequency",
+                output_name="rf_gen_0_frequency",
+                segment_name="set_0",
+                gen_ch=0,
+                start=100.0,
+                stop=200.0,
+                count=7,
+            ),
+        )
+    )
+    panel.set_ddr_readout_spec(
+        QickDdrReadoutSpec(
+            ro_ch=0,
+            segment_name="set_0",
+            delay_us=0.0,
+            samples_per_trigger=10,
+        )
+    )
+    panel.set_ddr_memory_configuration(
+        SimpleNamespace(
+            ddr_capacity_words_32b=4096,
+            ddr_samples_per_axi_word=8,
+        )
+    )
+    app.processEvents()
+
+    assert "35 Cartesian point(s)" in panel.ddr_usage_summary.text()
+    assert "105 DDR trigger(s)" in panel.ddr_usage_summary.text()
+    assert "16 padded 32-bit word(s)/trigger" in panel.ddr_usage_detail.text()
+    assert "6.562 KiB" in panel.ddr_usage_detail.text()
+    assert panel.ddr_usage_progress.value() == 4102
+    assert "41.016%" in panel.ddr_usage_progress.format()
+
+    panel.repetitions.setValue(4)
+    app.processEvents()
+    assert "140 DDR trigger(s)" in panel.ddr_usage_summary.text()
+    assert "54.688%" in panel.ddr_usage_progress.format()
+    panel.close()
+
+
+def test_awg_metadata_dialog_expands_only_the_selected_point():
+    app = _application()
+    sequence = FineTuneSequence(("awg_0",))
+    sequence.add_set("gate", (0.0,), 30)
+    sequence.set_amplitude_sweep("gate", "awg_0", -0.5, 0.5, 3)
+    dialog = gui.AwgMetadataDialog(
+        sequence,
+        fabric_mhz=300.0,
+        full_scale_mv=800.0,
+    )
+
+    assert dialog.recipe["point_count"] == 3
+    assert dialog.recipe["schema"] == "qick-awg-waveform-recipe-v1"
+    assert dialog.point_record["point_index"] == 0
+    dialog.point_index.setValue(2)
+    app.processEvents()
+    assert dialog.point_record["point_index"] == 2
+    assert dialog.point_record["sweep_coordinate"] == [0.5]
+    assert dialog.point_record["virtual_values_mv"]["awg_0"] == [400.0, 400.0]
+    assert dialog.vertex_table.rowCount() == 2
+    dialog.close()
+
+
+def test_show_program_snapshot_allows_disabled_readout():
+    app = _application()
+    window = gui.MainWindow()
+    window._experiment_panel.database_path.clear()
+    window._experiment_panel.experiment_name.clear()
+    window._experiment_panel.sample_name.clear()
+
+    assert window._rf_readout_panel.spec() is None
+    arguments = window._experiment_run_arguments(
+        require_readout=False, require_run_config=False
+    )
+
+    assert arguments["readout_spec"] is None
+    assert arguments["run_config"] is None
+    assert arguments["sequence"].n_outputs == 1
+    app.processEvents()
+    window.close()
+
+
+def test_qick_program_worker_compiles_and_returns_assembly(monkeypatch):
+    app = _application()
+    calls = []
+
+    class FakeProgram:
+        prog_list = [{"name": "regwi"}, {"name": "end"}]
+
+        def compile(self):
+            calls.append("compile")
+            self.binprog = [1, 2]
+
+        def asm(self):
+            return "// Program\nregwi 0, 1, 2;\nend;"
+
+        def summary(self):
+            return {"sweep_points": 3}
+
+    fake_program = FakeProgram()
+    monkeypatch.setattr(
+        gui, "connect_qick", lambda config: (object(), {"gens": []})
+    )
+    monkeypatch.setattr(
+        gui,
+        "build_qick_program",
+        lambda soccfg, **kwargs: fake_program,
+    )
+    results = []
+    failures = []
+    worker = gui.QickProgramWorker(
+        object(),
+        {
+            "sequence": object(),
+            "awg_channels": (1,),
+            "repetitions_per_sweep": 1,
+        },
+    )
+    worker.finished.connect(results.append)
+    worker.failed.connect(failures.append)
+    worker.run()
+    app.processEvents()
+
+    assert failures == []
+    assert calls == ["compile"]
+    assert results[0]["instruction_count"] == 2
+    assert results[0]["machine_word_count"] == 2
+    assert "regwi" in results[0]["assembly"]
+
+
+def test_qick_assembly_dialog_is_read_only_and_copyable():
+    app = _application()
+    assembly = "// Program\nregwi 0, 1, 2;\nend;"
+    dialog = gui.QickAssemblyDialog(
+        {
+            "assembly": assembly,
+            "instruction_count": 2,
+            "machine_word_count": 2,
+        }
+    )
+
+    assert dialog.assembly_text.isReadOnly() is True
+    assert dialog.assembly_text.toPlainText() == assembly
+    assert "2 assembly instructions" in dialog.summary_label.text()
+    dialog.copy_button.click()
+    app.processEvents()
+    assert QtWidgets.QApplication.clipboard().text() == assembly
+
+
+def test_detailed_error_dialog_copies_summary_and_traceback():
+    app = _application()
+    details = "Traceback (most recent call last):\nModuleNotFoundError: numpy._core"
+    dialog = gui.DetailedErrorMessageBox(
+        "RF S-parameter sweep failed",
+        "ModuleNotFoundError: numpy._core",
+        details,
+    )
+
+    assert dialog.detailedText() == details
+    assert dialog.copy_button.text() == "Copy Details"
+    dialog.copy_button.click()
+    app.processEvents()
+    copied = QtWidgets.QApplication.clipboard().text()
+    assert "RF S-parameter sweep failed" in copied
+    assert details in copied
+    dialog.close()
+
+
+def test_main_fit_action_also_fits_sparameter_plot():
+    app = _application()
+    window = gui.MainWindow()
+    calls = []
+    window._sparameter_plot.fit_view = lambda: calls.append("sparameter")
+
+    window._fit_view()
+    app.processEvents()
+
+    assert calls == ["sparameter"]
+    window.close()
+
+
+def test_legacy_single_waveform_json_remains_loadable(tmp_path):
+    app = _application()
+    pulse = PulseSequence(-125.0, initial_duration_ns=750.0)
+    pulse.add_flat_ramp(125.0, 500.0, 225.0)
+    path = tmp_path / "legacy.json"
+    path.write_text(json.dumps(pulse.to_dict()), encoding="utf-8")
+
+    window = gui.MainWindow()
+    window._load_settings_json(path)
+    app.processEvents()
+    assert window._pulse[0].to_dict() == pulse.to_dict()
+    window.close()
+
+
+def test_segment_names_survive_insert_delete_copy_and_json():
+    pulse = PulseSequence(-125.0, initial_duration_ns=750.0)
+    pulse.rename_segment(0, "Reset")
+    pulse.add_flat_ramp(125.0, 500.0, 225.0)
+    pulse.rename_segment(1, "Readout")
+
+    assert pulse.insert_flat_ramp(2, 50.0, 100.0)
+    inserted_name = pulse.segment_name(1)
+    assert inserted_name not in {"Reset", "Readout"}
+    assert pulse.segment_names == ["Reset", inserted_name, "Readout"]
+
+    assert pulse.delete_flat_ramp(2)
+    assert pulse.segment_names == ["Reset", "Readout"]
+    assert pulse.copy().segment_names == ["Reset", "Readout"]
+    restored = PulseSequence.from_dict(pulse.to_dict())
+    assert restored.segment_names == ["Reset", "Readout"]
+
+    legacy = pulse.to_dict()
+    legacy.pop("segment_names")
+    restored_legacy = PulseSequence.from_dict(legacy)
+    assert restored_legacy.segment_names == ["set_0", "set_1"]
+
+
+def test_settings_without_tproc_clock_use_300_mhz_default():
+    app = _application()
+    window = gui.MainWindow()
+    document = window._settings_to_dict()
+    document["qick"].pop("tproc_mhz")
+
+    decoded = window._decode_settings(document)
+    assert decoded["tproc_mhz"] == 300.0
+    window._apply_decoded_settings(decoded)
+    assert window._experiment_panel.tproc_mhz.value() == 300.0
+    app.processEvents()
+    window.close()
+
+
+@pytest.mark.parametrize(
+    ("old_index", "panel_name"),
+    ((1, "_sparameter_panel"), (2, "_calibration_panel")),
+)
+def test_version_12_top_level_tabs_migrate_after_stability_tab_insertion(
+    old_index,
+    panel_name,
+):
+    app = _application()
+    window = gui.MainWindow()
+    document = window._settings_to_dict()
+    document["version"] = 12
+    document["display"]["selected_control_tab"] = old_index
+    document.pop("stability_diagram")
+
+    decoded = window._decode_settings(document)
+    window._apply_decoded_settings(decoded)
+    app.processEvents()
+
+    assert window._control_tabs.currentWidget() is getattr(window, panel_name)
+    window.close()
+
+
+def test_older_settings_apply_defaults_and_resave_as_current(tmp_path):
+    app = _application()
+    window = gui.MainWindow()
+    document = window._settings_to_dict()
+    document["version"] = 2
+    document["display"]["selected_control_tab"] = 2
+    document["display"].pop("selected_awg_tuning_tab")
+    document["display"].pop("voltage_view")
+    document["grid"].pop("snap_enabled")
+    document["awg"].pop("cross_capacitance")
+    document["awg"].pop("sweeps")
+    document["qick"].pop("tproc_mhz")
+    document["qick"].pop("repetitions_per_sweep")
+    document["qick"].pop("iq_storage_mode")
+    document["qick"].pop("bias_t_compensation")
+    document["stability_diagram"].pop("iq_storage_mode")
+    document["experiment"].pop("notes")
+    document.pop("rf_outputs")
+    document["rf_readout"] = {"enabled": False}
+    document["s_parameter"].pop("database_path")
+
+    old_path = tmp_path / "settings_v2.json"
+    old_path.write_text(json.dumps(document), encoding="utf-8")
+    window._load_settings_json(old_path)
+    app.processEvents()
+
+    assert np.array_equal(window._cross_capacitance, np.eye(1))
+    assert window._plot.voltage_view == "both"
+    assert window._grid_snap_enabled is False
+    assert window._experiment_panel.tproc_mhz.value() == 300.0
+    assert window._experiment_panel.repetitions.value() == 1
+    assert (
+        window._experiment_panel.iq_storage_mode.currentData()
+        == IQ_STORAGE_FULL_TRACES
+    )
+    assert (
+        window._stability_panel.iq_storage_mode_value()
+        == IQ_STORAGE_FULL_TRACES
+    )
+    assert window._experiment_panel.bias_t_group.isChecked() is False
+    assert window._experiment_panel.bias_t_compensation_mv.value() == 80.0
+    assert window._control_tabs.currentWidget() is window._awg_tuning_page
+    assert window._awg_tuning_tabs.currentWidget() is window._rf_readout_panel
+    assert len(window._rf_ports_panel._panels) == 1
+    assert window._rf_ports_panel.settings()[0] == gui.DEFAULT_RF_OUTPUT_SETTINGS
+    assert (
+        window._rf_readout_panel.settings_dict()
+        == gui.DEFAULT_RF_READOUT_SETTINGS
+    )
+    assert (
+        window._sparameter_panel.settings_dict()
+        == gui.DEFAULT_SPARAMETER_SETTINGS
+    )
+
+    upgraded_path = window._save_settings_json(tmp_path / "settings_upgraded")
+    upgraded = json.loads(upgraded_path.read_text(encoding="utf-8"))
+    assert upgraded["version"] == gui.SETTINGS_VERSION == 45
+    assert upgraded["qick"]["awg_metadata_mode"] == "parametric"
+    assert upgraded["qick"]["iq_storage_mode"] == IQ_STORAGE_FULL_TRACES
+    assert upgraded["qick"]["compile_validation_mode"] == "boundary"
+    assert upgraded["display"]["selected_control_tab"] == 0
+    assert upgraded["display"]["selected_awg_tuning_tab"] == 2
+    assert upgraded["display"]["voltage_view"] == "both"
+    assert upgraded["grid"]["snap_enabled"] is False
+    assert upgraded["awg"]["cross_capacitance"] == [[1.0]]
+    assert upgraded["awg"]["sweeps"] == []
+    assert upgraded["stability_diagram"]["x_axis"]["output_name"] == "awg_0"
+    assert upgraded["stability_diagram"]["y_axis"]["output_name"] == "awg_0"
+    assert upgraded["stability_diagram"]["trace_samples_per_point"] == 64
+    assert (
+        upgraded["stability_diagram"]["iq_storage_mode"]
+        == IQ_STORAGE_FULL_TRACES
+    )
+    assert upgraded["stability_diagram"]["bias_t_compensation"] == {
+        "enabled": False,
+        "type": "dc",
+        "mode": "fixed_voltage",
+        "voltage_mv": 80.0,
+        "duration_us": 1.0,
+        "filter_tau_us": 100.0,
+    }
+    assert "rf_readout" not in upgraded["stability_diagram"]
+    assert "rf_outputs" not in upgraded["stability_diagram"]
+    assert upgraded["qick"]["tproc_mhz"] == 300.0
+    assert upgraded["qick"]["repetitions_per_sweep"] == 1
+    assert upgraded["qick"]["bias_t_compensation"] == {
+        "enabled": False,
+        "type": "dc",
+        "mode": "fixed_voltage",
+        "voltage_mv": 80.0,
+        "duration_us": 1.0,
+        "filter_tau_us": 100.0,
+    }
+    assert upgraded["experiment"]["notes"] == ""
+    assert upgraded["rf_outputs"] == [gui.DEFAULT_RF_OUTPUT_SETTINGS]
+    assert upgraded["rf_readout"] == gui.DEFAULT_RF_READOUT_SETTINGS
+    assert upgraded["rf_readout"]["dc_measure_mode"] is False
+    assert upgraded["rf_readout"]["dc_measure_gain_v_per_a"] == 1.0
+    assert (
+        upgraded["s_parameter"]["database_path"]
+        == gui.DEFAULT_SPARAMETER_SETTINGS["database_path"]
+    )
+    window.close()
+
+
+def test_bias_t_gui_extends_and_plots_the_physical_awg_trace():
+    app = _application()
+    window = gui.MainWindow()
+    original_end_ns = float(window._plot._physical_time_ns[-1])
+    window._experiment_panel.bias_t_compensation_mv.setValue(100.0)
+    window._experiment_panel.bias_t_group.setChecked(True)
+    app.processEvents()
+
+    assert window._bias_t_compensation_enabled is True
+    assert window._plot._physical_time_ns[-1] > original_end_ns
+    assert np.min(window._plot._physical_values_mv[0]) == -100.0
+    assert window._plot._physical_values_mv[0, -1] == 0.0
+    window.close()
+
+
+def test_bias_t_gui_fixed_time_disables_voltage_and_adjusts_preview_level():
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._experiment_panel
+    panel.bias_t_mode.setCurrentIndex(panel.bias_t_mode.findData("fixed_time"))
+    panel.bias_t_duration_us.setValue(2.0)
+    panel.bias_t_group.setChecked(True)
+    app.processEvents()
+
+    assert panel.bias_t_compensation_mv.isEnabled() is False
+    assert panel.bias_t_duration_us.isEnabled() is True
+    assert window._bias_t_compensation_mode == "fixed_time"
+    assert window._bias_t_compensation_duration_us == 2.0
+    assert np.min(window._plot._physical_values_mv[0]) == pytest.approx(
+        -50.0,
+        abs=0.2,
+    )
+    assert window._plot._physical_values_mv[0, -1] == 0.0
+    window.close()
+
+
+def test_bias_t_gui_rc_mode_enables_tau_and_preserves_nominal_segments(tmp_path):
+    app = _application()
+    window = gui.MainWindow()
+    panel = window._experiment_panel
+    panel.bias_t_type.setCurrentIndex(panel.bias_t_type.findData("filter"))
+    panel.bias_t_filter_tau_us.setValue(50.0)
+    panel.bias_t_group.setChecked(True)
+    app.processEvents()
+
+    assert panel.bias_t_mode.isEnabled() is False
+    assert panel.bias_t_compensation_mv.isEnabled() is False
+    assert panel.bias_t_duration_us.isEnabled() is False
+    assert panel.bias_t_filter_tau_us.isEnabled() is True
+    assert window._bias_t_compensation_type == "filter"
+    assert window._bias_t_filter_tau_us == 50.0
+    assert window._plot._physical_values_mv[0, 0] == pytest.approx(100.0)
+    assert window._plot._physical_values_mv[0, -1] == pytest.approx(100.0)
+
+    sequence = window._experiment_run_arguments(
+        require_readout=False,
+        require_run_config=False,
+    )["sequence"]
+    assert sequence.bias_t_compensation is None
+    assert sequence.rc_compensation.tau_us == 50.0
+
+    settings_path = window._save_settings_json(tmp_path / "filter_compensation")
+    restored = gui.MainWindow()
+    restored._load_settings_json(settings_path)
+    app.processEvents()
+    assert restored._experiment_panel.bias_t_type.currentData() == "filter"
+    assert restored._experiment_panel.bias_t_filter_tau_us.value() == 50.0
+    assert restored._bias_t_compensation_type == "filter"
+    assert restored._bias_t_filter_tau_us == 50.0
+    restored.close()
+    window.close()
+
+
+def test_generated_qick_filter_compensation_preserves_tau_configuration():
+    pulse = PulseSequence(
+        initial_voltage=100.0,
+        initial_duration_ns=1_000.0,
+    )
+    code = generate_qick_program_code(
+        (pulse,),
+        output_names=("awg_0",),
+        awg_channels=(1,),
+        fabric_mhz=300.0,
+        bias_t_compensation_enabled=True,
+        bias_t_compensation_type="filter",
+        bias_t_filter_tau_us=50.0,
+    )
+    ast.parse(code)
+    namespace = {}
+    exec(compile(code, "<filter-comp-generated>", "exec"), namespace)
+
+    assert namespace["BIAS_T_COMPENSATION_TYPE"] == "filter"
+    assert namespace["BIAS_T_FILTER_TAU_US"] == 50.0
+    assert namespace["BIAS_T_FILTER_TAU_CYCLES"] == 15_000.0
+    config = namespace["build_sequence"]().rc_compensation
+    assert config.tau_us == 50.0
+
+
+def test_partial_legacy_rf_settings_fill_nested_defaults():
+    app = _application()
+    window = gui.MainWindow()
+    document = window._settings_to_dict()
+    document["version"] = 1
+    document["rf_outputs"] = [{"gen_ch": 4, "segment_name": "set_0"}]
+    document["rf_readout"] = {"ro_ch": 2, "segment_name": "set_0"}
+
+    decoded = window._decode_settings(document)
+    rf_output = decoded["rf_outputs"][0]
+    assert rf_output["enabled"] is True
+    assert rf_output["gen_ch"] == 4
+    assert rf_output["duration_us"] == 1.0
+    assert rf_output["frequency_mhz"] == 50.0
+    assert rf_output["gain"] == 20000
+    assert rf_output["filter_type"] == "bypass"
+    assert rf_output["filter_cutoff"] == 2.5
+    assert rf_output["filter_bandwidth"] == 1.0
+    assert decoded["rf_readout"] == {
+        **gui.DEFAULT_RF_READOUT_SETTINGS,
+        "ro_ch": 2,
+    }
+    app.processEvents()
+    window.close()

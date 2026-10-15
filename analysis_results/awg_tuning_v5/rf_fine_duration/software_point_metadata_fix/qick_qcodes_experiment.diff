@@ -1,0 +1,39 @@
+--- before/qick_qcodes_experiment.py
++++ staging/qick_qcodes_experiment.py
+@@ -1402,7 +1402,8 @@
+     sweep_coordinates: np.ndarray
+ 
+     def summary(self) -> Mapping[str, Any]:
+-        base = dict(self.programs[-1].summary())
++        summaries = tuple(dict(program.summary()) for program in self.programs)
++        base = dict(summaries[-1])
+         base.update({
+             "software_sweep_program_count": len(self.programs),
+             "software_sweep_axes": [asdict(axis) for axis in self.sweep_axes],
+@@ -1411,6 +1412,26 @@
+                 "one tProcessor compile/acquisition per RF software point"
+             ),
+         })
++        if any(summary.get("rf_fine_duration") for summary in summaries):
++            # T2 duration and other host axes compile distinct programs. Keep
++            # each point's realized sample widths instead of reporting only
++            # the last program's fine-duration settings for the entire run.
++            coordinates = self.sweep_coordinates.tolist()
++            base["rf_fine_duration_software_points"] = [
++                {
++                    "software_point_index": index,
++                    "software_coordinate": coordinates[index],
++                    "rf_fine_duration": summary.get("rf_fine_duration", ()),
++                }
++                for index, summary in enumerate(summaries)
++            ]
++            if "rf_fine_duration" in base:
++                base["rf_fine_duration_scope"] = {
++                    "scope": "last_software_point",
++                    "software_point_index": len(summaries) - 1,
++                    "software_coordinate": coordinates[-1],
++                    "all_points_key": "rf_fine_duration_software_points",
++                }
+         return base
+ 
+     def __getattr__(self, name: str) -> Any:

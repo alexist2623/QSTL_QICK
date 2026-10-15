@@ -1,0 +1,383 @@
+.......FFFF                                                              [100%]
+================================== FAILURES ===================================
+_______ test_matrix_with_gui_predefined_n_tau_all_software_points[udd] ________
+
+window = <DCWaveform_Generator.MainWindow object at 0x0000024A050B7DA0>
+template = 'udd'
+
+    @pytest.mark.parametrize('template',['cpmg','udd'])
+    def test_matrix_with_gui_predefined_n_tau_all_software_points(window,template):
+        from dataclasses import asdict
+        panel=window._rf_ports_panel._panels[0]
+        values=panel.settings_dict()
+        values.update(pulse_mode='composite',predefined_template=template,predefined_gain=2000,
+            predefined_n=1,predefined_tau_us=.2,predefined_n_sweep_enabled=True,
+            predefined_n_sweep_start=1,predefined_n_sweep_stop=2,predefined_n_sweep_count=2,
+            predefined_tau_sweep_enabled=True,predefined_tau_sweep_start_us=.2,
+            predefined_tau_sweep_stop_us=.4,predefined_tau_sweep_count=2,
+            predefined_frequency_parameter='f0',predefined_duration_parameter='d0',
+            frequency_parameters=[asdict(QickRfFrequencyParameterSpec('f0',190.))],
+            duration_parameters=[asdict(QickRfDurationParameterSpec('d0',.1))],segment_length_mode='fixed')
+        panel.load_settings(values)
+        runtime=window._experiment_run_arguments(require_readout=False,require_run_config=False)
+        np.testing.assert_array_equal(runtime['sequence'].cross_capacitance,MATRIX)
+        specs=runtime['rf_specs'];bindings=_rf_software_sweep_bindings(specs)
+        coordinates=_software_sweep_coordinates(bindings)
+        assert coordinates.tolist()==[[1.,.2],[1.,.4],[2.,.2],[2.,.4]]
+        results=[]
+        for coordinate in coordinates:
+            n,tau=int(coordinate[0]),float(coordinate[1])
+            concrete=_rf_specs_at_software_coordinate(specs,bindings,coordinate)
+            seq=_sequence_at_rf_software_coordinate(runtime['sequence'],concrete,fabric_mhz=300.)
+>           program=build_qick_program(configuration(),seq,awg_channels=runtime['awg_channels'],
+                repetitions_per_sweep=2,rf_specs=concrete,compile_validation_mode='boundary',tproc_mhz=300.)
+
+qick\firmware\ip\axis_output_sum_v1\validation\virtual_gate\test_coverage.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\PulseGenerator\DCWaveformGeneratorGUI\qick_qcodes_experiment.py:968: in build_qick_program
+    return sequence.make_program(soccfg, **program_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py:2359: in make_program
+    return FineTuneAmplitudeSweepProgram(
+..\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py:2675: in __init__
+    super().__init__(soccfg, cfg)
+qick\qick_lib\qick\averager_program.py:211: in __init__
+    self.make_program()
+..\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py:7134: in make_program
+    self.initialize()
+..\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py:2798: in initialize
+    self._build_aux_timing()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <qick_fine_tune_sweep.FineTuneAmplitudeSweepProgram object at 0x0000024A053504D0>
+
+    def _build_aux_timing(self):
+        f_time = self.tproc_mhz
+    
+        # v4 sums RF samples into the AWG DAC. Schedule the existing DDS ahead
+        # of its requested physical boundary by its measured pipeline latency.
+        # Legacy bitstreams retain their original RF timestamp convention.
+        rf_latencies = [self._fabric_to_tproc(rf.gen_ch,
+            int(self.soccfg['gens'][rf.gen_ch]['output_latency_cycles']))
+            if self.soccfg['gens'][rf.gen_ch].get('output_sum_role') == 'rf' else 0
+            for rf in self.rf_pulse_configs]
+        earliest = min((self.timing['segment_starts'][self._segment_index(rf.at_segment, require_set=True)]
+                        + rf.delay_tproc_cycles - latency
+                        for rf, latency in zip(self.rf_pulse_configs, rf_latencies)), default=0)
+        if earliest < 0:
+            self._shift_timing(-earliest)
+    
+        if self.ddr_readout_config is not None:
+            ddr = self.ddr_readout_config
+            segment_index = self._segment_index(ddr.at_segment, require_set=True)
+            trigger_time = (
+                self.timing["segment_starts"][segment_index]
+                + ddr.trigger_delay_tproc_cycles
+            )
+            input_fs = self._fir_cfg["input_fs_mhz"]
+            group_delay = self._fir_cfg["group_delay_input_samples"]
+            decimation = self._fir_cfg["decimation"]
+            if self._fir_cfg["software_warmup_compensation"]:
+                warmup_cycles = int(ceil(group_delay * f_time / input_fs))
+                readout_start = trigger_time - warmup_cycles
+                if readout_start < 0:
+                    shift = -readout_start
+                    self._shift_timing(shift)
+                    trigger_time += shift
+                    readout_start += shift
+    
+                software_trigger_delay_cycles = int(ceil(
+                    self._fir_cfg["software_trigger_delay_input_samples"]
+                    * f_time
+                    / input_fs
+                ))
+                trigger_time += software_trigger_delay_cycles
+    
+                feed_input_samples = (
+                    ddr.samples_per_trigger * decimation
+                    + group_delay
+                    + self._fir_cfg["software_trigger_delay_input_samples"]
+                    + ddr.margin_input_samples
+                )
+                feed_tproc_cycles = int(
+                    ceil(feed_input_samples * f_time / input_fs)
+                )
+                capture_end = readout_start + feed_tproc_cycles
+            else:
+                # The 50 kSPS HWH keeps filtering continuously and delays DDR
+                # storage in axis_buffer_ddr_sample_v2. Do not move any AWG,
+                # readout, or trigger event by the FIR group delay in tProcessor
+                # code. The FIR group delay is pipeline latency, not per-point
+                # occupancy: waiting for it here would insert the same delay
+                # between every hardware-sweep point and defeat queued triggers.
+                warmup_cycles = 0
+                software_trigger_delay_cycles = 0
+                readout_start = 0
+                capture_input_samples = (
+                    ddr.samples_per_trigger * decimation
+                    + ddr.margin_input_samples
+                )
+                queued_input_samples = (
+                    self._fir_cfg["trigger_delay_input_cycles"]
+                    + capture_input_samples
+                )
+                post_trigger_cycles = int(
+                    ceil(capture_input_samples * f_time / input_fs)
+                )
+                capture_end = trigger_time + post_trigger_cycles
+                feed_input_samples = group_delay + queued_input_samples
+            self.aux_timing.update({
+                "ddr_readout_start": int(readout_start),
+                "ddr_trigger_time": int(trigger_time),
+                "ddr_capture_end": int(capture_end),
+                "fir_warmup_tproc_cycles": int(warmup_cycles),
+                "fir_software_trigger_delay_tproc_cycles": int(
+                    software_trigger_delay_cycles
+                ),
+                "fir_software_trigger_delay_output_samples": self._fir_cfg[
+                    "software_trigger_delay_output_samples"
+                ],
+                "fir_software_trigger_delay_input_samples": self._fir_cfg[
+                    "software_trigger_delay_input_samples"
+                ],
+                "fir_feed_input_samples": int(feed_input_samples),
+                "fir_rate_profile": self._fir_cfg["rate_profile"],
+                "fir_output_sample_rate_hz": self._fir_cfg["output_sample_rate_hz"],
+                "fir_software_warmup_compensation": self._fir_cfg[
+                    "software_warmup_compensation"
+                ],
+                "fir_fpga_trigger_delay_samples": self._fir_cfg[
+                    "trigger_delay_samples"
+                ],
+                "fir_fpga_trigger_delay_units": self._fir_cfg[
+                    "trigger_delay_units"
+                ],
+            })
+            self.timing["point_end"] = max(self.timing["point_end"], capture_end)
+    
+        rf_timings = []
+        occupied_by_port = {}
+        for timing_key, command_time in self.timing["command_times"].items():
+            output_index = int(timing_key[1])
+            awg_ch = self.awg_channels[output_index]
+            awg_port = int(self.soccfg["gens"][awg_ch]["tproc_ch"])
+            occupied_by_port.setdefault(awg_port, set()).add(int(command_time))
+        if self.ddr_readout_config is not None:
+            ro_cfg = self.soccfg["readouts"][self.ddr_readout_config.ro_ch]
+            occupied_by_port.setdefault(int(ro_cfg["tproc_ctrl"]), set()).add(
+                int(self.aux_timing["ddr_readout_start"])
+            )
+    
+        for rf_index, rf in enumerate(self.rf_pulse_configs):
+            segment_index = self._segment_index(rf.at_segment, require_set=True)
+            requested_start = (
+                self.timing["segment_starts"][segment_index] + rf.delay_tproc_cycles
+            )
+            rf_port = int(self.soccfg["gens"][rf.gen_ch]["tproc_ch"])
+            occupied = occupied_by_port.setdefault(rf_port, set())
+            latency = rf_latencies[rf_index]
+            rf_start = int(requested_start) - latency
+            if latency and any(abs(rf_start - t) < 3 for t in occupied):
+>               raise ValueError('The v4 RF command conflicts with another command on its shared '
+                                 'tProcessor port; adjust the RF delay or segment timing.')
+E               ValueError: The v4 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.
+
+..\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py:5329: ValueError
+-------------------------- Captured stderr teardown ---------------------------
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 2421, in <lambda>
+    lambda: self.panel_scroll.ensureWidgetVisible(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: wrapped C/C++ object of type QScrollArea has been deleted
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 2421, in <lambda>
+    lambda: self.panel_scroll.ensureWidgetVisible(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: wrapped C/C++ object of type QScrollArea has been deleted
+_________ test_quantum_loop_uses_physical_channels_not_awg_matrix[0] __________
+
+window = <DCWaveform_Generator.MainWindow object at 0x0000024A7CDAE450>, n = 0
+
+    @pytest.mark.parametrize('n',[0,1,3])
+    def test_quantum_loop_uses_physical_channels_not_awg_matrix(window,n):
+        from quantum_circuit_execution import build_circuit_execution
+        from test_quantum_circuit_loops import loop_document
+        document=loop_document(n)
+        window._quantum_circuit_panel.load_document(document)
+        readout=window._rf_readout_panel.settings_dict()
+        readout.update(enabled=True,segment_name='set_0')
+        window._rf_readout_panel.load_settings(readout)
+        runtime=window._quantum_circuit_run_arguments()
+        np.testing.assert_array_equal(runtime['gui_settings']['awg']['cross_capacitance'],MATRIX)
+        keys=set(inspect.signature(build_circuit_execution).parameters)-{'document','soccfg'}
+        execution=build_circuit_execution(document,configuration(),**{k:v for k,v in runtime.items() if k in keys})
+        execution.program.compile()
+        np.testing.assert_array_equal(execution.sequence.cross_capacitance,np.eye(2))
+>       assert execution.timeline['awg'][0]['points'][-1][1]==10+n
+               ^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'CircuitExecution' object has no attribute 'timeline'
+
+qick\firmware\ip\axis_output_sum_v1\validation\virtual_gate\test_coverage.py:121: AttributeError
+-------------------------- Captured stderr teardown ---------------------------
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 2421, in <lambda>
+    lambda: self.panel_scroll.ensureWidgetVisible(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: wrapped C/C++ object of type QScrollArea has been deleted
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 2421, in <lambda>
+    lambda: self.panel_scroll.ensureWidgetVisible(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: wrapped C/C++ object of type QScrollArea has been deleted
+_________ test_quantum_loop_uses_physical_channels_not_awg_matrix[1] __________
+
+window = <DCWaveform_Generator.MainWindow object at 0x0000024A01DA7530>, n = 1
+
+    @pytest.mark.parametrize('n',[0,1,3])
+    def test_quantum_loop_uses_physical_channels_not_awg_matrix(window,n):
+        from quantum_circuit_execution import build_circuit_execution
+        from test_quantum_circuit_loops import loop_document
+        document=loop_document(n)
+        window._quantum_circuit_panel.load_document(document)
+        readout=window._rf_readout_panel.settings_dict()
+        readout.update(enabled=True,segment_name='set_0')
+        window._rf_readout_panel.load_settings(readout)
+        runtime=window._quantum_circuit_run_arguments()
+        np.testing.assert_array_equal(runtime['gui_settings']['awg']['cross_capacitance'],MATRIX)
+        keys=set(inspect.signature(build_circuit_execution).parameters)-{'document','soccfg'}
+>       execution=build_circuit_execution(document,configuration(),**{k:v for k,v in runtime.items() if k in keys})
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+qick\firmware\ip\axis_output_sum_v1\validation\virtual_gate\test_coverage.py:118: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\PulseGenerator\DCWaveformGeneratorGUI\quantum_circuit_execution.py:237: in build_circuit_execution
+    rf_latencies, rf_profiles = _rf_latencies(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+soccfg = <qick.qick_asm.QickConfig object at 0x0000024A01EAC920>
+awg_channels = (1, 3)
+timeline = {'duration_us': 30.0, 'awg': [{'channel': 1, 'points': [[0.0, 0.0], [0.0, 10.0], [5.0, 10.0], [5.1, 11.0], [30.0, 11.0...': 8.0, 'frequency_mhz': 50.0, ...}]}], 'acquisition': [{'gate_id': 'Readout', 'start_us': 10.0, 'end_us': 30.0}], ...}
+rf_channel_map = (0, 2, 4, 6, 12, 13, ...), explicit = None
+
+    def _rf_latencies(soccfg, awg_channels, timeline, rf_channel_map, explicit):
+        """Select a verified digital-path profile, never infer an analog delay."""
+        gens = soccfg["gens"]
+        overrides = dict(explicit or {})
+        result, profiles = {}, {}
+        awg_profile = all(
+            gens[ch].get("type") == "axis_awg_tuning_v3"
+            and int(gens[ch].get("dc_area_version", 0)) == 1
+            and int(gens[ch].get("dc_area_bits", 0)) == 48
+            and int(gens[ch].get("output_latency_cycles", -1)) == 16
+            for ch in awg_channels)
+        for lane in timeline["rf"]:
+            ch = _mapped(lane["channel"], rf_channel_map, "RF", gens)
+            cfg = gens[ch]
+            if ch in overrides:
+                value = overrides[ch]
+                if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+                    raise ValueError("Explicit RF output latency must be a nonnegative integer number of tProcessor clocks")
+                result[ch], profiles[ch] = value, "caller_verified_digital_latency"
+            elif (awg_profile and cfg.get("type") == "axis_signal_gen_v6"
+                  and int(cfg.get("revision", -1)) == 6
+                  and int(cfg.get("samps_per_clk", 0)) == 16
+                  and int(cfg.get("tmux_ch", -1)) == 0
+                  and float(cfg.get("f_fabric", 0)) == 300.0
+                  and float(soccfg["tprocs"][0]["f_time"]) == 300.0):
+                result[ch] = 42
+                profiles[ch] = "qstl_v3_rf_v6_300mhz_tmux_digital"
+            else:
+>               raise ValueError(f"RF {lane['channel']} output latency is unknown for the loaded firmware profile; use the verified QSTL v3 profile or provide an explicitly verified digital latency")
+E               ValueError: RF 1 output latency is unknown for the loaded firmware profile; use the verified QSTL v3 profile or provide an explicitly verified digital latency
+
+..\PulseGenerator\DCWaveformGeneratorGUI\quantum_circuit_execution.py:155: ValueError
+-------------------------- Captured stderr teardown ---------------------------
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 2421, in <lambda>
+    lambda: self.panel_scroll.ensureWidgetVisible(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: wrapped C/C++ object of type QScrollArea has been deleted
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 2421, in <lambda>
+    lambda: self.panel_scroll.ensureWidgetVisible(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: wrapped C/C++ object of type QScrollArea has been deleted
+_________ test_quantum_loop_uses_physical_channels_not_awg_matrix[3] __________
+
+window = <DCWaveform_Generator.MainWindow object at 0x0000024A05073650>, n = 3
+
+    @pytest.mark.parametrize('n',[0,1,3])
+    def test_quantum_loop_uses_physical_channels_not_awg_matrix(window,n):
+        from quantum_circuit_execution import build_circuit_execution
+        from test_quantum_circuit_loops import loop_document
+        document=loop_document(n)
+        window._quantum_circuit_panel.load_document(document)
+        readout=window._rf_readout_panel.settings_dict()
+        readout.update(enabled=True,segment_name='set_0')
+        window._rf_readout_panel.load_settings(readout)
+        runtime=window._quantum_circuit_run_arguments()
+        np.testing.assert_array_equal(runtime['gui_settings']['awg']['cross_capacitance'],MATRIX)
+        keys=set(inspect.signature(build_circuit_execution).parameters)-{'document','soccfg'}
+>       execution=build_circuit_execution(document,configuration(),**{k:v for k,v in runtime.items() if k in keys})
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+qick\firmware\ip\axis_output_sum_v1\validation\virtual_gate\test_coverage.py:118: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\PulseGenerator\DCWaveformGeneratorGUI\quantum_circuit_execution.py:237: in build_circuit_execution
+    rf_latencies, rf_profiles = _rf_latencies(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+soccfg = <qick.qick_asm.QickConfig object at 0x0000024A01EAFB00>
+awg_channels = (1, 3)
+timeline = {'duration_us': 40.0, 'awg': [{'channel': 1, 'points': [[0.0, 0.0], [0.0, 10.0], [5.0, 10.0], [5.1, 11.0], [10.0, 11.0...: 18.0, 'frequency_mhz': 50.0, ...}]}], 'acquisition': [{'gate_id': 'Readout', 'start_us': 20.0, 'end_us': 40.0}], ...}
+rf_channel_map = (0, 2, 4, 6, 12, 13, ...), explicit = None
+
+    def _rf_latencies(soccfg, awg_channels, timeline, rf_channel_map, explicit):
+        """Select a verified digital-path profile, never infer an analog delay."""
+        gens = soccfg["gens"]
+        overrides = dict(explicit or {})
+        result, profiles = {}, {}
+        awg_profile = all(
+            gens[ch].get("type") == "axis_awg_tuning_v3"
+            and int(gens[ch].get("dc_area_version", 0)) == 1
+            and int(gens[ch].get("dc_area_bits", 0)) == 48
+            and int(gens[ch].get("output_latency_cycles", -1)) == 16
+            for ch in awg_channels)
+        for lane in timeline["rf"]:
+            ch = _mapped(lane["channel"], rf_channel_map, "RF", gens)
+            cfg = gens[ch]
+            if ch in overrides:
+                value = overrides[ch]
+                if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+                    raise ValueError("Explicit RF output latency must be a nonnegative integer number of tProcessor clocks")
+                result[ch], profiles[ch] = value, "caller_verified_digital_latency"
+            elif (awg_profile and cfg.get("type") == "axis_signal_gen_v6"
+                  and int(cfg.get("revision", -1)) == 6
+                  and int(cfg.get("samps_per_clk", 0)) == 16
+                  and int(cfg.get("tmux_ch", -1)) == 0
+                  and float(cfg.get("f_fabric", 0)) == 300.0
+                  and float(soccfg["tprocs"][0]["f_time"]) == 300.0):
+                result[ch] = 42
+                profiles[ch] = "qstl_v3_rf_v6_300mhz_tmux_digital"
+            else:
+>               raise ValueError(f"RF {lane['channel']} output latency is unknown for the loaded firmware profile; use the verified QSTL v3 profile or provide an explicitly verified digital latency")
+E               ValueError: RF 1 output latency is unknown for the loaded firmware profile; use the verified QSTL v3 profile or provide an explicitly verified digital latency
+
+..\PulseGenerator\DCWaveformGeneratorGUI\quantum_circuit_execution.py:155: ValueError
+-------------------------- Captured stderr teardown ---------------------------
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 2421, in <lambda>
+    lambda: self.panel_scroll.ensureWidgetVisible(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: wrapped C/C++ object of type QScrollArea has been deleted
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 2421, in <lambda>
+    lambda: self.panel_scroll.ensureWidgetVisible(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: wrapped C/C++ object of type QScrollArea has been deleted
+=========================== short test summary info ===========================
+FAILED qick\firmware\ip\axis_output_sum_v1\validation\virtual_gate\test_coverage.py::test_matrix_with_gui_predefined_n_tau_all_software_points[udd]
+FAILED qick\firmware\ip\axis_output_sum_v1\validation\virtual_gate\test_coverage.py::test_quantum_loop_uses_physical_channels_not_awg_matrix[0]
+FAILED qick\firmware\ip\axis_output_sum_v1\validation\virtual_gate\test_coverage.py::test_quantum_loop_uses_physical_channels_not_awg_matrix[1]
+FAILED qick\firmware\ip\axis_output_sum_v1\validation\virtual_gate\test_coverage.py::test_quantum_loop_uses_physical_channels_not_awg_matrix[3]
+4 failed, 7 passed in 34.22s

@@ -1,0 +1,263 @@
+{
+  "execution_complete": true,
+  "status": "completed_with_documented_limitations",
+  "checked_at": "2026-10-15T09:54:46.606152-07:00",
+  "all_selected_real_rtl_executions_passed": true,
+  "all_original_requests_rtl_passed": false,
+  "fresh_real_rtl_runs": 37,
+  "fresh_shots": 352,
+  "final_digital_sample_checks": 43980672,
+  "matrix21": {
+    "passed_case_count": 21,
+    "original_accepted_count": 1,
+    "original_rejected_count": 20,
+    "explicit_offset_variant_passed_count": 20,
+    "points": 96,
+    "shots": 192,
+    "commands": 5568,
+    "physical_lane_checks": 18675552,
+    "sum_lane_checks": 18725952,
+    "executed_matrix_target_checks": 576,
+    "compiler_model_matrix_target_checks": 288,
+    "saved_gui_grid_coordinates_checked": 96
+  },
+  "composite7": {
+    "passed": true,
+    "fresh_gui_programs": 7,
+    "fresh_real_rtl_runs": 7,
+    "rf_bursts": 126,
+    "repetitions": 2,
+    "rf_paths": 3,
+    "command_mismatches": 0,
+    "width_mismatches": 0,
+    "relative_timing_mismatches": 0,
+    "final_physical_sample_checks": 9905616,
+    "area_residuals": 0,
+    "failures": 0,
+    "retries": 0,
+    "source_and_input_match": true,
+    "board_access": false,
+    "exact_simultaneous_tested": false,
+    "max_gain_error_codes": 0.1480004279253535,
+    "max_carrier_rms_codes": 0.5453448434925522,
+    "max_relative_phase_error_degrees": 0.005698667140677571,
+    "report_sha256": "7faa63a1018b97b424d5eda0da0c0fcadac10ab6c91fb95339208a9d54367fb2",
+    "proof_sha256": "85c42410a8399326a629c25cad65d28d28b1fe002c1a575d71deed6df9f2935a"
+  },
+  "compiler17": {
+    "original_case_count": 17,
+    "expected_negative_guard_cases": 6,
+    "shared_port_original_rejections": 8,
+    "quantum_unsupported_original_cases": 2,
+    "original_accepted_rtl_pass": 1,
+    "separately_labelled_rf100ns_variant_passes": 8,
+    "physical_sample_checks": 15399504,
+    "sum_lane_samples": 15421104
+  },
+  "compiler_rtl_shots": 146,
+  "compiler_final_audit_review": {
+    "initial_controller_exit": 1,
+    "rtl_runs_all_exit_zero": true,
+    "cause": "Eight newly generated Vivado runtime outputs were initially counted as input changes.",
+    "original_failure_preserved": true,
+    "postprocessing_audit_passed": true,
+    "rtl_rerun_for_audit": false
+  },
+  "protected_file_count_before": 374,
+  "protected_file_count_after": 378,
+  "production_python_count": 169,
+  "python_hash_scope_includes_related_test_sources": true,
+  "authorized_new_local_firmware_files": {
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\bitstream.bit": "6e26cd37e9d31b108a77d63ed910f50d886690e23c9af935ec21502c4c192cc5",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\bitstream.hwh": "52d16d740d227698e4f07f20113d24aa866531d8cb161e54ef899b8c67f54080",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\bitstream.xsa": "a5332db3449aaa620a8bf46a3e2496279ca7bbb8897b129fce52670cee5e1908",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\build_manifest.json": "b6370237835518d4ca12b1972a22a7d2a53524d4b47fc8470a95669f80f9d6cf"
+  },
+  "production_changes": [],
+  "board_access": false,
+  "board_firmware_upload": false,
+  "new_synthesis": false,
+  "exact_simultaneous_start_tested_or_fixed": false,
+  "adc_fir_arithmetic_validated": false,
+  "show_program_freeze": {
+    "status": "live_symptom_not_reproduced_cause_unconfirmed",
+    "fixed": false,
+    "settings": "awg_rf_test.json",
+    "offline_show_run_instructions_equal_v4_and_v5": 118,
+    "runtime_dmem_and_envelopes_both_empty": true,
+    "simulated_worker_wait_keeps_qt_event_loop_responsive": true,
+    "production_change": false
+  },
+  "evidence": [
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\before.json",
+      "sha256": "bee0d687e484f3647a446528ae65bd7aa7dcb4dc059a9afb2141744685912375"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\after.json",
+      "sha256": "cd0f624124ee0039d24801c8c6cdc0495a7a03ad632ba346ee36c2731c9e9448"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\controller_process_check.json",
+      "sha256": "527ef900cbc16ba0de7505ec4ab158cf747f2acc283bf0293f8294a422a6f91c"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\check_completion.ps1",
+      "sha256": "bc06da2ecd0e1a08ccd55b41ca9d2c7f650f3ac104de711394c2f52f380c7741"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\PLAN.md",
+      "sha256": "75e3268781a5fcced540c9af0f56eaacaaeb17765a0146810c6e4beb8a67b679"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\audit.py",
+      "sha256": "0f3c3da307dbe0a3de8dcfc6f396cb0727e88d62815493a320a6963929c90251"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\reporting\\result.json",
+      "sha256": "194a2e9709cfa55d579596d04594c42478a94f0e8472e5a48c586c1336d53f5b"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\reporting\\REPORT.md",
+      "sha256": "9b976e4f7193f3c7bf55ad1a52bc43fac39830907018db78449e224d739a204f"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\reporting\\completion.json",
+      "sha256": "626384f0e7a0ca1a76310c0dad4f03b732ddcd176f16a4a3289e05dc7db75f6e"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\reporting\\matrix_v5_actual_trace_v2.png",
+      "sha256": "f9a42bd0f6a60867096a67e9122d2fa48c5d2ab55ed78871511cabcaa2acc410"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\reporting\\matrix_v5_actual_dialog.png",
+      "sha256": "ec25b87d7d4ea7dca9d30cfff4667f00da05bbdd8e2fc10ba7ad15c68cf831bc"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\reporting\\plot_provenance_v2.json",
+      "sha256": "069151b8d41541888bfed5ecfa6263ce7891727f14a2d3c3222869b6071a9b9e"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\status.json",
+      "sha256": "7186d144a1a5eaf71cf271e8d8e04c684ee568177f64a2774cd63b3bd8df339d"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\composite7\\result.json",
+      "sha256": "4ba25c8c03789a1c4b6218b7803e228f8a9a82a488935793cf0272631f0af615"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\composite7\\REPORT.md",
+      "sha256": "7faa63a1018b97b424d5eda0da0c0fcadac10ab6c91fb95339208a9d54367fb2"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\composite7\\proof_hashes.json",
+      "sha256": "85c42410a8399326a629c25cad65d28d28b1fe002c1a575d71deed6df9f2935a"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\composite7\\status.json",
+      "sha256": "c129884ef5ce1419854ca6a72390b24fcfcfd8a2d8259f0973ba886064722ba9"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\composite7\\composite7_actual_v5_rtl.png",
+      "sha256": "69d0db89ec3bc25987956cf02e93dde70f72ffdd3e463b1fa05ad781617f82ad"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17\\results.json",
+      "sha256": "375ab1843479a520ecede8d91974133d44b02e8a08c0513989c4fc37a374b151"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17\\REPORT.md",
+      "sha256": "f9dc1864062239ef5123e60fb1af23e9ea58bc29ea32b780d3ffbee21675f282"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17\\inventory.json",
+      "sha256": "7e232f53d12d6b60a7b6d27ec46eb61e484df5f22168914d670e57bac82409bd"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17\\controller_status.json",
+      "sha256": "6dfb05b5ff439fc1bee462b03e099a93dabe269135ad3b351cad5babe302beec"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17\\rtl_integrity_after.json",
+      "sha256": "60c72c3848a2806377252ef0a7b305e9aea68188a63d185be8aacdc9a1b8b879"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17\\postprocessing_completion.json",
+      "sha256": "5a86b9c275edec5091922e8cdd6021bf7d33e0bafc4a7ddf4afafa1caa444a36"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17\\runtime_output_metadata.json",
+      "sha256": "01203f7f0c05c39491bcbcb587fc81d512e09a9d67fd6f79914492563dbfb186"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17\\semantic_audit\\result.json",
+      "sha256": "e813e648e10a498a43b68495137b3280e67fcec1e3bd1b6d5dd70e0be7a191a2"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\final_report.py",
+      "sha256": "d68294061f2c24afd763aa4d7e88161181615fe3f5bcf2c13897ad4ad170ff45"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\..\\show_program_freeze_20261015\\SHOW_RUN_PATHS.md",
+      "sha256": "bc5bbc0e848752321223fffdb2cc6daeed7b98dcf05fbc6cfe21ade97ed346b4"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\..\\show_program_freeze_20261015\\show_run_equal_v4.json",
+      "sha256": "b2380f74c57c204dace42894dfd7e2cf4f20fdb030a8dd9c249549076c929cda"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\..\\show_program_freeze_20261015\\show_run_equal_v5.json",
+      "sha256": "513796e3439184cc9188852231c91a115fd5f65e8ef2122c4ffaea8253a0417b"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\..\\show_program_freeze_20261015\\worker_wait_probe\\reviewed_result.json",
+      "sha256": "a67ec3cbfa1ca902995d9f7f1d159a5f56df8dd49b71b48944a0a714039c8f1d"
+    }
+  ],
+  "report": {
+    "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\REPORT.md",
+    "sha256": "0f5442cf864ce65fcfe98a383382c0b076ef54945b77ff7ea17c7a9006f82e24"
+  },
+  "updated_documents": [
+    {
+      "before": {
+        "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\documentation_before\\v5_RUNNING.md",
+        "sha256": "be2b9392f8c49829fbde520d96d978fe749cc6754779e382fe278dcdd972cafe"
+      },
+      "after": {
+        "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\RUNNING.md",
+        "sha256": "7998e2f462895a3c310aa6d25ef1e441facfb0e02e83fb3e59f3ae0221995101"
+      }
+    },
+    {
+      "before": {
+        "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\documentation_before\\v5_PLAN.md",
+        "sha256": "0d4da82eec11b04e4246ac8df2b8d6c77088686f52a282655032f65d909478d7"
+      },
+      "after": {
+        "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\PLAN.md",
+        "sha256": "3eea29896c72a827eee2ad65c56ad3f09cce16064c13df37a9fd8091f0516f85"
+      }
+    },
+    {
+      "before": {
+        "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\documentation_before\\v5_REPORT.md",
+        "sha256": "ec3e97135d6a288a98a7261ebadc61148b04dbe5a6901c81fc2f679b970ca586"
+      },
+      "after": {
+        "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\REPORT.md",
+        "sha256": "60a0e8bb9b6d95fc49cde447365fb482d135e7e2ecb5056b9338ee2829f566f4"
+      }
+    },
+    {
+      "before": {
+        "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\documentation_before\\v4_VALIDATION_CHECKLIST.md",
+        "sha256": "e73fcc7db196f40e234a790dc226d8ecfc2b4b8cf65ed2a9b630df1a2a5e023d"
+      },
+      "after": {
+        "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\VALIDATION_CHECKLIST.md",
+        "sha256": "4340dce5c2d13b613b06ac2d337b06e50f0744f5d067e900e26ed0bb676fdd59"
+      }
+    }
+  ]
+}

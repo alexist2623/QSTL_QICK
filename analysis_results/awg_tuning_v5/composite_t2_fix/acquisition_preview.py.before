@@ -1,0 +1,85 @@
+"""Display-only readout/RF windows on the selected, ideal AWG time axis."""
+from dataclasses import replace
+from math import ceil, isfinite
+
+try:
+    from .qick_fine_tune_sweep import cycles_from_us
+except ImportError:
+    from qick_fine_tune_sweep import cycles_from_us
+
+
+def selected_segment_bounds_us(sequence, point_index, segment_name, fabric_mhz):
+    """Use the same point-specific durations as the waveform preview."""
+    if not isfinite(fabric_mhz) or fabric_mhz <= 0:
+        raise ValueError("AWG fabric clock must be positive and finite")
+    start = 0
+    for index, segment in enumerate(sequence.segments):
+        duration = sequence.segment_duration_cycles_at(point_index, index)
+        if segment.name == segment_name and segment.kind == "set":
+            return start / fabric_mhz, (start + duration) / fabric_mhz
+        start += duration
+    raise ValueError(f"unknown acquisition/RF SET segment {segment_name!r}")
+
+
+def acquisition_window(sequence, point_index, spec, profile, fabric_mhz, tproc_mhz):
+    """Nominal FIR input coverage and DDR writes, relative to the first AWG edge.
+
+    This is the lightweight equivalent of ``fir_dc_timing_preview``'s FIR
+    offsets, placed on the *ideal waveform* axis. It does not compile a program
+    or include AWG command scheduling/pipeline offsets. Continuous decimation
+    adds up to one sample period of phase uncertainty. The input interval is
+    group-delay referenced, not the complete FIR impulse-response support.
+    """
+    start, _end = selected_segment_bounds_us(
+        sequence, point_index, spec.segment_name, fabric_mhz)
+    if not isfinite(tproc_mhz) or tproc_mhz <= 0:
+        raise ValueError("tProcessor clock must be positive and finite")
+    if profile is None:
+        raise ValueError("Identify QICK to load the HWH FIR rate and delay; acquisition duration is unavailable")
+    user_delay = (cycles_from_us(spec.delay_us, tproc_mhz) / tproc_mhz
+                  if spec.delay_us > 0 else 0.0)
+    trigger = start + user_delay
+    if profile.software_warmup_compensation:
+        trigger += profile.software_trigger_delay_tproc_cycles(tproc_mhz) / tproc_mhz
+    register = spec.fpga_trigger_delay_samples
+    if register is None:
+        register = profile.selected_trigger_delay_value(spec.fpga_trigger_delay_us)
+    storage_start = trigger + profile.trigger_delay_us_for(register)
+    group_delay = ceil(profile.group_delay_input_samples) / profile.input_rate_mhz
+    span = spec.samples_per_trigger * profile.sample_period_us
+    return dict(
+        point_index=point_index, ro_ch=spec.ro_ch, segment_name=spec.segment_name,
+        samples=spec.samples_per_trigger, sample_rate_hz=profile.sample_rate_hz,
+        sample_period_us=profile.sample_period_us, trigger_us=trigger,
+        input_start_us=storage_start - group_delay,
+        input_end_us=storage_start - group_delay + span,
+        storage_start_us=storage_start, storage_end_us=storage_start + span,
+        duration_us=span,
+    )
+
+
+def selected_rf_events(sequence, point_index, spec, fabric_mhz):
+    """Resolve RF display timing onto the same selected AWG sweep point."""
+    start, end = selected_segment_bounds_us(
+        sequence, point_index, spec.segment_name, fabric_mhz)
+    values = {
+        (axis.axis_kind, getattr(axis, "parameter_name", "")): value
+        for axis, value in zip(sequence.sweep_axes, sequence.sweep_coordinate(point_index))
+        if getattr(axis, "gen_ch", None) == spec.gen_ch
+        and axis.segment_name == spec.segment_name
+    }
+    resolved = []
+    duration_deltas = {}
+    for event in spec.pulse_events:
+        duration = values.get(("rf_duration", event.duration_parameter), event.duration_us)
+        duration_deltas[event.duration_parameter] = duration - event.duration_us
+        delay = event.delay_us + sum(duration_deltas.get(name, 0.0)
+                                     for name in event.preceding_duration_parameters)
+        event = replace(event, duration_us=duration, delay_us=delay,
+                        frequency_mhz=values.get(("rf_frequency", event.frequency_parameter),
+                                                 event.frequency_mhz))
+        event_start, event_end = start + delay, start + delay + duration
+        if spec.require_within_segment and event_end > end + 1e-12:
+            raise ValueError(f"RF pulse {event.name!r} extends beyond {spec.segment_name}")
+        resolved.append((event, event_start, event_end))
+    return tuple(resolved)

@@ -1,0 +1,44 @@
+#-----------------------------------------------------------
+# xsim v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Wed Oct 14 17:50:08 2026
+# Process ID: 69380
+# Current directory: F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_hold_duration_2x2_v4virt_20261014_square_phase_output_sum_awg_v3/sim_run
+# Command line: xsim.exe -log F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_hold_duration_2x2_v4virt_20261014_square_phase_output_sum_awg_v3/xsim_live.log -mode tcl -source {xsim.dir/rc_gui/xsim_script.tcl}
+# Log file: F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_hold_duration_2x2_v4virt_20261014_square_phase_output_sum_awg_v3/xsim_live.log
+# Journal file: F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_hold_duration_2x2_v4virt_20261014_square_phase_output_sum_awg_v3/sim_run\xsim.jou
+# Running On: ECE-CDW-JS03, OS: Windows, CPU Frequency: 3000 MHz, CPU Physical cores: 8, Host memory: 34206 MB
+#-----------------------------------------------------------
+source xsim.dir/rc_gui/xsim_script.tcl
+# xsim {rc_gui} -testplusarg CASE=F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_hold_duration_2x2_v4virt_20261014_square_phase_output_sum_awg_v3 -testplusarg OUT=F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_hold_duration_2x2_v4virt_20261014_square_phase_output_sum_awg_v3 -testplusarg CYCLES=16396 -autoloadwcfg -tclbatch {F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_hold_duration_2x2_v4virt_20261014_square_phase_output_sum_awg_v3/run.tcl}
+Time resolution is 1 fs
+source F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_hold_duration_2x2_v4virt_20261014_square_phase_output_sum_awg_v3/run.tcl
+## run all
+Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
+Time: 0 fs  Iteration: 0  Process: /tb_rc_gui/dut/sim_bd_i/axis_tproc64x32_x8_0/inst/tproc_i/alu_i/math_i/line__104  File: F:/Vivado_Output/a3sim1/namespaced/073_math.vhd
+Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
+Time: 0 fs  Iteration: 0  Process: /tb_rc_gui/dut/sim_bd_i/axis_tproc64x32_x8_0/inst/tproc_i/alu_i/math_i/line__103  File: F:/Vivado_Output/a3sim1/namespaced/073_math.vhd
+RTL COMPLETE two-AWG samples/channel=265728 errors=0
+RAW_AWG_V2_RESULT ch=0 samples=265984 ramps=16 sets=33
+RAW_AWG_V2_RESULT ch=1 samples=265984 ramps=16 sets=33
+RAW_AWG_V2_RESULT ch=3 samples=265984 ramps=16 sets=33
+GUI_RC_RESULT ch=0 max_error_codes=2.498419
+GUI_RC_RESULT ch=1 max_error_codes=2.542455
+GUI_RC_RESULT ch=2 max_error_codes=12.926633
+EXACT_AWG_RESULT ch=0 samples=265504
+EXACT_AWG_RESULT ch=1 samples=265504
+EXACT_AWG_RESULT ch=2 samples=265504
+AREA_V3_RESULT ch=0 shots=8 samples=265904 reset_checks=8 residual=0
+AREA_V3_RESULT ch=1 shots=8 samples=265904 reset_checks=8 residual=0
+OUTPUT_SUM_RESULT suffix=4 samples=265984
+OUTPUT_SUM_RESULT suffix=5 samples=265984
+OUTPUT_SUM_RESULT suffix=6 samples=265984
+AREA_V3_RESULT ch=3 shots=8 samples=265904 reset_checks=8 residual=0
+VIRTUAL_SQUARE_RESULT commands=9 raw_and_filtered_samples=265504
+$finish called at time : 55913344516 fs : File "F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_hold_duration_2x2_v4virt_20261014_square_phase_output_sum_awg_v3/tb_rc_gui.sv" Line 1802
+run: Time (s): cpu = 00:00:00 ; elapsed = 00:02:05 . Memory (MB): peak = 199.688 ; gain = 0.000
+## quit
+INFO: xsimkernel Simulation Memory Usage: 62604 KB (Peak: 62604 KB), Simulation CPU Usage: 123593 ms
+INFO: [Common 17-206] Exiting xsim at Wed Oct 14 17:52:14 2026...

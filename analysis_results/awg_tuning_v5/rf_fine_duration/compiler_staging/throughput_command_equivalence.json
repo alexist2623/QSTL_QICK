@@ -1,0 +1,33 @@
+{
+  "scope": "Behavior-model requested RF word/timestamp equality; actual RTL tardiness remains separately gated.",
+  "cases": [
+    {
+      "case": "fixed_short",
+      "rf_commands": 2,
+      "before_instructions": 46,
+      "after_instructions": 23,
+      "requested_command_stream_equal": true
+    },
+    {
+      "case": "fixed_long",
+      "rf_commands": 4,
+      "before_instructions": 46,
+      "after_instructions": 26,
+      "requested_command_stream_equal": true
+    },
+    {
+      "case": "hardware_cross",
+      "rf_commands": 392,
+      "before_instructions": 79,
+      "after_instructions": 56,
+      "requested_command_stream_equal": true
+    },
+    {
+      "case": "composite_33",
+      "rf_commands": 66,
+      "before_instructions": 1038,
+      "after_instructions": 378,
+      "requested_command_stream_equal": true
+    }
+  ]
+}

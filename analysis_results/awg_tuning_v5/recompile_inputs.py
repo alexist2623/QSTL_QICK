@@ -1,0 +1,102 @@
+"""Validation only: current GUI compiler -> unchanged inputs of fresh v5 RTL.
+
+Execute the existing fixture's compilation prefix, stopping before model or RTL
+execution. No production Python edits, board connections or firmware loading.
+The compiler retains v4 latency semantics; this is not a v5 GUI timing profile.
+"""
+import ast
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[1]
+OLD = ROOT / 'analysis_results/awg_tuning_v4/full_regression_20261014'
+BUILD = Path(os.environ.get('QICK_V5_COMPILER_INPUT_BUILD', 'F:/Vivado_Output/a5gui_inputs'))
+
+
+def sha(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def case_arguments(name, state):
+    if name.startswith('exact10us_hold'):
+        hold = int(name[-1])
+        source = OLD / f'verify_hold{hold}_generated.py'
+        argv = [str(source), '--build', str(BUILD), '--gui', str(ROOT.parent / 'PulseGenerator'),
+                '--vivado', 'F:/Xilinx/Vivado/2023.1/bin', '--awg-v3', '--output-sum',
+                '--repeat-reset', '--isolated-run', '--verify-gui-widgets',
+                '--sweep-case', 'hold_duration', '--sweep-count', '2',
+                '--run-tag', f'v4_all_20261014_exact10us_hold{hold}',
+                '--dc-mode', 'fixed_time', '--capture-cycles', '60000']
+    else:
+        command = state['stages'][name + '_prepare']['command']
+        index = next(i for i, arg in enumerate(command) if str(arg).endswith('.py'))
+        argv = command[index:]
+        source = Path(argv[0])
+        argv[argv.index('--build') + 1] = str(BUILD)
+    return source, argv
+
+
+def compile_case(name, state):
+    source, argv = case_arguments(name, state)
+    tree = ast.parse(source.read_text(encoding='utf8'), filename=str(source))
+    main = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == 'main')
+    boundary = next(i for i, n in enumerate(main.body) if isinstance(n, ast.Assign)
+                    and any(isinstance(t, ast.Name) and t.id == 'model' for t in n.targets))
+    assert ast.unparse(main.body[boundary].value) == 'TProcV1BehaviorModel(strict=True)'
+    assert "'dmem.txt'" in ast.unparse(main.body[boundary - 1])
+    main.body = main.body[:boundary]
+    ast.fix_missing_locations(tree)
+    sys.path.insert(0, str(source.parent))
+    sys.path.insert(0, str(ROOT / 'qick/firmware/ip/rc_precomp_validation'))
+    sys.argv = argv
+    namespace = dict(__name__='compile_prefix_only', __file__=str(source))
+    exec(compile(tree, str(source), 'exec'), namespace)
+    namespace['main']()
+
+
+def main():
+    state = json.loads((OLD / 'status.json').read_text())
+    if len(sys.argv) == 2:
+        compile_case(sys.argv[1], state)
+        return
+    BUILD.mkdir(exist_ok=False)
+    results = []
+    for name, case in state['cases'].items():
+        source, argv = case_arguments(name, state)
+        with (HERE / f'compile_{name}.log').open('w', encoding='utf8') as log:
+            subprocess.run([sys.executable, '-X', 'utf8', __file__, name], cwd=ROOT,
+                           stdout=log, stderr=subprocess.STDOUT, check=True)
+        old = Path(case['folder'])
+        new = BUILD / old.name
+        files = ['pmem.hex', 'dmem.txt']
+        if name != 'stability':
+            files.append('gui_widget_pmem.hex')
+        comparisons = {}
+        for file in files:
+            assert (old / file).read_bytes() == (new / file).read_bytes(), (name, file)
+            comparisons[str(new / file)] = sha(new / file)
+        proof = None
+        if name != 'stability':
+            proof = json.loads((new / 'gui_widget_match.json').read_text())
+            assert proof['pmem_equal'] and proof['dmem_equal']
+            assert proof['gui_sequence_unmodified'] == (name != 'reversed_axes')
+        results.append(dict(case=name, passed=True, source=str(source), source_sha256=sha(source),
+                            command=argv, files=comparisons, gui_proof=proof))
+        print(f'{name}: current compiler inputs byte-identical', flush=True)
+    sources = list((ROOT.parent / 'PulseGenerator/DCWaveformGeneratorGUI').glob('*.py'))
+    sources += list((ROOT / 'qick/qick_lib/qick').rglob('*.py'))
+    report = dict(complete=True, cases=results, source_hashes={str(p): sha(p) for p in sources},
+                  harness_sha256=sha(__file__), hardware_access=False,
+                  timing_policy='unchanged v4 Python; does not implement a v5 latency profile',
+                  stability='public builder, no RF/DDR',
+                  reversed_axes='sweep axes reversed after GUI input by original fixture')
+    (HERE / 'compiler_equivalence.json').write_text(json.dumps(report, indent=2), encoding='utf8')
+
+
+if __name__ == '__main__':
+    main()

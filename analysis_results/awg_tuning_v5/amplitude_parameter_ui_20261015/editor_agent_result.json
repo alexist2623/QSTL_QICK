@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "recorded_at": "2026-10-15T10:11:49.8013821-07:00",
+  "targeted_test_count": 55,
+  "targeted_exit_code": 0,
+  "targeted_elapsed_seconds": 61.59,
+  "new_amplitude_cases": 24,
+  "targeted_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\amplitude_parameter_ui_20261015\\three_editor_modules.log",
+  "targeted_log_sha256": "98ad38d8f3a7ef24b1f415cca113ec8c3e9a979bebe340c555fd890b708d0add",
+  "initial_run": {
+    "failed": 6,
+    "log": "C:/GIT_Workspace/QSTL_QICK/analysis_results/awg_tuning_v5/rf_amplitude_parameter_editor_first.log",
+    "exit_code": 1,
+    "review": "Two bank persistence failures and two UDD delay parameter duplication failures were repaired by the root agent. Two UDD exact-float waveform comparisons were corrected only for the existing spinbox time resolution; all other waveform fields remain exact.",
+    "passed": 14
+  },
+  "test_files_sha256": {
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_rf_amplitude_parameter_editor.py": "b680839240b631ec64d43e7d6a349241532ad080d9f4ef52f99296045144bd7a",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_rf_t2_integration.py": "ca6c8abc6a428df2c9173f1c50b3c36cf739fe7937ef12b677b0faebca67312c",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_rf_fine_duration_editor.py": "d3271d021e05daf55994ece852ec728abe375019e291470312de634c60198d80"
+  },
+  "source_sha256_captured_after_tests": "a427ccc422464db633961a35a4d33181915c3a9eff25ae789b961683ed9e0e29",
+  "screenshot_source_sha256": "a427ccc422464db633961a35a4d33181915c3a9eff25ae789b961683ed9e0e29",
+  "screenshot_matches_current_source": true,
+  "screenshots_visual_review": "v2 images opened: labels, global gain parameter, calibration dBm table and editable Custom amplitude row are visible. First offscreen screenshots with blank text remain preserved and are not accepted visual evidence.",
+  "screenshots_metadata": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\amplitude_parameter_ui_20261015\\screenshots_v2.json",
+  "board_access": false,
+  "live_gui_control": false,
+  "user_json_modified": false,
+  "production_edits_by_agent": [],
+  "test_changes_by_agent": [
+    "test_rf_amplitude_parameter_editor.py",
+    "test_rf_t2_integration.py",
+    "test_rf_fine_duration_editor.py"
+  ],
+  "limitations": [
+    "GUI/model/persistence regression only; no new RTL simulation or board measurement was run for this amplitude editor change."
+  ]
+}

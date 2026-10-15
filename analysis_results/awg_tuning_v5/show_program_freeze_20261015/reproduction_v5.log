@@ -1,0 +1,8 @@
+{"stage": "imports_begin", "elapsed": 0.0}
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\show_program_freeze_20261015\reproduce.py", line 51, in <module>
+    configure(cfg)
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\software_followup\gui_rtl\extension_v5.py", line 42, in configure
+    assert cfg['gens'][channel]['output_latency_cycles']==31
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

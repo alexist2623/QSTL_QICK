@@ -1,0 +1,37 @@
+{
+  "pid": 23116,
+  "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rc_only_hold_duration_2x2_v4virt_20261014_compensation_off_retry2_output_sum_awg_v3",
+  "stage": "finished",
+  "complete": true,
+  "started_utc": "2026-10-15T00:46:28.215090+00:00",
+  "updated_utc": "2026-10-15T00:58:40.713129+00:00",
+  "prepare": {
+    "pid": 28148,
+    "command": [
+      "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+      "-X",
+      "utf8",
+      "-X",
+      "faulthandler",
+      "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_off_final.py",
+      "--prepare-only"
+    ],
+    "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\compensation_off_retry2_prepare.log",
+    "exit_code": 0
+  },
+  "rtl": {
+    "pid": 122324,
+    "command": [
+      "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+      "-X",
+      "utf8",
+      "-X",
+      "faulthandler",
+      "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_off_final.py",
+      "--reuse-snapshot"
+    ],
+    "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\compensation_off_retry2_rtl.log",
+    "exit_code": 0
+  },
+  "finished_utc": "2026-10-15T00:58:40.713129+00:00"
+}

@@ -1,6 +1,27 @@
-# AWG Tuning v4 — 전체 기본 회귀 PASS / GUI 유지보수 후속 검증
+# AWG Tuning v4 — Virtual matrix 추가 검증 완료 / 실행 제한 3건
 
-현재 추가 실행은 없습니다. 전체 회귀 완료 후 사용자 요청으로 Paramiko 설치, GUI SSH 폴더 탐색 및 업데이트 전용 테스트를 수행했습니다. `awg-v4-timing`과 `awg-v3`는 **PAUSED** 상태를 유지합니다. 실제 보드 업로드·교체·재시작·FPGA 다운로드는 미수행입니다.
+사용자 요청으로 추가한 Virtual matrix × parameter sweep 검증을 완료했습니다. 실제 GUI→RTL **21/21 PASS**, 별도 GUI/compiler **14/17 PASS·3건 거부**입니다. 전체 PASS는 아닙니다. [현재 결과/해시](virtual_gate_rtl_20261014/results.json), [보고서](virtual_gate_rtl_20261014/REPORT.md)가 최종 기준입니다. 생산 코드·RTL·XDC·펌웨어·사용자 JSON 변경 0, 보호 59파일 일치입니다. 새 합성·보드 접속·배포 없이 검증만 수행했고 세 controller 및 xsimk는 모두 종료했습니다. `awg-v4-timing`과 `awg-v3`는 **PAUSED** 상태를 유지합니다.
+
+## 2026-10-14 17:59 PDT — Virtual matrix 조합 신규 검증 완료
+
+검증 코드: `qick/firmware/ip/axis_output_sum_v1/validation/virtual_gate/`. MainWindow의 실제 행렬/전압·HOLD·RAMP sweep 설정창에 QTest 키보드 입력 후 Run Experiment 컴파일 PMEM/DMEM을 export와 비교합니다. 세 AWG 모두 결합되는 비대칭 3×3 행렬, DAC full scale 800/400/800mV, 기존 정수 증분/add/rewind 정책을 독립 C@V 계산과 대조합니다. 실제 tProcessor/TMUX/AWG/IIR/RF/합산 RTL은 Git 밖 `F:/Vivado_Output/a3sim1/*v4virt_20261014*`에서 실행합니다.
+
+- 기본 조합 15개: HOLD/RAMP 두 DC 모드·역방향, RF duration fixed/extend·frequency, 두 전압축/축 순서 반전, RC-only/DC-only/OFF, Square frequency/amplitude/phase. 세 IIR의 모든 샘플과 합산을 검사합니다.
+- 추가: CPMG N(1,2)×τ(0.2,0.4µs) 네 software sweep 좌표와 composite named frequency/duration의 실제 GUI→RTL. 공유 라이브러리 준비는 순차, 격리 시뮬레이터는 전체 최대3개입니다. 추가 controller는 기본 controller의 모든 simulation 종료 후 simulation을 시작합니다.
+- 최초 RAMP helper의 axis_kind 오인과 OFF helper의 초기 RC reset 정책 오인은 검증 도구 오류입니다. 원본 소스·로그를 보존했고 RAMP는 `_retry1`, OFF는 `_retry2` 별도 폴더에서 exit 0을 확인했습니다. 생산 코드나 허용오차는 변경하지 않았습니다.
+- 실제 GUI→RTL 21조건, 총 96점·192회, 5,568명령, 세 합산 출력 18,709,728 lane 샘플 PASS입니다. 모든 통과 케이스의 실행 종료 코드·GUI PMEM/DMEM·RTL/입력 fingerprint·159개 GUI/compiler 소스 해시를 대조했습니다.
+- GUI/compiler 17검사 중 14 PASS, 3건은 실행 불가입니다. UDD N=2/τ=0.2µs/펄스폭0.1µs는 공유 포트의 AWG 명령13클록과 RF 명령15클록 간격이 필수3클록보다 짧아 거부됩니다. Quantum Circuit RF Loop n=1,3은 v4 AWG latency18을 v3 latency16 조건에서 거부합니다. 이 세 입력은 RTL을 실행하지 못했으며 제품 수정도 하지 않았습니다.
+- Quantum Circuit은 AWG Tuning의 Virtual matrix를 전압 변환에 적용하지 않습니다. 합산 RF의 기존 전용 커넥터 power/calibration은 의도적으로 거부되며, 세 출력×두 설정의 거부 검사 6개 PASS는 정상 출력 RTL 시험과 구분합니다.
+- 기본/추가 controller의 exit 1은 최초 helper 실패 보존에 따른 것입니다. 별도 최종 RTL 결과는 전부 exit 0입니다. results.json의 execution_complete=true, complete=false는 실행은 끝났으나 위 compiler 3건이 남았다는 의미입니다. 모든 파라미터×모드×방향의 전체 곱을 검사했다고 주장하지 않습니다.
+
+로그: [기본 배치](virtual_gate_rtl_20261014/status.json), [추가 배치](virtual_gate_rtl_20261014/additional_status.json), [보상 OFF](virtual_gate_rtl_20261014/off_status.json), [GUI/compiler 실패 진단](virtual_gate_rtl_20261014/failure_diagnostics.json). [실제 RTL 합산 파형](virtual_gate_rtl_20261014/virtual_matrix_rtl_alignment.png)과 [물리 출력 변환값](virtual_gate_rtl_20261014/virtual_matrix_physical_targets.png)을 열어 확인했습니다. 생산 코드 수정은 이번 검증 요청의 범위에 포함하지 않았습니다.
+
+## 2026-10-14 최신 후속 — Virtual / Physical 행렬 표시
+
+사용자 요청으로 공유 행렬 설정창의 위쪽에 **Virtual 입력 열**, 왼쪽에 **Physical AWG 출력 행**을 표시하고 각 셀에 입력→출력 방향 설명을 추가했습니다. 생산 변경은 `CrossCapacitanceDialog`의 표시/배치뿐이며 그 밖의 GUI 바이트, 변환 계산, 드라이버, RTL, XDC, 펌웨어는 그대로입니다.
+실제 MainWindow 설정창에서 키보드 입력·확인·취소, 7출력 대각선 잠금/초기화와 두 화면을 확인했습니다. 비대칭 행렬 `[[1, 0.25], [-0.125, 1]]`을 GUI 설정으로 직렬화하고 기존 QCoDeS 저장 함수로 임시 SQLite DB에 저장한 뒤 닫고 다시 열었습니다. `cross_capacitance_json`, `qick_experiment_json`의 GUI 설정, `awg_waveform_recipe_json`의 행렬이 모두 정확히 일치했습니다.
+GUI/저장 확인 6항목과 기존 메타데이터 테스트 **4 PASS**입니다. 실제 보드 접속/실험은 하지 않았고 기존 실행 GUI를 종료하지 않았습니다. GUI 재시작 시 표시가 반영됩니다. 이번 UI 변경은 과거 전체 RTL 회귀 결과와 구분하며 장시간 시뮬레이션을 재실행하지 않았습니다.
+[새 검증 결과](virtual_gate_ui_20261014/results.json), [7출력 화면](virtual_gate_ui_20261014/matrix_7_outputs.png).
 
 ## 2026-10-14 최신 후속 — 전체 firmware·버전 목록·Update 확인창
 

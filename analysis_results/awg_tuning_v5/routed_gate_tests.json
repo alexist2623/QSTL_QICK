@@ -1,0 +1,70 @@
+﻿{
+    "passed":  true,
+    "scope":  "Parser/gate tests using copied v4 reports; not v5 timing signoff",
+    "cases":  [
+                  {
+                      "case":  "known_v4_pass",
+                      "exit_code":  0,
+                      "expected_pass":  true,
+                      "correct":  true,
+                      "log":  "F:\\Vivado_Output\\a5gatecases2\\known_v4_pass/gate.log"
+                  },
+                  {
+                      "case":  "negative_setup",
+                      "exit_code":  1,
+                      "expected_pass":  false,
+                      "correct":  true,
+                      "log":  "F:\\Vivado_Output\\a5gatecases2\\negative_setup/gate.log"
+                  },
+                  {
+                      "case":  "negative_hold",
+                      "exit_code":  1,
+                      "expected_pass":  false,
+                      "correct":  true,
+                      "log":  "F:\\Vivado_Output\\a5gatecases2\\negative_hold/gate.log"
+                  },
+                  {
+                      "case":  "negative_tns",
+                      "exit_code":  1,
+                      "expected_pass":  false,
+                      "correct":  true,
+                      "log":  "F:\\Vivado_Output\\a5gatecases2\\negative_tns/gate.log"
+                  },
+                  {
+                      "case":  "negative_ths",
+                      "exit_code":  1,
+                      "expected_pass":  false,
+                      "correct":  true,
+                      "log":  "F:\\Vivado_Output\\a5gatecases2\\negative_ths/gate.log"
+                  },
+                  {
+                      "case":  "pulse_width",
+                      "exit_code":  1,
+                      "expected_pass":  false,
+                      "correct":  true,
+                      "log":  "F:\\Vivado_Output\\a5gatecases2\\pulse_width/gate.log"
+                  },
+                  {
+                      "case":  "bus_skew",
+                      "exit_code":  1,
+                      "expected_pass":  false,
+                      "correct":  true,
+                      "log":  "F:\\Vivado_Output\\a5gatecases2\\bus_skew/gate.log"
+                  },
+                  {
+                      "case":  "missing_skew",
+                      "exit_code":  1,
+                      "expected_pass":  false,
+                      "correct":  true,
+                      "log":  "F:\\Vivado_Output\\a5gatecases2\\missing_skew/gate.log"
+                  },
+                  {
+                      "case":  "route_error",
+                      "exit_code":  1,
+                      "expected_pass":  false,
+                      "correct":  true,
+                      "log":  "F:\\Vivado_Output\\a5gatecases2\\route_error/gate.log"
+                  }
+              ],
+    "gate_sha256":  "2B01B47EE993B47F43A8725447AD18D580BDD2BC8506C639BA4D59D5EDEDFB59"
+}

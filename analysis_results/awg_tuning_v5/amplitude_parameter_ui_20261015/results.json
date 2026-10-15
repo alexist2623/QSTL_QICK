@@ -1,0 +1,107 @@
+{
+  "completed_at": "2026-10-15T10:20:43.259704-07:00",
+  "passed": true,
+  "scope": "Composite RF amplitude parameter UI, migration, persistence, preview and software compiler/calibration regression",
+  "unique_tests": 245,
+  "unique_test_breakdown": {
+    "existing_editor": 111,
+    "amplitude_editor": 27,
+    "t2_integration_and_fine_editor": 31,
+    "model_compiler_calibration": 76
+  },
+  "rechecks_are_not_added_to_unique_total": true,
+  "final_source_sha256": "3acb3280e79b4cc04cecf85cdc7f2d5985150bfa8a50c576850baf9a4a5d2d83",
+  "latest_amplitude_run": {
+    "exit_code": 0,
+    "source_sha256_before": "3acb3280e79b4cc04cecf85cdc7f2d5985150bfa8a50c576850baf9a4a5d2d83",
+    "source_sha256_after": "3acb3280e79b4cc04cecf85cdc7f2d5985150bfa8a50c576850baf9a4a5d2d83",
+    "source_unchanged": true,
+    "test_sha256": "71607cf761d2e1bcba3b7d885ad35dd5bce8febe60798aa9a71577cab442a18e",
+    "prior_57_result": "three_editor_modules_final_status.json",
+    "prior_57_source_sha256": "a427ccc422464db633961a35a4d33181915c3a9eff25ae789b961683ed9e0e29",
+    "scope": "amplitude editor 27 cases only; integration/fine duration 31 cases not repeated",
+    "production_modified_by_agent": false,
+    "board_accessed": false,
+    "existing_gui_controlled": false,
+    "user_json_written": false
+  },
+  "changed_existing_files": [
+    {
+      "path": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py",
+      "before_sha256": "feb847fe8dd879251921e9f841f3d18c23be17632fa17fc671cef8d38374192a",
+      "after_sha256": "3acb3280e79b4cc04cecf85cdc7f2d5985150bfa8a50c576850baf9a4a5d2d83"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_dc_waveform_gui_rf.py",
+      "before_sha256": "820c734c6fd0f46e786d8c69fee93d908f1c024b4de24223ad45001b7fff96c8",
+      "after_sha256": "40df9877516f8dab8af2330035d5d5efc70a798491598462f446c1407c33ff8f"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_rf_fine_duration_editor.py",
+      "before_sha256": "4ae5e973272acd372532e3e6ae780d21d9b1b5337ceea82526d8cf53d641abf1",
+      "after_sha256": "d3271d021e05daf55994ece852ec728abe375019e291470312de634c60198d80"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_rf_t2_delay_editor.py",
+      "before_sha256": "e6b199c0c62c55614f2fd93a34e95955b29d6afe225a9a62c4f44b6b2309147e",
+      "after_sha256": "b5007db70c7b4a9668ccd9b2850c2e278619360675529865303bf693f6e1e9c6"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_rf_t2_integration.py",
+      "before_sha256": "c3e5c7035237c7c2356314da1d57a26c20cd87ede53fad881a07d4a8fb1ca4b4",
+      "after_sha256": "ca6c8abc6a428df2c9173f1c50b3c36cf739fe7937ef12b677b0faebca67312c"
+    }
+  ],
+  "new_test_file": {
+    "path": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_rf_amplitude_parameter_editor.py",
+    "sha256": "71607cf761d2e1bcba3b7d885ad35dd5bce8febe60798aa9a71577cab442a18e"
+  },
+  "baseline_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\after.json",
+  "baseline_files_checked": 378,
+  "unexpected_changed_files": [],
+  "user_json_files_checked": 7,
+  "user_json_unchanged": true,
+  "logs": {
+    "existing_editor_tests_second.log": {
+      "passed_count": 111,
+      "sha256": "9430774d2c08dda6e6896802d995dc908501a5c8904c1bdf49687edbcd9e0d62"
+    },
+    "three_editor_modules_final.log": {
+      "passed_count": 57,
+      "sha256": "5cf0eccb1d07332074756dcb5b5d8904f30289ebe53e62c654111a0e17264262"
+    },
+    "model_compiler_calibration.log": {
+      "passed_count": 76,
+      "sha256": "f2dc4fee55f1ee237374f87232c1fbcad1c207d83e40b9c95cba47957b7f1563"
+    },
+    "final_loader_regression.log": {
+      "passed_count": 7,
+      "sha256": "9d9d2c71cb751af7fa6a72b4f6d29decd61bb9cf0d76f6784158c0da29dc180a"
+    },
+    "final_t2_editor_regression.log": {
+      "passed_count": 33,
+      "sha256": "db17a5d3978ba1883628649d278e4bd48acadeca26cfd02ceae0dfe8b711bbd4"
+    },
+    "latest_single_fix.log": {
+      "passed_count": 27,
+      "sha256": "5a87506c04d8acee1361b3c590db9049cab12cf87f85b0bca84de220c0bec3ad"
+    }
+  },
+  "initial_failure_logs_preserved": [
+    "existing_editor_tests.log",
+    "affected_retry.log",
+    "../rf_amplitude_parameter_editor_first.log"
+  ],
+  "visual_review": {
+    "images_opened": [
+      "preset_hahn_manual_v2.png",
+      "custom_calibration_v2.png"
+    ],
+    "image_source_sha256": "a427ccc422464db633961a35a4d33181915c3a9eff25ae789b961683ed9e0e29",
+    "note": "Captured and opened before the final Single dormant-composite loader fix; no visible controls changed afterward. Initial blank-font images are preserved but rejected as visual evidence."
+  },
+  "rtl_simulation_run_for_this_change": false,
+  "board_access": false,
+  "live_gui_restarted": false,
+  "commit_or_push": false
+}

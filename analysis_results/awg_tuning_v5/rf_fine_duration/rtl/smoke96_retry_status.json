@@ -1,0 +1,148 @@
+{
+  "complete": true,
+  "stage": "passed",
+  "build": "F:\\Vivado_Output\\a5fine_rtl_smoke2",
+  "cases": [
+    {
+      "passed": true,
+      "name": "fixed_96_gain4000",
+      "folder": "F:\\Vivado_Output\\a5fine_rtl_smoke2\\fixed_96_gain4000",
+      "checks": [
+        {
+          "channel": 0,
+          "sample_offset": 302768,
+          "pipeline_after_tproc_samples": 512,
+          "bursts": [
+            {
+              "point": 0,
+              "repetition": 0,
+              "name": "rf",
+              "samples": 96,
+              "frequency_mhz": 0.0,
+              "gain": 4000,
+              "phase_degrees": 0.0,
+              "command_cycle": 1786,
+              "frequency_register": 0,
+              "phase_register": 0,
+              "first_sample": 331344,
+              "last_sample_exclusive": 331440,
+              "exact_active_sample_count": 96,
+              "maximum_amplitude_error_codes": 1.0
+            },
+            {
+              "point": 0,
+              "repetition": 1,
+              "name": "rf",
+              "samples": 96,
+              "frequency_mhz": 0.0,
+              "gain": 4000,
+              "phase_degrees": 0.0,
+              "command_cycle": 2277,
+              "frequency_register": 0,
+              "phase_register": 0,
+              "first_sample": 339200,
+              "last_sample_exclusive": 339296,
+              "exact_active_sample_count": 96,
+              "maximum_amplitude_error_codes": 1.0
+            }
+          ],
+          "unexpected_nonzero_samples": 0,
+          "csv_sha256": "f1c4e3345c20a7221e6cd2e9dec21185bb0837fc5bc7ad1f85fe2db914542de8"
+        },
+        {
+          "channel": 2,
+          "sample_offset": 302768,
+          "pipeline_after_tproc_samples": 512,
+          "bursts": [
+            {
+              "point": 0,
+              "repetition": 0,
+              "name": "rf",
+              "samples": 96,
+              "frequency_mhz": 0.0,
+              "gain": 4000,
+              "phase_degrees": 0.0,
+              "command_cycle": 1786,
+              "frequency_register": 0,
+              "phase_register": 0,
+              "first_sample": 331344,
+              "last_sample_exclusive": 331440,
+              "exact_active_sample_count": 96,
+              "maximum_amplitude_error_codes": 1.0
+            },
+            {
+              "point": 0,
+              "repetition": 1,
+              "name": "rf",
+              "samples": 96,
+              "frequency_mhz": 0.0,
+              "gain": 4000,
+              "phase_degrees": 0.0,
+              "command_cycle": 2277,
+              "frequency_register": 0,
+              "phase_register": 0,
+              "first_sample": 339200,
+              "last_sample_exclusive": 339296,
+              "exact_active_sample_count": 96,
+              "maximum_amplitude_error_codes": 1.0
+            }
+          ],
+          "unexpected_nonzero_samples": 0,
+          "csv_sha256": "d30af136ade10b6b1a1e934b6387ff3ec6208ca020c3146919bd6f00f211aff0"
+        },
+        {
+          "channel": 4,
+          "sample_offset": 302768,
+          "pipeline_after_tproc_samples": 512,
+          "bursts": [
+            {
+              "point": 0,
+              "repetition": 0,
+              "name": "rf",
+              "samples": 96,
+              "frequency_mhz": 0.0,
+              "gain": 4000,
+              "phase_degrees": 0.0,
+              "command_cycle": 1786,
+              "frequency_register": 0,
+              "phase_register": 0,
+              "first_sample": 331344,
+              "last_sample_exclusive": 331440,
+              "exact_active_sample_count": 96,
+              "maximum_amplitude_error_codes": 1.0
+            },
+            {
+              "point": 0,
+              "repetition": 1,
+              "name": "rf",
+              "samples": 96,
+              "frequency_mhz": 0.0,
+              "gain": 4000,
+              "phase_degrees": 0.0,
+              "command_cycle": 2277,
+              "frequency_register": 0,
+              "phase_register": 0,
+              "first_sample": 339200,
+              "last_sample_exclusive": 339296,
+              "exact_active_sample_count": 96,
+              "maximum_amplitude_error_codes": 1.0
+            }
+          ],
+          "unexpected_nonzero_samples": 0,
+          "csv_sha256": "4d647ccce5283920ff45a382736db312bf03d83f42656948e36e340a6cbbac87"
+        }
+      ],
+      "commands": 59,
+      "command_value_errors": 0,
+      "command_timing_errors": 0,
+      "command_offset_cycles": 18891,
+      "sum_lane_oracle_errors": 0,
+      "helper_sha256": "5f664d0d06598c533121be7abc5853035ecc38be6b99d155605339d31be76192",
+      "rtl_version": "existing v4 SG-v6 plus sum-v1",
+      "analog_measurement": false,
+      "board_access": false
+    }
+  ],
+  "updated": "2026-10-14T23:51:38-0700",
+  "active_case": "fixed_96_gain4000"
+}

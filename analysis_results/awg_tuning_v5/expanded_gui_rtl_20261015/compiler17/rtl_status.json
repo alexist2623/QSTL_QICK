@@ -1,0 +1,3000 @@
+{
+  "complete": true,
+  "stage": "passed",
+  "started": "2026-10-15T09:02:51-0700",
+  "runner_sha256": "d431b26b53c0a751cbb7b41d507ad05943d2c341873e732c46aeccf7c1de0f17",
+  "cases": [
+    {
+      "passed": true,
+      "xsim_exit_code": 0,
+      "actual_gui_input": true,
+      "actual_tprocessor_tmux_rtl": true,
+      "name": "quantum_n0",
+      "original_case": "quantum_n0",
+      "explicit_offset_variant": false,
+      "request_description": "Original Quantum Loop n=0 through actual MainWindow; no virtual matrix inheritance; no RF pulses",
+      "command_count": 28,
+      "command_value_errors": 0,
+      "command_timing_errors": 0,
+      "command_origin": 459,
+      "physical_sample_checks": 1040208,
+      "sum_lane_samples": 1042608,
+      "raw_awg": [
+        [
+          "4",
+          "347536",
+          "0",
+          "7"
+        ],
+        [
+          "5",
+          "347536",
+          "0",
+          "7"
+        ],
+        [
+          "6",
+          "347536",
+          "0",
+          "0"
+        ]
+      ],
+      "areas": [
+        [
+          "4",
+          "2",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "5",
+          "2",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "6",
+          "0",
+          "0",
+          "0",
+          "0"
+        ]
+      ],
+      "rf_checks": [
+        {
+          "channel": 0,
+          "pulses": 0,
+          "measurements": [],
+          "carrier_error_max_codes": 0
+        },
+        {
+          "channel": 2,
+          "pulses": 0,
+          "measurements": [],
+          "carrier_error_max_codes": 0
+        },
+        {
+          "channel": 4,
+          "pulses": 0,
+          "measurements": [],
+          "carrier_error_max_codes": 0
+        }
+      ],
+      "board_access": false,
+      "adc_fir_arithmetic_validated": false
+    },
+    {
+      "passed": true,
+      "xsim_exit_code": 0,
+      "actual_gui_input": true,
+      "actual_tprocessor_tmux_rtl": true,
+      "name": "udd_n1_tau200ns_rf100ns",
+      "original_case": "udd_n1_tau200ns",
+      "explicit_offset_variant": true,
+      "request_description": "Explicit validation variant: +100 ns RF outer HOLD offset on all three RF controls; original UDD internal spacing and original rejection preserved",
+      "command_count": 513,
+      "command_value_errors": 0,
+      "command_timing_errors": 0,
+      "command_origin": 459,
+      "physical_sample_checks": 1794912,
+      "sum_lane_samples": 1797312,
+      "raw_awg": [
+        [
+          "4",
+          "599104",
+          "36",
+          "73"
+        ],
+        [
+          "5",
+          "599104",
+          "36",
+          "73"
+        ],
+        [
+          "6",
+          "599104",
+          "36",
+          "73"
+        ]
+      ],
+      "areas": [
+        [
+          "4",
+          "18",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "5",
+          "18",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "6",
+          "18",
+          "0",
+          "1",
+          "0"
+        ]
+      ],
+      "rf_checks": [
+        {
+          "channel": 0,
+          "pulses": 18,
+          "measurements": [
+            {
+              "index": 0,
+              "command_cycle": 1768,
+              "sum_input_start": 2259,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4728056646441985
+            },
+            {
+              "index": 1,
+              "command_cycle": 3589,
+              "sum_input_start": 4080,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.484203026495294
+            },
+            {
+              "index": 2,
+              "command_cycle": 5410,
+              "sum_input_start": 5901,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.6903249935211306
+            },
+            {
+              "index": 3,
+              "command_cycle": 7231,
+              "sum_input_start": 7722,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.486069186408372
+            },
+            {
+              "index": 4,
+              "command_cycle": 9052,
+              "sum_input_start": 9543,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3853208025039265
+            },
+            {
+              "index": 5,
+              "command_cycle": 10873,
+              "sum_input_start": 11364,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2581723593859806
+            },
+            {
+              "index": 6,
+              "command_cycle": 12694,
+              "sum_input_start": 13185,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4989698280469383
+            },
+            {
+              "index": 7,
+              "command_cycle": 14515,
+              "sum_input_start": 15006,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3986106571346397
+            },
+            {
+              "index": 8,
+              "command_cycle": 16336,
+              "sum_input_start": 16827,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3466368284019836
+            },
+            {
+              "index": 9,
+              "command_cycle": 18157,
+              "sum_input_start": 18648,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4748112771771957
+            },
+            {
+              "index": 10,
+              "command_cycle": 19978,
+              "sum_input_start": 20469,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4680576200879614
+            },
+            {
+              "index": 11,
+              "command_cycle": 21799,
+              "sum_input_start": 22290,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4746378411020942
+            },
+            {
+              "index": 12,
+              "command_cycle": 23620,
+              "sum_input_start": 24111,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.6090132094461467
+            },
+            {
+              "index": 13,
+              "command_cycle": 25441,
+              "sum_input_start": 25932,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4874151724014837
+            },
+            {
+              "index": 14,
+              "command_cycle": 27262,
+              "sum_input_start": 27753,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4988213262360262
+            },
+            {
+              "index": 15,
+              "command_cycle": 29083,
+              "sum_input_start": 29574,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2907851161562576
+            },
+            {
+              "index": 16,
+              "command_cycle": 30904,
+              "sum_input_start": 31395,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.394321179684539
+            },
+            {
+              "index": 17,
+              "command_cycle": 32725,
+              "sum_input_start": 33216,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4260106118510976
+            }
+          ],
+          "carrier_error_max_codes": 1.6903249935211306
+        },
+        {
+          "channel": 2,
+          "pulses": 18,
+          "measurements": [
+            {
+              "index": 0,
+              "command_cycle": 1738,
+              "sum_input_start": 2229,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4411988206076671
+            },
+            {
+              "index": 1,
+              "command_cycle": 3559,
+              "sum_input_start": 4050,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4068259435814525
+            },
+            {
+              "index": 2,
+              "command_cycle": 5380,
+              "sum_input_start": 5871,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4920754965270646
+            },
+            {
+              "index": 3,
+              "command_cycle": 7201,
+              "sum_input_start": 7692,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4294338266658428
+            },
+            {
+              "index": 4,
+              "command_cycle": 9022,
+              "sum_input_start": 9513,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4687504677186696
+            },
+            {
+              "index": 5,
+              "command_cycle": 10843,
+              "sum_input_start": 11334,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4573286149432143
+            },
+            {
+              "index": 6,
+              "command_cycle": 12664,
+              "sum_input_start": 13155,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3988468935950493
+            },
+            {
+              "index": 7,
+              "command_cycle": 14485,
+              "sum_input_start": 14976,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.373246298929331
+            },
+            {
+              "index": 8,
+              "command_cycle": 16306,
+              "sum_input_start": 16797,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.0432121592956491
+            },
+            {
+              "index": 9,
+              "command_cycle": 18127,
+              "sum_input_start": 18618,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.416426171177818
+            },
+            {
+              "index": 10,
+              "command_cycle": 19948,
+              "sum_input_start": 20439,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.394329808409168
+            },
+            {
+              "index": 11,
+              "command_cycle": 21769,
+              "sum_input_start": 22260,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2166616987918815
+            },
+            {
+              "index": 12,
+              "command_cycle": 23590,
+              "sum_input_start": 24081,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3717682648806715
+            },
+            {
+              "index": 13,
+              "command_cycle": 25411,
+              "sum_input_start": 25902,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3737626621016545
+            },
+            {
+              "index": 14,
+              "command_cycle": 27232,
+              "sum_input_start": 27723,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3618471407262405
+            },
+            {
+              "index": 15,
+              "command_cycle": 29053,
+              "sum_input_start": 29544,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3800836805306176
+            },
+            {
+              "index": 16,
+              "command_cycle": 30874,
+              "sum_input_start": 31365,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2945180989329401
+            },
+            {
+              "index": 17,
+              "command_cycle": 32695,
+              "sum_input_start": 33186,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4988446459901752
+            }
+          ],
+          "carrier_error_max_codes": 1.4988446459901752
+        },
+        {
+          "channel": 4,
+          "pulses": 18,
+          "measurements": [
+            {
+              "index": 0,
+              "command_cycle": 1738,
+              "sum_input_start": 2229,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4411988206076671
+            },
+            {
+              "index": 1,
+              "command_cycle": 3559,
+              "sum_input_start": 4050,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4068259435814525
+            },
+            {
+              "index": 2,
+              "command_cycle": 5380,
+              "sum_input_start": 5871,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4920754965270646
+            },
+            {
+              "index": 3,
+              "command_cycle": 7201,
+              "sum_input_start": 7692,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4294338266658428
+            },
+            {
+              "index": 4,
+              "command_cycle": 9022,
+              "sum_input_start": 9513,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4687504677186696
+            },
+            {
+              "index": 5,
+              "command_cycle": 10843,
+              "sum_input_start": 11334,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4573286149432143
+            },
+            {
+              "index": 6,
+              "command_cycle": 12664,
+              "sum_input_start": 13155,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3988468935950493
+            },
+            {
+              "index": 7,
+              "command_cycle": 14485,
+              "sum_input_start": 14976,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.373246298929331
+            },
+            {
+              "index": 8,
+              "command_cycle": 16306,
+              "sum_input_start": 16797,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.0432121592956491
+            },
+            {
+              "index": 9,
+              "command_cycle": 18127,
+              "sum_input_start": 18618,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.416426171177818
+            },
+            {
+              "index": 10,
+              "command_cycle": 19948,
+              "sum_input_start": 20439,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.394329808409168
+            },
+            {
+              "index": 11,
+              "command_cycle": 21769,
+              "sum_input_start": 22260,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2166616987918815
+            },
+            {
+              "index": 12,
+              "command_cycle": 23590,
+              "sum_input_start": 24081,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3717682648806715
+            },
+            {
+              "index": 13,
+              "command_cycle": 25411,
+              "sum_input_start": 25902,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3737626621016545
+            },
+            {
+              "index": 14,
+              "command_cycle": 27232,
+              "sum_input_start": 27723,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3618471407262405
+            },
+            {
+              "index": 15,
+              "command_cycle": 29053,
+              "sum_input_start": 29544,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3800836805306176
+            },
+            {
+              "index": 16,
+              "command_cycle": 30874,
+              "sum_input_start": 31365,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2945180989329401
+            },
+            {
+              "index": 17,
+              "command_cycle": 32695,
+              "sum_input_start": 33186,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4988446459901752
+            }
+          ],
+          "carrier_error_max_codes": 1.4988446459901752
+        }
+      ],
+      "board_access": false,
+      "adc_fir_arithmetic_validated": false
+    },
+    {
+      "passed": true,
+      "xsim_exit_code": 0,
+      "actual_gui_input": true,
+      "actual_tprocessor_tmux_rtl": true,
+      "name": "udd_n1_tau400ns_rf100ns",
+      "original_case": "udd_n1_tau400ns",
+      "explicit_offset_variant": true,
+      "request_description": "Explicit validation variant: +100 ns RF outer HOLD offset on all three RF controls; original UDD internal spacing and original rejection preserved",
+      "command_count": 513,
+      "command_value_errors": 0,
+      "command_timing_errors": 0,
+      "command_origin": 459,
+      "physical_sample_checks": 1794912,
+      "sum_lane_samples": 1797312,
+      "raw_awg": [
+        [
+          "4",
+          "599104",
+          "36",
+          "73"
+        ],
+        [
+          "5",
+          "599104",
+          "36",
+          "73"
+        ],
+        [
+          "6",
+          "599104",
+          "36",
+          "73"
+        ]
+      ],
+      "areas": [
+        [
+          "4",
+          "18",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "5",
+          "18",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "6",
+          "18",
+          "0",
+          "1",
+          "0"
+        ]
+      ],
+      "rf_checks": [
+        {
+          "channel": 0,
+          "pulses": 18,
+          "measurements": [
+            {
+              "index": 0,
+              "command_cycle": 1798,
+              "sum_input_start": 2289,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4382308223068776
+            },
+            {
+              "index": 1,
+              "command_cycle": 3619,
+              "sum_input_start": 4110,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.5689176035210721
+            },
+            {
+              "index": 2,
+              "command_cycle": 5440,
+              "sum_input_start": 5931,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.465555826131606
+            },
+            {
+              "index": 3,
+              "command_cycle": 7261,
+              "sum_input_start": 7752,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4005553800683685
+            },
+            {
+              "index": 4,
+              "command_cycle": 9082,
+              "sum_input_start": 9573,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3320347120802012
+            },
+            {
+              "index": 5,
+              "command_cycle": 10903,
+              "sum_input_start": 11394,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.5206860855249467
+            },
+            {
+              "index": 6,
+              "command_cycle": 12724,
+              "sum_input_start": 13215,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4201956223057266
+            },
+            {
+              "index": 7,
+              "command_cycle": 14545,
+              "sum_input_start": 15036,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4243089628413372
+            },
+            {
+              "index": 8,
+              "command_cycle": 16366,
+              "sum_input_start": 16857,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4648755856441085
+            },
+            {
+              "index": 9,
+              "command_cycle": 18187,
+              "sum_input_start": 18678,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4229393604753113
+            },
+            {
+              "index": 10,
+              "command_cycle": 20008,
+              "sum_input_start": 20499,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4587741582774072
+            },
+            {
+              "index": 11,
+              "command_cycle": 21829,
+              "sum_input_start": 22320,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4521083832488557
+            },
+            {
+              "index": 12,
+              "command_cycle": 23650,
+              "sum_input_start": 24141,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4886518454972872
+            },
+            {
+              "index": 13,
+              "command_cycle": 25471,
+              "sum_input_start": 25962,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4356404215566556
+            },
+            {
+              "index": 14,
+              "command_cycle": 27292,
+              "sum_input_start": 27783,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4290425535075428
+            },
+            {
+              "index": 15,
+              "command_cycle": 29113,
+              "sum_input_start": 29604,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4020903162939646
+            },
+            {
+              "index": 16,
+              "command_cycle": 30934,
+              "sum_input_start": 31425,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3493903549372703
+            },
+            {
+              "index": 17,
+              "command_cycle": 32755,
+              "sum_input_start": 33246,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.415579706793153
+            }
+          ],
+          "carrier_error_max_codes": 1.5689176035210721
+        },
+        {
+          "channel": 2,
+          "pulses": 18,
+          "measurements": [
+            {
+              "index": 0,
+              "command_cycle": 1738,
+              "sum_input_start": 2229,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4411988206076671
+            },
+            {
+              "index": 1,
+              "command_cycle": 3559,
+              "sum_input_start": 4050,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4068259435814525
+            },
+            {
+              "index": 2,
+              "command_cycle": 5380,
+              "sum_input_start": 5871,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4920754965270646
+            },
+            {
+              "index": 3,
+              "command_cycle": 7201,
+              "sum_input_start": 7692,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4294338266658428
+            },
+            {
+              "index": 4,
+              "command_cycle": 9022,
+              "sum_input_start": 9513,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4687504677186696
+            },
+            {
+              "index": 5,
+              "command_cycle": 10843,
+              "sum_input_start": 11334,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4573286149432143
+            },
+            {
+              "index": 6,
+              "command_cycle": 12664,
+              "sum_input_start": 13155,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3988468935950493
+            },
+            {
+              "index": 7,
+              "command_cycle": 14485,
+              "sum_input_start": 14976,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.373246298929331
+            },
+            {
+              "index": 8,
+              "command_cycle": 16306,
+              "sum_input_start": 16797,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.0432121592956491
+            },
+            {
+              "index": 9,
+              "command_cycle": 18127,
+              "sum_input_start": 18618,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.416426171177818
+            },
+            {
+              "index": 10,
+              "command_cycle": 19948,
+              "sum_input_start": 20439,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.394329808409168
+            },
+            {
+              "index": 11,
+              "command_cycle": 21769,
+              "sum_input_start": 22260,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2166616987918815
+            },
+            {
+              "index": 12,
+              "command_cycle": 23590,
+              "sum_input_start": 24081,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3717682648806715
+            },
+            {
+              "index": 13,
+              "command_cycle": 25411,
+              "sum_input_start": 25902,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3737626621016545
+            },
+            {
+              "index": 14,
+              "command_cycle": 27232,
+              "sum_input_start": 27723,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3618471407262405
+            },
+            {
+              "index": 15,
+              "command_cycle": 29053,
+              "sum_input_start": 29544,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3800836805306176
+            },
+            {
+              "index": 16,
+              "command_cycle": 30874,
+              "sum_input_start": 31365,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2945180989329401
+            },
+            {
+              "index": 17,
+              "command_cycle": 32695,
+              "sum_input_start": 33186,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4988446459901752
+            }
+          ],
+          "carrier_error_max_codes": 1.4988446459901752
+        },
+        {
+          "channel": 4,
+          "pulses": 18,
+          "measurements": [
+            {
+              "index": 0,
+              "command_cycle": 1738,
+              "sum_input_start": 2229,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4411988206076671
+            },
+            {
+              "index": 1,
+              "command_cycle": 3559,
+              "sum_input_start": 4050,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4068259435814525
+            },
+            {
+              "index": 2,
+              "command_cycle": 5380,
+              "sum_input_start": 5871,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4920754965270646
+            },
+            {
+              "index": 3,
+              "command_cycle": 7201,
+              "sum_input_start": 7692,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4294338266658428
+            },
+            {
+              "index": 4,
+              "command_cycle": 9022,
+              "sum_input_start": 9513,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4687504677186696
+            },
+            {
+              "index": 5,
+              "command_cycle": 10843,
+              "sum_input_start": 11334,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4573286149432143
+            },
+            {
+              "index": 6,
+              "command_cycle": 12664,
+              "sum_input_start": 13155,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3988468935950493
+            },
+            {
+              "index": 7,
+              "command_cycle": 14485,
+              "sum_input_start": 14976,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.373246298929331
+            },
+            {
+              "index": 8,
+              "command_cycle": 16306,
+              "sum_input_start": 16797,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.0432121592956491
+            },
+            {
+              "index": 9,
+              "command_cycle": 18127,
+              "sum_input_start": 18618,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.416426171177818
+            },
+            {
+              "index": 10,
+              "command_cycle": 19948,
+              "sum_input_start": 20439,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.394329808409168
+            },
+            {
+              "index": 11,
+              "command_cycle": 21769,
+              "sum_input_start": 22260,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2166616987918815
+            },
+            {
+              "index": 12,
+              "command_cycle": 23590,
+              "sum_input_start": 24081,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3717682648806715
+            },
+            {
+              "index": 13,
+              "command_cycle": 25411,
+              "sum_input_start": 25902,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3737626621016545
+            },
+            {
+              "index": 14,
+              "command_cycle": 27232,
+              "sum_input_start": 27723,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3618471407262405
+            },
+            {
+              "index": 15,
+              "command_cycle": 29053,
+              "sum_input_start": 29544,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3800836805306176
+            },
+            {
+              "index": 16,
+              "command_cycle": 30874,
+              "sum_input_start": 31365,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2945180989329401
+            },
+            {
+              "index": 17,
+              "command_cycle": 32695,
+              "sum_input_start": 33186,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4988446459901752
+            }
+          ],
+          "carrier_error_max_codes": 1.4988446459901752
+        }
+      ],
+      "board_access": false,
+      "adc_fir_arithmetic_validated": false
+    },
+    {
+      "passed": true,
+      "xsim_exit_code": 0,
+      "actual_gui_input": true,
+      "actual_tprocessor_tmux_rtl": true,
+      "name": "udd_n2_tau200ns_rf100ns",
+      "original_case": "udd_n2_tau200ns",
+      "explicit_offset_variant": true,
+      "request_description": "Explicit validation variant: +100 ns RF outer HOLD offset on all three RF controls; original UDD internal spacing and original rejection preserved",
+      "command_count": 531,
+      "command_value_errors": 0,
+      "command_timing_errors": 0,
+      "command_origin": 459,
+      "physical_sample_checks": 1794912,
+      "sum_lane_samples": 1797312,
+      "raw_awg": [
+        [
+          "4",
+          "599104",
+          "36",
+          "73"
+        ],
+        [
+          "5",
+          "599104",
+          "36",
+          "73"
+        ],
+        [
+          "6",
+          "599104",
+          "36",
+          "73"
+        ]
+      ],
+      "areas": [
+        [
+          "4",
+          "18",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "5",
+          "18",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "6",
+          "18",
+          "0",
+          "1",
+          "0"
+        ]
+      ],
+      "rf_checks": [
+        {
+          "channel": 0,
+          "pulses": 36,
+          "measurements": [
+            {
+              "index": 0,
+              "command_cycle": 1753,
+              "sum_input_start": 2244,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4108172835018422
+            },
+            {
+              "index": 1,
+              "command_cycle": 1813,
+              "sum_input_start": 2304,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3236639366283498
+            },
+            {
+              "index": 2,
+              "command_cycle": 3574,
+              "sum_input_start": 4065,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3206348519431117
+            },
+            {
+              "index": 3,
+              "command_cycle": 3634,
+              "sum_input_start": 4125,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2496526119674627
+            },
+            {
+              "index": 4,
+              "command_cycle": 5395,
+              "sum_input_start": 5886,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2286994185691356
+            },
+            {
+              "index": 5,
+              "command_cycle": 5455,
+              "sum_input_start": 5946,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4723337474151812
+            },
+            {
+              "index": 6,
+              "command_cycle": 7216,
+              "sum_input_start": 7707,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4428674906005199
+            },
+            {
+              "index": 7,
+              "command_cycle": 7276,
+              "sum_input_start": 7767,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3286662881222213
+            },
+            {
+              "index": 8,
+              "command_cycle": 9037,
+              "sum_input_start": 9528,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4560333957406613
+            },
+            {
+              "index": 9,
+              "command_cycle": 9097,
+              "sum_input_start": 9588,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4731689546265727
+            },
+            {
+              "index": 10,
+              "command_cycle": 10858,
+              "sum_input_start": 11349,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.33264541097568
+            },
+            {
+              "index": 11,
+              "command_cycle": 10918,
+              "sum_input_start": 11409,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2666802378258808
+            },
+            {
+              "index": 12,
+              "command_cycle": 12679,
+              "sum_input_start": 13170,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4954033043887591
+            },
+            {
+              "index": 13,
+              "command_cycle": 12739,
+              "sum_input_start": 13230,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3461230875823986
+            },
+            {
+              "index": 14,
+              "command_cycle": 14500,
+              "sum_input_start": 14991,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.397605654496374
+            },
+            {
+              "index": 15,
+              "command_cycle": 14560,
+              "sum_input_start": 15051,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3715995637996343
+            },
+            {
+              "index": 16,
+              "command_cycle": 16321,
+              "sum_input_start": 16812,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3261567569787758
+            },
+            {
+              "index": 17,
+              "command_cycle": 16381,
+              "sum_input_start": 16872,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3643956841679028
+            },
+            {
+              "index": 18,
+              "command_cycle": 18142,
+              "sum_input_start": 18633,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4103018973138433
+            },
+            {
+              "index": 19,
+              "command_cycle": 18202,
+              "sum_input_start": 18693,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3801548215871975
+            },
+            {
+              "index": 20,
+              "command_cycle": 19963,
+              "sum_input_start": 20454,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4128383987444977
+            },
+            {
+              "index": 21,
+              "command_cycle": 20023,
+              "sum_input_start": 20514,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4534348622632223
+            },
+            {
+              "index": 22,
+              "command_cycle": 21784,
+              "sum_input_start": 22275,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.447631985396015
+            },
+            {
+              "index": 23,
+              "command_cycle": 21844,
+              "sum_input_start": 22335,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3150908751957786
+            },
+            {
+              "index": 24,
+              "command_cycle": 23605,
+              "sum_input_start": 24096,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.1786878699419958
+            },
+            {
+              "index": 25,
+              "command_cycle": 23665,
+              "sum_input_start": 24156,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2850885818470204
+            },
+            {
+              "index": 26,
+              "command_cycle": 25426,
+              "sum_input_start": 25917,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4252187738244686
+            },
+            {
+              "index": 27,
+              "command_cycle": 25486,
+              "sum_input_start": 25977,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3151556851945543
+            },
+            {
+              "index": 28,
+              "command_cycle": 27247,
+              "sum_input_start": 27738,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.43662501732193
+            },
+            {
+              "index": 29,
+              "command_cycle": 27307,
+              "sum_input_start": 27798,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.450027721876097
+            },
+            {
+              "index": 30,
+              "command_cycle": 29068,
+              "sum_input_start": 29559,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2607411851531651
+            },
+            {
+              "index": 31,
+              "command_cycle": 29128,
+              "sum_input_start": 29619,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4661523218311459
+            },
+            {
+              "index": 32,
+              "command_cycle": 30889,
+              "sum_input_start": 31380,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3758767280279471
+            },
+            {
+              "index": 33,
+              "command_cycle": 30949,
+              "sum_input_start": 31440,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.47638638452797
+            },
+            {
+              "index": 34,
+              "command_cycle": 32710,
+              "sum_input_start": 33201,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.336261372893702
+            },
+            {
+              "index": 35,
+              "command_cycle": 32770,
+              "sum_input_start": 33261,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.6205879299956223
+            }
+          ],
+          "carrier_error_max_codes": 1.6205879299956223
+        },
+        {
+          "channel": 2,
+          "pulses": 18,
+          "measurements": [
+            {
+              "index": 0,
+              "command_cycle": 1738,
+              "sum_input_start": 2229,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4411988206076671
+            },
+            {
+              "index": 1,
+              "command_cycle": 3559,
+              "sum_input_start": 4050,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4068259435814525
+            },
+            {
+              "index": 2,
+              "command_cycle": 5380,
+              "sum_input_start": 5871,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4920754965270646
+            },
+            {
+              "index": 3,
+              "command_cycle": 7201,
+              "sum_input_start": 7692,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4294338266658428
+            },
+            {
+              "index": 4,
+              "command_cycle": 9022,
+              "sum_input_start": 9513,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4687504677186696
+            },
+            {
+              "index": 5,
+              "command_cycle": 10843,
+              "sum_input_start": 11334,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4573286149432143
+            },
+            {
+              "index": 6,
+              "command_cycle": 12664,
+              "sum_input_start": 13155,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3988468935950493
+            },
+            {
+              "index": 7,
+              "command_cycle": 14485,
+              "sum_input_start": 14976,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.373246298929331
+            },
+            {
+              "index": 8,
+              "command_cycle": 16306,
+              "sum_input_start": 16797,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.0432121592956491
+            },
+            {
+              "index": 9,
+              "command_cycle": 18127,
+              "sum_input_start": 18618,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.416426171177818
+            },
+            {
+              "index": 10,
+              "command_cycle": 19948,
+              "sum_input_start": 20439,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.394329808409168
+            },
+            {
+              "index": 11,
+              "command_cycle": 21769,
+              "sum_input_start": 22260,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2166616987918815
+            },
+            {
+              "index": 12,
+              "command_cycle": 23590,
+              "sum_input_start": 24081,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3717682648806715
+            },
+            {
+              "index": 13,
+              "command_cycle": 25411,
+              "sum_input_start": 25902,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3737626621016545
+            },
+            {
+              "index": 14,
+              "command_cycle": 27232,
+              "sum_input_start": 27723,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3618471407262405
+            },
+            {
+              "index": 15,
+              "command_cycle": 29053,
+              "sum_input_start": 29544,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3800836805306176
+            },
+            {
+              "index": 16,
+              "command_cycle": 30874,
+              "sum_input_start": 31365,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2945180989329401
+            },
+            {
+              "index": 17,
+              "command_cycle": 32695,
+              "sum_input_start": 33186,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4988446459901752
+            }
+          ],
+          "carrier_error_max_codes": 1.4988446459901752
+        },
+        {
+          "channel": 4,
+          "pulses": 18,
+          "measurements": [
+            {
+              "index": 0,
+              "command_cycle": 1738,
+              "sum_input_start": 2229,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4411988206076671
+            },
+            {
+              "index": 1,
+              "command_cycle": 3559,
+              "sum_input_start": 4050,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4068259435814525
+            },
+            {
+              "index": 2,
+              "command_cycle": 5380,
+              "sum_input_start": 5871,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4920754965270646
+            },
+            {
+              "index": 3,
+              "command_cycle": 7201,
+              "sum_input_start": 7692,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4294338266658428
+            },
+            {
+              "index": 4,
+              "command_cycle": 9022,
+              "sum_input_start": 9513,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4687504677186696
+            },
+            {
+              "index": 5,
+              "command_cycle": 10843,
+              "sum_input_start": 11334,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4573286149432143
+            },
+            {
+              "index": 6,
+              "command_cycle": 12664,
+              "sum_input_start": 13155,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3988468935950493
+            },
+            {
+              "index": 7,
+              "command_cycle": 14485,
+              "sum_input_start": 14976,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.373246298929331
+            },
+            {
+              "index": 8,
+              "command_cycle": 16306,
+              "sum_input_start": 16797,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.0432121592956491
+            },
+            {
+              "index": 9,
+              "command_cycle": 18127,
+              "sum_input_start": 18618,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.416426171177818
+            },
+            {
+              "index": 10,
+              "command_cycle": 19948,
+              "sum_input_start": 20439,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.394329808409168
+            },
+            {
+              "index": 11,
+              "command_cycle": 21769,
+              "sum_input_start": 22260,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2166616987918815
+            },
+            {
+              "index": 12,
+              "command_cycle": 23590,
+              "sum_input_start": 24081,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3717682648806715
+            },
+            {
+              "index": 13,
+              "command_cycle": 25411,
+              "sum_input_start": 25902,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3737626621016545
+            },
+            {
+              "index": 14,
+              "command_cycle": 27232,
+              "sum_input_start": 27723,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3618471407262405
+            },
+            {
+              "index": 15,
+              "command_cycle": 29053,
+              "sum_input_start": 29544,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3800836805306176
+            },
+            {
+              "index": 16,
+              "command_cycle": 30874,
+              "sum_input_start": 31365,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2945180989329401
+            },
+            {
+              "index": 17,
+              "command_cycle": 32695,
+              "sum_input_start": 33186,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4988446459901752
+            }
+          ],
+          "carrier_error_max_codes": 1.4988446459901752
+        }
+      ],
+      "board_access": false,
+      "adc_fir_arithmetic_validated": false
+    },
+    {
+      "passed": true,
+      "xsim_exit_code": 0,
+      "actual_gui_input": true,
+      "actual_tprocessor_tmux_rtl": true,
+      "name": "udd_n2_tau400ns_rf100ns",
+      "original_case": "udd_n2_tau400ns",
+      "explicit_offset_variant": true,
+      "request_description": "Explicit validation variant: +100 ns RF outer HOLD offset on all three RF controls; original UDD internal spacing and original rejection preserved",
+      "command_count": 531,
+      "command_value_errors": 0,
+      "command_timing_errors": 0,
+      "command_origin": 459,
+      "physical_sample_checks": 1794912,
+      "sum_lane_samples": 1797312,
+      "raw_awg": [
+        [
+          "4",
+          "599104",
+          "36",
+          "73"
+        ],
+        [
+          "5",
+          "599104",
+          "36",
+          "73"
+        ],
+        [
+          "6",
+          "599104",
+          "36",
+          "73"
+        ]
+      ],
+      "areas": [
+        [
+          "4",
+          "18",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "5",
+          "18",
+          "0",
+          "1",
+          "0"
+        ],
+        [
+          "6",
+          "18",
+          "0",
+          "1",
+          "0"
+        ]
+      ],
+      "rf_checks": [
+        {
+          "channel": 0,
+          "pulses": 36,
+          "measurements": [
+            {
+              "index": 0,
+              "command_cycle": 1768,
+              "sum_input_start": 2259,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4728056646441985
+            },
+            {
+              "index": 1,
+              "command_cycle": 1858,
+              "sum_input_start": 2349,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.5895146111488998
+            },
+            {
+              "index": 2,
+              "command_cycle": 3589,
+              "sum_input_start": 4080,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.484203026495294
+            },
+            {
+              "index": 3,
+              "command_cycle": 3679,
+              "sum_input_start": 4170,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.511262873832493
+            },
+            {
+              "index": 4,
+              "command_cycle": 5410,
+              "sum_input_start": 5901,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.6903249935211306
+            },
+            {
+              "index": 5,
+              "command_cycle": 5500,
+              "sum_input_start": 5991,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4961609087943657
+            },
+            {
+              "index": 6,
+              "command_cycle": 7231,
+              "sum_input_start": 7722,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.486069186408372
+            },
+            {
+              "index": 7,
+              "command_cycle": 7321,
+              "sum_input_start": 7812,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.507371422808319
+            },
+            {
+              "index": 8,
+              "command_cycle": 9052,
+              "sum_input_start": 9543,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3853208025039265
+            },
+            {
+              "index": 9,
+              "command_cycle": 9142,
+              "sum_input_start": 9633,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.6554421605749212
+            },
+            {
+              "index": 10,
+              "command_cycle": 10873,
+              "sum_input_start": 11364,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2581723593859806
+            },
+            {
+              "index": 11,
+              "command_cycle": 10963,
+              "sum_input_start": 11454,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4341684131991315
+            },
+            {
+              "index": 12,
+              "command_cycle": 12694,
+              "sum_input_start": 13185,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4989698280469383
+            },
+            {
+              "index": 13,
+              "command_cycle": 12784,
+              "sum_input_start": 13275,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4236214999493768
+            },
+            {
+              "index": 14,
+              "command_cycle": 14515,
+              "sum_input_start": 15006,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3986106571346397
+            },
+            {
+              "index": 15,
+              "command_cycle": 14605,
+              "sum_input_start": 15096,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4199132543121635
+            },
+            {
+              "index": 16,
+              "command_cycle": 16336,
+              "sum_input_start": 16827,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3466368284019836
+            },
+            {
+              "index": 17,
+              "command_cycle": 16426,
+              "sum_input_start": 16917,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3092508281681603
+            },
+            {
+              "index": 18,
+              "command_cycle": 18157,
+              "sum_input_start": 18648,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4748112771771957
+            },
+            {
+              "index": 19,
+              "command_cycle": 18247,
+              "sum_input_start": 18738,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3407639545976053
+            },
+            {
+              "index": 20,
+              "command_cycle": 19978,
+              "sum_input_start": 20469,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4680576200879614
+            },
+            {
+              "index": 21,
+              "command_cycle": 20068,
+              "sum_input_start": 20559,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.6762256887626847
+            },
+            {
+              "index": 22,
+              "command_cycle": 21799,
+              "sum_input_start": 22290,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4746378411020942
+            },
+            {
+              "index": 23,
+              "command_cycle": 21889,
+              "sum_input_start": 22380,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4792446773407164
+            },
+            {
+              "index": 24,
+              "command_cycle": 23620,
+              "sum_input_start": 24111,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.6090132094461467
+            },
+            {
+              "index": 25,
+              "command_cycle": 23710,
+              "sum_input_start": 24201,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.5064415649949296
+            },
+            {
+              "index": 26,
+              "command_cycle": 25441,
+              "sum_input_start": 25932,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4874151724014837
+            },
+            {
+              "index": 27,
+              "command_cycle": 25531,
+              "sum_input_start": 26022,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3164390732512317
+            },
+            {
+              "index": 28,
+              "command_cycle": 27262,
+              "sum_input_start": 27753,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4988213262360262
+            },
+            {
+              "index": 29,
+              "command_cycle": 27352,
+              "sum_input_start": 27843,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.357142929108477
+            },
+            {
+              "index": 30,
+              "command_cycle": 29083,
+              "sum_input_start": 29574,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2907851161562576
+            },
+            {
+              "index": 31,
+              "command_cycle": 29173,
+              "sum_input_start": 29664,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.366143627746169
+            },
+            {
+              "index": 32,
+              "command_cycle": 30904,
+              "sum_input_start": 31395,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.394321179684539
+            },
+            {
+              "index": 33,
+              "command_cycle": 30994,
+              "sum_input_start": 31485,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3401433755058605
+            },
+            {
+              "index": 34,
+              "command_cycle": 32725,
+              "sum_input_start": 33216,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4260106118510976
+            },
+            {
+              "index": 35,
+              "command_cycle": 32815,
+              "sum_input_start": 33306,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3826455796803003
+            }
+          ],
+          "carrier_error_max_codes": 1.6903249935211306
+        },
+        {
+          "channel": 2,
+          "pulses": 18,
+          "measurements": [
+            {
+              "index": 0,
+              "command_cycle": 1738,
+              "sum_input_start": 2229,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4411988206076671
+            },
+            {
+              "index": 1,
+              "command_cycle": 3559,
+              "sum_input_start": 4050,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4068259435814525
+            },
+            {
+              "index": 2,
+              "command_cycle": 5380,
+              "sum_input_start": 5871,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4920754965270646
+            },
+            {
+              "index": 3,
+              "command_cycle": 7201,
+              "sum_input_start": 7692,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4294338266658428
+            },
+            {
+              "index": 4,
+              "command_cycle": 9022,
+              "sum_input_start": 9513,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4687504677186696
+            },
+            {
+              "index": 5,
+              "command_cycle": 10843,
+              "sum_input_start": 11334,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4573286149432143
+            },
+            {
+              "index": 6,
+              "command_cycle": 12664,
+              "sum_input_start": 13155,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3988468935950493
+            },
+            {
+              "index": 7,
+              "command_cycle": 14485,
+              "sum_input_start": 14976,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.373246298929331
+            },
+            {
+              "index": 8,
+              "command_cycle": 16306,
+              "sum_input_start": 16797,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.0432121592956491
+            },
+            {
+              "index": 9,
+              "command_cycle": 18127,
+              "sum_input_start": 18618,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.416426171177818
+            },
+            {
+              "index": 10,
+              "command_cycle": 19948,
+              "sum_input_start": 20439,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.394329808409168
+            },
+            {
+              "index": 11,
+              "command_cycle": 21769,
+              "sum_input_start": 22260,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2166616987918815
+            },
+            {
+              "index": 12,
+              "command_cycle": 23590,
+              "sum_input_start": 24081,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3717682648806715
+            },
+            {
+              "index": 13,
+              "command_cycle": 25411,
+              "sum_input_start": 25902,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3737626621016545
+            },
+            {
+              "index": 14,
+              "command_cycle": 27232,
+              "sum_input_start": 27723,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3618471407262405
+            },
+            {
+              "index": 15,
+              "command_cycle": 29053,
+              "sum_input_start": 29544,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3800836805306176
+            },
+            {
+              "index": 16,
+              "command_cycle": 30874,
+              "sum_input_start": 31365,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2945180989329401
+            },
+            {
+              "index": 17,
+              "command_cycle": 32695,
+              "sum_input_start": 33186,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4988446459901752
+            }
+          ],
+          "carrier_error_max_codes": 1.4988446459901752
+        },
+        {
+          "channel": 4,
+          "pulses": 18,
+          "measurements": [
+            {
+              "index": 0,
+              "command_cycle": 1738,
+              "sum_input_start": 2229,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4411988206076671
+            },
+            {
+              "index": 1,
+              "command_cycle": 3559,
+              "sum_input_start": 4050,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4068259435814525
+            },
+            {
+              "index": 2,
+              "command_cycle": 5380,
+              "sum_input_start": 5871,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4920754965270646
+            },
+            {
+              "index": 3,
+              "command_cycle": 7201,
+              "sum_input_start": 7692,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4294338266658428
+            },
+            {
+              "index": 4,
+              "command_cycle": 9022,
+              "sum_input_start": 9513,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4687504677186696
+            },
+            {
+              "index": 5,
+              "command_cycle": 10843,
+              "sum_input_start": 11334,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4573286149432143
+            },
+            {
+              "index": 6,
+              "command_cycle": 12664,
+              "sum_input_start": 13155,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3988468935950493
+            },
+            {
+              "index": 7,
+              "command_cycle": 14485,
+              "sum_input_start": 14976,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.373246298929331
+            },
+            {
+              "index": 8,
+              "command_cycle": 16306,
+              "sum_input_start": 16797,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.0432121592956491
+            },
+            {
+              "index": 9,
+              "command_cycle": 18127,
+              "sum_input_start": 18618,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.416426171177818
+            },
+            {
+              "index": 10,
+              "command_cycle": 19948,
+              "sum_input_start": 20439,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.394329808409168
+            },
+            {
+              "index": 11,
+              "command_cycle": 21769,
+              "sum_input_start": 22260,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2166616987918815
+            },
+            {
+              "index": 12,
+              "command_cycle": 23590,
+              "sum_input_start": 24081,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3717682648806715
+            },
+            {
+              "index": 13,
+              "command_cycle": 25411,
+              "sum_input_start": 25902,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3737626621016545
+            },
+            {
+              "index": 14,
+              "command_cycle": 27232,
+              "sum_input_start": 27723,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3618471407262405
+            },
+            {
+              "index": 15,
+              "command_cycle": 29053,
+              "sum_input_start": 29544,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.3800836805306176
+            },
+            {
+              "index": 16,
+              "command_cycle": 30874,
+              "sum_input_start": 31365,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.2945180989329401
+            },
+            {
+              "index": 17,
+              "command_cycle": 32695,
+              "sum_input_start": 33186,
+              "width_cycles": 30,
+              "frequency_register": 170009122,
+              "gain": 2000,
+              "phase_register": 0,
+              "carrier_error_codes": 1.4988446459901752
+            }
+          ],
+          "carrier_error_max_codes": 1.4988446459901752
+        }
+      ],
+      "board_access": false,
+      "adc_fir_arithmetic_validated": false
+    }
+  ],
+  "updated": "2026-10-15T09:26:26-0700",
+  "active_case": "udd_n2_tau400ns_rf100ns",
+  "child_pid": 60384,
+  "command_exits": [
+    {
+      "tool": "xsim",
+      "arguments": [
+        "-f",
+        "F:\\Vivado_Output\\a5compiler1\\quantum_n0\\options.txt"
+      ],
+      "log": "F:\\Vivado_Output\\a5compiler1\\quantum_n0\\run_console.log",
+      "pid": 111800,
+      "exit_code": 0
+    },
+    {
+      "tool": "xsim",
+      "arguments": [
+        "-f",
+        "F:\\Vivado_Output\\a5compiler1\\udd_n1_tau200ns_rf100ns\\options.txt"
+      ],
+      "log": "F:\\Vivado_Output\\a5compiler1\\udd_n1_tau200ns_rf100ns\\run_console.log",
+      "pid": 59476,
+      "exit_code": 0
+    },
+    {
+      "tool": "xsim",
+      "arguments": [
+        "-f",
+        "F:\\Vivado_Output\\a5compiler1\\udd_n1_tau400ns_rf100ns\\options.txt"
+      ],
+      "log": "F:\\Vivado_Output\\a5compiler1\\udd_n1_tau400ns_rf100ns\\run_console.log",
+      "pid": 103880,
+      "exit_code": 0
+    },
+    {
+      "tool": "xsim",
+      "arguments": [
+        "-f",
+        "F:\\Vivado_Output\\a5compiler1\\udd_n2_tau200ns_rf100ns\\options.txt"
+      ],
+      "log": "F:\\Vivado_Output\\a5compiler1\\udd_n2_tau200ns_rf100ns\\run_console.log",
+      "pid": 38332,
+      "exit_code": 0
+    },
+    {
+      "tool": "xsim",
+      "arguments": [
+        "-f",
+        "F:\\Vivado_Output\\a5compiler1\\udd_n2_tau400ns_rf100ns\\options.txt"
+      ],
+      "log": "F:\\Vivado_Output\\a5compiler1\\udd_n2_tau400ns_rf100ns\\run_console.log",
+      "pid": 60384,
+      "exit_code": 0
+    }
+  ]
+}

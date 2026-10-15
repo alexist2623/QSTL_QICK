@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "exit_code": 0,
+  "tests_passed": 141,
+  "duration_seconds": 2.03,
+  "scope": "staging only; SoftwareSweepProgramBundle fine-mode summary metadata and tests",
+  "sources": {
+    "F:\\Vivado_Output\\a5fine_sw\\DCWaveformGeneratorGUI\\qick_qcodes_experiment.py": "ba2a3aca903729d7857aad006f40743c9580e107fc0de081b677753276c105e8",
+    "F:\\Vivado_Output\\a5fine_sw\\DCWaveformGeneratorGUI\\test_rf_fine_duration_runtime.py": "354d1ad126167a66e5cdbab462c26a87faf6880b6ebf4dc35e35958f98a14890"
+  },
+  "evidence": {
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\rf_fine_duration\\software_point_metadata_fix\\runtime.log": "f3e13ef175b49c2d9d84f3d5767094f098b565d7f7aac3c78442d084172acbd4",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\rf_fine_duration\\software_point_metadata_fix\\runtime.xml": "550ddb824c66b3f5126008dd09ebaefc72dff7c97474229af541243195dacef2"
+  },
+  "production_changed": false,
+  "compiler_timing_or_api_changed": false,
+  "new_regressions": [
+    "six actual compiled T2/delay host points preserve realized sample lengths",
+    "QCoDeS SQLite metadata JSON stores every fine point and last-point scope",
+    "coarse bundle summary remains exactly equal to legacy construction"
+  ]
+}

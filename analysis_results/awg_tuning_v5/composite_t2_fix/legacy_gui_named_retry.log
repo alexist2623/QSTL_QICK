@@ -1,0 +1,126 @@
+..F                                                                      [100%]
+================================== FAILURES ===================================
+__________ test_older_settings_apply_defaults_and_resave_as_current ___________
+
+tmp_path = WindowsPath('C:/Users/Measurement2/AppData/Local/Temp/pytest-of-Measurement2/pytest-45/test_older_settings_apply_defa0')
+
+    def test_older_settings_apply_defaults_and_resave_as_current(tmp_path):
+        app = _application()
+        window = gui.MainWindow()
+        document = window._settings_to_dict()
+        document["version"] = 2
+        document["display"]["selected_control_tab"] = 2
+        document["display"].pop("selected_awg_tuning_tab")
+        document["display"].pop("voltage_view")
+        document["grid"].pop("snap_enabled")
+        document["awg"].pop("cross_capacitance")
+        document["awg"].pop("sweeps")
+        document["qick"].pop("tproc_mhz")
+        document["qick"].pop("repetitions_per_sweep")
+        document["qick"].pop("iq_storage_mode")
+        document["qick"].pop("bias_t_compensation")
+        document["stability_diagram"].pop("iq_storage_mode")
+        document["experiment"].pop("notes")
+        document.pop("rf_outputs")
+        document["rf_readout"] = {"enabled": False}
+        document["s_parameter"].pop("database_path")
+    
+        old_path = tmp_path / "settings_v2.json"
+        old_path.write_text(json.dumps(document), encoding="utf-8")
+        window._load_settings_json(old_path)
+        app.processEvents()
+    
+        assert np.array_equal(window._cross_capacitance, np.eye(1))
+        assert window._plot.voltage_view == "both"
+        assert window._grid_snap_enabled is False
+        assert window._experiment_panel.tproc_mhz.value() == 300.0
+        assert window._experiment_panel.repetitions.value() == 1
+        assert (
+            window._experiment_panel.iq_storage_mode.currentData()
+            == IQ_STORAGE_FULL_TRACES
+        )
+        assert (
+            window._stability_panel.iq_storage_mode_value()
+            == IQ_STORAGE_FULL_TRACES
+        )
+        assert window._experiment_panel.bias_t_group.isChecked() is False
+        assert window._experiment_panel.bias_t_compensation_mv.value() == 80.0
+        assert window._control_tabs.currentWidget() is window._awg_tuning_page
+        assert window._awg_tuning_tabs.currentWidget() is window._rf_readout_panel
+        assert len(window._rf_ports_panel._panels) == 1
+        restored_rf = window._rf_ports_panel.settings()[0]
+        expected_rf = copy.deepcopy(gui.DEFAULT_RF_OUTPUT_SETTINGS)
+        # Literal zero phases are migrated to named references, with no change to
+        # their values or sweep state. All other default settings stay exact.
+        expected_rf["phase_parameters"] = [
+            dict(name=name, phase_degrees=0.0, sweep_enabled=False,
+                 sweep_start_degrees=0.0, sweep_stop_degrees=0.0, sweep_count=1)
+            for name in ("phase_initial", "phase_final", "phase_pi", "phase_pulse_0")
+        ]
+        expected_rf.update(t2_initial_phase_parameter="phase_initial",
+                           t2_final_phase_parameter="phase_final",
+                           predefined_phase_parameter="phase_pi")
+        expected_rf["composite_items"][0].update(
+            amplitude_parameter="", phase_parameter="phase_pulse_0")
+        assert restored_rf == expected_rf
+        assert (
+            window._rf_readout_panel.settings_dict()
+            == gui.DEFAULT_RF_READOUT_SETTINGS
+        )
+        assert (
+            window._sparameter_panel.settings_dict()
+            == gui.DEFAULT_SPARAMETER_SETTINGS
+        )
+    
+        upgraded_path = window._save_settings_json(tmp_path / "settings_upgraded")
+        upgraded = json.loads(upgraded_path.read_text(encoding="utf-8"))
+        assert upgraded["version"] == gui.SETTINGS_VERSION == 45
+        assert upgraded["qick"]["awg_metadata_mode"] == "parametric"
+        assert upgraded["qick"]["iq_storage_mode"] == IQ_STORAGE_FULL_TRACES
+        assert upgraded["qick"]["compile_validation_mode"] == "boundary"
+        assert upgraded["display"]["selected_control_tab"] == 0
+        assert upgraded["display"]["selected_awg_tuning_tab"] == 2
+        assert upgraded["display"]["voltage_view"] == "both"
+        assert upgraded["grid"]["snap_enabled"] is False
+        assert upgraded["awg"]["cross_capacitance"] == [[1.0]]
+        assert upgraded["awg"]["sweeps"] == []
+        assert upgraded["stability_diagram"]["x_axis"]["output_name"] == "awg_0"
+        assert upgraded["stability_diagram"]["y_axis"]["output_name"] == "awg_0"
+        assert upgraded["stability_diagram"]["trace_samples_per_point"] == 64
+        assert (
+            upgraded["stability_diagram"]["iq_storage_mode"]
+            == IQ_STORAGE_FULL_TRACES
+        )
+        assert upgraded["stability_diagram"]["bias_t_compensation"] == {
+            "enabled": False,
+            "type": "dc",
+            "mode": "fixed_voltage",
+            "voltage_mv": 80.0,
+            "duration_us": 1.0,
+            "filter_tau_us": 100.0,
+        }
+        assert "rf_readout" not in upgraded["stability_diagram"]
+        assert "rf_outputs" not in upgraded["stability_diagram"]
+        assert upgraded["qick"]["tproc_mhz"] == 300.0
+        assert upgraded["qick"]["repetitions_per_sweep"] == 1
+        assert upgraded["qick"]["bias_t_compensation"] == {
+            "enabled": False,
+            "type": "dc",
+            "mode": "fixed_voltage",
+            "voltage_mv": 80.0,
+            "duration_us": 1.0,
+            "filter_tau_us": 100.0,
+        }
+        assert upgraded["experiment"]["notes"] == ""
+>       assert upgraded["rf_outputs"] == [gui.DEFAULT_RF_OUTPUT_SETTINGS]
+E       AssertionError: assert [{'enabled': ...s': 0.0, ...}] == [{'enabled': ...s': 0.0, ...}]
+E         
+E         At index 0 diff: {'enabled': False, 'gen_ch': 0, 'segment_name': 'set_0', 'delay_us': 0.0, 'duration_us': 1.0, 'frequency_mhz': 50.0, 'gain': 20000, 'att1_db': 0.0, 'att2_db': 0.0, 'phase_degrees': 0.0, 'nqz': 1, 'require_within_segment': True, 'filter_type': 'bypass', 'filter_cutoff': 2.5, 'filter_bandwidth': 1.0, 'output_board_type': 'RF_Out', 'duration_sweep_enabled': False, 'duration_sweep_start_us': 1.0, 'duration_sweep_stop_us': 1.0, 'duration_sweep_count': 1, 'segment_length_mode': 'fixed', 'frequency_sweep_enabled': False, 'frequency_sweep_start_mhz': 50.0, 'fre...
+E         
+E         ...Full output truncated (2 lines hidden), use '-vv' to show
+
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:3721: AssertionError
+=========================== short test summary info ===========================
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_older_settings_apply_defaults_and_resave_as_current
+1 failed, 2 passed, 75 deselected in 5.49s
+QT_EXPLICIT_TEARDOWN_COMPLETE

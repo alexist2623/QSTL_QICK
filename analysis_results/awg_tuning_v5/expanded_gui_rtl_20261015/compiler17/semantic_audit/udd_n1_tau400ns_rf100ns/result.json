@@ -1,0 +1,29 @@
+{
+  "name": "udd_n1_tau400ns_rf100ns",
+  "source": "F:\\Vivado_Output\\a5compiler1\\udd_n1_tau400ns_rf100ns",
+  "original_case": "udd_n1_tau400ns",
+  "explicit_offset_variant": true,
+  "points": 9,
+  "matrix_target_comparisons": 27,
+  "pulse_event_changes": [
+    {
+      "channel": 0,
+      "event": "rf_gen_0_composite_0",
+      "offset_us": 0.09999999999999998
+    },
+    {
+      "channel": 2,
+      "event": "rf_gen_2_single",
+      "offset_us": 0.1
+    },
+    {
+      "channel": 4,
+      "event": "rf_gen_4_single",
+      "offset_us": 0.1
+    }
+  ],
+  "internal_event_fields_equal": true,
+  "passed": true,
+  "pmem_equal": true,
+  "dmem_equal": true
+}

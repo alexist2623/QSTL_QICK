@@ -1,0 +1,541 @@
+{
+  "pid": 154740,
+  "started_utc": "2026-10-15T00:33:15.325327+00:00",
+  "complete": false,
+  "max_isolated_simulators": 3,
+  "cases": {
+    "hold_fixed_time": {
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_3x3_v4virt_20261014_hold_fixed_time_output_sum_awg_v3",
+      "state": "passed",
+      "preparation": "initial current-task preparation; fingerprint rechecked on reuse",
+      "rtl": {
+        "pid": 106596,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "hold_fixed_time",
+          "--reuse-snapshot"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\hold_fixed_time_rtl.log",
+        "started_utc": "2026-10-15T00:33:15.345906+00:00",
+        "exit_code": 0,
+        "elapsed_s": 509.61511754989624
+      }
+    },
+    "hold_fixed_voltage_descending": {
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_3x3_v4virt_20261014_hold_fixed_voltage_descending_output_sum_awg_v3",
+      "state": "passed",
+      "prepare": {
+        "pid": 109116,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "hold_fixed_voltage_descending",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\hold_fixed_voltage_descending_prepare.log",
+        "started_utc": "2026-10-15T00:33:15.346876+00:00",
+        "exit_code": 0,
+        "elapsed_s": 29.55921244621277
+      },
+      "rtl": {
+        "pid": 57852,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "hold_fixed_voltage_descending",
+          "--reuse-snapshot"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\hold_fixed_voltage_descending_rtl.log",
+        "started_utc": "2026-10-15T00:33:44.910059+00:00",
+        "exit_code": 0,
+        "elapsed_s": 499.09048676490784
+      }
+    },
+    "ramp_fixed_time": {
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_ramp_rate_2x2_v4virt_20261014_ramp_fixed_time_output_sum_awg_v3",
+      "state": "failed_prepare",
+      "prepare": {
+        "pid": 9724,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "ramp_fixed_time",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\ramp_fixed_time_prepare.log",
+        "started_utc": "2026-10-15T00:33:44.911059+00:00",
+        "exit_code": 3221225477,
+        "elapsed_s": 6.234809160232544
+      }
+    },
+    "ramp_fixed_voltage_descending": {
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_ramp_rate_2x2_v4virt_20261014_ramp_fixed_voltage_descending_output_sum_awg_v3",
+      "state": "failed_prepare",
+      "prepare": {
+        "pid": 124968,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "ramp_fixed_voltage_descending",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\ramp_fixed_voltage_descending_prepare.log",
+        "started_utc": "2026-10-15T00:33:51.148874+00:00",
+        "exit_code": 3221225477,
+        "elapsed_s": 5.489487409591675
+      }
+    },
+    "rf_duration_fixed": {
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rf_duration_fixed_2x2_v4virt_20261014_rf_duration_fixed_output_sum_awg_v3",
+      "state": "passed",
+      "prepare": {
+        "pid": 118368,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "rf_duration_fixed",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\rf_duration_fixed_prepare.log",
+        "started_utc": "2026-10-15T00:33:56.642417+00:00",
+        "exit_code": 0,
+        "elapsed_s": 37.550859689712524
+      },
+      "rtl": {
+        "pid": 91812,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "rf_duration_fixed",
+          "--reuse-snapshot"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\rf_duration_fixed_rtl.log",
+        "started_utc": "2026-10-15T00:34:34.198793+00:00",
+        "exit_code": 0,
+        "elapsed_s": 233.16363668441772
+      }
+    },
+    "rf_duration_extend": {
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rf_duration_2x2_v4virt_20261014_rf_duration_extend_output_sum_awg_v3",
+      "state": "passed",
+      "prepare": {
+        "pid": 166552,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "rf_duration_extend",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\rf_duration_extend_prepare.log",
+        "started_utc": "2026-10-15T00:34:34.200799+00:00",
+        "exit_code": 0,
+        "elapsed_s": 42.80270195007324
+      },
+      "rtl": {
+        "pid": 80768,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "rf_duration_extend",
+          "--reuse-snapshot"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\rf_duration_extend_rtl.log",
+        "started_utc": "2026-10-15T00:38:27.378958+00:00",
+        "exit_code": 0,
+        "elapsed_s": 219.78613996505737
+      }
+    },
+    "rf_frequency": {
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rf_frequency_2x2_v4virt_20261014_rf_frequency_output_sum_awg_v3",
+      "state": "passed",
+      "prepare": {
+        "pid": 128072,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "rf_frequency",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\rf_frequency_prepare.log",
+        "started_utc": "2026-10-15T00:35:17.012007+00:00",
+        "exit_code": 0,
+        "elapsed_s": 44.954280376434326
+      },
+      "rtl": {
+        "pid": 57660,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "rf_frequency",
+          "--reuse-snapshot"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\rf_frequency_rtl.log",
+        "started_utc": "2026-10-15T00:41:44.976368+00:00",
+        "exit_code": 0,
+        "elapsed_s": 174.40760803222656
+      }
+    },
+    "two_voltage_axes": {
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_3x3_v4virt_20261014_two_voltage_axes_output_sum_awg_v3",
+      "state": "passed",
+      "prepare": {
+        "pid": 131288,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "two_voltage_axes",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\two_voltage_axes_prepare.log",
+        "started_utc": "2026-10-15T00:36:01.972798+00:00",
+        "exit_code": 0,
+        "elapsed_s": 46.582966566085815
+      },
+      "rtl": {
+        "pid": 103372,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "two_voltage_axes",
+          "--reuse-snapshot"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\two_voltage_axes_rtl.log",
+        "started_utc": "2026-10-15T00:42:04.013542+00:00",
+        "exit_code": 0,
+        "elapsed_s": 325.0138201713562
+      }
+    },
+    "two_voltage_axes_reversed": {
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_3x3_v4virt_20261014_two_voltage_axes_reversed_output_sum_awg_v3",
+      "state": "passed",
+      "prepare": {
+        "pid": 31412,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "two_voltage_axes_reversed",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\two_voltage_axes_reversed_prepare.log",
+        "started_utc": "2026-10-15T00:36:48.557751+00:00",
+        "exit_code": 0,
+        "elapsed_s": 41.31001043319702
+      },
+      "rtl": {
+        "pid": 146628,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "two_voltage_axes_reversed",
+          "--reuse-snapshot"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\two_voltage_axes_reversed_rtl.log",
+        "started_utc": "2026-10-15T00:42:07.178687+00:00",
+        "exit_code": 0,
+        "elapsed_s": 324.01491522789
+      }
+    },
+    "rc_only": {
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rc_only_hold_duration_2x2_v4virt_20261014_rc_only_output_sum_awg_v3",
+      "state": "passed",
+      "prepare": {
+        "pid": 79848,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "rc_only",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\rc_only_prepare.log",
+        "started_utc": "2026-10-15T00:37:29.873288+00:00",
+        "exit_code": 0,
+        "elapsed_s": 42.62496089935303
+      },
+      "rtl": {
+        "pid": 96500,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "rc_only",
+          "--reuse-snapshot"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\rc_only_rtl.log",
+        "started_utc": "2026-10-15T00:44:39.398126+00:00",
+        "exit_code": 0,
+        "elapsed_s": 156.54310202598572
+      }
+    },
+    "dc_only": {
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_2x2_v4virt_20261014_dc_only_output_sum_awg_v3",
+      "state": "passed",
+      "prepare": {
+        "pid": 92804,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "dc_only",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\dc_only_prepare.log",
+        "started_utc": "2026-10-15T00:38:12.501747+00:00",
+        "exit_code": 0,
+        "elapsed_s": 42.47032594680786
+      },
+      "rtl": {
+        "pid": 33172,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "dc_only",
+          "--reuse-snapshot"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\dc_only_rtl.log",
+        "started_utc": "2026-10-15T00:47:15.952813+00:00",
+        "exit_code": 0,
+        "elapsed_s": 171.4255611896515
+      }
+    },
+    "compensation_off": {
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_rc_only_hold_duration_2x2_v4virt_20261014_compensation_off_output_sum_awg_v3",
+      "state": "failed_prepare",
+      "prepare": {
+        "pid": 53800,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "compensation_off",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\compensation_off_prepare.log",
+        "started_utc": "2026-10-15T00:38:54.977077+00:00",
+        "exit_code": 1,
+        "elapsed_s": 6.208439826965332
+      }
+    },
+    "square_frequency": {
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_2x2_v4virt_20261014_square_frequency_output_sum_awg_v3",
+      "state": "passed",
+      "prepare": {
+        "pid": 37636,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "square_frequency",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\square_frequency_prepare.log",
+        "started_utc": "2026-10-15T00:39:01.193030+00:00",
+        "exit_code": 0,
+        "elapsed_s": 43.787790060043335
+      },
+      "rtl": {
+        "pid": 109728,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "square_frequency",
+          "--reuse-snapshot"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\square_frequency_rtl.log",
+        "started_utc": "2026-10-15T00:47:29.038968+00:00",
+        "exit_code": 0,
+        "elapsed_s": 153.48289728164673
+      }
+    },
+    "square_amplitude": {
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_2x2_v4virt_20261014_square_amplitude_output_sum_awg_v3",
+      "state": "passed",
+      "prepare": {
+        "pid": 158880,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "square_amplitude",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\square_amplitude_prepare.log",
+        "started_utc": "2026-10-15T00:39:44.986339+00:00",
+        "exit_code": 0,
+        "elapsed_s": 54.4480345249176
+      },
+      "rtl": {
+        "pid": 144360,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "square_amplitude",
+          "--reuse-snapshot"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\square_amplitude_rtl.log",
+        "started_utc": "2026-10-15T00:47:31.206043+00:00",
+        "exit_code": 0,
+        "elapsed_s": 154.54903149604797
+      }
+    },
+    "square_phase": {
+      "folder": "F:\\Vivado_Output\\a3sim1\\rc_precomp_repeat_reset_hold_duration_2x2_v4virt_20261014_square_phase_output_sum_awg_v3",
+      "state": "passed",
+      "prepare": {
+        "pid": 94540,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "square_phase",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\square_phase_prepare.log",
+        "started_utc": "2026-10-15T00:40:39.444888+00:00",
+        "exit_code": 0,
+        "elapsed_s": 42.01781892776489
+      },
+      "rtl": {
+        "pid": 149484,
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-X",
+          "faulthandler",
+          "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py",
+          "--case",
+          "square_phase",
+          "--reuse-snapshot"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v4\\virtual_gate_rtl_20261014\\square_phase_rtl.log",
+        "started_utc": "2026-10-15T00:50:02.535908+00:00",
+        "exit_code": 0,
+        "elapsed_s": 132.61488819122314
+      }
+    }
+  },
+  "production_changes": [],
+  "stage": "finished_with_failures",
+  "updated_utc": "2026-10-15T00:52:15.306492+00:00",
+  "finished_utc": "2026-10-15T00:52:15.306492+00:00"
+}

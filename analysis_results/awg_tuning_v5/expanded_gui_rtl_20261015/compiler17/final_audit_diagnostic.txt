@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "<stdin>", line 6, in <module>
+  File "<frozen runpy>", line 286, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "analysis_results\awg_tuning_v5\expanded_gui_rtl_20261015\compiler17\final_audit.py", line 63, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "analysis_results\awg_tuning_v5\expanded_gui_rtl_20261015\compiler17\final_audit.py", line 42, in main
+    assert not differences,differences
+           ^^^^^^^^^^^^^^^
+AssertionError: ['C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17\\final_audit.py', 'F:\\Vivado_Output\\a5compiler1\\sim\\xsim.dir\\compiler17\\xsimSettings.ini', 'F:\\Vivado_Output\\a5compiler1\\sim\\xsim.dir\\compiler17\\xsim_script.tcl', 'F:\\Vivado_Output\\a5compiler1\\sim\\xsim.dir\\compiler17\\xsimcrash.log', 'F:\\Vivado_Output\\a5compiler1\\sim\\xsim.dir\\compiler17\\xsimkernel.log', 'F:\\Vivado_Output\\a5compiler2\\sim\\xsim.dir\\compiler17\\xsimSettings.ini', 'F:\\Vivado_Output\\a5compiler2\\sim\\xsim.dir\\compiler17\\xsim_script.tcl', 'F:\\Vivado_Output\\a5compiler2\\sim\\xsim.dir\\compiler17\\xsimcrash.log', 'F:\\Vivado_Output\\a5compiler2\\sim\\xsim.dir\\compiler17\\xsimkernel.log', 'analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17\\final_audit.py']

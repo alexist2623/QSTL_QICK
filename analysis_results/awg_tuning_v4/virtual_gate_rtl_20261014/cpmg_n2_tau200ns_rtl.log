@@ -1,0 +1,216 @@
+PREPARED points=2 shots=4 cycles=9911 events=125
+xsim
+{
+  "points": 2,
+  "repetitions": 2,
+  "commands": 125,
+  "cycle_offset": 162,
+  "command_value_mismatches": 0,
+  "command_timing_mismatches": 0,
+  "voltage_grid_policy": "constant_quantized_increment",
+  "compiled_target_error_codes": 0,
+  "compiled_step_error_units": 0,
+  "awg_ip_version": 3,
+  "hardware_area_results": [
+    "AREA_V3_RESULT ch=0 shots=4 samples=161088 reset_checks=4 residual=0",
+    "AREA_V3_RESULT ch=1 shots=4 samples=161088 reset_checks=4 residual=0",
+    "AREA_V3_RESULT ch=3 shots=4 samples=161088 reset_checks=4 residual=0"
+  ],
+  "rc_only": false,
+  "rc_only_results": [],
+  "v2_fixture": null,
+  "raw_awg_results": [
+    "RAW_AWG_V2_RESULT ch=0 samples=161168 ramps=8 sets=17",
+    "RAW_AWG_V2_RESULT ch=1 samples=161168 ramps=8 sets=17",
+    "RAW_AWG_V2_RESULT ch=3 samples=161168 ramps=8 sets=17"
+  ],
+  "dac_current_ma": [
+    20.0,
+    10.0,
+    20.0
+  ],
+  "cross_capacitance": [
+    [
+      1.0,
+      0.23,
+      -0.11
+    ],
+    [
+      -0.17,
+      1.0,
+      0.07
+    ],
+    [
+      0.12,
+      -0.09,
+      1.0
+    ]
+  ],
+  "dc_mode": "fixed_time",
+  "dc_voltage_mv": 20.0,
+  "dc_readout_policy": null,
+  "ddr_capture_results": [],
+  "sweep_case": "hold_duration",
+  "run_tag": "v4virt_20261014_cpmg_n2_tau200ns",
+  "rf_length_boundary": null,
+  "rc_range_corners": [
+    {
+      "point_index": 0,
+      "gen_ch": 1,
+      "minimum_normalized": -0.011702370073384379,
+      "maximum_normalized": 0.008089089021384296
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 3,
+      "minimum_normalized": -0.015890523016550744,
+      "maximum_normalized": 0.01692136108885567
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 5,
+      "minimum_normalized": -0.005435903328919265,
+      "maximum_normalized": 0.005058283642799718
+    },
+    {
+      "point_index": 1,
+      "gen_ch": 1,
+      "minimum_normalized": -0.010382674157538786,
+      "maximum_normalized": 0.01898376066367737
+    },
+    {
+      "point_index": 1,
+      "gen_ch": 3,
+      "minimum_normalized": -0.020606896845971286,
+      "maximum_normalized": 0.01646803562157852
+    },
+    {
+      "point_index": 1,
+      "gen_ch": 5,
+      "minimum_normalized": -0.005268197131504156,
+      "maximum_normalized": 0.006810773351761875
+    }
+  ],
+  "square_amplitude_sweep": false,
+  "rc_reset_each_repeat": true,
+  "no_aux": false,
+  "grid_count": 0,
+  "waveform_capture_cycles": 12000,
+  "reset_results": [],
+  "cycles": 9911,
+  "analog_results": [
+    "GUI_RC_RESULT ch=0 max_error_codes=2.371193",
+    "GUI_RC_RESULT ch=1 max_error_codes=2.501481",
+    "GUI_RC_RESULT ch=2 max_error_codes=0.000000"
+  ],
+  "exact_awg_results": [
+    "EXACT_AWG_RESULT ch=0 samples=160688",
+    "EXACT_AWG_RESULT ch=1 samples=160688",
+    "EXACT_AWG_RESULT ch=2 samples=160688"
+  ],
+  "retained_cells": [
+    "axis_awg_tuning_v1_4",
+    "axis_awg_tuning_v1_5",
+    "axis_awg_tuning_v1_6",
+    "axis_register_slice_0",
+    "axis_register_slice_1",
+    "axis_register_slice_10",
+    "axis_register_slice_11",
+    "axis_register_slice_12",
+    "axis_register_slice_21",
+    "axis_register_slice_22",
+    "axis_register_slice_23",
+    "axis_register_slice_3",
+    "axis_register_slice_4",
+    "axis_register_slice_5",
+    "axis_register_slice_7",
+    "axis_register_slice_8",
+    "axis_register_slice_9",
+    "axis_set_reg_0",
+    "axis_signal_gen_v6_0",
+    "axis_signal_gen_v6_1",
+    "axis_signal_gen_v6_3",
+    "axis_square_pulse_v1_0",
+    "axis_tmux_v1_0",
+    "axis_tmux_v1_1",
+    "axis_tmux_v1_2",
+    "axis_tmux_v1_3",
+    "axis_tproc64x32_x8_0",
+    "qick_vec2bit_0",
+    "xlconstant_0",
+    "xlconstant_1",
+    "xlconstant_2",
+    "xlconstant_3",
+    "xlconstant_4"
+  ],
+  "pmem_words": 312,
+  "dmem_words": 0,
+  "rf_measurements": {
+    "pulses": 8,
+    "width_mismatch_pulses": 0,
+    "width_error_max_cycles": 0,
+    "amplitude_error_max_codes": 0.14624410195779092,
+    "fit_residual_max_codes": 1.552464346885131
+  },
+  "validation_status": "passed",
+  "output_sum": {
+    "sample_oracles": [
+      [
+        "4",
+        "161168"
+      ],
+      [
+        "5",
+        "161168"
+      ],
+      [
+        "6",
+        "161168"
+      ]
+    ],
+    "combiner_pipeline_cycles": 2,
+    "pulse_counts": [
+      8,
+      4,
+      4
+    ],
+    "cpmg_delay_checks": 8,
+    "start_skew_cycles": 0,
+    "width_mismatches": 0
+  },
+  "virtual_case": {
+    "count": 2,
+    "mode": "fixed_time",
+    "compensation": "dc_rc",
+    "descending": false,
+    "swap": false,
+    "delay": 0.0,
+    "two_voltage": false,
+    "square": null,
+    "sweep": "hold_duration",
+    "n": 2,
+    "tau": 0.2,
+    "named": null
+  },
+  "matrix_direct_gui_input": true,
+  "independent_matrix_oracle": "independent_matrix_oracle.json",
+  "test_source_sha256": {
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\cases.py": "be60ba5639e2c33a3e809a36d7158ad1e299f4df2068aef0ccde3023430a5b9b",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\composite_support.py": "ac284a5ee543711d621acb5fe809ea70a34cead1a7ec2e8cfd2d58622d5b97fa",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\diagnose_failures.py": "531ea287894c1c6b3e58ecb6a0e4b6d2e6c580b987f779ac872531ba9cb2490e",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\plot_results.py": "e0a1262c884ac66995dbff16f736acef19e4e93c7c757e6001d802c03805e73f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\README.md": "e35bc5bab7c1f597f0edf34bf6fdcdb88ca2c4f1ea2c273f62bcb4bf12a37876",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\report.py": "5450e9a57ee6db6b50f6c97badc91c7d70c0e8f8ba010d4f69cba433dddd2b85",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_additional.py": "96f50b17733fdfc8d82dc141a54c8b616a6ca28b427cdad551636aaaa3a345f4",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_batch.py": "04eab22dd81d3dee75f373f6cba41cf5f9ffc5f6195b682b647826fd0e0ddb62",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_case.py": "a396ed24cde333c051ee6c9dee018a2cec3be7eb6563e172be43b1864204ac6e",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_composite.py": "4b51aabe636126946260b666659e938a4993b12ce42d1f183514c7bf9145c39a",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_off_controller.py": "58dc5f4a73fd0e84a9efe2d199964eeda2016749923b1ebc8f772d1a168c2772",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_off_final.py": "397178c984d6b6edd9d61793d09f5110ac5f79b718845bf886d498b1b2551457",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_retry.py": "d171ee71f7c1daab7d3060fb73c39073e7b3efe3d24e139ddca1e02cb91da382",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\run_software.py": "e637fac33afe88d481fb5b9f5d2142965c120b12cbf1cf86f38491594cc6e2f2",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\square_oracle.svh": "5123e7804cb0ff8a9e5f4655669b913fac2a950ca079a66481a8a6b7b5183cf3",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\support.py": "84389ac8eb8f48a4298176fb55de2f7475da051bd347c100dff8051932e2da4c",
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\test_coverage.py": "b0677ebd589cbd4f5f4b202dc3dacbd6e0b589bb9e2b5902b445cbe53056915e"
+  }
+}

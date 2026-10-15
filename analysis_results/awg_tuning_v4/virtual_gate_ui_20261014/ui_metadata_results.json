@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "checks": [
+    "Real MainWindow dialog: keyboard editing and OK preserve row/column orientation",
+    "MainWindow canonical experiment settings contain the exact nonidentity matrix",
+    "Cancel leaves the accepted matrix unchanged",
+    "Seven-output rendering, diagonal lock, and Reset identity",
+    "Existing physical=C@virtual transform: [0.2, 0.1] -> [0.225, 0.075]",
+    "Real QCoDeS SQLite save, close, reopen: all three metadata copies match the asymmetric matrix exactly"
+  ],
+  "saved_metadata": {
+    "cross_capacitance_json": [
+      [
+        1.0,
+        0.25
+      ],
+      [
+        -0.125,
+        1.0
+      ]
+    ],
+    "qick_experiment_json.gui_settings.awg.cross_capacitance": [
+      [
+        1.0,
+        0.25
+      ],
+      [
+        -0.125,
+        1.0
+      ]
+    ],
+    "awg_waveform_recipe_json.cross_capacitance": [
+      [
+        1.0,
+        0.25
+      ],
+      [
+        -0.125,
+        1.0
+      ]
+    ]
+  },
+  "iq_rows": 12,
+  "board_connection": false,
+  "hardware_experiment": false,
+  "source_sha256": {
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py": "30a55482e568a09aa1f1376cfc68e9c1fe695bb17933161397cb4e3a98654790",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_qcodes_experiment.py": "98d8be69dd56676f4997d211025b93c7ea99069d679d30acee9930982aa921a3"
+  }
+}

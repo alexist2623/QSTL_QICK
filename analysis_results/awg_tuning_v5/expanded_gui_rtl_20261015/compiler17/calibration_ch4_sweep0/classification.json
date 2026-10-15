@@ -1,0 +1,14 @@
+{
+  "name": "calibration_ch4_sweep0",
+  "kind": "calibration",
+  "channel": 4,
+  "power_sweep": false,
+  "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17\\calibration_ch4_sweep0",
+  "actual_mainwindow": true,
+  "board_access": false,
+  "outcome": "rejected",
+  "error_type": "ValueError",
+  "error": "This v5 RF generator is summed into the AWG physical output. RF connector power calibration cannot be used on this path; disable power calibration and use raw DDS gain.",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17/audit.py\", line 113, in main\n    build_runtime_rf_pulses(configuration(),(spec,),tproc_mhz=300.)\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_qcodes_experiment.py\", line 708, in build_runtime_rf_pulses\n    _validate_summed_rf_spec(gen_cfg, spec)\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_qcodes_experiment.py\", line 657, in _validate_summed_rf_spec\n    raise ValueError(f'This {firmware} RF generator is summed into the AWG physical output. '\nValueError: This v5 RF generator is summed into the AWG physical output. RF connector power calibration cannot be used on this path; disable power calibration and use raw DDS gain.\n",
+  "expected_rejection": true
+}

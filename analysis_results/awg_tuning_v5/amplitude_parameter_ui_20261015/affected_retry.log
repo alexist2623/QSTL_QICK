@@ -1,0 +1,18 @@
+...F                                                                     [100%]
+================================== FAILURES ===================================
+__________ test_older_settings_apply_defaults_and_resave_as_current ___________
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:3672: in test_older_settings_apply_defaults_and_resave_as_current
+    assert restored_rf == expected_rf
+E   AssertionError: assert {'enabled': F...us': 0.0, ...} == {'enabled': F...us': 0.0, ...}
+E     
+E     Omitting 70 identical items, use -vv to show
+E     Differing items:
+E     {'amplitude_parameters': [{'name': 'a_global', 'value': 20000.0, 'sweep_enabled': False, 'sweep_start': 20000.0, ...},... 'sweep_start': 20000.0, ...}, {'name': 'a_0', 'value': 20000.0, 'sweep_enabled': False, 'sweep_start': 20000.0, ...}]} != {'amplitude_parameters': []}
+E     {'t2_amplitude_parameter': 'a_pi2'} != {'t2_amplitude_parameter': ''}
+E     {'global_amplitude_mode': 'manual'} != {'global_amplitude_mode': 'legacy'}
+E     {'composite_items': [{'kind': 'pulse', 'name': 'pulse_0', 'duration_us': 1.0, 'frequency_parameter': ...
+E     
+E     ...Full output truncated (28 lines hidden), use '-vv' to show
+=========================== short test summary info ===========================
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_older_settings_apply_defaults_and_resave_as_current
+1 failed, 3 passed, 74 deselected in 7.49s

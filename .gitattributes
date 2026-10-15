@@ -20,3 +20,8 @@ qick/qick_lib/qick/drivers/generator.py -text
 qick/qick_lib/qick/ip.py -text
 qick/qick_lib/qick/qick_asm.py -text
 qick/qick_lib/qick/output_sum.py -text
+# Preserve v5 firmware and validation/source fingerprints byte-for-byte.
+analysis_results/awg_tuning_v5/** -text
+qick/firmware/projects/qstl_awg_v5/** -text
+qick/firmware/ip/axis_output_sum_v2/** -text
+qick/qick_lib/qick/test_output_sum.py -text

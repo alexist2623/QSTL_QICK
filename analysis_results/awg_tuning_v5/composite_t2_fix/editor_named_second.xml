@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="28" time="28.850" timestamp="2026-10-14T21:16:56.406648-07:00" hostname="ECE-CDW-JS03"><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_t2_endpoint_choices_and_half_duration_roundtrip[False-False]" time="1.017" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_t2_endpoint_choices_and_half_duration_roundtrip[True-False]" time="1.006" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_t2_endpoint_choices_and_half_duration_roundtrip[False-True]" time="1.014" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_t2_endpoint_choices_and_half_duration_roundtrip[True-True]" time="1.062" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_named_tau_shared_delay_sweep_roundtrip_units_and_rename" time="1.017" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_removing_tau_reference_disables_orphan_sweep" time="0.947" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_duration_name_is_atomic_with_live_editor_callbacks" time="0.981" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_t2_pi_duration_sweep_is_host_axis_and_halves_each_point" time="0.939" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_t2_last_parameter_reference_disables_orphan_sweep" time="0.932" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_disabled_t2_roundtrip_preserves_selected_pi_parameter" time="0.971" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_single_mode_omits_t2_and_switching_back_restores_editor_options[custom]" time="1.019" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_single_mode_omits_t2_and_switching_back_restores_editor_options[cpmg]" time="0.981" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_single_mode_omits_t2_and_switching_back_restores_editor_options[udd]" time="0.983" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_single_mode_omits_t2_and_switching_back_restores_editor_options[hahn_echo]" time="0.969" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_custom_switch_displays_half_reference_without_duplicating_endpoints[True-False]" time="1.032" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_custom_switch_displays_half_reference_without_duplicating_endpoints[False-True]" time="0.971" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_custom_switch_displays_half_reference_without_duplicating_endpoints[True-True]" time="0.969" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_tau_named_fixed_uses_item_data_and_emits_when_label_is_unchanged" time="0.973" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_global_frequency_and_gain_override_body_and_t2_endpoints" time="0.975" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_legacy_loaded_composite_preserves_individual_frequency_and_gain" time="0.941" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_hahn_echo_fixes_n_and_sweeps_total_free_evolution_tau" time="0.963" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_custom_named_amplitude_phase_and_zero_delay" time="1.096" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_explicit_manual_migration_preserves_independent_legacy_values" time="1.019" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_manual_calibration_mode_keeps_separate_parameter_banks" time="0.947"><failure message="ValueError: global RF calibration database path is required">editor = &lt;DCWaveform_Generator.RfPulsePortPanel object at 0x0000027016222690&gt;
+
+    def test_manual_calibration_mode_keeps_separate_parameter_banks(editor):
+        editor.amplitude_mode_group.setChecked(True)
+        selector = editor.composite_item_table.cellWidget(0, 5)
+        row = parameter_row(editor, "amplitude", selector.currentData())
+        table = editor.amplitude_parameter_table
+        table.cellWidget(row, 1).setValue(1234)
+        table.cellWidget(row, 3).setValue(-1000)
+        table.cellWidget(row, 4).setValue(1000)
+        table.cellWidget(row, 5).setValue(3)
+        table.cellWidget(row, 2).setChecked(True)
+        manual = editor._numeric_parameters("amplitude")
+        editor.amplitude_calibration_enabled.setChecked(True)
+&gt;       assert editor.configured_spec().global_amplitude_mode == "calibration"
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+DCWaveformGeneratorGUI\test_rf_t2_delay_editor.py:367: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:6532: in configured_spec
+    return QickRfPulseSpec(
+&lt;string&gt;:76: in __init__
+    ???
+DCWaveformGeneratorGUI\dc_waveform_core.py:1085: in __post_init__
+    effective_items = self.effective_composite_items
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = QickRfPulseSpec(gen_ch=0, segment_name='set_0', delay_us=0.0, duration_us=1.0, frequency_mhz=50.0, gain=20000, att1_db..., t2_final_phase_parameter='phase_final', predefined_amplitude_parameter='a_pi', predefined_phase_parameter='phase_pi')
+
+    @property
+    def effective_composite_items(self) -&gt; Tuple[QickRfCompositeItemSpec, ...]:
+        """Body and T2 endpoints with global overrides; stored rows stay intact."""
+        items = tuple(self.composite_items)
+        if self.pulse_mode != "composite":
+            return items
+        used_names = {item.name for item in items}
+    
+        def endpoint(name: str, phase: float, phase_parameter: str) -&gt; QickRfCompositeItemSpec:
+            unique_name = name
+            suffix = 2
+            while unique_name in used_names:
+                unique_name = f"{name}_{suffix}"
+                suffix += 1
+            used_names.add(unique_name)
+            pi_duration = next(
+                parameter.initial_duration_us for parameter in self.duration_parameters
+                if parameter.name == self.t2_duration_parameter
+            )
+            return QickRfCompositeItemSpec(
+                kind="pulse", name=unique_name, duration_us=pi_duration / 2.0,
+                frequency_parameter=self.global_frequency_parameter or self.t2_frequency_parameter,
+                gain=self.t2_gain, phase_degrees=phase,
+                amplitude_parameter=self.t2_amplitude_parameter,
+                phase_parameter=phase_parameter,
+            )
+    
+        initial = (endpoint("T2_initial_pi2", self.t2_initial_phase_degrees, self.t2_initial_phase_parameter),) if self.t2_initial_pi2 else ()
+        final = (endpoint("T2_final_pi2", self.t2_final_phase_degrees, self.t2_final_phase_parameter),) if self.t2_final_pi2 else ()
+        effective = initial + items + final
+        amplitudes = {parameter.name: parameter for parameter in self.amplitude_parameters}
+        phases = {parameter.name: parameter for parameter in self.phase_parameters}
+        resolved_items = []
+        for item in effective:
+            if item.kind != "pulse":
+                resolved_items.append(item)
+                continue
+            amplitude_name = self.global_amplitude_parameter or item.amplitude_parameter
+            if amplitude_name and self.global_amplitude_mode == "legacy":
+                raise ValueError("named RF amplitude parameters require manual or calibration amplitude mode")
+            if amplitude_name and amplitude_name not in amplitudes:
+                raise ValueError(f"composite RF pulse references unknown amplitude parameter: {amplitude_name}")
+            if item.phase_parameter and item.phase_parameter not in phases:
+                raise ValueError(f"composite RF pulse references unknown phase parameter: {item.phase_parameter}")
+            changes = dict(
+                frequency_parameter=self.global_frequency_parameter or item.frequency_parameter,
+                amplitude_parameter=amplitude_name,
+                phase_degrees=(phases[item.phase_parameter].initial_phase_degrees
+                               if item.phase_parameter else item.phase_degrees),
+            )
+            amplitude_value = amplitudes[amplitude_name].initial_value if amplitude_name else None
+            if self.global_amplitude_mode == "calibration":
+                if not str(self.global_calibration_database_path).strip():
+&gt;                   raise ValueError("global RF calibration database path is required")
+E                   ValueError: global RF calibration database path is required
+
+DCWaveformGeneratorGUI\dc_waveform_core.py:1232: ValueError</failure></testcase><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_named_parameter_sweep_atomic_rename_and_roundtrip[amplitude-rf_amplitude]" time="0.960" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_named_parameter_sweep_atomic_rename_and_roundtrip[phase-rf_phase]" time="1.022" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_previous_global_format_preserves_waveform_on_custom_conversion[custom]" time="1.005" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_previous_global_format_preserves_waveform_on_custom_conversion[hahn_echo]" time="0.998" /></testsuite></testsuites>

@@ -1,0 +1,15 @@
+PREPARED points=1 shots=2 cycles=29369 events=65
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\software_followup\gui_rtl\verify_hold1.py", line 831, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\software_followup\gui_rtl\verify_hold1.py", line 390, in main
+    wrapper=Path((args.build/'wrapper_path.txt').read_text().strip()).read_text()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Measurement2\.conda\envs\qcodes2\Lib\pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Measurement2\.conda\envs\qcodes2\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'F:\\Vivado_Output\\a5post_gui_rtl1\\wrapper_path.txt'

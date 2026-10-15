@@ -1,0 +1,342 @@
+{
+  "complete": true,
+  "stage": "passed",
+  "cases": [
+    {
+      "passed": true,
+      "case": "F:\\Vivado_Output\\a5t2hahn1\\point_0",
+      "tau_us": 4.0,
+      "pi_us": 0.4,
+      "command_count": 77,
+      "command_value_mismatches": 0,
+      "command_timing_mismatches": 0,
+      "command_origin_offset_cycles": 162,
+      "rf_checks": [
+        {
+          "suffix": 4,
+          "blocks": [
+            [
+              5220,
+              5280
+            ],
+            [
+              5880,
+              6000
+            ],
+            [
+              6600,
+              6660
+            ],
+            [
+              18038,
+              18098
+            ],
+            [
+              18698,
+              18818
+            ],
+            [
+              19418,
+              19478
+            ]
+          ],
+          "width_cycles": [
+            60,
+            120,
+            60,
+            60,
+            120,
+            60
+          ],
+          "expected_events": [
+            {
+              "event_id": "rf_gen_0_composite_0",
+              "name": "T2_initial_pi2",
+              "delay_us": 0.1,
+              "duration_us": 0.2,
+              "frequency_mhz": 190.0,
+              "frequency_parameter": "f_all",
+              "gain": 1500,
+              "phase_degrees": 0.0,
+              "power_calibration_enabled": false,
+              "power_calibration_database_path": "",
+              "power_calibration_run_id": 0,
+              "target_output_power_dbm": -20.0,
+              "duration_parameter": "",
+              "preceding_duration_parameters": []
+            },
+            {
+              "event_id": "rf_gen_0_composite_1",
+              "name": "Hahn_X1",
+              "delay_us": 2.3,
+              "duration_us": 0.4,
+              "frequency_mhz": 190.0,
+              "frequency_parameter": "f_all",
+              "gain": 750,
+              "phase_degrees": 90.0,
+              "power_calibration_enabled": false,
+              "power_calibration_database_path": "",
+              "power_calibration_run_id": 0,
+              "target_output_power_dbm": -20.0,
+              "duration_parameter": "pi",
+              "preceding_duration_parameters": []
+            },
+            {
+              "event_id": "rf_gen_0_composite_2",
+              "name": "T2_final_pi2",
+              "delay_us": 4.699999999999999,
+              "duration_us": 0.2,
+              "frequency_mhz": 190.0,
+              "frequency_parameter": "f_all",
+              "gain": 1500,
+              "phase_degrees": 0.0,
+              "power_calibration_enabled": false,
+              "power_calibration_database_path": "",
+              "power_calibration_run_id": 0,
+              "target_output_power_dbm": -20.0,
+              "duration_parameter": "",
+              "preceding_duration_parameters": [
+                "pi"
+              ]
+            }
+          ],
+          "width_errors": 0,
+          "relative_timing_errors": 0
+        },
+        {
+          "suffix": 5,
+          "blocks": [
+            [
+              5220,
+              5280
+            ],
+            [
+              5880,
+              6000
+            ],
+            [
+              6600,
+              6660
+            ],
+            [
+              18038,
+              18098
+            ],
+            [
+              18698,
+              18818
+            ],
+            [
+              19418,
+              19478
+            ]
+          ],
+          "width_cycles": [
+            60,
+            120,
+            60,
+            60,
+            120,
+            60
+          ],
+          "expected_events": [
+            {
+              "event_id": "rf_gen_2_composite_0",
+              "name": "T2_initial_pi2",
+              "delay_us": 0.1,
+              "duration_us": 0.2,
+              "frequency_mhz": 190.0,
+              "frequency_parameter": "f_all",
+              "gain": 1500,
+              "phase_degrees": 0.0,
+              "power_calibration_enabled": false,
+              "power_calibration_database_path": "",
+              "power_calibration_run_id": 0,
+              "target_output_power_dbm": -20.0,
+              "duration_parameter": "",
+              "preceding_duration_parameters": []
+            },
+            {
+              "event_id": "rf_gen_2_composite_1",
+              "name": "Hahn_X1",
+              "delay_us": 2.3,
+              "duration_us": 0.4,
+              "frequency_mhz": 190.0,
+              "frequency_parameter": "f_all",
+              "gain": 750,
+              "phase_degrees": 90.0,
+              "power_calibration_enabled": false,
+              "power_calibration_database_path": "",
+              "power_calibration_run_id": 0,
+              "target_output_power_dbm": -20.0,
+              "duration_parameter": "pi",
+              "preceding_duration_parameters": []
+            },
+            {
+              "event_id": "rf_gen_2_composite_2",
+              "name": "T2_final_pi2",
+              "delay_us": 4.699999999999999,
+              "duration_us": 0.2,
+              "frequency_mhz": 190.0,
+              "frequency_parameter": "f_all",
+              "gain": 1500,
+              "phase_degrees": 0.0,
+              "power_calibration_enabled": false,
+              "power_calibration_database_path": "",
+              "power_calibration_run_id": 0,
+              "target_output_power_dbm": -20.0,
+              "duration_parameter": "",
+              "preceding_duration_parameters": [
+                "pi"
+              ]
+            }
+          ],
+          "width_errors": 0,
+          "relative_timing_errors": 0
+        },
+        {
+          "suffix": 6,
+          "blocks": [
+            [
+              5220,
+              5280
+            ],
+            [
+              5880,
+              6000
+            ],
+            [
+              6600,
+              6660
+            ],
+            [
+              18038,
+              18098
+            ],
+            [
+              18698,
+              18818
+            ],
+            [
+              19418,
+              19478
+            ]
+          ],
+          "width_cycles": [
+            60,
+            120,
+            60,
+            60,
+            120,
+            60
+          ],
+          "expected_events": [
+            {
+              "event_id": "rf_gen_4_composite_0",
+              "name": "T2_initial_pi2",
+              "delay_us": 0.1,
+              "duration_us": 0.2,
+              "frequency_mhz": 190.0,
+              "frequency_parameter": "f_all",
+              "gain": 1500,
+              "phase_degrees": 0.0,
+              "power_calibration_enabled": false,
+              "power_calibration_database_path": "",
+              "power_calibration_run_id": 0,
+              "target_output_power_dbm": -20.0,
+              "duration_parameter": "",
+              "preceding_duration_parameters": []
+            },
+            {
+              "event_id": "rf_gen_4_composite_1",
+              "name": "Hahn_X1",
+              "delay_us": 2.3,
+              "duration_us": 0.4,
+              "frequency_mhz": 190.0,
+              "frequency_parameter": "f_all",
+              "gain": 750,
+              "phase_degrees": 90.0,
+              "power_calibration_enabled": false,
+              "power_calibration_database_path": "",
+              "power_calibration_run_id": 0,
+              "target_output_power_dbm": -20.0,
+              "duration_parameter": "pi",
+              "preceding_duration_parameters": []
+            },
+            {
+              "event_id": "rf_gen_4_composite_2",
+              "name": "T2_final_pi2",
+              "delay_us": 4.699999999999999,
+              "duration_us": 0.2,
+              "frequency_mhz": 190.0,
+              "frequency_parameter": "f_all",
+              "gain": 1500,
+              "phase_degrees": 0.0,
+              "power_calibration_enabled": false,
+              "power_calibration_database_path": "",
+              "power_calibration_run_id": 0,
+              "target_output_power_dbm": -20.0,
+              "duration_parameter": "",
+              "preceding_duration_parameters": [
+                "pi"
+              ]
+            }
+          ],
+          "width_errors": 0,
+          "relative_timing_errors": 0
+        }
+      ],
+      "sum_oracle": "all three stages, every lane, zero mismatches",
+      "area_checks": [
+        "AREA_V3_RESULT ch=0 shots=2 samples=472000 reset_checks=2 residual=0",
+        "AREA_V3_RESULT ch=1 shots=2 samples=472000 reset_checks=2 residual=0",
+        "AREA_V3_RESULT ch=3 shots=2 samples=472000 reset_checks=2 residual=0"
+      ],
+      "evidence_hashes": {
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\area_ch0.csv": "71657f8c6bbcba5c701089903d8bc0f39b16cca27521f344c110fc47d29538ca",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\area_ch1.csv": "3c1deb96764c806b19f13703c86361f6fe7d0888a82a13d82f52b0071c56ae08",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\area_ch3.csv": "a9a55cd8b6f3506e946751e042933cd32f9c909d745c3179c6a629d99f85554e",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\dmem.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\expected.json": "c6bee106c51a66c442cbfc778d62ea280205e434a419768999d318f44ef026e6",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\options.txt": "c75489cb0c06d04552075c3c281927b9311b55d74bfbe8022d99395c6abd7c5c",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\physical_4.csv": "7c5b5ba38723221e103850e0bc68702f12e84acb328e099b559c74c3eba52358",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\physical_5.csv": "bc32e75b0e9d0fda2d49b8e2436c773918413ead1fd0775486831f6ef64b97f5",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\physical_6.csv": "854df5d916bdd4b08b4ea2852005a414386f946a04333d0aaabe7ea9b4c67f74",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\pmem.hex": "e50660cd894671f803cefa089e0b5738ba52002bc4c93ccddfc84a3e0364c0b1",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\program.asm": "460a2042cc71e2124cd9a70c99e3a96682ef09665cc8ec8a8584973219b33429",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\rc_analog.csv": "b2bd32e9cbd224101657a5a71792a7b7c70d442321971c6f2ed0970ccfd399a2",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\rf_commands.csv": "1820c342378ec8652db5c1045bf12a7f1e3b7408072472805dadea218dc31c32",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\rf_samples.csv": "325cc1da90b89acb85230c532f9399c1b07a869d6bd38314eac06892e237554a",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\rf_specs.json": "9668d227e3c2dd1e6407ab285f5b7e475ff82f271bc17aa4288e9a816545434d",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\rtl_checks.txt": "317fafacb57916120f145c9b47f8d2cf68502220d2814234a5e8247f6e2a261c",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\rtl_commands.csv": "db57513c6ced96d9ebc599698273cafb5784450a96634be70033870cc461a83a",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\rtl_events.csv": "ffcd2694b8142a456f43e75a5c35ac42a762f66bc9d1c9a5ceb24ed084de75c3",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\rtl_gpio.csv": "c50c1c230ed19ef1fd3305ead5df12b317f7c25bf41506386a0cfad337c612de",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\rtl_samples.csv": "ff9a990c35bf4278adff6b13723e3549e81d4dd62940be662e357888fd75bb3b",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\runtime_rf_pulses.json": "4e189e4d04c5553e8986e78fc4eb34d408aa5af221981d594082c37383373f7f",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\run_console.log": "71de5c81c120d3c942d01263189baed50dcd44e3b1385d03bbcfde0cf6c7731a",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\sum_alignment_4.csv": "923e475d7abc6d9e2e6bf24fe4bd5cebb0b07f6e58a052cf06e70e3f95f8a911",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\sum_alignment_5.csv": "eb6b194773f2d50cac4e75bde592cff007185c0eef224dfc822ed60cc0e84ea3",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\sum_alignment_6.csv": "73fee3db23eff73c472e3dd5b1f21ebeb74ec1c832d9f67770d1e91e04fc2da2",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\sum_edges_4.csv": "efff4905a0405bcb250a2905b8ccee3d4bd0aae571fcf467a55dedf6fcab76f0",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\sum_edges_5.csv": "5d1cc184ecf3333a55f71af3d15aa7d480367e7038aeb15c83b254f059e23251",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\sum_edges_6.csv": "84e3026e5fea108de1642779f0ff4bef9bab740906af00d058fcec331d667601",
+        "F:\\Vivado_Output\\a5t2hahn1\\point_0\\xsim.log": "8418d2be53d172b2ad2d8742d7bb28f74c4760e385ad11b3fa67c50e4a9edbaf"
+      },
+      "scenario": "hahn_manual",
+      "expected_runtime_gains": [
+        1500,
+        750,
+        1500
+      ]
+    }
+  ],
+  "simulation_snapshot": "F:\\Vivado_Output\\a5t2gui2\\sim",
+  "new_inputs": [
+    "F:\\Vivado_Output\\a5t2hahn1"
+  ],
+  "started": "2026-10-14T21:24:01-0700",
+  "updated": "2026-10-14T21:28:18-0700",
+  "active_scenario": "hahn_manual",
+  "helper_sha256": "e86c45ecd8792195e102e031cf6f867204cdf1c3f240dbe5ecd201607cffa404"
+}

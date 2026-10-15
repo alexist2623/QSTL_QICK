@@ -1,0 +1,134 @@
+{
+  "version": 2,
+  "shots": 2,
+  "qubits": [
+    {
+      "id": "q1",
+      "name": "q1"
+    },
+    {
+      "id": "q2",
+      "name": "q2"
+    }
+  ],
+  "awg_baselines": [
+    {
+      "channel": 1,
+      "voltage_mv": 0
+    },
+    {
+      "channel": 2,
+      "voltage_mv": 0
+    }
+  ],
+  "gates": [
+    {
+      "id": "Init",
+      "name": "Init",
+      "qubits": [
+        "q1",
+        "q2"
+      ],
+      "start_us": 0,
+      "duration_us": 5,
+      "awg": [
+        {
+          "channel": 1,
+          "mode": "absolute",
+          "value_mv": 10,
+          "ramp_us": 0
+        },
+        {
+          "channel": 2,
+          "mode": "absolute",
+          "value_mv": -10,
+          "ramp_us": 0
+        }
+      ],
+      "rf": [],
+      "acquisition": null
+    },
+    {
+      "id": "X",
+      "name": "X",
+      "qubits": [
+        "q1"
+      ],
+      "start_us": 5,
+      "duration_us": 2,
+      "awg": [
+        {
+          "channel": 1,
+          "mode": "relative",
+          "value_mv": 1,
+          "ramp_us": 0.1
+        },
+        {
+          "channel": 2,
+          "mode": "relative",
+          "value_mv": -1,
+          "ramp_us": 0.1
+        }
+      ],
+      "rf": [
+        {
+          "channel": 1,
+          "delay_us": 0.5,
+          "duration_us": 0.5,
+          "frequency_mhz": 50,
+          "phase_deg": 90,
+          "gain": 1000
+        }
+      ],
+      "acquisition": null
+    },
+    {
+      "id": "Y",
+      "name": "Y",
+      "qubits": [
+        "q1"
+      ],
+      "start_us": 7,
+      "duration_us": 3,
+      "awg": [],
+      "rf": [
+        {
+          "channel": 1,
+          "delay_us": 0.5,
+          "duration_us": 0.5,
+          "frequency_mhz": 50,
+          "phase_deg": 90,
+          "gain": 1000
+        }
+      ],
+      "acquisition": null
+    },
+    {
+      "id": "Readout",
+      "name": "Readout",
+      "qubits": [
+        "q1"
+      ],
+      "start_us": 10,
+      "duration_us": 20,
+      "awg": [],
+      "rf": [],
+      "acquisition": {
+        "delay_us": 0,
+        "duration_us": 20
+      }
+    }
+  ],
+  "loops": [
+    {
+      "id": "loop1",
+      "name": "Drive",
+      "gate_ids": [
+        "X",
+        "Y"
+      ],
+      "count": 0,
+      "sweep": null
+    }
+  ]
+}

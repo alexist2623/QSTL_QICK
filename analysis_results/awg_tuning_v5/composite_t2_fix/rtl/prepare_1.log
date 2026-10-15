@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\composite_t2_fix\rtl\prepare.py", line 170, in <module>
+    main()
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\composite_t2_fix\rtl\prepare.py", line 85, in main
+    assert tuple(args['rf_specs']) == tuple(rf_specs), 'GUI did not preserve requested T2/tau settings'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: GUI did not preserve requested T2/tau settings

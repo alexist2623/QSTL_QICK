@@ -1,0 +1,9 @@
+PREPARED points=4 shots=8 cycles=35571 events=249
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\software_followup\gui_rtl\verify_general.py", line 816, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\software_followup\gui_rtl\verify_general.py", line 590, in main
+    assert prepared['program_source_hashes']==sum_validation.source_hashes(args.gui), 'v4 compiler/GUI source changed after preparation'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: v4 compiler/GUI source changed after preparation

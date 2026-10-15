@@ -1,0 +1,163 @@
+{
+  "matrix": [
+    [
+      1.0,
+      0.23,
+      -0.11
+    ],
+    [
+      -0.17,
+      1.0,
+      0.07
+    ],
+    [
+      0.12,
+      -0.09,
+      1.0
+    ]
+  ],
+  "scales_mv": [
+    800,
+    400,
+    800
+  ],
+  "base_virtual_mv": [
+    5.0,
+    -5.0,
+    2.5
+  ],
+  "base_physical_mv": [
+    3.5749999999999997,
+    -5.675,
+    3.55
+  ],
+  "base_codes": [
+    148,
+    -464,
+    144
+  ],
+  "axis_deltas": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      204,
+      -72,
+      28
+    ]
+  ],
+  "points": [
+    {
+      "point": 0,
+      "indices": [
+        0,
+        0
+      ],
+      "target_codes": [
+        148,
+        -464,
+        144
+      ]
+    },
+    {
+      "point": 1,
+      "indices": [
+        0,
+        1
+      ],
+      "target_codes": [
+        352,
+        -536,
+        172
+      ]
+    },
+    {
+      "point": 2,
+      "indices": [
+        0,
+        2
+      ],
+      "target_codes": [
+        556,
+        -608,
+        200
+      ]
+    },
+    {
+      "point": 3,
+      "indices": [
+        1,
+        0
+      ],
+      "target_codes": [
+        148,
+        -464,
+        144
+      ]
+    },
+    {
+      "point": 4,
+      "indices": [
+        1,
+        1
+      ],
+      "target_codes": [
+        352,
+        -536,
+        172
+      ]
+    },
+    {
+      "point": 5,
+      "indices": [
+        1,
+        2
+      ],
+      "target_codes": [
+        556,
+        -608,
+        200
+      ]
+    },
+    {
+      "point": 6,
+      "indices": [
+        2,
+        0
+      ],
+      "target_codes": [
+        148,
+        -464,
+        144
+      ]
+    },
+    {
+      "point": 7,
+      "indices": [
+        2,
+        1
+      ],
+      "target_codes": [
+        352,
+        -536,
+        172
+      ]
+    },
+    {
+      "point": 8,
+      "indices": [
+        2,
+        2
+      ],
+      "target_codes": [
+        556,
+        -608,
+        200
+      ]
+    }
+  ],
+  "policy": "constant_quantized_increment; independent C@V and tie-away increment rounding",
+  "passed": true
+}

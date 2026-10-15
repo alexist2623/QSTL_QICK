@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\qick\firmware\ip\axis_output_sum_v1\validation\virtual_gate\run_case.py", line 79, in <module>
+    exec(compile(text,str(generated),'exec'),{'__name__':'__main__','__file__':str(generated)})
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v4\virtual_gate_rtl_20261014\verify_compensation_off.py", line 822, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v4\virtual_gate_rtl_20261014\verify_compensation_off.py", line 322, in main
+    assert program.sequence.rc_compensation is not None
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

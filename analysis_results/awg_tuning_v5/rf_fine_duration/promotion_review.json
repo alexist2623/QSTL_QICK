@@ -1,0 +1,144 @@
+{
+  "reviewed": "2026-10-15T00:23:00.856456-07:00",
+  "review_only": true,
+  "production_mutated": false,
+  "gates_mutated": false,
+  "baseline_count": 105,
+  "staging_count": 109,
+  "production_baseline_mismatches": [],
+  "staging_missing_baseline": [],
+  "new_production_files": [],
+  "changed_or_new": [
+    {
+      "name": "DCWaveform_Generator.py",
+      "kind": "changed",
+      "before_sha256": "e20f0a54acb74d34d9544962f625d8e2e19ec2bb73eeb1c44e6e7b351fcfe3bb",
+      "production_sha256": "e20f0a54acb74d34d9544962f625d8e2e19ec2bb73eeb1c44e6e7b351fcfe3bb",
+      "staging_sha256": "feb847fe8dd879251921e9f841f3d18c23be17632fa17fc671cef8d38374192a",
+      "staging_path": "F:\\Vivado_Output\\a5fine_sw\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py",
+      "production_path": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py",
+      "role": "production"
+    },
+    {
+      "name": "dc_waveform_core.py",
+      "kind": "changed",
+      "before_sha256": "33e5a0bc5f6473eb036f36cab6aeb9e04fc0d241d5bbdf79cab22dd5047a0a14",
+      "production_sha256": "33e5a0bc5f6473eb036f36cab6aeb9e04fc0d241d5bbdf79cab22dd5047a0a14",
+      "staging_sha256": "5b4010d5f9cc4eaad22a7b44ef19d052732c9e02a0c661bad02aec8be42d1941",
+      "staging_path": "F:\\Vivado_Output\\a5fine_sw\\DCWaveformGeneratorGUI\\dc_waveform_core.py",
+      "production_path": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\dc_waveform_core.py",
+      "role": "production"
+    },
+    {
+      "name": "qick_fine_tune_sweep.py",
+      "kind": "changed",
+      "before_sha256": "2e477ab000e1d340a1ba24d97313ebb47dae773ced89378a7220e7edd9366896",
+      "production_sha256": "2e477ab000e1d340a1ba24d97313ebb47dae773ced89378a7220e7edd9366896",
+      "staging_sha256": "9fcd771c595373cde3e012c1d144b334b4f1226deff05763861198db609179d6",
+      "staging_path": "F:\\Vivado_Output\\a5fine_sw\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py",
+      "production_path": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py",
+      "role": "production"
+    },
+    {
+      "name": "qick_qcodes_experiment.py",
+      "kind": "changed",
+      "before_sha256": "5e7d9038dbca65aa131bd156edc9259ca62de6a877496d0cfc4923ec20cc58ca",
+      "production_sha256": "5e7d9038dbca65aa131bd156edc9259ca62de6a877496d0cfc4923ec20cc58ca",
+      "staging_sha256": "38a157763efc6c2a939006c320e24c2d1e9544e433bd28c545678505f36159f1",
+      "staging_path": "F:\\Vivado_Output\\a5fine_sw\\DCWaveformGeneratorGUI\\qick_qcodes_experiment.py",
+      "production_path": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_qcodes_experiment.py",
+      "role": "production"
+    },
+    {
+      "name": "qick_rf_fine_duration.py",
+      "kind": "new",
+      "before_sha256": null,
+      "production_sha256": null,
+      "staging_sha256": "09fdc757ee3f22c456245b36555d530a049a59a8382643fd7f8b1e989fd647ce",
+      "staging_path": "F:\\Vivado_Output\\a5fine_sw\\DCWaveformGeneratorGUI\\qick_rf_fine_duration.py",
+      "production_path": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_rf_fine_duration.py",
+      "role": "production"
+    },
+    {
+      "name": "test_rf_fine_duration_compiler.py",
+      "kind": "new",
+      "before_sha256": null,
+      "production_sha256": null,
+      "staging_sha256": "4289627b1b86f8e567aac8f6c59778cbd4cb71a53e54726955b43bddb246a9b0",
+      "staging_path": "F:\\Vivado_Output\\a5fine_sw\\DCWaveformGeneratorGUI\\test_rf_fine_duration_compiler.py",
+      "production_path": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_rf_fine_duration_compiler.py",
+      "role": "test"
+    },
+    {
+      "name": "test_rf_fine_duration_editor.py",
+      "kind": "new",
+      "before_sha256": null,
+      "production_sha256": null,
+      "staging_sha256": "4ae5e973272acd372532e3e6ae780d21d9b1b5337ceea82526d8cf53d641abf1",
+      "staging_path": "F:\\Vivado_Output\\a5fine_sw\\DCWaveformGeneratorGUI\\test_rf_fine_duration_editor.py",
+      "production_path": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_rf_fine_duration_editor.py",
+      "role": "test"
+    },
+    {
+      "name": "test_rf_fine_duration_runtime.py",
+      "kind": "new",
+      "before_sha256": null,
+      "production_sha256": null,
+      "staging_sha256": "225f0d0d038382e003f0902a0b0e8f096d56e8b35cb6c9ba4552aff8e3026e6c",
+      "staging_path": "F:\\Vivado_Output\\a5fine_sw\\DCWaveformGeneratorGUI\\test_rf_fine_duration_runtime.py",
+      "production_path": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_rf_fine_duration_runtime.py",
+      "role": "test"
+    }
+  ],
+  "evidence_source_mismatches": {
+    "baseline_equivalence.json": [
+      "qick_rf_fine_duration.py",
+      "test_rf_fine_duration_compiler.py"
+    ],
+    "staging_final_sources.json": [
+      "qick_rf_fine_duration.py",
+      "test_rf_fine_duration_compiler.py"
+    ],
+    "staging_verified_sources.json": []
+  },
+  "gate_snapshot_hashes": {
+    "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\validate_scope.ps1": "89a20c7526cb7a2173b516e0d1defdf8308d5b7e8c27935dcc5cc654c576bf52",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\authorized_gui_fix.json": "938598dd55f7af6562e97f7cf9bb5b1c8910fa0575a21487db0112ec0de94233",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\recompile_inputs.py": "0423843b9dca2fcea95decf8f203170c7f84dc2303c78e9578f8b08aaf1996c7",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\compiler_equivalence.json": "0dbe7122cc5e80242cdb444864b7f24d1a366ce32a97b848370893c84582e378",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\protected_before.json": "e28c2bd75b125d10deba198f88303f043f4407c81d671f1af5bdc95773b7e851",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\prebuild_gate.json": "a5b835c986ffae4a5243d1df5da9cd107532a2043348e34d67098246e351729a"
+  },
+  "workflow": {
+    "complete": false,
+    "stage": "full_build",
+    "pid": 132544,
+    "started": "2026-10-14T19:42:03.8292284-07:00",
+    "build": "F:/Vivado_Output/a5full1",
+    "no_board_actions": true,
+    "no_publish": true,
+    "no_retry": true,
+    "updated": "2026-10-14T21:34:10.8030854-07:00",
+    "build_started": "2026-10-14T21:34:10.8020862-07:00"
+  },
+  "proposed_authorization_files": {
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/DCWaveform_Generator.py": "feb847fe8dd879251921e9f841f3d18c23be17632fa17fc671cef8d38374192a",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/dc_waveform_core.py": "5b4010d5f9cc4eaad22a7b44ef19d052732c9e02a0c661bad02aec8be42d1941",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/qick_fine_tune_sweep.py": "9fcd771c595373cde3e012c1d144b334b4f1226deff05763861198db609179d6",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/qick_qcodes_experiment.py": "38a157763efc6c2a939006c320e24c2d1e9544e433bd28c545678505f36159f1",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/qick_rf_fine_duration.py": "09fdc757ee3f22c456245b36555d530a049a59a8382643fd7f8b1e989fd647ce",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py": "4289627b1b86f8e567aac8f6c59778cbd4cb71a53e54726955b43bddb246a9b0",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/test_rf_fine_duration_editor.py": "4ae5e973272acd372532e3e6ae780d21d9b1b5337ceea82526d8cf53d641abf1",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/test_rf_fine_duration_runtime.py": "225f0d0d038382e003f0902a0b0e8f096d56e8b35cb6c9ba4552aff8e3026e6c"
+  },
+  "blockers": [
+    "Full actual RTL phase/hardware duration matrix is not yet complete at this review.",
+    "Final post-throughput affected regression and nine-case compiler proof must match every current staged source hash.",
+    "Current workflow invokes strict validate_scope -RequireFunctional after place/route; multi-file promotion during its postgate is not atomic."
+  ],
+  "unchanged_rtl_evidence_source_audit": {
+    "manifests_read": 18,
+    "promoted_source_intersections": [],
+    "meaning": "Existing unit/system/RC source-hash manifests do not reference any of the eight proposed production destinations; they continue to validate the unchanged RTL/source inputs."
+  }
+}

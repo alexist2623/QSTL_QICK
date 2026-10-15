@@ -1,0 +1,92 @@
+﻿{
+    "passed":  true,
+    "verified":  "2026-10-15T02:31:27.4329416-07:00",
+    "scope":  {
+                  "passed":  true,
+                  "checked":  "2026-10-15T02:31:24.4257181-07:00",
+                  "protected_files":  253,
+                  "authorized_gui_changes":  [
+                                                 "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/acquisition_preview.py",
+                                                 "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/awg_sweep_map.py",
+                                                 "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/dc_waveform_core.py",
+                                                 "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/dc_waveform_widgets.py",
+                                                 "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/DCWaveform_Generator.py",
+                                                 "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/qick_front_panel.py",
+                                                 "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/qick_qcodes_experiment.py",
+                                                 "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/test_acquisition_preview.py",
+                                                 "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py",
+                                                 "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/test_qick_front_panel.py"
+                                             ],
+                  "user_settings_changed_externally":  [
+
+                                                       ],
+                  "branch":  "awg_tuning_v4"
+              },
+    "checks":  {
+                   "sum":  {
+                               "passed":  true,
+                               "exit_code":  0,
+                               "build":  "F:/Vivado_Output/a5sum2",
+                               "finished":  "2026-10-14T19:25:44.2225099-07:00"
+                           },
+                   "native":  {
+                                  "passed":  true,
+                                  "exit_code":  0,
+                                  "build":  "F:/Vivado_Output/a5native3",
+                                  "finished":  "2026-10-14T19:25:28.0947941-07:00"
+                              },
+                   "ramp_hold":  {
+                                     "passed":  true,
+                                     "exit_code":  0,
+                                     "build":  "F:/Vivado_Output/a5ramp2",
+                                     "top":  "tb_ramp_hold_alignment",
+                                     "finished":  "2026-10-14T19:36:02.6678117-07:00"
+                                 }
+               },
+    "software_modules":  74,
+    "software_tests":  1249,
+    "gui_selection_tests":  73,
+    "reviewed_initial_failures":  [
+                                      "test_rc_precompensation",
+                                      "test_sparameter_phase_storage",
+                                      "test_trigger_output_panel"
+                                  ],
+    "system_cases":  9,
+    "current_compiler_equivalent_cases":  9,
+    "selected48":  {
+                       "complete":  true,
+                       "selected_width":  48,
+                       "comparison_performed":  false,
+                       "build":  "F:\\Vivado_Output\\a5rc48",
+                       "widths":  {
+                                      "48":  {
+                                                 "complete":  true,
+                                                 "points_finished":  200,
+                                                 "completed_shots":  200,
+                                                 "overflow_points":  0,
+                                                 "max_residual_effective_code_samples":  0,
+                                                 "max_cumulative_effective_code_samples":  0,
+                                                 "max_collection_error_without_overflow":  0,
+                                                 "final_cumulative_effective_code_samples":  0,
+                                                 "max_rc_error_mv":  0.05461681895,
+                                                 "max_end_rc_mv":  0.000863350555,
+                                                 "csv_sha256":  "e1485ae9d4c0c2731109dcbb7f92a4e1e5a006e4864622f3224e99bdde517240"
+                                             }
+                                  },
+                       "analog_capacitor_reset_between_shots":  false
+                   },
+    "fresh_v5_rtl":  true,
+    "gui_input_policy":  "current GUI/compiler byte-equivalent to replayed PMEM/DMEM; Python v4 timing retained",
+    "v5_sources":  {
+                       "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v2\\src\\axis_output_sum_v2.sv":  "E7A82634D95AA6306CA589177A4BE77CDD42E49E92CC314E0FDFF49E71350568",
+                       "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\bd_2023-1.tcl":  "240BD1BA9B092DCBCE4E1F7143C685E166F7627C105402FBF26595A998B0EBFA",
+                       "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\build_vivado_2023_1.tcl":  "122A1F0F6864BE0F442F857D1B0C5C688E27F4946D1BD6FECA9A18BCEBCEAF77",
+                       "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\connect_output_sum.tcl":  "E89D5BE7A7CDD11BE79BC35A8EA5BCD271DBBB0B968335C4D63B8F3ACE915AFA",
+                       "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\ios.xdc":  "5435D174456AF7C2156207AD1571FB56AEC6EA1264EFEA73F9A42A11623430A7",
+                       "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\package_sum.tcl":  "A91185E019B29AB1A34A4BE6D56227F9A6C6D95C47A8EFD9984609BEE469D1DC",
+                       "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\timing.xdc":  "9F9D68F0D1D9E69D9C236606D65781E5C1F5EED4B1672A24DAEBFB670E0BACFB",
+                       "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\validate_artifacts.ps1":  "98F984725A34C5B2F4F6D9CD2658CDF58496913533F58B539536A536B60864DE",
+                       "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\validate_routed.ps1":  "2B01B47EE993B47F43A8725447AD18D580BDD2BC8506C639BA4D59D5EDEDFB59",
+                       "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\validate_scope.ps1":  "89A20C7526CB7A2173B516E0D1DEFDF8308D5B7E8C27935DCC5CC654C576BF52"
+                   }
+}

@@ -1,5 +1,21 @@
 # AWG Tuning v4 — 최종 검증 보고서
 
+## 2026-10-14 추가 Virtual matrix 검증 — 완료, 실행 제한 3건
+
+새 비대칭 완전결합 3×3 행렬로 실제 GUI→RTL **21/21 PASS**를 확인했습니다. 총 96점·192회, 명령 5,568개와 세 합산 출력 18,709,728 lane 샘플을 대조했습니다. HOLD/RAMP 두 DC 모드, 두 Virtual 전압축·역방향·축 순서, RC-only/DC-only/OFF, RF duration fixed/extend·frequency, Square frequency/amplitude/phase, CPMG N×τ와 named frequency/duration이 포함됩니다. 실제 MainWindow 입력→Run Experiment 컴파일 PMEM/DMEM 일치, 독립 행렬/정수 증분 계산, 실제 tProcessor/AWG/IIR/RF/합산 출력 검증이며 이전 PASS를 이번 실행으로 대체하지 않았습니다.
+
+별도 GUI/compiler는 **14/17 PASS, 3건 거부**입니다. **전체 PASS는 아닙니다.**
+
+- UDD N=2, τ=0.2µs, RF 폭0.1µs: 공유 포트 AWG13/RF15클록의 간격2가 필수3클록보다 짧아 compiler가 거부합니다. 다른 UDD 세 좌표는 compiler만 검사했습니다.
+- Quantum Circuit RF Loop n=1,3: v4 AWG 출력 지연18클록을 기존 v3의16클록 profile 조건이 받아들이지 못합니다. 해당 입력의 RTL 실행은 불가능했고 임의 override나 제품 수정은 하지 않았습니다.
+- Quantum Circuit에는 AWG Tuning Virtual matrix를 전압 계산에 적용하는 경로가 없습니다. 합산 RF에서 기존 전용 커넥터 power/calibration은 의도적으로 차단되며 거부 검사 6개 PASS는 정상 출력 RTL 시험이 아닙니다.
+
+초기 RAMP/OFF helper 가정 오류와 Quantum n=0 검사 객체 접근 오류는 원본을 보존했습니다. 검증 코드만 수정해 별도 재실행했고 최종 채택 RTL 21개는 각각 exit 0입니다. 생산 소스·사용자 JSON·펌웨어 변경0, 보호59파일 일치, 159개 GUI/compiler 소스와 RTL/PMEM/DMEM fingerprint 일치입니다. 시뮬레이션은 전부 종료했고 새 합성/배포/보드 접속은 없습니다. 모든 파라미터×모드×방향의 전체 곱이나 실제 보드 아날로그 검증을 포함하지 않습니다.
+
+[케이스별 결과·실패 진단](virtual_gate_rtl_20261014/REPORT.md) · [상세 결과/해시](virtual_gate_rtl_20261014/results.json) · [실제 RTL 합산 파형](virtual_gate_rtl_20261014/virtual_matrix_rtl_alignment.png) · [검증 코드](../../qick/firmware/ip/axis_output_sum_v1/validation/virtual_gate/README.md)
+
+아래는 각 이전 작업 당시의 기록이며, 이번 추가 검증 결과는 위 내용이 최신입니다.
+
 ## GUI 업데이트 기능 — 구현 완료, 실행 검증 미수행
 
 전체 기본 회귀 PASS를 먼저 확정하고 174개 소스/설정/펌웨어와 결과를 스냅샷으로 보존한 뒤 기존 GUI `awg_tuning_v4`에 구현했습니다.

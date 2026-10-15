@@ -1,0 +1,68 @@
+F.............FFFF.............................F                         [100%]
+================================== FAILURES ===================================
+__________ test_actual_hwh_review_is_read_only_with_fake_bit_and_xsa __________
+DCWaveformGeneratorGUI\test_qick_update_v5.py:100: in test_actual_hwh_review_is_read_only_with_fake_bit_and_xsa
+    reviewed = p.review()
+               ^^^^^^^^^^
+DCWaveformGeneratorGUI\test_qick_update_v5.py:83: in review
+    return update.review_package(repo, active_firmware='projects/qstl_awg_v5/bitstream.bit')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\qick_update.py:287: in review_package
+    v5_hardware = _v5_hardware_review(hwh, topology, sha(hwh_path)) if is_v5 else None
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\qick_update.py:152: in _v5_hardware_review
+    parameter(zero, 'CONST_VAL', 0)
+DCWaveformGeneratorGUI\qick_update.py:123: in parameter
+    fail(value.get('INSTANCE') + ' ' + name)
+DCWaveformGeneratorGUI\qick_update.py:102: in fail
+    raise ValueError('Invalid v5 firmware hardware: ' + detail)
+E   ValueError: Invalid v5 firmware hardware: sum_zero_word CONST_VAL
+___ test_rehashed_hwh_invalid_sum_parameter_is_refused[AWG_DELAY_CYCLES-12] ___
+DCWaveformGeneratorGUI\test_qick_update_v5.py:163: in test_rehashed_hwh_invalid_sum_parameter_is_refused
+    with pytest.raises(ValueError, match=name):
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'AWG_DELAY_CYCLES'
+E     Actual message: 'Invalid v5 firmware hardware: sum_zero_word CONST_VAL'
+____ test_rehashed_hwh_invalid_sum_parameter_is_refused[PIPELINE_CYCLES-3] ____
+DCWaveformGeneratorGUI\test_qick_update_v5.py:163: in test_rehashed_hwh_invalid_sum_parameter_is_refused
+    with pytest.raises(ValueError, match=name):
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'PIPELINE_CYCLES'
+E     Actual message: 'Invalid v5 firmware hardware: sum_zero_word CONST_VAL'
+_________ test_rehashed_hwh_invalid_sum_parameter_is_refused[N_PTS-8] _________
+DCWaveformGeneratorGUI\test_qick_update_v5.py:163: in test_rehashed_hwh_invalid_sum_parameter_is_refused
+    with pytest.raises(ValueError, match=name):
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'N_PTS'
+E     Actual message: 'Invalid v5 firmware hardware: sum_zero_word CONST_VAL'
+________ test_rehashed_hwh_invalid_sum_parameter_is_refused[BYPASS-1] _________
+DCWaveformGeneratorGUI\test_qick_update_v5.py:163: in test_rehashed_hwh_invalid_sum_parameter_is_refused
+    with pytest.raises(ValueError, match=name):
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'BYPASS'
+E     Actual message: 'Invalid v5 firmware hardware: sum_zero_word CONST_VAL'
+_____________ test_v5_manifest_accepts_utf8_bom_and_uppercase_sha _____________
+DCWaveformGeneratorGUI\test_qick_update_v5.py:258: in test_v5_manifest_accepts_utf8_bom_and_uppercase_sha
+    assert p.review()['manifest']['v5_hardware_validation']['passed']
+           ^^^^^^^^^^
+DCWaveformGeneratorGUI\test_qick_update_v5.py:83: in review
+    return update.review_package(repo, active_firmware='projects/qstl_awg_v5/bitstream.bit')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\qick_update.py:287: in review_package
+    v5_hardware = _v5_hardware_review(hwh, topology, sha(hwh_path)) if is_v5 else None
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\qick_update.py:152: in _v5_hardware_review
+    parameter(zero, 'CONST_VAL', 0)
+DCWaveformGeneratorGUI\qick_update.py:123: in parameter
+    fail(value.get('INSTANCE') + ' ' + name)
+DCWaveformGeneratorGUI\qick_update.py:102: in fail
+    raise ValueError('Invalid v5 firmware hardware: ' + detail)
+E   ValueError: Invalid v5 firmware hardware: sum_zero_word CONST_VAL
+=========================== short test summary info ===========================
+FAILED DCWaveformGeneratorGUI/test_qick_update_v5.py::test_actual_hwh_review_is_read_only_with_fake_bit_and_xsa
+FAILED DCWaveformGeneratorGUI/test_qick_update_v5.py::test_rehashed_hwh_invalid_sum_parameter_is_refused[AWG_DELAY_CYCLES-12]
+FAILED DCWaveformGeneratorGUI/test_qick_update_v5.py::test_rehashed_hwh_invalid_sum_parameter_is_refused[PIPELINE_CYCLES-3]
+FAILED DCWaveformGeneratorGUI/test_qick_update_v5.py::test_rehashed_hwh_invalid_sum_parameter_is_refused[N_PTS-8]
+FAILED DCWaveformGeneratorGUI/test_qick_update_v5.py::test_rehashed_hwh_invalid_sum_parameter_is_refused[BYPASS-1]
+FAILED DCWaveformGeneratorGUI/test_qick_update_v5.py::test_v5_manifest_accepts_utf8_bom_and_uppercase_sha
+6 failed, 42 passed in 20.94s

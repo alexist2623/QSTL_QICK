@@ -1,0 +1,95 @@
+.......................F....                                             [100%]
+================================== FAILURES ===================================
+_________ test_manual_calibration_mode_keeps_separate_parameter_banks _________
+
+editor = <DCWaveform_Generator.RfPulsePortPanel object at 0x0000027016222690>
+
+    def test_manual_calibration_mode_keeps_separate_parameter_banks(editor):
+        editor.amplitude_mode_group.setChecked(True)
+        selector = editor.composite_item_table.cellWidget(0, 5)
+        row = parameter_row(editor, "amplitude", selector.currentData())
+        table = editor.amplitude_parameter_table
+        table.cellWidget(row, 1).setValue(1234)
+        table.cellWidget(row, 3).setValue(-1000)
+        table.cellWidget(row, 4).setValue(1000)
+        table.cellWidget(row, 5).setValue(3)
+        table.cellWidget(row, 2).setChecked(True)
+        manual = editor._numeric_parameters("amplitude")
+        editor.amplitude_calibration_enabled.setChecked(True)
+>       assert editor.configured_spec().global_amplitude_mode == "calibration"
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+DCWaveformGeneratorGUI\test_rf_t2_delay_editor.py:367: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:6532: in configured_spec
+    return QickRfPulseSpec(
+<string>:76: in __init__
+    ???
+DCWaveformGeneratorGUI\dc_waveform_core.py:1085: in __post_init__
+    effective_items = self.effective_composite_items
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = QickRfPulseSpec(gen_ch=0, segment_name='set_0', delay_us=0.0, duration_us=1.0, frequency_mhz=50.0, gain=20000, att1_db..., t2_final_phase_parameter='phase_final', predefined_amplitude_parameter='a_pi', predefined_phase_parameter='phase_pi')
+
+    @property
+    def effective_composite_items(self) -> Tuple[QickRfCompositeItemSpec, ...]:
+        """Body and T2 endpoints with global overrides; stored rows stay intact."""
+        items = tuple(self.composite_items)
+        if self.pulse_mode != "composite":
+            return items
+        used_names = {item.name for item in items}
+    
+        def endpoint(name: str, phase: float, phase_parameter: str) -> QickRfCompositeItemSpec:
+            unique_name = name
+            suffix = 2
+            while unique_name in used_names:
+                unique_name = f"{name}_{suffix}"
+                suffix += 1
+            used_names.add(unique_name)
+            pi_duration = next(
+                parameter.initial_duration_us for parameter in self.duration_parameters
+                if parameter.name == self.t2_duration_parameter
+            )
+            return QickRfCompositeItemSpec(
+                kind="pulse", name=unique_name, duration_us=pi_duration / 2.0,
+                frequency_parameter=self.global_frequency_parameter or self.t2_frequency_parameter,
+                gain=self.t2_gain, phase_degrees=phase,
+                amplitude_parameter=self.t2_amplitude_parameter,
+                phase_parameter=phase_parameter,
+            )
+    
+        initial = (endpoint("T2_initial_pi2", self.t2_initial_phase_degrees, self.t2_initial_phase_parameter),) if self.t2_initial_pi2 else ()
+        final = (endpoint("T2_final_pi2", self.t2_final_phase_degrees, self.t2_final_phase_parameter),) if self.t2_final_pi2 else ()
+        effective = initial + items + final
+        amplitudes = {parameter.name: parameter for parameter in self.amplitude_parameters}
+        phases = {parameter.name: parameter for parameter in self.phase_parameters}
+        resolved_items = []
+        for item in effective:
+            if item.kind != "pulse":
+                resolved_items.append(item)
+                continue
+            amplitude_name = self.global_amplitude_parameter or item.amplitude_parameter
+            if amplitude_name and self.global_amplitude_mode == "legacy":
+                raise ValueError("named RF amplitude parameters require manual or calibration amplitude mode")
+            if amplitude_name and amplitude_name not in amplitudes:
+                raise ValueError(f"composite RF pulse references unknown amplitude parameter: {amplitude_name}")
+            if item.phase_parameter and item.phase_parameter not in phases:
+                raise ValueError(f"composite RF pulse references unknown phase parameter: {item.phase_parameter}")
+            changes = dict(
+                frequency_parameter=self.global_frequency_parameter or item.frequency_parameter,
+                amplitude_parameter=amplitude_name,
+                phase_degrees=(phases[item.phase_parameter].initial_phase_degrees
+                               if item.phase_parameter else item.phase_degrees),
+            )
+            amplitude_value = amplitudes[amplitude_name].initial_value if amplitude_name else None
+            if self.global_amplitude_mode == "calibration":
+                if not str(self.global_calibration_database_path).strip():
+>                   raise ValueError("global RF calibration database path is required")
+E                   ValueError: global RF calibration database path is required
+
+DCWaveformGeneratorGUI\dc_waveform_core.py:1232: ValueError
+=========================== short test summary info ===========================
+FAILED DCWaveformGeneratorGUI/test_rf_t2_delay_editor.py::test_manual_calibration_mode_keeps_separate_parameter_banks
+1 failed, 27 passed in 28.85s
+QT_EXPLICIT_TEARDOWN_COMPLETE

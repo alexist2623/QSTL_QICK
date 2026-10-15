@@ -1,0 +1,2015 @@
+{
+  "complete": true,
+  "execution_complete": true,
+  "pid": 63668,
+  "started_utc": "2026-10-15T15:29:54.490891+00:00",
+  "stage": "passed_variants_separately_classified",
+  "max_xsim": 1,
+  "cases": {
+    "hold_fixed_time": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_3x3_v5matrix_20261015_hold_fixed_time_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "hold_fixed_time",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\hold_fixed_time.original.prepare.log",
+          "started_utc": "2026-10-15T15:29:54.492397+00:00",
+          "pid": 120976,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T15:29:59.073336+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_3x3_v5matrix_20261015_hold_fixed_time_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "hold_fixed_time",
+            "--run-tag",
+            "v5matrix_20261015_hold_fixed_time_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\hold_fixed_time.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T15:29:59.080341+00:00",
+          "pid": 47736,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T15:30:33.421946+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "hold_fixed_time",
+            "--run-tag",
+            "v5matrix_20261015_hold_fixed_time_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\hold_fixed_time.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T15:30:33.445197+00:00",
+          "pid": 46992,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T15:36:45.085074+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "hold_fixed_voltage_descending": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_3x3_v5matrix_20261015_hold_fixed_voltage_descending_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "hold_fixed_voltage_descending",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\hold_fixed_voltage_descending.original.prepare.log",
+          "started_utc": "2026-10-15T15:36:45.096648+00:00",
+          "pid": 152008,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T15:37:12.884628+00:00"
+        },
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "hold_fixed_voltage_descending",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\hold_fixed_voltage_descending.original.rtl.log",
+          "started_utc": "2026-10-15T15:37:12.885635+00:00",
+          "pid": 89696,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T15:43:04.481180+00:00"
+        }
+      },
+      "state": "passed",
+      "selected": "original"
+    },
+    "ramp_fixed_time": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_ramp_rate_2x2_v5matrix_20261015_ramp_fixed_time_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "ramp_fixed_time",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\ramp_fixed_time.original.prepare.log",
+          "started_utc": "2026-10-15T15:43:04.490753+00:00",
+          "pid": 81540,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T15:43:08.526934+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_ramp_rate_2x2_v5matrix_20261015_ramp_fixed_time_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "ramp_fixed_time",
+            "--run-tag",
+            "v5matrix_20261015_ramp_fixed_time_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\ramp_fixed_time.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T15:43:08.529455+00:00",
+          "pid": 48400,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T15:43:36.331278+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "ramp_fixed_time",
+            "--run-tag",
+            "v5matrix_20261015_ramp_fixed_time_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\ramp_fixed_time.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T15:43:36.348523+00:00",
+          "pid": 39724,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T15:46:33.518311+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "ramp_fixed_voltage_descending": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_ramp_rate_2x2_v5matrix_20261015_ramp_fixed_voltage_descending_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "ramp_fixed_voltage_descending",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\ramp_fixed_voltage_descending.original.prepare.log",
+          "started_utc": "2026-10-15T15:46:33.529216+00:00",
+          "pid": 11476,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T15:46:37.724681+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_ramp_rate_2x2_v5matrix_20261015_ramp_fixed_voltage_descending_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "ramp_fixed_voltage_descending",
+            "--run-tag",
+            "v5matrix_20261015_ramp_fixed_voltage_descending_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\ramp_fixed_voltage_descending.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T15:46:37.728220+00:00",
+          "pid": 88704,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T15:47:06.166378+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "ramp_fixed_voltage_descending",
+            "--run-tag",
+            "v5matrix_20261015_ramp_fixed_voltage_descending_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\ramp_fixed_voltage_descending.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T15:47:06.183154+00:00",
+          "pid": 115452,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T15:49:37.456107+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "rf_duration_fixed": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_rf_duration_fixed_2x2_v5matrix_20261015_rf_duration_fixed_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "rf_duration_fixed",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_duration_fixed.original.prepare.log",
+          "started_utc": "2026-10-15T15:49:37.467626+00:00",
+          "pid": 47204,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T15:49:41.742002+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_rf_duration_fixed_2x2_v5matrix_20261015_rf_duration_fixed_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "rf_duration_fixed",
+            "--run-tag",
+            "v5matrix_20261015_rf_duration_fixed_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_duration_fixed.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T15:49:41.745004+00:00",
+          "pid": 136888,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T15:50:10.500802+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "rf_duration_fixed",
+            "--run-tag",
+            "v5matrix_20261015_rf_duration_fixed_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_duration_fixed.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T15:50:10.520367+00:00",
+          "pid": 153240,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T15:52:52.865092+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "rf_duration_extend": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_rf_duration_2x2_v5matrix_20261015_rf_duration_extend_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "rf_duration_extend",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_duration_extend.original.prepare.log",
+          "started_utc": "2026-10-15T15:52:52.876616+00:00",
+          "pid": 67768,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T15:52:57.051105+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_rf_duration_2x2_v5matrix_20261015_rf_duration_extend_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "rf_duration_extend",
+            "--run-tag",
+            "v5matrix_20261015_rf_duration_extend_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_duration_extend.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T15:52:57.055105+00:00",
+          "pid": 83180,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T15:53:26.132791+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "rf_duration_extend",
+            "--run-tag",
+            "v5matrix_20261015_rf_duration_extend_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_duration_extend.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T15:53:26.150508+00:00",
+          "pid": 155580,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T15:55:58.988699+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "rf_frequency": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_rf_frequency_2x2_v5matrix_20261015_rf_frequency_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "rf_frequency",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_frequency.original.prepare.log",
+          "started_utc": "2026-10-15T15:55:59.000788+00:00",
+          "pid": 123404,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T15:56:03.313743+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_rf_frequency_2x2_v5matrix_20261015_rf_frequency_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "rf_frequency",
+            "--run-tag",
+            "v5matrix_20261015_rf_frequency_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_frequency.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T15:56:03.317748+00:00",
+          "pid": 154240,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T15:56:31.197673+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "rf_frequency",
+            "--run-tag",
+            "v5matrix_20261015_rf_frequency_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_frequency.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T15:56:31.215359+00:00",
+          "pid": 20084,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T15:59:06.305767+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "two_voltage_axes": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_3x3_v5matrix_20261015_two_voltage_axes_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "two_voltage_axes",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\two_voltage_axes.original.prepare.log",
+          "started_utc": "2026-10-15T15:59:06.316868+00:00",
+          "pid": 63156,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T15:59:10.918971+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_3x3_v5matrix_20261015_two_voltage_axes_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "two_voltage_axes",
+            "--run-tag",
+            "v5matrix_20261015_two_voltage_axes_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\two_voltage_axes.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T15:59:10.922971+00:00",
+          "pid": 43780,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T15:59:42.454171+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "two_voltage_axes",
+            "--run-tag",
+            "v5matrix_20261015_two_voltage_axes_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\two_voltage_axes.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T15:59:42.478548+00:00",
+          "pid": 71220,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:04:33.066987+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "two_voltage_axes_reversed": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_3x3_v5matrix_20261015_two_voltage_axes_reversed_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "two_voltage_axes_reversed",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\two_voltage_axes_reversed.original.prepare.log",
+          "started_utc": "2026-10-15T16:04:33.080500+00:00",
+          "pid": 161520,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T16:04:37.225962+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_3x3_v5matrix_20261015_two_voltage_axes_reversed_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "two_voltage_axes_reversed",
+            "--run-tag",
+            "v5matrix_20261015_two_voltage_axes_reversed_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\two_voltage_axes_reversed.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T16:04:37.229535+00:00",
+          "pid": 138772,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:05:04.198544+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "two_voltage_axes_reversed",
+            "--run-tag",
+            "v5matrix_20261015_two_voltage_axes_reversed_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\two_voltage_axes_reversed.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T16:05:04.217650+00:00",
+          "pid": 84092,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:09:51.188458+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "rc_only": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_rc_only_hold_duration_2x2_v5matrix_20261015_rc_only_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "rc_only",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rc_only.original.prepare.log",
+          "started_utc": "2026-10-15T16:09:51.201971+00:00",
+          "pid": 159436,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T16:09:55.461397+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_rc_only_hold_duration_2x2_v5matrix_20261015_rc_only_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "rc_only",
+            "--run-tag",
+            "v5matrix_20261015_rc_only_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rc_only.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T16:09:55.466098+00:00",
+          "pid": 68436,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:10:22.439539+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "rc_only",
+            "--run-tag",
+            "v5matrix_20261015_rc_only_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rc_only.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T16:10:22.457129+00:00",
+          "pid": 74828,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:12:44.783305+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "dc_only": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_dc_only_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "dc_only",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\dc_only.original.prepare.log",
+          "started_utc": "2026-10-15T16:12:44.795823+00:00",
+          "pid": 68244,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T16:12:48.811492+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_dc_only_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "dc_only",
+            "--run-tag",
+            "v5matrix_20261015_dc_only_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\dc_only.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T16:12:48.816037+00:00",
+          "pid": 158804,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:13:15.981641+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "dc_only",
+            "--run-tag",
+            "v5matrix_20261015_dc_only_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\dc_only.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T16:13:15.999393+00:00",
+          "pid": 76636,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:16:01.484645+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "compensation_off": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_rc_only_hold_duration_2x2_v5matrix_20261015_compensation_off_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "compensation_off",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\compensation_off.original.prepare.log",
+          "started_utc": "2026-10-15T16:16:01.496765+00:00",
+          "pid": 70768,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T16:16:04.931100+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_rc_only_hold_duration_2x2_v5matrix_20261015_compensation_off_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "compensation_off",
+            "--run-tag",
+            "v5matrix_20261015_compensation_off_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\compensation_off.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T16:16:04.936119+00:00",
+          "pid": 147292,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:16:30.880829+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "compensation_off",
+            "--run-tag",
+            "v5matrix_20261015_compensation_off_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\compensation_off.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T16:16:30.899362+00:00",
+          "pid": 110988,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:18:40.761543+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "square_frequency": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_square_frequency_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "square_frequency",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_frequency.original.prepare.log",
+          "started_utc": "2026-10-15T16:18:40.774094+00:00",
+          "pid": 129492,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T16:18:44.149018+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_square_frequency_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "square_frequency",
+            "--run-tag",
+            "v5matrix_20261015_square_frequency_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_frequency.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T16:18:44.155039+00:00",
+          "pid": 140420,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:19:10.156559+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "square_frequency",
+            "--run-tag",
+            "v5matrix_20261015_square_frequency_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_frequency.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T16:19:10.174070+00:00",
+          "pid": 67472,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:21:37.395210+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "square_amplitude": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_square_amplitude_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "square_amplitude",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_amplitude.original.prepare.log",
+          "started_utc": "2026-10-15T16:21:37.408835+00:00",
+          "pid": 37456,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T16:21:40.770895+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_square_amplitude_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "square_amplitude",
+            "--run-tag",
+            "v5matrix_20261015_square_amplitude_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_amplitude.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T16:21:40.775479+00:00",
+          "pid": 56848,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:22:06.715301+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "square_amplitude",
+            "--run-tag",
+            "v5matrix_20261015_square_amplitude_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_amplitude.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T16:22:06.734005+00:00",
+          "pid": 42996,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:24:33.350731+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "square_phase": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_square_phase_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "square_phase",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_phase.original.prepare.log",
+          "started_utc": "2026-10-15T16:24:33.365258+00:00",
+          "pid": 46572,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T16:24:36.787548+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_square_phase_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "square_phase",
+            "--run-tag",
+            "v5matrix_20261015_square_phase_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_phase.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T16:24:36.793123+00:00",
+          "pid": 97228,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:25:02.920119+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "square_phase",
+            "--run-tag",
+            "v5matrix_20261015_square_phase_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_phase.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T16:25:02.939171+00:00",
+          "pid": 38124,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:27:30.489917+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "cpmg_n1_tau200ns": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_cpmg_n1_tau200ns_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_n1_tau200ns",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n1_tau200ns.original.prepare.log",
+          "started_utc": "2026-10-15T16:27:30.504014+00:00",
+          "pid": 79520,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T16:27:33.884983+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_cpmg_n1_tau200ns_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_n1_tau200ns",
+            "--run-tag",
+            "v5matrix_20261015_cpmg_n1_tau200ns_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n1_tau200ns.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T16:27:33.889983+00:00",
+          "pid": 98084,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:28:00.068149+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_n1_tau200ns",
+            "--run-tag",
+            "v5matrix_20261015_cpmg_n1_tau200ns_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n1_tau200ns.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T16:28:00.087448+00:00",
+          "pid": 160552,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:29:28.388576+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "cpmg_n1_tau400ns": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_cpmg_n1_tau400ns_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_n1_tau400ns",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n1_tau400ns.original.prepare.log",
+          "started_utc": "2026-10-15T16:29:28.403326+00:00",
+          "pid": 163688,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T16:29:31.797653+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_cpmg_n1_tau400ns_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_n1_tau400ns",
+            "--run-tag",
+            "v5matrix_20261015_cpmg_n1_tau400ns_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n1_tau400ns.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T16:29:31.802932+00:00",
+          "pid": 90156,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:29:57.838131+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_n1_tau400ns",
+            "--run-tag",
+            "v5matrix_20261015_cpmg_n1_tau400ns_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n1_tau400ns.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T16:29:57.857822+00:00",
+          "pid": 117880,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:31:25.356327+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "cpmg_n2_tau200ns": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_cpmg_n2_tau200ns_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_n2_tau200ns",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n2_tau200ns.original.prepare.log",
+          "started_utc": "2026-10-15T16:31:25.371427+00:00",
+          "pid": 123752,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T16:31:28.777480+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_cpmg_n2_tau200ns_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_n2_tau200ns",
+            "--run-tag",
+            "v5matrix_20261015_cpmg_n2_tau200ns_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n2_tau200ns.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T16:31:28.783464+00:00",
+          "pid": 124176,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:31:54.977177+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_n2_tau200ns",
+            "--run-tag",
+            "v5matrix_20261015_cpmg_n2_tau200ns_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n2_tau200ns.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T16:31:54.997526+00:00",
+          "pid": 130132,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:33:23.507319+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "cpmg_n2_tau400ns": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_cpmg_n2_tau400ns_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_n2_tau400ns",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n2_tau400ns.original.prepare.log",
+          "started_utc": "2026-10-15T16:33:23.522343+00:00",
+          "pid": 104656,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T16:33:27.015054+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_cpmg_n2_tau400ns_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_n2_tau400ns",
+            "--run-tag",
+            "v5matrix_20261015_cpmg_n2_tau400ns_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n2_tau400ns.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T16:33:27.021105+00:00",
+          "pid": 150272,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:33:52.929437+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_n2_tau400ns",
+            "--run-tag",
+            "v5matrix_20261015_cpmg_n2_tau400ns_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n2_tau400ns.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T16:33:52.949978+00:00",
+          "pid": 149988,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:35:20.647880+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "cpmg_named_frequency": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_cpmg_named_frequency_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_named_frequency",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_named_frequency.original.prepare.log",
+          "started_utc": "2026-10-15T16:35:20.663235+00:00",
+          "pid": 138588,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T16:35:24.219063+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_cpmg_named_frequency_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_named_frequency",
+            "--run-tag",
+            "v5matrix_20261015_cpmg_named_frequency_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_named_frequency.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T16:35:24.225664+00:00",
+          "pid": 38756,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:35:50.307003+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_named_frequency",
+            "--run-tag",
+            "v5matrix_20261015_cpmg_named_frequency_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_named_frequency.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T16:35:50.327029+00:00",
+          "pid": 114512,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:38:14.329447+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    },
+    "cpmg_named_duration": {
+      "original": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_cpmg_named_duration_output_sum_awg_v3",
+        "rf_delay_us": 0.0,
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_named_duration",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_named_duration.original.prepare.log",
+          "started_utc": "2026-10-15T16:38:14.343598+00:00",
+          "pid": 119276,
+          "exit_code": 1,
+          "finished_utc": "2026-10-15T16:38:17.791276+00:00"
+        },
+        "rejection": {
+          "error": "ValueError('The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.')",
+          "source": "Actual MainWindow Run Experiment compiler",
+          "guard_modified": false
+        },
+        "state": "rejected"
+      },
+      "state": "passed",
+      "rf100ns": {
+        "folder": "F:\\Vivado_Output\\a5matrix1\\rc_precomp_repeat_reset_hold_duration_2x2_v5matrix_20261015_cpmg_named_duration_rf100ns_output_sum_awg_v3",
+        "rf_delay_us": 0.1,
+        "explicit_fixture_change": "Only all three RF base delay_us: 0 -> 0.1 us; production source and guard unchanged.",
+        "prepare": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_named_duration",
+            "--run-tag",
+            "v5matrix_20261015_cpmg_named_duration_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--prepare-only"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_named_duration.rf100ns.prepare.log",
+          "started_utc": "2026-10-15T16:38:17.797785+00:00",
+          "pid": 37000,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:38:43.781848+00:00"
+        },
+        "input_changes": [
+          {
+            "output": 0,
+            "path": "rf_outputs[0].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 1,
+            "path": "rf_outputs[1].delay_us",
+            "before": 0,
+            "after": 0.1
+          },
+          {
+            "output": 2,
+            "path": "rf_outputs[2].delay_us",
+            "before": 0,
+            "after": 0.1
+          }
+        ],
+        "rtl": {
+          "command": [
+            "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+            "-X",
+            "utf8",
+            "-u",
+            "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py",
+            "--case",
+            "cpmg_named_duration",
+            "--run-tag",
+            "v5matrix_20261015_cpmg_named_duration_rf100ns",
+            "--sum-rf-delay-us",
+            ".1",
+            "--reuse-snapshot"
+          ],
+          "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_named_duration.rf100ns.rtl.log",
+          "started_utc": "2026-10-15T16:38:43.802888+00:00",
+          "pid": 121568,
+          "exit_code": 0,
+          "finished_utc": "2026-10-15T16:41:08.837787+00:00"
+        }
+      },
+      "selected": "rf100ns"
+    }
+  },
+  "source_scope": "Current production GUI/driver, actual v5 HWH; validation-only adapters; original input preserved before any explicit offset variant",
+  "updated_utc": "2026-10-15T16:41:08.850397+00:00",
+  "finished_utc": "2026-10-15T16:41:08.850397+00:00"
+}

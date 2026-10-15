@@ -1,0 +1,70 @@
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\qick\firmware\ip\axis_awg_tuning_v3\validation\gui_widget_fixture.py[direct-input adapter]", line 61, in build_from_widgets
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\expanded_gui_rtl_20261015\matrix21\composite_support.py", line 45, in select_point
+    return original(cfg,sequence,**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_qcodes_experiment.py", line 1040, in build_qick_program
+    return sequence.make_program(soccfg, **program_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 2367, in make_program
+    return FineTuneAmplitudeSweepProgram(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 2683, in __init__
+    super().__init__(soccfg, cfg)
+  File "C:\GIT_Workspace\QSTL_QICK\qick\qick_lib\qick\averager_program.py", line 211, in __init__
+    self.make_program()
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 7150, in make_program
+    self.initialize()
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 2806, in initialize
+    self._build_aux_timing()
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_rf_fine_duration.py", line 138, in _build_aux_timing
+    super()._build_aux_timing()
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 5338, in _build_aux_timing
+    raise ValueError(f'The {firmware} RF command conflicts with another command on its shared '
+ValueError: The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 2450, in <lambda>
+    lambda: self.panel_scroll.ensureWidgetVisible(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: wrapped C/C++ object of type QScrollArea has been deleted
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\expanded_gui_rtl_20261015\matrix21\run_case.py", line 96, in <module>
+    exec(compile(text,str(generated),'exec'),{'__name__':'__main__','__file__':str(generated)})
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\expanded_gui_rtl_20261015\matrix21\verify_cpmg_named_frequency.py", line 738, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\expanded_gui_rtl_20261015\matrix21\verify_cpmg_named_frequency.py", line 298, in main
+    widget_program=build_from_widgets(cfg,pulses,axes,rf_specs,args,out)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\expanded_gui_rtl_20261015\matrix21\composite_support.py", line 47, in build_from_widgets
+    try:return support.build_from_widgets(cfg,pulses,axes,options.outer_rf_specs,options,out)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\expanded_gui_rtl_20261015\matrix21\support.py", line 118, in build_from_widgets
+    return namespace['build_from_widgets'](cfg,pulses,axes,rf_specs,options,out)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\qick\firmware\ip\axis_awg_tuning_v3\validation\gui_widget_fixture.py[direct-input adapter]", line 61, in build_from_widgets
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\expanded_gui_rtl_20261015\matrix21\composite_support.py", line 45, in select_point
+    return original(cfg,sequence,**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_qcodes_experiment.py", line 1040, in build_qick_program
+    return sequence.make_program(soccfg, **program_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 2367, in make_program
+    return FineTuneAmplitudeSweepProgram(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 2683, in __init__
+    super().__init__(soccfg, cfg)
+  File "C:\GIT_Workspace\QSTL_QICK\qick\qick_lib\qick\averager_program.py", line 211, in __init__
+    self.make_program()
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 7150, in make_program
+    self.initialize()
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 2806, in initialize
+    self._build_aux_timing()
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_rf_fine_duration.py", line 138, in _build_aux_timing
+    super()._build_aux_timing()
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 5338, in _build_aux_timing
+    raise ValueError(f'The {firmware} RF command conflicts with another command on its shared '
+ValueError: The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.

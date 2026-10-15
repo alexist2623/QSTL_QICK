@@ -1,0 +1,93 @@
+.............FF......................................................... [ 46%]
+........................................................................ [ 92%]
+............                                                             [100%]
+================================== FAILURES ===================================
+_ test_rf_names_stay_centered_inside_pulses_at_minimum_lane_height[1.0-carrier] _
+
+app = <PyQt5.QtWidgets.QApplication object at 0x000001F7FBBDC320>
+frequency_mhz = 1.0, mode = 'carrier'
+
+    @pytest.mark.parametrize("frequency_mhz, mode", [(1.0, "carrier"), (250.0, "envelope")])
+    def test_rf_names_stay_centered_inside_pulses_at_minimum_lane_height(app, frequency_mhz, mode):
+        timeline = RfPulseTimelineWidget()
+        pulses = [
+            {"pulse_name": "prepare", "start_ns": 100.0, "duration_ns": 900.0,
+             "frequency_mhz": frequency_mhz, "gain": 12000, "phase_degrees": 0.0},
+            {"pulse_name": "read", "start_ns": 1200.0, "duration_ns": 900.0,
+             "frequency_mhz": frequency_mhz, "gain": 9000, "phase_degrees": 90.0},
+        ]
+        try:
+            timeline.resize(800, timeline.minimumHeight())
+            timeline.set_pulses(gen_ch=0, pulses=pulses, att1_db=0.0, att2_db=0.0)
+            timeline.setXRange(0.0, 2300.0, padding=0.0)
+            timeline.show()
+            app.processEvents()
+    
+            assert timeline.height() == timeline.minimumHeight()
+            assert timeline.preview_mode == mode
+            view_box = timeline.getPlotItem().vb
+            for pulse, label in zip(pulses, timeline._pulse_labels):
+                assert label.textItem.toPlainText() == pulse["pulse_name"]
+                assert label.pos().x() == pulse["start_ns"] + pulse["duration_ns"] / 2.0
+                assert label.pos().y() == 0.0
+                assert (label.anchor.x(), label.anchor.y()) == (0.5, 0.5)
+                label_rect = label.sceneBoundingRect()
+                assert view_box.sceneBoundingRect().contains(label_rect)
+                pulse_rect = QtCore.QRectF(
+                    view_box.mapViewToScene(QtCore.QPointF(pulse["start_ns"], pulse["gain"])),
+                    view_box.mapViewToScene(QtCore.QPointF(
+                        pulse["start_ns"] + pulse["duration_ns"], -pulse["gain"])),
+                ).normalized()
+>               assert pulse_rect.contains(label_rect)
+E               assert False
+E                +  where False = <built-in method contains of QRectF object at 0x000001F784D98D00>(PyQt5.QtCore.QRectF(551.7, 41.92307692307692, 76.0, 28.0))
+E                +    where <built-in method contains of QRectF object at 0x000001F784D98D00> = PyQt5.QtCore.QRectF(444.80000000000007, 42.07692307692308, 289.79999999999995, 27.692307692307693).contains
+
+DCWaveformGeneratorGUI\test_waveform_plot_annotations.py:264: AssertionError
+_ test_rf_names_stay_centered_inside_pulses_at_minimum_lane_height[250.0-envelope] _
+
+app = <PyQt5.QtWidgets.QApplication object at 0x000001F7FBBDC320>
+frequency_mhz = 250.0, mode = 'envelope'
+
+    @pytest.mark.parametrize("frequency_mhz, mode", [(1.0, "carrier"), (250.0, "envelope")])
+    def test_rf_names_stay_centered_inside_pulses_at_minimum_lane_height(app, frequency_mhz, mode):
+        timeline = RfPulseTimelineWidget()
+        pulses = [
+            {"pulse_name": "prepare", "start_ns": 100.0, "duration_ns": 900.0,
+             "frequency_mhz": frequency_mhz, "gain": 12000, "phase_degrees": 0.0},
+            {"pulse_name": "read", "start_ns": 1200.0, "duration_ns": 900.0,
+             "frequency_mhz": frequency_mhz, "gain": 9000, "phase_degrees": 90.0},
+        ]
+        try:
+            timeline.resize(800, timeline.minimumHeight())
+            timeline.set_pulses(gen_ch=0, pulses=pulses, att1_db=0.0, att2_db=0.0)
+            timeline.setXRange(0.0, 2300.0, padding=0.0)
+            timeline.show()
+            app.processEvents()
+    
+            assert timeline.height() == timeline.minimumHeight()
+            assert timeline.preview_mode == mode
+            view_box = timeline.getPlotItem().vb
+            for pulse, label in zip(pulses, timeline._pulse_labels):
+                assert label.textItem.toPlainText() == pulse["pulse_name"]
+                assert label.pos().x() == pulse["start_ns"] + pulse["duration_ns"] / 2.0
+                assert label.pos().y() == 0.0
+                assert (label.anchor.x(), label.anchor.y()) == (0.5, 0.5)
+                label_rect = label.sceneBoundingRect()
+                assert view_box.sceneBoundingRect().contains(label_rect)
+                pulse_rect = QtCore.QRectF(
+                    view_box.mapViewToScene(QtCore.QPointF(pulse["start_ns"], pulse["gain"])),
+                    view_box.mapViewToScene(QtCore.QPointF(
+                        pulse["start_ns"] + pulse["duration_ns"], -pulse["gain"])),
+                ).normalized()
+>               assert pulse_rect.contains(label_rect)
+E               assert False
+E                +  where False = <built-in method contains of QRectF object at 0x000001F784DD0FA0>(PyQt5.QtCore.QRectF(551.7, 41.92307692307692, 76.0, 28.0))
+E                +    where <built-in method contains of QRectF object at 0x000001F784DD0FA0> = PyQt5.QtCore.QRectF(444.80000000000007, 42.07692307692308, 289.79999999999995, 27.692307692307693).contains
+
+DCWaveformGeneratorGUI\test_waveform_plot_annotations.py:264: AssertionError
+=========================== short test summary info ===========================
+FAILED DCWaveformGeneratorGUI/test_waveform_plot_annotations.py::test_rf_names_stay_centered_inside_pulses_at_minimum_lane_height[1.0-carrier]
+FAILED DCWaveformGeneratorGUI/test_waveform_plot_annotations.py::test_rf_names_stay_centered_inside_pulses_at_minimum_lane_height[250.0-envelope]
+2 failed, 154 passed in 164.29s (0:02:44)
+QT_CALLBACK_ERRORS: ['wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', 'wrapped C/C++ object of type TextItem has been deleted', "'d1'"]

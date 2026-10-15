@@ -1,0 +1,92 @@
+{
+  "original": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\rc_precomp_validation\\verify_gui_rtl.py",
+  "original_sha256": "81ae6cfd10d0c6f1e949624de365a54835e9ea48e38c58479af64b26c211f87a",
+  "generated_sha256": "7f84df3a46e58863d8a4b1f13ba018e1da2a069124f7d5460424034f0e096170",
+  "edits": [
+    {
+      "old": "HERE=Path(__file__).resolve().parent",
+      "new": "HERE=Path('C:\\\\GIT_Workspace\\\\QSTL_QICK\\\\qick\\\\firmware\\\\ip\\\\rc_precomp_validation')"
+    },
+    {
+      "old": "type=float, nargs=4,",
+      "new": "type=float, nargs=9,"
+    },
+    {
+      "old": "default=(1., 0., 0., 1.), metavar=('M00', 'M01', 'M10', 'M11'),",
+      "new": "default=(1.,0.,0.,0.,1.,0.,0.,0.,1.), metavar='M',"
+    },
+    {
+      "old": "    args=parser.parse_args()",
+      "new": "    args=parser.parse_args()\n    from cases import case\n    from support import configure_inputs, build_from_widgets, matrix_oracle, extra_monitors, finish\n    args.virtual_case=case('cpmg_n2_tau200ns')"
+    },
+    {
+      "all_occurrences": 4,
+      "old": "reshape(2,2)",
+      "new": "reshape(3,3) for args.cross_capacitance"
+    },
+    {
+      "old": "        extended=np.eye(3);extended[:2,:2]=matrix;matrix=extended;scales=scales+(800.,)",
+      "new": "        scales=scales+(800.,)\n    axes,rf_specs,square=configure_inputs(args,pulses,axes,rf_specs,square)"
+    },
+    {
+      "old": "bias_t_compensation_enabled=args.v2_fixture!='fast',bias_t_compensation_type='filter' if args.rc_only else 'dc_rc',",
+      "new": "bias_t_compensation_enabled=args.virtual_case['compensation']!='off',bias_t_compensation_type=args.virtual_case['compensation'] if args.virtual_case['compensation']!='off' else 'dc',"
+    },
+    {
+      "old": "square_pulse_settings=None if args.no_aux or args.sweep_case else square,",
+      "new": "square_pulse_settings=square if args.virtual_case['square'] else None,"
+    },
+    {
+      "old": "        from gui_widget_fixture import build_from_widgets",
+      "new": "        # support.build_from_widgets uses real matrix and sweep dialogs"
+    },
+    {
+      "old": "    points=program.sequence.sweep_point_count",
+      "new": "    matrix_oracle(program,pulses,axes,matrix,scales,out)\n    points=program.sequence.sweep_point_count"
+    },
+    {
+      "old": "enumerate(('axis_awg_tuning_v1_4','axis_awg_tuning_v1_5')):\n            root=f'dut.sim_bd_i.{cell}'\n            monitor.append",
+      "new": "enumerate(('axis_awg_tuning_v1_4','axis_awg_tuning_v1_5','axis_awg_tuning_v1_6')):\n            root=f'dut.sim_bd_i.{cell}'\n            monitor.append"
+    },
+    {
+      "old": "for cell in [next((c for c in ('axis_awg_tuning_v1_4','axis_awg_tuning_v1_5') if c in m),'unused')]]",
+      "new": "for cell in [next((c for c in ('axis_awg_tuning_v1_4','axis_awg_tuning_v1_5','axis_awg_tuning_v1_6') if c in m),'unused')]]"
+    },
+    {
+      "old": "    (out/'tb_rc_gui.sv').write_text(top)",
+      "new": "    top=extra_monitors(top,args,program,out)\n    (out/'tb_rc_gui.sv').write_text(top)"
+    },
+    {
+      "old": "    (out/'result.json').write_text(json.dumps(summary,indent=2))",
+      "new": "    finish(summary,args,program,out,result)\n    (out/'result.json').write_text(json.dumps(summary,indent=2))"
+    },
+    {
+      "old": "import gui_rtl_extension as sum_validation",
+      "new": "import extension_v5 as sum_validation"
+    },
+    {
+      "old": "rtl.append(HERE.parent/'axis_output_sum_v1/src/axis_output_sum_v1.sv')",
+      "new": "rtl.append(HERE.parent/'axis_output_sum_v2/src/axis_output_sum_v2.sv')"
+    },
+    {
+      "old": "top=sum_validation.monitor(top, shots, program, out, args)",
+      "new": "top=sum_validation.monitor(top, shots, program, out, args)\n        top=sum_validation.extra_monitor(top)"
+    },
+    {
+      "old": "    program=ns['build_program'](cfg);program.compile()",
+      "new": "    if args.verify_gui_widgets:\n        widget_program=build_from_widgets(cfg,pulses,axes,rf_specs,args,out)\n    program=ns['build_program'](cfg);program.compile()"
+    },
+    {
+      "old": "        widget_program=build_from_widgets(cfg,pulses,axes,rf_specs,args,out)\n        assert widget_program.binprog",
+      "new": "        assert widget_program.binprog"
+    },
+    {
+      "old": "from support import configure_inputs, build_from_widgets, matrix_oracle, extra_monitors, finish",
+      "new": "from composite_support import configure_inputs, build_from_widgets, matrix_oracle, extra_monitors, finish, analyze_rf"
+    },
+    {
+      "old": "summary['output_sum']=sum_validation.analyze(out,result,model,offset,shots,args.sum_rf_delay_us)",
+      "new": "summary['output_sum']=sum_validation.analyze_composite(out,result,model,offset,shots,args,program)"
+    }
+  ]
+}

@@ -128,9 +128,10 @@ AXIS_PASS_THROUGH_BACK = {
 }
 
 AXIS_PASS_THROUGH_FORWARD = {
-    # Both inputs of the v4 output combiner drive the same physical DAC.
+    # Both inputs of the versioned output combiners drive the same physical DAC.
     # Backward traversal is deliberately not generic: it must select a role.
     "axis_output_sum_v1": "m_axis",
+    "axis_output_sum_v2": "m_axis",
     "axis_clock_converter": "M_AXIS",
     "axis_dwidth_converter": "M_AXIS",
     "axis_register_slice": "M_AXIS",

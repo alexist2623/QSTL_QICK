@@ -1,0 +1,12 @@
+{
+  "name": "quantum_n1",
+  "kind": "quantum",
+  "n": 1,
+  "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17\\quantum_n1",
+  "actual_mainwindow": true,
+  "board_access": false,
+  "outcome": "rejected",
+  "error_type": "ValueError",
+  "error": "RF 1 output latency is unknown for the loaded firmware profile; use the verified QSTL v3 profile or provide an explicitly verified digital latency",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17/audit.py\", line 148, in main\n    execution=build_circuit_execution(document,configuration(),**{k:v for k,v in runtime.items() if k in keys})\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\quantum_circuit_execution.py\", line 237, in build_circuit_execution\n    rf_latencies, rf_profiles = _rf_latencies(\n                                ^^^^^^^^^^^^^^\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\quantum_circuit_execution.py\", line 155, in _rf_latencies\n    raise ValueError(f\"RF {lane['channel']} output latency is unknown for the loaded firmware profile; use the verified QSTL v3 profile or provide an explicitly verified digital latency\")\nValueError: RF 1 output latency is unknown for the loaded firmware profile; use the verified QSTL v3 profile or provide an explicitly verified digital latency\n"
+}

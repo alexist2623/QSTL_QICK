@@ -1,0 +1,14 @@
+{
+  "name": "udd_n2_tau200ns",
+  "kind": "composite",
+  "template": "udd",
+  "n": 2,
+  "tau": 0.2,
+  "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17\\udd_n2_tau200ns",
+  "actual_mainwindow": true,
+  "board_access": false,
+  "outcome": "rejected",
+  "error_type": "ValueError",
+  "error": "The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\compiler17/audit.py\", line 135, in main\n    p=build_qick_program(configuration(),seq,awg_channels=runtime['awg_channels'],repetitions_per_sweep=2,\n      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_qcodes_experiment.py\", line 1040, in build_qick_program\n    return sequence.make_program(soccfg, **program_kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py\", line 2367, in make_program\n    return FineTuneAmplitudeSweepProgram(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py\", line 2683, in __init__\n    super().__init__(soccfg, cfg)\n  File \"C:\\GIT_Workspace\\QSTL_QICK\\qick\\qick_lib\\qick\\averager_program.py\", line 211, in __init__\n    self.make_program()\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py\", line 7150, in make_program\n    self.initialize()\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py\", line 2806, in initialize\n    self._build_aux_timing()\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_rf_fine_duration.py\", line 138, in _build_aux_timing\n    super()._build_aux_timing()\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py\", line 5338, in _build_aux_timing\n    raise ValueError(f'The {firmware} RF command conflicts with another command on its shared '\nValueError: The v5 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.\n"
+}

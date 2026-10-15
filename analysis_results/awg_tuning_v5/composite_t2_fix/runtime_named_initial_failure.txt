@@ -1,0 +1,6 @@
+2026-10-14 first named-amplitude/phase runtime test run: 11 passed, 1 failed.
+Failed: test_calibrated_named_amplitude_uses_known_database_and_shared_phase.
+Existing test_power_calibration._calibration_database fixture omitted the output-path metadata required by actual runtime.
+Production rejection: LookupError: no compatible RF_Out output calibration for the selected Nyquist/filter settings; Run 1: Nyquist zone unknown != 1, filter unknown != bypass, filter cutoff unknown != 2.5 GHz, filter bandwidth unknown != 1 GHz.
+Correction is limited to explicit synthetic fixture Calibration_Config matching nqz=1, bypass, cutoff=2.5 GHz, bandwidth=1 GHz. Production checks unchanged.
+Original run used pytest-39 temporary fixture and explicit Qt runner; Qt teardown completed normally, process exit1 due to this assertion-path failure.

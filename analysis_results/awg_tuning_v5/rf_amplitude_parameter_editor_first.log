@@ -1,0 +1,74 @@
+.F..F..FF.F..F......                                                     [100%]
+================================== FAILURES ===================================
+__ test_presets_use_one_named_amplitude_for_body_and_both_t2_endpoints[udd] ___
+DCWaveformGeneratorGUI\test_rf_amplitude_parameter_editor.py:116: in test_presets_use_one_named_amplitude_for_body_and_both_t2_endpoints
+    roundtrip(editor)
+DCWaveformGeneratorGUI\test_rf_amplitude_parameter_editor.py:61: in roundtrip
+    assert panel.settings_dict() == saved
+E   AssertionError: assert {'enabled': T...us': 0.0, ...} == {'enabled': T...us': 0.0, ...}
+E     
+E     Omitting 74 identical items, use -vv to show
+E     Differing items:
+E     {'delay_parameters': [{'name': 'tau_wait', 'duration_us': 3.0, 'sweep_enabled': False, 'sweep_start_us': 3.0, ...}, {'...ame': 'tau_UDD_delay_4', 'duration_us': 0.954915028, 'sweep_enabled': False, 'sweep_start_us': 0.954915028, ...}, ...]} != {'delay_parameters': [{'name': 'tau_wait', 'duration_us': 3.0, 'sweep_enabled': False, 'sweep_start_us': 3.0, ...}, {'..., {'name': 'tau_UDD_delay_4', 'duration_us': 0.954915028, 'sweep_enabled': False, 'sweep_start_us': 0.954915028, ...}]}
+E     Use -v to get more diff
+_ test_preset_calibration_checkbox_uses_shared_dbm_parameter_for_all_pulses[udd] _
+DCWaveformGeneratorGUI\test_rf_amplitude_parameter_editor.py:140: in test_preset_calibration_checkbox_uses_shared_dbm_parameter_for_all_pulses
+    roundtrip(editor)
+DCWaveformGeneratorGUI\test_rf_amplitude_parameter_editor.py:61: in roundtrip
+    assert panel.settings_dict() == saved
+E   AssertionError: assert {'enabled': T...us': 0.0, ...} == {'enabled': T...us': 0.0, ...}
+E     
+E     Omitting 74 identical items, use -vv to show
+E     Differing items:
+E     {'delay_parameters': [{'name': 'tau_wait', 'duration_us': 3.0, 'sweep_enabled': False, 'sweep_start_us': 3.0, ...}, {'...ame': 'tau_UDD_delay_4', 'duration_us': 0.954915028, 'sweep_enabled': False, 'sweep_start_us': 0.954915028, ...}, ...]} != {'delay_parameters': [{'name': 'tau_wait', 'duration_us': 3.0, 'sweep_enabled': False, 'sweep_start_us': 3.0, ...}, {'..., {'name': 'tau_UDD_delay_4', 'duration_us': 0.954915028, 'sweep_enabled': False, 'sweep_start_us': 0.954915028, ...}]}
+E     Use -v to get more diff
+_ test_gain_and_dbm_value_sweep_banks_survive_toggles_and_json_reload[custom] _
+DCWaveformGeneratorGUI\test_rf_amplitude_parameter_editor.py:196: in test_gain_and_dbm_value_sweep_banks_survive_toggles_and_json_reload
+    assert amplitude(editor, name) == manual
+E   AssertionError: assert QickRfAmplitu...sweep_count=1) == QickRfAmplitu...sweep_count=3)
+E     
+E     Omitting 1 identical items, use -vv to show
+E     Differing attributes:
+E     ['value', 'sweep_enabled', 'sweep_start', 'sweep_stop', 'sweep_count']
+E     
+E     Drill down into differing attribute value:
+E       value: 20000.0 != 1234.0...
+E     
+E     ...Full output truncated (12 lines hidden), use '-vv' to show
+_ test_gain_and_dbm_value_sweep_banks_survive_toggles_and_json_reload[hahn_echo] _
+DCWaveformGeneratorGUI\test_rf_amplitude_parameter_editor.py:196: in test_gain_and_dbm_value_sweep_banks_survive_toggles_and_json_reload
+    assert amplitude(editor, name) == manual
+E   AssertionError: assert QickRfAmplitu...sweep_count=1) == QickRfAmplitu...sweep_count=3)
+E     
+E     Omitting 1 identical items, use -vv to show
+E     Differing attributes:
+E     ['value', 'sweep_enabled', 'sweep_start', 'sweep_stop', 'sweep_count']
+E     
+E     Drill down into differing attribute value:
+E       value: 20000.0 != 1234.0...
+E     
+E     ...Full output truncated (12 lines hidden), use '-vv' to show
+_ test_preset_to_custom_copies_shared_reference_and_preserves_resolved_waveform[False-udd] _
+DCWaveformGeneratorGUI\test_rf_amplitude_parameter_editor.py:223: in test_preset_to_custom_copies_shared_reference_and_preserves_resolved_waveform
+    assert spec.pulse_events == before
+E   AssertionError: assert (QickRfPulseE... 'd0', 'd0'))) == (QickRfPulseE... 'd0', 'd0')))
+E     
+E     At index 1 diff: QickRfPulseEventSpec(event_id='rf_gen_0_composite_1', name='UDD_X1', delay_us=1.954915028, duration_us=2.0, frequency_mhz=50.0, frequency_parameter='f0', gain=-12345, phase_degrees=0.0, power_calibration_enabled=False, power_calibration_database_path='', power_calibration_run_id=0, target_output_power_dbm=-20.0, duration_parameter='d0', preceding_duration_parameters=()) != QickRfPulseEventSpec(event_id='rf_gen_0_composite_1', name='UDD_X1', delay_us=1.9549150281252627, duration_us=2.0, frequency_mhz=50.0, frequency_parameter='f0', gain=-12345, phase_deg...
+E     
+E     ...Full output truncated (2 lines hidden), use '-vv' to show
+_ test_preset_to_custom_copies_shared_reference_and_preserves_resolved_waveform[True-udd] _
+DCWaveformGeneratorGUI\test_rf_amplitude_parameter_editor.py:223: in test_preset_to_custom_copies_shared_reference_and_preserves_resolved_waveform
+    assert spec.pulse_events == before
+E   AssertionError: assert (QickRfPulseE... 'd0', 'd0'))) == (QickRfPulseE... 'd0', 'd0')))
+E     
+E     At index 1 diff: QickRfPulseEventSpec(event_id='rf_gen_0_composite_1', name='UDD_X1', delay_us=1.954915028, duration_us=2.0, frequency_mhz=50.0, frequency_parameter='f0', gain=20000, phase_degrees=0.0, power_calibration_enabled=True, power_calibration_database_path='offline-amplitude-editor-not-opened.db', power_calibration_run_id=12, target_output_power_dbm=-32.5, duration_parameter='d0', preceding_duration_parameters=()) != QickRfPulseEventSpec(event_id='rf_gen_0_composite_1', name='UDD_X1', delay_us=1.9549150281252627, duration_us=2.0, frequency_mhz=50.0, frequency_p...
+E     
+E     ...Full output truncated (2 lines hidden), use '-vv' to show
+=========================== short test summary info ===========================
+FAILED DCWaveformGeneratorGUI/test_rf_amplitude_parameter_editor.py::test_presets_use_one_named_amplitude_for_body_and_both_t2_endpoints[udd]
+FAILED DCWaveformGeneratorGUI/test_rf_amplitude_parameter_editor.py::test_preset_calibration_checkbox_uses_shared_dbm_parameter_for_all_pulses[udd]
+FAILED DCWaveformGeneratorGUI/test_rf_amplitude_parameter_editor.py::test_gain_and_dbm_value_sweep_banks_survive_toggles_and_json_reload[custom]
+FAILED DCWaveformGeneratorGUI/test_rf_amplitude_parameter_editor.py::test_gain_and_dbm_value_sweep_banks_survive_toggles_and_json_reload[hahn_echo]
+FAILED DCWaveformGeneratorGUI/test_rf_amplitude_parameter_editor.py::test_preset_to_custom_copies_shared_reference_and_preserves_resolved_waveform[False-udd]
+FAILED DCWaveformGeneratorGUI/test_rf_amplitude_parameter_editor.py::test_preset_to_custom_copies_shared_reference_and_preserves_resolved_waveform[True-udd]
+6 failed, 14 passed in 21.29s

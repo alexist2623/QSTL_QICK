@@ -1,0 +1,74 @@
+{
+  "passed": true,
+  "checks": [
+    "Real MainWindow dialog: keyboard editing and OK preserve row/column orientation",
+    "MainWindow canonical experiment settings contain the exact nonidentity matrix",
+    "Cancel leaves the accepted matrix unchanged",
+    "Seven-output rendering, diagonal lock, and Reset identity",
+    "Existing physical=C@virtual transform: [0.2, 0.1] -> [0.225, 0.075]",
+    "Real QCoDeS SQLite save, close, reopen: all three metadata copies match the asymmetric matrix exactly"
+  ],
+  "saved_metadata": {
+    "cross_capacitance_json": [
+      [
+        1.0,
+        0.25
+      ],
+      [
+        -0.125,
+        1.0
+      ]
+    ],
+    "qick_experiment_json.gui_settings.awg.cross_capacitance": [
+      [
+        1.0,
+        0.25
+      ],
+      [
+        -0.125,
+        1.0
+      ]
+    ],
+    "awg_waveform_recipe_json.cross_capacitance": [
+      [
+        1.0,
+        0.25
+      ],
+      [
+        -0.125,
+        1.0
+      ]
+    ]
+  },
+  "iq_rows": 12,
+  "board_connection": false,
+  "hardware_experiment": false,
+  "source_sha256": {
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py": "30a55482e568a09aa1f1376cfc68e9c1fe695bb17933161397cb4e3a98654790",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_qcodes_experiment.py": "98d8be69dd56676f4997d211025b93c7ea99069d679d30acee9930982aa921a3"
+  },
+  "pytest_passed": 4,
+  "pytest_log": "metadata_pytest.log",
+  "pytest_tests": [
+    "test_store_qick_result_writes_iq_and_awg_vertices_as_data",
+    "test_awg_waveform_recipe_keeps_base_waveform_and_sweeps_parametric",
+    "test_run_defaults_to_parametric_awg_metadata",
+    "test_awg_vertex_metadata_stores_all_sweep_points_in_both_spaces"
+  ],
+  "screenshots_visually_reviewed": [
+    "matrix_2_outputs.png",
+    "matrix_7_outputs.png"
+  ],
+  "production_scope": "CrossCapacitanceDialog labels, layout, and tooltips only",
+  "outside_dialog_bytes_match_HEAD": true,
+  "metadata_storage_implementation_changed": false,
+  "rtl_changed": false,
+  "evidence_sha256": {
+    "matrix_2_outputs.png": "2060a1c1c20fb407d06f5c423a52f217c29402153c54c05eef970ba7f21922e7",
+    "matrix_7_outputs.png": "99efc3595690994964cfa42168c6df04577736d3d34e9bb014877ee53290c999",
+    "metadata_pytest.log": "573ba0a5f5563249ee3f1665295689116eec4fb7a9ee040b9980f0610d314f68",
+    "ui_metadata.log": "e79623d5dd4e19277c9d9f9c6be23c1ec69fee5b342f1a6e8a2711b2c6c141f9",
+    "ui_metadata_results.json": "2efdff1d7b0ee56a180ea85a00b51717546169c7b85eaa678afefda612870319",
+    "verify_ui_metadata.py": "7158a9f54a7069ed3170b474b5909ef69c58fabbb47b1053e9695c1ebf1b5baf"
+  }
+}

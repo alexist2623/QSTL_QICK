@@ -1,0 +1,62 @@
+{
+  "source_sha256": "18d262cf1a64ae5cb510658965cba004b98ebe9f226b10b6f9113d74fca6be12",
+  "checks": [
+    {
+      "case": "count_one_uses_start_coordinate",
+      "passed": true,
+      "samples": 97,
+      "repetitions": 3
+    },
+    {
+      "case": "descending_cross_boundary_repetition_outer_reset",
+      "passed": true,
+      "points": 32,
+      "repetitions": 3,
+      "outer_points": 2,
+      "envelope_patterns": 16,
+      "dmem_words": 192
+    },
+    {
+      "case": "mixed_coarse_fine_same_generator",
+      "passed": true,
+      "commands": 10,
+      "envelope_patterns": 16,
+      "actual_samples": [
+        97,
+        81
+      ]
+    },
+    {
+      "case": "envelope_capacity_rejected",
+      "passed": true,
+      "error": "fine RF ending patterns do not fit the channel envelope memory"
+    },
+    {
+      "case": "dmem_capacity_rejected",
+      "passed": true,
+      "error": "runtime sweep tables do not fit tProcessor DMEM: low table ends at 39, high state uses down through 32"
+    },
+    {
+      "case": "named_tau_host_coordinates_with_fine_width",
+      "passed": true,
+      "tau_us": [
+        1.0,
+        2.0,
+        3.0
+      ],
+      "samples_per_pulse": 960,
+      "patterns_per_program": [
+        16,
+        16,
+        16
+      ],
+      "distinction": "tau remains an explicit host sweep; fine duration remains a hardware sweep"
+    },
+    {
+      "case": "invalid_duration_and_sample_count",
+      "passed": true
+    }
+  ],
+  "dds_disabled_configuration": "rejected",
+  "scope": "No source changes, no board, no synthesis, no new RTL simulation."
+}

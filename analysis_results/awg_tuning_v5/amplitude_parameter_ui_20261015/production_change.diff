@@ -1,0 +1,535 @@
+--- C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\amplitude_parameter_ui_20261015\DCWaveform_Generator.py.before
++++ DCWaveformGeneratorGUI\DCWaveform_Generator.py
+@@ -3655,7 +3655,9 @@
+         layout = QtWidgets.QVBoxLayout(self.composite_group)
+         self._rebuilding_predefined_template = False
+         self._loading_rf_settings = False
+-        self._amplitude_mode = "legacy"
++        self._amplitude_mode = "manual"
++        self._global_rf_enabled = False
++        self._independent_preset_amplitudes = False
+         self._amplitude_values_by_mode = {}
+ 
+         predefined_group = QtWidgets.QGroupBox("Pre-defined pulse sequence")
+@@ -3755,8 +3757,6 @@
+         layout.addWidget(predefined_group)
+ 
+         self.global_rf_group = QtWidgets.QGroupBox("Global RF settings")
+-        self.global_rf_group.setCheckable(True)
+-        self.global_rf_group.setChecked(False)
+         global_form = QtWidgets.QFormLayout(self.global_rf_group)
+         self.global_frequency_parameter = QtWidgets.QComboBox()
+         self.global_gain = QtWidgets.QSpinBox()
+@@ -3765,27 +3765,33 @@
+         global_form.addRow("Global frequency:", self.global_frequency_parameter)
+         global_form.addRow("Global gain:", self.global_gain)
+         self.common_amplitude_enabled = QtWidgets.QCheckBox("Use one amplitude parameter for all pulses")
+-        self.common_amplitude_enabled.setChecked(True)
++        self.common_amplitude_enabled.setChecked(False)
+         self.global_amplitude_parameter = QtWidgets.QComboBox()
+         global_form.addRow(self.common_amplitude_enabled)
+         global_form.addRow("Global amplitude:", self.global_amplitude_parameter)
+         self._global_form = global_form
+         layout.addWidget(self.global_rf_group)
+ 
+-        self.amplitude_mode_group = QtWidgets.QGroupBox("Use common amplitude mode")
+-        self.amplitude_mode_group.setCheckable(True)
+-        self.amplitude_mode_group.setChecked(False)
++        self.amplitude_mode_group = QtWidgets.QGroupBox("Amplitude")
+         mode_form = QtWidgets.QFormLayout(self.amplitude_mode_group)
+-        self.amplitude_calibration_enabled = QtWidgets.QCheckBox("Calibration (dBm); unchecked: manual gain")
++        self.amplitude_calibration_enabled = QtWidgets.QCheckBox("Use power calibration (dBm)")
++        self.amplitude_legacy_notice = QtWidgets.QLabel(
++            "This saved sequence mixes amplitude modes or calibration sources. "
++            "Its original values are preserved. Choose calibration or manual gain "
++            "with the checkbox to use one mode for this sequence."
++        )
++        self.amplitude_legacy_notice.setWordWrap(True)
++        self.amplitude_legacy_notice.hide()
+         self.global_calibration_database_path = QtWidgets.QLineEdit()
+         calibration_path_row = QtWidgets.QHBoxLayout()
+         calibration_path_row.addWidget(self.global_calibration_database_path)
+-        calibration_browse = QtWidgets.QPushButton("Browse…")
++        calibration_browse = self.global_calibration_browse = QtWidgets.QPushButton("Browse…")
+         calibration_path_row.addWidget(calibration_browse)
+         self.global_calibration_run_id = QtWidgets.QSpinBox()
+         self.global_calibration_run_id.setRange(0, 2_147_483_647)
+         self.global_calibration_run_id.setSpecialValueText("Latest compatible")
+         mode_form.addRow(self.amplitude_calibration_enabled)
++        mode_form.addRow(self.amplitude_legacy_notice)
+         mode_form.addRow("Calibration database:", calibration_path_row)
+         mode_form.addRow("Calibration run:", self.global_calibration_run_id)
+         layout.addWidget(self.amplitude_mode_group)
+@@ -4012,16 +4018,15 @@
+         self.remove_delay_parameter_button.clicked.connect(self._remove_delay_parameter)
+         for checkbox in (self.t2_initial_pi2, self.t2_final_pi2):
+             checkbox.toggled.connect(self._t2_selection_changed)
+-        self.global_rf_group.toggled.connect(self._global_settings_changed)
+         self._connect_composite_editor(self.global_frequency_parameter, item_parameter_kind="frequency")
+         self.global_gain.valueChanged.connect(self.changed.emit)
+         self.common_amplitude_enabled.toggled.connect(self._global_settings_changed)
+-        self.amplitude_mode_group.toggled.connect(self._amplitude_mode_changed)
+-        self.amplitude_calibration_enabled.toggled.connect(self._amplitude_mode_changed)
++        self.amplitude_calibration_enabled.stateChanged.connect(self._amplitude_mode_changed)
+         self.global_calibration_database_path.textChanged.connect(self.changed.emit)
+         self.global_calibration_run_id.valueChanged.connect(self.changed.emit)
+         for selector in (self.global_amplitude_parameter, self.predefined_amplitude_parameter, self.t2_amplitude_parameter):
+             self._connect_composite_editor(selector, item_parameter_kind="amplitude")
++        self.global_amplitude_parameter.currentIndexChanged.connect(self._global_amplitude_selected)
+         for selector in (self.predefined_phase_parameter, self.t2_initial_phase_parameter, self.t2_final_phase_parameter):
+             self._connect_composite_editor(selector, item_parameter_kind="phase")
+         self._connect_composite_editor(self.t2_frequency_parameter, item_parameter_kind="frequency")
+@@ -4080,6 +4085,7 @@
+         self._add_frequency_parameter(emit=False)
+         self._add_numeric_parameter("phase", QickRfPhaseParameterSpec("p0", 0.0), emit=False)
+         self._add_composite_item("pulse", emit=False)
++        self._migrate_amplitude_references()
+         self._update_predefined_controls()
+         self._update_t2_controls()
+ 
+@@ -4088,8 +4094,8 @@
+         for editor in (self.t2_frequency_parameter, self.t2_duration_parameter, self.t2_gain):
+             editor.setEnabled(enabled)
+         for editor, visible in (
+-            (self.t2_frequency_parameter, not self.global_rf_group.isChecked()),
+-            (self.t2_gain, self._amplitude_mode == "legacy" and not self.global_rf_group.isChecked()),
++            (self.t2_frequency_parameter, not self._global_rf_enabled),
++            (self.t2_gain, False),
+             (self.t2_amplitude_parameter, self._amplitude_mode != "legacy" and not self.common_amplitude_enabled.isChecked()),
+         ):
+             editor.setVisible(visible)
+@@ -4100,7 +4106,8 @@
+ 
+     def _t2_selection_changed(self, *_args) -> None:
+         enabled = self.t2_initial_pi2.isChecked() or self.t2_final_pi2.isChecked()
+-        if enabled and not self._loading_rf_settings:
++        if (enabled and not self._loading_rf_settings and not self._independent_preset_amplitudes
++                and self._amplitude_mode != "legacy"):
+             self._enable_global_defaults()
+         if enabled and not self.t2_duration_parameter.property("qstl_t2_initialized"):
+             self._set_t2_duration_parameter(self.predefined_duration_parameter.currentText())
+@@ -4116,46 +4123,75 @@
+     def _enable_global_defaults(self) -> None:
+         if self._predefined_template_name() == "custom":
+             if self._amplitude_mode == "legacy" and not self._loading_rf_settings:
+-                self.amplitude_mode_group.setChecked(True)
+-            with QtCore.QSignalBlocker(self.global_rf_group), QtCore.QSignalBlocker(self.common_amplitude_enabled):
+-                self.global_rf_group.setChecked(False)
++                self._amplitude_mode_changed()
++            with QtCore.QSignalBlocker(self.common_amplitude_enabled):
++                self._global_rf_enabled = False
+                 self.common_amplitude_enabled.setChecked(False)
+             self._update_global_controls()
+             return
+-        if not self.global_rf_group.isChecked():
++        if not self._global_rf_enabled:
+             self.global_frequency_parameter.setCurrentText(self.predefined_frequency_parameter.currentText())
+             self.global_gain.setValue(self.predefined_gain.value())
+-            self.global_rf_group.setChecked(True)
++            self._global_rf_enabled = True
+         self.common_amplitude_enabled.setChecked(True)
++        self._independent_preset_amplitudes = False
++        self._migrate_amplitude_references()
++        self._update_global_controls()
+ 
+     def _global_settings_changed(self, *_args) -> None:
+         self._update_global_controls()
+         self.changed.emit()
+ 
++    def _global_amplitude_selected(self, *_args) -> None:
++        if (not self._loading_rf_settings and self._predefined_template_name() != "custom"
++                and self.global_amplitude_parameter.currentData()):
++            self._independent_preset_amplitudes = False
++            self.common_amplitude_enabled.setChecked(True)
++            self._update_global_controls()
++            self.changed.emit()
++
+     def _update_global_controls(self) -> None:
+-        global_enabled = self.global_rf_group.isChecked()
++        global_enabled = self._global_rf_enabled
+         custom = self._predefined_template_name() == "custom"
+         self.global_rf_group.setVisible(not custom)
+-        self.amplitude_mode_group.setVisible(custom)
++        self.amplitude_mode_group.setVisible(True)
+         for editor, visible in (
+             (self.predefined_frequency_parameter, not global_enabled),
+-            (self.predefined_gain, self._amplitude_mode == "legacy" and not global_enabled),
++            (self.predefined_gain, False),
+             (self.predefined_amplitude_parameter, self._amplitude_mode != "legacy" and not self.common_amplitude_enabled.isChecked()),
+         ):
+             editor.setVisible(visible)
+             self._predefined_form.labelForField(editor).setVisible(visible)
+-        self.global_gain.setVisible(self._amplitude_mode == "legacy")
+-        self._global_form.labelForField(self.global_gain).setVisible(self._amplitude_mode == "legacy")
+-        for widget in (self.common_amplitude_enabled, self.global_amplitude_parameter):
+-            widget.setVisible(self._amplitude_mode != "legacy")
++        self.global_gain.hide()
++        self._global_form.labelForField(self.global_gain).hide()
++        self.common_amplitude_enabled.hide()
++        self.global_amplitude_parameter.setVisible(self._amplitude_mode != "legacy")
+         self._global_form.labelForField(self.global_amplitude_parameter).setVisible(self._amplitude_mode != "legacy")
+-        self.global_amplitude_parameter.setEnabled(self.common_amplitude_enabled.isChecked())
++        self._global_form.labelForField(self.global_amplitude_parameter).setText(
++            "Global power parameter [dBm]:" if self._amplitude_mode == "calibration" else "Global gain parameter:"
++        )
++        self.global_amplitude_parameter.setEnabled(not custom and self._amplitude_mode != "legacy")
++        self.global_amplitude_parameter.setPlaceholderText("Choose a shared parameter")
++        self.global_frequency_parameter.setVisible(global_enabled)
++        self._global_form.labelForField(self.global_frequency_parameter).setVisible(global_enabled)
+         self.amplitude_parameter_table.setEnabled(self._amplitude_mode != "legacy")
+         self.add_amplitude_parameter_button.setEnabled(self._amplitude_mode != "legacy")
+         self.remove_amplitude_parameter_button.setEnabled(self._amplitude_mode != "legacy")
+-        self.composite_item_table.setColumnHidden(6, self._amplitude_mode != "legacy")
++        self.composite_item_table.setColumnHidden(6, True)
++        if self._amplitude_mode == "legacy":
++            self.amplitude_legacy_notice.setText(
++                "This saved sequence mixes amplitude modes or calibration sources. Its original values are preserved. "
++                "Choose calibration or manual gain with the checkbox to use one mode for this sequence."
++            )
++        elif self._independent_preset_amplitudes:
++            self.amplitude_legacy_notice.setText(
++                "This saved preset has independent pulse amplitudes. They are preserved below. "
++                "Choose a Global amplitude parameter to apply one value to every pulse."
++            )
++        self.amplitude_legacy_notice.setVisible(self._amplitude_mode == "legacy" or self._independent_preset_amplitudes)
+         self.global_calibration_database_path.setEnabled(self._amplitude_mode == "calibration")
+         self.global_calibration_run_id.setEnabled(self._amplitude_mode == "calibration")
++        self.global_calibration_browse.setEnabled(self._amplitude_mode == "calibration")
+         self._update_t2_controls()
+         for row in range(self.composite_item_table.rowCount()):
+             self._update_composite_item_row(row)
+@@ -4191,15 +4227,7 @@
+     def _predefined_template_changed(self, *_args) -> None:
+         if self._predefined_template_name() == "custom" and not self._loading_rf_settings:
+             self._bind_globals_to_custom_rows()
+-            # Presets use numeric global gain; Custom receives editable named
+-            # manual values when a preset is converted to independent pulses.
+-            if self._amplitude_mode == "legacy":
+-                with QtCore.QSignalBlocker(self.amplitude_calibration_enabled):
+-                    self.amplitude_calibration_enabled.setChecked(False)
+-                self.amplitude_mode_group.setChecked(True)
+         if self._predefined_template_name() != "custom" and not self._loading_rf_settings:
+-            if self._amplitude_mode != "legacy":
+-                self.amplitude_mode_group.setChecked(False)
+             self._enable_global_defaults()
+         if self._predefined_template_name() == "hahn_echo":
+             with QtCore.QSignalBlocker(self.predefined_n), QtCore.QSignalBlocker(self.predefined_n_sweep_enabled):
+@@ -4370,7 +4398,7 @@
+         if self.t2_initial_pi2.isChecked() or self.t2_final_pi2.isChecked():
+             frequency_names.add(self.t2_frequency_parameter.currentText())
+             duration_names.add(str(self.t2_duration_parameter.currentData() or ""))
+-        if self.global_rf_group.isChecked():
++        if self._global_rf_enabled:
+             frequency_names.add(self.global_frequency_parameter.currentText())
+         return frequency_names, duration_names
+ 
+@@ -4591,6 +4619,12 @@
+         editor.setToolTip("")
+         rename = (previous, requested)
+         if numeric_kind:
++            if numeric_kind == "amplitude":
++                self._amplitude_values_by_mode = {
++                    mode: tuple(replace(parameter, name=rename[1]) if parameter.name == rename[0] else parameter
++                                for parameter in bank)
++                    for mode, bank in self._amplitude_values_by_mode.items()
++                }
+             self._sync_numeric_parameter_choices(numeric_kind, rename=rename)
+             self._rebuild_predefined_items()
+         elif delay:
+@@ -4980,7 +5014,11 @@
+         if (self._loading_rf_settings and getattr(self, "_loading_template_name", "custom") != "custom"
+                 and name in names):
+             parameter = self._composite_delay_parameters()[names.index(name)]
+-            if parameter.duration_us == value and not parameter.sweep_enabled:
++            # UDD formulas carry more precision than the displayed spin box.
++            # Compare in its stored display units before inventing another name.
++            displayed = round(_time_from_ns(parameter.duration_us * 1000.0, self._time_unit), 9)
++            requested = round(_time_from_ns(value * 1000.0, self._time_unit), 9)
++            if displayed == requested and not parameter.sweep_enabled:
+                 return name
+         suffix = 1
+         while name in names and not rebuilding:
+@@ -5129,14 +5167,20 @@
+         if table.rowCount() <= 1:
+             return
+         row = table.currentRow() if table.currentRow() >= 0 else table.rowCount() - 1
++        removed = self._committed_parameter_name(table.cellWidget(row, 0))
+         table.removeRow(row)
++        if kind == "amplitude":
++            self._amplitude_values_by_mode = {
++                mode: tuple(parameter for parameter in bank if parameter.name != removed)
++                for mode, bank in self._amplitude_values_by_mode.items()
++            }
+         self._sync_numeric_parameter_choices(kind)
+         self._rebuild_predefined_items()
+         self.changed.emit()
+ 
+     def _bind_globals_to_custom_rows(self, *, frequency_override=True, gain_override=True) -> None:
+         """Keep the preset waveform when switching to independently editable rows."""
+-        if self.global_rf_group.isChecked():
++        if self._global_rf_enabled:
+             frequency = self.global_frequency_parameter.currentText()
+             if frequency_override:
+                 self.t2_frequency_parameter.setCurrentText(frequency)
+@@ -5161,8 +5205,9 @@
+             for selector in [self.t2_amplitude_parameter] + [self.composite_item_table.cellWidget(row, 5) for row in range(self.composite_item_table.rowCount()) if self.composite_item_table.cellWidget(row, 0).currentData() == "pulse"]:
+                 with QtCore.QSignalBlocker(selector):
+                     selector.setCurrentIndex(selector.findData(amplitude))
+-        with QtCore.QSignalBlocker(self.global_rf_group), QtCore.QSignalBlocker(self.common_amplitude_enabled):
+-            self.global_rf_group.setChecked(False)
++        with QtCore.QSignalBlocker(self.common_amplitude_enabled):
++            self._global_rf_enabled = False
++            self._independent_preset_amplitudes = False
+             self.common_amplitude_enabled.setChecked(False)
+         self._update_global_controls()
+         self.changed.emit()
+@@ -5175,16 +5220,22 @@
+     def _amplitude_mode_changed(self, *_args) -> None:
+         if self._loading_rf_settings:
+             return
++        state = self.amplitude_calibration_enabled.checkState()
++        if state == QtCore.Qt.PartiallyChecked:
++            return  # Preserve mixed legacy settings until the user chooses a mode.
+         previous = self._amplitude_mode
+-        requested = ("calibration" if self.amplitude_calibration_enabled.isChecked() else "manual") if self.amplitude_mode_group.isChecked() else "legacy"
++        requested = "calibration" if state == QtCore.Qt.Checked else "manual"
++        self.amplitude_calibration_enabled.setTristate(False)
+         if previous != "legacy":
+             self._amplitude_values_by_mode[previous] = self._numeric_parameters("amplitude")
+         self._amplitude_mode = requested
+         if requested != "legacy":
+             bank = self._amplitude_values_by_mode.get(requested)
+-            if bank is None and previous != "legacy":
++            if previous != "legacy":
+                 default = -20.0 if requested == "calibration" else 20000.0
+-                bank = tuple(QickRfAmplitudeParameterSpec(name, default, False, default, default, 1) for name in self._numeric_parameter_names("amplitude"))
++                saved = {parameter.name: parameter for parameter in bank or ()}
++                bank = tuple(saved.get(name, QickRfAmplitudeParameterSpec(name, default, False, default, default, 1))
++                             for name in self._numeric_parameter_names("amplitude"))
+             if bank is not None:
+                 selections = [(selector, selector.currentData()) for selector in self._numeric_selectors("amplitude")]
+                 self.amplitude_parameter_table.setRowCount(0)
+@@ -5200,6 +5251,68 @@
+         self._rebuild_predefined_items()
+         self.changed.emit()
+ 
++    def _upgrade_loaded_amplitude_controls(self, spec: QickRfPulseSpec) -> None:
++        """Expose named amplitudes without changing legacy effective output values."""
++        # Single mode permits an empty/incomplete dormant composite editor.
++        # Inspect amplitude settings without constructing an active composite spec.
++        pulses = [item for item in spec.effective_composite_items if item.kind == "pulse"]
++        if spec.pulse_mode != "composite" and spec.global_gain is not None:
++            pulses = [replace(item, gain=spec.global_gain, power_calibration_enabled=False)
++                      for item in pulses]
++        profiles = {
++            (item.amplitude_parameter, item.power_calibration_enabled,
++             item.target_output_power_dbm if item.power_calibration_enabled else item.gain)
++            for item in pulses
++        }
++        modes = {
++            (True, item.power_calibration_database_path, item.power_calibration_run_id)
++            if item.power_calibration_enabled else (False, "", 0)
++            for item in pulses
++        }
++        if spec.pulse_mode != "composite" and (spec.t2_initial_pi2 or spec.t2_final_pi2):
++            profiles.add((spec.t2_amplitude_parameter, False,
++                          spec.t2_gain if spec.global_gain is None else spec.global_gain))
++            modes.add((False, "", 0))
++        self._independent_preset_amplitudes = False
++        if spec.predefined_template != "custom" and not spec.global_amplitude_parameter:
++            self._independent_preset_amplitudes = len(profiles) > 1
++        if self._amplitude_mode == "legacy":
++            if len(modes) > 1:
++                with QtCore.QSignalBlocker(self.amplitude_calibration_enabled):
++                    self.amplitude_calibration_enabled.setTristate(True)
++                    self.amplitude_calibration_enabled.setCheckState(QtCore.Qt.PartiallyChecked)
++                self._update_global_controls()
++                return
++            calibrated, database, run_id = next(iter(modes), (False, "", 0))
++            self._amplitude_mode = "calibration" if calibrated else "manual"
++            if calibrated:
++                self.global_calibration_database_path.setText(database)
++                self.global_calibration_run_id.setValue(run_id)
++            if spec.global_gain is not None:
++                # A legacy numeric override includes zero and overrides row calibration.
++                for row in range(self.composite_item_table.rowCount()):
++                    self.composite_item_table.cellWidget(row, 5).setProperty("qstl_legacy_gain", spec.global_gain)
++                self.t2_gain.setValue(spec.global_gain)
++                self.predefined_gain.setValue(spec.global_gain)
++                self.global_gain.setValue(spec.global_gain)
++        with QtCore.QSignalBlocker(self.amplitude_calibration_enabled):
++            self.amplitude_calibration_enabled.setTristate(False)
++            self.amplitude_calibration_enabled.setChecked(self._amplitude_mode == "calibration")
++        self._migrate_amplitude_references()
++        if self._predefined_template_name() != "custom":
++            if self._independent_preset_amplitudes:
++                self.global_amplitude_parameter.setCurrentIndex(-1)
++            elif not spec.global_amplitude_parameter:
++                reference = self.predefined_amplitude_parameter.currentData()
++                self.global_amplitude_parameter.setCurrentIndex(self.global_amplitude_parameter.findData(reference))
++            with QtCore.QSignalBlocker(self.common_amplitude_enabled):
++                self.common_amplitude_enabled.setChecked(not self._independent_preset_amplitudes)
++        self.amplitude_parameter_table.horizontalHeaderItem(1).setText(
++            "Target [dBm]" if self._amplitude_mode == "calibration" else "Gain"
++        )
++        self._sync_numeric_parameter_choices("amplitude")
++        self._update_global_controls()
++
+     def _migrate_amplitude_references(self) -> None:
+         calibration = self._amplitude_mode == "calibration"
+         for selector, value, name in (
+@@ -5207,8 +5320,13 @@
+             (self.predefined_amplitude_parameter, -20.0 if calibration else self.predefined_gain.value(), "a_pi"),
+             (self.t2_amplitude_parameter, -20.0 if calibration else self.t2_gain.value(), "a_pi2"),
+         ):
++            if selector is self.global_amplitude_parameter and self._independent_preset_amplitudes:
++                continue
+             if not selector.currentData():
+-                chosen = self._ensure_numeric_parameter("amplitude", value, name)
++                # Custom does not serialize a global reference; reuse its dormant
++                # preset default instead of adding a parameter on every reload.
++                chosen = (name if selector is self.global_amplitude_parameter and name in self._numeric_parameter_names("amplitude")
++                          else self._ensure_numeric_parameter("amplitude", value, name))
+                 with QtCore.QSignalBlocker(selector):
+                     selector.setCurrentIndex(selector.findData(chosen))
+         for row in range(self.composite_item_table.rowCount()):
+@@ -5606,7 +5724,7 @@
+         self.composite_item_table.cellWidget(row, 8).setEnabled(not is_pulse)
+         for column in (3, 4, 6, 7):
+             self.composite_item_table.cellWidget(row, column).setEnabled(is_pulse)
+-        global_enabled = self.global_rf_group.isChecked()
++        global_enabled = self._global_rf_enabled
+         self.composite_item_table.cellWidget(row, 4).setEnabled(is_pulse and not global_enabled)
+         self.composite_item_table.cellWidget(row, 6).setEnabled(is_pulse and not global_enabled and self._amplitude_mode == "legacy")
+         self.composite_item_table.cellWidget(row, 5).setEnabled(
+@@ -6672,14 +6790,14 @@
+             t2_initial_phase_degrees=self.t2_initial_phase.value(),
+             t2_final_phase_degrees=self.t2_final_phase.value(),
+             global_frequency_parameter=(self.global_frequency_parameter.currentText()
+-                                        if composite and self.global_rf_group.isChecked() else ""),
++                                        if composite and self._global_rf_enabled else ""),
+             global_gain=(self.global_gain.value()
+-                         if composite and self.global_rf_group.isChecked() and self._amplitude_mode == "legacy" else None),
+-            global_amplitude_mode=self._amplitude_mode if composite else "legacy",
++                         if composite and self._global_rf_enabled and self._amplitude_mode == "legacy" else None),
++            global_amplitude_mode=self._amplitude_mode,
+             global_amplitude_parameter=(str(self.global_amplitude_parameter.currentData() or "") if composite and self._amplitude_mode != "legacy" and self.common_amplitude_enabled.isChecked() else ""),
+             global_calibration_database_path=self.global_calibration_database_path.text().strip(),
+             global_calibration_run_id=self.global_calibration_run_id.value(),
+-            t2_amplitude_parameter=(str(self.t2_amplitude_parameter.currentData() or "") if composite and self._amplitude_mode != "legacy" else ""),
++            t2_amplitude_parameter=(str(self.t2_amplitude_parameter.currentData() or "") if self._amplitude_mode != "legacy" else ""),
+             t2_initial_phase_parameter=str(self.t2_initial_phase_parameter.currentData() or ""),
+             t2_final_phase_parameter=str(self.t2_final_phase_parameter.currentData() or ""),
+             composite_items=self._composite_items(),
+@@ -6697,7 +6815,7 @@
+             ),
+             predefined_gain=self.predefined_gain.value(),
+             predefined_phase_degrees=self.predefined_phase.value(),
+-            predefined_amplitude_parameter=(str(self.predefined_amplitude_parameter.currentData() or "") if composite and self._amplitude_mode != "legacy" else ""),
++            predefined_amplitude_parameter=(str(self.predefined_amplitude_parameter.currentData() or "") if self._amplitude_mode != "legacy" else ""),
+             predefined_phase_parameter=str(self.predefined_phase_parameter.currentData() or ""),
+             predefined_n_sweep_enabled=(
+                 self.predefined_n_sweep_enabled.isChecked()
+@@ -6741,7 +6859,36 @@
+         settings["amplitude_parameters"] = list(settings["amplitude_parameters"])
+         settings["phase_parameters"] = list(settings["phase_parameters"])
+         settings["composite_items"] = list(settings["composite_items"])
++        banks = dict(self._amplitude_values_by_mode)
++        if self._amplitude_mode != "legacy":
++            banks[self._amplitude_mode] = self._numeric_parameters("amplitude")
++        names = set(self._numeric_parameter_names("amplitude"))
++        settings["amplitude_parameter_banks"] = {
++            mode: [asdict(parameter) for parameter in bank if parameter.name in names]
++            for mode, bank in banks.items()
++        }
+         return {"enabled": self.isChecked(), **settings}
++
++    @staticmethod
++    def _decode_amplitude_parameter_banks(data: dict) -> dict:
++        banks = data.get("amplitude_parameter_banks", {})
++        if not isinstance(banks, dict) or set(banks) - {"manual", "calibration"}:
++            raise ValueError("amplitude parameter banks must contain manual/calibration lists")
++        decoded = {}
++        for mode, bank in banks.items():
++            if not isinstance(bank, list):
++                raise TypeError("amplitude parameter bank must be a list")
++            parameters = tuple(QickRfAmplitudeParameterSpec(**entry) for entry in bank)
++            if len({parameter.name for parameter in parameters}) != len(parameters):
++                raise ValueError("amplitude parameter bank names must be unique")
++            for parameter in parameters:
++                for value in (parameter.value, parameter.sweep_start, parameter.sweep_stop):
++                    if mode == "manual" and (not -32768 <= value <= 32767 or int(value) != value):
++                        raise ValueError("manual amplitude bank values must be integer gain codes")
++                    if mode == "calibration" and not -200 <= value <= 100:
++                        raise ValueError("calibration amplitude bank values must be between -200 and 100 dBm")
++            decoded[mode] = [asdict(parameter) for parameter in parameters]
++        return decoded
+ 
+     def load_settings(self, data: dict) -> None:
+         if not isinstance(data, dict):
+@@ -6950,10 +7097,14 @@
+         segment = self.segment.findData(spec.segment_name)
+         if segment < 0:
+             raise ValueError(f"unknown RF output anchor {spec.segment_name!r}")
++        amplitude_banks = self._decode_amplitude_parameter_banks(data)
+         self._loading_rf_settings = True
+         self._loading_template_name = spec.predefined_template
+         self._amplitude_mode = spec.global_amplitude_mode
+-        self._amplitude_values_by_mode = {}
++        self._amplitude_values_by_mode = {
++            mode: tuple(QickRfAmplitudeParameterSpec(**parameter) for parameter in bank)
++            for mode, bank in amplitude_banks.items()
++        }
+         self.gen_ch.setValue(spec.gen_ch)
+         self.segment.setCurrentIndex(segment)
+         self.delay.setValue(_time_from_ns(spec.delay_us * 1000.0, self._time_unit))
+@@ -7038,16 +7189,15 @@
+             ):
+                 with QtCore.QSignalBlocker(selector):
+                     match = selector.findData(parameter_name)
+-                    selector.setCurrentIndex(match if match >= 0 else (0 if selector.count() else -1))
++                    selector.setCurrentIndex(match if match >= 0 else (-1 if selector in (self.t2_amplitude_parameter, self.predefined_amplitude_parameter, self.global_amplitude_parameter) else (0 if selector.count() else -1)))
+             with QtCore.QSignalBlocker(self.amplitude_mode_group), QtCore.QSignalBlocker(self.amplitude_calibration_enabled), QtCore.QSignalBlocker(self.common_amplitude_enabled):
+-                self.amplitude_mode_group.setChecked(spec.global_amplitude_mode != "legacy")
+                 self.amplitude_calibration_enabled.setChecked(spec.global_amplitude_mode == "calibration")
+                 self.common_amplitude_enabled.setChecked(bool(spec.global_amplitude_parameter) or spec.global_amplitude_mode == "legacy")
+             self.global_calibration_database_path.setText(spec.global_calibration_database_path)
+             self.global_calibration_run_id.setValue(spec.global_calibration_run_id)
+             self.amplitude_parameter_table.horizontalHeaderItem(1).setText("Target [dBm]" if self._amplitude_mode == "calibration" else "Gain")
+             with QtCore.QSignalBlocker(self.global_rf_group), QtCore.QSignalBlocker(self.global_frequency_parameter), QtCore.QSignalBlocker(self.global_gain):
+-                self.global_rf_group.setChecked(bool(spec.global_frequency_parameter or spec.global_gain is not None))
++                self._global_rf_enabled = bool(spec.global_frequency_parameter or spec.global_gain is not None)
+                 self.global_frequency_parameter.setCurrentText(spec.global_frequency_parameter or spec.predefined_frequency_parameter)
+                 self.global_gain.setValue(spec.global_gain if spec.global_gain is not None else spec.predefined_gain)
+             self._update_t2_controls()
+@@ -7139,12 +7289,13 @@
+         self._update_predefined_controls()
+         self.setChecked(enabled)
+         if self._predefined_template_name() == "custom" and (
+-            self.global_rf_group.isChecked() or self.common_amplitude_enabled.isChecked()
++            self._global_rf_enabled or self.common_amplitude_enabled.isChecked()
+         ):
+             self._bind_globals_to_custom_rows(
+                 frequency_override=bool(spec.global_frequency_parameter),
+                 gain_override=spec.global_gain is not None,
+             )
++        self._upgrade_loaded_amplitude_controls(spec)
+         self._loading_rf_settings = False
+         self.changed.emit()
+ 
+@@ -16085,6 +16236,7 @@
+                     "delay_parameters": [asdict(parameter) for parameter in spec.delay_parameters],
+                     "global_frequency_parameter": spec.global_frequency_parameter,
+                     "amplitude_parameters": [asdict(parameter) for parameter in spec.amplitude_parameters],
++                    "amplitude_parameter_banks": RfPulsePortPanel._decode_amplitude_parameter_banks(entry),
+                     "phase_parameters": [asdict(parameter) for parameter in spec.phase_parameters],
+                     "global_amplitude_mode": spec.global_amplitude_mode,
+                     "global_amplitude_parameter": spec.global_amplitude_parameter,
+@@ -17246,6 +17398,7 @@
+                 "delay_parameters": [asdict(parameter) for parameter in spec.delay_parameters],
+                 "global_frequency_parameter": spec.global_frequency_parameter,
+                 "amplitude_parameters": [asdict(parameter) for parameter in spec.amplitude_parameters],
++                "amplitude_parameter_banks": RfPulsePortPanel._decode_amplitude_parameter_banks(entry),
+                 "phase_parameters": [asdict(parameter) for parameter in spec.phase_parameters],
+                 "global_amplitude_mode": spec.global_amplitude_mode,
+                 "global_amplitude_parameter": spec.global_amplitude_parameter,

@@ -1,0 +1,367 @@
+PREPARED points=4 shots=8 cycles=16115 events=241
+xsim
+{
+  "points": 4,
+  "repetitions": 2,
+  "commands": 241,
+  "cycle_offset": 228,
+  "command_value_mismatches": 0,
+  "command_timing_mismatches": 0,
+  "voltage_grid_policy": "constant_quantized_increment",
+  "compiled_target_error_codes": 0,
+  "compiled_step_error_units": 0,
+  "awg_ip_version": 3,
+  "hardware_area_results": [
+    "AREA_V3_RESULT ch=0 shots=8 samples=261408 reset_checks=8 residual=0",
+    "AREA_V3_RESULT ch=1 shots=8 samples=261408 reset_checks=8 residual=0",
+    "AREA_V3_RESULT ch=3 shots=8 samples=261408 reset_checks=8 residual=0"
+  ],
+  "rc_only": false,
+  "rc_only_results": [],
+  "v2_fixture": null,
+  "raw_awg_results": [
+    "RAW_AWG_V2_RESULT ch=0 samples=261488 ramps=16 sets=33",
+    "RAW_AWG_V2_RESULT ch=1 samples=261488 ramps=16 sets=33",
+    "RAW_AWG_V2_RESULT ch=3 samples=261488 ramps=16 sets=33"
+  ],
+  "dac_current_ma": [
+    20.0,
+    10.0,
+    20.0
+  ],
+  "cross_capacitance": [
+    [
+      1.0,
+      0.23,
+      -0.11
+    ],
+    [
+      -0.17,
+      1.0,
+      0.07
+    ],
+    [
+      0.12,
+      -0.09,
+      1.0
+    ]
+  ],
+  "dc_mode": "fixed_time",
+  "dc_voltage_mv": 20.0,
+  "dc_readout_policy": null,
+  "ddr_capture_results": [],
+  "sweep_case": "hold_duration",
+  "run_tag": "v5matrix_20261015_cpmg_named_frequency_rf100ns",
+  "rf_length_boundary": null,
+  "rc_range_corners": [
+    {
+      "point_index": 0,
+      "gen_ch": 1,
+      "minimum_normalized": -0.011695208615052029,
+      "maximum_normalized": 0.008081927563051946
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 3,
+      "minimum_normalized": -0.015879618068635575,
+      "maximum_normalized": 0.0169104561409405
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 5,
+      "minimum_normalized": -0.005432485360169734,
+      "maximum_normalized": 0.005054865674050188
+    },
+    {
+      "point_index": 1,
+      "gen_ch": 1,
+      "minimum_normalized": -0.011695208615052029,
+      "maximum_normalized": 0.008081927563051946
+    },
+    {
+      "point_index": 1,
+      "gen_ch": 3,
+      "minimum_normalized": -0.015879618068635575,
+      "maximum_normalized": 0.0169104561409405
+    },
+    {
+      "point_index": 1,
+      "gen_ch": 5,
+      "minimum_normalized": -0.005432485360169734,
+      "maximum_normalized": 0.005054865674050188
+    },
+    {
+      "point_index": 2,
+      "gen_ch": 1,
+      "minimum_normalized": -0.010371362308582006,
+      "maximum_normalized": 0.01897244881472059
+    },
+    {
+      "point_index": 2,
+      "gen_ch": 3,
+      "minimum_normalized": -0.02059460843451464,
+      "maximum_normalized": 0.016455747210121874
+    },
+    {
+      "point_index": 2,
+      "gen_ch": 5,
+      "minimum_normalized": -0.0052642095012963705,
+      "maximum_normalized": 0.006806785721554089
+    },
+    {
+      "point_index": 3,
+      "gen_ch": 1,
+      "minimum_normalized": -0.010371362308582006,
+      "maximum_normalized": 0.01897244881472059
+    },
+    {
+      "point_index": 3,
+      "gen_ch": 3,
+      "minimum_normalized": -0.02059460843451464,
+      "maximum_normalized": 0.016455747210121874
+    },
+    {
+      "point_index": 3,
+      "gen_ch": 5,
+      "minimum_normalized": -0.0052642095012963705,
+      "maximum_normalized": 0.006806785721554089
+    }
+  ],
+  "square_amplitude_sweep": false,
+  "rc_reset_each_repeat": true,
+  "no_aux": false,
+  "grid_count": 0,
+  "waveform_capture_cycles": 12000,
+  "reset_results": [],
+  "cycles": 16115,
+  "analog_results": [
+    "GUI_RC_RESULT ch=0 max_error_codes=2.516248",
+    "GUI_RC_RESULT ch=1 max_error_codes=2.563584",
+    "GUI_RC_RESULT ch=2 max_error_codes=0.000000"
+  ],
+  "exact_awg_results": [
+    "EXACT_AWG_RESULT ch=0 samples=261008",
+    "EXACT_AWG_RESULT ch=1 samples=261008",
+    "EXACT_AWG_RESULT ch=2 samples=261008"
+  ],
+  "retained_cells": [
+    "axis_awg_tuning_v1_4",
+    "axis_awg_tuning_v1_5",
+    "axis_awg_tuning_v1_6",
+    "axis_register_slice_0",
+    "axis_register_slice_1",
+    "axis_register_slice_10",
+    "axis_register_slice_11",
+    "axis_register_slice_12",
+    "axis_register_slice_21",
+    "axis_register_slice_22",
+    "axis_register_slice_23",
+    "axis_register_slice_3",
+    "axis_register_slice_4",
+    "axis_register_slice_5",
+    "axis_register_slice_7",
+    "axis_register_slice_8",
+    "axis_register_slice_9",
+    "axis_set_reg_0",
+    "axis_signal_gen_v6_0",
+    "axis_signal_gen_v6_1",
+    "axis_signal_gen_v6_3",
+    "axis_square_pulse_v1_0",
+    "axis_tmux_v1_0",
+    "axis_tmux_v1_1",
+    "axis_tmux_v1_2",
+    "axis_tmux_v1_3",
+    "axis_tproc64x32_x8_0",
+    "qick_vec2bit_0",
+    "xlconstant_0",
+    "xlconstant_1",
+    "xlconstant_2",
+    "xlconstant_3",
+    "xlconstant_4"
+  ],
+  "pmem_words": 321,
+  "dmem_words": 2,
+  "rf_measurements": {
+    "pulses": 16,
+    "width_mismatch_pulses": 0,
+    "width_error_max_cycles": 0,
+    "amplitude_error_max_codes": 0.2535770901297383,
+    "fit_residual_max_codes": 1.677602588850874
+  },
+  "validation_status": "passed",
+  "output_sum": {
+    "sample_oracles": [
+      [
+        "4",
+        "261488"
+      ],
+      [
+        "5",
+        "261488"
+      ],
+      [
+        "6",
+        "261488"
+      ]
+    ],
+    "pairs": [
+      {
+        "suffix": 4,
+        "pulses": 16,
+        "command_to_sum_input_cycles": 32,
+        "width_errors": 0,
+        "physical_sample_checks": 260688
+      },
+      {
+        "suffix": 5,
+        "pulses": 8,
+        "command_to_sum_input_cycles": 32,
+        "width_errors": 0,
+        "physical_sample_checks": 260688
+      },
+      {
+        "suffix": 6,
+        "pulses": 8,
+        "command_to_sum_input_cycles": 32,
+        "width_errors": 0,
+        "physical_sample_checks": 260688
+      }
+    ],
+    "awg_delay_cycles": 13,
+    "combiner_pipeline_cycles": 2,
+    "output_register_cycles": 10,
+    "cpmg_delay_checks": 16,
+    "explicit_rf_offset_us": 0.1,
+    "board_measurement": false
+  },
+  "virtual_case": {
+    "count": 2,
+    "mode": "fixed_time",
+    "compensation": "dc_rc",
+    "descending": false,
+    "swap": false,
+    "delay": 0.0,
+    "two_voltage": false,
+    "square": null,
+    "sweep": "hold_duration",
+    "n": 2,
+    "tau": 0.2,
+    "named": "frequency"
+  },
+  "matrix_direct_gui_input": true,
+  "independent_matrix_oracle": "independent_matrix_oracle.json",
+  "test_source_sha256": {
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\adapter_provenance.json": "449fdbbef6ff60d1313434a46da8b8ef40d464086570aa55071dd30bf6dde9b7",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cases.py": "77b13cf3a161bcc0650574c0f713925fde7180b23e8946a629cf318b70810e8b",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\compensation_off.original.prepare.log": "c8712f56923dced8df7cd808b8ae205bde1ee8e0f98b5857ef33c3986d01f848",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\compensation_off.rf100ns.prepare.log": "d7d608afb5755fddd30e8bd64bf139375a9d7828fc6c413cf6231825477600b9",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\compensation_off.rf100ns.rtl.log": "0cb4f3233f5d84fc57fbf5ab6789bc6a2533c4a49a12536062e1991e70975619",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\composite_support.py": "4bc1331ed33bab0ccd8206892406892dbb59e7e67dfa7efac8be241df7725796",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\controller.log": "0bba1b0787d0ff697401aa5c41ddbfebe2abb6df28f4412069160d3fca250bdc",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n1_tau200ns.original.prepare.log": "a8578265f3ffb2b0205a16d48c5215430800a1d928793561be5887e2e3000722",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n1_tau200ns.rf100ns.prepare.log": "647e20d72dcc1e1dedf5c6fe2e0bf3e888467269b36de790edf2b6e596b4397a",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n1_tau200ns.rf100ns.rtl.log": "3072f35341fa9231461af5ccc4ed71fb3d195759fe5725ebad19803b8cc23b8a",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n1_tau400ns.original.prepare.log": "5104646648aa4169abaf5129ecc23ace729039eb358eb021071aa9c67da1b27d",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n1_tau400ns.rf100ns.prepare.log": "647e20d72dcc1e1dedf5c6fe2e0bf3e888467269b36de790edf2b6e596b4397a",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n1_tau400ns.rf100ns.rtl.log": "64d1f358d17e4fd43e3abccea5f431197890b7c3f29ac94b5c9a745c096edca9",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n2_tau200ns.original.prepare.log": "f20d2f342a4b2747cab3eebc7a0fec1e81502260533e56360358d5fab2e4c117",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n2_tau200ns.rf100ns.prepare.log": "8002ac21ea9526412ed52eadb93de0d1920fe8e1e397c116997c0ea994d46d8f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n2_tau200ns.rf100ns.rtl.log": "a510a94db1730d3a4a6e0cb90cd3bc5bee1eb2795d4a6142dbe46fb13861bf90",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n2_tau400ns.original.prepare.log": "38b9b2ca5b6580f093060348d99aa68fe73f3a9af1b3a37df87a97bab70d8fc8",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n2_tau400ns.rf100ns.prepare.log": "8002ac21ea9526412ed52eadb93de0d1920fe8e1e397c116997c0ea994d46d8f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_n2_tau400ns.rf100ns.rtl.log": "38b756aa8ef8fba87ab3cc966954002a9a6286caf9b5d02c9e7564b38250ee6b",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_named_frequency.original.prepare.log": "187b7b6b0efb02c5fd9aeae8eb3aa65a2697d63e7db1e3fc25a6b86694bc2cf5",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_named_frequency.rf100ns.prepare.log": "9caf3734feb1a9385b3d8ae80009f695858e93f63513311a9a7f52dc92028f38",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\cpmg_named_frequency.rf100ns.rtl.log": "3d734ca4cef4bde0f3c320dc1b4d3760370e8db25f2d8f8659efe426dabdac35",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\dc_only.original.prepare.log": "329cad7e02d7650792c4ab349b5f5c30afe5394632df2e2c5b07956742330aad",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\dc_only.rf100ns.prepare.log": "9d9758e22dc3d4ca45538173e866a6e73540dc1067c8cb9b675546f5b48c0232",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\dc_only.rf100ns.rtl.log": "08826a2722e96c887995c43bb3a7d22a467f074ec665dbc38d23c2a9264b567b",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\extension_v5.py": "210c0192892e5174fc5f3016a7852e4b46b0a89cc75fd2f5770913e01362c244",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_compensation_off.json": "09ca318503f9434d808c76b7c3686d34f519562be46fc82f95c19b0f9fdbaae4",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_cpmg_n1_tau200ns.json": "4b89dad0ee7cb3e0a53b7eceda560d9721ace2ecc439b74c97c2a71b82f81afd",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_cpmg_n1_tau400ns.json": "7b84d693ff6b00a843110061fd479f2040b9d5c0aea8d43fff3878d53f979acc",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_cpmg_n2_tau200ns.json": "dd9d1fd112c4a16890b450c274f2cc7c595a0b2eccde9d7a2e1e2fbd4d25b706",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_cpmg_n2_tau400ns.json": "85b3b17c2095376fe023c73d59bbdba5e9e902776c3e673039b933c6025d91af",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_cpmg_named_duration.json": "b3f7bd8d1d1f1705b41457113703bb412cfe1a8833d4a423169024b8fa097c17",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_cpmg_named_frequency.json": "1aa9268c35cc49d4cc9162ac82b17a778e31447f7bb410927ae29d2adb9a669d",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_dc_only.json": "6ebbd5cc0084a202fcc7ff574e08b7b8029755c0967a7524800c5568e0b77498",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_hold_fixed_time.json": "306cdd4c51cc53ba2dfd1b4b7b48710301a8eafd08ee4fd37601d7a71c68ee7f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_hold_fixed_voltage_descending.json": "f572fe72456e56f79e0625f78e702922a63c712ac4769302be8ab221f8476042",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_ramp_fixed_time.json": "d13b6f63cc31dc9bb86210a8090fb986346c57fcbe23b1ac0f6f0d129c58d6ea",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_ramp_fixed_voltage_descending.json": "53311abce26e06b9153e4a57c5a8f4ac53b9b620b464241a0327341ee4abb3d3",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_rc_only.json": "1f63ff4e93ccb7246e404901b9d67918b62627df49fe5f7a64a3b652a393649b",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_rf_duration_extend.json": "166925924c5a4b21527d0df214efe0ea11fa650b0e23ba4632e0cc3a653d56d9",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_rf_duration_fixed.json": "1cfc995abfd6111d1dd04edfc005774a8d67bfd673d33e621518499458f3ef81",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_rf_frequency.json": "90d70c92cf9fdae74c337fb70858c5ee609467d499f9b0ec850d2c154e21142a",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_square_amplitude.json": "b9ec2cab9aead412fa31e23b6e3c862d445dd97e9633cfe4a64ff09edd8d6d40",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_square_frequency.json": "0c9a3fe9d9107eb9d789f9e0a3eda2acfbf99ad4d2abda50fb5a6d3b824c3bed",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_square_phase.json": "07d4c04f46b87dcf81ee50edfaff9605d3b74f2d77b2689bda0b163fe531ba3e",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_two_voltage_axes.json": "6f13d3ad49791119d8bcc2644e8450fc65e8ddaa212aeda5475c1f45428f045d",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\harness_two_voltage_axes_reversed.json": "811d9ebb682ea215c9334a80b06e2ff36485e29e4983aa7a996251324a7a0c0f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\hold_fixed_time.original.prepare.log": "11253b5658bbd0b8f18bf4ff563f2dedb4ba0a1c8194a1eb12257385e1783e87",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\hold_fixed_time.rf100ns.prepare.log": "dd1095308d3d3744e64d19abc01698a34f3ada45462d8ab98a3a8168134d0a74",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\hold_fixed_time.rf100ns.rtl.log": "98327c761c165ce6460813b78a894b4da438ac7fc706685902318cd9fdd38b71",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\hold_fixed_voltage_descending.original.prepare.log": "668b3acf391f6fba532833a1eb9b82a675f3d273ca66a92de48c386792b26a7d",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\hold_fixed_voltage_descending.original.rtl.log": "dedbf307395f396879e26faef40a04273c37321a4b3dcdd7888d43c3f7d3e77b",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\ramp_fixed_time.original.prepare.log": "7250b7e5a86b5ef7b7c127c1c745eadadabb5195f8a75cd3865a7b5eaeb6ac87",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\ramp_fixed_time.rf100ns.prepare.log": "9ba00a17ab1096358edb5a347ca7c028a7dc32d19a8cb8d8bb6d227503dea7ab",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\ramp_fixed_time.rf100ns.rtl.log": "48659c603f39c85f144270cefae0322715e495d8b6aae9e44763d5a0d573c5bd",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\ramp_fixed_voltage_descending.original.prepare.log": "f7c65992ec86f2a271d8095bbd4d44bea924a5a2915277acd72188453b2d3797",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\ramp_fixed_voltage_descending.rf100ns.prepare.log": "5abb9e877c834ef4e58671e2ef0a7e9929515a255e21f050a95935fb04c02c40",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\ramp_fixed_voltage_descending.rf100ns.rtl.log": "c27a4b8c5acc58ab61df9d6b742f8894d9a7273f47d08e33230906eec25e0f67",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rc_only.original.prepare.log": "462a65492f32db6603cd6e76b4bbb92c1e7815a4dd68919b7ce8bc1bff379cc0",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rc_only.rf100ns.prepare.log": "8e5b273a0ee2ec7ce7db307cbfd31cd07b513d39879d33d1e1ac8a35f1a11fd7",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rc_only.rf100ns.rtl.log": "9cf033c677f26339f296d14a420df6b90607f41c7406d33fa55bd122986b40f6",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_duration_extend.original.prepare.log": "5c322c9b98302fbbc8e3753f5ee767f9ee5399a5cd4db99d3a7ce747388fbfbf",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_duration_extend.rf100ns.prepare.log": "f787f603a73cca50104cae5be88ce4f7431d279e27020d6c084bf2581a4a4965",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_duration_extend.rf100ns.rtl.log": "256a66027fbba9d6909665fa85770f60a02a4d582659afb369bfbba7db6a6418",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_duration_fixed.original.prepare.log": "732df13bd52451c4e8c97e53459996473e346c6736dca739b05ab8a18d26e702",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_duration_fixed.rf100ns.prepare.log": "4059e1ae0caba1b14152f0d27041c1d5cee8941f7a8ef211a7bfd680e41fdb53",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_duration_fixed.rf100ns.rtl.log": "f5054036ea03178bcfeaf3b648f2f1d47d45263a9e57bb692dbfdf7d28ef9065",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_frequency.original.prepare.log": "179a125206b6b3e0440a741e99d69009a4a846992f933c492154ac9cc495e3ca",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_frequency.rf100ns.prepare.log": "4059e1ae0caba1b14152f0d27041c1d5cee8941f7a8ef211a7bfd680e41fdb53",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\rf_frequency.rf100ns.rtl.log": "c494e2a434092e7d848a6910967911e140b938d8345e7c44ce9fff4dd62e5780",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run.ps1": "a30f906940515a8ec4d9474c86c63863ca4dc555c1c49a3f3c4bd33f53dc6e95",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_batch.py": "4bbde76a29adaf4890ee4bcb036e01a520504ac24623522f917caea8e2932a6c",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\run_case.py": "4934abd18ed615ad948c09288d66e7db4f65cf7e2d036020006a7bb3877fc7cb",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_amplitude.original.prepare.log": "57b3ac210941b2521f221cdb5df7395337556f86b0c9cca7551c72f894d619a7",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_amplitude.rf100ns.prepare.log": "19453a5f4951a518ee2d06b0b3ad1feacfe9570538490ec531b4c22bc5d9e703",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_amplitude.rf100ns.rtl.log": "db2c24b4bae5930df733c3f43f0068a928876d0c7f3355eb99e5524082c9c640",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_frequency.original.prepare.log": "8fe2c2d014e8c8c03cad2643411479cd68743f7a06684c1dbfd920064f87ac00",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_frequency.rf100ns.prepare.log": "19453a5f4951a518ee2d06b0b3ad1feacfe9570538490ec531b4c22bc5d9e703",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_frequency.rf100ns.rtl.log": "d872e591979b8b398d4c9b6a73bddd7cbaad8bfe289911d970ce5ada8d2225bd",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_oracle.svh": "e41aec9d3f8c5b084922a5e2d2395a0b7dc633fcd0597f52bfb4ec96248bf75d",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_phase.original.prepare.log": "0cda451fefc684592fcfa883e418edab5dda138698d98538340c06ec914df78e",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_phase.rf100ns.prepare.log": "19453a5f4951a518ee2d06b0b3ad1feacfe9570538490ec531b4c22bc5d9e703",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\square_phase.rf100ns.rtl.log": "72cc4d6a53c1e7c30b9247bfd9bd5919bfc2d77c562c6ec1ff2adb31965a19d3",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\status.json": "c4d1dcdb6fdc21cff1516b8e8b62f21f2df6db8f9d3443016101051c3a4b586f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\support.py": "e1cd12125ef3add5b21bc3d4bb65bc25a779a07ed9146a03f775f8a59b39d13c",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\two_voltage_axes.original.prepare.log": "c6f9a60305cf99c444d8efd836d38e63b621651170afc7e5e0e52a25bdb3a5d9",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\two_voltage_axes.rf100ns.prepare.log": "a425eae47ca5e0f78d790ecb8b6223cc269dc8b7e6b3b94b19247d3dae5be47a",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\two_voltage_axes.rf100ns.rtl.log": "522d8d2859c5a34fc4de7809670ae01ff939520667a634c3307dafa7621f12db",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\two_voltage_axes_reversed.original.prepare.log": "c0d6ba8308d67e558600b228f8b1bd7f9abbf76c71fc881dbbdaefffa9fea0d8",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\two_voltage_axes_reversed.rf100ns.prepare.log": "a425eae47ca5e0f78d790ecb8b6223cc269dc8b7e6b3b94b19247d3dae5be47a",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\two_voltage_axes_reversed.rf100ns.rtl.log": "d8b1c847790177257b2af6c3144602bff3a1bb2f864ec0f2399b48f05593a0e9",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_compensation_off.py": "a74cfe46f89784c5187a605fa3d1b6e72a9ea2530fb8b75cff56150f8ac5d1a7",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_cpmg_n1_tau200ns.py": "eca300aa1cd8183de31eb9087f082cfb5f9710bc139d0e35256353f5ee69676e",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_cpmg_n1_tau400ns.py": "6ca300bd9fd27e63f12d9029a7fc75ffeafed547fc538858fdcfec62a4f6ec7f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_cpmg_n2_tau200ns.py": "3138dabc78d749625622a2d360bd1e828c35bcefb4e19a3fbf8a4e7690e60d9c",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_cpmg_n2_tau400ns.py": "228141aa8378dd7666f7cf555d80188ab59fa3f00763399756e1e0c0c116b9ee",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_cpmg_named_duration.py": "81144487e2437279c763b027f9dbc141da0eee44a115471cf171944e30fee830",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_cpmg_named_frequency.py": "950f1121ea750e51f8418b2dd8791c692cf88c74b16e10aec677a2672e11ba4d",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_dc_only.py": "080ed3c089acec030c8c269b5c5b2931611ce3729f2cd067374a429c3b685af6",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_hold_fixed_time.py": "32f38ec834a4cc8679a8699a9dd00f31b72181851ed1859ccaa52eb3ec38da17",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_hold_fixed_voltage_descending.py": "32688b0a5e24bc49d6b4d0fa066c6cda6ca5e16ff2c0f186b5e4f8858b179157",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_ramp_fixed_time.py": "c570711065565383647dec7ec24af84df22647a21cd3d3777e994de8c7aeab24",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_ramp_fixed_voltage_descending.py": "f2a3a85c845107cae0a674d6d28d8d67a570f64af652b2f9d97d97d36ec8c57f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_rc_only.py": "328727cac67c85a5527b2eaa2a31e63ecdc621abd45ba61b6d4f468bfaa5edc3",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_rf_duration_extend.py": "c2f923f4dcb5e670b27cbf98ee67105b1e9ccfe7cac2060a3c515c34d9b7e4fd",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_rf_duration_fixed.py": "c44c74312648e6691bdbbced6786fd1b5913678cb8d789c01af6ec1778bd4e5b",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_rf_frequency.py": "6395c75f311b452a925b5b7a33115fe60f87feaf854d8160d00280d8d7d8cdf8",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_square_amplitude.py": "f6895d36bd07699f749ec96952886c257040504d9e5ebb575483a7bf1ce2958d",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_square_frequency.py": "dcd227b725f3d159ac74c116c873c42e2a5e694c33db23cc691558f18040ae73",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_square_phase.py": "6d98a1c51364dfcfee42f0a71a7f31f7c0c4e3e32d478794e8a10d70648e89f0",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_two_voltage_axes.py": "f6611c41fc96296f5e93e54dd2e8cdd0c28dee984e637a537a7c0cc265d4d8c3",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015\\matrix21\\verify_two_voltage_axes_reversed.py": "5b0ad31342689191c4a0e7fa89e04b2e45f00d68a1a389cf32f5d993f21663fb"
+  }
+}

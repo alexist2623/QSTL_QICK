@@ -1,0 +1,38 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_ test_gui_selected_hold_translates_rf_and_acquisition_without_mutating_settings _
+
+window = <DCWaveform_Generator.MainWindow object at 0x000002602A04B6E0>
+
+    def test_gui_selected_hold_translates_rf_and_acquisition_without_mutating_settings(window):
+        configure_window(window)
+        settings = copy.deepcopy(window._settings_to_dict())
+        waveform = window._pulse[0].t.copy()
+        sequence = window._waveform_preview_sequence
+        model = copy.deepcopy(sequence.__dict__)
+        data0 = dict(window._acquisition_timeline.window)
+        rf0 = window._rf_timelines[0].start_ns
+        window._waveform_point_index.setValue(2)
+        data2 = window._acquisition_timeline.window
+        for key in ('trigger_us', 'input_start_us', 'input_end_us', 'storage_start_us', 'storage_end_us'):
+            assert data2[key] - data0[key] == pytest.approx(20.)
+        assert window._rf_timelines[0].start_ns - rf0 == pytest.approx(20000.)
+        assert data2['duration_us'] == 64
+        # Display refresh, point selection and Fit cannot write run settings.
+        window._fit_view()
+        window._plot.setXRange(0, 400, padding=0)
+        QtWidgets.QApplication.processEvents()
+        assert window._acquisition_timeline._time_unit == 'ns'
+        window._plot.setXRange(0, 5e6, padding=0)
+        QtWidgets.QApplication.processEvents()
+>       assert window._acquisition_timeline._time_unit == 'ms'
+E       AssertionError: assert 'us' == 'ms'
+E         
+E         - ms
+E         + us
+
+DCWaveformGeneratorGUI\test_acquisition_preview.py:123: AssertionError
+=========================== short test summary info ===========================
+FAILED DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_selected_hold_translates_rf_and_acquisition_without_mutating_settings
+1 failed in 1.83s
+QT_EXPLICIT_TEARDOWN_COMPLETE

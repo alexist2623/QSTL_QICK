@@ -1,0 +1,104 @@
+.....FFF..                                                               [100%]
+================================== FAILURES ===================================
+____ test_host_selected_point_changes_rf_and_awg_preview_together[custom] _____
+
+window = <DCWaveform_Generator.MainWindow object at 0x00000224FFB34B00>
+template = 'custom'
+
+    @pytest.mark.parametrize('template', ['custom','cpmg','udd'])
+    def test_host_selected_point_changes_rf_and_awg_preview_together(window,template):
+        load_composite(window,pi_sweep=True,template=template)
+        saved=copy.deepcopy(window._settings_to_dict())
+        count=window._waveform_point_index.maximum()+1
+        assert count==(6 if template=='custom' else 4)
+        initial=window._waveform_preview_rf_specs[0]
+        start_duration=initial.pulse_events[0].duration_us
+        window._waveform_point_index.setValue(count-1)
+        QtWidgets.QApplication.processEvents()
+        concrete=window._waveform_preview_rf_specs[0]
+        assert not concrete.software_sweep_axes
+        assert concrete.pulse_events[0].duration_us==pytest.approx(.4)
+        assert concrete.pulse_events[-1].duration_us==pytest.approx(.4)
+        assert concrete.pulse_events[0].duration_us>start_duration
+        assert window._waveform_preview_hardware_index==0
+        assert window._waveform_preview_sequence is not None
+        assert window._rf_timelines[0].pulse_names[0]=='T2_initial_pi2'
+>       assert window._settings_to_dict()==saved
+E       AssertionError: assert {'schema': 'q...ue, ...}, ...} == {'schema': 'q...ue, ...}, ...}
+E         
+E         Omitting 17 identical items, use -vv to show
+E         Differing items:
+E         {'display': {'time_unit': 'us', 'voltage_view': 'both', 'show_dc_compensation': True, 'show_rc_compensation': True, ...}} != {'display': {'time_unit': 'us', 'voltage_view': 'both', 'show_dc_compensation': True, 'show_rc_compensation': True, ...}}
+E         Use -v to get more diff
+
+DCWaveformGeneratorGUI\test_rf_t2_integration.py:90: AssertionError
+_____ test_host_selected_point_changes_rf_and_awg_preview_together[cpmg] ______
+
+window = <DCWaveform_Generator.MainWindow object at 0x00000224FFBBB770>
+template = 'cpmg'
+
+    @pytest.mark.parametrize('template', ['custom','cpmg','udd'])
+    def test_host_selected_point_changes_rf_and_awg_preview_together(window,template):
+        load_composite(window,pi_sweep=True,template=template)
+        saved=copy.deepcopy(window._settings_to_dict())
+        count=window._waveform_point_index.maximum()+1
+        assert count==(6 if template=='custom' else 4)
+        initial=window._waveform_preview_rf_specs[0]
+        start_duration=initial.pulse_events[0].duration_us
+        window._waveform_point_index.setValue(count-1)
+        QtWidgets.QApplication.processEvents()
+        concrete=window._waveform_preview_rf_specs[0]
+        assert not concrete.software_sweep_axes
+        assert concrete.pulse_events[0].duration_us==pytest.approx(.4)
+        assert concrete.pulse_events[-1].duration_us==pytest.approx(.4)
+        assert concrete.pulse_events[0].duration_us>start_duration
+        assert window._waveform_preview_hardware_index==0
+        assert window._waveform_preview_sequence is not None
+        assert window._rf_timelines[0].pulse_names[0]=='T2_initial_pi2'
+>       assert window._settings_to_dict()==saved
+E       AssertionError: assert {'schema': 'q...ue, ...}, ...} == {'schema': 'q...ue, ...}, ...}
+E         
+E         Omitting 17 identical items, use -vv to show
+E         Differing items:
+E         {'display': {'time_unit': 'us', 'voltage_view': 'both', 'show_dc_compensation': True, 'show_rc_compensation': True, ...}} != {'display': {'time_unit': 'us', 'voltage_view': 'both', 'show_dc_compensation': True, 'show_rc_compensation': True, ...}}
+E         Use -v to get more diff
+
+DCWaveformGeneratorGUI\test_rf_t2_integration.py:90: AssertionError
+______ test_host_selected_point_changes_rf_and_awg_preview_together[udd] ______
+
+window = <DCWaveform_Generator.MainWindow object at 0x0000022481660290>
+template = 'udd'
+
+    @pytest.mark.parametrize('template', ['custom','cpmg','udd'])
+    def test_host_selected_point_changes_rf_and_awg_preview_together(window,template):
+        load_composite(window,pi_sweep=True,template=template)
+        saved=copy.deepcopy(window._settings_to_dict())
+        count=window._waveform_point_index.maximum()+1
+        assert count==(6 if template=='custom' else 4)
+        initial=window._waveform_preview_rf_specs[0]
+        start_duration=initial.pulse_events[0].duration_us
+        window._waveform_point_index.setValue(count-1)
+        QtWidgets.QApplication.processEvents()
+        concrete=window._waveform_preview_rf_specs[0]
+        assert not concrete.software_sweep_axes
+        assert concrete.pulse_events[0].duration_us==pytest.approx(.4)
+        assert concrete.pulse_events[-1].duration_us==pytest.approx(.4)
+        assert concrete.pulse_events[0].duration_us>start_duration
+        assert window._waveform_preview_hardware_index==0
+        assert window._waveform_preview_sequence is not None
+        assert window._rf_timelines[0].pulse_names[0]=='T2_initial_pi2'
+>       assert window._settings_to_dict()==saved
+E       AssertionError: assert {'schema': 'q...ue, ...}, ...} == {'schema': 'q...ue, ...}, ...}
+E         
+E         Omitting 17 identical items, use -vv to show
+E         Differing items:
+E         {'display': {'time_unit': 'us', 'voltage_view': 'both', 'show_dc_compensation': True, 'show_rc_compensation': True, ...}} != {'display': {'time_unit': 'us', 'voltage_view': 'both', 'show_dc_compensation': True, 'show_rc_compensation': True, ...}}
+E         Use -v to get more diff
+
+DCWaveformGeneratorGUI\test_rf_t2_integration.py:90: AssertionError
+=========================== short test summary info ===========================
+FAILED DCWaveformGeneratorGUI/test_rf_t2_integration.py::test_host_selected_point_changes_rf_and_awg_preview_together[custom]
+FAILED DCWaveformGeneratorGUI/test_rf_t2_integration.py::test_host_selected_point_changes_rf_and_awg_preview_together[cpmg]
+FAILED DCWaveformGeneratorGUI/test_rf_t2_integration.py::test_host_selected_point_changes_rf_and_awg_preview_together[udd]
+3 failed, 7 passed in 15.56s
+QT_EXPLICIT_TEARDOWN_COMPLETE

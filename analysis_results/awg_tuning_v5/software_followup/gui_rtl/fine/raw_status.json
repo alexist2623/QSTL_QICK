@@ -1,0 +1,136 @@
+{
+  "complete": true,
+  "stage": "passed",
+  "build": "F:\\Vivado_Output\\a5post_fine_rtl1",
+  "sim_build": "F:\\Vivado_Output\\a5post_fine_rtl1",
+  "execution_dir": "F:\\Vivado_Output\\a5post_fine_rtl1\\sim",
+  "snapshot_sources": {},
+  "helper_sha256": "990a46955c39b8785f715bb85e2b44a04592b716a3a642a8d9393297b665966e",
+  "cases": [
+    {
+      "passed": true,
+      "diagnostic_only": true,
+      "sum_lane_oracle_errors": 0,
+      "simultaneous_output_supported": false,
+      "measurements": [
+        {
+          "port": 0,
+          "order": "AWG then RF",
+          "requested_timestamp": 3000,
+          "observed_tproc_cycles": [
+            3459,
+            3462
+          ],
+          "command_lateness_cycles": [
+            0,
+            3
+          ],
+          "awg_sum_input_start": 3478,
+          "rf_sum_input_start": 3494,
+          "inferred_awg_physical_start": 3503,
+          "inferred_rf_physical_start": 3506,
+          "inferred_physical_rf_minus_awg_cycles": 3,
+          "physical_timestamp_method": "Inferred from directly observed sum input edges plus separately verified AWG25/RF12 downstream latency; components are not separately observable after addition."
+        },
+        {
+          "port": 0,
+          "order": "RF then AWG",
+          "requested_timestamp": 5000,
+          "observed_tproc_cycles": [
+            5459,
+            5462
+          ],
+          "command_lateness_cycles": [
+            0,
+            3
+          ],
+          "awg_sum_input_start": 5481,
+          "rf_sum_input_start": 5491,
+          "inferred_awg_physical_start": 5506,
+          "inferred_rf_physical_start": 5503,
+          "inferred_physical_rf_minus_awg_cycles": -3,
+          "physical_timestamp_method": "Inferred from directly observed sum input edges plus separately verified AWG25/RF12 downstream latency; components are not separately observable after addition."
+        },
+        {
+          "port": 1,
+          "order": "AWG then RF",
+          "requested_timestamp": 3000,
+          "observed_tproc_cycles": [
+            3459,
+            3462
+          ],
+          "command_lateness_cycles": [
+            0,
+            3
+          ],
+          "awg_sum_input_start": 3478,
+          "rf_sum_input_start": 3494,
+          "inferred_awg_physical_start": 3503,
+          "inferred_rf_physical_start": 3506,
+          "inferred_physical_rf_minus_awg_cycles": 3,
+          "physical_timestamp_method": "Inferred from directly observed sum input edges plus separately verified AWG25/RF12 downstream latency; components are not separately observable after addition."
+        },
+        {
+          "port": 1,
+          "order": "RF then AWG",
+          "requested_timestamp": 5000,
+          "observed_tproc_cycles": [
+            5459,
+            5462
+          ],
+          "command_lateness_cycles": [
+            0,
+            3
+          ],
+          "awg_sum_input_start": 5481,
+          "rf_sum_input_start": 5491,
+          "inferred_awg_physical_start": 5506,
+          "inferred_rf_physical_start": 5503,
+          "inferred_physical_rf_minus_awg_cycles": -3,
+          "physical_timestamp_method": "Inferred from directly observed sum input edges plus separately verified AWG25/RF12 downstream latency; components are not separately observable after addition."
+        },
+        {
+          "port": 2,
+          "order": "AWG then RF",
+          "requested_timestamp": 3000,
+          "observed_tproc_cycles": [
+            3459,
+            3462
+          ],
+          "command_lateness_cycles": [
+            0,
+            3
+          ],
+          "awg_sum_input_start": 3478,
+          "rf_sum_input_start": 3494,
+          "inferred_awg_physical_start": 3503,
+          "inferred_rf_physical_start": 3506,
+          "inferred_physical_rf_minus_awg_cycles": 3,
+          "physical_timestamp_method": "Inferred from directly observed sum input edges plus separately verified AWG25/RF12 downstream latency; components are not separately observable after addition."
+        },
+        {
+          "port": 2,
+          "order": "RF then AWG",
+          "requested_timestamp": 5000,
+          "observed_tproc_cycles": [
+            5459,
+            5462
+          ],
+          "command_lateness_cycles": [
+            0,
+            3
+          ],
+          "awg_sum_input_start": 5481,
+          "rf_sum_input_start": 5491,
+          "inferred_awg_physical_start": 5506,
+          "inferred_rf_physical_start": 5503,
+          "inferred_physical_rf_minus_awg_cycles": -3,
+          "physical_timestamp_method": "Inferred from directly observed sum input edges plus separately verified AWG25/RF12 downstream latency; components are not separately observable after addition."
+        }
+      ],
+      "conclusion": "Measured actual delivery/output skew for intentionally identical timestamps; production GUI guards were not changed."
+    }
+  ],
+  "updated": "2026-10-15T03:10:16-0700",
+  "active_case": "raw_same_timestamp"
+}

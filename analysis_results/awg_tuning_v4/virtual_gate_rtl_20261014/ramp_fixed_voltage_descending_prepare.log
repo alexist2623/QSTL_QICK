@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\qick\firmware\ip\axis_output_sum_v1\validation\virtual_gate\run_case.py", line 79, in <module>
+    exec(compile(text,str(generated),'exec'),{'__name__':'__main__','__file__':str(generated)})
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v4\virtual_gate_rtl_20261014\verify_ramp_fixed_voltage_descending.py", line 822, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v4\virtual_gate_rtl_20261014\verify_ramp_fixed_voltage_descending.py", line 303, in main
+    widget_program=build_from_widgets(cfg,pulses,axes,rf_specs,args,out)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\qick\firmware\ip\axis_output_sum_v1\validation\virtual_gate\support.py", line 107, in build_from_widgets
+    return namespace['build_from_widgets'](cfg,pulses,axes,rf_specs,options,out)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\qick\firmware\ip\axis_awg_tuning_v3\validation\gui_widget_fixture.py[direct-input adapter]", line 54, in build_from_widgets
+  File "C:\GIT_Workspace\QSTL_QICK\qick\firmware\ip\axis_output_sum_v1\validation\virtual_gate\support.py", line 78, in input_widgets
+    else: raise AssertionError(kind)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ramp_duration
+Windows fatal exception: access violation
+
+Current thread 0x0000e120 (most recent call first):
+  <no Python frame>

@@ -1,0 +1,38 @@
+
+****** xsim v2023.1 (64-bit)
+  **** SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+  **** IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+  **** SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/rc_gui/xsim_script.tcl
+# xsim {rc_gui} -testplusarg CASE=F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_ramp_rate_2x2_v4virt_20261014_ramp_fixed_voltage_descending_retry1_output_sum_awg_v3 -testplusarg OUT=F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_ramp_rate_2x2_v4virt_20261014_ramp_fixed_voltage_descending_retry1_output_sum_awg_v3 -testplusarg CYCLES=15027 -autoloadwcfg -tclbatch {F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_ramp_rate_2x2_v4virt_20261014_ramp_fixed_voltage_descending_retry1_output_sum_awg_v3/run.tcl}
+Time resolution is 1 fs
+source F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_ramp_rate_2x2_v4virt_20261014_ramp_fixed_voltage_descending_retry1_output_sum_awg_v3/run.tcl
+## run all
+Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
+Time: 0 fs  Iteration: 0  Process: /tb_rc_gui/dut/sim_bd_i/axis_tproc64x32_x8_0/inst/tproc_i/alu_i/math_i/line__104  File: F:/Vivado_Output/a3sim1/namespaced/073_math.vhd
+Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
+Time: 0 fs  Iteration: 0  Process: /tb_rc_gui/dut/sim_bd_i/axis_tproc64x32_x8_0/inst/tproc_i/alu_i/math_i/line__103  File: F:/Vivado_Output/a3sim1/namespaced/073_math.vhd
+RTL COMPLETE two-AWG samples/channel=252272 errors=0
+RAW_AWG_V2_RESULT ch=0 samples=252528 ramps=16 sets=33
+RAW_AWG_V2_RESULT ch=1 samples=252528 ramps=16 sets=33
+RAW_AWG_V2_RESULT ch=3 samples=252528 ramps=16 sets=33
+GUI_RC_RESULT ch=0 max_error_codes=2.436961
+GUI_RC_RESULT ch=1 max_error_codes=2.518667
+GUI_RC_RESULT ch=2 max_error_codes=0.000000
+EXACT_AWG_RESULT ch=0 samples=252048
+EXACT_AWG_RESULT ch=1 samples=252048
+EXACT_AWG_RESULT ch=2 samples=252048
+AREA_V3_RESULT ch=0 shots=8 samples=252448 reset_checks=8 residual=0
+AREA_V3_RESULT ch=1 shots=8 samples=252448 reset_checks=8 residual=0
+OUTPUT_SUM_RESULT suffix=4 samples=252528
+OUTPUT_SUM_RESULT suffix=5 samples=252528
+OUTPUT_SUM_RESULT suffix=6 samples=252528
+AREA_V3_RESULT ch=3 shots=8 samples=252448 reset_checks=8 residual=0
+$finish called at time : 53110010622 fs : File "F:/Vivado_Output/a3sim1/rc_precomp_repeat_reset_ramp_rate_2x2_v4virt_20261014_ramp_fixed_voltage_descending_retry1_output_sum_awg_v3/tb_rc_gui.sv" Line 1802
+run: Time (s): cpu = 00:00:01 ; elapsed = 00:02:13 . Memory (MB): peak = 200.195 ; gain = 0.000
+## quit
+INFO: xsimkernel Simulation Memory Usage: 62540 KB (Peak: 62540 KB), Simulation CPU Usage: 132046 ms
+INFO: [Common 17-206] Exiting xsim at Wed Oct 14 17:54:37 2026...

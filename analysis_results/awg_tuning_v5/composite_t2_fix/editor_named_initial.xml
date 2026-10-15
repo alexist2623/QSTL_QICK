@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="19" time="20.233" timestamp="2026-10-14T21:16:04.048345-07:00" hostname="ECE-CDW-JS03"><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_t2_endpoint_choices_and_half_duration_roundtrip[False-False]" time="1.093" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_t2_endpoint_choices_and_half_duration_roundtrip[True-False]" time="1.040" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_t2_endpoint_choices_and_half_duration_roundtrip[False-True]" time="0.986" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_t2_endpoint_choices_and_half_duration_roundtrip[True-True]" time="1.058" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_named_tau_shared_delay_sweep_roundtrip_units_and_rename" time="1.075"><failure message="AssertionError: assert QickRfPulseSp...er='phase_pi') == QickRfPulseSp...er='phase_pi')&#10;  &#10;  Omitting 72 identical items, use -vv to show&#10;  Differing attributes:&#10;  ['composite_items']&#10;  &#10;  Drill down into differing attribute composite_items:&#10;    composite_items: (QickRfCompositeItemSpec(kind='pulse', name='X', duration_us=2.0, frequency_parameter='f0', gain=20000, phase_degrees=0.0, power_calibration_enabled=False, power_calibration_database_path='', power_calibration_run_id=0, target_output_power_dbm=-20.0, duration_parameter='d0', delay_parameter='', amplitude_parameter='a_0', phase_parameter='phase_X'), QickRfCompositeItemSpec(kind='delay', name='wait', duration_us=3.0, fr...&#10;  &#10;  ...Full output truncated (3 lines hidden), use '-vv' to show">editor = &lt;DCWaveform_Generator.RfPulsePortPanel object at 0x0000020311CA64E0&gt;
+
+    def test_named_tau_shared_delay_sweep_roundtrip_units_and_rename(editor):
+        editor._add_delay_parameter(QickRfDurationParameterSpec("tau", 3.0, True, 2.0, 4.0, 3))
+        editor.composite_item_table.cellWidget(1, 8).setCurrentText("tau")
+        editor._add_composite_item("delay")
+        editor.composite_item_table.cellWidget(2, 8).setCurrentText("tau")
+        editor.t2_final_pi2.setChecked(True)
+        spec = editor.configured_spec()
+        axes = [axis for axis in spec.software_sweep_axes if axis.axis_kind == "rf_delay"]
+        assert len(axes) == 1
+        assert axes[0].parameter_name == "tau"
+        assert list(axes[0].points) == [2.0, 3.0, 4.0]
+        # Both references share each coordinate and move the final endpoint.
+        assert spec.with_delay_parameters({"tau": 4.0}).pulse_events[-1].delay_us == 10.0
+        assert not editor.composite_item_table.cellWidget(1, 2).isEnabled()
+        editor.set_time_unit("ns")
+        row = parameter_row(editor, "delay", "tau")
+        assert editor.delay_parameter_table.cellWidget(row, 1).value() == 3000.0
+        assert editor.configured_spec() == spec
+        name = editor.delay_parameter_table.cellWidget(row, 0)
+        name.setText("free_evolution")
+        assert editor.configured_spec() == spec  # transactional until editingFinished
+        name.editingFinished.emit()
+        renamed = editor.configured_spec()
+        assert renamed.delay_parameters[row].name == "free_evolution"
+        assert [item.delay_parameter for item in renamed.composite_items[1:]] == ["free_evolution"] * 2
+        editor.load_settings(editor.settings_dict())
+&gt;       assert editor.configured_spec() == renamed
+E       AssertionError: assert QickRfPulseSp...er='phase_pi') == QickRfPulseSp...er='phase_pi')
+E         
+E         Omitting 72 identical items, use -vv to show
+E         Differing attributes:
+E         ['composite_items']
+E         
+E         Drill down into differing attribute composite_items:
+E           composite_items: (QickRfCompositeItemSpec(kind='pulse', name='X', duration_us=2.0, frequency_parameter='f0', gain=20000, phase_degrees=0.0, power_calibration_enabled=False, power_calibration_database_path='', power_calibration_run_id=0, target_output_power_dbm=-20.0, duration_parameter='d0', delay_parameter='', amplitude_parameter='a_0', phase_parameter='phase_X'), QickRfCompositeItemSpec(kind='delay', name='wait', duration_us=3.0, fr...
+E         
+E         ...Full output truncated (3 lines hidden), use '-vv' to show
+
+DCWaveformGeneratorGUI\test_rf_t2_delay_editor.py:104: AssertionError</failure></testcase><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_removing_tau_reference_disables_orphan_sweep" time="0.963" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_duration_name_is_atomic_with_live_editor_callbacks" time="1.020" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_t2_pi_duration_sweep_is_host_axis_and_halves_each_point" time="0.966" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_t2_last_parameter_reference_disables_orphan_sweep" time="0.963" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_disabled_t2_roundtrip_preserves_selected_pi_parameter" time="1.027" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_single_mode_omits_t2_and_switching_back_restores_editor_options[custom]" time="1.147" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_single_mode_omits_t2_and_switching_back_restores_editor_options[cpmg]" time="1.046" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_single_mode_omits_t2_and_switching_back_restores_editor_options[udd]" time="1.097" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_single_mode_omits_t2_and_switching_back_restores_editor_options[hahn_echo]" time="1.073" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_custom_switch_displays_half_reference_without_duplicating_endpoints[True-False]" time="1.104"><failure message="AssertionError: assert {'enabled': T...us': 0.0, ...} == {'enabled': T...us': 0.0, ...}&#10;  &#10;  Omitting 73 identical items, use -vv to show&#10;  Differing items:&#10;  {'composite_items': [{'kind': 'delay', 'name': 'Hahn_delay_0', 'duration_us': 5.0, 'frequency_parameter': '', ...}, {'...parameter': 'f0', ...}, {'kind': 'delay', 'name': 'Hahn_delay_1', 'duration_us': 5.0, 'frequency_parameter': '', ...}]} != {'composite_items': [{'kind': 'delay', 'name': 'Hahn_delay_0', 'duration_us': 5.0, 'frequency_parameter': '', ...}, {'...parameter': 'f0', ...}, {'kind': 'delay', 'name': 'Hahn_delay_1', 'duration_us': 5.0, 'frequency_parameter': '', ...}]}&#10;  Use -v to get more diff">editor = &lt;DCWaveform_Generator.RfPulsePortPanel object at 0x0000020313173800&gt;
+initial = True, final = False
+
+    @pytest.mark.parametrize("initial,final", [(True, False), (False, True), (True, True)])
+    def test_custom_switch_displays_half_reference_without_duplicating_endpoints(editor, initial, final):
+        editor.predefined_template.setCurrentIndex(editor.predefined_template.findData("hahn_echo"))
+        editor.t2_initial_pi2.setChecked(initial)
+        editor.t2_final_pi2.setChecked(final)
+        editor.predefined_template.setCurrentIndex(editor.predefined_template.findData("custom"))
+        assert editor.t2_duration_parameter.currentText() == "d0/2"
+        assert editor.t2_duration_parameter.currentData() == "d0"
+        spec = editor.configured_spec()
+        assert len(spec.composite_items) == 3
+        assert len(spec.pulse_events) == 1 + int(initial) + int(final)
+        assert spec.composite_items[1].duration_parameter == "d0"
+        editor.duration_parameter_table.cellWidget(0, 1).setValue(6.0)
+        events = editor.configured_spec().pulse_events
+        if initial:
+            assert events[0].duration_us == 3.0
+        if final:
+            assert events[-1].duration_us == 3.0
+        name = editor.duration_parameter_table.cellWidget(0, 0)
+        name.setText("pi_length")
+        name.editingFinished.emit()
+        assert editor.t2_duration_parameter.currentText() == "pi_length/2"
+        assert editor.t2_duration_parameter.currentData() == "pi_length"
+        saved = editor.settings_dict()
+        editor.load_settings(saved)
+&gt;       assert editor.settings_dict() == saved
+E       AssertionError: assert {'enabled': T...us': 0.0, ...} == {'enabled': T...us': 0.0, ...}
+E         
+E         Omitting 73 identical items, use -vv to show
+E         Differing items:
+E         {'composite_items': [{'kind': 'delay', 'name': 'Hahn_delay_0', 'duration_us': 5.0, 'frequency_parameter': '', ...}, {'...parameter': 'f0', ...}, {'kind': 'delay', 'name': 'Hahn_delay_1', 'duration_us': 5.0, 'frequency_parameter': '', ...}]} != {'composite_items': [{'kind': 'delay', 'name': 'Hahn_delay_0', 'duration_us': 5.0, 'frequency_parameter': '', ...}, {'...parameter': 'f0', ...}, {'kind': 'delay', 'name': 'Hahn_delay_1', 'duration_us': 5.0, 'frequency_parameter': '', ...}]}
+E         Use -v to get more diff
+
+DCWaveformGeneratorGUI\test_rf_t2_delay_editor.py:220: AssertionError</failure></testcase><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_custom_switch_displays_half_reference_without_duplicating_endpoints[False-True]" time="1.022"><failure message="AssertionError: assert {'enabled': T...us': 0.0, ...} == {'enabled': T...us': 0.0, ...}&#10;  &#10;  Omitting 73 identical items, use -vv to show&#10;  Differing items:&#10;  {'composite_items': [{'kind': 'delay', 'name': 'Hahn_delay_0', 'duration_us': 5.0, 'frequency_parameter': '', ...}, {'...parameter': 'f0', ...}, {'kind': 'delay', 'name': 'Hahn_delay_1', 'duration_us': 5.0, 'frequency_parameter': '', ...}]} != {'composite_items': [{'kind': 'delay', 'name': 'Hahn_delay_0', 'duration_us': 5.0, 'frequency_parameter': '', ...}, {'...parameter': 'f0', ...}, {'kind': 'delay', 'name': 'Hahn_delay_1', 'duration_us': 5.0, 'frequency_parameter': '', ...}]}&#10;  Use -v to get more diff">editor = &lt;DCWaveform_Generator.RfPulsePortPanel object at 0x0000020311CA6960&gt;
+initial = False, final = True
+
+    @pytest.mark.parametrize("initial,final", [(True, False), (False, True), (True, True)])
+    def test_custom_switch_displays_half_reference_without_duplicating_endpoints(editor, initial, final):
+        editor.predefined_template.setCurrentIndex(editor.predefined_template.findData("hahn_echo"))
+        editor.t2_initial_pi2.setChecked(initial)
+        editor.t2_final_pi2.setChecked(final)
+        editor.predefined_template.setCurrentIndex(editor.predefined_template.findData("custom"))
+        assert editor.t2_duration_parameter.currentText() == "d0/2"
+        assert editor.t2_duration_parameter.currentData() == "d0"
+        spec = editor.configured_spec()
+        assert len(spec.composite_items) == 3
+        assert len(spec.pulse_events) == 1 + int(initial) + int(final)
+        assert spec.composite_items[1].duration_parameter == "d0"
+        editor.duration_parameter_table.cellWidget(0, 1).setValue(6.0)
+        events = editor.configured_spec().pulse_events
+        if initial:
+            assert events[0].duration_us == 3.0
+        if final:
+            assert events[-1].duration_us == 3.0
+        name = editor.duration_parameter_table.cellWidget(0, 0)
+        name.setText("pi_length")
+        name.editingFinished.emit()
+        assert editor.t2_duration_parameter.currentText() == "pi_length/2"
+        assert editor.t2_duration_parameter.currentData() == "pi_length"
+        saved = editor.settings_dict()
+        editor.load_settings(saved)
+&gt;       assert editor.settings_dict() == saved
+E       AssertionError: assert {'enabled': T...us': 0.0, ...} == {'enabled': T...us': 0.0, ...}
+E         
+E         Omitting 73 identical items, use -vv to show
+E         Differing items:
+E         {'composite_items': [{'kind': 'delay', 'name': 'Hahn_delay_0', 'duration_us': 5.0, 'frequency_parameter': '', ...}, {'...parameter': 'f0', ...}, {'kind': 'delay', 'name': 'Hahn_delay_1', 'duration_us': 5.0, 'frequency_parameter': '', ...}]} != {'composite_items': [{'kind': 'delay', 'name': 'Hahn_delay_0', 'duration_us': 5.0, 'frequency_parameter': '', ...}, {'...parameter': 'f0', ...}, {'kind': 'delay', 'name': 'Hahn_delay_1', 'duration_us': 5.0, 'frequency_parameter': '', ...}]}
+E         Use -v to get more diff
+
+DCWaveformGeneratorGUI\test_rf_t2_delay_editor.py:220: AssertionError</failure></testcase><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_custom_switch_displays_half_reference_without_duplicating_endpoints[True-True]" time="0.999"><failure message="AssertionError: assert {'enabled': T...us': 0.0, ...} == {'enabled': T...us': 0.0, ...}&#10;  &#10;  Omitting 73 identical items, use -vv to show&#10;  Differing items:&#10;  {'composite_items': [{'kind': 'delay', 'name': 'Hahn_delay_0', 'duration_us': 5.0, 'frequency_parameter': '', ...}, {'...parameter': 'f0', ...}, {'kind': 'delay', 'name': 'Hahn_delay_1', 'duration_us': 5.0, 'frequency_parameter': '', ...}]} != {'composite_items': [{'kind': 'delay', 'name': 'Hahn_delay_0', 'duration_us': 5.0, 'frequency_parameter': '', ...}, {'...parameter': 'f0', ...}, {'kind': 'delay', 'name': 'Hahn_delay_1', 'duration_us': 5.0, 'frequency_parameter': '', ...}]}&#10;  Use -v to get more diff">editor = &lt;DCWaveform_Generator.RfPulsePortPanel object at 0x0000020311DC1880&gt;
+initial = True, final = True
+
+    @pytest.mark.parametrize("initial,final", [(True, False), (False, True), (True, True)])
+    def test_custom_switch_displays_half_reference_without_duplicating_endpoints(editor, initial, final):
+        editor.predefined_template.setCurrentIndex(editor.predefined_template.findData("hahn_echo"))
+        editor.t2_initial_pi2.setChecked(initial)
+        editor.t2_final_pi2.setChecked(final)
+        editor.predefined_template.setCurrentIndex(editor.predefined_template.findData("custom"))
+        assert editor.t2_duration_parameter.currentText() == "d0/2"
+        assert editor.t2_duration_parameter.currentData() == "d0"
+        spec = editor.configured_spec()
+        assert len(spec.composite_items) == 3
+        assert len(spec.pulse_events) == 1 + int(initial) + int(final)
+        assert spec.composite_items[1].duration_parameter == "d0"
+        editor.duration_parameter_table.cellWidget(0, 1).setValue(6.0)
+        events = editor.configured_spec().pulse_events
+        if initial:
+            assert events[0].duration_us == 3.0
+        if final:
+            assert events[-1].duration_us == 3.0
+        name = editor.duration_parameter_table.cellWidget(0, 0)
+        name.setText("pi_length")
+        name.editingFinished.emit()
+        assert editor.t2_duration_parameter.currentText() == "pi_length/2"
+        assert editor.t2_duration_parameter.currentData() == "pi_length"
+        saved = editor.settings_dict()
+        editor.load_settings(saved)
+&gt;       assert editor.settings_dict() == saved
+E       AssertionError: assert {'enabled': T...us': 0.0, ...} == {'enabled': T...us': 0.0, ...}
+E         
+E         Omitting 73 identical items, use -vv to show
+E         Differing items:
+E         {'composite_items': [{'kind': 'delay', 'name': 'Hahn_delay_0', 'duration_us': 5.0, 'frequency_parameter': '', ...}, {'...parameter': 'f0', ...}, {'kind': 'delay', 'name': 'Hahn_delay_1', 'duration_us': 5.0, 'frequency_parameter': '', ...}]} != {'composite_items': [{'kind': 'delay', 'name': 'Hahn_delay_0', 'duration_us': 5.0, 'frequency_parameter': '', ...}, {'...parameter': 'f0', ...}, {'kind': 'delay', 'name': 'Hahn_delay_1', 'duration_us': 5.0, 'frequency_parameter': '', ...}]}
+E         Use -v to get more diff
+
+DCWaveformGeneratorGUI\test_rf_t2_delay_editor.py:220: AssertionError</failure></testcase><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_tau_named_fixed_uses_item_data_and_emits_when_label_is_unchanged" time="1.045" /><testcase classname="DCWaveformGeneratorGUI.test_rf_t2_delay_editor" name="test_global_frequency_and_gain_override_body_and_t2_endpoints" time="1.079"><failure message="AssertionError: assert {'enabled': T...us': 0.0, ...} == {'enabled': T...us': 0.0, ...}&#10;  &#10;  Omitting 73 identical items, use -vv to show&#10;  Differing items:&#10;  {'delay_parameters': [{'name': 'tau_wait', 'duration_us': 3.0, 'sweep_enabled': False, 'sweep_start_us': 3.0, ...}, {'...s': 5.0, ...}, {'name': 'tau_Hahn_delay_1_1', 'duration_us': 5.0, 'sweep_enabled': False, 'sweep_start_us': 5.0, ...}]} != {'delay_parameters': [{'name': 'tau_wait', 'duration_us': 3.0, 'sweep_enabled': False, 'sweep_start_us': 3.0, ...}, {'..._us': 5.0, ...}, {'name': 'tau_Hahn_delay_1', 'duration_us': 5.0, 'sweep_enabled': False, 'sweep_start_us': 5.0, ...}]}&#10;  Use -v to get more diff">editor = &lt;DCWaveform_Generator.RfPulsePortPanel object at 0x00000203132616D0&gt;
+
+    def test_global_frequency_and_gain_override_body_and_t2_endpoints(editor):
+        editor._add_frequency_parameter(QickRfFrequencyParameterSpec("shared", 135.0))
+        select(editor.predefined_template, "hahn_echo")
+        editor.t2_initial_pi2.setChecked(True)
+        editor.t2_final_pi2.setChecked(True)
+        assert editor.global_rf_group.isChecked()
+        editor.global_frequency_parameter.setCurrentText("shared")
+        editor.global_gain.setValue(-12345)
+        set_parameter(editor, "phase", editor.t2_initial_phase_parameter, 90)
+        set_parameter(editor, "phase", editor.t2_final_phase_parameter, -90)
+        events = editor.configured_spec().pulse_events
+        assert [event.frequency_mhz for event in events] == [135.0] * 3
+        assert [event.gain for event in events] == [-12345] * 3
+        assert [event.phase_degrees for event in events] == [90, 0, -90]
+        assert not editor.composite_item_table.cellWidget(1, 4).isEnabled()
+        assert not editor.composite_item_table.cellWidget(1, 5).isEnabled()
+        assert not editor.composite_item_table.cellWidget(1, 6).isEnabled()
+        assert editor.t2_frequency_parameter.isHidden()
+        assert editor.t2_gain.isHidden()
+        saved = editor.settings_dict()
+        editor.load_settings(saved)
+&gt;       assert editor.settings_dict() == saved
+E       AssertionError: assert {'enabled': T...us': 0.0, ...} == {'enabled': T...us': 0.0, ...}
+E         
+E         Omitting 73 identical items, use -vv to show
+E         Differing items:
+E         {'delay_parameters': [{'name': 'tau_wait', 'duration_us': 3.0, 'sweep_enabled': False, 'sweep_start_us': 3.0, ...}, {'...s': 5.0, ...}, {'name': 'tau_Hahn_delay_1_1', 'duration_us': 5.0, 'sweep_enabled': False, 'sweep_start_us': 5.0, ...}]} != {'delay_parameters': [{'name': 'tau_wait', 'duration_us': 3.0, 'sweep_enabled': False, 'sweep_start_us': 3.0, ...}, {'..._us': 5.0, ...}, {'name': 'tau_Hahn_delay_1', 'duration_us': 5.0, 'sweep_enabled': False, 'sweep_start_us': 5.0, ...}]}
+E         Use -v to get more diff
+
+DCWaveformGeneratorGUI\test_rf_t2_delay_editor.py:260: AssertionError</failure></testcase></testsuite></testsuites>

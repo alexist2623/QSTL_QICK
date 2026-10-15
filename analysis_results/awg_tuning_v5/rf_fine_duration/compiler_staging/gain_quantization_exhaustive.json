@@ -1,0 +1,37 @@
+{
+  "source": "qick/firmware/ip/axis_signal_gen_v6/src/signal_gen.v:366,386",
+  "envelope_I": 32766,
+  "envelope_Q": 0,
+  "direct_formula": "(dds*gain)>>15",
+  "product_formula": "(((dds*32766)>>16)*(2*gain))>>15",
+  "cases": [
+    {
+      "gain": -16383,
+      "tested_dds_codes": 65536,
+      "minimum_error_codes": -1,
+      "maximum_error_codes": 1,
+      "maximum_absolute_error_codes": 1
+    },
+    {
+      "gain": -4000,
+      "tested_dds_codes": 65536,
+      "minimum_error_codes": -1,
+      "maximum_error_codes": 1,
+      "maximum_absolute_error_codes": 1
+    },
+    {
+      "gain": 4000,
+      "tested_dds_codes": 65536,
+      "minimum_error_codes": -1,
+      "maximum_error_codes": 1,
+      "maximum_absolute_error_codes": 1
+    },
+    {
+      "gain": 16383,
+      "tested_dds_codes": 65536,
+      "minimum_error_codes": -1,
+      "maximum_error_codes": 0,
+      "maximum_absolute_error_codes": 1
+    }
+  ]
+}

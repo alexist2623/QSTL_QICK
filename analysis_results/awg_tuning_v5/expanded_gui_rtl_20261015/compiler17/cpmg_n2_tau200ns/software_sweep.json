@@ -1,0 +1,54 @@
+{
+  "bindings": [
+    [
+      0,
+      {
+        "segment_name": "set_0",
+        "output_name": "rf_gen_0_cpmg_N",
+        "gen_ch": 0,
+        "start": 1.0,
+        "stop": 2.0,
+        "count": 2,
+        "axis_kind": "rf_template_n",
+        "coordinate_unit": "count",
+        "parameter_name": "N"
+      }
+    ],
+    [
+      0,
+      {
+        "segment_name": "set_0",
+        "output_name": "rf_gen_0_cpmg_tau",
+        "gen_ch": 0,
+        "start": 0.2,
+        "stop": 0.4,
+        "count": 2,
+        "axis_kind": "rf_template_tau",
+        "coordinate_unit": "us",
+        "parameter_name": "tau"
+      }
+    ]
+  ],
+  "coordinates": [
+    [
+      1.0,
+      0.2
+    ],
+    [
+      1.0,
+      0.4
+    ],
+    [
+      2.0,
+      0.2
+    ],
+    [
+      2.0,
+      0.4
+    ]
+  ],
+  "selected": [
+    2,
+    0.2
+  ]
+}

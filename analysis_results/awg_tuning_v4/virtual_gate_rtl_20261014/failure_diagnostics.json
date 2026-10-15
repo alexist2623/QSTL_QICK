@@ -1,0 +1,138 @@
+{
+  "udd_n2_tau200ns": {
+    "error": "The v4 RF command conflicts with another command on its shared tProcessor port; adjust the RF delay or segment timing.",
+    "frames": [
+      {
+        "file": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\diagnose_failures.py",
+        "line": 20,
+        "function": "<module>"
+      },
+      {
+        "file": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\diagnose_failures.py",
+        "line": 14,
+        "function": "<lambda>"
+      },
+      {
+        "file": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\test_coverage.py",
+        "line": 96,
+        "function": "test_matrix_with_gui_predefined_n_tau_all_software_points"
+      },
+      {
+        "file": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_qcodes_experiment.py",
+        "line": 968,
+        "function": "build_qick_program"
+      },
+      {
+        "file": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py",
+        "line": 2359,
+        "function": "make_program"
+      },
+      {
+        "file": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py",
+        "line": 2675,
+        "function": "__init__"
+      },
+      {
+        "file": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\qick_lib\\qick\\averager_program.py",
+        "line": 211,
+        "function": "__init__"
+      },
+      {
+        "file": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py",
+        "line": 7134,
+        "function": "make_program"
+      },
+      {
+        "file": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py",
+        "line": 2798,
+        "function": "initialize"
+      },
+      {
+        "file": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py",
+        "line": 5329,
+        "function": "_build_aux_timing"
+      }
+    ],
+    "shared_port": {
+      "port": 0,
+      "requested_rf_start": 46,
+      "rf_command_clock": 15,
+      "rf_latency": 31,
+      "conflicting_awg_command_clocks": [
+        13
+      ],
+      "required_command_spacing": 3
+    }
+  },
+  "quantum_rf_loop_n1": {
+    "error": "RF 1 output latency is unknown for the loaded firmware profile; use the verified QSTL v3 profile or provide an explicitly verified digital latency",
+    "frames": [
+      {
+        "file": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\diagnose_failures.py",
+        "line": 20,
+        "function": "<module>"
+      },
+      {
+        "file": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\diagnose_failures.py",
+        "line": 15,
+        "function": "<lambda>"
+      },
+      {
+        "file": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\ip\\axis_output_sum_v1\\validation\\virtual_gate\\test_coverage.py",
+        "line": 120,
+        "function": "test_quantum_loop_uses_physical_channels_not_awg_matrix"
+      },
+      {
+        "file": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\quantum_circuit_execution.py",
+        "line": 237,
+        "function": "build_circuit_execution"
+      },
+      {
+        "file": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\quantum_circuit_execution.py",
+        "line": 155,
+        "function": "_rf_latencies"
+      }
+    ],
+    "latency_profile": {
+      "awg_profile": false,
+      "actual_awg_latency": [
+        18,
+        18
+      ],
+      "required_awg_latency": 16,
+      "rf": {
+        "type": "axis_signal_gen_v6",
+        "fullpath": "axis_signal_gen_v6_0",
+        "maxlen": 16384,
+        "complex_env": true,
+        "samps_per_clk": 16,
+        "maxv_scale": 1.0,
+        "has_dds": true,
+        "b_dds": 32,
+        "b_phase": 32,
+        "maxv": 32766,
+        "has_mixer": false,
+        "revision": 6,
+        "version": "1.0",
+        "dac": "10",
+        "fs": 4800.0,
+        "fs_mult": 16,
+        "fs_div": 1,
+        "interpolation": 1,
+        "f_fabric": 300.0,
+        "f_dds": 4800.0,
+        "fdds_div": 1,
+        "tmux_ch": 0,
+        "tproc_ch": 0,
+        "output_sum_version": 1,
+        "output_sum_block": "axis_output_sum_4",
+        "output_sum_bypass": false,
+        "post_output_latency_cycles": 2,
+        "output_sum_awg": "axis_awg_tuning_v3_4",
+        "output_sum_rf": "axis_signal_gen_v6_0",
+        "output_sum_role": "rf",
+        "output_latency_cycles": 31
+      }
+    }
+  }
+}

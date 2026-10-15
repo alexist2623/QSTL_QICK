@@ -1,0 +1,337 @@
+..........................F......F...................................... [ 92%]
+F.....                                                                   [100%]
+================================== FAILURES ===================================
+__ test_composite_editor_mutation_matrix_keeps_timeline_and_sweeps_attached ___
+
+    def test_composite_editor_mutation_matrix_keeps_timeline_and_sweeps_attached():
+        app = _application()
+        window = gui.MainWindow()
+        panel = window._rf_ports_panel._panels[0]
+        panel.load_settings({
+            **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+            "enabled": True,
+            "pulse_mode": "composite",
+            "require_within_segment": False,
+            "frequency_parameters": [
+                asdict(QickRfFrequencyParameterSpec(
+                    f"f{index}", 100.0 * (index + 1), True,
+                    90.0 * (index + 1), 110.0 * (index + 1), index + 2,
+                ))
+                for index in range(4)
+            ],
+            "duration_parameters": [
+                asdict(QickRfDurationParameterSpec(
+                    f"d{index}", 0.1 * (index + 1), True,
+                    0.08 * (index + 1), 0.12 * (index + 1), index + 2,
+                ))
+                for index in range(4)
+            ],
+            "composite_items": [
+                asdict(QickRfCompositeItemSpec(
+                    "pulse", "P0", 0.1, "f0", 1000, 0.0,
+                    duration_parameter="d0",
+                )),
+                asdict(QickRfCompositeItemSpec("delay", "wait", 0.05)),
+                asdict(QickRfCompositeItemSpec(
+                    "pulse", "P1", 0.2, "f1", 2000, 10.0,
+                    duration_parameter="d1",
+                )),
+                asdict(QickRfCompositeItemSpec(
+                    "pulse", "P2", 0.3, "f2", 3000, 20.0,
+                    duration_parameter="d2",
+                )),
+                asdict(QickRfCompositeItemSpec(
+                    "pulse", "P3", 0.4, "f3", 4000, 30.0,
+                    duration_parameter="d3",
+                )),
+            ],
+        })
+    
+        def row_named(table, name, column):
+            return next(
+                row
+                for row in range(table.rowCount())
+                if table.cellWidget(row, column).text() == name
+            )
+    
+        def parameter_row(table, name):
+            return row_named(table, name, 0)
+    
+        def assert_consistent():
+            app.processEvents()
+            spec = panel.configured_spec()
+            pulse_items = tuple(
+                item for item in spec.composite_items if item.kind == "pulse"
+            )
+            pulse_names = tuple(item.name for item in pulse_items)
+            assert window._rf_pulse_specs == [spec]
+            assert window._rf_timelines[0].pulse_names == pulse_names
+            assert tuple(
+                label.textItem.toPlainText()
+                for label in window._rf_timelines[0]._pulse_labels
+            ) == pulse_names
+            expected_centers = tuple(
+                (start_us + end_us) * 500.0
+                for _event, start_us, end_us in (
+                    gui.rf_pulse_event_absolute_times_us(window._pulse[0], spec)
+                )
+            )
+            assert tuple(
+                label.pos().x()
+                for label in window._rf_timelines[0]._pulse_labels
+            ) == pytest.approx(expected_centers)
+            referenced = {
+                "rf_frequency": {item.frequency_parameter for item in pulse_items},
+                "rf_duration": {item.duration_parameter for item in pulse_items},
+            }
+            assert all(
+                axis.parameter_name in referenced[axis.axis_kind]
+                for axis in spec.sweep_axes
+            )
+            assert all(
+                item.name != "P1"
+                for item in spec.composite_items
+            ) or "P1" in pulse_names
+            assert [
+                item["name"] for item in panel.settings_dict()["composite_items"]
+            ] == [item.name for item in spec.composite_items]
+            return spec
+    
+        initial = assert_consistent()
+        initial_bindings = {
+            item.name: (item.frequency_parameter, item.duration_parameter)
+            for item in initial.composite_items
+            if item.kind == "pulse"
+        }
+    
+        # Reorder first: identity and named-parameter bindings must follow the pulse.
+        p3_row = row_named(panel.composite_item_table, "P3", 1)
+        header = panel.composite_row_header
+        header.moveSection(header.visualIndex(p3_row), 0)
+        header.commitVisualOrder()
+        reordered = assert_consistent()
+        assert tuple(item.name for item in reordered.composite_items) == (
+            "P3", "P0", "wait", "P1", "P2"
+        )
+        assert {
+            item.name: (item.frequency_parameter, item.duration_parameter)
+            for item in reordered.composite_items
+            if item.kind == "pulse"
+        } == initial_bindings
+    
+        # Deleting a uniquely referenced pulse disables only that pulse's sweeps.
+        p1_row = row_named(panel.composite_item_table, "P1", 1)
+        panel.composite_item_table.selectRow(p1_row)
+        panel._remove_composite_item()
+        after_delete = assert_consistent()
+        assert "P1" not in window._rf_timelines[0].pulse_names
+        assert not panel.frequency_parameter_table.cellWidget(
+            parameter_row(panel.frequency_parameter_table, "f1"), 2
+        ).isChecked()
+        assert not panel.duration_parameter_table.cellWidget(
+            parameter_row(panel.duration_parameter_table, "d1"), 2
+        ).isChecked()
+        assert not any(
+            axis.parameter_name in {"f1", "d1"}
+            for axis in after_delete.sweep_axes
+        )
+    
+        # A new pulse must not inherit the deleted pulse's old active sweep.
+        panel._add_composite_item("pulse")
+        new_row = panel.composite_item_table.rowCount() - 1
+        name_editor = panel.composite_item_table.cellWidget(new_row, 1)
+        name_editor.setText("replacement")
+        name_editor.editingFinished.emit()
+        panel.composite_item_table.cellWidget(new_row, 4).setCurrentText("f1")
+        panel.composite_item_table.cellWidget(new_row, 3).setCurrentText("d1")
+        replacement = assert_consistent()
+        assert not any(
+            axis.parameter_name in {"f1", "d1"}
+            for axis in replacement.sweep_axes
+        )
+    
+        # Explicitly re-enabling the named parameters attaches them to replacement.
+        f1_row = parameter_row(panel.frequency_parameter_table, "f1")
+        d1_row = parameter_row(panel.duration_parameter_table, "d1")
+        panel.frequency_parameter_table.cellWidget(f1_row, 2).setChecked(True)
+        panel.duration_parameter_table.cellWidget(d1_row, 2).setChecked(True)
+        reenabled = assert_consistent()
+        assert {
+            (axis.axis_kind, axis.parameter_name)
+            for axis in reenabled.sweep_axes
+        }.issuperset({
+            ("rf_frequency", "f1"),
+            ("rf_duration", "d1"),
+        })
+    
+        # Moving the replacement cannot transfer its parameter bindings to a row.
+        replacement_row = row_named(panel.composite_item_table, "replacement", 1)
+        header.moveSection(header.visualIndex(replacement_row), 1)
+        header.commitVisualOrder()
+        moved = assert_consistent()
+        moved_replacement = next(
+            item for item in moved.composite_items if item.name == "replacement"
+        )
+        assert (
+            moved_replacement.frequency_parameter,
+            moved_replacement.duration_parameter,
+        ) == ("f1", "d1")
+    
+        # Remove and recreate parameter rows in opposite orders. Deleted sweeps do
+        # not survive, while every pulse selector remains valid.
+        f2_row = parameter_row(panel.frequency_parameter_table, "f2")
+        panel.frequency_parameter_table.selectRow(f2_row)
+        panel._remove_frequency_parameter()
+        d2_row = parameter_row(panel.duration_parameter_table, "d2")
+        panel.duration_parameter_table.selectRow(d2_row)
+        panel._remove_duration_parameter()
+        without_f2_d2 = assert_consistent()
+        assert not any(
+            axis.parameter_name in {"f2", "d2"}
+            for axis in without_f2_d2.sweep_axes
+        )
+        panel._add_duration_parameter()
+        panel._add_frequency_parameter()
+        recreated = assert_consistent()
+        assert "d2" in {item.name for item in recreated.duration_parameters}
+        assert "f2" in {item.name for item in recreated.frequency_parameters}
+        assert not any(
+            axis.parameter_name in {"f2", "d2"}
+            for axis in recreated.sweep_axes
+        )
+>       assert "P1" not in json.dumps(panel.settings_dict())
+E       assert 'P1' not in '{"enabled":... "phase_pi"}'
+E         
+E         'P1' is contained here:
+E         ?           ^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^
+E           ": "phase_P1", "phase_degrees": 10.0, "sweep_enabled": false, "sweep_start_degrees": 10.0, "sweep_stop_degrees": 10.0, "sweep_count": 1}, {"name": "phase_P2", "phase_degrees": 20.0, "sweep_enabled": false, "sweep_start_degrees": 20.0, "sweep_stop_degrees": 20.0, "sweep_count": 1}, {"name": "phase_P3", "phase_degrees": 30.0, "sweep_enabled": false, "sweep_start_degrees": 30.0, "sweep_stop_degrees": 30.0, "sweep_count": 1}], "global_amplitude_mode": "legacy", "global_amplitude_parameter": "", "global_calibration_datab...
+E         
+E         ...Full output truncated (2 lines hidden), use '-vv' to show
+
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:1336: AssertionError
+________ test_composite_rf_power_calibration_is_independent_per_pulse _________
+
+    def test_composite_rf_power_calibration_is_independent_per_pulse():
+        app = _application()
+        window = gui.MainWindow()
+        panel = window._rf_ports_panel._panels[0]
+        settings = {
+            **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+            "enabled": True,
+            "pulse_mode": "composite",
+            "output_board_type": "RF_Out",
+            "frequency_parameters": [
+                asdict(QickRfFrequencyParameterSpec(
+                    "f0", 100.0, True, 100.0, 120.0, 3
+                )),
+            ],
+            "composite_items": [
+                asdict(QickRfCompositeItemSpec(
+                    "pulse",
+                    "calibrated",
+                    0.2,
+                    "f0",
+                    1234,
+                    0.0,
+                    power_calibration_enabled=True,
+                    power_calibration_database_path="pulse_calibration.db",
+                    power_calibration_run_id=73,
+                    target_output_power_dbm=-31.5,
+                )),
+                asdict(QickRfCompositeItemSpec(
+                    "pulse", "manual", 0.2, "f0", 8000, 90.0
+                )),
+            ],
+        }
+        panel.load_settings(settings)
+        app.processEvents()
+    
+        spec = panel.configured_spec()
+        calibrated, manual = spec.composite_items
+        assert calibrated.power_calibration_enabled is True
+        assert calibrated.power_calibration_database_path == "pulse_calibration.db"
+        assert calibrated.power_calibration_run_id == 73
+        assert calibrated.target_output_power_dbm == -31.5
+        assert manual.power_calibration_enabled is False
+        assert manual.gain == 8000
+    
+        calibrated_button = panel.composite_item_table.cellWidget(0, 6)
+        manual_button = panel.composite_item_table.cellWidget(1, 6)
+        assert calibrated_button.text() == "-31.5 dBm | Run 73"
+        assert manual_button.text() == "Manual gain"
+        assert panel.composite_item_table.cellWidget(0, 5).isEnabled() is False
+>       assert panel.composite_item_table.cellWidget(1, 5).isEnabled() is True
+E       assert False is True
+E        +  where False = <built-in method isEnabled of QComboBox object at 0x0000017488DA3260>()
+E        +    where <built-in method isEnabled of QComboBox object at 0x0000017488DA3260> = <PyQt5.QtWidgets.QComboBox object at 0x0000017488DA3260>.isEnabled
+E        +      where <PyQt5.QtWidgets.QComboBox object at 0x0000017488DA3260> = <built-in method cellWidget of QTableWidget object at 0x0000017488E9D520>(1, 5)
+E        +        where <built-in method cellWidget of QTableWidget object at 0x0000017488E9D520> = <PyQt5.QtWidgets.QTableWidget object at 0x0000017488E9D520>.cellWidget
+E        +          where <PyQt5.QtWidgets.QTableWidget object at 0x0000017488E9D520> = <DCWaveform_Generator.RfPulsePortPanel object at 0x0000017488A39370>.composite_item_table
+
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:1849: AssertionError
+__________ test_older_settings_apply_defaults_and_resave_as_current ___________
+
+tmp_path = WindowsPath('C:/Users/Measurement2/AppData/Local/Temp/pytest-of-Measurement2/pytest-44/test_older_settings_apply_defa0')
+
+    def test_older_settings_apply_defaults_and_resave_as_current(tmp_path):
+        app = _application()
+        window = gui.MainWindow()
+        document = window._settings_to_dict()
+        document["version"] = 2
+        document["display"]["selected_control_tab"] = 2
+        document["display"].pop("selected_awg_tuning_tab")
+        document["display"].pop("voltage_view")
+        document["grid"].pop("snap_enabled")
+        document["awg"].pop("cross_capacitance")
+        document["awg"].pop("sweeps")
+        document["qick"].pop("tproc_mhz")
+        document["qick"].pop("repetitions_per_sweep")
+        document["qick"].pop("iq_storage_mode")
+        document["qick"].pop("bias_t_compensation")
+        document["stability_diagram"].pop("iq_storage_mode")
+        document["experiment"].pop("notes")
+        document.pop("rf_outputs")
+        document["rf_readout"] = {"enabled": False}
+        document["s_parameter"].pop("database_path")
+    
+        old_path = tmp_path / "settings_v2.json"
+        old_path.write_text(json.dumps(document), encoding="utf-8")
+        window._load_settings_json(old_path)
+        app.processEvents()
+    
+        assert np.array_equal(window._cross_capacitance, np.eye(1))
+        assert window._plot.voltage_view == "both"
+        assert window._grid_snap_enabled is False
+        assert window._experiment_panel.tproc_mhz.value() == 300.0
+        assert window._experiment_panel.repetitions.value() == 1
+        assert (
+            window._experiment_panel.iq_storage_mode.currentData()
+            == IQ_STORAGE_FULL_TRACES
+        )
+        assert (
+            window._stability_panel.iq_storage_mode_value()
+            == IQ_STORAGE_FULL_TRACES
+        )
+        assert window._experiment_panel.bias_t_group.isChecked() is False
+        assert window._experiment_panel.bias_t_compensation_mv.value() == 80.0
+        assert window._control_tabs.currentWidget() is window._awg_tuning_page
+        assert window._awg_tuning_tabs.currentWidget() is window._rf_readout_panel
+        assert len(window._rf_ports_panel._panels) == 1
+>       assert window._rf_ports_panel.settings()[0] == gui.DEFAULT_RF_OUTPUT_SETTINGS
+E       AssertionError: assert {'enabled': F...us': 0.0, ...} == {'enabled': F...us': 0.0, ...}
+E         
+E         Omitting 69 identical items, use -vv to show
+E         Differing items:
+E         {'composite_items': [{'kind': 'pulse', 'name': 'pulse_0', 'duration_us': 1.0, 'frequency_parameter': 'f0', ...}]} != {'composite_items': [{'kind': 'pulse', 'name': 'pulse_0', 'duration_us': 1.0, 'frequency_parameter': 'f0', ...}]}
+E         {'phase_parameters': [{'name': 'phase_initial', 'phase_degrees': 0.0, 'sweep_enabled': False, 'sweep_start_degrees': 0...: 0.0, ...}, {'name': 'phase_pulse_0', 'phase_degrees': 0.0, 'sweep_enabled': False, 'sweep_start_degrees': 0.0, ...}]} != {'phase_parameters': []}
+E         {'predefined_phase...
+E         
+E         ...Full output truncated (4 lines hidden), use '-vv' to show
+
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:3648: AssertionError
+=========================== short test summary info ===========================
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_composite_editor_mutation_matrix_keeps_timeline_and_sweeps_attached
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_composite_rf_power_calibration_is_independent_per_pulse
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_older_settings_apply_defaults_and_resave_as_current
+3 failed, 75 passed in 77.11s (0:01:17)
+QT_EXPLICIT_TEARDOWN_COMPLETE

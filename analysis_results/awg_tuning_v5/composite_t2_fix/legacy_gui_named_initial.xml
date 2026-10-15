@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="78" time="77.090" timestamp="2026-10-14T21:18:23.424568-07:00" hostname="ECE-CDW-JS03"><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_mouse_wheel_does_not_change_value_inputs" time="1.248" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_gui_defaults_and_time_unit_round_trip" time="1.092" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_shared_qick_setup_replaces_duplicate_tab_controls" time="1.077" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_awg_front_panel_mapping_and_horizontal_port_scroll" time="1.248" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_rf_readout_input_condition_stays_single_row_height" time="0.095" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_segment_sweep_dialog_uses_voltage_values_but_returns_normalized_spec" time="0.037" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_ramp_rate_sweep_dialog_uses_duration_and_reports_derived_rate" time="0.034" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_hold_duration_sweep_dialog_uses_shared_set_timing" time="0.033" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_export_sweep_editor_displays_mv_and_tracks_full_scale" time="0.044" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_export_dialog_preserves_multiple_ramp_rate_axes" time="0.046" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_awg_tuning_tab_groups_awg_rf_and_experiment_controls" time="1.350" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_rf_editor_round_trip_and_timeline_omit_delays" time="1.304" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_rf_rows_follow_vertical_header_drag_order" time="1.231" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_parameter_rename_keeps_existing_pulse_references" time="1.227" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_editor_prevents_deleting_its_last_pulse" time="1.176" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_editor_repeated_mutation_and_load_leave_no_stale_rows" time="1.798" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_embedded_editor_focus_selects_the_row_to_remove" time="1.277" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_parameter_click_and_typing_keep_editor_focus[duration-cpmg]" time="1.559" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_parameter_click_and_typing_keep_editor_focus[duration-udd]" time="1.582" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_parameter_click_and_typing_keep_editor_focus[duration-custom]" time="1.375" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_parameter_click_and_typing_keep_editor_focus[frequency-cpmg]" time="1.791" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_parameter_click_and_typing_keep_editor_focus[frequency-udd]" time="1.781" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_parameter_click_and_typing_keep_editor_focus[frequency-custom]" time="1.417" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_predefined_transitions_replace_every_generated_row" time="1.532" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_editor_stress_round_trip_across_row_counts" time="3.806" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_sweep_axes_exclude_unreferenced_parameters" time="0.126" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_editor_mutation_matrix_keeps_timeline_and_sweeps_attached" time="2.003"><failure message="assert 'P1' not in '{&quot;enabled&quot;:... &quot;phase_pi&quot;}'&#10;  &#10;  'P1' is contained here:&#10;  ?           ^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^&#10;    &quot;: &quot;phase_P1&quot;, &quot;phase_degrees&quot;: 10.0, &quot;sweep_enabled&quot;: false, &quot;sweep_start_degrees&quot;: 10.0, &quot;sweep_stop_degrees&quot;: 10.0, &quot;sweep_count&quot;: 1}, {&quot;name&quot;: &quot;phase_P2&quot;, &quot;phase_degrees&quot;: 20.0, &quot;sweep_enabled&quot;: false, &quot;sweep_start_degrees&quot;: 20.0, &quot;sweep_stop_degrees&quot;: 20.0, &quot;sweep_count&quot;: 1}, {&quot;name&quot;: &quot;phase_P3&quot;, &quot;phase_degrees&quot;: 30.0, &quot;sweep_enabled&quot;: false, &quot;sweep_start_degrees&quot;: 30.0, &quot;sweep_stop_degrees&quot;: 30.0, &quot;sweep_count&quot;: 1}], &quot;global_amplitude_mode&quot;: &quot;legacy&quot;, &quot;global_amplitude_parameter&quot;: &quot;&quot;, &quot;global_calibration_datab...&#10;  &#10;  ...Full output truncated (2 lines hidden), use '-vv' to show">def test_composite_editor_mutation_matrix_keeps_timeline_and_sweeps_attached():
+        app = _application()
+        window = gui.MainWindow()
+        panel = window._rf_ports_panel._panels[0]
+        panel.load_settings({
+            **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+            "enabled": True,
+            "pulse_mode": "composite",
+            "require_within_segment": False,
+            "frequency_parameters": [
+                asdict(QickRfFrequencyParameterSpec(
+                    f"f{index}", 100.0 * (index + 1), True,
+                    90.0 * (index + 1), 110.0 * (index + 1), index + 2,
+                ))
+                for index in range(4)
+            ],
+            "duration_parameters": [
+                asdict(QickRfDurationParameterSpec(
+                    f"d{index}", 0.1 * (index + 1), True,
+                    0.08 * (index + 1), 0.12 * (index + 1), index + 2,
+                ))
+                for index in range(4)
+            ],
+            "composite_items": [
+                asdict(QickRfCompositeItemSpec(
+                    "pulse", "P0", 0.1, "f0", 1000, 0.0,
+                    duration_parameter="d0",
+                )),
+                asdict(QickRfCompositeItemSpec("delay", "wait", 0.05)),
+                asdict(QickRfCompositeItemSpec(
+                    "pulse", "P1", 0.2, "f1", 2000, 10.0,
+                    duration_parameter="d1",
+                )),
+                asdict(QickRfCompositeItemSpec(
+                    "pulse", "P2", 0.3, "f2", 3000, 20.0,
+                    duration_parameter="d2",
+                )),
+                asdict(QickRfCompositeItemSpec(
+                    "pulse", "P3", 0.4, "f3", 4000, 30.0,
+                    duration_parameter="d3",
+                )),
+            ],
+        })
+    
+        def row_named(table, name, column):
+            return next(
+                row
+                for row in range(table.rowCount())
+                if table.cellWidget(row, column).text() == name
+            )
+    
+        def parameter_row(table, name):
+            return row_named(table, name, 0)
+    
+        def assert_consistent():
+            app.processEvents()
+            spec = panel.configured_spec()
+            pulse_items = tuple(
+                item for item in spec.composite_items if item.kind == "pulse"
+            )
+            pulse_names = tuple(item.name for item in pulse_items)
+            assert window._rf_pulse_specs == [spec]
+            assert window._rf_timelines[0].pulse_names == pulse_names
+            assert tuple(
+                label.textItem.toPlainText()
+                for label in window._rf_timelines[0]._pulse_labels
+            ) == pulse_names
+            expected_centers = tuple(
+                (start_us + end_us) * 500.0
+                for _event, start_us, end_us in (
+                    gui.rf_pulse_event_absolute_times_us(window._pulse[0], spec)
+                )
+            )
+            assert tuple(
+                label.pos().x()
+                for label in window._rf_timelines[0]._pulse_labels
+            ) == pytest.approx(expected_centers)
+            referenced = {
+                "rf_frequency": {item.frequency_parameter for item in pulse_items},
+                "rf_duration": {item.duration_parameter for item in pulse_items},
+            }
+            assert all(
+                axis.parameter_name in referenced[axis.axis_kind]
+                for axis in spec.sweep_axes
+            )
+            assert all(
+                item.name != "P1"
+                for item in spec.composite_items
+            ) or "P1" in pulse_names
+            assert [
+                item["name"] for item in panel.settings_dict()["composite_items"]
+            ] == [item.name for item in spec.composite_items]
+            return spec
+    
+        initial = assert_consistent()
+        initial_bindings = {
+            item.name: (item.frequency_parameter, item.duration_parameter)
+            for item in initial.composite_items
+            if item.kind == "pulse"
+        }
+    
+        # Reorder first: identity and named-parameter bindings must follow the pulse.
+        p3_row = row_named(panel.composite_item_table, "P3", 1)
+        header = panel.composite_row_header
+        header.moveSection(header.visualIndex(p3_row), 0)
+        header.commitVisualOrder()
+        reordered = assert_consistent()
+        assert tuple(item.name for item in reordered.composite_items) == (
+            "P3", "P0", "wait", "P1", "P2"
+        )
+        assert {
+            item.name: (item.frequency_parameter, item.duration_parameter)
+            for item in reordered.composite_items
+            if item.kind == "pulse"
+        } == initial_bindings
+    
+        # Deleting a uniquely referenced pulse disables only that pulse's sweeps.
+        p1_row = row_named(panel.composite_item_table, "P1", 1)
+        panel.composite_item_table.selectRow(p1_row)
+        panel._remove_composite_item()
+        after_delete = assert_consistent()
+        assert "P1" not in window._rf_timelines[0].pulse_names
+        assert not panel.frequency_parameter_table.cellWidget(
+            parameter_row(panel.frequency_parameter_table, "f1"), 2
+        ).isChecked()
+        assert not panel.duration_parameter_table.cellWidget(
+            parameter_row(panel.duration_parameter_table, "d1"), 2
+        ).isChecked()
+        assert not any(
+            axis.parameter_name in {"f1", "d1"}
+            for axis in after_delete.sweep_axes
+        )
+    
+        # A new pulse must not inherit the deleted pulse's old active sweep.
+        panel._add_composite_item("pulse")
+        new_row = panel.composite_item_table.rowCount() - 1
+        name_editor = panel.composite_item_table.cellWidget(new_row, 1)
+        name_editor.setText("replacement")
+        name_editor.editingFinished.emit()
+        panel.composite_item_table.cellWidget(new_row, 4).setCurrentText("f1")
+        panel.composite_item_table.cellWidget(new_row, 3).setCurrentText("d1")
+        replacement = assert_consistent()
+        assert not any(
+            axis.parameter_name in {"f1", "d1"}
+            for axis in replacement.sweep_axes
+        )
+    
+        # Explicitly re-enabling the named parameters attaches them to replacement.
+        f1_row = parameter_row(panel.frequency_parameter_table, "f1")
+        d1_row = parameter_row(panel.duration_parameter_table, "d1")
+        panel.frequency_parameter_table.cellWidget(f1_row, 2).setChecked(True)
+        panel.duration_parameter_table.cellWidget(d1_row, 2).setChecked(True)
+        reenabled = assert_consistent()
+        assert {
+            (axis.axis_kind, axis.parameter_name)
+            for axis in reenabled.sweep_axes
+        }.issuperset({
+            ("rf_frequency", "f1"),
+            ("rf_duration", "d1"),
+        })
+    
+        # Moving the replacement cannot transfer its parameter bindings to a row.
+        replacement_row = row_named(panel.composite_item_table, "replacement", 1)
+        header.moveSection(header.visualIndex(replacement_row), 1)
+        header.commitVisualOrder()
+        moved = assert_consistent()
+        moved_replacement = next(
+            item for item in moved.composite_items if item.name == "replacement"
+        )
+        assert (
+            moved_replacement.frequency_parameter,
+            moved_replacement.duration_parameter,
+        ) == ("f1", "d1")
+    
+        # Remove and recreate parameter rows in opposite orders. Deleted sweeps do
+        # not survive, while every pulse selector remains valid.
+        f2_row = parameter_row(panel.frequency_parameter_table, "f2")
+        panel.frequency_parameter_table.selectRow(f2_row)
+        panel._remove_frequency_parameter()
+        d2_row = parameter_row(panel.duration_parameter_table, "d2")
+        panel.duration_parameter_table.selectRow(d2_row)
+        panel._remove_duration_parameter()
+        without_f2_d2 = assert_consistent()
+        assert not any(
+            axis.parameter_name in {"f2", "d2"}
+            for axis in without_f2_d2.sweep_axes
+        )
+        panel._add_duration_parameter()
+        panel._add_frequency_parameter()
+        recreated = assert_consistent()
+        assert "d2" in {item.name for item in recreated.duration_parameters}
+        assert "f2" in {item.name for item in recreated.frequency_parameters}
+        assert not any(
+            axis.parameter_name in {"f2", "d2"}
+            for axis in recreated.sweep_axes
+        )
+&gt;       assert "P1" not in json.dumps(panel.settings_dict())
+E       assert 'P1' not in '{"enabled":... "phase_pi"}'
+E         
+E         'P1' is contained here:
+E         ?           ^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^
+E           ": "phase_P1", "phase_degrees": 10.0, "sweep_enabled": false, "sweep_start_degrees": 10.0, "sweep_stop_degrees": 10.0, "sweep_count": 1}, {"name": "phase_P2", "phase_degrees": 20.0, "sweep_enabled": false, "sweep_start_degrees": 20.0, "sweep_stop_degrees": 20.0, "sweep_count": 1}, {"name": "phase_P3", "phase_degrees": 30.0, "sweep_enabled": false, "sweep_start_degrees": 30.0, "sweep_stop_degrees": 30.0, "sweep_count": 1}], "global_amplitude_mode": "legacy", "global_amplitude_parameter": "", "global_calibration_datab...
+E         
+E         ...Full output truncated (2 lines hidden), use '-vv' to show
+
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:1336: AssertionError</failure></testcase><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_shared_sweeps_survive_until_the_last_pulse_reference" time="1.459" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_named_composite_sweeps_edit_and_remove_the_actual_parameter_rows" time="1.217" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_rf_duration_parameters_are_shared_sweep_axes" time="1.252" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_predefined_cpmg_and_udd_item_timing" time="0.071" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_predefined_composite_editor_round_trip_and_software_axes" time="1.236" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_predefined_software_sweep_can_be_edited_and_removed_from_experiment" time="1.181" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_composite_rf_power_calibration_is_independent_per_pulse" time="1.128"><failure message="assert False is True&#10; +  where False = &lt;built-in method isEnabled of QComboBox object at 0x0000017488DA3260&gt;()&#10; +    where &lt;built-in method isEnabled of QComboBox object at 0x0000017488DA3260&gt; = &lt;PyQt5.QtWidgets.QComboBox object at 0x0000017488DA3260&gt;.isEnabled&#10; +      where &lt;PyQt5.QtWidgets.QComboBox object at 0x0000017488DA3260&gt; = &lt;built-in method cellWidget of QTableWidget object at 0x0000017488E9D520&gt;(1, 5)&#10; +        where &lt;built-in method cellWidget of QTableWidget object at 0x0000017488E9D520&gt; = &lt;PyQt5.QtWidgets.QTableWidget object at 0x0000017488E9D520&gt;.cellWidget&#10; +          where &lt;PyQt5.QtWidgets.QTableWidget object at 0x0000017488E9D520&gt; = &lt;DCWaveform_Generator.RfPulsePortPanel object at 0x0000017488A39370&gt;.composite_item_table">def test_composite_rf_power_calibration_is_independent_per_pulse():
+        app = _application()
+        window = gui.MainWindow()
+        panel = window._rf_ports_panel._panels[0]
+        settings = {
+            **gui.DEFAULT_RF_OUTPUT_SETTINGS,
+            "enabled": True,
+            "pulse_mode": "composite",
+            "output_board_type": "RF_Out",
+            "frequency_parameters": [
+                asdict(QickRfFrequencyParameterSpec(
+                    "f0", 100.0, True, 100.0, 120.0, 3
+                )),
+            ],
+            "composite_items": [
+                asdict(QickRfCompositeItemSpec(
+                    "pulse",
+                    "calibrated",
+                    0.2,
+                    "f0",
+                    1234,
+                    0.0,
+                    power_calibration_enabled=True,
+                    power_calibration_database_path="pulse_calibration.db",
+                    power_calibration_run_id=73,
+                    target_output_power_dbm=-31.5,
+                )),
+                asdict(QickRfCompositeItemSpec(
+                    "pulse", "manual", 0.2, "f0", 8000, 90.0
+                )),
+            ],
+        }
+        panel.load_settings(settings)
+        app.processEvents()
+    
+        spec = panel.configured_spec()
+        calibrated, manual = spec.composite_items
+        assert calibrated.power_calibration_enabled is True
+        assert calibrated.power_calibration_database_path == "pulse_calibration.db"
+        assert calibrated.power_calibration_run_id == 73
+        assert calibrated.target_output_power_dbm == -31.5
+        assert manual.power_calibration_enabled is False
+        assert manual.gain == 8000
+    
+        calibrated_button = panel.composite_item_table.cellWidget(0, 6)
+        manual_button = panel.composite_item_table.cellWidget(1, 6)
+        assert calibrated_button.text() == "-31.5 dBm | Run 73"
+        assert manual_button.text() == "Manual gain"
+        assert panel.composite_item_table.cellWidget(0, 5).isEnabled() is False
+&gt;       assert panel.composite_item_table.cellWidget(1, 5).isEnabled() is True
+E       assert False is True
+E        +  where False = &lt;built-in method isEnabled of QComboBox object at 0x0000017488DA3260&gt;()
+E        +    where &lt;built-in method isEnabled of QComboBox object at 0x0000017488DA3260&gt; = &lt;PyQt5.QtWidgets.QComboBox object at 0x0000017488DA3260&gt;.isEnabled
+E        +      where &lt;PyQt5.QtWidgets.QComboBox object at 0x0000017488DA3260&gt; = &lt;built-in method cellWidget of QTableWidget object at 0x0000017488E9D520&gt;(1, 5)
+E        +        where &lt;built-in method cellWidget of QTableWidget object at 0x0000017488E9D520&gt; = &lt;PyQt5.QtWidgets.QTableWidget object at 0x0000017488E9D520&gt;.cellWidget
+E        +          where &lt;PyQt5.QtWidgets.QTableWidget object at 0x0000017488E9D520&gt; = &lt;DCWaveform_Generator.RfPulsePortPanel object at 0x0000017488A39370&gt;.composite_item_table
+
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:1849: AssertionError</failure></testcase><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_rf_duration_sweep_controls_build_sequence_axis_and_round_trip" time="1.214" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_rf_frequency_and_power_sweep_controls_round_trip" time="1.249" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_settings_restore_rf_frequency_slice_and_ignore_removed_slice" time="2.755" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_settings_clamp_stale_indexed_rf_anchors" time="2.375" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_rf_output_power_calibration_applies_matching_gain_and_round_trips" time="1.380" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_rf_output_power_calibration_allows_explicit_mismatch_override" time="1.296" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_rf_output_power_calibration_mismatch_preserves_gain" time="1.124" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_generated_qick_module_preserves_rf_duration_sweep_mode" time="0.075" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_generated_qick_module_preserves_composite_rf_sequence" time="0.039" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_generated_qick_module_preserves_multiple_ramp_rate_sweeps" time="0.045" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_generated_qick_module_preserves_hold_duration_sweep" time="0.037" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_rf_readout_panel_builds_analog_input_and_ddr_settings" time="1.049" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_dc_measure_mode_converts_iq_and_is_available_only_for_dc_input" time="1.103" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_awg_tuning_rf_readout_exposes_calibration_and_unit_selection" time="1.124" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_generated_module_supports_multiple_rf_outputs_and_readout_chain" time="0.074" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_settings_json_round_trip_restores_complete_gui_state" time="2.998" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_experiment_panel_builds_hardware_run_snapshot" time="1.162" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_stability_tab_builds_two_axis_hardware_sweep_without_database" time="1.138" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_stability_run_arguments_use_calibrated_modulation_power" time="1.113" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_stability_run_arguments_use_identified_50ksps_timing" time="1.097" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_experiment_panel_exposes_show_program_action" time="0.083" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_experiment_panel_stop_button_and_worker_cancellation" time="0.052" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_experiment_panel_result_display_does_not_query_qcodes_dataset" time="0.049" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_experiment_worker_detaches_qcodes_dataset_before_emit" time="0.033" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_experiment_panel_records_run_elapsed_time_and_stage_events" time="0.052" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_experiment_panel_defaults_to_parametric_awg_metadata" time="0.050" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_experiment_panel_visualizes_sweep_repetition_ddr_usage" time="0.050" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_awg_metadata_dialog_expands_only_the_selected_point" time="0.038" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_show_program_snapshot_allows_disabled_readout" time="1.058" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_qick_program_worker_compiles_and_returns_assembly" time="0.064" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_qick_assembly_dialog_is_read_only_and_copyable" time="0.035" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_detailed_error_dialog_copies_summary_and_traceback" time="0.033" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_main_fit_action_also_fits_sparameter_plot" time="1.069" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_legacy_single_waveform_json_remains_loadable" time="1.140" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_segment_names_survive_insert_delete_copy_and_json" time="0.065" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_settings_without_tproc_clock_use_300_mhz_default" time="1.168" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_version_12_top_level_tabs_migrate_after_stability_tab_insertion[1-_sparameter_panel]" time="1.219" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_version_12_top_level_tabs_migrate_after_stability_tab_insertion[2-_calibration_panel]" time="1.277" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_older_settings_apply_defaults_and_resave_as_current" time="1.251"><failure message="AssertionError: assert {'enabled': F...us': 0.0, ...} == {'enabled': F...us': 0.0, ...}&#10;  &#10;  Omitting 69 identical items, use -vv to show&#10;  Differing items:&#10;  {'composite_items': [{'kind': 'pulse', 'name': 'pulse_0', 'duration_us': 1.0, 'frequency_parameter': 'f0', ...}]} != {'composite_items': [{'kind': 'pulse', 'name': 'pulse_0', 'duration_us': 1.0, 'frequency_parameter': 'f0', ...}]}&#10;  {'phase_parameters': [{'name': 'phase_initial', 'phase_degrees': 0.0, 'sweep_enabled': False, 'sweep_start_degrees': 0...: 0.0, ...}, {'name': 'phase_pulse_0', 'phase_degrees': 0.0, 'sweep_enabled': False, 'sweep_start_degrees': 0.0, ...}]} != {'phase_parameters': []}&#10;  {'predefined_phase...&#10;  &#10;  ...Full output truncated (4 lines hidden), use '-vv' to show">tmp_path = WindowsPath('C:/Users/Measurement2/AppData/Local/Temp/pytest-of-Measurement2/pytest-44/test_older_settings_apply_defa0')
+
+    def test_older_settings_apply_defaults_and_resave_as_current(tmp_path):
+        app = _application()
+        window = gui.MainWindow()
+        document = window._settings_to_dict()
+        document["version"] = 2
+        document["display"]["selected_control_tab"] = 2
+        document["display"].pop("selected_awg_tuning_tab")
+        document["display"].pop("voltage_view")
+        document["grid"].pop("snap_enabled")
+        document["awg"].pop("cross_capacitance")
+        document["awg"].pop("sweeps")
+        document["qick"].pop("tproc_mhz")
+        document["qick"].pop("repetitions_per_sweep")
+        document["qick"].pop("iq_storage_mode")
+        document["qick"].pop("bias_t_compensation")
+        document["stability_diagram"].pop("iq_storage_mode")
+        document["experiment"].pop("notes")
+        document.pop("rf_outputs")
+        document["rf_readout"] = {"enabled": False}
+        document["s_parameter"].pop("database_path")
+    
+        old_path = tmp_path / "settings_v2.json"
+        old_path.write_text(json.dumps(document), encoding="utf-8")
+        window._load_settings_json(old_path)
+        app.processEvents()
+    
+        assert np.array_equal(window._cross_capacitance, np.eye(1))
+        assert window._plot.voltage_view == "both"
+        assert window._grid_snap_enabled is False
+        assert window._experiment_panel.tproc_mhz.value() == 300.0
+        assert window._experiment_panel.repetitions.value() == 1
+        assert (
+            window._experiment_panel.iq_storage_mode.currentData()
+            == IQ_STORAGE_FULL_TRACES
+        )
+        assert (
+            window._stability_panel.iq_storage_mode_value()
+            == IQ_STORAGE_FULL_TRACES
+        )
+        assert window._experiment_panel.bias_t_group.isChecked() is False
+        assert window._experiment_panel.bias_t_compensation_mv.value() == 80.0
+        assert window._control_tabs.currentWidget() is window._awg_tuning_page
+        assert window._awg_tuning_tabs.currentWidget() is window._rf_readout_panel
+        assert len(window._rf_ports_panel._panels) == 1
+&gt;       assert window._rf_ports_panel.settings()[0] == gui.DEFAULT_RF_OUTPUT_SETTINGS
+E       AssertionError: assert {'enabled': F...us': 0.0, ...} == {'enabled': F...us': 0.0, ...}
+E         
+E         Omitting 69 identical items, use -vv to show
+E         Differing items:
+E         {'composite_items': [{'kind': 'pulse', 'name': 'pulse_0', 'duration_us': 1.0, 'frequency_parameter': 'f0', ...}]} != {'composite_items': [{'kind': 'pulse', 'name': 'pulse_0', 'duration_us': 1.0, 'frequency_parameter': 'f0', ...}]}
+E         {'phase_parameters': [{'name': 'phase_initial', 'phase_degrees': 0.0, 'sweep_enabled': False, 'sweep_start_degrees': 0...: 0.0, ...}, {'name': 'phase_pulse_0', 'phase_degrees': 0.0, 'sweep_enabled': False, 'sweep_start_degrees': 0.0, ...}]} != {'phase_parameters': []}
+E         {'predefined_phase...
+E         
+E         ...Full output truncated (4 lines hidden), use '-vv' to show
+
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:3648: AssertionError</failure></testcase><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_bias_t_gui_extends_and_plots_the_physical_awg_trace" time="1.168" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_bias_t_gui_fixed_time_disables_voltage_and_adjusts_preview_level" time="1.096" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_bias_t_gui_rc_mode_enables_tau_and_preserves_nominal_segments" time="2.279" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_generated_qick_filter_compensation_preserves_tau_configuration" time="0.135" /><testcase classname="DCWaveformGeneratorGUI.test_dc_waveform_gui_rf" name="test_partial_legacy_rf_settings_fill_nested_defaults" time="1.378" /></testsuite></testsuites>

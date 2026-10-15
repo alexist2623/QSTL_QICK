@@ -1,0 +1,227 @@
+{
+  "published_utc": "2026-10-15T15:31:47.332371+00:00",
+  "publication_scope": "local firmware repository only",
+  "board_deployed": false,
+  "build": "F:\\Vivado_Output\\a5full1",
+  "conditions": {
+    "project": "qstl_awg_v5",
+    "vivado_version": "2023.1",
+    "part": "xczu49dr-ffvf1760-2-e",
+    "board_part": "xilinx.com:zcu216:part0:2.0",
+    "launch_jobs": "4",
+    "general.maxThreads": "5",
+    "synthesis_strategy": "Vivado Synthesis Defaults",
+    "implementation_strategy": "Vivado Implementation Defaults",
+    "manual_routing": "disabled",
+    "repo_dir": "C:/GIT_Workspace/QSTL_QICK",
+    "project_source_dir": "C:/GIT_Workspace/QSTL_QICK/qick/firmware/projects/qstl_awg_v5",
+    "output_dir": "F:/Vivado_Output/a5full1",
+    "constraint.timing.xdc.source_path": "C:/GIT_Workspace/QSTL_QICK/qick/firmware/projects/qstl_awg_v5/timing.xdc",
+    "constraint.timing.xdc.source_sha256": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb",
+    "constraint.timing.xdc.snapshot_path": "F:/Vivado_Output/a5full1/constraints/timing.xdc",
+    "constraint.timing.xdc.snapshot_sha256": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb",
+    "constraint.ios.xdc.source_path": "C:/GIT_Workspace/QSTL_QICK/qick/firmware/projects/qstl_awg_v5/ios.xdc",
+    "constraint.ios.xdc.source_sha256": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7",
+    "constraint.ios.xdc.snapshot_path": "F:/Vivado_Output/a5full1/constraints/ios.xdc",
+    "constraint.ios.xdc.snapshot_sha256": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7",
+    "TEMP": "C:\\Users\\MEASUR~1\\AppData\\Local\\Temp",
+    "TMP": "C:\\Users\\MEASUR~1\\AppData\\Local\\Temp",
+    "predicted_impl_temp_path": "F:/Vivado_Output/a5full1/qstl_awg_v5.runs/impl_1/.Xil/Vivado-82744-ece-cdw-js03",
+    "predicted_impl_temp_path_length": "79",
+    "git_branch": "awg_tuning_v4",
+    "git_commit": "1defb755ceee04a7b9ea7faa702b15eeb65321fc"
+  },
+  "timing": {
+    "synthesis_status": "synth_design Complete!",
+    "implementation_status": "write_bitstream Complete!",
+    "setup_wns_ns": "0.028000",
+    "setup_tns_ns": "0.000000",
+    "hold_whs_ns": "0.009357",
+    "hold_ths_ns": "0.000000",
+    "timing_closed": "YES",
+    "bitstream": "F:/Vivado_Output/a5full1/bitstream.bit",
+    "xsa": "F:/Vivado_Output/a5full1/bitstream.xsa",
+    "hwh": "F:/Vivado_Output/a5full1/bitstream.hwh"
+  },
+  "constraints": [
+    {
+      "name": "timing.xdc",
+      "source": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\timing.xdc",
+      "snapshot": "F:\\Vivado_Output\\a5full1\\constraints\\timing.xdc",
+      "sha256": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb",
+      "bytes": 3294
+    },
+    {
+      "name": "ios.xdc",
+      "source": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\ios.xdc",
+      "snapshot": "F:\\Vivado_Output\\a5full1\\constraints\\ios.xdc",
+      "sha256": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7",
+      "bytes": 13413
+    }
+  ],
+  "topology": {
+    "passed": true,
+    "hwh": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\bitstream.hwh",
+    "sha256": "52d16d740d227698e4f07f20113d24aa866531d8cb161e54ef899b8c67f54080",
+    "pairs": [
+      {
+        "awg": "axis_awg_tuning_v3_4",
+        "rf": "axis_signal_gen_v6_0",
+        "dac": "10",
+        "route": {
+          "output_sum_version": 2,
+          "output_sum_block": "axis_output_sum_4",
+          "output_sum_role": "awg",
+          "output_sum_bypass": false,
+          "output_sum_awg": "axis_awg_tuning_v3_4",
+          "output_sum_rf": "axis_signal_gen_v6_0",
+          "output_sum_awg_delay_cycles": 13,
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v3_5",
+        "rf": "axis_signal_gen_v6_1",
+        "dac": "11",
+        "route": {
+          "output_sum_version": 2,
+          "output_sum_block": "axis_output_sum_5",
+          "output_sum_role": "awg",
+          "output_sum_bypass": false,
+          "output_sum_awg": "axis_awg_tuning_v3_5",
+          "output_sum_rf": "axis_signal_gen_v6_1",
+          "output_sum_awg_delay_cycles": 13,
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v3_6",
+        "rf": "axis_signal_gen_v6_3",
+        "dac": "12",
+        "route": {
+          "output_sum_version": 2,
+          "output_sum_block": "axis_output_sum_6",
+          "output_sum_role": "awg",
+          "output_sum_bypass": false,
+          "output_sum_awg": "axis_awg_tuning_v3_6",
+          "output_sum_rf": "axis_signal_gen_v6_3",
+          "output_sum_awg_delay_cycles": 13,
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v3_8",
+        "rf": null,
+        "dac": "20",
+        "route": {
+          "output_sum_version": 2,
+          "output_sum_block": "axis_output_sum_8",
+          "output_sum_role": "awg",
+          "output_sum_bypass": true,
+          "output_sum_awg": "axis_awg_tuning_v3_8",
+          "output_sum_rf": null,
+          "output_sum_awg_delay_cycles": 13,
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v3_9",
+        "rf": null,
+        "dac": "21",
+        "route": {
+          "output_sum_version": 2,
+          "output_sum_block": "axis_output_sum_9",
+          "output_sum_role": "awg",
+          "output_sum_bypass": true,
+          "output_sum_awg": "axis_awg_tuning_v3_9",
+          "output_sum_rf": null,
+          "output_sum_awg_delay_cycles": 13,
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v3_10",
+        "rf": null,
+        "dac": "22",
+        "route": {
+          "output_sum_version": 2,
+          "output_sum_block": "axis_output_sum_10",
+          "output_sum_role": "awg",
+          "output_sum_bypass": true,
+          "output_sum_awg": "axis_awg_tuning_v3_10",
+          "output_sum_rf": null,
+          "output_sum_awg_delay_cycles": 13,
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v3_11",
+        "rf": null,
+        "dac": "23",
+        "route": {
+          "output_sum_version": 2,
+          "output_sum_block": "axis_output_sum_11",
+          "output_sum_role": "awg",
+          "output_sum_bypass": true,
+          "output_sum_awg": "axis_awg_tuning_v3_11",
+          "output_sum_rf": null,
+          "output_sum_awg_delay_cycles": 13,
+          "post_output_latency_cycles": 2
+        }
+      }
+    ],
+    "awg_latency": 31,
+    "rf_latency": 31,
+    "clock_mhz": 300
+  },
+  "xsa_members": {
+    "bit": "bitstream.bit",
+    "hwh": "d_1.hwh"
+  },
+  "functional_gate": {
+    "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\prebuild_gate.json",
+    "bytes": 6871,
+    "sha256": "a7fb2e437d6bfa96cebe700dd33d909cb229f08407fd6921d765748269129f2c"
+  },
+  "software_integration": {
+    "complete": true,
+    "python_v5_timing_profile": true,
+    "evidence": {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\software_followup\\gui_rtl\\reporting\\result.json",
+      "bytes": 46994,
+      "sha256": "f53f835e085dbf5f32dc712e86d37ff4ce9d3e02c3c8fffaafada86bac987b9a"
+    },
+    "sources": {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\software_followup\\verified_sources\\manifest.json",
+      "bytes": 7036,
+      "sha256": "8ceb80773fbc7b2f52c7e864e1d26f1661b06e09a83de95c6191ad30e8aee9d0"
+    }
+  },
+  "additional_validation": {
+    "status": "running",
+    "scope": "Virtual matrix21, compiler17, composite7 requested on2026-10-15",
+    "evidence_directory": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\expanded_gui_rtl_20261015"
+  },
+  "limitations": {
+    "exact_shared_port_zero_offset_supported": false,
+    "second_command_lateness_cycles": 3,
+    "board_analog_measured": false
+  },
+  "artifacts": [
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\bitstream.bit",
+      "bytes": 34437473,
+      "sha256": "6e26cd37e9d31b108a77d63ed910f50d886690e23c9af935ec21502c4c192cc5"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\bitstream.hwh",
+      "bytes": 2660037,
+      "sha256": "52d16d740d227698e4f07f20113d24aa866531d8cb161e54ef899b8c67f54080"
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\bitstream.xsa",
+      "bytes": 21185538,
+      "sha256": "a5332db3449aaa620a8bf46a3e2496279ca7bbb8897b129fce52670cee5e1908"
+    }
+  ]
+}

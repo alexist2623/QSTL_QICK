@@ -1,0 +1,19 @@
+
+****** xsim v2023.1 (64-bit)
+  **** SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+  **** IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+  **** SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/native/xsim_script.tcl
+# xsim {native} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+Fatal: offset/width pair=0
+Time: 17763552 ps  Iteration: 0  Process: /tb_native_alignment/Initial73_3950  Scope: tb_native_alignment.Block87_3953  File: C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_output_sum_v2/validation/tb_native_alignment.sv Line: 92
+$finish called at time : 17763552 ps
+run: Time (s): cpu = 00:00:00 ; elapsed = 00:00:17 . Memory (MB): peak = 197.055 ; gain = 0.000
+exit
+INFO: xsimkernel Simulation Memory Usage: 63720 KB (Peak: 63720 KB), Simulation CPU Usage: 17155 ms
+INFO: [Common 17-206] Exiting xsim at Wed Oct 14 19:21:59 2026...

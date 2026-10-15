@@ -1,0 +1,277 @@
+................................................F..................FFFFF [ 64%]
+..........F...................FFFF..F..                                  [100%]
+================================== FAILURES ===================================
+____ test_composite_editor_repeated_mutation_and_load_leave_no_stale_rows _____
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:744: in test_composite_editor_repeated_mutation_and_load_leave_no_stale_rows
+    assert _named_item_value_editor(panel, new_pulse_row, "amplitude").value() == 20000
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:690: in _named_item_value_editor
+    index = next(index for index in range(table.rowCount())
+E   StopIteration
+_____ test_rf_duration_sweep_controls_build_sequence_axis_and_round_trip ______
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:1913: in test_rf_duration_sweep_controls_build_sequence_axis_and_round_trip
+    restored.load_settings(settings)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7245: in load_settings
+    self._upgrade_loaded_amplitude_controls(spec)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:5225: in _upgrade_loaded_amplitude_controls
+    composite_spec = replace(spec, pulse_mode="composite")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Measurement2\.conda\envs\qcodes2\Lib\dataclasses.py:1588: in replace
+    return obj.__class__(**changes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:77: in __init__
+    ???
+DCWaveformGeneratorGUI\dc_waveform_core.py:1089: in __post_init__
+    effective_items = self.effective_composite_items
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\dc_waveform_core.py:1222: in effective_composite_items
+    raise ValueError("named RF amplitude parameters require manual or calibration amplitude mode")
+E   ValueError: named RF amplitude parameters require manual or calibration amplitude mode
+____________ test_rf_frequency_and_power_sweep_controls_round_trip ____________
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:1957: in test_rf_frequency_and_power_sweep_controls_round_trip
+    restored.load_settings(settings)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7245: in load_settings
+    self._upgrade_loaded_amplitude_controls(spec)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:5225: in _upgrade_loaded_amplitude_controls
+    composite_spec = replace(spec, pulse_mode="composite")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Measurement2\.conda\envs\qcodes2\Lib\dataclasses.py:1588: in replace
+    return obj.__class__(**changes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:77: in __init__
+    ???
+DCWaveformGeneratorGUI\dc_waveform_core.py:1089: in __post_init__
+    effective_items = self.effective_composite_items
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\dc_waveform_core.py:1222: in effective_composite_items
+    raise ValueError("named RF amplitude parameters require manual or calibration amplitude mode")
+E   ValueError: named RF amplitude parameters require manual or calibration amplitude mode
+______ test_settings_restore_rf_frequency_slice_and_ignore_removed_slice ______
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:2014: in test_settings_restore_rf_frequency_slice_and_ignore_removed_slice
+    restored._load_settings_json(saved_path)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:17884: in _load_settings_json
+    self._apply_decoded_settings(self._decode_settings(data))
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:17766: in _apply_decoded_settings
+    self._rf_ports_panel.load_settings(settings["rf_outputs"])
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7374: in load_settings
+    self.add_port(settings=entry)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7303: in add_port
+    panel.load_settings(settings)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7245: in load_settings
+    self._upgrade_loaded_amplitude_controls(spec)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:5225: in _upgrade_loaded_amplitude_controls
+    composite_spec = replace(spec, pulse_mode="composite")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Measurement2\.conda\envs\qcodes2\Lib\dataclasses.py:1588: in replace
+    return obj.__class__(**changes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:77: in __init__
+    ???
+DCWaveformGeneratorGUI\dc_waveform_core.py:1089: in __post_init__
+    effective_items = self.effective_composite_items
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\dc_waveform_core.py:1222: in effective_composite_items
+    raise ValueError("named RF amplitude parameters require manual or calibration amplitude mode")
+E   ValueError: named RF amplitude parameters require manual or calibration amplitude mode
+________________ test_settings_clamp_stale_indexed_rf_anchors _________________
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:2059: in test_settings_clamp_stale_indexed_rf_anchors
+    restored._load_settings_json(path)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:17884: in _load_settings_json
+    self._apply_decoded_settings(self._decode_settings(data))
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:17766: in _apply_decoded_settings
+    self._rf_ports_panel.load_settings(settings["rf_outputs"])
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7374: in load_settings
+    self.add_port(settings=entry)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7303: in add_port
+    panel.load_settings(settings)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7245: in load_settings
+    self._upgrade_loaded_amplitude_controls(spec)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:5225: in _upgrade_loaded_amplitude_controls
+    composite_spec = replace(spec, pulse_mode="composite")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Measurement2\.conda\envs\qcodes2\Lib\dataclasses.py:1588: in replace
+    return obj.__class__(**changes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:77: in __init__
+    ???
+DCWaveformGeneratorGUI\dc_waveform_core.py:1089: in __post_init__
+    effective_items = self.effective_composite_items
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\dc_waveform_core.py:1222: in effective_composite_items
+    raise ValueError("named RF amplitude parameters require manual or calibration amplitude mode")
+E   ValueError: named RF amplitude parameters require manual or calibration amplitude mode
+___ test_rf_output_power_calibration_applies_matching_gain_and_round_trips ____
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:2201: in test_rf_output_power_calibration_applies_matching_gain_and_round_trips
+    restored.load_settings(settings)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7245: in load_settings
+    self._upgrade_loaded_amplitude_controls(spec)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:5225: in _upgrade_loaded_amplitude_controls
+    composite_spec = replace(spec, pulse_mode="composite")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Measurement2\.conda\envs\qcodes2\Lib\dataclasses.py:1588: in replace
+    return obj.__class__(**changes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:77: in __init__
+    ???
+DCWaveformGeneratorGUI\dc_waveform_core.py:1089: in __post_init__
+    effective_items = self.effective_composite_items
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\dc_waveform_core.py:1222: in effective_composite_items
+    raise ValueError("named RF amplitude parameters require manual or calibration amplitude mode")
+E   ValueError: named RF amplitude parameters require manual or calibration amplitude mode
+__________ test_settings_json_round_trip_restores_complete_gui_state __________
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:2879: in test_settings_json_round_trip_restores_complete_gui_state
+    restored._load_settings_json(saved_path)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:17884: in _load_settings_json
+    self._apply_decoded_settings(self._decode_settings(data))
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:17766: in _apply_decoded_settings
+    self._rf_ports_panel.load_settings(settings["rf_outputs"])
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7374: in load_settings
+    self.add_port(settings=entry)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7303: in add_port
+    panel.load_settings(settings)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7245: in load_settings
+    self._upgrade_loaded_amplitude_controls(spec)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:5225: in _upgrade_loaded_amplitude_controls
+    composite_spec = replace(spec, pulse_mode="composite")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Measurement2\.conda\envs\qcodes2\Lib\dataclasses.py:1588: in replace
+    return obj.__class__(**changes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:77: in __init__
+    ???
+DCWaveformGeneratorGUI\dc_waveform_core.py:1089: in __post_init__
+    effective_items = self.effective_composite_items
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\dc_waveform_core.py:1222: in effective_composite_items
+    raise ValueError("named RF amplitude parameters require manual or calibration amplitude mode")
+E   ValueError: named RF amplitude parameters require manual or calibration amplitude mode
+____________ test_settings_without_tproc_clock_use_300_mhz_default ____________
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:3585: in test_settings_without_tproc_clock_use_300_mhz_default
+    window._apply_decoded_settings(decoded)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:17766: in _apply_decoded_settings
+    visible=settings["grid_visible"],
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7374: in load_settings
+    panel.setParent(None)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7303: in add_port
+    self._panels.append(panel)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7245: in load_settings
+    self._bind_globals_to_custom_rows(
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:5225: in _upgrade_loaded_amplitude_controls
+    ???
+C:\Users\Measurement2\.conda\envs\qcodes2\Lib\dataclasses.py:1588: in replace
+    return obj.__class__(**changes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:77: in __init__
+    ???
+DCWaveformGeneratorGUI\dc_waveform_core.py:1089: in __post_init__
+    effective_items = self.effective_composite_items
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\dc_waveform_core.py:1222: in effective_composite_items
+    raise ValueError("named RF amplitude parameters require manual or calibration amplitude mode")
+E   ValueError: named RF amplitude parameters require manual or calibration amplitude mode
+_ test_version_12_top_level_tabs_migrate_after_stability_tab_insertion[1-_sparameter_panel] _
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:3607: in test_version_12_top_level_tabs_migrate_after_stability_tab_insertion
+    window._apply_decoded_settings(decoded)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:17766: in _apply_decoded_settings
+    visible=settings["grid_visible"],
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7374: in load_settings
+    panel.setParent(None)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7303: in add_port
+    self._panels.append(panel)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7245: in load_settings
+    self._bind_globals_to_custom_rows(
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:5225: in _upgrade_loaded_amplitude_controls
+    ???
+C:\Users\Measurement2\.conda\envs\qcodes2\Lib\dataclasses.py:1588: in replace
+    return obj.__class__(**changes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:77: in __init__
+    ???
+DCWaveformGeneratorGUI\dc_waveform_core.py:1089: in __post_init__
+    effective_items = self.effective_composite_items
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\dc_waveform_core.py:1222: in effective_composite_items
+    raise ValueError("named RF amplitude parameters require manual or calibration amplitude mode")
+E   ValueError: named RF amplitude parameters require manual or calibration amplitude mode
+_ test_version_12_top_level_tabs_migrate_after_stability_tab_insertion[2-_calibration_panel] _
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:3607: in test_version_12_top_level_tabs_migrate_after_stability_tab_insertion
+    window._apply_decoded_settings(decoded)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:17766: in _apply_decoded_settings
+    visible=settings["grid_visible"],
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7374: in load_settings
+    panel.setParent(None)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7303: in add_port
+    self._panels.append(panel)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7245: in load_settings
+    self._bind_globals_to_custom_rows(
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:5225: in _upgrade_loaded_amplitude_controls
+    ???
+C:\Users\Measurement2\.conda\envs\qcodes2\Lib\dataclasses.py:1588: in replace
+    return obj.__class__(**changes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:77: in __init__
+    ???
+DCWaveformGeneratorGUI\dc_waveform_core.py:1089: in __post_init__
+    effective_items = self.effective_composite_items
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\dc_waveform_core.py:1222: in effective_composite_items
+    raise ValueError("named RF amplitude parameters require manual or calibration amplitude mode")
+E   ValueError: named RF amplitude parameters require manual or calibration amplitude mode
+__________ test_older_settings_apply_defaults_and_resave_as_current ___________
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:3672: in test_older_settings_apply_defaults_and_resave_as_current
+    assert restored_rf == expected_rf
+E   AssertionError: assert {'enabled': F...us': 0.0, ...} == {'enabled': F...us': 0.0, ...}
+E     
+E     Omitting 73 identical items, use -vv to show
+E     Differing items:
+E     {'amplitude_parameters': [{'name': 'a_global', 'value': 20000.0, 'sweep_enabled': False, 'sweep_start': 20000.0, ...},... 'sweep_start': 20000.0, ...}, {'name': 'a_0', 'value': 20000.0, 'sweep_enabled': False, 'sweep_start': 20000.0, ...}]} != {'amplitude_parameters': []}
+E     {'composite_items': [{'kind': 'pulse', 'name': 'pulse_0', 'duration_us': 1.0, 'frequency_parameter': 'f0', ...}]} != {'composite_items': [{'kind': 'pulse', 'name': 'pulse_0', 'duration_us': 1.0, 'frequency_parameter': 'f0', ...}]}
+E     Left contains ...
+E     
+E     ...Full output truncated (26 lines hidden), use '-vv' to show
+_____ test_bias_t_gui_rc_mode_enables_tau_and_preserves_nominal_segments ______
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:3796: in test_bias_t_gui_rc_mode_enables_tau_and_preserves_nominal_segments
+    restored._load_settings_json(settings_path)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:17884: in _load_settings_json
+    def _load_settings_json(self, path) -> Path:
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:17766: in _apply_decoded_settings
+    visible=settings["grid_visible"],
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7374: in load_settings
+    panel.setParent(None)
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7303: in add_port
+    self._panels.append(panel)
+        ^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:7245: in load_settings
+    self._bind_globals_to_custom_rows(
+DCWaveformGeneratorGUI\DCWaveform_Generator.py:5225: in _upgrade_loaded_amplitude_controls
+    ???
+C:\Users\Measurement2\.conda\envs\qcodes2\Lib\dataclasses.py:1588: in replace
+    return obj.__class__(**changes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:77: in __init__
+    ???
+DCWaveformGeneratorGUI\dc_waveform_core.py:1089: in __post_init__
+    effective_items = self.effective_composite_items
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DCWaveformGeneratorGUI\dc_waveform_core.py:1222: in effective_composite_items
+    raise ValueError("named RF amplitude parameters require manual or calibration amplitude mode")
+E   ValueError: named RF amplitude parameters require manual or calibration amplitude mode
+=========================== short test summary info ===========================
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_composite_editor_repeated_mutation_and_load_leave_no_stale_rows
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_rf_duration_sweep_controls_build_sequence_axis_and_round_trip
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_rf_frequency_and_power_sweep_controls_round_trip
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_settings_restore_rf_frequency_slice_and_ignore_removed_slice
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_settings_clamp_stale_indexed_rf_anchors
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_rf_output_power_calibration_applies_matching_gain_and_round_trips
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_settings_json_round_trip_restores_complete_gui_state
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_settings_without_tproc_clock_use_300_mhz_default
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_version_12_top_level_tabs_migrate_after_stability_tab_insertion[1-_sparameter_panel]
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_version_12_top_level_tabs_migrate_after_stability_tab_insertion[2-_calibration_panel]
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_older_settings_apply_defaults_and_resave_as_current
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_bias_t_gui_rc_mode_enables_tau_and_preserves_nominal_segments
+12 failed, 99 passed in 132.23s (0:02:12)

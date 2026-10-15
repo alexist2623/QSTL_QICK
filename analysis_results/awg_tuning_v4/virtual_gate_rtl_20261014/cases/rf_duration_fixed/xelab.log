@@ -1,0 +1,309 @@
+Vivado Simulator v2023.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: F:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/xelab.exe --incr --O2 --debug off --relax --mt 4 -L xil_defaultlib -L axis_infrastructure_v1_1_0 -L axis_broadcaster_v1_1_27 -L axis_clock_converter_v1_1_29 -L xbip_utils_v3_0_10 -L axi_utils_v2_0_6 -L fir_compiler_v7_2_19 -L xbip_pipe_v3_0_6 -L xbip_bram18k_v3_0_6 -L mult_gen_v12_0_18 -L xbip_dsp48_wrapper_v3_0_4 -L xbip_dsp48_addsub_v3_0_6 -L xbip_dsp48_multadd_v3_0_6 -L dds_compiler_v6_0_22 -L axis_register_slice_v1_1_28 -L axis_switch_v1_1_28 -L c_reg_fd_v12_0_6 -L c_mux_bit_v12_0_6 -L c_shift_ram_v12_0_14 -L xlconstant_v1_1_7 -L uvm -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot rc_gui xil_defaultlib.tb_rc_gui xil_defaultlib.glbl 
+Using 4 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3091] actual bit length 12 differs from formal bit length 32 for port 'addr_o' [F:/Vivado_Output/a3sim1/namespaced/080_axis_tproc64x32_x8.v:300]
+WARNING: [VRFC 10-3091] actual bit length 12 differs from formal bit length 32 for port 'MEM_ADDR_REG' [F:/Vivado_Output/a3sim1/namespaced/080_axis_tproc64x32_x8.v:311]
+WARNING: [VRFC 10-3091] actual bit length 12 differs from formal bit length 32 for port 'MEM_LEN_REG' [F:/Vivado_Output/a3sim1/namespaced/080_axis_tproc64x32_x8.v:312]
+WARNING: [VRFC 10-3705] select index 2 into 'valid_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:100]
+WARNING: [VRFC 10-3705] select index 3 into 'valid_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:101]
+WARNING: [VRFC 10-3705] select index 4 into 'valid_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:102]
+WARNING: [VRFC 10-3705] select index 5 into 'valid_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:103]
+WARNING: [VRFC 10-3705] select index 6 into 'valid_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:104]
+WARNING: [VRFC 10-3705] select index 7 into 'valid_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:105]
+WARNING: [VRFC 10-3705] select index 2 into 'data_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:109]
+WARNING: [VRFC 10-3705] select index 3 into 'data_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:110]
+WARNING: [VRFC 10-3705] select index 4 into 'data_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:111]
+WARNING: [VRFC 10-3705] select index 5 into 'data_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:112]
+WARNING: [VRFC 10-3705] select index 6 into 'data_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:113]
+WARNING: [VRFC 10-3705] select index 7 into 'data_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:114]
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/axis_awg_tuning_v3.sv" Line 4. Module axis_awg_tuning_v3(EXTRA_Y_PIPE_STAGES=3) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_axi_slv_awg_tuning_v1.sv" Line 4. Module v3_axi_slv_awg_tuning_v1 doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 236. Module v3_awg_tuning_ctrl(EXTRA_Y_PIPE_STAGES=3) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=2) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=3) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=4) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=5) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=6) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=7) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=8) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=9) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=10) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=11) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=12) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=13) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=14) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=15) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=16,REGISTER_OUTPUT=0) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48(REGISTER_OUTPUT=0) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/axis_awg_tuning_v3.sv" Line 4. Module axis_awg_tuning_v3(EXTRA_Y_PIPE_STAGES=3) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_axi_slv_awg_tuning_v1.sv" Line 4. Module v3_axi_slv_awg_tuning_v1 doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 236. Module v3_awg_tuning_ctrl(EXTRA_Y_PIPE_STAGES=3) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=2) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=3) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=4) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=5) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=6) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=7) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=8) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=9) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=10) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=11) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=12) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=13) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=14) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=15) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=16,REGISTER_OUTPUT=0) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48(REGISTER_OUTPUT=0) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/axis_awg_tuning_v3.sv" Line 4. Module axis_awg_tuning_v3(EXTRA_Y_PIPE_STAGES=3) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_axi_slv_awg_tuning_v1.sv" Line 4. Module v3_axi_slv_awg_tuning_v1 doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 236. Module v3_awg_tuning_ctrl(EXTRA_Y_PIPE_STAGES=3) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=2) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=3) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=4) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=5) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=6) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=7) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=8) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=9) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=10) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 138. Module v3_dsp48e2_add48_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/GIT_Workspace/QSTL_QICK/qick/firmware/ip/axis_awg_tuning_v3/src/v3_awg_tuning_ctrl.sv" Line 42. Module v3_dsp48e2_mul_step_const(CONST_VALUE=11) doesn't have a timescale but at least one module in design has a timescale.
+INFO: [Common 17-14] Message 'XSIM 43-4099' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1fs
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package ieee.math_real
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling package xbip_utils_v3_0_10.xbip_utils_v3_0_10_pkg
+Compiling package xbip_utils_v3_0_10.xcc_utils_v3_0
+Compiling package dds_compiler_v6_0_22.dds_compiler_v6_0_22_viv_comp
+Compiling package ieee.std_logic_signed
+Compiling package dds_compiler_v6_0_22.pkg_dds_compiler_v6_0_22
+Compiling package dds_compiler_v6_0_22.dds_compiler_v6_0_22_hdl_comps
+Compiling package xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv_comp
+Compiling package axi_utils_v2_0_6.axi_utils_v2_0_6_pkg
+Compiling package axi_utils_v2_0_6.global_util_pkg
+Compiling package axi_utils_v2_0_6.axi_utils_comps
+Compiling package unisim.vcomponents
+Compiling package ieee.vital_timing
+Compiling package ieee.vital_primitives
+Compiling package unisim.vpkg
+Compiling package dds_compiler_v6_0_22.pkg_betas
+Compiling package dds_compiler_v6_0_22.pkg_alphas
+Compiling module xil_defaultlib.v3_dc_mul64
+Compiling module xil_defaultlib.v3_awg_dc_area_default
+Compiling module xil_defaultlib.v3_awg_rc_precomp
+Compiling module xil_defaultlib.v3_axi_slv_awg_tuning_v1
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const_defaul...
+Compiling module unisims_ver.DSP48E2(ACASCREG=0,ADREG=0,ALUMO...
+Compiling module xil_defaultlib.v3_dsp48e2_add48_default
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module xil_defaultlib.v3_dsp48e2_mul_step_const(CONST_...
+Compiling module unisims_ver.DSP48E2(ACASCREG=0,ADREG=0,ALUMO...
+Compiling module xil_defaultlib.v3_dsp48e2_add48(REGISTER_OUTPUT...
+Compiling module xil_defaultlib.v3_awg_tuning_ctrl(EXTRA_Y_PIPE_...
+Compiling module xil_defaultlib.axis_awg_tuning_v3(EXTRA_Y_PIPE_...
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_register_slice_nb_axis_register_slice_nb [\sim_axis_register_slice_nb_axis...]
+Compiling architecture sim_bd_axis_register_slice_0_0_arch of entity xil_defaultlib.sim_bd_axis_register_slice_0_0 [sim_bd_axis_register_slice_0_0_d...]
+Compiling architecture sim_bd_axis_register_slice_1_0_arch of entity xil_defaultlib.sim_bd_axis_register_slice_1_0 [sim_bd_axis_register_slice_1_0_d...]
+Compiling architecture sim_bd_axis_register_slice_10_0_arch of entity xil_defaultlib.sim_bd_axis_register_slice_10_0 [sim_bd_axis_register_slice_10_0_...]
+Compiling architecture sim_bd_axis_register_slice_11_0_arch of entity xil_defaultlib.sim_bd_axis_register_slice_11_0 [sim_bd_axis_register_slice_11_0_...]
+Compiling architecture sim_bd_axis_register_slice_12_0_arch of entity xil_defaultlib.sim_bd_axis_register_slice_12_0 [sim_bd_axis_register_slice_12_0_...]
+Compiling module axis_infrastructure_v1_1_0.axis_infrastructure_v1_1_0_util_...
+Compiling module axis_register_slice_v1_1_28.axis_register_slice_v1_1_28_axis...
+Compiling module axis_infrastructure_v1_1_0.axis_infrastructure_v1_1_0_util_...
+Compiling module axis_register_slice_v1_1_28.axis_register_slice_v1_1_28_axis...
+Compiling module xil_defaultlib.sim_bd_axis_register_slice_21_0
+Compiling module xil_defaultlib.sim_bd_axis_register_slice_22_0
+Compiling module xil_defaultlib.sim_bd_axis_register_slice_23_0
+Compiling architecture sim_bd_axis_register_slice_3_0_arch of entity xil_defaultlib.sim_bd_axis_register_slice_3_0 [sim_bd_axis_register_slice_3_0_d...]
+Compiling module xil_defaultlib.sim_bd_axis_register_slice_4_0
+Compiling module xil_defaultlib.sim_bd_axis_register_slice_5_0
+Compiling module xil_defaultlib.sim_bd_axis_register_slice_7_0
+Compiling architecture sim_bd_axis_register_slice_8_0_arch of entity xil_defaultlib.sim_bd_axis_register_slice_8_0 [sim_bd_axis_register_slice_8_0_d...]
+Compiling module xil_defaultlib.sim_bd_axis_register_slice_9_0
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_set_reg_axis_set_reg [\sim_axis_set_reg_axis_set_reg(d...]
+Compiling architecture sim_bd_axis_set_reg_0_0_arch of entity xil_defaultlib.sim_bd_axis_set_reg_0_0 [sim_bd_axis_set_reg_0_0_default]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_signal_gen_v6_axi_slv_sg_v6 [sim_axis_signal_gen_v6_axi_slv_s...]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_signal_gen_v6_bram_simple_dp [\sim_axis_signal_gen_v6_bram_sim...]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_signal_gen_v6_fifo [\sim_axis_signal_gen_v6_fifo(b=1...]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_signal_gen_v6_synchronizer_n [sim_axis_signal_gen_v6_synchroni...]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_signal_gen_v6_data_writer [\sim_axis_signal_gen_v6_data_wri...]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_signal_gen_v6_bram_dp [\sim_axis_signal_gen_v6_bram_dp(...]
+Compiling module xil_defaultlib.sim_axis_signal_gen_v6_ctrl_sg_v...
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture synth of entity dds_compiler_v6_0_22.dds_compiler_v6_0_22_rdy [\dds_compiler_v6_0_22_rdy(c_has_...]
+Compiling architecture synth of entity dds_compiler_v6_0_22.dither_wrap [\dither_wrap(ci_phase_err_width=...]
+Compiling architecture dsp48e1_v of entity unisim.DSP48E1 [\DSP48E1(adreg=0,carryinreg=0,ca...]
+Compiling architecture dsp48e_v of entity unisim.DSP48E [\DSP48E(carryinreg=0,carryinselr...]
+Compiling architecture synth of entity dds_compiler_v6_0_22.dsp48_wrap [\dsp48_wrap(xdf="zynquplus",abdr...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture dsp48e1_v of entity unisim.DSP48E1 [\DSP48E1(acascreg=0,adreg=0,areg...]
+Compiling architecture dsp48e_v of entity unisim.DSP48E [\DSP48E(acascreg=0,areg=0,bcascr...]
+Compiling architecture synth of entity dds_compiler_v6_0_22.dsp48_wrap [\dsp48_wrap(xdf="zynquplus",creg...]
+Compiling architecture synth of entity dds_compiler_v6_0_22.accum [\accum(c_xdevicefamily="zynquplu...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture synth of entity dds_compiler_v6_0_22.sin_cos [\sin_cos(c_xdevicefamily="zynqup...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture synth of entity dds_compiler_v6_0_22.dds_compiler_v6_0_22_core [\dds_compiler_v6_0_22_core(c_xde...]
+Compiling architecture synth of entity dds_compiler_v6_0_22.dds_compiler_v6_0_22_viv [\dds_compiler_v6_0_22_viv(c_xdev...]
+Compiling architecture xilinx of entity dds_compiler_v6_0_22.dds_compiler_v6_0_22 [\dds_compiler_v6_0_22(c_xdevicef...]
+Compiling architecture dds_compiler_0_arch of entity xil_defaultlib.sim_axis_signal_gen_v6_dds_compiler_0 [sim_axis_signal_gen_v6_dds_compi...]
+Compiling module xil_defaultlib.sim_axis_signal_gen_v6_latency_r...
+Compiling module xil_defaultlib.sim_axis_signal_gen_v6_latency_r...
+Compiling module xil_defaultlib.sim_axis_signal_gen_v6_latency_r...
+Compiling module xil_defaultlib.sim_axis_signal_gen_v6_latency_r...
+Compiling module xil_defaultlib.sim_axis_signal_gen_v6_latency_r...
+Compiling module xil_defaultlib.sim_axis_signal_gen_v6_latency_r...
+Compiling module xil_defaultlib.sim_axis_signal_gen_v6_latency_r...
+Compiling module xil_defaultlib.sim_axis_signal_gen_v6_latency_r...
+Compiling module xil_defaultlib.sim_axis_signal_gen_v6_signal_ge...
+Compiling module xil_defaultlib.sim_axis_signal_gen_v6_signal_ge...
+Compiling module xil_defaultlib.sim_axis_signal_gen_v6_axis_sign...
+Compiling module xil_defaultlib.sim_bd_axis_signal_gen_v6_0_0
+Compiling module xil_defaultlib.sim_bd_axis_signal_gen_v6_1_0
+Compiling module xil_defaultlib.sim_bd_axis_signal_gen_v6_3_0
+Compiling module xil_defaultlib.square_rc_precomp_default
+Compiling module xil_defaultlib.square_dds
+Compiling module xil_defaultlib.axis_square_pulse_v1_default
+WARNING: [VRFC 10-3705] select index 2 into 'valid_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:100]
+WARNING: [VRFC 10-3705] select index 3 into 'valid_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:101]
+WARNING: [VRFC 10-3705] select index 4 into 'valid_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:102]
+WARNING: [VRFC 10-3705] select index 5 into 'valid_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:103]
+WARNING: [VRFC 10-3705] select index 6 into 'valid_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:104]
+WARNING: [VRFC 10-3705] select index 7 into 'valid_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:105]
+WARNING: [VRFC 10-3705] select index 2 into 'data_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:109]
+WARNING: [VRFC 10-3705] select index 3 into 'data_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:110]
+WARNING: [VRFC 10-3705] select index 4 into 'data_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:111]
+WARNING: [VRFC 10-3705] select index 5 into 'data_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:112]
+WARNING: [VRFC 10-3705] select index 6 into 'data_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:113]
+WARNING: [VRFC 10-3705] select index 7 into 'data_v' is out of bounds [F:/Vivado_Output/a3sim1/namespaced/056_tmux.sv:114]
+Compiling module xil_defaultlib.sim_axis_tmux_v1_tmux(N=2,B=160)
+Compiling module xil_defaultlib.sim_axis_tmux_v1_axis_tmux_v1(N=...
+Compiling module xil_defaultlib.sim_bd_axis_tmux_v1_0_0
+Compiling module xil_defaultlib.sim_bd_axis_tmux_v1_1_0
+Compiling module xil_defaultlib.sim_bd_axis_tmux_v1_2_0
+Compiling module xil_defaultlib.sim_bd_axis_tmux_v1_3_0
+Compiling module xil_defaultlib.sim_axis_tproc64x32_x8_axi_slv_c...
+Compiling module xil_defaultlib.sim_axis_tproc64x32_x8_data_mem_...
+Compiling module xil_defaultlib.sim_axis_tproc64x32_x8_mem_rw(N=...
+Compiling module xil_defaultlib.sim_axis_tproc64x32_x8_axis_read...
+Compiling module xil_defaultlib.sim_axis_tproc64x32_x8_axis_writ...
+Compiling module xil_defaultlib.sim_axis_tproc64x32_x8_data_mem(...
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_tproc64x32_x8_bram_dp [\sim_axis_tproc64x32_x8_bram_dp(...]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_tproc64x32_x8_synchronizer_n [sim_axis_tproc64x32_x8_synchroni...]
+Compiling module xil_defaultlib.sim_axis_tproc64x32_x8_ctrl
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_tproc64x32_x8_bram [\sim_axis_tproc64x32_x8_bram(n=8...]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_tproc64x32_x8_stack [\sim_axis_tproc64x32_x8_stack(b=...]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_tproc64x32_x8_regfile [\sim_axis_tproc64x32_x8_regfile(...]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_tproc64x32_x8_regfile_8p [\sim_axis_tproc64x32_x8_regfile_...]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_tproc64x32_x8_bram_simple_dp [\sim_axis_tproc64x32_x8_bram_sim...]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_tproc64x32_x8_fifo [\sim_axis_tproc64x32_x8_fifo(b=2...]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_tproc64x32_x8_timed_ictrl [sim_axis_tproc64x32_x8_timed_ict...]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_tproc64x32_x8_cond [\sim_axis_tproc64x32_x8_cond(b=3...]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_tproc64x32_x8_math [\sim_axis_tproc64x32_x8_math(b=3...]
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_tproc64x32_x8_bitw [\sim_axis_tproc64x32_x8_bitw(b=3...]
+Compiling module xil_defaultlib.sim_axis_tproc64x32_x8_alu(B=32)
+Compiling architecture rtl of entity xil_defaultlib.sim_axis_tproc64x32_x8_s_axis_read [\sim_axis_tproc64x32_x8_s_axis_r...]
+Compiling module xil_defaultlib.sim_axis_tproc64x32_x8_tproc64x3...
+Compiling module xil_defaultlib.sim_axis_tproc64x32_x8_axis_tpro...
+Compiling module xil_defaultlib.sim_bd_axis_tproc64x32_x8_0_0
+Compiling module xil_defaultlib.sim_qick_vec2bit_qick_vec2bit(IN...
+Compiling module xil_defaultlib.sim_bd_qick_vec2bit_0_0
+Compiling module xlconstant_v1_1_7.xlconstant_v1_1_7_xlconstant(CON...
+Compiling module xil_defaultlib.sim_bd_xlconstant_0_0
+Compiling module xlconstant_v1_1_7.xlconstant_v1_1_7_xlconstant
+Compiling module xil_defaultlib.sim_bd_xlconstant_1_0
+Compiling module xil_defaultlib.sim_bd_xlconstant_2_0
+Compiling module xlconstant_v1_1_7.xlconstant_v1_1_7_xlconstant(CON...
+Compiling module xil_defaultlib.sim_bd_xlconstant_3_0
+Compiling module xlconstant_v1_1_7.xlconstant_v1_1_7_xlconstant(CON...
+Compiling module xil_defaultlib.sim_bd_xlconstant_4_0
+Compiling module xil_defaultlib.axis_output_sum_v1
+Compiling module xil_defaultlib.rc_bd
+Compiling module xil_defaultlib.rc_wrapper
+Compiling module xil_defaultlib.awg_v2_raw_checker
+Compiling module xil_defaultlib.awg_v2_raw_checker(CHANNEL=1)
+Compiling module xil_defaultlib.awg_v2_raw_checker(CHANNEL=3)
+Compiling module xil_defaultlib.tb_rc_gui
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot rc_gui

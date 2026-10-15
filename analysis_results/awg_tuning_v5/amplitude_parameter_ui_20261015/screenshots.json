@@ -1,0 +1,646 @@
+{
+  "passed": true,
+  "platform": "offscreen",
+  "board_access": false,
+  "live_gui_control": false,
+  "source_path": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py",
+  "source_sha256": "a427ccc422464db633961a35a4d33181915c3a9eff25ae789b961683ed9e0e29",
+  "user_json_unchanged": true,
+  "script_sha256": "85768ad97b298770ff9509d05b5ddb740f2849b36b221304fad2e7e27f71e74d",
+  "images": [
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\amplitude_parameter_ui_20261015\\preset_hahn_manual.png",
+      "sha256": "6c82db836916424e5c54709032200a3443e98d5871ca37d93f9074304de4a3ff",
+      "width": 1293,
+      "height": 2212,
+      "settings": {
+        "enabled": true,
+        "gen_ch": 0,
+        "segment_name": "set_0",
+        "delay_us": 0.0,
+        "duration_us": 1.0,
+        "frequency_mhz": 50.0,
+        "gain": 20000,
+        "att1_db": 0.0,
+        "att2_db": 0.0,
+        "phase_degrees": 0.0,
+        "nqz": 1,
+        "require_within_segment": true,
+        "filter_type": "bypass",
+        "filter_cutoff": 2.5,
+        "filter_bandwidth": 1.0,
+        "output_board_type": "RF_Out",
+        "duration_sweep_enabled": false,
+        "duration_sweep_start_us": 1.0,
+        "duration_sweep_stop_us": 1.0,
+        "duration_sweep_count": 1,
+        "segment_length_mode": "fixed",
+        "frequency_sweep_enabled": false,
+        "frequency_sweep_start_mhz": 50.0,
+        "frequency_sweep_stop_mhz": 50.0,
+        "frequency_sweep_count": 1,
+        "power_sweep_enabled": false,
+        "power_sweep_start_dbm": -20.0,
+        "power_sweep_stop_dbm": -20.0,
+        "power_sweep_count": 1,
+        "power_calibration_enabled": false,
+        "power_calibration_database_path": "C:\\Users\\Measurement2\\gain_pwr_calb.db",
+        "power_calibration_run_id": 0,
+        "target_output_power_dbm": -20.0,
+        "pulse_mode": "composite",
+        "pulse_name": "RF pulse",
+        "frequency_parameters": [
+          {
+            "name": "f0",
+            "frequency_mhz": 50.0,
+            "sweep_enabled": false,
+            "sweep_start_mhz": 50.0,
+            "sweep_stop_mhz": 50.0,
+            "sweep_count": 1
+          }
+        ],
+        "duration_parameters": [
+          {
+            "name": "d_pi",
+            "duration_us": 0.4,
+            "sweep_enabled": false,
+            "sweep_start_us": 1.0,
+            "sweep_stop_us": 1.0,
+            "sweep_count": 1
+          }
+        ],
+        "composite_items": [
+          {
+            "kind": "delay",
+            "name": "Hahn_delay_0",
+            "duration_us": 2.0,
+            "frequency_parameter": "",
+            "gain": 20000,
+            "phase_degrees": 0.0,
+            "power_calibration_enabled": false,
+            "power_calibration_database_path": "",
+            "power_calibration_run_id": 0,
+            "target_output_power_dbm": -20.0,
+            "duration_parameter": "",
+            "delay_parameter": "",
+            "amplitude_parameter": "",
+            "phase_parameter": ""
+          },
+          {
+            "kind": "pulse",
+            "name": "Hahn_X1",
+            "duration_us": 1.0,
+            "frequency_parameter": "f0",
+            "gain": 20000,
+            "phase_degrees": 0.0,
+            "power_calibration_enabled": false,
+            "power_calibration_database_path": "",
+            "power_calibration_run_id": 0,
+            "target_output_power_dbm": -20.0,
+            "duration_parameter": "d_pi",
+            "delay_parameter": "",
+            "amplitude_parameter": "a_pi",
+            "phase_parameter": "phase_pi"
+          },
+          {
+            "kind": "delay",
+            "name": "Hahn_delay_1",
+            "duration_us": 2.0,
+            "frequency_parameter": "",
+            "gain": 20000,
+            "phase_degrees": 0.0,
+            "power_calibration_enabled": false,
+            "power_calibration_database_path": "",
+            "power_calibration_run_id": 0,
+            "target_output_power_dbm": -20.0,
+            "duration_parameter": "",
+            "delay_parameter": "",
+            "amplitude_parameter": "",
+            "phase_parameter": ""
+          }
+        ],
+        "predefined_template": "hahn_echo",
+        "predefined_n": 1,
+        "predefined_tau_us": 4.0,
+        "predefined_frequency_parameter": "f0",
+        "predefined_duration_parameter": "d_pi",
+        "predefined_gain": 20000,
+        "predefined_phase_degrees": 0.0,
+        "predefined_n_sweep_enabled": false,
+        "predefined_n_sweep_start": 1,
+        "predefined_n_sweep_stop": 4,
+        "predefined_n_sweep_count": 4,
+        "predefined_tau_sweep_enabled": false,
+        "predefined_tau_sweep_start_us": 1.0,
+        "predefined_tau_sweep_stop_us": 10.0,
+        "predefined_tau_sweep_count": 10,
+        "delay_parameters": [
+          {
+            "name": "tau_Hahn_delay_0",
+            "duration_us": 2.0,
+            "sweep_enabled": false,
+            "sweep_start_us": 2.0,
+            "sweep_stop_us": 2.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "tau_Hahn_delay_1",
+            "duration_us": 2.0,
+            "sweep_enabled": false,
+            "sweep_start_us": 2.0,
+            "sweep_stop_us": 2.0,
+            "sweep_count": 1
+          }
+        ],
+        "t2_initial_pi2": true,
+        "t2_final_pi2": true,
+        "t2_frequency_parameter": "f0",
+        "t2_duration_parameter": "d_pi",
+        "t2_gain": 20000,
+        "t2_initial_phase_degrees": 0.0,
+        "t2_final_phase_degrees": 0.0,
+        "global_frequency_parameter": "f0",
+        "global_gain": null,
+        "amplitude_parameters": [
+          {
+            "name": "a_global",
+            "value": 20000.0,
+            "sweep_enabled": false,
+            "sweep_start": 20000.0,
+            "sweep_stop": 20000.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "a_pi",
+            "value": 20000.0,
+            "sweep_enabled": false,
+            "sweep_start": 20000.0,
+            "sweep_stop": 20000.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "a_pi2",
+            "value": 20000.0,
+            "sweep_enabled": false,
+            "sweep_start": 20000.0,
+            "sweep_stop": 20000.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "a_0",
+            "value": 20000.0,
+            "sweep_enabled": false,
+            "sweep_start": 20000.0,
+            "sweep_stop": 20000.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "a_shared",
+            "value": 12000.0,
+            "sweep_enabled": false,
+            "sweep_start": 20000.0,
+            "sweep_stop": 20000.0,
+            "sweep_count": 1
+          }
+        ],
+        "phase_parameters": [
+          {
+            "name": "phase_initial",
+            "phase_degrees": 0.0,
+            "sweep_enabled": false,
+            "sweep_start_degrees": 0.0,
+            "sweep_stop_degrees": 0.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "phase_final",
+            "phase_degrees": 0.0,
+            "sweep_enabled": false,
+            "sweep_start_degrees": 0.0,
+            "sweep_stop_degrees": 0.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "phase_pi",
+            "phase_degrees": 0.0,
+            "sweep_enabled": false,
+            "sweep_start_degrees": 0.0,
+            "sweep_stop_degrees": 0.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "phase_X",
+            "phase_degrees": 0.0,
+            "sweep_enabled": false,
+            "sweep_start_degrees": 0.0,
+            "sweep_stop_degrees": 0.0,
+            "sweep_count": 1
+          }
+        ],
+        "global_amplitude_mode": "manual",
+        "global_amplitude_parameter": "a_shared",
+        "global_calibration_database_path": "",
+        "global_calibration_run_id": 0,
+        "t2_amplitude_parameter": "a_pi2",
+        "t2_initial_phase_parameter": "phase_initial",
+        "t2_final_phase_parameter": "phase_final",
+        "predefined_amplitude_parameter": "a_pi",
+        "predefined_phase_parameter": "phase_pi",
+        "fine_duration": false,
+        "amplitude_parameter_banks": {
+          "manual": [
+            {
+              "name": "a_global",
+              "value": 20000.0,
+              "sweep_enabled": false,
+              "sweep_start": 20000.0,
+              "sweep_stop": 20000.0,
+              "sweep_count": 1
+            },
+            {
+              "name": "a_pi",
+              "value": 20000.0,
+              "sweep_enabled": false,
+              "sweep_start": 20000.0,
+              "sweep_stop": 20000.0,
+              "sweep_count": 1
+            },
+            {
+              "name": "a_pi2",
+              "value": 20000.0,
+              "sweep_enabled": false,
+              "sweep_start": 20000.0,
+              "sweep_stop": 20000.0,
+              "sweep_count": 1
+            },
+            {
+              "name": "a_0",
+              "value": 20000.0,
+              "sweep_enabled": false,
+              "sweep_start": 20000.0,
+              "sweep_stop": 20000.0,
+              "sweep_count": 1
+            },
+            {
+              "name": "a_shared",
+              "value": 12000.0,
+              "sweep_enabled": false,
+              "sweep_start": 20000.0,
+              "sweep_stop": 20000.0,
+              "sweep_count": 1
+            }
+          ]
+        }
+      },
+      "named_amplitude_mode": "manual",
+      "numeric_global_gain_hidden": true,
+      "individual_power_column_hidden": true
+    },
+    {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\amplitude_parameter_ui_20261015\\custom_calibration.png",
+      "sha256": "44a79b4bf262bc0fbb7a5ad110d2d5ad3408131ef4a568df68cb338734f3e19f",
+      "width": 1293,
+      "height": 2192,
+      "settings": {
+        "enabled": true,
+        "gen_ch": 0,
+        "segment_name": "set_0",
+        "delay_us": 0.0,
+        "duration_us": 1.0,
+        "frequency_mhz": 50.0,
+        "gain": 20000,
+        "att1_db": 0.0,
+        "att2_db": 0.0,
+        "phase_degrees": 0.0,
+        "nqz": 1,
+        "require_within_segment": true,
+        "filter_type": "bypass",
+        "filter_cutoff": 2.5,
+        "filter_bandwidth": 1.0,
+        "output_board_type": "RF_Out",
+        "duration_sweep_enabled": false,
+        "duration_sweep_start_us": 1.0,
+        "duration_sweep_stop_us": 1.0,
+        "duration_sweep_count": 1,
+        "segment_length_mode": "fixed",
+        "frequency_sweep_enabled": false,
+        "frequency_sweep_start_mhz": 50.0,
+        "frequency_sweep_stop_mhz": 50.0,
+        "frequency_sweep_count": 1,
+        "power_sweep_enabled": false,
+        "power_sweep_start_dbm": -20.0,
+        "power_sweep_stop_dbm": -20.0,
+        "power_sweep_count": 1,
+        "power_calibration_enabled": false,
+        "power_calibration_database_path": "C:\\Users\\Measurement2\\gain_pwr_calb.db",
+        "power_calibration_run_id": 0,
+        "target_output_power_dbm": -20.0,
+        "pulse_mode": "composite",
+        "pulse_name": "RF pulse",
+        "frequency_parameters": [
+          {
+            "name": "f0",
+            "frequency_mhz": 50.0,
+            "sweep_enabled": false,
+            "sweep_start_mhz": 50.0,
+            "sweep_stop_mhz": 50.0,
+            "sweep_count": 1
+          }
+        ],
+        "duration_parameters": [
+          {
+            "name": "d_pi",
+            "duration_us": 0.4,
+            "sweep_enabled": false,
+            "sweep_start_us": 1.0,
+            "sweep_stop_us": 1.0,
+            "sweep_count": 1
+          }
+        ],
+        "composite_items": [
+          {
+            "kind": "delay",
+            "name": "Hahn_delay_0",
+            "duration_us": 2.0,
+            "frequency_parameter": "",
+            "gain": 0,
+            "phase_degrees": 0.0,
+            "power_calibration_enabled": false,
+            "power_calibration_database_path": "",
+            "power_calibration_run_id": 0,
+            "target_output_power_dbm": -20.0,
+            "duration_parameter": "",
+            "delay_parameter": "tau_Hahn_delay_0",
+            "amplitude_parameter": "",
+            "phase_parameter": ""
+          },
+          {
+            "kind": "pulse",
+            "name": "Hahn_X1",
+            "duration_us": 0.4,
+            "frequency_parameter": "f0",
+            "gain": 20000,
+            "phase_degrees": 0.0,
+            "power_calibration_enabled": false,
+            "power_calibration_database_path": "",
+            "power_calibration_run_id": 0,
+            "target_output_power_dbm": -20.0,
+            "duration_parameter": "d_pi",
+            "delay_parameter": "",
+            "amplitude_parameter": "a_body",
+            "phase_parameter": "phase_pi"
+          },
+          {
+            "kind": "delay",
+            "name": "Hahn_delay_1",
+            "duration_us": 2.0,
+            "frequency_parameter": "",
+            "gain": 0,
+            "phase_degrees": 0.0,
+            "power_calibration_enabled": false,
+            "power_calibration_database_path": "",
+            "power_calibration_run_id": 0,
+            "target_output_power_dbm": -20.0,
+            "duration_parameter": "",
+            "delay_parameter": "tau_Hahn_delay_1",
+            "amplitude_parameter": "",
+            "phase_parameter": ""
+          }
+        ],
+        "predefined_template": "custom",
+        "predefined_n": 1,
+        "predefined_tau_us": 4.0,
+        "predefined_frequency_parameter": "f0",
+        "predefined_duration_parameter": "d_pi",
+        "predefined_gain": 20000,
+        "predefined_phase_degrees": 0.0,
+        "predefined_n_sweep_enabled": false,
+        "predefined_n_sweep_start": 1,
+        "predefined_n_sweep_stop": 4,
+        "predefined_n_sweep_count": 4,
+        "predefined_tau_sweep_enabled": false,
+        "predefined_tau_sweep_start_us": 1.0,
+        "predefined_tau_sweep_stop_us": 10.0,
+        "predefined_tau_sweep_count": 10,
+        "delay_parameters": [
+          {
+            "name": "tau_Hahn_delay_0",
+            "duration_us": 2.0,
+            "sweep_enabled": false,
+            "sweep_start_us": 2.0,
+            "sweep_stop_us": 2.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "tau_Hahn_delay_1",
+            "duration_us": 2.0,
+            "sweep_enabled": false,
+            "sweep_start_us": 2.0,
+            "sweep_stop_us": 2.0,
+            "sweep_count": 1
+          }
+        ],
+        "t2_initial_pi2": true,
+        "t2_final_pi2": true,
+        "t2_frequency_parameter": "f0",
+        "t2_duration_parameter": "d_pi",
+        "t2_gain": 20000,
+        "t2_initial_phase_degrees": 0.0,
+        "t2_final_phase_degrees": 0.0,
+        "global_frequency_parameter": "",
+        "global_gain": null,
+        "amplitude_parameters": [
+          {
+            "name": "a_global",
+            "value": -20.0,
+            "sweep_enabled": false,
+            "sweep_start": -20.0,
+            "sweep_stop": -20.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "a_pi",
+            "value": -20.0,
+            "sweep_enabled": false,
+            "sweep_start": -20.0,
+            "sweep_stop": -20.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "a_pi2",
+            "value": -20.0,
+            "sweep_enabled": false,
+            "sweep_start": -20.0,
+            "sweep_stop": -20.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "a_0",
+            "value": -20.0,
+            "sweep_enabled": false,
+            "sweep_start": -20.0,
+            "sweep_stop": -20.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "a_shared",
+            "value": -20.0,
+            "sweep_enabled": false,
+            "sweep_start": -20.0,
+            "sweep_stop": -20.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "a_body",
+            "value": -18.0,
+            "sweep_enabled": true,
+            "sweep_start": -25.0,
+            "sweep_stop": -15.0,
+            "sweep_count": 5
+          }
+        ],
+        "phase_parameters": [
+          {
+            "name": "phase_initial",
+            "phase_degrees": 0.0,
+            "sweep_enabled": false,
+            "sweep_start_degrees": 0.0,
+            "sweep_stop_degrees": 0.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "phase_final",
+            "phase_degrees": 0.0,
+            "sweep_enabled": false,
+            "sweep_start_degrees": 0.0,
+            "sweep_stop_degrees": 0.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "phase_pi",
+            "phase_degrees": 0.0,
+            "sweep_enabled": false,
+            "sweep_start_degrees": 0.0,
+            "sweep_stop_degrees": 0.0,
+            "sweep_count": 1
+          },
+          {
+            "name": "phase_X",
+            "phase_degrees": 0.0,
+            "sweep_enabled": false,
+            "sweep_start_degrees": 0.0,
+            "sweep_stop_degrees": 0.0,
+            "sweep_count": 1
+          }
+        ],
+        "global_amplitude_mode": "calibration",
+        "global_amplitude_parameter": "",
+        "global_calibration_database_path": "example-output-calibration.db",
+        "global_calibration_run_id": 12,
+        "t2_amplitude_parameter": "a_shared",
+        "t2_initial_phase_parameter": "phase_initial",
+        "t2_final_phase_parameter": "phase_final",
+        "predefined_amplitude_parameter": "a_pi",
+        "predefined_phase_parameter": "phase_pi",
+        "fine_duration": false,
+        "amplitude_parameter_banks": {
+          "manual": [
+            {
+              "name": "a_global",
+              "value": 20000.0,
+              "sweep_enabled": false,
+              "sweep_start": 20000.0,
+              "sweep_stop": 20000.0,
+              "sweep_count": 1
+            },
+            {
+              "name": "a_pi",
+              "value": 20000.0,
+              "sweep_enabled": false,
+              "sweep_start": 20000.0,
+              "sweep_stop": 20000.0,
+              "sweep_count": 1
+            },
+            {
+              "name": "a_pi2",
+              "value": 20000.0,
+              "sweep_enabled": false,
+              "sweep_start": 20000.0,
+              "sweep_stop": 20000.0,
+              "sweep_count": 1
+            },
+            {
+              "name": "a_0",
+              "value": 20000.0,
+              "sweep_enabled": false,
+              "sweep_start": 20000.0,
+              "sweep_stop": 20000.0,
+              "sweep_count": 1
+            },
+            {
+              "name": "a_shared",
+              "value": 12000.0,
+              "sweep_enabled": false,
+              "sweep_start": 20000.0,
+              "sweep_stop": 20000.0,
+              "sweep_count": 1
+            }
+          ],
+          "calibration": [
+            {
+              "name": "a_global",
+              "value": -20.0,
+              "sweep_enabled": false,
+              "sweep_start": -20.0,
+              "sweep_stop": -20.0,
+              "sweep_count": 1
+            },
+            {
+              "name": "a_pi",
+              "value": -20.0,
+              "sweep_enabled": false,
+              "sweep_start": -20.0,
+              "sweep_stop": -20.0,
+              "sweep_count": 1
+            },
+            {
+              "name": "a_pi2",
+              "value": -20.0,
+              "sweep_enabled": false,
+              "sweep_start": -20.0,
+              "sweep_stop": -20.0,
+              "sweep_count": 1
+            },
+            {
+              "name": "a_0",
+              "value": -20.0,
+              "sweep_enabled": false,
+              "sweep_start": -20.0,
+              "sweep_stop": -20.0,
+              "sweep_count": 1
+            },
+            {
+              "name": "a_shared",
+              "value": -20.0,
+              "sweep_enabled": false,
+              "sweep_start": -20.0,
+              "sweep_stop": -20.0,
+              "sweep_count": 1
+            },
+            {
+              "name": "a_body",
+              "value": -18.0,
+              "sweep_enabled": true,
+              "sweep_start": -25.0,
+              "sweep_stop": -15.0,
+              "sweep_count": 5
+            }
+          ]
+        }
+      },
+      "named_amplitude_mode": "calibration",
+      "numeric_global_gain_hidden": true,
+      "individual_power_column_hidden": true
+    }
+  ]
+}

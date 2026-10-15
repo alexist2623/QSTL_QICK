@@ -8,7 +8,7 @@ def _dc_generator(gen):
 
 
 def _summed_awg_output(generators):
-    """Recognize only the two HWH-linked inputs of a v4 AWG physical output."""
+    """Recognize only two consistently versioned HWH-linked AWG/RF inputs."""
     if len(generators) != 2:
         return False
     by_role = {g.get('output_sum_role'): g for _, g in generators}
@@ -17,7 +17,8 @@ def _summed_awg_output(generators):
     awg, rf = by_role['awg'], by_role['rf']
     return (_dc_generator(awg) and rf.get('type') == 'axis_signal_gen_v6'
             and bool(awg.get('output_sum_block'))
-            and all(g.get('output_sum_version') == 1
+            and awg.get('output_sum_version') in (1, 2)
+            and all(g.get('output_sum_version') == awg['output_sum_version']
                     and g.get('output_sum_bypass') is False
                     and g.get('output_sum_block') == awg['output_sum_block']
                     and g.get('output_sum_awg') == awg.get('fullpath')

@@ -1,0 +1,58 @@
+{
+  "Time": "2026-10-15T01:01:42.0264412-07:00",
+  "Processes": [
+    {
+      "Id": 132544,
+      "Parent": 79360,
+      "Name": "powershell.exe",
+      "Created": "2026-10-14T19:42:02.7509550-07:00",
+      "Command": "\"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -ExecutionPolicy Bypass -File analysis_results/awg_tuning_v5/run_workflow.ps1",
+      "CpuSeconds": 5.78125,
+      "WorkingGiB": 0.01
+    },
+    {
+      "Id": 82744,
+      "Parent": 97172,
+      "Name": "vivado.exe",
+      "Created": "2026-10-14T21:34:11.5146200-07:00",
+      "Command": "\"F:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/vivado.exe\"   -mode batch -source C:\\GIT_Workspace\\QSTL_QICK/qick/firmware/projects/qstl_awg_v5/build_vivado_2023_1.tcl -log F:/Vivado_Output/a5full1_vivado.log -journal F:/Vivado_Output/a5full1_vivado.jou -tclargs F:/Vivado_Output/a5full1",
+      "CpuSeconds": 2313.640625,
+      "WorkingGiB": 0.055
+    },
+    {
+      "Id": 75836,
+      "Parent": 32948,
+      "Name": "vivado.exe",
+      "Created": "2026-10-14T22:36:00.0794640-07:00",
+      "Command": "\"F:/Xilinx/Vivado/2023.1/bin/unwrapped/win64.o/vivado.exe\"   -log d_1_wrapper.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source d_1_wrapper.tcl -notrace",
+      "CpuSeconds": 16460.3125,
+      "WorkingGiB": 13.54
+    }
+  ],
+  "Memory": {
+    "CommittedGiB": 55.563,
+    "CommitLimitGiB": 58.386,
+    "AvailableMiB": 5471,
+    "PagesInputPerSec": 0,
+    "PagesOutputPerSec": 0
+  },
+  "Results": [
+    {
+      "FullName": "F:\\Vivado_Output\\a5full1\\qstl_awg_v5.runs\\impl_1\\runme.log",
+      "Length": 168827,
+      "LastWriteTime": "2026-10-15T01:01:15.4146699-07:00"
+    }
+  ],
+  "workflow_stage": "full_build",
+  "workflow_complete": false,
+  "route_stage": "Phase 4.1 Global Iteration 0",
+  "route_overlap_nodes": 0,
+  "intermediate_timing_only": {
+    "wns_ns": -0.134,
+    "tns_ns": -1.157,
+    "whs_ns": -0.057,
+    "ths_ns": -0.387
+  },
+  "final_timing_available": false,
+  "actions": "Read-only status/process/log review; no process, source, build or board changes. Existing automation remains active."
+}

@@ -1,0 +1,68 @@
+{
+  "software_verified": true,
+  "software_tests": 680,
+  "coarse_cases": 9,
+  "rtl_report": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\rf_fine_duration\\rtl\\REPORT.md",
+  "production_promoted": false,
+  "files": [
+    {
+      "name": "dc_waveform_core.py",
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\rf_fine_duration\\release_package\\DCWaveformGeneratorGUI\\dc_waveform_core.py",
+      "sha256": "5b4010d5f9cc4eaad22a7b44ef19d052732c9e02a0c661bad02aec8be42d1941",
+      "production_destination": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\dc_waveform_core.py",
+      "expected_production_sha256": "33e5a0bc5f6473eb036f36cab6aeb9e04fc0d241d5bbdf79cab22dd5047a0a14"
+    },
+    {
+      "name": "DCWaveform_Generator.py",
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\rf_fine_duration\\release_package\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py",
+      "sha256": "feb847fe8dd879251921e9f841f3d18c23be17632fa17fc671cef8d38374192a",
+      "production_destination": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py",
+      "expected_production_sha256": "e20f0a54acb74d34d9544962f625d8e2e19ec2bb73eeb1c44e6e7b351fcfe3bb"
+    },
+    {
+      "name": "qick_fine_tune_sweep.py",
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\rf_fine_duration\\release_package\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py",
+      "sha256": "9fcd771c595373cde3e012c1d144b334b4f1226deff05763861198db609179d6",
+      "production_destination": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py",
+      "expected_production_sha256": "2e477ab000e1d340a1ba24d97313ebb47dae773ced89378a7220e7edd9366896"
+    },
+    {
+      "name": "qick_qcodes_experiment.py",
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\rf_fine_duration\\release_package\\DCWaveformGeneratorGUI\\qick_qcodes_experiment.py",
+      "sha256": "ba2a3aca903729d7857aad006f40743c9580e107fc0de081b677753276c105e8",
+      "production_destination": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_qcodes_experiment.py",
+      "expected_production_sha256": "5e7d9038dbca65aa131bd156edc9259ca62de6a877496d0cfc4923ec20cc58ca"
+    },
+    {
+      "name": "qick_rf_fine_duration.py",
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\rf_fine_duration\\release_package\\DCWaveformGeneratorGUI\\qick_rf_fine_duration.py",
+      "sha256": "18d262cf1a64ae5cb510658965cba004b98ebe9f226b10b6f9113d74fca6be12",
+      "production_destination": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_rf_fine_duration.py",
+      "expected_production_sha256": null
+    },
+    {
+      "name": "test_rf_fine_duration_compiler.py",
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\rf_fine_duration\\release_package\\DCWaveformGeneratorGUI\\test_rf_fine_duration_compiler.py",
+      "sha256": "0ea6b220fa2189e4b03477f0a0e3300bd769d1d35cad7aec7207415b85fbaa1b",
+      "production_destination": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_rf_fine_duration_compiler.py",
+      "expected_production_sha256": null
+    },
+    {
+      "name": "test_rf_fine_duration_editor.py",
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\rf_fine_duration\\release_package\\DCWaveformGeneratorGUI\\test_rf_fine_duration_editor.py",
+      "sha256": "4ae5e973272acd372532e3e6ae780d21d9b1b5337ceea82526d8cf53d641abf1",
+      "production_destination": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_rf_fine_duration_editor.py",
+      "expected_production_sha256": null
+    },
+    {
+      "name": "test_rf_fine_duration_runtime.py",
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\rf_fine_duration\\release_package\\DCWaveformGeneratorGUI\\test_rf_fine_duration_runtime.py",
+      "sha256": "354d1ad126167a66e5cdbab462c26a87faf6880b6ebf4dc35e35958f98a14890",
+      "production_destination": "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_rf_fine_duration_runtime.py",
+      "expected_production_sha256": null
+    }
+  ],
+  "production_policy": "Keep original v5 build source gate intact; promote after its successful postbuild gate with fresh compiler proof.",
+  "software_result_sha256": "3fe4c7ca7b73fded9d169eb090a87eaf728756ba8818b5a9526eaca3d89bd39d",
+  "source_baseline_sha256": "4bf0c5311099cbef52838017f9e6933802f8b47adab94c753d7bee40a6f2e1dc"
+}

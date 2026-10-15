@@ -1,0 +1,98 @@
+........................................................................ [ 34%]
+............................................F........................... [ 68%]
+.........................................F.......................        [100%]
+================================== FAILURES ===================================
+__________ test_older_settings_apply_defaults_and_resave_as_current ___________
+
+tmp_path = WindowsPath('C:/Users/Measurement2/AppData/Local/Temp/pytest-of-Measurement2/pytest-31/test_older_settings_apply_defa0')
+
+    def test_older_settings_apply_defaults_and_resave_as_current(tmp_path):
+        app = _application()
+        window = gui.MainWindow()
+        document = window._settings_to_dict()
+        document["version"] = 2
+        document["display"]["selected_control_tab"] = 2
+        document["display"].pop("selected_awg_tuning_tab")
+        document["display"].pop("voltage_view")
+        document["grid"].pop("snap_enabled")
+        document["awg"].pop("cross_capacitance")
+        document["awg"].pop("sweeps")
+        document["qick"].pop("tproc_mhz")
+        document["qick"].pop("repetitions_per_sweep")
+        document["qick"].pop("iq_storage_mode")
+        document["qick"].pop("bias_t_compensation")
+        document["stability_diagram"].pop("iq_storage_mode")
+        document["experiment"].pop("notes")
+        document.pop("rf_outputs")
+        document["rf_readout"] = {"enabled": False}
+        document["s_parameter"].pop("database_path")
+    
+        old_path = tmp_path / "settings_v2.json"
+        old_path.write_text(json.dumps(document), encoding="utf-8")
+        window._load_settings_json(old_path)
+        app.processEvents()
+    
+        assert np.array_equal(window._cross_capacitance, np.eye(1))
+        assert window._plot.voltage_view == "both"
+        assert window._grid_snap_enabled is False
+        assert window._experiment_panel.tproc_mhz.value() == 300.0
+        assert window._experiment_panel.repetitions.value() == 1
+        assert (
+            window._experiment_panel.iq_storage_mode.currentData()
+            == IQ_STORAGE_FULL_TRACES
+        )
+        assert (
+            window._stability_panel.iq_storage_mode_value()
+            == IQ_STORAGE_FULL_TRACES
+        )
+        assert window._experiment_panel.bias_t_group.isChecked() is False
+        assert window._experiment_panel.bias_t_compensation_mv.value() == 80.0
+        assert window._control_tabs.currentWidget() is window._awg_tuning_page
+        assert window._awg_tuning_tabs.currentWidget() is window._rf_readout_panel
+        assert len(window._rf_ports_panel._panels) == 1
+>       assert window._rf_ports_panel.settings()[0] == gui.DEFAULT_RF_OUTPUT_SETTINGS
+E       AssertionError: assert {'enabled': F...us': 0.0, ...} == {'enabled': F...us': 0.0, ...}
+E         
+E         Omitting 60 identical items, use -vv to show
+E         Differing items:
+E         {'composite_items': [{'kind': 'pulse', 'name': 'pulse_0', 'duration_us': 1.0, 'frequency_parameter': 'f0', ...}]} != {'composite_items': [{'kind': 'pulse', 'name': 'pulse_0', 'duration_us': 1.0, 'frequency_parameter': 'f0', ...}]}
+E         Use -v to get more diff
+
+DCWaveformGeneratorGUI\test_dc_waveform_gui_rf.py:3638: AssertionError
+_ test_gui_selected_hold_translates_rf_and_acquisition_without_mutating_settings _
+
+window = <DCWaveform_Generator.MainWindow object at 0x0000029D8DF409E0>
+
+    def test_gui_selected_hold_translates_rf_and_acquisition_without_mutating_settings(window):
+        configure_window(window)
+        settings = copy.deepcopy(window._settings_to_dict())
+        waveform = window._pulse[0].t.copy()
+        sequence = window._waveform_preview_sequence
+        model = copy.deepcopy(sequence.__dict__)
+        data0 = dict(window._acquisition_timeline.window)
+        rf0 = window._rf_timelines[0].start_ns
+        window._waveform_point_index.setValue(2)
+        data2 = window._acquisition_timeline.window
+        for key in ('trigger_us', 'input_start_us', 'input_end_us', 'storage_start_us', 'storage_end_us'):
+            assert data2[key] - data0[key] == pytest.approx(20.)
+        assert window._rf_timelines[0].start_ns - rf0 == pytest.approx(20000.)
+        assert data2['duration_us'] == 64
+        # Display refresh, point selection and Fit cannot write run settings.
+        window._fit_view()
+        window._plot.setXRange(0, 400, padding=0)
+        QtWidgets.QApplication.processEvents()
+        assert window._acquisition_timeline._time_unit == 'ns'
+        window._plot.setXRange(0, 5e6, padding=0)
+        QtWidgets.QApplication.processEvents()
+>       assert window._acquisition_timeline._time_unit == 'ms'
+E       AssertionError: assert 'us' == 'ms'
+E         
+E         - ms
+E         + us
+
+DCWaveformGeneratorGUI\test_acquisition_preview.py:123: AssertionError
+=========================== short test summary info ===========================
+FAILED DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_older_settings_apply_defaults_and_resave_as_current
+FAILED DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_selected_hold_translates_rf_and_acquisition_without_mutating_settings
+2 failed, 207 passed in 138.85s (0:02:18)
+QT_EXPLICIT_TEARDOWN_COMPLETE

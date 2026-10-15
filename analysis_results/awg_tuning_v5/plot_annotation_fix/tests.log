@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 6373, in _emit_specs
+    specs = self.specs()
+            ^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 6343, in specs
+    specs = tuple(spec for panel in self._panels if (spec := panel.spec()) is not None)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 6343, in <genexpr>
+    specs = tuple(spec for panel in self._panels if (spec := panel.spec()) is not None)
+                                                             ^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 5907, in spec
+    return self.configured_spec()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 5861, in configured_spec
+    composite_items=self._composite_items(),
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 5036, in _composite_items
+    durations[
+KeyError: 'd1'
+.............................................................................................................................................................
+157 passed in 161.05s (0:02:41)
+QT_CALLBACK_ERRORS: ['Traceback (most recent call last):\n  File "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py", line 6373, in _emit_specs\n    specs = self.specs()\n            ^^^^^^^^^^^^\n  File "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py", line 6343, in specs\n    specs = tuple(spec for panel in self._panels if (spec := panel.spec()) is not None)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py", line 6343, in <genexpr>\n    specs = tuple(spec for panel in self._panels if (spec := panel.spec()) is not None)\n                                                             ^^^^^^^^^^^^\n  File "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py", line 5907, in spec\n    return self.configured_spec()\n           ^^^^^^^^^^^^^^^^^^^^^^\n  File "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py", line 5861, in configured_spec\n    composite_items=self._composite_items(),\n                    ^^^^^^^^^^^^^^^^^^^^^^^\n  File "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py", line 5036, in _composite_items\n    durations[\nKeyError: \'d1\'\n']

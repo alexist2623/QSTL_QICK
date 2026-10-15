@@ -1,0 +1,30 @@
+{
+  "reason": "User explicitly requested the shared DAC AWG selection Python fix during v5 work; only selector plus regression tests changed.",
+  "files": {
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/qick_front_panel.py": "29FAB1EB4946C59A343F1F9E10393F930C7E1C6040174BEB61C21D7ABFA2AF38",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/test_shared_dac_awg_selection.py": "908A546D47FFDD6A8F3AAD5CFE7A06E466668AA62A0EFB53864D76C7BF1D1B3C",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/dc_waveform_widgets.py": "647c55c4d08e67f9dcf241044686a1a5f87fe9a0d843fd65f40cbcd398491a96",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/test_waveform_plot_annotations.py": "7ea9fd974e1af4995adcbbabe9f97d2669553057418a0771dc7aef4a9848139c",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/DCWaveform_Generator.py": "e20f0a54acb74d34d9544962f625d8e2e19ec2bb73eeb1c44e6e7b351fcfe3bb",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/dc_waveform_core.py": "33e5a0bc5f6473eb036f36cab6aeb9e04fc0d241d5bbdf79cab22dd5047a0a14",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/qick_qcodes_experiment.py": "5e7d9038dbca65aa131bd156edc9259ca62de6a877496d0cfc4923ec20cc58ca",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/acquisition_preview.py": "69fc9c621e2ecef7c85d541af84c0816f48f6e14fdd5ef77d2f802a2888b320d",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/awg_sweep_map.py": "f867c2ae204afbfec7e84ed11613e57d6978a23f750d232023745548097e1360",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/test_rf_t2_delay_core.py": "1f9322e9c456e17a83cd437a87f6b68e9a91d36c0cddc29b80535971646ae9c0",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/test_rf_t2_delay_editor.py": "e6b199c0c62c55614f2fd93a34e95955b29d6afe225a9a62c4f44b6b2309147e",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/test_rf_delay_software_sweep.py": "49d77e84990d690f6044c179043ee9f343371b261b27afe134e6a84b82e391d9",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/test_rf_t2_integration.py": "c3e5c7035237c7c2356314da1d57a26c20cd87ede53fad881a07d4a8fb1ca4b4",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/test_acquisition_preview.py": "9e6858e0ab9191a4b8ec1ed93f19b021924590a52c7a98fd216cc501bac8bcc3",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py": "820c734c6fd0f46e786d8c69fee93d908f1c024b4de24223ad45001b7fff96c8",
+    "C:/GIT_Workspace/PulseGenerator/DCWaveformGeneratorGUI/test_qick_front_panel.py": "2c025e457b6f38ef207c02bf51999e3e3a62502a64b9f765538eb99a76a9789f"
+  },
+  "display_fix_reason": "Explicit user request: stuck AWG annotation, HOLD voltage dragging, RF names inside pulses.",
+  "display_fix_evidence": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\plot_annotation_fix\\result.json",
+  "display_fix_evidence_sha256": "33b63045b5e930adcda54a466641581d2903a2f4c63ff8ae4af46f3cfb29c5bf",
+  "composite_reason": "Explicit user requests: Custom per-pulse delay/amplitude/phase parameters and sweeps; common Manual/Calibration mode; T2 endpoints, Hahn, global preset values and monochrome preview.",
+  "composite_evidence": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\composite_t2_fix\\result.json",
+  "composite_evidence_sha256": "8860f23e27f836fed9aa77b1b437a10d3be22ae4812c2e1e0fe6186be0fd71bb",
+  "nyquist_fix_reason": "User requested Nyquist zone control only in Front Panel; remove duplicate RF editor row while retaining all saved/runtime values.",
+  "nyquist_fix_evidence": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\nyquist_front_panel_fix\\result.json",
+  "nyquist_fix_evidence_sha256": "3ba7b8200bc665cf911c700db151febffea73c48ba09f83dc93643a0c97c2a4b"
+}
