@@ -1,0 +1,78 @@
+{
+  "sweep_order_passed": true,
+  "absolute_voltage_screen_passed": false,
+  "actual_hardware_points": 9,
+  "measured_plateaus": 18,
+  "channels": [
+    {
+      "scope_channel": 1,
+      "panel_dac": 4,
+      "awg_generator": 1,
+      "levels": [
+        {
+          "requested_mv": 0,
+          "median_of_plateau_medians_mv": -27.61508351999997,
+          "mean_of_plateau_means_mv": -26.554415082960194
+        },
+        {
+          "requested_mv": 200,
+          "median_of_plateau_medians_mv": 173.22175488000002,
+          "mean_of_plateau_means_mv": 174.2767463290743
+        },
+        {
+          "requested_mv": 400,
+          "median_of_plateau_medians_mv": 367.364032,
+          "mean_of_plateau_means_mv": 368.29530795662004
+        }
+      ]
+    },
+    {
+      "scope_channel": 2,
+      "panel_dac": 5,
+      "awg_generator": 3,
+      "levels": [
+        {
+          "requested_mv": 0,
+          "median_of_plateau_medians_mv": -14.225960959999979,
+          "mean_of_plateau_means_mv": -15.76113990056617
+        },
+        {
+          "requested_mv": 200,
+          "median_of_plateau_medians_mv": 186.61087744000002,
+          "mean_of_plateau_means_mv": 183.89252851705172
+        },
+        {
+          "requested_mv": 400,
+          "median_of_plateau_medians_mv": 374.05859328,
+          "mean_of_plateau_means_mv": 376.07331703417526
+        }
+      ]
+    }
+  ],
+  "max_absolute_nominal_error_mv": 32.59327268750002,
+  "final_zero": {
+    "1": {
+      "median_mv": -27.61508351999997,
+      "std_mv": 5.379310216472477,
+      "samples": 50000,
+      "within_5mv": false
+    },
+    "2": {
+      "median_mv": -14.225960959999979,
+      "std_mv": 5.438596523290567,
+      "samples": 50000,
+      "within_5mv": false
+    }
+  },
+  "scope_restored": true,
+  "zero_command_completed": true,
+  "source_changes": [],
+  "record_points_per_channel": 1500000,
+  "sample_interval_ns": 8.0,
+  "record_duration_ms": 12.0,
+  "observed_vertical_code_step_mv": 6.69456128,
+  "channel_origin_difference_ps": 9.999999960041972,
+  "scope_input": "DC, 1 MOhm, probe factor 1; original impedance/probe retained",
+  "voltage_reference": "GUI current-based nominal full scale 801.48 mV; no external gain/offset calibration applied",
+  "interpretation": "Correct two-axis ordering; absolute voltage screen fails. No automatic calibration or production fix performed."
+}

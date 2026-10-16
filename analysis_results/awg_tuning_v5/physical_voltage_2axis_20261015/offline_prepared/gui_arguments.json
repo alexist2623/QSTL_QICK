@@ -1,0 +1,110 @@
+{
+  "awg_channels": [
+    1,
+    3
+  ],
+  "repetitions_per_sweep": 1,
+  "readout_spec": null,
+  "rf_specs": [],
+  "sequence_recipe": {
+    "schema": "qick-awg-waveform-recipe-v1",
+    "metadata_mode": "parametric",
+    "output_names": [
+      "awg_0",
+      "awg_1"
+    ],
+    "segments": [
+      {
+        "name": "set_0",
+        "kind": "set",
+        "amplitudes": [
+          0.0,
+          0.0
+        ],
+        "duration_cycles": 3000
+      },
+      {
+        "name": "ramp_0_to_1",
+        "kind": "ramp",
+        "amplitudes": [
+          null,
+          null
+        ],
+        "duration_cycles": 300
+      },
+      {
+        "name": "set_1",
+        "kind": "set",
+        "amplitudes": [
+          0.0,
+          0.0
+        ],
+        "duration_cycles": 300000
+      },
+      {
+        "name": "ramp_1_to_2",
+        "kind": "ramp",
+        "amplitudes": [
+          null,
+          null
+        ],
+        "duration_cycles": 300
+      },
+      {
+        "name": "set_2",
+        "kind": "set",
+        "amplitudes": [
+          0.0,
+          0.0
+        ],
+        "duration_cycles": 3000
+      }
+    ],
+    "cross_capacitance": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "bias_t_compensation": null,
+    "sweep_axes": [
+      {
+        "segment_name": "set_1",
+        "output_name": "awg_0",
+        "start": 0.0,
+        "stop": 0.4990767080900334,
+        "count": 3,
+        "axis_kind": "amplitude",
+        "coordinate_unit": "normalized"
+      },
+      {
+        "segment_name": "set_1",
+        "output_name": "awg_1",
+        "start": 0.0,
+        "stop": 0.4990767080900334,
+        "count": 3,
+        "axis_kind": "amplitude",
+        "coordinate_unit": "normalized"
+      }
+    ],
+    "sweep_shape": [
+      3,
+      3
+    ],
+    "point_count": 9,
+    "fabric_mhz": 300.0,
+    "full_scale_mv": 801.48,
+    "output_full_scales_mv": [
+      801.48,
+      801.48
+    ],
+    "time_reference": "start of each pulse sequence repetition",
+    "vertex_rule": "Connect adjacent vertices in order; equal adjacent times encode an instantaneous SET transition.",
+    "reconstruction": "Apply each Cartesian sweep coordinate to the named base segment, then apply the cross-capacitance matrix and segment timing rules."
+  },
+  "scope": "MainWindow input -> argument builder -> compiler -> scope-only program.run; NO RunWorker/ADC/DDR/QCoDeS execution"
+}

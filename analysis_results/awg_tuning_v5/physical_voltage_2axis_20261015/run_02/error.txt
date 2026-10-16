@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\physical_voltage_2axis_20261015\run_physical.py", line 102, in main
+    record = cap.wait_and_read(timeout_s=5)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\physical_voltage_2axis_20261015\scope_capture.py", line 415, in wait_and_read
+    raise ScopeCaptureError(f"CH1/CH2 acquisition time grids disagree: {key}")
+scope_capture.ScopeCaptureError: CH1/CH2 acquisition time grids disagree: x_origin

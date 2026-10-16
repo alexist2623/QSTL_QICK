@@ -1,0 +1,119 @@
+{
+  "status": "reconstruction_passed_no_instrument_access",
+  "normal_pmem": 152,
+  "zero_pmem": 69,
+  "idle_pmem": 14,
+  "loop_dims": [
+    9,
+    1
+  ],
+  "dmem_words": 0,
+  "counter_addr": 1,
+  "last_zero_us": 9193.51,
+  "first": {
+    "point_index": 0,
+    "axis_indices": [
+      0,
+      0
+    ],
+    "outputs": [
+      {
+        "axis": 0,
+        "output_name": "awg_0",
+        "awg_gen": 1,
+        "dac": "10",
+        "panel_dac": 4,
+        "full_scale_mv": 801.48,
+        "current_ua": 20037,
+        "paired_rf_generators": [
+          0
+        ],
+        "tproc_ch": 0,
+        "tmux_ch": 1,
+        "requested_mv": 0.0,
+        "dac_code": 0,
+        "quantized_mv": 0.0,
+        "hold_command_cycle": 4497,
+        "hold_digital_output_us": 15.093333333333334,
+        "hold_end_digital_output_us": 1015.0933333333334,
+        "final_zero_digital_output_us": 1016.0966666666667,
+        "sequence_start_command_us": 3.986666666666667
+      },
+      {
+        "axis": 1,
+        "output_name": "awg_1",
+        "awg_gen": 3,
+        "dac": "11",
+        "panel_dac": 5,
+        "full_scale_mv": 801.48,
+        "current_ua": 20037,
+        "paired_rf_generators": [
+          2
+        ],
+        "tproc_ch": 1,
+        "tmux_ch": 1,
+        "requested_mv": 0.0,
+        "dac_code": 0,
+        "quantized_mv": 0.0,
+        "hold_command_cycle": 4497,
+        "hold_digital_output_us": 15.093333333333334,
+        "hold_end_digital_output_us": 1015.0933333333334,
+        "final_zero_digital_output_us": 1016.0966666666667,
+        "sequence_start_command_us": 3.986666666666667
+      }
+    ]
+  },
+  "last": {
+    "point_index": 8,
+    "axis_indices": [
+      2,
+      2
+    ],
+    "outputs": [
+      {
+        "axis": 0,
+        "output_name": "awg_0",
+        "awg_gen": 1,
+        "dac": "10",
+        "panel_dac": 4,
+        "full_scale_mv": 801.48,
+        "current_ua": 20037,
+        "paired_rf_generators": [
+          0
+        ],
+        "tproc_ch": 0,
+        "tmux_ch": 1,
+        "requested_mv": 400.0,
+        "dac_code": 16352,
+        "quantized_mv": 399.9573046875,
+        "hold_command_cycle": 2457721,
+        "hold_digital_output_us": 8192.506666666666,
+        "hold_end_digital_output_us": 9192.506666666666,
+        "final_zero_digital_output_us": 9193.51,
+        "sequence_start_command_us": 8181.4
+      },
+      {
+        "axis": 1,
+        "output_name": "awg_1",
+        "awg_gen": 3,
+        "dac": "11",
+        "panel_dac": 5,
+        "full_scale_mv": 801.48,
+        "current_ua": 20037,
+        "paired_rf_generators": [
+          2
+        ],
+        "tproc_ch": 1,
+        "tmux_ch": 1,
+        "requested_mv": 400.0,
+        "dac_code": 16352,
+        "quantized_mv": 399.9573046875,
+        "hold_command_cycle": 2457721,
+        "hold_digital_output_us": 8192.506666666666,
+        "hold_end_digital_output_us": 9192.506666666666,
+        "final_zero_digital_output_us": 9193.51,
+        "sequence_start_command_us": 8181.4
+      }
+    ]
+  }
+}

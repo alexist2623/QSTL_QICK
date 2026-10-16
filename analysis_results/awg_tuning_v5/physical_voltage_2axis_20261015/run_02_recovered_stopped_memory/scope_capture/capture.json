@@ -1,0 +1,55 @@
+{
+  "capture_id": "recovered_run02_stopped_memory",
+  "same_acquisition": false,
+  "same_acquisition_basis": "Read stopped memory after run02 setup restore; not used alone to assert original acquisition identity",
+  "channels": {
+    "1": {
+      "preamble": {
+        "format": 1,
+        "type": 0,
+        "points": 12500,
+        "count": 1,
+        "x_increment": 8e-09,
+        "x_origin": -4.20400237e-05,
+        "x_reference": 0.0,
+        "y_increment": 2.615063e-05,
+        "y_origin": 0.2,
+        "y_reference": 32768.0
+      },
+      "preamble_text": "+1,+0,+12500,+1,+8.00000000E-009,-4.20400237E-005,+0,+2.61506300E-005,+2.00000000E-001,+32768",
+      "raw_sha256": "db754d10d4d47ae8be793ade4b170259693c9d1f27c6a56e9a9c084c988f7435",
+      "payload_sha256": "fa73680d679a0e0b16e08ecf705de5986362b47555a602e183ff9ea432bba968",
+      "special_codes": {
+        "hole": 0,
+        "clipped_low": 0,
+        "clipped_high": 0
+      },
+      "npz_sha256": "c3bb7509737671ee627f30285182f715ad735079d9ad6f3cf01cbdbbdb9b0215",
+      "archive_verified": true
+    },
+    "2": {
+      "preamble": {
+        "format": 1,
+        "type": 0,
+        "points": 12500,
+        "count": 1,
+        "x_increment": 8e-09,
+        "x_origin": -4.20400122e-05,
+        "x_reference": 0.0,
+        "y_increment": 2.615063e-05,
+        "y_origin": 0.2,
+        "y_reference": 32768.0
+      },
+      "preamble_text": "+1,+0,+12500,+1,+8.00000000E-009,-4.20400122E-005,+0,+2.61506300E-005,+2.00000000E-001,+32768",
+      "raw_sha256": "564d40fad473107a61d0744f9c513171d76504fc092540a9d2d8a01ea9f2caef",
+      "payload_sha256": "867348a4f747da3976229c9abbac480dcd2e17cbe4a3702c0f0ecc3f03ba7b94",
+      "special_codes": {
+        "hole": 0,
+        "clipped_low": 0,
+        "clipped_high": 0
+      },
+      "npz_sha256": "c403d63d1fa0d8ef89f6445e0ab774329dcfbc78525c84cc832f169a660ed316",
+      "archive_verified": true
+    }
+  }
+}
