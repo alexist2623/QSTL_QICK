@@ -1,0 +1,108 @@
+{
+  "status": "offline_prepared",
+  "mapping": [
+    {
+      "axis": 0,
+      "output_name": "awg_0",
+      "awg_gen": 1,
+      "dac": "10",
+      "panel_dac": 4,
+      "full_scale_mv": 801.48,
+      "current_ua": 20037,
+      "paired_rf_generators": [
+        0
+      ],
+      "tproc_ch": 0,
+      "tmux_ch": 1
+    },
+    {
+      "axis": 1,
+      "output_name": "awg_1",
+      "awg_gen": 3,
+      "dac": "11",
+      "panel_dac": 5,
+      "full_scale_mv": 801.48,
+      "current_ua": 20037,
+      "paired_rf_generators": [
+        2
+      ],
+      "tproc_ch": 1,
+      "tmux_ch": 1
+    }
+  ],
+  "points": 1,
+  "swept_ramp": "falling",
+  "active_axis": 0,
+  "duration_count": 1,
+  "voltage_count": 1,
+  "duration_range_us": [
+    1.0,
+    1.0
+  ],
+  "requested_ramp_range_us": [
+    1.0,
+    1.0
+  ],
+  "requested_range_mv": [
+    400.0,
+    400.0
+  ],
+  "sweep_shape": [
+    1
+  ],
+  "logical_coordinate_shape": [
+    1,
+    1
+  ],
+  "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+  "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+  "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+  "mode": "fixed_time",
+  "hold_us": 10.0,
+  "dc_time_us": 10.0,
+  "tau_us": 20.0,
+  "dc_voltage_mv": 300.0,
+  "start_mv": 400.0,
+  "stop_mv": 400.0,
+  "paired_dds_idle_channels": [
+    0,
+    2
+  ],
+  "physical_execution": false,
+  "production_sources_unchanged": true,
+  "board_config_sha256": "5cbe45a95bf58d684ff630e91a5b6ed71dfc72c1268b945fa7a4cc8ec585720a",
+  "current_settings_sha256": "08fb513a925778609358974ece922c8c28357d92c4a58ea42d53904109c031aa",
+  "helper_sha256": "2b69675605f52cb94480592c201da8894bef20307ef5f8908de8a59a7604d9e5",
+  "files": {
+    "axis_voltage_dialog.png": "c67d7d44eec02b0a659607040013ec6bfed49134ca091fd1f3df2f98bed9f3ff",
+    "board_config_snapshot.json": "5cbe45a95bf58d684ff630e91a5b6ed71dfc72c1268b945fa7a4cc8ec585720a",
+    "compensation_panel.png": "dee19a89e6d7eae38646eb795c70665bf6126d0857b41afcc70c8f2c983ec785",
+    "compiler_compensation.json": "a4eb06cb9c044352bc63dc88bdf883dc225e46ab126b33fcfaa2cf8a8627354e",
+    "dac_current_snapshot.json": "08fb513a925778609358974ece922c8c28357d92c4a58ea42d53904109c031aa",
+    "expected_points.json.gz": "1553befd9210d6969435174eb6487908eec42ab1fbd3730745feb252cc87b90f",
+    "gui.png": "419b21ac8953940b88bc1c10420686fc96b4ade476e8d245ccd1683a49e9176c",
+    "gui_arguments.json": "37a73effcb74b7a53210e933ae0f00eae939fba84a83883cffeb5e62828ea95e",
+    "gui_input.json": "bc5e4fa2cc3f292c0e0f19ff9c0ab769a6c744c1d4b93e148b340c70b48f7179",
+    "gui_seed.json": "e965b47f37b1a500c3d2208a6bcf92518c31f8462c05c9d18fefec153c1c615f",
+    "mapping.json": "b36711fa036f02a28f791a9c9560539b1a8c5bce2a9e124f8fc1f15a54237e32",
+    "paired_dds_idle.asm": "e0bbdbb41e5b9ee9aaf644cc8bec11c797010f0254834c5177bdd648d6de7fb1",
+    "paired_dds_idle.dmem.json": "dda9dc3e1d5c564d64b37a2bd9b0380d932d8bf3d936a5ff0f2506d5b8d8777d",
+    "paired_dds_idle.pmem": "89e53036a4cb2af91e5b3acb93ad3f38669377b2fc3d07bcfb7ddc0c641872b5",
+    "paired_dds_idle_model.json": "4495b1ca4fb41c92b30b9dc5c582e38f5e7bc4273d11f79a27b76dea5edafd3e",
+    "preflight.json": "a8dc4fa26e21976a23d7dd6d3c11c02a782b26591d611ba1851b1fe391c3a39c",
+    "preparation_summary.json": "a8ad99fe564abe2349ca33d9f3908faf74360340e4388bad23613231c2078565",
+    "prepare_program_snapshot.py": "2b69675605f52cb94480592c201da8894bef20307ef5f8908de8a59a7604d9e5",
+    "runtime_tables.json": "f652b2f769a5a2cc4c6d2517560cbcbe3f2e2da23662123d0f82778bc38ecc10",
+    "source_after.json": "0c27abc9dc2d0fe2818896acfcc39135f2f0b6264a740b51a5facb2cb1789c98",
+    "source_before.json": "0c27abc9dc2d0fe2818896acfcc39135f2f0b6264a740b51a5facb2cb1789c98",
+    "sweep.asm": "e2685bb00d0a7c184f52bfaa9dd62e785c2f97c6a059627788cb607933d265dd",
+    "sweep.dmem.json": "dda9dc3e1d5c564d64b37a2bd9b0380d932d8bf3d936a5ff0f2506d5b8d8777d",
+    "sweep.pmem": "04a23ed9640978b514d179e5da01c3abf15cc45b46b3848bd4e08f856f7695bd",
+    "sweep_model.json.gz": "38f6ece2bcc76361049b433b7ea7b112c6bd665b4ea281dbc77bdf7e543a4eac",
+    "zero_gui_input.json": "3944cbcee3cae0f51e724e49ec726c78789b1deeee91fb3816fd86ed03798754",
+    "zero_recovery.asm": "cc00612d4d68171d37e238c5cd2d31e565a155cfacb5531de00e37b97e93d533",
+    "zero_recovery.dmem.json": "dda9dc3e1d5c564d64b37a2bd9b0380d932d8bf3d936a5ff0f2506d5b8d8777d",
+    "zero_recovery.pmem": "b8f8b7f7ed654f8898fa044e7b30d7b5d535549671e3b2c5c67597ddd4e5906e",
+    "zero_recovery_model.json": "d099d258c331442837fe203bf89b630c43e2f1a3a083c96e7f5d565ca2e15970"
+  }
+}

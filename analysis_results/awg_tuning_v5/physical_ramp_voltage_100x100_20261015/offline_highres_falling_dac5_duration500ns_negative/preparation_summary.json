@@ -1,0 +1,77 @@
+{
+  "mode": "fixed_time",
+  "points": 1,
+  "swept_ramp": "falling",
+  "active_axis": 1,
+  "duration_count": 1,
+  "voltage_count": 1,
+  "duration_range_us": [
+    0.5,
+    0.5
+  ],
+  "requested_ramp_range_us": [
+    0.5,
+    0.5
+  ],
+  "requested_range_mv": [
+    -400.0,
+    -400.0
+  ],
+  "sweep_shape": [
+    1
+  ],
+  "logical_coordinate_shape": [
+    1,
+    1
+  ],
+  "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+  "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+  "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+  "pmem_words": 172,
+  "zero_pmem_words": 69,
+  "idle_pmem_words": 14,
+  "dmem_words": 0,
+  "point_spacing_cycles": [],
+  "final_zero_bound_us": 45.96333333333333,
+  "global_rc_bounds_mv": [
+    -611.735259143898,
+    431.7328461176083
+  ],
+  "hardware_dc_deadline_cycles": 3113,
+  "controls": [
+    {
+      "axis": 0,
+      "rc_enable_reset_cycle": 200,
+      "coefficient": 1466015504,
+      "dc_arm_cycle": 812,
+      "dc_commands": 1,
+      "rc_commands": 1,
+      "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+      "cleanup_rc_disabled_reset": true,
+      "cleanup_dc_disabled": true
+    },
+    {
+      "axis": 1,
+      "rc_enable_reset_cycle": 200,
+      "coefficient": 1466015504,
+      "dc_arm_cycle": 812,
+      "dc_commands": 1,
+      "rc_commands": 1,
+      "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+      "cleanup_rc_disabled_reset": true,
+      "cleanup_dc_disabled": true
+    }
+  ],
+  "actual_range_mv": [
+    -399.9573046875,
+    -399.9573046875
+  ],
+  "effective_code_area_range": [
+    -211009802,
+    0
+  ],
+  "dc_duration_cycles_range": [
+    3000,
+    3000
+  ]
+}

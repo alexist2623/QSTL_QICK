@@ -1,0 +1,37 @@
+{
+  "case": {
+    "swept_ramp": "rising",
+    "active_axis": 0,
+    "duration_count": 1,
+    "voltage_count": 1,
+    "duration_range_us": [
+      0.5,
+      0.5
+    ],
+    "requested_ramp_range_us": [
+      0.5,
+      0.5
+    ],
+    "requested_range_mv": [
+      -400.0,
+      -400.0
+    ],
+    "sweep_shape": [
+      1
+    ],
+    "logical_coordinate_shape": [
+      1,
+      1
+    ],
+    "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+    "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+    "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis"
+  },
+  "duration_cycles": [
+    150
+  ],
+  "base": null,
+  "words": 0,
+  "groups": [],
+  "note": "Fixed RAMP duration; any actual runtime DMEM is preserved and reconstructed exactly, with no duration sweep axis."
+}

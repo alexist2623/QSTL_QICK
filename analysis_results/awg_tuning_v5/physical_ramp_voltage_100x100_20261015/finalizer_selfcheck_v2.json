@@ -1,0 +1,116 @@
+{
+  "passed": true,
+  "actual_completed_case": "rising_dac4_fixed_time10_tau20",
+  "actual_metadata_binding_passed": true,
+  "synthetic_conditions": 48,
+  "mutations_rejected": 18,
+  "mutation_details": [
+    {
+      "artifact_index": 0,
+      "key": "label",
+      "altered_value": "falling_dac4_fixed_time10_tau20"
+    },
+    {
+      "artifact_index": 1,
+      "key": "prepared",
+      "altered_value": "offline_other"
+    },
+    {
+      "artifact_index": 1,
+      "key": "run",
+      "altered_value": "run_other"
+    },
+    {
+      "artifact_index": 1,
+      "key": "analysis",
+      "altered_value": "analysis_other"
+    },
+    {
+      "artifact_index": 2,
+      "key": "active_axis",
+      "altered_value": 1
+    },
+    {
+      "artifact_index": 2,
+      "key": "requested_range_mv",
+      "altered_value": [
+        -300.0,
+        300.0
+      ]
+    },
+    {
+      "artifact_index": 2,
+      "key": "dc_time_us",
+      "altered_value": 20.0
+    },
+    {
+      "artifact_index": 2,
+      "key": "hold_us",
+      "altered_value": 100.0
+    },
+    {
+      "artifact_index": 3,
+      "key": "rc_tau_us",
+      "altered_value": 30.0
+    },
+    {
+      "artifact_index": 3,
+      "key": "identity_matrix",
+      "altered_value": false
+    },
+    {
+      "artifact_index": 3,
+      "key": "sweep_shape",
+      "altered_value": [
+        10,
+        1000
+      ]
+    },
+    {
+      "artifact_index": 3,
+      "key": "duration_count",
+      "altered_value": 10
+    },
+    {
+      "artifact_index": 3,
+      "key": "requested_ramp_range_us",
+      "altered_value": [
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "artifact_index": 4,
+      "key": "prepared_bundle",
+      "altered_value": "offline_other"
+    },
+    {
+      "artifact_index": 4,
+      "key": "high_resolution",
+      "altered_value": true
+    },
+    {
+      "artifact_index": 5,
+      "key": "source_run",
+      "altered_value": "run_other"
+    },
+    {
+      "artifact_index": 5,
+      "key": "mode",
+      "altered_value": "fixed_voltage"
+    },
+    {
+      "artifact_index": 5,
+      "key": "requested_range_mv",
+      "altered_value": [
+        -300.0,
+        300.0
+      ]
+    }
+  ],
+  "limitation": "Metadata binding only; no new measurement or waveform computation.",
+  "source_hashes": {
+    "selfcheck_finalizer.py": "f3f6d885c79a2daf85ee8d2372f3fe3124fdc1eead1177d0e8afdb55789c96b0",
+    "finalize_evidence.py": "68f0d7103c866524c435e4d21b8c41a1485d9207d7f93318798ab79037db634f"
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "analysis_complete": true,
+  "new_hardware_execution": false,
+  "prepared_bundle": "offline_falling_dac5_fixed_time10_tau30",
+  "source_run": "run_falling_dac5_fixed_time10_tau30_01",
+  "capture_id": "10612517-90e2-43d1-b615-6e1f68be49ac",
+  "mode": "fixed_time",
+  "rc_tau_us": 30.0,
+  "dc_time_us": 10.0,
+  "dc_voltage_mv": null,
+  "requested_range_mv": [
+    -400.0,
+    400.0
+  ],
+  "failure_threshold_mv": 15.0,
+  "requested_ramp_range_us": [
+    0.01,
+    1.0
+  ],
+  "swept_ramp": "falling",
+  "active_axis": 1,
+  "physical_reference": "Direct DAC-to-scope RC-precompensated waveform; no external RC-network transfer model",
+  "integrity_passed": true,
+  "integrity_issues": [],
+  "overall_primary_passed": true,
+  "primary_channel_counts": {
+    "PASS": 20000,
+    "FAIL": 0,
+    "INCOMPLETE": 0
+  },
+  "active_primary_counts": {
+    "PASS": 10000,
+    "FAIL": 0,
+    "INCOMPLETE": 0
+  },
+  "inactive_zero_counts": {
+    "PASS": 10000,
+    "FAIL": 0,
+    "INCOMPLETE": 0
+  },
+  "primary_point_counts": {
+    "PASS": 10000,
+    "FAIL": 0,
+    "INCOMPLETE": 0
+  },
+  "compiled_channel_counts": {
+    "PASS": 19994,
+    "FAIL": 6,
+    "INCOMPLETE": 0
+  },
+  "dc_diagnostics": {
+    "central_compensation": {
+      "PASS": 10000,
+      "FAIL": 0,
+      "INCOMPLETE": 0
+    },
+    "inactive_compensation_not_applicable": 10000,
+    "post_dc_zero": {
+      "PASS": 19994,
+      "FAIL": 6,
+      "INCOMPLETE": 0
+    },
+    "final_zero": {
+      "1": {
+        "point": 9999,
+        "scope_channel": 1,
+        "kind": "final_zero_100_to_500us",
+        "expected_window_duration_us": 400.0,
+        "samples": 800,
+        "roi_start_index": 911378,
+        "roi_stop_index_exclusive": 912178,
+        "roi_start_scope_s": 0.4256890589930564,
+        "roi_end_scope_s": 0.42608905899305644,
+        "raw_median_mv": -26.778245119999998,
+        "fixed_offset_mv": -26.778245119999998,
+        "expected_compiled_median_mv": 0.0,
+        "median_error_mv": 0.0,
+        "passed": true,
+        "valid": true,
+        "note": ""
+      },
+      "2": {
+        "point": 9999,
+        "scope_channel": 2,
+        "kind": "final_zero_100_to_500us",
+        "expected_window_duration_us": 400.0,
+        "samples": 800,
+        "roi_start_index": 911378,
+        "roi_stop_index_exclusive": 912178,
+        "roi_start_scope_s": 0.4256890589930564,
+        "roi_end_scope_s": 0.42608905899305644,
+        "raw_median_mv": -13.389122559999999,
+        "fixed_offset_mv": -13.389122559999999,
+        "expected_compiled_median_mv": 0.0,
+        "median_error_mv": 0.0,
+        "passed": true,
+        "valid": true,
+        "note": ""
+      }
+    },
+    "duration_certified": false,
+    "duration_note": "Expected integer/DC windows only; no precision duration or external-capacitor-state claim"
+  },
+  "fixed_offsets_mv": {
+    "1": -26.778245119999998,
+    "2": -13.389122559999999
+  },
+  "single_time_offset_s": -1.4844340276862945e-05,
+  "maximum_primary_median_error_mv": 10.730136313921292,
+  "maximum_compiled_median_error_mv": 15.393482495781313,
+  "per_channel": {
+    "1": {
+      "primary_counts": {
+        "PASS": 10000,
+        "FAIL": 0,
+        "INCOMPLETE": 0
+      },
+      "compiled_counts": {
+        "PASS": 10000,
+        "FAIL": 0,
+        "INCOMPLETE": 0
+      },
+      "maximum_primary_median_error_mv": 10.04184192,
+      "sample_interval_s": 5e-07,
+      "observed_vertical_step_mv": 6.694561279999999
+    },
+    "2": {
+      "primary_counts": {
+        "PASS": 10000,
+        "FAIL": 0,
+        "INCOMPLETE": 0
+      },
+      "compiled_counts": {
+        "PASS": 9994,
+        "FAIL": 6,
+        "INCOMPLETE": 0
+      },
+      "maximum_primary_median_error_mv": 10.730136313921292,
+      "sample_interval_s": 5e-07,
+      "observed_vertical_step_mv": 6.694561279999999
+    }
+  },
+  "input_hashes_unchanged": true,
+  "analogue_accuracy_calibrated": false,
+  "limitations": [
+    "Primary ideal includes GUI voltage quantization error; exact compiled expectation is not substituted.",
+    "First-RAMP scalar timing and per-channel scope grids are retained; one global timing offset only.",
+    "Maximum per-sample residual is diagnostic; criterion remains the central-window median residual.",
+    "Sub-resolution fixed-voltage DC tails can be unresolved and remain INCOMPLETE in separate diagnostics.",
+    "Scope noise/bandwidth/vertical quantization and uncalibrated DC path are not removed by fitted gain.",
+    "RAMP duration is a requested axis and compiled timing is retained; full-frame capture does not certify 10ns RAMP shape or precise duration.",
+    "Inactive DC runs with zero area are not counted as nonzero compensation-pulse coverage.",
+    "DC zero diagnostics do not expose internal per-shot area/overflow counters or certify an external RC circuit."
+  ]
+}

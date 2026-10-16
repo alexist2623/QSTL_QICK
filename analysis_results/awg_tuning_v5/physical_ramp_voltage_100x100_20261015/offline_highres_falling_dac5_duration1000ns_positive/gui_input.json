@@ -1,0 +1,1006 @@
+{
+  "schema": "qstl-pulse-generator-gui",
+  "version": 45,
+  "display": {
+    "time_unit": "us",
+    "voltage_view": "both",
+    "show_dc_compensation": true,
+    "show_rc_compensation": true,
+    "waveform_point_index": 0,
+    "selected_awg_output": 1,
+    "selected_control_tab": 0,
+    "selected_awg_tuning_tab": 0,
+    "selected_awg_tuning_tab_name": "AWG Outputs",
+    "trace_stability_overlay": {
+      "mode": "latest",
+      "database_path": "C:\\Users\\Measurement2\\qick_stability_diagrams.db",
+      "run_id": 0,
+      "quantity": "magnitude"
+    }
+  },
+  "grid": {
+    "time_step_ns": 1000.0,
+    "voltage_step_mv": 100.0,
+    "snap_enabled": false,
+    "visible": true,
+    "configured": false
+  },
+  "awg": {
+    "outputs": [
+      {
+        "time_ns": [
+          0.0,
+          10000.0,
+          11000.0,
+          21000.0,
+          22000.0,
+          32000.0
+        ],
+        "voltage_mv": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "voltage_bounds_mv": [
+          -801.48,
+          801.48
+        ],
+        "segment_names": [
+          "set_0",
+          "set_1",
+          "set_2"
+        ]
+      },
+      {
+        "time_ns": [
+          0.0,
+          10000.0,
+          11000.0,
+          21000.0,
+          22000.0,
+          32000.0
+        ],
+        "voltage_mv": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "voltage_bounds_mv": [
+          -801.48,
+          801.48
+        ],
+        "segment_names": [
+          "set_0",
+          "set_1",
+          "set_2"
+        ]
+      }
+    ],
+    "cross_capacitance": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "sweeps": [
+      {
+        "axis_kind": "amplitude",
+        "segment_name": "set_1",
+        "output_name": "awg_1",
+        "start": 0.4990767080900334,
+        "stop": 0.4990767080900334,
+        "count": 1
+      }
+    ]
+  },
+  "qick": {
+    "fabric_mhz": 300.0,
+    "tproc_mhz": 300.0,
+    "full_scale_mv": 801.48,
+    "awg_channels": [
+      1,
+      3
+    ],
+    "dac_current_settings": {
+      "10": {
+        "converter_id": "10",
+        "channels": [
+          0,
+          1
+        ],
+        "dc_output": true,
+        "adjustable": true,
+        "current_ua": 20037,
+        "min_current_ua": 6425,
+        "max_current_ua": 32000,
+        "reason": "",
+        "full_scale_mv": 801.48
+      },
+      "11": {
+        "converter_id": "11",
+        "channels": [
+          2,
+          3
+        ],
+        "dc_output": true,
+        "adjustable": true,
+        "current_ua": 20037,
+        "min_current_ua": 6425,
+        "max_current_ua": 32000,
+        "reason": "",
+        "full_scale_mv": 801.48
+      },
+      "12": {
+        "converter_id": "12",
+        "channels": [
+          4,
+          5
+        ],
+        "dc_output": true,
+        "adjustable": true,
+        "current_ua": 20037,
+        "min_current_ua": 6425,
+        "max_current_ua": 32000,
+        "reason": "",
+        "full_scale_mv": 801.48
+      },
+      "02": {
+        "converter_id": "02",
+        "channels": [
+          6
+        ],
+        "dc_output": false,
+        "adjustable": false,
+        "current_ua": 20037,
+        "min_current_ua": 6425,
+        "max_current_ua": 32000,
+        "reason": "RF or shared RF generator: current is read-only",
+        "full_scale_mv": 801.48
+      },
+      "13": {
+        "converter_id": "13",
+        "channels": [
+          7
+        ],
+        "dc_output": true,
+        "adjustable": true,
+        "current_ua": 20037,
+        "min_current_ua": 6425,
+        "max_current_ua": 32000,
+        "reason": "",
+        "full_scale_mv": 801.48
+      },
+      "20": {
+        "converter_id": "20",
+        "channels": [
+          8
+        ],
+        "dc_output": true,
+        "adjustable": true,
+        "current_ua": 20037,
+        "min_current_ua": 6425,
+        "max_current_ua": 32000,
+        "reason": "",
+        "full_scale_mv": 801.48
+      },
+      "21": {
+        "converter_id": "21",
+        "channels": [
+          9
+        ],
+        "dc_output": true,
+        "adjustable": true,
+        "current_ua": 20037,
+        "min_current_ua": 6425,
+        "max_current_ua": 32000,
+        "reason": "",
+        "full_scale_mv": 801.48
+      },
+      "22": {
+        "converter_id": "22",
+        "channels": [
+          10
+        ],
+        "dc_output": true,
+        "adjustable": true,
+        "current_ua": 20037,
+        "min_current_ua": 6425,
+        "max_current_ua": 32000,
+        "reason": "",
+        "full_scale_mv": 801.48
+      },
+      "23": {
+        "converter_id": "23",
+        "channels": [
+          11
+        ],
+        "dc_output": true,
+        "adjustable": true,
+        "current_ua": 20037,
+        "min_current_ua": 6425,
+        "max_current_ua": 32000,
+        "reason": "",
+        "full_scale_mv": 801.48
+      }
+    },
+    "repetitions_per_sweep": 1,
+    "iq_storage_mode": "full_traces",
+    "awg_metadata_mode": "parametric",
+    "compile_validation_mode": "full",
+    "bias_t_compensation": {
+      "enabled": true,
+      "type": "dc_rc",
+      "mode": "fixed_time",
+      "voltage_mv": 80.0,
+      "duration_us": 10.0,
+      "filter_tau_us": 20.0
+    }
+  },
+  "experiment": {
+    "qick_host": "192.168.2.99",
+    "ns_port": 8888,
+    "proxy_name": "myqick",
+    "database_path": "C:\\Users\\Measurement2\\qick_experiments.db",
+    "experiment_name": "QICK pulse experiment",
+    "sample_name": "PulseGenerator",
+    "notes": "",
+    "sweep_map": {
+      "slice_axes": [],
+      "color_ranges": {
+        "i": {
+          "auto": true,
+          "minimum": -1.0,
+          "maximum": 1.0
+        },
+        "q": {
+          "auto": true,
+          "minimum": -1.0,
+          "maximum": 1.0
+        },
+        "magnitude": {
+          "auto": true,
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "angle": {
+          "auto": false,
+          "minimum": -180.0,
+          "maximum": 180.0
+        }
+      },
+      "visible_data": [
+        "i",
+        "q",
+        "magnitude",
+        "angle"
+      ]
+    }
+  },
+  "rf_outputs": [],
+  "rf_readout": {
+    "enabled": false,
+    "ro_ch": 0,
+    "segment_name": "set_0",
+    "delay_us": 0.0,
+    "samples_per_trigger": 64,
+    "dc_compensation_timing": "after_readout",
+    "readout_frequency_mhz": 50.0,
+    "margin_input_samples": 1024,
+    "fpga_trigger_delay_us": null,
+    "force_overwrite": false,
+    "post_run_read_delay_seconds": 0.1,
+    "input_board_type": "RF_In",
+    "attenuation_db": 20.0,
+    "dc_gain_db": 0.0,
+    "dc_measure_mode": false,
+    "dc_measure_gain_v_per_a": 1.0,
+    "measurement_representation": "adc",
+    "dc_voltage_calibration_enabled": false,
+    "dc_voltage_calibration_database_path": "",
+    "dc_voltage_calibration_run_id": 0,
+    "filter_type": "bypass",
+    "filter_cutoff": 2.5,
+    "filter_bandwidth": 1.0,
+    "nqz": 1
+  },
+  "stability_diagram": {
+    "x_axis": {
+      "output_name": "awg_0",
+      "gen_ch": 1,
+      "start_mv": -100.0,
+      "stop_mv": 100.0,
+      "points": 51
+    },
+    "y_axis": {
+      "output_name": "awg_1",
+      "gen_ch": 3,
+      "start_mv": -100.0,
+      "stop_mv": 100.0,
+      "points": 51
+    },
+    "repetitions_per_point": 1,
+    "trace_samples_per_point": 64,
+    "settle_time_us": 50.0,
+    "acquisition_source": "fir_ddr",
+    "sweep_mode": "hardware",
+    "hardware_rep_delay_us": 0.0,
+    "fpga_trigger_delay_us": null,
+    "modulation_frequency_mhz": 50.0,
+    "modulation_gain": 20000,
+    "modulation_power_calibration": {
+      "enabled": false,
+      "database_path": "C:\\Users\\Measurement2\\gain_pwr_calb.db",
+      "run_id": 0,
+      "target_power_dbm": -20.0
+    },
+    "bias_t_compensation": {
+      "enabled": false,
+      "type": "dc",
+      "mode": "fixed_voltage",
+      "voltage_mv": 80.0,
+      "duration_us": 1.0,
+      "filter_tau_us": 100.0
+    },
+    "rf_path": {
+      "output_ch": 0,
+      "readout_ch": 0,
+      "output_nqz": 1,
+      "readout_nqz": 1,
+      "output_board_type": "RF_Out",
+      "input_board_type": "DC_In",
+      "output_att1_db": 10.0,
+      "output_att2_db": 10.0,
+      "readout_attenuation_db": 20.0,
+      "readout_dc_gain_db": 0.0,
+      "loss1_db": 0.0,
+      "loss2_db": 0.0,
+      "amplifier_gain_db": 0.0,
+      "output_filter_type": "bypass",
+      "output_filter_cutoff_ghz": 2.5,
+      "output_filter_bandwidth_ghz": 1.0,
+      "readout_filter_type": "bypass",
+      "readout_filter_cutoff_ghz": 2.5,
+      "readout_filter_bandwidth_ghz": 1.0
+    },
+    "color_ranges": {
+      "i": {
+        "auto": true,
+        "minimum": -1.0,
+        "maximum": 1.0
+      },
+      "q": {
+        "auto": true,
+        "minimum": -1.0,
+        "maximum": 1.0
+      },
+      "magnitude": {
+        "auto": true,
+        "minimum": 0.0,
+        "maximum": 1.0
+      },
+      "phase": {
+        "auto": false,
+        "minimum": -180.0,
+        "maximum": 180.0
+      }
+    },
+    "visible_data": [
+      "magnitude",
+      "phase"
+    ],
+    "database_path": "C:\\Users\\Measurement2\\qick_stability_diagrams.db",
+    "iq_storage_mode": "full_traces",
+    "saved_plot_database_path": "C:\\Users\\Measurement2\\qick_stability_diagrams.db",
+    "saved_plot_run_id": 0,
+    "saved_plot_data": "magnitude",
+    "measurement_representation": "adc",
+    "dc_measure_gain_v_per_a": 1.0,
+    "dc_voltage_calibration_enabled": false,
+    "dc_voltage_calibration_database_path": "",
+    "dc_voltage_calibration_run_id": 0
+  },
+  "s_parameter": {
+    "database_path": "C:\\Users\\Measurement2\\qick_sparameter_experiments.db",
+    "output_ch": 0,
+    "readout_ch": 0,
+    "frequency_start_mhz": 10.0,
+    "frequency_end_mhz": 100.0,
+    "frequency_points": 101,
+    "gain": 20000,
+    "power_calibration_enabled": false,
+    "calibration_database_path": "",
+    "input_calibration_selection": "latest_matching_attenuation",
+    "requested_input_calibration_run_id": 0,
+    "output_board_type": "RF_Out",
+    "input_board_type": "DC_In",
+    "output_power_dbm": -20.0,
+    "power_sweep_enabled": false,
+    "power_start_gain": 1000,
+    "power_end_gain": 20000,
+    "power_start_dbm": -30.0,
+    "power_end_dbm": -10.0,
+    "power_points": 5,
+    "power_scale": "linear",
+    "acquisition_source": "fir_ddr",
+    "scan_time_us": 10.0,
+    "minimum_coherent_samples": 1,
+    "avg_repetitions": 100,
+    "avg_sweep_mode": "hardware",
+    "avg_hardware_rep_delay_us": 0.0,
+    "output_att1_db": 10.0,
+    "output_att2_db": 10.0,
+    "output_filter_type": "bypass",
+    "output_filter_cutoff_ghz": 2.5,
+    "output_filter_bandwidth_ghz": 1.0,
+    "readout_attenuation_db": 20.0,
+    "readout_dc_gain_db": 0.0,
+    "readout_filter_type": "bypass",
+    "readout_filter_cutoff_ghz": 2.5,
+    "readout_filter_bandwidth_ghz": 1.0,
+    "loss1_db": 0.0,
+    "loss2_db": 0.0,
+    "amplifier_gain_db": 0.0,
+    "nqz": 1,
+    "readout_nqz": 1,
+    "margin_input_samples": 1024,
+    "fpga_trigger_delay_us": null,
+    "address": 0,
+    "stride_bytes": null,
+    "force_overwrite": false,
+    "settle_seconds": 0.05,
+    "trigger_width_tproc_cycles": 12,
+    "recovery_tproc_cycles": 20,
+    "calibrated_gain_table": [],
+    "calibrated_frequency_point_count": 0,
+    "calibrated_output_power_dbm": null,
+    "calibrated_nominal_gain_code": null,
+    "calibrated_reference_response_dbm": null,
+    "calibrated_correction_min_db": null,
+    "calibrated_correction_max_db": null,
+    "gain_dmem_base_address": 16,
+    "calibration_output_run_id": 0,
+    "calibration_input_run_id": 0,
+    "calibration_output_sample_name": "",
+    "calibration_input_sample_name": "",
+    "phase_display": "unwrapped",
+    "save_to_qcodes": true,
+    "magnitude_display": "response_db"
+  },
+  "calibration": {
+    "database_path": "C:\\Users\\Measurement2\\gain_pwr_calb.db",
+    "selected_tab": 0,
+    "output": {
+      "output_board_type": "RF_Out",
+      "output_ch": 0,
+      "frequency_start_mhz": 400.0,
+      "frequency_end_mhz": 500.0,
+      "frequency_points": 11,
+      "gain_start": 1000,
+      "gain_end": 32766,
+      "gain_points": 16,
+      "gain_scale": "linear",
+      "output_att1_db": 0.0,
+      "output_att2_db": 0.0,
+      "output_filter_type": "bypass",
+      "output_filter_cutoff_ghz": 2.5,
+      "output_filter_bandwidth_ghz": 1.0,
+      "nqz": 1,
+      "tone_length_fabric_cycles": 16,
+      "experiment_name": "QICK output power calibration",
+      "sample_name": "",
+      "notes": "",
+      "oscilloscope": {
+        "visa_resource": "",
+        "channel": 2,
+        "fft_function": 1,
+        "span_mhz": 100.0,
+        "average_count": 100,
+        "settle_seconds": 2.0,
+        "sample_interval_seconds": 0.01,
+        "timeout_ms": 10000
+      }
+    },
+    "input": {
+      "output_board_type": "RF_Out",
+      "input_board_type": "RF_In",
+      "output_ch": 0,
+      "readout_ch": 0,
+      "frequency_start_mhz": 400.0,
+      "frequency_end_mhz": 500.0,
+      "frequency_points": 11,
+      "gain_start": 1000,
+      "gain_end": 32766,
+      "gain_points": 16,
+      "gain_scale": "linear",
+      "acquisition_source": "fir_ddr",
+      "scan_time_us": 100.0,
+      "output_att1_db": 0.0,
+      "output_att2_db": 0.0,
+      "input_attenuation_db": 0.0,
+      "input_dc_gain_db": 0.0,
+      "output_filter_type": "bypass",
+      "output_filter_cutoff_ghz": 2.5,
+      "output_filter_bandwidth_ghz": 1.0,
+      "readout_filter_type": "bypass",
+      "readout_filter_cutoff_ghz": 2.5,
+      "readout_filter_bandwidth_ghz": 1.0,
+      "path_loss_db": 0.0,
+      "fit_trim_low": 0,
+      "fit_trim_high": 0,
+      "nqz": 1,
+      "readout_nqz": 1,
+      "margin_input_samples": 1024,
+      "fpga_trigger_delay_us": null,
+      "settle_seconds": 0.05,
+      "force_overwrite": true,
+      "experiment_name": "QICK ADC input power calibration",
+      "sample_name": "",
+      "notes": "",
+      "power_sweep_enabled": false,
+      "power_start_dbm": -40.0,
+      "power_end_dbm": -20.0,
+      "power_points": 16,
+      "use_gain_regression": false
+    },
+    "dc_voltage": {
+      "output_ch": 1,
+      "readout_ch": 0,
+      "voltage_start_mv": -800.0,
+      "voltage_stop_mv": 800.0,
+      "voltage_points": 33,
+      "output_full_scale_mv": 801.48,
+      "samples_per_point": 128,
+      "repetitions_per_point": 4,
+      "input_dc_gain_db": 0.0,
+      "settle_us": 5.0,
+      "margin_input_samples": 1024,
+      "fpga_trigger_delay_us": null,
+      "force_overwrite": true,
+      "experiment_name": "QICK DC input voltage calibration",
+      "sample_name": "",
+      "notes": "",
+      "dac_current_settings": null
+    },
+    "paths": {
+      "output": {
+        "output_ch": 0,
+        "readout_ch": 0,
+        "output_nqz": 1,
+        "readout_nqz": 1,
+        "output_board_type": "RF_Out",
+        "input_board_type": "RF_In",
+        "output_att1_db": 0.0,
+        "output_att2_db": 0.0,
+        "readout_attenuation_db": 0.0,
+        "readout_dc_gain_db": 0.0,
+        "loss1_db": 0.0,
+        "loss2_db": 0.0,
+        "amplifier_gain_db": 0.0
+      },
+      "input": {
+        "output_ch": 0,
+        "readout_ch": 0,
+        "output_nqz": 1,
+        "readout_nqz": 1,
+        "output_board_type": "RF_Out",
+        "input_board_type": "RF_In",
+        "output_att1_db": 0.0,
+        "output_att2_db": 0.0,
+        "readout_attenuation_db": 0.0,
+        "readout_dc_gain_db": 0.0,
+        "loss1_db": 0.0,
+        "loss2_db": 0.0,
+        "amplifier_gain_db": 0.0
+      },
+      "dc_voltage": {
+        "output_ch": 1,
+        "readout_ch": 0,
+        "output_nqz": 1,
+        "readout_nqz": 1,
+        "output_board_type": "DC_Out",
+        "input_board_type": "DC_In",
+        "output_att1_db": 0.0,
+        "output_att2_db": 0.0,
+        "readout_attenuation_db": 0.0,
+        "readout_dc_gain_db": 0.0,
+        "loss1_db": 0.0,
+        "loss2_db": 0.0,
+        "amplifier_gain_db": 0.0
+      }
+    },
+    "dc_voltage_application": {
+      "enabled": false,
+      "database_path": "C:\\Users\\Measurement2\\gain_pwr_calb.db",
+      "run_id": 0
+    },
+    "input_plot": {
+      "x_scale": "log",
+      "y_scale": "log"
+    }
+  },
+  "noise_analysis": {
+    "acquisition_host": "192.168.2.99",
+    "acquisition_ns_port": 8888,
+    "acquisition_proxy_name": "myqick",
+    "acquisition_readout_ch": 0,
+    "acquisition_input_board_type": "RF_In",
+    "acquisition_nqz": 1,
+    "acquisition_fir_samples": 1000000,
+    "acquisition_readout_frequency_mhz": 0.0,
+    "acquisition_input_attenuation_db": 20.0,
+    "acquisition_dc_gain_db": 0.0,
+    "acquisition_filter_type": "bypass",
+    "acquisition_filter_cutoff_ghz": 2.5,
+    "acquisition_filter_bandwidth_ghz": 1.0,
+    "acquisition_margin_input_samples": 1024,
+    "acquisition_fpga_trigger_delay_us": null,
+    "acquisition_force_overwrite": true,
+    "acquisition_post_run_read_delay_seconds": 0.1,
+    "database_path": "C:\\Users\\Measurement2\\qick_experiments.db",
+    "run_id": 0,
+    "point_index": 0,
+    "repetition_index": 0,
+    "input_mode": "voltage",
+    "transimpedance_gain_v_per_a": 100000000.0,
+    "input_scale_v_per_unit": 1.0,
+    "sample_rate_hz": 1000000.0,
+    "window": "flattop",
+    "detrend": "constant",
+    "nfft": 0,
+    "dc_voltage_calibration_enabled": false,
+    "dc_voltage_calibration_database_path": "",
+    "dc_voltage_calibration_run_id": 0,
+    "dc_voltage_calibration_readout_ch": 0,
+    "dc_voltage_calibration_input_gain_db": 0.0
+  },
+  "bias": {
+    "selected_channel": 0,
+    "voltage_limit_v": 10.0,
+    "ramp_max_step_v": 0.001,
+    "ramp_pause_s": 0.01,
+    "channel_names": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "setpoints_v": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "measurements": {
+      "two_point": {
+        "database_path": "C:\\Users\\Measurement2\\qick_bias_measurements.db",
+        "experiment_name": "QICK 2P bias sweep",
+        "sample_name": "BiasMeasurement",
+        "notes": "",
+        "current_mode": "sr860",
+        "repetitions_per_point": 1,
+        "settle_s": 0.01,
+        "ramp_max_step_v": 0.001,
+        "ramp_pause_s": 0.01,
+        "restore_bias_after_run": true,
+        "sr860": {
+          "visa_address": "GPIB0::4::INSTR",
+          "frequency_hz": 43.5371,
+          "phase_deg": 0.0,
+          "time_constant_s": 0.1,
+          "filter_slope_db_oct": 24,
+          "sensitivity_a": 1e-07,
+          "sine_bias_v": 0.0001,
+          "settle_time_constants": 3.0,
+          "input_gain_ohm": 100000000.0
+        },
+        "qick_adc": {
+          "readout_ch": 0,
+          "input_board_type": "DC_In",
+          "nqz": 1,
+          "fir_samples": 100,
+          "readout_frequency_mhz": 0.0,
+          "attenuation_db": 20.0,
+          "dc_gain_db": 0.0,
+          "filter_type": "bypass",
+          "filter_cutoff_ghz": 2.5,
+          "filter_bandwidth_ghz": 1.0,
+          "margin_input_samples": 1024,
+          "fpga_trigger_delay_us": null,
+          "post_run_read_delay_seconds": 0.1,
+          "adc_units_per_amp": 1.0
+        },
+        "bias_start_v": 0.0,
+        "bias_stop_v": 0.0002,
+        "points": 101
+      },
+      "gate": {
+        "database_path": "C:\\Users\\Measurement2\\qick_bias_measurements.db",
+        "experiment_name": "QICK gate-controlled sweep",
+        "sample_name": "BiasMeasurement",
+        "notes": "",
+        "current_mode": "sr860",
+        "repetitions_per_point": 1,
+        "settle_s": 0.01,
+        "ramp_max_step_v": 0.001,
+        "ramp_pause_s": 0.01,
+        "restore_bias_after_run": false,
+        "sr860": {
+          "visa_address": "GPIB0::4::INSTR",
+          "frequency_hz": 43.5371,
+          "phase_deg": 0.0,
+          "time_constant_s": 0.1,
+          "filter_slope_db_oct": 24,
+          "sensitivity_a": 1e-07,
+          "sine_bias_v": 0.0001,
+          "settle_time_constants": 3.0,
+          "input_gain_ohm": 100000000.0
+        },
+        "qick_adc": {
+          "readout_ch": 0,
+          "input_board_type": "DC_In",
+          "nqz": 1,
+          "fir_samples": 100,
+          "readout_frequency_mhz": 0.0,
+          "attenuation_db": 20.0,
+          "dc_gain_db": 0.0,
+          "filter_type": "bypass",
+          "filter_cutoff_ghz": 2.5,
+          "filter_bandwidth_ghz": 1.0,
+          "margin_input_samples": 1024,
+          "fpga_trigger_delay_us": null,
+          "post_run_read_delay_seconds": 0.1,
+          "adc_units_per_amp": 1.0
+        },
+        "gate_channels": [
+          0
+        ],
+        "gate_start_v": 0.0,
+        "gate_stop_v": -0.7,
+        "points_per_leg": 41,
+        "loops": 1,
+        "return_leg": true,
+        "largest_loop_first": false
+      },
+      "wall_wall": {
+        "database_path": "C:\\Users\\Measurement2\\qick_bias_measurements.db",
+        "experiment_name": "QICK wall-wall sweep",
+        "sample_name": "BiasMeasurement",
+        "notes": "",
+        "current_mode": "sr860",
+        "repetitions_per_point": 1,
+        "settle_s": 0.01,
+        "ramp_max_step_v": 0.001,
+        "ramp_pause_s": 0.01,
+        "restore_bias_after_run": true,
+        "sr860": {
+          "visa_address": "GPIB0::4::INSTR",
+          "frequency_hz": 43.5371,
+          "phase_deg": 0.0,
+          "time_constant_s": 0.1,
+          "filter_slope_db_oct": 24,
+          "sensitivity_a": 1e-07,
+          "sine_bias_v": 0.0001,
+          "settle_time_constants": 3.0,
+          "input_gain_ohm": 100000000.0
+        },
+        "qick_adc": {
+          "readout_ch": 0,
+          "input_board_type": "DC_In",
+          "nqz": 1,
+          "fir_samples": 100,
+          "readout_frequency_mhz": 0.0,
+          "attenuation_db": 20.0,
+          "dc_gain_db": 0.0,
+          "filter_type": "bypass",
+          "filter_cutoff_ghz": 2.5,
+          "filter_bandwidth_ghz": 1.0,
+          "margin_input_samples": 1024,
+          "fpga_trigger_delay_us": null,
+          "post_run_read_delay_seconds": 0.1,
+          "adc_units_per_amp": 1.0
+        },
+        "slow_channel": 0,
+        "fast_channel": 1,
+        "slow_start_v": -0.65,
+        "slow_stop_v": -0.72,
+        "slow_points": 41,
+        "fast_start_v": -0.65,
+        "fast_stop_v": -0.72,
+        "fast_points": 41
+      },
+      "nested": {
+        "database_path": "C:\\Users\\Measurement2\\qick_bias_measurements.db",
+        "experiment_name": "QICK general nested bias sweep",
+        "sample_name": "BiasMeasurement",
+        "notes": "",
+        "current_mode": "sr860",
+        "repetitions_per_point": 1,
+        "settle_s": 0.01,
+        "ramp_max_step_v": 0.001,
+        "ramp_pause_s": 0.01,
+        "restore_bias_after_run": true,
+        "sr860": {
+          "visa_address": "GPIB0::4::INSTR",
+          "frequency_hz": 43.5371,
+          "phase_deg": 0.0,
+          "time_constant_s": 0.1,
+          "filter_slope_db_oct": 24,
+          "sensitivity_a": 1e-07,
+          "sine_bias_v": 0.0001,
+          "settle_time_constants": 3.0,
+          "input_gain_ohm": 100000000.0
+        },
+        "qick_adc": {
+          "readout_ch": 0,
+          "input_board_type": "DC_In",
+          "nqz": 1,
+          "fir_samples": 100,
+          "readout_frequency_mhz": 0.0,
+          "attenuation_db": 20.0,
+          "dc_gain_db": 0.0,
+          "filter_type": "bypass",
+          "filter_cutoff_ghz": 2.5,
+          "filter_bandwidth_ghz": 1.0,
+          "margin_input_samples": 1024,
+          "fpga_trigger_delay_us": null,
+          "post_run_read_delay_seconds": 0.1,
+          "adc_units_per_amp": 1.0
+        },
+        "axes": [
+          {
+            "name": "outer",
+            "channels": [
+              2
+            ],
+            "start_v": [
+              -0.1
+            ],
+            "stop_v": [
+              0.1
+            ],
+            "points": 11
+          },
+          {
+            "name": "inner_vector",
+            "channels": [
+              0,
+              1
+            ],
+            "start_v": [
+              -0.1,
+              -0.1
+            ],
+            "stop_v": [
+              0.1,
+              0.1
+            ],
+            "points": 11
+          }
+        ]
+      },
+      "time_trace": {
+        "database_path": "C:\\Users\\Measurement2\\qick_bias_measurements.db",
+        "experiment_name": "QICK bias current time trace",
+        "sample_name": "BiasMeasurement",
+        "notes": "",
+        "current_mode": "sr860",
+        "repetitions_per_point": 1,
+        "settle_s": 0.01,
+        "ramp_max_step_v": 0.001,
+        "ramp_pause_s": 0.01,
+        "restore_bias_after_run": false,
+        "sr860": {
+          "visa_address": "GPIB0::4::INSTR",
+          "frequency_hz": 43.5371,
+          "phase_deg": 0.0,
+          "time_constant_s": 0.1,
+          "filter_slope_db_oct": 24,
+          "sensitivity_a": 1e-07,
+          "sine_bias_v": 0.0001,
+          "settle_time_constants": 3.0,
+          "input_gain_ohm": 100000000.0
+        },
+        "qick_adc": {
+          "readout_ch": 0,
+          "input_board_type": "DC_In",
+          "nqz": 1,
+          "fir_samples": 100,
+          "readout_frequency_mhz": 0.0,
+          "attenuation_db": 20.0,
+          "dc_gain_db": 0.0,
+          "filter_type": "bypass",
+          "filter_cutoff_ghz": 2.5,
+          "filter_bandwidth_ghz": 1.0,
+          "margin_input_samples": 1024,
+          "fpga_trigger_delay_us": null,
+          "post_run_read_delay_seconds": 0.1,
+          "adc_units_per_amp": 1.0
+        },
+        "samples": 1000,
+        "sample_interval_s": 0.1
+      }
+    }
+  },
+  "square_wave": {
+    "gen_ch": 1,
+    "frequency_hz": 40000.0,
+    "amplitude_mv": 10.0,
+    "offset_mv": 0.0,
+    "duty_percent": 50.0,
+    "full_scale_mv": 801.48,
+    "zero_code": 0.0,
+    "phase_deg": 0.0,
+    "rc_enabled": false,
+    "rc_tau_us": 1000.0
+  },
+  "square_pulse": {
+    "enabled": false,
+    "gen_ch": 7,
+    "mute_on_finish": true,
+    "parameters": {
+      "frequency": {
+        "value": 0.04,
+        "sweep": false,
+        "start": 0.04,
+        "stop": 0.04,
+        "count": 11
+      },
+      "amplitude": {
+        "value": 10.0,
+        "sweep": false,
+        "start": 10.0,
+        "stop": 10.0,
+        "count": 11
+      },
+      "phase": {
+        "value": 0.0,
+        "sweep": false,
+        "start": 0.0,
+        "stop": 0.0,
+        "count": 11
+      }
+    }
+  },
+  "output_trigger": {
+    "enabled": false,
+    "pin": 0,
+    "scope": "loop",
+    "edge": "start",
+    "width_us": 1.0
+  },
+  "quantum_circuit": {
+    "version": 1,
+    "shots": 1,
+    "qubits": [
+      {
+        "id": "q1",
+        "name": "q1"
+      }
+    ],
+    "awg_baselines": [
+      {
+        "channel": 1,
+        "voltage_mv": 0.0
+      }
+    ],
+    "gates": []
+  }
+}

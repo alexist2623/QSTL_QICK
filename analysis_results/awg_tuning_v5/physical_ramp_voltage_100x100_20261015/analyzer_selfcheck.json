@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "new_physical_measurement": false,
+  "network_access": false,
+  "full_expected_schema_cases": 4,
+  "rejected_bad_metadata_cases": 4,
+  "synthetic_native_roi_checks": 3600,
+  "inactive_zero_checked": true,
+  "unresolved_short_dc_remains_incomplete": true,
+  "primary_not_replaced_by_compiled": true,
+  "prior_capture_decode_and_anchor_only": true,
+  "input_hashes": {
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\selfcheck_analyzer.py": "b8a46501d43120c093721b9f52c93644f1ec93f00e28464a3ee4d4bc7b30f954",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\analyze_physical.py": "3c2f6e95eb9ab3a0720450ca79b881e5f33dae11ab959ba25aa7f00db3f86790",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\model_review\\compact_expectation.py": "9811e3d79137a9b7c4897bfba0e1a52a7cd8d6dc63156124030897893edaa0da",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\model_review\\command_expectation.py": "0e64284671d7c323cd375d2d72291dfd8de973f1c085755f2b99ea962c228d7f"
+  },
+  "limitations": "Synthetic analyzer regression plus old capture decode only; no new physical sweep, timing accuracy, or RAMP shape validation"
+}

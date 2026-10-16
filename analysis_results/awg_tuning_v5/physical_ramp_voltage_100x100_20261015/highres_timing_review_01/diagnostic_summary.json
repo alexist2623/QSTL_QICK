@@ -1,0 +1,55 @@
+{
+  "review_scope": "Existing evidence only; no hardware run, model change or timing/amplitude fit.",
+  "original_capture_id": "c55c413f-9a34-4865-b6a0-a7f939a66558",
+  "unchanged_original_global_offset_ns": -14596.63750009082,
+  "original_model_fall_start_program_us": 25.093333333333334,
+  "original_first_rise_anchor_candidate_count": 75,
+  "original_first_rise_anchor_candidate_range_ns": [
+    -66.80625013622993,
+    -12.470833424153565
+  ],
+  "original_first_rise_anchor_candidate_span_ns": 54.33541671207637,
+  "original_selected_first_rise_anchor_ns": -12.470833424153565,
+  "raw_fall_thresholds_mv": [
+    570.0272124023437,
+    250.13963818359372
+  ],
+  "selection": "For width diagnostics only: retain falling threshold crossings within 15ns of the unique 400mV descending crossing, upper before/lower after. Excludes earlier HOLD noise crossings; no alignment is altered.",
+  "upper_crossings_from_existing_model_start_ns": [
+    -39.9106139512236,
+    -39.610613951222945
+  ],
+  "lower_crossings_from_existing_model_start_ns": [
+    -32.53229374711381
+  ],
+  "physical_10_90_candidate_width_ns": [
+    7.078320204109134,
+    7.378320204109792
+  ],
+  "model_10_90_width_ns": 7.916666666666572,
+  "hardware_requested_full_duration_ns": 10.0,
+  "actual_command_scalar_samples": 48,
+  "next_set_command_gap_cycles": 11,
+  "required_startup_duration_guard_cycles": [
+    7,
+    3,
+    1
+  ],
+  "original_alignment_upper_threshold_residual_ns": [
+    -40.95228061789086,
+    -40.6522806178902
+  ],
+  "original_alignment_lower_threshold_residual_ns": [
+    -41.49062708044815
+  ],
+  "candidate_anchor_uncertainty_envelope_lower_residual_ns": [
+    -41.49062708044477,
+    12.844789631631606
+  ],
+  "amplitude_shape_observation": "Raw 5ns medians are 595.816mV before the fast edge; transient minimum individual sample113.808mV and 5ns median127.197mV, followed by about200.837mV plateau. This transient remains an observed waveform feature regardless of global time-origin choice; cause unassigned.",
+  "conclusion": "Command metadata, compiler advance and model timing are internally consistent; no demonstrated double-counted startup or next-SET cancellation. Existing fixed-anchor residual is real under that convention, but ~41ns displacement lies inside the54.335ns first-edge candidate ambiguity. This evidence alone cannot separate RTL latency from global alignment/analog transfer/noise effects.",
+  "verdict_unchanged": true,
+  "precision_timing_pass": null,
+  "input_hashes_unchanged": true,
+  "raw_review_sha256": "a23a6fcdb3f58894aa9d9a0b8a16ddb8e5a1aa483ca7286278df6e99b685d389"
+}

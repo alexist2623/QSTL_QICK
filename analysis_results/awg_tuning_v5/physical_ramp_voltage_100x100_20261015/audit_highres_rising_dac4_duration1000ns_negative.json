@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "prepared_bundle": "offline_highres_rising_dac4_duration1000ns_negative",
+  "actual_gui_compile_artifact_hashes_match": true,
+  "fresh_reconstructed_pmem_dmem_exact": true,
+  "helper_sha256": "2b69675605f52cb94480592c201da8894bef20307ef5f8908de8a59a7604d9e5",
+  "points": 1,
+  "source_unchanged": true,
+  "physical_execution": false,
+  "outputs": [
+    {
+      "scope_channel": 1,
+      "requested_mv": -400.0,
+      "compiled_mv": -399.9573046875,
+      "requested_rise_us": 1.0,
+      "requested_fall_us": 1.0,
+      "compiled_rise_us": 1.0,
+      "compiled_fall_us": 1.0,
+      "exact_model_area_zero": true,
+      "exact_model_final_rc_zero": true,
+      "metadata_matches_actual_commands": true
+    },
+    {
+      "scope_channel": 2,
+      "requested_mv": 0.0,
+      "compiled_mv": 0.0,
+      "requested_rise_us": 1.0,
+      "requested_fall_us": 1.0,
+      "compiled_rise_us": 1.0,
+      "compiled_fall_us": 1.0,
+      "exact_model_area_zero": true,
+      "exact_model_final_rc_zero": true,
+      "metadata_matches_actual_commands": true
+    }
+  ],
+  "audit_source_sha256": "21be46daa05b5e6c25723f6a1b200eadbb431951dc71b8e1a526b3b2f8af01cb"
+}

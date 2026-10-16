@@ -1,0 +1,3437 @@
+{
+  "started": "2026-10-16T04:11:19.423820+00:00",
+  "controller_pid": 120344,
+  "controller_create_time": 1792123879.3273776,
+  "helper_sha256": "2b69675605f52cb94480592c201da8894bef20307ef5f8908de8a59a7604d9e5",
+  "audit_sha256": "21be46daa05b5e6c25723f6a1b200eadbb431951dc71b8e1a526b3b2f8af01cb",
+  "maximum_parallel": 1,
+  "physical_execution": false,
+  "complete": true,
+  "status": "passed",
+  "main_status": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_merged_status.json",
+  "cases": [
+    {
+      "label": "highres_rising_dac4_duration10ns_negative",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac4_duration10ns_negative_retry01",
+      "direction": "rising",
+      "active_axis": 0,
+      "duration_us": 0.01,
+      "requested_mv": -400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:15:35.658537+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "-400",
+        "--voltage-stop-mv",
+        "-400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "rising",
+        "--active-output",
+        "0",
+        "--duration-start-us",
+        "0.01",
+        "--duration-stop-us",
+        "0.01",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac4_duration10ns_negative_retry01"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_rising_dac4_duration10ns_negative_serial.log",
+      "pid": 112512,
+      "process_create_time": 1792124135.6623473,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac4_duration10ns_negative.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac4_duration10ns_negative.log",
+      "finished": "2026-10-16T04:15:39.488220+00:00",
+      "manifest_sha256": "f699276b59ac755e74b23c23e929f2086d25a87cb32b4b0f5d3861a0b5a1b461",
+      "audit_sha256": "ef63e31749a9a281381748a8d225cef8ff8f24fed3f309b8b04cd6fdc3db5262",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "rising",
+        "active_axis": 0,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_ramp_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_range_mv": [
+          -400.0,
+          -400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 172,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.473333333333336,
+        "global_rc_bounds_mv": [
+          -601.7950564961516,
+          421.811391901852
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          -399.9573046875,
+          -399.9573046875
+        ],
+        "effective_code_area_range": [
+          -206201148,
+          0
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_rising_dac4_duration10ns_positive",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac4_duration10ns_positive",
+      "direction": "rising",
+      "active_axis": 0,
+      "duration_us": 0.01,
+      "requested_mv": 400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:15:39.545973+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "400",
+        "--voltage-stop-mv",
+        "400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "rising",
+        "--active-output",
+        "0",
+        "--duration-start-us",
+        "0.01",
+        "--duration-stop-us",
+        "0.01",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac4_duration10ns_positive"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_rising_dac4_duration10ns_positive_serial.log",
+      "pid": 109352,
+      "process_create_time": 1792124139.5500371,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac4_duration10ns_positive.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac4_duration10ns_positive.log",
+      "finished": "2026-10-16T04:15:43.679949+00:00",
+      "manifest_sha256": "1135cccbe23c15a7433c9997fbd1a144339e504b657ea923fc95414a694b6c2b",
+      "audit_sha256": "5e2bc211f8052f1793802ddc4f916fe7ef9579e77867796bde093fb76c55c896",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "rising",
+        "active_axis": 0,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_ramp_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_range_mv": [
+          400.0,
+          400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 170,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.473333333333336,
+        "global_rc_bounds_mv": [
+          -421.8064552142289,
+          601.7950564961516
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          399.9573046875,
+          399.9573046875
+        ],
+        "effective_code_area_range": [
+          0,
+          206196304
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_rising_dac4_duration500ns_negative",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac4_duration500ns_negative",
+      "direction": "rising",
+      "active_axis": 0,
+      "duration_us": 0.5,
+      "requested_mv": -400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:15:43.732596+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "-400",
+        "--voltage-stop-mv",
+        "-400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "rising",
+        "--active-output",
+        "0",
+        "--duration-start-us",
+        "0.5",
+        "--duration-stop-us",
+        "0.5",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac4_duration500ns_negative"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_rising_dac4_duration500ns_negative_serial.log",
+      "pid": 141580,
+      "process_create_time": 1792124143.7369757,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac4_duration500ns_negative.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac4_duration500ns_negative.log",
+      "finished": "2026-10-16T04:15:47.743078+00:00",
+      "manifest_sha256": "04aee5e2926180ea159292c54d71f41fa86610705c4f0d19714bac9105f98971",
+      "audit_sha256": "6175f4311c6ee36519bcb7102c86e3b4d9762ea2149d160907e569991587a988",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "rising",
+        "active_axis": 0,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_ramp_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_range_mv": [
+          -400.0,
+          -400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 172,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.96333333333333,
+        "global_rc_bounds_mv": [
+          -606.7332710641632,
+          431.73285427068447
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          -399.9573046875,
+          -399.9573046875
+        ],
+        "effective_code_area_range": [
+          -211009810,
+          0
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_rising_dac4_duration500ns_positive",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac4_duration500ns_positive",
+      "direction": "rising",
+      "active_axis": 0,
+      "duration_us": 0.5,
+      "requested_mv": 400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:15:47.799738+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "400",
+        "--voltage-stop-mv",
+        "400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "rising",
+        "--active-output",
+        "0",
+        "--duration-start-us",
+        "0.5",
+        "--duration-stop-us",
+        "0.5",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac4_duration500ns_positive"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_rising_dac4_duration500ns_positive_serial.log",
+      "pid": 15076,
+      "process_create_time": 1792124147.8031292,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac4_duration500ns_positive.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac4_duration500ns_positive.log",
+      "finished": "2026-10-16T04:15:51.620453+00:00",
+      "manifest_sha256": "77dc6a74bc04078f11f7f27c3af9066f40c9faa0f710e9f0dce8a6d459e76de5",
+      "audit_sha256": "b97826e81c314d06b335b1ae40257ed6c3d7d3bf93b20c79faa41872726bb731",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "rising",
+        "active_axis": 0,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_ramp_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_range_mv": [
+          400.0,
+          400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 170,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.96333333333333,
+        "global_rc_bounds_mv": [
+          -431.62732391011775,
+          606.7329113096771
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          399.9573046875,
+          399.9573046875
+        ],
+        "effective_code_area_range": [
+          0,
+          211002614
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_rising_dac4_duration1000ns_negative",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac4_duration1000ns_negative",
+      "direction": "rising",
+      "active_axis": 0,
+      "duration_us": 1.0,
+      "requested_mv": -400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:15:51.671358+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "-400",
+        "--voltage-stop-mv",
+        "-400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "rising",
+        "--active-output",
+        "0",
+        "--duration-start-us",
+        "1.0",
+        "--duration-stop-us",
+        "1.0",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac4_duration1000ns_negative"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_rising_dac4_duration1000ns_negative_serial.log",
+      "pid": 22432,
+      "process_create_time": 1792124151.6813617,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac4_duration1000ns_negative.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac4_duration1000ns_negative.log",
+      "finished": "2026-10-16T04:15:55.670143+00:00",
+      "manifest_sha256": "e8ab11205d1edcb0a9ce267d44a793b3eb66da0f5237a6ca28fcf0aa9d40ef26",
+      "audit_sha256": "c9067f3f3af4b15cd02edb0ef35cec2df66c58fde5061ecfa4a3b91198edc36e",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "rising",
+        "active_axis": 0,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_ramp_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_range_mv": [
+          -400.0,
+          -400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 172,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 46.46333333333333,
+        "global_rc_bounds_mv": [
+          -611.771879924367,
+          441.752580940539
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          -399.9573046875,
+          -399.9573046875
+        ],
+        "effective_code_area_range": [
+          -215916606,
+          0
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_rising_dac4_duration1000ns_positive",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac4_duration1000ns_positive",
+      "direction": "rising",
+      "active_axis": 0,
+      "duration_us": 1.0,
+      "requested_mv": 400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:15:55.716422+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "400",
+        "--voltage-stop-mv",
+        "400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "rising",
+        "--active-output",
+        "0",
+        "--duration-start-us",
+        "1.0",
+        "--duration-stop-us",
+        "1.0",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac4_duration1000ns_positive"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_rising_dac4_duration1000ns_positive_serial.log",
+      "pid": 3368,
+      "process_create_time": 1792124155.7270167,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac4_duration1000ns_positive.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac4_duration1000ns_positive.log",
+      "finished": "2026-10-16T04:16:00.070825+00:00",
+      "manifest_sha256": "736182cc5c4f9f2316cc9fa32762db2b1824dcbf0aa63a27961c1f8c7db1826e",
+      "audit_sha256": "7622cf482f13811450d09898593e8c27899636d202c14b84597cecd4a05dbd58",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "rising",
+        "active_axis": 0,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_ramp_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_range_mv": [
+          400.0,
+          400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 170,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 46.46333333333333,
+        "global_rc_bounds_mv": [
+          -441.74280132566884,
+          611.771879924367
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          399.9573046875,
+          399.9573046875
+        ],
+        "effective_code_area_range": [
+          0,
+          215907010
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_rising_dac5_duration10ns_negative",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac5_duration10ns_negative",
+      "direction": "rising",
+      "active_axis": 1,
+      "duration_us": 0.01,
+      "requested_mv": -400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:16:00.124609+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "-400",
+        "--voltage-stop-mv",
+        "-400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "rising",
+        "--active-output",
+        "1",
+        "--duration-start-us",
+        "0.01",
+        "--duration-stop-us",
+        "0.01",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac5_duration10ns_negative"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_rising_dac5_duration10ns_negative_serial.log",
+      "pid": 87848,
+      "process_create_time": 1792124160.129432,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac5_duration10ns_negative.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac5_duration10ns_negative.log",
+      "finished": "2026-10-16T04:16:04.262881+00:00",
+      "manifest_sha256": "1b4a42271701ff01f54858c68dd75ed1c0e1aab38c2ca414ad9a42a0e43cc442",
+      "audit_sha256": "c1a1c3f5c49d5ef84d713949a9ed8a46ff70bbae543378d7632caf763658509b",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "rising",
+        "active_axis": 1,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_ramp_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_range_mv": [
+          -400.0,
+          -400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 172,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.473333333333336,
+        "global_rc_bounds_mv": [
+          -601.7950564961516,
+          421.811391901852
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          -399.9573046875,
+          -399.9573046875
+        ],
+        "effective_code_area_range": [
+          -206201148,
+          0
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_rising_dac5_duration10ns_positive",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac5_duration10ns_positive",
+      "direction": "rising",
+      "active_axis": 1,
+      "duration_us": 0.01,
+      "requested_mv": 400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:16:04.318401+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "400",
+        "--voltage-stop-mv",
+        "400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "rising",
+        "--active-output",
+        "1",
+        "--duration-start-us",
+        "0.01",
+        "--duration-stop-us",
+        "0.01",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac5_duration10ns_positive"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_rising_dac5_duration10ns_positive_serial.log",
+      "pid": 150628,
+      "process_create_time": 1792124164.32227,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac5_duration10ns_positive.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac5_duration10ns_positive.log",
+      "finished": "2026-10-16T04:16:08.407210+00:00",
+      "manifest_sha256": "d3867a14d285aade01287e40fcc67480cd5ca656da6178820e6309afe43edc2c",
+      "audit_sha256": "cc72510c85babaa76895f95ee9aa5625e792bd962c6408ba3e6c656880588efc",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "rising",
+        "active_axis": 1,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_ramp_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_range_mv": [
+          400.0,
+          400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 170,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.473333333333336,
+        "global_rc_bounds_mv": [
+          -421.8064552142289,
+          601.7950564961516
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          399.9573046875,
+          399.9573046875
+        ],
+        "effective_code_area_range": [
+          0,
+          206196304
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_rising_dac5_duration500ns_negative",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac5_duration500ns_negative",
+      "direction": "rising",
+      "active_axis": 1,
+      "duration_us": 0.5,
+      "requested_mv": -400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:16:08.461908+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "-400",
+        "--voltage-stop-mv",
+        "-400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "rising",
+        "--active-output",
+        "1",
+        "--duration-start-us",
+        "0.5",
+        "--duration-stop-us",
+        "0.5",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac5_duration500ns_negative"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_rising_dac5_duration500ns_negative_serial.log",
+      "pid": 133832,
+      "process_create_time": 1792124168.4670043,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac5_duration500ns_negative.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac5_duration500ns_negative.log",
+      "finished": "2026-10-16T04:16:12.526069+00:00",
+      "manifest_sha256": "08f83a8b3137f5589790ad77837e5ec41e82cc9b115b25dbf7dc3962de6d2c55",
+      "audit_sha256": "5eb16b7a48e78f2e39ad99b9d54fd36bfaae1631028b6e8ea0f04dfbc8f42905",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "rising",
+        "active_axis": 1,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_ramp_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_range_mv": [
+          -400.0,
+          -400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 172,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.96333333333333,
+        "global_rc_bounds_mv": [
+          -606.7332710641632,
+          431.73285427068447
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          -399.9573046875,
+          -399.9573046875
+        ],
+        "effective_code_area_range": [
+          -211009810,
+          0
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_rising_dac5_duration500ns_positive",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac5_duration500ns_positive",
+      "direction": "rising",
+      "active_axis": 1,
+      "duration_us": 0.5,
+      "requested_mv": 400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:16:12.576871+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "400",
+        "--voltage-stop-mv",
+        "400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "rising",
+        "--active-output",
+        "1",
+        "--duration-start-us",
+        "0.5",
+        "--duration-stop-us",
+        "0.5",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac5_duration500ns_positive"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_rising_dac5_duration500ns_positive_serial.log",
+      "pid": 42868,
+      "process_create_time": 1792124172.5889637,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac5_duration500ns_positive.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac5_duration500ns_positive.log",
+      "finished": "2026-10-16T04:16:17.050531+00:00",
+      "manifest_sha256": "e067a9419e54e56da3d8808f820bbfcbb587e6a35da1798800374c336e7f9343",
+      "audit_sha256": "0795ff9c3f2494f4ebfaa89c0569dbc8f6e7fb409df673780dca74d3756c3d88",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "rising",
+        "active_axis": 1,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_ramp_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_range_mv": [
+          400.0,
+          400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 170,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.96333333333333,
+        "global_rc_bounds_mv": [
+          -431.62732391011775,
+          606.7329113096771
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          399.9573046875,
+          399.9573046875
+        ],
+        "effective_code_area_range": [
+          0,
+          211002614
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_rising_dac5_duration1000ns_negative",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac5_duration1000ns_negative",
+      "direction": "rising",
+      "active_axis": 1,
+      "duration_us": 1.0,
+      "requested_mv": -400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:16:17.103963+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "-400",
+        "--voltage-stop-mv",
+        "-400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "rising",
+        "--active-output",
+        "1",
+        "--duration-start-us",
+        "1.0",
+        "--duration-stop-us",
+        "1.0",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac5_duration1000ns_negative"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_rising_dac5_duration1000ns_negative_serial.log",
+      "pid": 44700,
+      "process_create_time": 1792124177.11426,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac5_duration1000ns_negative.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac5_duration1000ns_negative.log",
+      "finished": "2026-10-16T04:16:20.993381+00:00",
+      "manifest_sha256": "6c90d62629c51dae9d8c6aa571725dffe3f31e51c740ef5a9ca18c540ed77881",
+      "audit_sha256": "a5e5541b9ec4346b2fa7753d7b7620e1f9c0f0391abe6e2084868bacc041804b",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "rising",
+        "active_axis": 1,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_ramp_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_range_mv": [
+          -400.0,
+          -400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 172,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 46.46333333333333,
+        "global_rc_bounds_mv": [
+          -611.771879924367,
+          441.752580940539
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          -399.9573046875,
+          -399.9573046875
+        ],
+        "effective_code_area_range": [
+          -215916606,
+          0
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_rising_dac5_duration1000ns_positive",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac5_duration1000ns_positive",
+      "direction": "rising",
+      "active_axis": 1,
+      "duration_us": 1.0,
+      "requested_mv": 400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:16:21.045610+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "400",
+        "--voltage-stop-mv",
+        "400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "rising",
+        "--active-output",
+        "1",
+        "--duration-start-us",
+        "1.0",
+        "--duration-stop-us",
+        "1.0",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_rising_dac5_duration1000ns_positive"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_rising_dac5_duration1000ns_positive_serial.log",
+      "pid": 50376,
+      "process_create_time": 1792124181.050074,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac5_duration1000ns_positive.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_rising_dac5_duration1000ns_positive.log",
+      "finished": "2026-10-16T04:16:25.393006+00:00",
+      "manifest_sha256": "bd0118429997b22aacce0592348b7839b44f4f7315835b2c15dd23d10f12a7fb",
+      "audit_sha256": "9181c5bcbd15b54a285c2a06f3d33dba4ba0400d21b412094753fa34bf2dbe44",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "rising",
+        "active_axis": 1,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_ramp_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_range_mv": [
+          400.0,
+          400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 170,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 46.46333333333333,
+        "global_rc_bounds_mv": [
+          -441.74280132566884,
+          611.771879924367
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          399.9573046875,
+          399.9573046875
+        ],
+        "effective_code_area_range": [
+          0,
+          215907010
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_falling_dac4_duration10ns_negative",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac4_duration10ns_negative",
+      "direction": "falling",
+      "active_axis": 0,
+      "duration_us": 0.01,
+      "requested_mv": -400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:16:25.454359+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "-400",
+        "--voltage-stop-mv",
+        "-400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "falling",
+        "--active-output",
+        "0",
+        "--duration-start-us",
+        "0.01",
+        "--duration-stop-us",
+        "0.01",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac4_duration10ns_negative"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_falling_dac4_duration10ns_negative_serial.log",
+      "pid": 104568,
+      "process_create_time": 1792124185.459083,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac4_duration10ns_negative.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac4_duration10ns_negative.log",
+      "finished": "2026-10-16T04:16:29.365440+00:00",
+      "manifest_sha256": "c9228b20febc7c54983fb462fcf061677644f7328ed2797414d3efb52ab1c5fc",
+      "audit_sha256": "16aa24c988f5c40eb43503593e9fb1cb2c0df2ec1d6e569cc5517fe38d1d2398",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "falling",
+        "active_axis": 0,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_ramp_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_range_mv": [
+          -400.0,
+          -400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 172,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.473333333333336,
+        "global_rc_bounds_mv": [
+          -611.6987126059855,
+          421.8113796722377
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          -399.9573046875,
+          -399.9573046875
+        ],
+        "effective_code_area_range": [
+          -206201136,
+          0
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_falling_dac4_duration10ns_positive",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac4_duration10ns_positive",
+      "direction": "falling",
+      "active_axis": 0,
+      "duration_us": 0.01,
+      "requested_mv": 400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:16:29.423439+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "400",
+        "--voltage-stop-mv",
+        "400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "falling",
+        "--active-output",
+        "0",
+        "--duration-start-us",
+        "0.01",
+        "--duration-stop-us",
+        "0.01",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac4_duration10ns_positive"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_falling_dac4_duration10ns_positive_serial.log",
+      "pid": 55864,
+      "process_create_time": 1792124189.432263,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac4_duration10ns_positive.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac4_duration10ns_positive.log",
+      "finished": "2026-10-16T04:16:33.445189+00:00",
+      "manifest_sha256": "51ba7ece69fa6c5129873f8dab4018c768ace869f438b1ee6bfe5186688b58b3",
+      "audit_sha256": "c9522d7c5ec75378ab1cf0bba54e2d15889847481902816c92c7aec7ff2b0e93",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "falling",
+        "active_axis": 0,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_ramp_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_range_mv": [
+          400.0,
+          400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 170,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.473333333333336,
+        "global_rc_bounds_mv": [
+          -421.80644298461453,
+          611.6987126059855
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          399.9573046875,
+          399.9573046875
+        ],
+        "effective_code_area_range": [
+          0,
+          206196292
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_falling_dac4_duration500ns_negative",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac4_duration500ns_negative",
+      "direction": "falling",
+      "active_axis": 0,
+      "duration_us": 0.5,
+      "requested_mv": -400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:16:33.496650+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "-400",
+        "--voltage-stop-mv",
+        "-400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "falling",
+        "--active-output",
+        "0",
+        "--duration-start-us",
+        "0.5",
+        "--duration-stop-us",
+        "0.5",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac4_duration500ns_negative"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_falling_dac4_duration500ns_negative_serial.log",
+      "pid": 107708,
+      "process_create_time": 1792124193.5045464,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac4_duration500ns_negative.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac4_duration500ns_negative.log",
+      "finished": "2026-10-16T04:16:37.384654+00:00",
+      "manifest_sha256": "f395f25fc136710d39a4923e13083b1dec2ded4b23eaeb4358cc48eb0c98e85d",
+      "audit_sha256": "8a0b6e33c410d59943d628342c4bfce4215915155e39fa0843eb75f7f2f854a4",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "falling",
+        "active_axis": 0,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_ramp_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_range_mv": [
+          -400.0,
+          -400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 172,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.96333333333333,
+        "global_rc_bounds_mv": [
+          -611.735259143898,
+          431.7328461176083
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          -399.9573046875,
+          -399.9573046875
+        ],
+        "effective_code_area_range": [
+          -211009802,
+          0
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_falling_dac4_duration500ns_positive",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac4_duration500ns_positive",
+      "direction": "falling",
+      "active_axis": 0,
+      "duration_us": 0.5,
+      "requested_mv": 400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:16:37.436348+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "400",
+        "--voltage-stop-mv",
+        "400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "falling",
+        "--active-output",
+        "0",
+        "--duration-start-us",
+        "0.5",
+        "--duration-stop-us",
+        "0.5",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac4_duration500ns_positive"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_falling_dac4_duration500ns_positive_serial.log",
+      "pid": 10996,
+      "process_create_time": 1792124197.4494815,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac4_duration500ns_positive.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac4_duration500ns_positive.log",
+      "finished": "2026-10-16T04:16:41.243899+00:00",
+      "manifest_sha256": "08ba439e6f8a1b3a0681c96caf1a15d029c79e84012bd34a6772960071f43fec",
+      "audit_sha256": "25c9f2b953a94bb6332de34a1268be2b4f74e2b8a693776f71899a0b2ff539de",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "falling",
+        "active_axis": 0,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_ramp_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_range_mv": [
+          400.0,
+          400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 170,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.96333333333333,
+        "global_rc_bounds_mv": [
+          -431.6273157570415,
+          611.7348993894118
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          399.9573046875,
+          399.9573046875
+        ],
+        "effective_code_area_range": [
+          0,
+          211002606
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_falling_dac4_duration1000ns_negative",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac4_duration1000ns_negative",
+      "direction": "falling",
+      "active_axis": 0,
+      "duration_us": 1.0,
+      "requested_mv": -400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:16:41.295450+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "-400",
+        "--voltage-stop-mv",
+        "-400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "falling",
+        "--active-output",
+        "0",
+        "--duration-start-us",
+        "1.0",
+        "--duration-stop-us",
+        "1.0",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac4_duration1000ns_negative"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_falling_dac4_duration1000ns_negative_serial.log",
+      "pid": 145260,
+      "process_create_time": 1792124201.3010316,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac4_duration1000ns_negative.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac4_duration1000ns_negative.log",
+      "finished": "2026-10-16T04:16:45.565895+00:00",
+      "manifest_sha256": "02323f2e532372a340b4209eb097abc35314536c7faa6ad35e3b46eefbeae41b",
+      "audit_sha256": "dddf7083ea6f110e5421300ff0453ff938ef13f3a2c28b480da9a12ed9051ea4",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "falling",
+        "active_axis": 0,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_ramp_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_range_mv": [
+          -400.0,
+          -400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 172,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 46.46333333333333,
+        "global_rc_bounds_mv": [
+          -611.771879924367,
+          441.752580940539
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          -399.9573046875,
+          -399.9573046875
+        ],
+        "effective_code_area_range": [
+          -215916606,
+          0
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_falling_dac4_duration1000ns_positive",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac4_duration1000ns_positive",
+      "direction": "falling",
+      "active_axis": 0,
+      "duration_us": 1.0,
+      "requested_mv": 400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:16:45.618672+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "400",
+        "--voltage-stop-mv",
+        "400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "falling",
+        "--active-output",
+        "0",
+        "--duration-start-us",
+        "1.0",
+        "--duration-stop-us",
+        "1.0",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac4_duration1000ns_positive"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_falling_dac4_duration1000ns_positive_serial.log",
+      "pid": 93252,
+      "process_create_time": 1792124205.6249616,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac4_duration1000ns_positive.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac4_duration1000ns_positive.log",
+      "finished": "2026-10-16T04:16:49.854691+00:00",
+      "manifest_sha256": "638f341f38f9aa04c83ce223a49f3fc361c3d642422f713ce80ae7c1bdd272ce",
+      "audit_sha256": "881d98515a4d5bc4e84eb0288f93759888462a1e948e29d779fc1e9a3a925ff3",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "falling",
+        "active_axis": 0,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_ramp_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_range_mv": [
+          400.0,
+          400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 170,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 46.46333333333333,
+        "global_rc_bounds_mv": [
+          -441.74280132566884,
+          611.771879924367
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          399.9573046875,
+          399.9573046875
+        ],
+        "effective_code_area_range": [
+          0,
+          215907010
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_falling_dac5_duration10ns_negative",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac5_duration10ns_negative",
+      "direction": "falling",
+      "active_axis": 1,
+      "duration_us": 0.01,
+      "requested_mv": -400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:16:49.911650+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "-400",
+        "--voltage-stop-mv",
+        "-400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "falling",
+        "--active-output",
+        "1",
+        "--duration-start-us",
+        "0.01",
+        "--duration-stop-us",
+        "0.01",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac5_duration10ns_negative"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_falling_dac5_duration10ns_negative_serial.log",
+      "pid": 44460,
+      "process_create_time": 1792124209.916522,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac5_duration10ns_negative.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac5_duration10ns_negative.log",
+      "finished": "2026-10-16T04:16:54.173721+00:00",
+      "manifest_sha256": "d57435e50dfea490ee615c3de015eac4bf2a43c2a8b72c92587490cdc7fc7271",
+      "audit_sha256": "e6c6093ceb975ec81d1e822a8846954ceeae2bc3200bb73be6706fb7e3779cbc",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "falling",
+        "active_axis": 1,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_ramp_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_range_mv": [
+          -400.0,
+          -400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 172,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.473333333333336,
+        "global_rc_bounds_mv": [
+          -611.6987126059855,
+          421.8113796722377
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          -399.9573046875,
+          -399.9573046875
+        ],
+        "effective_code_area_range": [
+          -206201136,
+          0
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_falling_dac5_duration10ns_positive",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac5_duration10ns_positive",
+      "direction": "falling",
+      "active_axis": 1,
+      "duration_us": 0.01,
+      "requested_mv": 400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:16:54.226162+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "400",
+        "--voltage-stop-mv",
+        "400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "falling",
+        "--active-output",
+        "1",
+        "--duration-start-us",
+        "0.01",
+        "--duration-stop-us",
+        "0.01",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac5_duration10ns_positive"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_falling_dac5_duration10ns_positive_serial.log",
+      "pid": 107036,
+      "process_create_time": 1792124214.2396595,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac5_duration10ns_positive.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac5_duration10ns_positive.log",
+      "finished": "2026-10-16T04:16:58.319224+00:00",
+      "manifest_sha256": "a36281d49ef5e86396b38ed6315f3925d6bf74d6019d241a62543e8da3367520",
+      "audit_sha256": "f26b6d4b633fa2d7d69029e25788969171bacc05b9aa3983fd6ef6ce909be197",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "falling",
+        "active_axis": 1,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_ramp_range_us": [
+          0.01,
+          0.01
+        ],
+        "requested_range_mv": [
+          400.0,
+          400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 170,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.473333333333336,
+        "global_rc_bounds_mv": [
+          -421.80644298461453,
+          611.6987126059855
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          399.9573046875,
+          399.9573046875
+        ],
+        "effective_code_area_range": [
+          0,
+          206196292
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_falling_dac5_duration500ns_negative",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac5_duration500ns_negative",
+      "direction": "falling",
+      "active_axis": 1,
+      "duration_us": 0.5,
+      "requested_mv": -400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:16:58.385906+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "-400",
+        "--voltage-stop-mv",
+        "-400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "falling",
+        "--active-output",
+        "1",
+        "--duration-start-us",
+        "0.5",
+        "--duration-stop-us",
+        "0.5",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac5_duration500ns_negative"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_falling_dac5_duration500ns_negative_serial.log",
+      "pid": 121252,
+      "process_create_time": 1792124218.3923576,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac5_duration500ns_negative.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac5_duration500ns_negative.log",
+      "finished": "2026-10-16T04:17:02.540928+00:00",
+      "manifest_sha256": "e52ba30a4c0fb03e287029c06917d29f8b5b165382cd85d50067ed5237d1f756",
+      "audit_sha256": "289a20465848f53b60a76e2a1c83fd9cfe9c225410c24074fa2eeb3266481c91",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "falling",
+        "active_axis": 1,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_ramp_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_range_mv": [
+          -400.0,
+          -400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 172,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.96333333333333,
+        "global_rc_bounds_mv": [
+          -611.735259143898,
+          431.7328461176083
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          -399.9573046875,
+          -399.9573046875
+        ],
+        "effective_code_area_range": [
+          -211009802,
+          0
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_falling_dac5_duration500ns_positive",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac5_duration500ns_positive",
+      "direction": "falling",
+      "active_axis": 1,
+      "duration_us": 0.5,
+      "requested_mv": 400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:17:02.594960+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "400",
+        "--voltage-stop-mv",
+        "400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "falling",
+        "--active-output",
+        "1",
+        "--duration-start-us",
+        "0.5",
+        "--duration-stop-us",
+        "0.5",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac5_duration500ns_positive"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_falling_dac5_duration500ns_positive_serial.log",
+      "pid": 101584,
+      "process_create_time": 1792124222.601161,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac5_duration500ns_positive.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac5_duration500ns_positive.log",
+      "finished": "2026-10-16T04:17:06.666919+00:00",
+      "manifest_sha256": "2155da65dd0a3907e6c287432faab2806cbedb89c2929a76d312eb021b92f409",
+      "audit_sha256": "61ed7c0be0727ff705347114430f0bb5e5ca87b11369274967eb2cb4e4b9904b",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "falling",
+        "active_axis": 1,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_ramp_range_us": [
+          0.5,
+          0.5
+        ],
+        "requested_range_mv": [
+          400.0,
+          400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 170,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 45.96333333333333,
+        "global_rc_bounds_mv": [
+          -431.6273157570415,
+          611.7348993894118
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          399.9573046875,
+          399.9573046875
+        ],
+        "effective_code_area_range": [
+          0,
+          211002606
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_falling_dac5_duration1000ns_negative",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac5_duration1000ns_negative",
+      "direction": "falling",
+      "active_axis": 1,
+      "duration_us": 1.0,
+      "requested_mv": -400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:17:06.720073+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "-400",
+        "--voltage-stop-mv",
+        "-400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "falling",
+        "--active-output",
+        "1",
+        "--duration-start-us",
+        "1.0",
+        "--duration-stop-us",
+        "1.0",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac5_duration1000ns_negative"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_falling_dac5_duration1000ns_negative_serial.log",
+      "pid": 70896,
+      "process_create_time": 1792124226.7309175,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac5_duration1000ns_negative.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac5_duration1000ns_negative.log",
+      "finished": "2026-10-16T04:17:10.546827+00:00",
+      "manifest_sha256": "fb96d0fd834591b00df01f241635c2c14084535ec384b658097ac75bf1455934",
+      "audit_sha256": "a2e178ef8cbdb9bcba6c969f41ba9b8d9c9aa27505bb331f3b30a4cdc39f832c",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "falling",
+        "active_axis": 1,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_ramp_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_range_mv": [
+          -400.0,
+          -400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 172,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 46.46333333333333,
+        "global_rc_bounds_mv": [
+          -611.771879924367,
+          441.752580940539
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          -399.9573046875,
+          -399.9573046875
+        ],
+        "effective_code_area_range": [
+          -215916606,
+          0
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    },
+    {
+      "label": "highres_falling_dac5_duration1000ns_positive",
+      "output_dir": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac5_duration1000ns_positive",
+      "direction": "falling",
+      "active_axis": 1,
+      "duration_us": 1.0,
+      "requested_mv": 400,
+      "status": "offline_prepared_and_reconstructed",
+      "started": "2026-10-16T04:17:10.619312+00:00",
+      "command": [
+        "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_highres.py",
+        "--mode",
+        "fixed_time",
+        "--hold-us",
+        "10",
+        "--dc-time-us",
+        "10",
+        "--tau-us",
+        "20",
+        "--voltage-start-mv",
+        "400",
+        "--voltage-stop-mv",
+        "400",
+        "--dc-voltage-mv",
+        "300",
+        "--direction",
+        "falling",
+        "--active-output",
+        "1",
+        "--duration-start-us",
+        "1.0",
+        "--duration-stop-us",
+        "1.0",
+        "--duration-count",
+        "1",
+        "--voltage-count",
+        "1",
+        "--board-config",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\board_config_191721.json",
+        "--current-settings",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_voltage_2axis_20261015\\dac_current_settings.json",
+        "--gen-channels",
+        "1",
+        "3",
+        "--full-scales-mv",
+        "801.48",
+        "801.48",
+        "--output-dir",
+        "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_highres_falling_dac5_duration1000ns_positive"
+      ],
+      "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\preparation_highres_falling_dac5_duration1000ns_positive_serial.log",
+      "pid": 126428,
+      "process_create_time": 1792124230.626836,
+      "exit_code": 0,
+      "audit_exit_code": 0,
+      "audit_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac5_duration1000ns_positive.json",
+      "audit_log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\audit_highres_falling_dac5_duration1000ns_positive.log",
+      "finished": "2026-10-16T04:17:14.628344+00:00",
+      "manifest_sha256": "3ba8420806f4f03037ab01e4f2ba3794698c52ba6636a226f2c7f85a13d71488",
+      "audit_sha256": "1d9d975110a99f1d9d9a5711216a422f93211610dc104b478230b952a22732fe",
+      "summary": {
+        "mode": "fixed_time",
+        "points": 1,
+        "swept_ramp": "falling",
+        "active_axis": 1,
+        "duration_count": 1,
+        "voltage_count": 1,
+        "duration_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_ramp_range_us": [
+          1.0,
+          1.0
+        ],
+        "requested_range_mv": [
+          400.0,
+          400.0
+        ],
+        "sweep_shape": [
+          1
+        ],
+        "logical_coordinate_shape": [
+          1,
+          1
+        ],
+        "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+        "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+        "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+        "pmem_words": 170,
+        "zero_pmem_words": 69,
+        "idle_pmem_words": 14,
+        "dmem_words": 0,
+        "point_spacing_cycles": [],
+        "final_zero_bound_us": 46.46333333333333,
+        "global_rc_bounds_mv": [
+          -441.74280132566884,
+          611.771879924367
+        ],
+        "hardware_dc_deadline_cycles": 3113,
+        "controls": [
+          {
+            "axis": 0,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          },
+          {
+            "axis": 1,
+            "rc_enable_reset_cycle": 200,
+            "coefficient": 1466015504,
+            "dc_arm_cycle": 812,
+            "dc_commands": 1,
+            "rc_commands": 1,
+            "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+            "cleanup_rc_disabled_reset": true,
+            "cleanup_dc_disabled": true
+          }
+        ],
+        "actual_range_mv": [
+          399.9573046875,
+          399.9573046875
+        ],
+        "effective_code_area_range": [
+          0,
+          215907010
+        ],
+        "dc_duration_cycles_range": [
+          3000,
+          3000
+        ]
+      }
+    }
+  ],
+  "failed_attempts": [
+    {
+      "bundle": "offline_highres_rising_dac4_duration10ns_negative",
+      "exit_code": -1073741819,
+      "classification": "Windows Qt access violation; cause not established; original folder/log/helper snapshot preserved"
+    }
+  ],
+  "main_preparation_ended_before_highres": {
+    "checked": "2026-10-16T04:15:35.610707+00:00",
+    "status_sha256": "bc8ab6920f63db584e3f9c44b156f023dc653e6fd5347ab816c467272b550416",
+    "controller_pid": 119212,
+    "complete": true,
+    "matching_processes": []
+  },
+  "finished": "2026-10-16T04:17:14.648864+00:00"
+}

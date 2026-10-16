@@ -1,0 +1,193 @@
+{"utc": "2026-10-16T04:21:01.571750+00:00", "name": "live_board_verified", "awg_generators": [1, 3], "panel_dacs": [4, 5], "scope_channels": [1, 2]}
+{"utc": "2026-10-16T04:21:02.261761+00:00", "name": "paired_dds_idle", "generators": [0, 2], "gain": 0}
+{"utc": "2026-10-16T04:21:02.319394+00:00", "name": "initial_awg_zero", "progress": [[0, 1], [1, 1]]}
+{"utc": "2026-10-16T04:21:02.452552+00:00", "name": "scope_armed", "capture_id": "ec609954-8367-4371-a409-85ab5fb42f62"}
+{"utc": "2026-10-16T04:21:02.503813+00:00", "name": "voltage_sweep", "progress": [[0, 1], [1, 1]]}
+{"utc": "2026-10-16T04:21:03.330425+00:00", "name": "capture_saved", "points": {"1": 500000, "2": 500000}, "special_codes": {"1": {"hole": 0, "clipped_low": 0, "clipped_high": 0}, "2": {"hole": 0, "clipped_low": 0, "clipped_high": 0}}}
+{"utc": "2026-10-16T04:21:03.384425+00:00", "name": "final_awg_zero", "progress": [[0, 1], [1, 1]]}
+{
+  "started_utc": "2026-10-16T04:21:01.432419+00:00",
+  "physical_output_started": true,
+  "sweep_completed": true,
+  "capture_saved": true,
+  "cleanup_zero": true,
+  "events": [
+    {
+      "utc": "2026-10-16T04:21:01.571750+00:00",
+      "name": "live_board_verified",
+      "awg_generators": [
+        1,
+        3
+      ],
+      "panel_dacs": [
+        4,
+        5
+      ],
+      "scope_channels": [
+        1,
+        2
+      ]
+    },
+    {
+      "utc": "2026-10-16T04:21:02.261761+00:00",
+      "name": "paired_dds_idle",
+      "generators": [
+        0,
+        2
+      ],
+      "gain": 0
+    },
+    {
+      "utc": "2026-10-16T04:21:02.319394+00:00",
+      "name": "initial_awg_zero",
+      "progress": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "utc": "2026-10-16T04:21:02.452552+00:00",
+      "name": "scope_armed",
+      "capture_id": "ec609954-8367-4371-a409-85ab5fb42f62"
+    },
+    {
+      "utc": "2026-10-16T04:21:02.503813+00:00",
+      "name": "voltage_sweep",
+      "progress": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "utc": "2026-10-16T04:21:03.330425+00:00",
+      "name": "capture_saved",
+      "points": {
+        "1": 500000,
+        "2": 500000
+      },
+      "special_codes": {
+        "1": {
+          "hole": 0,
+          "clipped_low": 0,
+          "clipped_high": 0
+        },
+        "2": {
+          "hole": 0,
+          "clipped_low": 0,
+          "clipped_high": 0
+        }
+      }
+    },
+    {
+      "utc": "2026-10-16T04:21:03.384425+00:00",
+      "name": "final_awg_zero",
+      "progress": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "prepared_bundle": "offline_highres_rising_dac5_duration10ns_positive",
+  "mode": "fixed_time",
+  "comparison": "direct DAC RC-precompensated expected waveform; fixed offset only",
+  "failure_limit_mv": 15.0,
+  "planned_duration_s": 4.547333333333334e-05,
+  "rc_tau_us": 20.0,
+  "active_axis": 1,
+  "swept_ramp": "rising",
+  "high_resolution": true,
+  "max_sample_interval_s": 5e-10,
+  "planned_rc_bounds_mv": [
+    -421.8064552142289,
+    601.7950564961516
+  ],
+  "scope_voltage_range_v": 1.6,
+  "native_origin_policy": {
+    "ch1_origin_s": -7.5e-06,
+    "ch2_origin_s": -7.5e-06,
+    "delta_s": 0.0,
+    "maximum_absolute_delta_s": 1e-09,
+    "resampled": false,
+    "physical_skew_certified": false
+  },
+  "capture_id": "ec609954-8367-4371-a409-85ab5fb42f62",
+  "channel_points": {
+    "1": 500000,
+    "2": 500000
+  },
+  "special_codes": {
+    "1": {
+      "hole": 0,
+      "clipped_low": 0,
+      "clipped_high": 0
+    },
+    "2": {
+      "hole": 0,
+      "clipped_low": 0,
+      "clipped_high": 0
+    }
+  },
+  "scope_restore": {
+    "needed": true,
+    "passed": true,
+    "running": false,
+    "readback": {
+      ":TIMebase:MODE?": "MAIN",
+      ":TIMebase:REFerence?": "CENT",
+      ":TIMebase:RANGe?": "+100.0E-06",
+      ":TIMebase:POSition?": "+8.020000E-06",
+      ":TRIGger:MODE?": "EDGE",
+      ":TRIGger:SWEep?": "AUTO",
+      ":TRIGger:EDGE:SOURce?": "CHAN2",
+      ":TRIGger:EDGE:SLOPe?": "POS",
+      ":TRIGger:EDGE:COUPling?": "DC",
+      ":TRIGger:EDGE:REJect?": "OFF",
+      ":TRIGger:EDGE:LEVel? CHANnel1": "-10.375E-03",
+      ":TRIGger:EDGE:LEVel? CHANnel2": "+125.000E-03",
+      ":ACQuire:TYPE?": "NORM",
+      ":ACQuire:MODE?": "RTIM",
+      ":WAVeform:SOURce?": "CHAN1",
+      ":WAVeform:FORMat?": "WORD",
+      ":WAVeform:BYTeorder?": "LSBF",
+      ":WAVeform:UNSigned?": "1",
+      ":WAVeform:POINts:MODE?": "NORM",
+      ":WAVeform:POINts?": "+31250",
+      ":CHANnel1:DISPlay?": "1",
+      ":CHANnel1:COUPling?": "DC",
+      ":CHANnel1:IMPedance?": "ONEM",
+      ":CHANnel1:PROBe?": "+1.0000000E+00",
+      ":CHANnel1:RANGe?": "+400E-03",
+      ":CHANnel1:OFFSet?": "+60.600E-03",
+      ":CHANnel2:DISPlay?": "1",
+      ":CHANnel2:COUPling?": "DC",
+      ":CHANnel2:IMPedance?": "ONEM",
+      ":CHANnel2:PROBe?": "+1.0000000E+00",
+      ":CHANnel2:RANGe?": "+1.60E+00",
+      ":CHANnel2:OFFSet?": "+47.400E-03"
+    },
+    "dynamic_not_compared": [
+      ":WAVeform:POINts?"
+    ]
+  },
+  "production_sources_changed": [],
+  "finished_utc": "2026-10-16T04:21:04.007248+00:00",
+  "acquisition_success": true
+}

@@ -1,0 +1,104 @@
+{
+  "status": "offline_prepared",
+  "mapping": [
+    {
+      "axis": 0,
+      "output_name": "awg_0",
+      "awg_gen": 1,
+      "dac": "10",
+      "panel_dac": 4,
+      "full_scale_mv": 801.48,
+      "current_ua": 20037,
+      "paired_rf_generators": [
+        0
+      ],
+      "tproc_ch": 0,
+      "tmux_ch": 1
+    },
+    {
+      "axis": 1,
+      "output_name": "awg_1",
+      "awg_gen": 3,
+      "dac": "11",
+      "panel_dac": 5,
+      "full_scale_mv": 801.48,
+      "current_ua": 20037,
+      "paired_rf_generators": [
+        2
+      ],
+      "tproc_ch": 1,
+      "tmux_ch": 1
+    }
+  ],
+  "points": 10000,
+  "swept_ramp": "falling",
+  "active_axis": 1,
+  "duration_count": 100,
+  "voltage_count": 100,
+  "duration_range_us": [
+    0.01,
+    1.0
+  ],
+  "requested_ramp_range_us": [
+    0.01,
+    1.0
+  ],
+  "requested_range_mv": [
+    -400.0,
+    400.0
+  ],
+  "sweep_shape": [
+    100,
+    100
+  ],
+  "coordinate_order": "RAMP duration outer, selected-output voltage inner; inactive output remains zero",
+  "mode": "fixed_voltage",
+  "hold_us": 10.0,
+  "dc_time_us": 10.0,
+  "tau_us": 20.0,
+  "dc_voltage_mv": 300.0,
+  "start_mv": -400.0,
+  "stop_mv": 400.0,
+  "paired_dds_idle_channels": [
+    0,
+    2
+  ],
+  "physical_execution": false,
+  "production_sources_unchanged": true,
+  "board_config_sha256": "5cbe45a95bf58d684ff630e91a5b6ed71dfc72c1268b945fa7a4cc8ec585720a",
+  "current_settings_sha256": "08fb513a925778609358974ece922c8c28357d92c4a58ea42d53904109c031aa",
+  "helper_sha256": "f282b6b9f99079f499645c149e86063fe35983a780f30244beb4366d51b1454d",
+  "files": {
+    "axis_duration_dialog.png": "0ce7516d9f67b58c360365db093228533ba871a67679dc29b27dd7647c23a1f4",
+    "axis_voltage_dialog.png": "e9e024c7ea414c774f930429b877d1cb8966f70bc016197aad27cfe94a97b81f",
+    "board_config_snapshot.json": "5cbe45a95bf58d684ff630e91a5b6ed71dfc72c1268b945fa7a4cc8ec585720a",
+    "compensation_panel.png": "9e768964d2b83f9be121ca3b96988d2dcdccb049dcea0f3256977b0823b8ea37",
+    "compiler_compensation.json": "aa6383a67e727e379475994fdd4a42517e44c81367a06770c21449b5e0c3e39c",
+    "dac_current_snapshot.json": "08fb513a925778609358974ece922c8c28357d92c4a58ea42d53904109c031aa",
+    "expected_points.json.gz": "228604d23f50f6bfd3b354f3060fc05dcb4ded6770dce39e0df91f19dfa9be89",
+    "gui.png": "d1330a3e49abbf3a425e72ecde77f8c8be2c4bf7fcc8b9279ec451a07a276f94",
+    "gui_arguments.json": "9c1ae510c78a8ad079ef241a835878a5715e577e335d7fc4dd0439c5745afcda",
+    "gui_input.json": "f2e4356df1360576f73edbe383c3aa955ae44d75be4702b139aee0ac67d6a084",
+    "gui_seed.json": "e965b47f37b1a500c3d2208a6bcf92518c31f8462c05c9d18fefec153c1c615f",
+    "mapping.json": "b36711fa036f02a28f791a9c9560539b1a8c5bce2a9e124f8fc1f15a54237e32",
+    "paired_dds_idle.asm": "e0bbdbb41e5b9ee9aaf644cc8bec11c797010f0254834c5177bdd648d6de7fb1",
+    "paired_dds_idle.dmem.json": "dda9dc3e1d5c564d64b37a2bd9b0380d932d8bf3d936a5ff0f2506d5b8d8777d",
+    "paired_dds_idle.pmem": "89e53036a4cb2af91e5b3acb93ad3f38669377b2fc3d07bcfb7ddc0c641872b5",
+    "paired_dds_idle_model.json": "4495b1ca4fb41c92b30b9dc5c582e38f5e7bc4273d11f79a27b76dea5edafd3e",
+    "preflight.json": "762021bf556611ca1248df2f5baa97e838428e9b1eec9842a8320b1ebd7ebc7e",
+    "preparation_summary.json": "a3eb18b450e53c69724188e2f0349f38ea93df4367e1ae673b3ac5d55c604dce",
+    "prepare_program_snapshot.py": "f282b6b9f99079f499645c149e86063fe35983a780f30244beb4366d51b1454d",
+    "runtime_tables.json": "7c92201d7598aebfc76c2d3e9977669a4f1b228561e13c94cec20fa7d8e4e28b",
+    "source_after.json": "0c27abc9dc2d0fe2818896acfcc39135f2f0b6264a740b51a5facb2cb1789c98",
+    "source_before.json": "0c27abc9dc2d0fe2818896acfcc39135f2f0b6264a740b51a5facb2cb1789c98",
+    "sweep.asm": "964b1dffb3710048bdb7e14dc781405b53d358e2d00c3b8cc49d4784d820957c",
+    "sweep.dmem.json": "b94648483845d783a972932028c31d1b33f2fbc782563d49062dabe8983f1ff7",
+    "sweep.pmem": "b60986793724997c494a9289f7e682b2ba8939e306fa26fce0fd625e9ef996b9",
+    "sweep_model.json.gz": "94ddd21e1aa8da320042c04c540996496af0aced58e3413b2874c3b94b90c513",
+    "zero_gui_input.json": "aaba6750ae5fc4ddacc458ae3d8baebdbd384f68985c998b6ba51be94a459a0e",
+    "zero_recovery.asm": "cc00612d4d68171d37e238c5cd2d31e565a155cfacb5531de00e37b97e93d533",
+    "zero_recovery.dmem.json": "dda9dc3e1d5c564d64b37a2bd9b0380d932d8bf3d936a5ff0f2506d5b8d8777d",
+    "zero_recovery.pmem": "b8f8b7f7ed654f8898fa044e7b30d7b5d535549671e3b2c5c67597ddd4e5906e",
+    "zero_recovery_model.json": "d099d258c331442837fe203bf89b630c43e2f1a3a083c96e7f5d565ca2e15970"
+  }
+}

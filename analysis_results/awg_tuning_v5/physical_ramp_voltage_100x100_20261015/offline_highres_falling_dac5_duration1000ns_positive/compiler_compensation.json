@@ -1,0 +1,57 @@
+{
+  "mode": "fixed_time",
+  "dc_settings": [
+    {
+      "words": 3000
+    },
+    {
+      "words": 3000
+    }
+  ],
+  "deadline_cycles": 3113,
+  "validation": [
+    {
+      "point": 0,
+      "output": 0,
+      "area": 0,
+      "prefix_min": 0,
+      "prefix_max": 0,
+      "compensation_words": 3000,
+      "residual": 0
+    },
+    {
+      "point": 0,
+      "output": 1,
+      "area": 215907010,
+      "prefix_min": 0,
+      "prefix_max": 215907010,
+      "compensation_words": 3000,
+      "residual": 0
+    }
+  ],
+  "rc_validation": [
+    {
+      "point_index": 0,
+      "gen_ch": 1,
+      "minimum_normalized": -0.0001953125000024869,
+      "maximum_normalized": 0.0001953125000024869
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 3,
+      "minimum_normalized": -0.5511588577702111,
+      "maximum_normalized": 0.7633027398367608
+    }
+  ],
+  "net_area_bounds": [
+    [
+      -9598,
+      0
+    ],
+    [
+      215902210,
+      215911808
+    ]
+  ],
+  "note": "Planning bounds from current production compiler; not a new scalar RTL execution."
+}

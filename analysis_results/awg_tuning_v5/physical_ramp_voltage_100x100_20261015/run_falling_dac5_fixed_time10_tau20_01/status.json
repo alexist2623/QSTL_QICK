@@ -1,0 +1,418 @@
+{
+  "started_utc": "2026-10-16T04:03:36.864257+00:00",
+  "physical_output_started": true,
+  "sweep_completed": true,
+  "capture_saved": true,
+  "cleanup_zero": true,
+  "events": [
+    {
+      "utc": "2026-10-16T04:03:36.980286+00:00",
+      "name": "live_board_verified",
+      "awg_generators": [
+        1,
+        3
+      ],
+      "panel_dacs": [
+        4,
+        5
+      ],
+      "scope_channels": [
+        1,
+        2
+      ]
+    },
+    {
+      "utc": "2026-10-16T04:03:37.691288+00:00",
+      "name": "paired_dds_idle",
+      "generators": [
+        0,
+        2
+      ],
+      "gain": 0
+    },
+    {
+      "utc": "2026-10-16T04:03:37.745523+00:00",
+      "name": "initial_awg_zero",
+      "progress": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "utc": "2026-10-16T04:03:38.195420+00:00",
+      "name": "scope_armed",
+      "capture_id": "aaae5bba-e73d-4731-903e-c3a50e7c0783"
+    },
+    {
+      "utc": "2026-10-16T04:03:38.726666+00:00",
+      "name": "voltage_sweep",
+      "progress": [
+        [
+          0,
+          10000
+        ],
+        [
+          42,
+          10000
+        ],
+        [
+          221,
+          10000
+        ],
+        [
+          399,
+          10000
+        ],
+        [
+          580,
+          10000
+        ],
+        [
+          846,
+          10000
+        ],
+        [
+          1024,
+          10000
+        ],
+        [
+          1191,
+          10000
+        ],
+        [
+          1361,
+          10000
+        ],
+        [
+          1532,
+          10000
+        ],
+        [
+          1696,
+          10000
+        ],
+        [
+          1867,
+          10000
+        ],
+        [
+          2028,
+          10000
+        ],
+        [
+          2186,
+          10000
+        ],
+        [
+          2350,
+          10000
+        ],
+        [
+          2511,
+          10000
+        ],
+        [
+          2671,
+          10000
+        ],
+        [
+          2830,
+          10000
+        ],
+        [
+          2992,
+          10000
+        ],
+        [
+          3160,
+          10000
+        ],
+        [
+          3323,
+          10000
+        ],
+        [
+          3483,
+          10000
+        ],
+        [
+          3656,
+          10000
+        ],
+        [
+          3824,
+          10000
+        ],
+        [
+          3991,
+          10000
+        ],
+        [
+          4156,
+          10000
+        ],
+        [
+          4326,
+          10000
+        ],
+        [
+          4487,
+          10000
+        ],
+        [
+          4782,
+          10000
+        ],
+        [
+          4944,
+          10000
+        ],
+        [
+          5104,
+          10000
+        ],
+        [
+          5269,
+          10000
+        ],
+        [
+          5429,
+          10000
+        ],
+        [
+          5591,
+          10000
+        ],
+        [
+          5754,
+          10000
+        ],
+        [
+          5912,
+          10000
+        ],
+        [
+          6076,
+          10000
+        ],
+        [
+          6236,
+          10000
+        ],
+        [
+          6401,
+          10000
+        ],
+        [
+          6559,
+          10000
+        ],
+        [
+          6716,
+          10000
+        ],
+        [
+          6873,
+          10000
+        ],
+        [
+          7038,
+          10000
+        ],
+        [
+          7196,
+          10000
+        ],
+        [
+          7362,
+          10000
+        ],
+        [
+          7519,
+          10000
+        ],
+        [
+          7684,
+          10000
+        ],
+        [
+          7851,
+          10000
+        ],
+        [
+          8009,
+          10000
+        ],
+        [
+          8171,
+          10000
+        ],
+        [
+          8328,
+          10000
+        ],
+        [
+          8497,
+          10000
+        ],
+        [
+          8656,
+          10000
+        ],
+        [
+          8812,
+          10000
+        ],
+        [
+          8969,
+          10000
+        ],
+        [
+          9129,
+          10000
+        ],
+        [
+          9288,
+          10000
+        ],
+        [
+          9449,
+          10000
+        ],
+        [
+          9617,
+          10000
+        ],
+        [
+          9784,
+          10000
+        ],
+        [
+          9943,
+          10000
+        ],
+        [
+          10000,
+          10000
+        ]
+      ]
+    },
+    {
+      "utc": "2026-10-16T04:03:40.484922+00:00",
+      "name": "capture_saved",
+      "points": {
+        "1": 1200000,
+        "2": 1200000
+      },
+      "special_codes": {
+        "1": {
+          "hole": 0,
+          "clipped_low": 0,
+          "clipped_high": 0
+        },
+        "2": {
+          "hole": 0,
+          "clipped_low": 0,
+          "clipped_high": 0
+        }
+      }
+    },
+    {
+      "utc": "2026-10-16T04:03:40.533175+00:00",
+      "name": "final_awg_zero",
+      "progress": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "prepared_bundle": "offline_falling_dac5_fixed_time10_tau20",
+  "mode": "fixed_time",
+  "comparison": "direct DAC RC-precompensated expected waveform; fixed offset only",
+  "failure_limit_mv": 15.0,
+  "planned_duration_s": 0.4256039033333333,
+  "rc_tau_us": 20.0,
+  "active_axis": 1,
+  "swept_ramp": "falling",
+  "high_resolution": false,
+  "max_sample_interval_s": 5e-07,
+  "planned_rc_bounds_mv": [
+    -611.771879924367,
+    622.1301374003959
+  ],
+  "scope_voltage_range_v": 1.6,
+  "capture_id": "aaae5bba-e73d-4731-903e-c3a50e7c0783",
+  "channel_points": {
+    "1": 1200000,
+    "2": 1200000
+  },
+  "special_codes": {
+    "1": {
+      "hole": 0,
+      "clipped_low": 0,
+      "clipped_high": 0
+    },
+    "2": {
+      "hole": 0,
+      "clipped_low": 0,
+      "clipped_high": 0
+    }
+  },
+  "scope_restore": {
+    "needed": true,
+    "passed": true,
+    "running": false,
+    "readback": {
+      ":TIMebase:MODE?": "MAIN",
+      ":TIMebase:REFerence?": "CENT",
+      ":TIMebase:RANGe?": "+100.0E-06",
+      ":TIMebase:POSition?": "+8.020000E-06",
+      ":TRIGger:MODE?": "EDGE",
+      ":TRIGger:SWEep?": "AUTO",
+      ":TRIGger:EDGE:SOURce?": "CHAN2",
+      ":TRIGger:EDGE:SLOPe?": "POS",
+      ":TRIGger:EDGE:COUPling?": "DC",
+      ":TRIGger:EDGE:REJect?": "OFF",
+      ":TRIGger:EDGE:LEVel? CHANnel1": "-10.375E-03",
+      ":TRIGger:EDGE:LEVel? CHANnel2": "+125.000E-03",
+      ":ACQuire:TYPE?": "NORM",
+      ":ACQuire:MODE?": "RTIM",
+      ":WAVeform:SOURce?": "CHAN1",
+      ":WAVeform:FORMat?": "WORD",
+      ":WAVeform:BYTeorder?": "LSBF",
+      ":WAVeform:UNSigned?": "1",
+      ":WAVeform:POINts:MODE?": "NORM",
+      ":WAVeform:POINts?": "+640",
+      ":CHANnel1:DISPlay?": "1",
+      ":CHANnel1:COUPling?": "DC",
+      ":CHANnel1:IMPedance?": "ONEM",
+      ":CHANnel1:PROBe?": "+1.0000000E+00",
+      ":CHANnel1:RANGe?": "+400E-03",
+      ":CHANnel1:OFFSet?": "+60.600E-03",
+      ":CHANnel2:DISPlay?": "1",
+      ":CHANnel2:COUPling?": "DC",
+      ":CHANnel2:IMPedance?": "ONEM",
+      ":CHANnel2:PROBe?": "+1.0000000E+00",
+      ":CHANnel2:RANGe?": "+1.60E+00",
+      ":CHANnel2:OFFSet?": "+47.400E-03"
+    },
+    "dynamic_not_compared": [
+      ":WAVeform:POINts?"
+    ]
+  },
+  "production_sources_changed": [],
+  "finished_utc": "2026-10-16T04:03:41.194733+00:00",
+  "acquisition_success": true
+}

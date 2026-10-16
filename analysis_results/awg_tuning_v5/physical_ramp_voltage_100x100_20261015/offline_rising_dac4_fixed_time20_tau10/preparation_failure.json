@@ -1,0 +1,36 @@
+{
+  "status": "preparation_rejected",
+  "error_type": "ValueError",
+  "error": "RC-compensated DAC output exceeds range: awg_0, sweep corner 9900. Predicted bounds [-820, +220.106] mV; allowed [-801.48, +801.48] mV. Includes DC compensation and the zero-input hold before IIR reset. Reduce voltage/duration or increase RC tau.",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\prepare_main_resume.py\", line 250, in prepare_program\n    args = window._experiment_run_arguments(require_readout=False,require_run_config=False)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py\", line 13334, in _experiment_run_arguments\n    sequence = build_qick_sequence(\n               ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\dc_waveform_core.py\", line 2395, in build_qick_sequence\n    sequence.rc_output_range_preview = (validate_sequence_rc_range(\n                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_rc_validation.py\", line 94, in validate_sequence_rc_range\n    check_limits(bounds, name=name, point=point, limits=(-1.0, 1.0),\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_rc_validation.py\", line 56, in check_limits\n    raise ValueError(\nValueError: RC-compensated DAC output exceeds range: awg_0, sweep corner 9900. Predicted bounds [-820, +220.106] mV; allowed [-801.48, +801.48] mV. Includes DC compensation and the zero-input hold before IIR reset. Reduce voltage/duration or increase RC tau.\n",
+  "mode": "fixed_time",
+  "hold_us": 10.0,
+  "dc_time_us": 20.0,
+  "tau_us": 10.0,
+  "start_mv": -400.0,
+  "stop_mv": 400.0,
+  "dc_voltage_mv": 300.0,
+  "swept_ramp": "rising",
+  "active_axis": 0,
+  "duration_count": 100,
+  "voltage_count": 100,
+  "duration_range_us": [
+    0.01,
+    1.0
+  ],
+  "requested_ramp_range_us": [
+    0.01,
+    1.0
+  ],
+  "requested_range_mv": [
+    -400.0,
+    400.0
+  ],
+  "sweep_shape": [
+    100,
+    100
+  ],
+  "coordinate_order": "RAMP duration outer, selected-output voltage inner; inactive output remains zero",
+  "physical_execution": false,
+  "helper_sha256": "f522ff161f6a75a423e84163185ba2ba7f2b73d1bd3c402f7f6b13d54319ceb8"
+}

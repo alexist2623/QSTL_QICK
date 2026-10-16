@@ -1,0 +1,62 @@
+{
+  "status": "preflight_accepted",
+  "mode": "fixed_time",
+  "hold_us": 10.0,
+  "dc_time_us": 10.0,
+  "tau_us": 20.0,
+  "start_mv": 400.0,
+  "stop_mv": 400.0,
+  "dc_voltage_mv": 300.0,
+  "points": 1,
+  "pmem_words": 170,
+  "swept_ramp": "falling",
+  "active_axis": 1,
+  "duration_count": 1,
+  "voltage_count": 1,
+  "duration_range_us": [
+    0.01,
+    0.01
+  ],
+  "requested_ramp_range_us": [
+    0.01,
+    0.01
+  ],
+  "requested_range_mv": [
+    400.0,
+    400.0
+  ],
+  "sweep_shape": [
+    1
+  ],
+  "logical_coordinate_shape": [
+    1,
+    1
+  ],
+  "coordinate_order": "One fixed-duration GUI settings load and one actual voltage modal point; inactive output remains zero",
+  "fixture_scope": "Representative fixed point of the requested 100x100 grid; not a hardware RAMP-duration sweep",
+  "duration_input": "Actual MainWindow settings load from explicit time_ns values; no duration sweep axis",
+  "rc_output_range_validation": [
+    {
+      "point_index": 0,
+      "gen_ch": 1,
+      "minimum_normalized": -0.00018927001953250588,
+      "maximum_normalized": 0.00018927001953250588,
+      "minimum_mv": -0.15169613525491282,
+      "maximum_mv": 0.15169613525491282
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 3,
+      "minimum_normalized": -0.5262844275398195,
+      "maximum_normalized": 0.7632114495757667,
+      "minimum_mv": -421.80644298461453,
+      "maximum_mv": 611.6987126059855
+    }
+  ],
+  "global_rc_bounds_mv": [
+    -421.80644298461453,
+    611.6987126059855
+  ],
+  "helper_sha256": "2b69675605f52cb94480592c201da8894bef20307ef5f8908de8a59a7604d9e5",
+  "physical_execution": false
+}

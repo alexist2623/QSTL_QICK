@@ -1,0 +1,10 @@
+{
+  "old_sha256": "a1cd11af6faba0e6d21f21b3c62d1541f068fa05cab6acba4297c7028b12e734",
+  "new_sha256": "2b69675605f52cb94480592c201da8894bef20307ef5f8908de8a59a7604d9e5",
+  "reference": "prepare_main_resume.py",
+  "reference_sha256": "f522ff161f6a75a423e84163185ba2ba7f2b73d1bd3c402f7f6b13d54319ceb8",
+  "protocol_source_exact_copy": true,
+  "change": "Dedicated CLI exits after all checks/manifest/sourceafter are written and streams flushed. Exceptions write failure evidence and exit1. Imported reconstruct performs no GUI or exit.",
+  "gui_input_and_assertions_unchanged": true,
+  "initial_failure_cause_not_established": true
+}

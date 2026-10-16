@@ -1,0 +1,271 @@
+{
+  "complete": true,
+  "ramps": [
+    {
+      "direction": "rising",
+      "requested_ramp_duration_ns": 10.0,
+      "compiled_ramp_duration_ns": 9.999999999999787,
+      "post_ramp_window_ns": [
+        0.0,
+        100.0
+      ],
+      "window_end_exclusive": true,
+      "start_program_us": 14.1,
+      "stop_program_us": 14.2,
+      "roi_start_index": 75056,
+      "roi_stop_index_exclusive": 76056,
+      "samples": 1000,
+      "native_sample_interval_ns": 0.1,
+      "original_ramp_roi_stop_index_exclusive": 75056,
+      "disjoint_from_original_ramp_roi": true,
+      "max_abs_residual_mv": 81.7575967303124,
+      "peak_abs_residual": {
+        "raw_sample_index": 75157,
+        "time_after_compiled_ramp_end_ns": 10.137500090820772,
+        "scope_time_s": 1.5699999999999697e-08,
+        "program_time_us": 14.11013750009082,
+        "corrected_measured_mv": -482.0084121599999,
+        "exact_compiled_rc_dac_mv": -400.2508154296875,
+        "residual_mv": -81.7575967303124
+      },
+      "minimum_corrected_voltage": {
+        "raw_sample_index": 75157,
+        "time_after_compiled_ramp_end_ns": 10.137500090820772,
+        "scope_time_s": 1.5699999999999697e-08,
+        "program_time_us": 14.11013750009082,
+        "corrected_measured_mv": -482.0084121599999,
+        "exact_compiled_rc_dac_mv": -400.2508154296875,
+        "residual_mv": -81.7575967303124
+      },
+      "maximum_corrected_voltage": {
+        "raw_sample_index": 75352,
+        "time_after_compiled_ramp_end_ns": 29.637500090821177,
+        "scope_time_s": 3.5200000000000103e-08,
+        "program_time_us": 14.12963750009082,
+        "corrected_measured_mv": -361.50630911999997,
+        "exact_compiled_rc_dac_mv": -400.6421630859375,
+        "residual_mv": 39.13585396593754
+      },
+      "median_residual_mv": 6.054395222187566,
+      "samples_abs_error_over_15mv": 334,
+      "ten_ns_bins": [
+        {
+          "start_after_ramp_end_ns": 0,
+          "stop_exclusive_ns": 10,
+          "samples": 100,
+          "median_residual_mv": -68.36847417031242,
+          "max_abs_residual_mv": 75.25870927843738,
+          "samples_abs_error_over_15mv": 100
+        },
+        {
+          "start_after_ramp_end_ns": 10,
+          "stop_exclusive_ns": 20,
+          "samples": 100,
+          "median_residual_mv": -54.88151469624995,
+          "max_abs_residual_mv": 81.7575967303124,
+          "samples_abs_error_over_15mv": 86
+        },
+        {
+          "start_after_ramp_end_ns": 20,
+          "stop_exclusive_ns": 30,
+          "samples": 100,
+          "median_residual_mv": 18.954333211874996,
+          "max_abs_residual_mv": 39.13585396593754,
+          "samples_abs_error_over_15mv": 62
+        },
+        {
+          "start_after_ramp_end_ns": 30,
+          "stop_exclusive_ns": 40,
+          "samples": 100,
+          "median_residual_mv": 19.15000703999999,
+          "max_abs_residual_mv": 32.539129600000024,
+          "samples_abs_error_over_15mv": 81
+        },
+        {
+          "start_after_ramp_end_ns": 40,
+          "stop_exclusive_ns": 50,
+          "samples": 100,
+          "median_residual_mv": 5.956558308125068,
+          "max_abs_residual_mv": 19.24784395406249,
+          "samples_abs_error_over_15mv": 2
+        },
+        {
+          "start_after_ramp_end_ns": 50,
+          "stop_exclusive_ns": 60,
+          "samples": 100,
+          "median_residual_mv": -0.44449222968745516,
+          "max_abs_residual_mv": 19.541354696249982,
+          "samples_abs_error_over_15mv": 2
+        },
+        {
+          "start_after_ramp_end_ns": 60,
+          "stop_exclusive_ns": 70,
+          "samples": 100,
+          "median_residual_mv": 6.347905964375059,
+          "max_abs_residual_mv": 19.834865438437475,
+          "samples_abs_error_over_15mv": 1
+        },
+        {
+          "start_after_ramp_end_ns": 70,
+          "stop_exclusive_ns": 80,
+          "samples": 100,
+          "median_residual_mv": 6.543579792500054,
+          "max_abs_residual_mv": 13.335977986562568,
+          "samples_abs_error_over_15mv": 0
+        },
+        {
+          "start_after_ramp_end_ns": 80,
+          "stop_exclusive_ns": 90,
+          "samples": 100,
+          "median_residual_mv": 6.73925362062505,
+          "max_abs_residual_mv": 13.531651814687564,
+          "samples_abs_error_over_15mv": 0
+        },
+        {
+          "start_after_ramp_end_ns": 90,
+          "stop_exclusive_ns": 100,
+          "samples": 100,
+          "median_residual_mv": 6.934927448750045,
+          "max_abs_residual_mv": 13.727325642812616,
+          "samples_abs_error_over_15mv": 0
+        }
+      ],
+      "settling_time_ns": null,
+      "settling_pass": null,
+      "settling_note": "No analog settling criterion was specified. No settling time or pass is assigned; 10 ns bins are descriptive only."
+    },
+    {
+      "direction": "falling",
+      "requested_ramp_duration_ns": 1000.0,
+      "compiled_ramp_duration_ns": 1000.0,
+      "post_ramp_window_ns": [
+        0.0,
+        100.0
+      ],
+      "window_end_exclusive": true,
+      "start_program_us": 25.10333333333333,
+      "stop_program_us": 25.203333333333333,
+      "roi_start_index": 185089,
+      "roi_stop_index_exclusive": 186089,
+      "samples": 1000,
+      "native_sample_interval_ns": 0.1,
+      "original_ramp_roi_stop_index_exclusive": 185089,
+      "disjoint_from_original_ramp_roi": true,
+      "max_abs_residual_mv": 22.705975566250032,
+      "peak_abs_residual": {
+        "raw_sample_index": 185856,
+        "time_after_compiled_ramp_end_ns": 76.70416675749026,
+        "scope_time_s": 1.1085600000000001e-05,
+        "program_time_us": 25.180037500090823,
+        "corrected_measured_mv": -187.44771583999997,
+        "exact_compiled_rc_dac_mv": -210.15369140625,
+        "residual_mv": 22.705975566250032
+      },
+      "minimum_corrected_voltage": {
+        "raw_sample_index": 185134,
+        "time_after_compiled_ramp_end_ns": 4.504166757491181,
+        "scope_time_s": 1.1013400000000002e-05,
+        "program_time_us": 25.10783750009082,
+        "corrected_measured_mv": -220.92052223999997,
+        "exact_compiled_rc_dac_mv": -210.15369140625,
+        "residual_mv": -10.766830833749964
+      },
+      "maximum_corrected_voltage": {
+        "raw_sample_index": 185856,
+        "time_after_compiled_ramp_end_ns": 76.70416675749026,
+        "scope_time_s": 1.1085600000000001e-05,
+        "program_time_us": 25.180037500090823,
+        "corrected_measured_mv": -187.44771583999997,
+        "exact_compiled_rc_dac_mv": -210.15369140625,
+        "residual_mv": 22.705975566250032
+      },
+      "median_residual_mv": 2.622291726250012,
+      "samples_abs_error_over_15mv": 20,
+      "ten_ns_bins": [
+        {
+          "start_after_ramp_end_ns": 0,
+          "stop_exclusive_ns": 10,
+          "samples": 100,
+          "median_residual_mv": 2.622291726250012,
+          "max_abs_residual_mv": 16.011414286250016,
+          "samples_abs_error_over_15mv": 2
+        },
+        {
+          "start_after_ramp_end_ns": 10,
+          "stop_exclusive_ns": 20,
+          "samples": 100,
+          "median_residual_mv": 2.622291726250012,
+          "max_abs_residual_mv": 16.011414286250016,
+          "samples_abs_error_over_15mv": 2
+        },
+        {
+          "start_after_ramp_end_ns": 20,
+          "stop_exclusive_ns": 30,
+          "samples": 100,
+          "median_residual_mv": 2.622291726250012,
+          "max_abs_residual_mv": 16.011414286250016,
+          "samples_abs_error_over_15mv": 2
+        },
+        {
+          "start_after_ramp_end_ns": 30,
+          "stop_exclusive_ns": 40,
+          "samples": 100,
+          "median_residual_mv": 2.622291726250012,
+          "max_abs_residual_mv": 10.766830833749964,
+          "samples_abs_error_over_15mv": 0
+        },
+        {
+          "start_after_ramp_end_ns": 40,
+          "stop_exclusive_ns": 50,
+          "samples": 100,
+          "median_residual_mv": 2.622291726250012,
+          "max_abs_residual_mv": 16.011414286250016,
+          "samples_abs_error_over_15mv": 1
+        },
+        {
+          "start_after_ramp_end_ns": 50,
+          "stop_exclusive_ns": 60,
+          "samples": 100,
+          "median_residual_mv": 2.622291726250012,
+          "max_abs_residual_mv": 16.011414286250016,
+          "samples_abs_error_over_15mv": 2
+        },
+        {
+          "start_after_ramp_end_ns": 60,
+          "stop_exclusive_ns": 70,
+          "samples": 100,
+          "median_residual_mv": 2.622291726250012,
+          "max_abs_residual_mv": 16.011414286250016,
+          "samples_abs_error_over_15mv": 2
+        },
+        {
+          "start_after_ramp_end_ns": 70,
+          "stop_exclusive_ns": 80,
+          "samples": 100,
+          "median_residual_mv": 2.622291726250012,
+          "max_abs_residual_mv": 22.705975566250032,
+          "samples_abs_error_over_15mv": 1
+        },
+        {
+          "start_after_ramp_end_ns": 80,
+          "stop_exclusive_ns": 90,
+          "samples": 100,
+          "median_residual_mv": 2.622291726250012,
+          "max_abs_residual_mv": 16.011414286250016,
+          "samples_abs_error_over_15mv": 3
+        },
+        {
+          "start_after_ramp_end_ns": 90,
+          "stop_exclusive_ns": 100,
+          "samples": 100,
+          "median_residual_mv": 2.622291726250012,
+          "max_abs_residual_mv": 16.011414286250016,
+          "samples_abs_error_over_15mv": 5
+        }
+      ],
+      "settling_time_ns": null,
+      "settling_pass": null,
+      "settling_note": "No analog settling criterion was specified. No settling time or pass is assigned; 10 ns bins are descriptive only."
+    }
+  ]
+}

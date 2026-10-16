@@ -1,0 +1,54 @@
+{
+  "requested_conditions": 48,
+  "range_rejected_not_run": 16,
+  "physical_conditions": 32,
+  "physical_points": 320000,
+  "acquired_channel_windows": 640000,
+  "acquisition_and_analysis_integrity_passed": true,
+  "independent_csv_and_hash_audit_passed": true,
+  "active_primary_counts": {
+    "PASS": 319968,
+    "FAIL": 32,
+    "INCOMPLETE": 0
+  },
+  "inactive_zero_counts": {
+    "PASS": 320000,
+    "FAIL": 0,
+    "INCOMPLETE": 0
+  },
+  "primary_point_pass": 319968,
+  "primary_point_fail": 32,
+  "maximum_primary_error_mv": 20.283693581216795,
+  "dc_counts": {
+    "PASS": 306234,
+    "FAIL": 64,
+    "INCOMPLETE": 13702
+  },
+  "inactive_dc_not_applicable": 320000,
+  "post_dc_zero_counts": {
+    "PASS": 639827,
+    "FAIL": 173,
+    "INCOMPLETE": 0
+  },
+  "final_zero_all_passed": true,
+  "all_acquired_waveform_checks_passed": false,
+  "all_requested_waveform_checks_passed": false,
+  "unchanged_production_source_files": 170,
+  "raw_ieee_bytes": 179200704,
+  "lossless_gzip_bytes": 38788517,
+  "high_resolution_included": false,
+  "preparation_review": {
+    "complete": true,
+    "original_batch_complete": false,
+    "original_failure_case": "rising_dac5_fixed_voltage_tau30",
+    "original_failure": "SIP 0xc0000005 after completed model/artifact checks",
+    "original_exit0_reused": 25,
+    "reviewed_identical_retry_exit0": 1,
+    "resumed_pending_cases": 22,
+    "offline_prepared": 32,
+    "range_rejected_not_executed": 16,
+    "comparison_audit_passed": true,
+    "comparison": "preparation_resume_retry_comparison.json",
+    "merged_status": "preparation_merged_status.json"
+  }
+}

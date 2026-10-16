@@ -1,0 +1,469 @@
+{
+  "capture_id": "a820b906-82a4-44ef-aefc-eac0ce4366aa",
+  "same_acquisition": true,
+  "validation_passed": true,
+  "configured_readback": {
+    ":TIMebase:MODE?": "MAIN",
+    ":TIMebase:REFerence?": "CENT",
+    ":TIMebase:RANGe?": "+50.00E-06",
+    ":TIMebase:POSition?": "+17.500000E-06",
+    ":TRIGger:MODE?": "EDGE",
+    ":TRIGger:SWEep?": "NORM",
+    ":TRIGger:EDGE:SOURce?": "CHAN1",
+    ":TRIGger:EDGE:SLOPe?": "NEG",
+    ":TRIGger:EDGE:COUPling?": "DC",
+    ":TRIGger:EDGE:REJect?": "OFF",
+    ":TRIGger:EDGE:LEVel? CHANnel1": "-200.000E-03",
+    ":TRIGger:EDGE:LEVel? CHANnel2": "+125.000E-03",
+    ":ACQuire:TYPE?": "NORM",
+    ":ACQuire:MODE?": "RTIM",
+    ":CHANnel1:DISPlay?": "1",
+    ":CHANnel1:COUPling?": "DC",
+    ":CHANnel1:IMPedance?": "ONEM",
+    ":CHANnel1:PROBe?": "+1.0000000E+00",
+    ":CHANnel1:RANGe?": "+1.60E+00",
+    ":CHANnel1:OFFSet?": "+0.0E+00",
+    ":CHANnel2:DISPlay?": "1",
+    ":CHANnel2:COUPling?": "DC",
+    ":CHANnel2:IMPedance?": "ONEM",
+    ":CHANnel2:PROBe?": "+1.0000000E+00",
+    ":CHANnel2:RANGe?": "+1.60E+00",
+    ":CHANnel2:OFFSet?": "+0.0E+00"
+  },
+  "time_grid_comparison": {
+    "points": {
+      "ch1": 500000,
+      "ch2": 500000,
+      "delta_ch2_minus_ch1": 0,
+      "exact_equal": true,
+      "accepted": true
+    },
+    "x_increment": {
+      "ch1": 1e-10,
+      "ch2": 1e-10,
+      "delta_ch2_minus_ch1": 0.0,
+      "exact_equal": true,
+      "accepted": true
+    },
+    "x_origin": {
+      "ch1": -7.5e-06,
+      "ch2": -7.5e-06,
+      "delta_ch2_minus_ch1": 0.0,
+      "exact_equal": true,
+      "delta_samples": 0.0,
+      "allowed_skew_samples": 20.0,
+      "accepted": true
+    },
+    "x_reference": {
+      "ch1": 0.0,
+      "ch2": 0.0,
+      "delta_ch2_minus_ch1": 0.0,
+      "exact_equal": true,
+      "accepted": true
+    }
+  },
+  "sampling_check": {
+    "1": {
+      "x_increment_s": 1e-10,
+      "sample_rate_sa_s": 10000000000.0,
+      "record_span_s": 4.99999e-05,
+      "max_sample_interval_s": 5e-10,
+      "accepted": true
+    },
+    "2": {
+      "x_increment_s": 1e-10,
+      "sample_rate_sa_s": 10000000000.0,
+      "record_span_s": 4.99999e-05,
+      "max_sample_interval_s": 5e-10,
+      "accepted": true
+    }
+  },
+  "time_grid_policy": {
+    "max_origin_skew_samples": 20.0,
+    "native_time_axes_preserved": true,
+    "resampled": false,
+    "precision_timing_or_zero_channel_skew_claimed": false
+  },
+  "adapter_source": {
+    "base_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\scope_capture.py",
+    "base_sha256": "f01b8e861eef7dc71b34219c861acc52ecaf2796d3c5ae6da94cfdc498ef39e8",
+    "compact_sha256": "adaedb0c019fdf3a7882843a3614e18ad99dc8d13430e12ed56e08f12f29a37c"
+  },
+  "channels": {
+    "1": {
+      "preamble": {
+        "format": 1,
+        "type": 0,
+        "points": 500000,
+        "count": 1,
+        "x_increment": 1e-10,
+        "x_origin": -7.5e-06,
+        "x_reference": 0.0,
+        "y_increment": 2.615063e-05,
+        "y_origin": 0.0,
+        "y_reference": 32768.0
+      },
+      "preamble_text": "+1,+0,+500000,+1,+1.00000000E-010,-7.50000000E-006,+0,+2.61506300E-005,+0.0E+000,+32768",
+      "payload_sha256": "0966d5688089d5c838f67501d95ac8f2aec06a29dc7490d1b904461f607bea6b",
+      "special_codes": {
+        "hole": 0,
+        "clipped_low": 0,
+        "clipped_high": 0
+      },
+      "record_span_s": 4.99999e-05,
+      "archive": {
+        "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\run_highres_falling_dac4_duration500ns_negative_01\\scope_capture\\ch1.ieee_block.bin.gz",
+        "raw_bytes": 1000011,
+        "raw_sha256": "6713f92bdcca3b82fa0e5a2106dfecae112d3508cbe4de15b8dbe1862a24d432",
+        "gzip_bytes": 180640,
+        "gzip_sha256": "f6731a66da0c4810251a8c68b5ff858b7ea110739a57e58406bd1c0b87f71f1d",
+        "archive_verified": true,
+        "preamble_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\run_highres_falling_dac4_duration500ns_negative_01\\scope_capture\\ch1.preamble.json",
+        "preamble_sha256": "98cd2e675dc725c77f77b1e7fdfb6e13fccc5f81e8d715743e00bede39b53dd5"
+      }
+    },
+    "2": {
+      "preamble": {
+        "format": 1,
+        "type": 0,
+        "points": 500000,
+        "count": 1,
+        "x_increment": 1e-10,
+        "x_origin": -7.5e-06,
+        "x_reference": 0.0,
+        "y_increment": 2.615063e-05,
+        "y_origin": 0.0,
+        "y_reference": 32768.0
+      },
+      "preamble_text": "+1,+0,+500000,+1,+1.00000000E-010,-7.50000000E-006,+0,+2.61506300E-005,+0.0E+000,+32768",
+      "payload_sha256": "013ed97803c5a266141dd6b7497dacefcb17753fb1ddb9be5282a34cac75d2a9",
+      "special_codes": {
+        "hole": 0,
+        "clipped_low": 0,
+        "clipped_high": 0
+      },
+      "record_span_s": 4.99999e-05,
+      "archive": {
+        "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\run_highres_falling_dac4_duration500ns_negative_01\\scope_capture\\ch2.ieee_block.bin.gz",
+        "raw_bytes": 1000011,
+        "raw_sha256": "7a97c4700013201c0a3327c43c238344cb6c3133fe3575837ad0b959de2d80ef",
+        "gzip_bytes": 181801,
+        "gzip_sha256": "fd0c2fa1389d03507b6972f554c08f377103bb937c4a724cede980ab547a49e8",
+        "archive_verified": true,
+        "preamble_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\run_highres_falling_dac4_duration500ns_negative_01\\scope_capture\\ch2.preamble.json",
+        "preamble_sha256": "5359bf13a07022d205dbc1a09e6cb737db605a0460ae6b0c7453c5f791534966"
+      }
+    }
+  },
+  "measurement_kind": "physical oscilloscope acquisition",
+  "same_acquisition_basis": "One SINGLE, fresh AER/TER, STOP during both RAW reads; exclusive access required",
+  "events": [
+    {
+      "utc": "2026-10-16T04:21:44.339601+00:00",
+      "operation": "preflight_complete"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.341607+00:00",
+      "operation": "write",
+      "command": ":STOP"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":TIMebase:MODE MAIN"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":TIMebase:REFerence CENTer"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":TIMebase:RANGe 5e-05"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":TIMebase:POSition 1.75e-05"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":ACQuire:MODE RTIMe"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":ACQuire:TYPE NORMal"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":CHANnel1:DISPlay 1"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":CHANnel1:COUPling DC"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":CHANnel1:RANGe 1.6"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":CHANnel1:OFFSet 0"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":CHANnel2:DISPlay 1"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":CHANnel2:COUPling DC"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":CHANnel2:RANGe 1.6"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":CHANnel2:OFFSet 0"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":TRIGger:MODE EDGE"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":TRIGger:SWEep NORMal"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":TRIGger:EDGE:SOURce CHANnel1"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":TRIGger:EDGE:SLOPe POSitive"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":TRIGger:EDGE:REJect OFF"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":TRIGger:EDGE:COUPling DC"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.352166+00:00",
+      "operation": "write",
+      "command": ":TRIGger:EDGE:LEVel -0.2,CHANnel1"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.749326+00:00",
+      "operation": "configured",
+      "readback": {
+        ":TIMebase:MODE?": "MAIN",
+        ":TIMebase:REFerence?": "CENT",
+        ":TIMebase:RANGe?": "+50.00E-06",
+        ":TIMebase:POSition?": "+17.500000E-06",
+        ":TRIGger:MODE?": "EDGE",
+        ":TRIGger:SWEep?": "NORM",
+        ":TRIGger:EDGE:SOURce?": "CHAN1",
+        ":TRIGger:EDGE:SLOPe?": "NEG",
+        ":TRIGger:EDGE:COUPling?": "DC",
+        ":TRIGger:EDGE:REJect?": "OFF",
+        ":TRIGger:EDGE:LEVel? CHANnel1": "-200.000E-03",
+        ":TRIGger:EDGE:LEVel? CHANnel2": "+125.000E-03",
+        ":ACQuire:TYPE?": "NORM",
+        ":ACQuire:MODE?": "RTIM",
+        ":CHANnel1:DISPlay?": "1",
+        ":CHANnel1:COUPling?": "DC",
+        ":CHANnel1:IMPedance?": "ONEM",
+        ":CHANnel1:PROBe?": "+1.0000000E+00",
+        ":CHANnel1:RANGe?": "+1.60E+00",
+        ":CHANnel1:OFFSet?": "+0.0E+00",
+        ":CHANnel2:DISPlay?": "1",
+        ":CHANnel2:COUPling?": "DC",
+        ":CHANnel2:IMPedance?": "ONEM",
+        ":CHANnel2:PROBe?": "+1.0000000E+00",
+        ":CHANnel2:RANGe?": "+1.60E+00",
+        ":CHANnel2:OFFSet?": "+0.0E+00"
+      },
+      "waveform_points_requested": 10000000
+    },
+    {
+      "utc": "2026-10-16T04:21:44.750326+00:00",
+      "operation": "write",
+      "command": ":TRIGger:EDGE:SLOPe NEG"
+    },
+    {
+      "utc": "2026-10-16T04:21:44.937055+00:00",
+      "operation": "write",
+      "command": ":SINGle"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.016463+00:00",
+      "operation": "armed"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.087676+00:00",
+      "operation": "triggered_acquisition_complete"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.087676+00:00",
+      "operation": "write",
+      "command": ":WAVeform:SOURce CHANnel1"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.087676+00:00",
+      "operation": "write",
+      "command": ":WAVeform:FORMat WORD"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.091819+00:00",
+      "operation": "write",
+      "command": ":WAVeform:BYTeorder LSBF"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.091819+00:00",
+      "operation": "write",
+      "command": ":WAVeform:UNSigned 1"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.091819+00:00",
+      "operation": "write",
+      "command": ":WAVeform:POINts:MODE RAW"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.091819+00:00",
+      "operation": "write",
+      "command": ":WAVeform:POINts 10000000"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.639804+00:00",
+      "operation": "channel_raw_archived",
+      "channel": 1,
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\run_highres_falling_dac4_duration500ns_negative_01\\scope_capture\\ch1.ieee_block.bin.gz",
+      "raw_bytes": 1000011,
+      "raw_sha256": "6713f92bdcca3b82fa0e5a2106dfecae112d3508cbe4de15b8dbe1862a24d432",
+      "gzip_bytes": 180640,
+      "gzip_sha256": "f6731a66da0c4810251a8c68b5ff858b7ea110739a57e58406bd1c0b87f71f1d",
+      "archive_verified": true,
+      "preamble_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\run_highres_falling_dac4_duration500ns_negative_01\\scope_capture\\ch1.preamble.json",
+      "preamble_sha256": "98cd2e675dc725c77f77b1e7fdfb6e13fccc5f81e8d715743e00bede39b53dd5"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.641805+00:00",
+      "operation": "write",
+      "command": ":WAVeform:SOURce CHANnel2"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.643083+00:00",
+      "operation": "write",
+      "command": ":WAVeform:FORMat WORD"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.643083+00:00",
+      "operation": "write",
+      "command": ":WAVeform:BYTeorder LSBF"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.643083+00:00",
+      "operation": "write",
+      "command": ":WAVeform:UNSigned 1"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.643083+00:00",
+      "operation": "write",
+      "command": ":WAVeform:POINts:MODE RAW"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.643083+00:00",
+      "operation": "write",
+      "command": ":WAVeform:POINts 10000000"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.891873+00:00",
+      "operation": "channel_raw_archived",
+      "channel": 2,
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\run_highres_falling_dac4_duration500ns_negative_01\\scope_capture\\ch2.ieee_block.bin.gz",
+      "raw_bytes": 1000011,
+      "raw_sha256": "7a97c4700013201c0a3327c43c238344cb6c3133fe3575837ad0b959de2d80ef",
+      "gzip_bytes": 181801,
+      "gzip_sha256": "fd0c2fa1389d03507b6972f554c08f377103bb937c4a724cede980ab547a49e8",
+      "archive_verified": true,
+      "preamble_path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\run_highres_falling_dac4_duration500ns_negative_01\\scope_capture\\ch2.preamble.json",
+      "preamble_sha256": "5359bf13a07022d205dbc1a09e6cb737db605a0460ae6b0c7453c5f791534966"
+    },
+    {
+      "utc": "2026-10-16T04:21:45.902118+00:00",
+      "operation": "time_grid_comparison",
+      "values": {
+        "points": {
+          "ch1": 500000,
+          "ch2": 500000,
+          "delta_ch2_minus_ch1": 0,
+          "exact_equal": true,
+          "accepted": true
+        },
+        "x_increment": {
+          "ch1": 1e-10,
+          "ch2": 1e-10,
+          "delta_ch2_minus_ch1": 0.0,
+          "exact_equal": true,
+          "accepted": true
+        },
+        "x_origin": {
+          "ch1": -7.5e-06,
+          "ch2": -7.5e-06,
+          "delta_ch2_minus_ch1": 0.0,
+          "exact_equal": true,
+          "delta_samples": 0.0,
+          "allowed_skew_samples": 20.0,
+          "accepted": true
+        },
+        "x_reference": {
+          "ch1": 0.0,
+          "ch2": 0.0,
+          "delta_ch2_minus_ch1": 0.0,
+          "exact_equal": true,
+          "accepted": true
+        }
+      },
+      "sampling": {
+        "1": {
+          "x_increment_s": 1e-10,
+          "sample_rate_sa_s": 10000000000.0,
+          "record_span_s": 4.99999e-05,
+          "max_sample_interval_s": 5e-10,
+          "accepted": true
+        },
+        "2": {
+          "x_increment_s": 1e-10,
+          "sample_rate_sa_s": 10000000000.0,
+          "record_span_s": 4.99999e-05,
+          "max_sample_interval_s": 5e-10,
+          "accepted": true
+        }
+      }
+    },
+    {
+      "utc": "2026-10-16T04:21:45.926386+00:00",
+      "operation": "compact_readout_complete"
+    }
+  ]
+}

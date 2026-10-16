@@ -1,0 +1,402 @@
+{
+  "passed": true,
+  "source_sha256": "ec9e358abfb6ba2465e3a3c9b73ee5530e8e2e2ba8cea711edaba1123b7ca550",
+  "scope": "Synthetic native50ps records from actual main-grid command words; not physical evidence",
+  "max_float_arithmetic_difference_mv": 5.684341886080802e-14,
+  "tolerance_mv": 1e-10,
+  "tolerance_reason": "Only IEEE float addition/subtraction roundoff after known constant4mV; original strict equality failure retained",
+  "cases": [
+    {
+      "swept_ramp": "rising",
+      "requested_mv": -400.0,
+      "valid": true,
+      "samples": 200,
+      "roi_start_index": 20001,
+      "roi_stop_index_exclusive": 20201,
+      "start_program_us": 14.09,
+      "end_program_us": 14.1,
+      "median_residual_mv": 0.0,
+      "max_abs_residual_mv": 0.0,
+      "residual_std_mv": 0.0,
+      "samples_abs_error_over_15mv": 0,
+      "median_within_15mv": true,
+      "direction": "rising",
+      "requested_duration_ns": 10.0,
+      "compiled_duration_ns": 9.999999999999787,
+      "compiled_scalar_samples": 48,
+      "duration_quantization_ns": -2.1337098754514727e-13,
+      "native_scope_sample_interval_ns": 0.05,
+      "nominal_samples_per_compiled_ramp": 199.99999999999574,
+      "precision_timing_pass": null,
+      "measured_10_90_ns": 7.929425287340126,
+      "model_10_90_ns": 7.916666666666572,
+      "extrapolated_linear_full_duration_ns": 9.911781609175158,
+      "extrapolated_onset_residual_ns": 0.04382183703841784,
+      "crossings": [
+        {
+          "fraction": 0.1,
+          "threshold_mv": -40.00551416015625,
+          "model_program_us": 14.091041666666667,
+          "observed_scope_s": 1.0349999979554778e-09,
+          "candidates_scope_s": [
+            1.0349999979554778e-09
+          ]
+        },
+        {
+          "fraction": 0.9,
+          "threshold_mv": -360.0496274414063,
+          "model_program_us": 14.098958333333334,
+          "observed_scope_s": 8.964425285295604e-09,
+          "candidates_scope_s": [
+            8.964425285295604e-09
+          ]
+        }
+      ],
+      "crossing_window_complete": true,
+      "timing_note": "10-90% crossing and linear extrapolation are diagnostics, not a duration tolerance test. RC curvature, bandwidth, quantization, noise and threshold selection affect these values. Crossing selection never changes the one global time offset."
+    },
+    {
+      "swept_ramp": "rising",
+      "requested_mv": -400.0,
+      "valid": true,
+      "samples": 20000,
+      "roi_start_index": 20000,
+      "roi_stop_index_exclusive": 40000,
+      "start_program_us": 24.10333333333333,
+      "end_program_us": 25.10333333333333,
+      "median_residual_mv": 0.0,
+      "max_abs_residual_mv": 0.0,
+      "residual_std_mv": 0.0,
+      "samples_abs_error_over_15mv": 0,
+      "median_within_15mv": true,
+      "direction": "falling",
+      "requested_duration_ns": 1000.0,
+      "compiled_duration_ns": 1000.0,
+      "compiled_scalar_samples": 4800,
+      "duration_quantization_ns": 0.0,
+      "native_scope_sample_interval_ns": 0.05,
+      "nominal_samples_per_compiled_ramp": 20000.0,
+      "precision_timing_pass": null,
+      "measured_10_90_ns": 799.790000001753,
+      "model_10_90_ns": 799.791666666664,
+      "extrapolated_linear_full_duration_ns": 999.7375000021913,
+      "extrapolated_onset_residual_ns": 2.5062500021963463,
+      "crossings": [
+        {
+          "fraction": 0.1,
+          "threshold_mv": -561.1338369140625,
+          "model_program_us": 24.205833333333334,
+          "observed_scope_s": 1.0115813333335748e-05,
+          "candidates_scope_s": [
+            1.0115813333335748e-05
+          ]
+        },
+        {
+          "fraction": 0.9,
+          "threshold_mv": -249.15148535156248,
+          "model_program_us": 25.005625,
+          "observed_scope_s": 1.0915603333337501e-05,
+          "candidates_scope_s": [
+            1.0915603333337501e-05
+          ]
+        }
+      ],
+      "crossing_window_complete": true,
+      "timing_note": "10-90% crossing and linear extrapolation are diagnostics, not a duration tolerance test. RC curvature, bandwidth, quantization, noise and threshold selection affect these values. Crossing selection never changes the one global time offset."
+    },
+    {
+      "swept_ramp": "rising",
+      "requested_mv": 400.0,
+      "valid": true,
+      "samples": 200,
+      "roi_start_index": 20001,
+      "roi_stop_index_exclusive": 20201,
+      "start_program_us": 4227.53,
+      "end_program_us": 4227.54,
+      "median_residual_mv": 0.0,
+      "max_abs_residual_mv": 2.842170943040401e-14,
+      "residual_std_mv": 4.484870100344409e-15,
+      "samples_abs_error_over_15mv": 0,
+      "median_within_15mv": true,
+      "direction": "rising",
+      "requested_duration_ns": 10.0,
+      "compiled_duration_ns": 10.000000000218279,
+      "compiled_scalar_samples": 48,
+      "duration_quantization_ns": 2.1827852025868566e-10,
+      "native_scope_sample_interval_ns": 0.05,
+      "nominal_samples_per_compiled_ramp": 200.00000000436555,
+      "precision_timing_pass": null,
+      "measured_10_90_ns": 7.948275862052732,
+      "model_10_90_ns": 7.9166666664605145,
+      "extrapolated_linear_full_duration_ns": 9.935344827565915,
+      "extrapolated_onset_residual_ns": 0.04439654980453733,
+      "crossings": [
+        {
+          "fraction": 0.1,
+          "threshold_mv": 40.4066455078125,
+          "model_program_us": 4227.531041666667,
+          "observed_scope_s": 1.0379310324382304e-09,
+          "candidates_scope_s": [
+            1.0379310324382304e-09
+          ]
+        },
+        {
+          "fraction": 0.9,
+          "threshold_mv": 363.6598095703125,
+          "model_program_us": 4227.5389583333335,
+          "observed_scope_s": 8.986206894490962e-09,
+          "candidates_scope_s": [
+            8.986206894490962e-09
+          ]
+        }
+      ],
+      "crossing_window_complete": true,
+      "timing_note": "10-90% crossing and linear extrapolation are diagnostics, not a duration tolerance test. RC curvature, bandwidth, quantization, noise and threshold selection affect these values. Crossing selection never changes the one global time offset."
+    },
+    {
+      "swept_ramp": "rising",
+      "requested_mv": 400.0,
+      "valid": true,
+      "samples": 20000,
+      "roi_start_index": 20000,
+      "roi_stop_index_exclusive": 40000,
+      "start_program_us": 4237.543333333333,
+      "end_program_us": 4238.543333333333,
+      "median_residual_mv": 0.0,
+      "max_abs_residual_mv": 5.684341886080802e-14,
+      "residual_std_mv": 4.7554870943854545e-15,
+      "samples_abs_error_over_15mv": 0,
+      "median_within_15mv": true,
+      "direction": "falling",
+      "requested_duration_ns": 1000.0,
+      "compiled_duration_ns": 1000.0,
+      "compiled_scalar_samples": 4800,
+      "duration_quantization_ns": 0.0,
+      "native_scope_sample_interval_ns": 0.05,
+      "nominal_samples_per_compiled_ramp": 20000.0,
+      "precision_timing_pass": null,
+      "measured_10_90_ns": 807.7000000017711,
+      "model_10_90_ns": 807.7083333337214,
+      "extrapolated_linear_full_duration_ns": 1009.6250000022138,
+      "extrapolated_onset_residual_ns": 2.362500002052459,
+      "crossings": [
+        {
+          "fraction": 0.1,
+          "threshold_mv": 566.7203247070313,
+          "model_program_us": 4237.6466666666665,
+          "observed_scope_s": 1.0116658333336133e-05,
+          "candidates_scope_s": [
+            1.0116658333336133e-05
+          ]
+        },
+        {
+          "fraction": 0.9,
+          "threshold_mv": 251.68546142578128,
+          "model_program_us": 4238.454375,
+          "observed_scope_s": 1.0924358333337904e-05,
+          "candidates_scope_s": [
+            1.0924358333337904e-05
+          ]
+        }
+      ],
+      "crossing_window_complete": true,
+      "timing_note": "10-90% crossing and linear extrapolation are diagnostics, not a duration tolerance test. RC curvature, bandwidth, quantization, noise and threshold selection affect these values. Crossing selection never changes the one global time offset."
+    },
+    {
+      "swept_ramp": "falling",
+      "requested_mv": -400.0,
+      "valid": true,
+      "samples": 20000,
+      "roi_start_index": 20001,
+      "roi_stop_index_exclusive": 40001,
+      "start_program_us": 14.09,
+      "end_program_us": 15.09,
+      "median_residual_mv": 0.0,
+      "max_abs_residual_mv": 2.220446049250313e-16,
+      "residual_std_mv": 9.749862911199913e-18,
+      "samples_abs_error_over_15mv": 0,
+      "median_within_15mv": true,
+      "direction": "rising",
+      "requested_duration_ns": 1000.0,
+      "compiled_duration_ns": 1000.0,
+      "compiled_scalar_samples": 4800,
+      "duration_quantization_ns": 0.0,
+      "native_scope_sample_interval_ns": 0.05,
+      "nominal_samples_per_compiled_ramp": 20000.0,
+      "precision_timing_pass": null,
+      "measured_10_90_ns": 799.6499999983668,
+      "model_10_90_ns": 799.5833333333344,
+      "extrapolated_linear_full_duration_ns": 999.5624999979584,
+      "extrapolated_onset_residual_ns": 2.293749997953092,
+      "crossings": [
+        {
+          "fraction": 0.1,
+          "threshold_mv": -40.99366699218751,
+          "model_program_us": 14.192291666666666,
+          "observed_scope_s": 1.0224999999774875e-07,
+          "candidates_scope_s": [
+            1.0224999999774875e-07
+          ]
+        },
+        {
+          "fraction": 0.9,
+          "threshold_mv": -368.9430029296875,
+          "model_program_us": 14.991875,
+          "observed_scope_s": 9.018999999961155e-07,
+          "candidates_scope_s": [
+            9.018999999961155e-07
+          ]
+        }
+      ],
+      "crossing_window_complete": true,
+      "timing_note": "10-90% crossing and linear extrapolation are diagnostics, not a duration tolerance test. RC curvature, bandwidth, quantization, noise and threshold selection affect these values. Crossing selection never changes the one global time offset."
+    },
+    {
+      "swept_ramp": "falling",
+      "requested_mv": -400.0,
+      "valid": true,
+      "samples": 200,
+      "roi_start_index": 20000,
+      "roi_stop_index_exclusive": 20200,
+      "start_program_us": 25.093333333333334,
+      "end_program_us": 25.103333333333335,
+      "median_residual_mv": 0.0,
+      "max_abs_residual_mv": 0.0,
+      "residual_std_mv": 0.0,
+      "samples_abs_error_over_15mv": 0,
+      "median_within_15mv": true,
+      "direction": "falling",
+      "requested_duration_ns": 10.0,
+      "compiled_duration_ns": 10.000000000001563,
+      "compiled_scalar_samples": 48,
+      "duration_quantization_ns": 1.5629858518551032e-12,
+      "native_scope_sample_interval_ns": 0.05,
+      "nominal_samples_per_compiled_ramp": 200.00000000003124,
+      "precision_timing_pass": null,
+      "measured_10_90_ns": 7.9296551724322555,
+      "model_10_90_ns": 7.916666666666572,
+      "extrapolated_linear_full_duration_ns": 9.91206896554032,
+      "extrapolated_onset_residual_ns": 0.04425287575415154,
+      "crossings": [
+        {
+          "fraction": 0.1,
+          "threshold_mv": -570.0272124023437,
+          "model_program_us": 25.094375,
+          "observed_scope_s": 1.1004368793105643e-05,
+          "candidates_scope_s": [
+            1.1004368793105643e-05
+          ]
+        },
+        {
+          "fraction": 0.9,
+          "threshold_mv": -250.13963818359372,
+          "model_program_us": 25.102291666666666,
+          "observed_scope_s": 1.1012298448278075e-05,
+          "candidates_scope_s": [
+            1.1012298448278075e-05
+          ]
+        }
+      ],
+      "crossing_window_complete": true,
+      "timing_note": "10-90% crossing and linear extrapolation are diagnostics, not a duration tolerance test. RC curvature, bandwidth, quantization, noise and threshold selection affect these values. Crossing selection never changes the one global time offset."
+    },
+    {
+      "swept_ramp": "falling",
+      "requested_mv": 400.0,
+      "valid": true,
+      "samples": 20000,
+      "roi_start_index": 20001,
+      "roi_stop_index_exclusive": 40001,
+      "start_program_us": 4227.53,
+      "end_program_us": 4228.53,
+      "median_residual_mv": 0.0,
+      "max_abs_residual_mv": 2.842170943040401e-14,
+      "residual_std_mv": 2.4969739398260918e-15,
+      "samples_abs_error_over_15mv": 0,
+      "median_within_15mv": true,
+      "direction": "rising",
+      "requested_duration_ns": 1000.0,
+      "compiled_duration_ns": 1000.0,
+      "compiled_scalar_samples": 4800,
+      "duration_quantization_ns": 0.0,
+      "native_scope_sample_interval_ns": 0.05,
+      "nominal_samples_per_compiled_ramp": 20000.0,
+      "precision_timing_pass": null,
+      "measured_10_90_ns": 807.1399999983515,
+      "model_10_90_ns": 807.0833333331393,
+      "extrapolated_linear_full_duration_ns": 1008.9249999979394,
+      "extrapolated_onset_residual_ns": 2.6124999975840613,
+      "crossings": [
+        {
+          "fraction": 0.1,
+          "threshold_mv": 41.39479833984375,
+          "model_program_us": 4227.633541666667,
+          "observed_scope_s": 1.0350499999774619e-07,
+          "candidates_scope_s": [
+            1.0350499999774619e-07
+          ]
+        },
+        {
+          "fraction": 0.9,
+          "threshold_mv": 372.5531850585937,
+          "model_program_us": 4228.440625,
+          "observed_scope_s": 9.106449999960978e-07,
+          "candidates_scope_s": [
+            9.106449999960978e-07
+          ]
+        }
+      ],
+      "crossing_window_complete": true,
+      "timing_note": "10-90% crossing and linear extrapolation are diagnostics, not a duration tolerance test. RC curvature, bandwidth, quantization, noise and threshold selection affect these values. Crossing selection never changes the one global time offset."
+    },
+    {
+      "swept_ramp": "falling",
+      "requested_mv": 400.0,
+      "valid": true,
+      "samples": 200,
+      "roi_start_index": 20000,
+      "roi_stop_index_exclusive": 20200,
+      "start_program_us": 4238.533333333334,
+      "end_program_us": 4238.543333333334,
+      "median_residual_mv": 0.0,
+      "max_abs_residual_mv": 0.0,
+      "residual_std_mv": 0.0,
+      "samples_abs_error_over_15mv": 0,
+      "median_within_15mv": true,
+      "direction": "falling",
+      "requested_duration_ns": 10.0,
+      "compiled_duration_ns": 10.000000000218279,
+      "compiled_scalar_samples": 48,
+      "duration_quantization_ns": 2.1827852025868566e-10,
+      "native_scope_sample_interval_ns": 0.05,
+      "nominal_samples_per_compiled_ramp": 200.00000000436555,
+      "precision_timing_pass": null,
+      "measured_10_90_ns": 7.94793103449952,
+      "model_10_90_ns": 7.9166666664605145,
+      "extrapolated_linear_full_duration_ns": 9.9349137931244,
+      "extrapolated_onset_residual_ns": 0.04432471490539713,
+      "crossings": [
+        {
+          "fraction": 0.1,
+          "threshold_mv": 575.5941328125,
+          "model_program_us": 4238.534375,
+          "observed_scope_s": 1.1004371149428055e-05,
+          "candidates_scope_s": [
+            1.1004371149428055e-05
+          ]
+        },
+        {
+          "fraction": 0.9,
+          "threshold_mv": 252.49750781250003,
+          "model_program_us": 4238.542291666667,
+          "observed_scope_s": 1.1012319080462555e-05,
+          "candidates_scope_s": [
+            1.1012319080462555e-05
+          ]
+        }
+      ],
+      "crossing_window_complete": true,
+      "timing_note": "10-90% crossing and linear extrapolation are diagnostics, not a duration tolerance test. RC curvature, bandwidth, quantization, noise and threshold selection affect these values. Crossing selection never changes the one global time offset."
+    }
+  ]
+}

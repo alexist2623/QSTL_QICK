@@ -1,0 +1,255 @@
+{
+  "passed": true,
+  "physical_access": false,
+  "reviewed_fail_windows": 10,
+  "conclusion": "Raw decode, fixed offset, native ROI indices and per-sample expected values reproduce all diagnostic FAILs; no criterion changed.",
+  "limitations": "2us post-DC windows contain only four native samples. Global alignment is not a precision timing fit. This review does not identify a hardware/noise/gain root cause.",
+  "input_hashes_unchanged": true,
+  "input_hashes": {
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\review_first_capture.py": "d69dfdf1557f66d3ffdb49eb2e5c58e2ceb1d95aa2f36e97b4e18996de26a624",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\offline_rising_dac4_fixed_time10_tau20\\expected_points.json.gz": "6cbfb510c9cc87fd0e73af03861918b05c4a801ef636af0e19c348426f7b18ee",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\run_rising_dac4_fixed_time10_tau20_01\\scope_capture\\capture.json": "ec5ae70e5ff4c6115eb5c4bb13f957fa2f133aec3b3f48e7f715bc912efc8a0f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\analysis_rising_dac4_fixed_time10_tau20_01\\fixed_offsets.json": "8b63d2c33d6731d9d258a98a6a68f822d254740a5f537d7ba66ebce057f49c3e",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\analysis_rising_dac4_fixed_time10_tau20_01\\alignment.json": "b32e230c505bd28b0d9f74401e6601b34c865009daf8b165753bac0ec906923c",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\analysis_rising_dac4_fixed_time10_tau20_01\\all_20000_dc_windows.csv": "43137e008e4dcd0c6632afe62d74bf7091110b00edf54ee5e83780ad86acb9c1",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\analysis_rising_dac4_fixed_time10_tau20_01\\all_20000_post_dc_zero_windows.csv": "b7deff0ef6655f5f8337426afef27f4bef6a54ce4bfb557fc1440b7e0ed918a5",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\model_review\\command_expectation.py": "0e64284671d7c323cd375d2d72291dfd8de973f1c085755f2b99ea962c228d7f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\model_review\\compact_expectation.py": "9811e3d79137a9b7c4897bfba0e1a52a7cd8d6dc63156124030897893edaa0da",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\run_rising_dac4_fixed_time10_tau20_01\\scope_capture\\ch1.ieee_block.bin.gz": "2d97c53690a0559a3e7e9b036ac09cc5b0d19f0bb914e91d38a37787abd378a9",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_ramp_voltage_100x100_20261015\\run_rising_dac4_fixed_time10_tau20_01\\scope_capture\\ch2.ieee_block.bin.gz": "b181c55701fe38be748a73edc7f774290531ecaec957f0e6beb5c9892ad73830"
+  },
+  "checks": [
+    {
+      "kind": "dc_central_half",
+      "point": 8844,
+      "scope_channel": 1,
+      "samples": 10,
+      "corrected_native_mv": [
+        13.389122559999999,
+        13.389122559999999,
+        26.778245119999998,
+        13.389122559999999,
+        20.08368384,
+        13.389122559999999,
+        46.86192896,
+        33.472806399999996,
+        26.778245119999998,
+        20.08368384
+      ],
+      "exact_expected_native_mv": [
+        29.8402587890625,
+        31.0143017578125,
+        32.0905078125,
+        33.26455078125,
+        34.43859375,
+        35.612636718750004,
+        36.7866796875,
+        37.8628857421875,
+        39.0369287109375,
+        40.2109716796875
+      ],
+      "recomputed_median_error_mv": -15.403023069531251,
+      "roi_duration_us": 5.000000000032756,
+      "left_boundary_margin_us": 2.745259585091844,
+      "right_boundary_margin_us": 2.7547404147917405
+    },
+    {
+      "kind": "post_dc_zero",
+      "point": 212,
+      "scope_channel": 1,
+      "samples": 4,
+      "corrected_native_mv": [
+        0.0,
+        -20.083683840000003,
+        -20.083683840000003,
+        -13.38912256
+      ],
+      "exact_expected_native_mv": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "recomputed_median_error_mv": -16.7364032,
+      "roi_duration_us": 2.0000000000002656,
+      "left_boundary_margin_us": 1.1585929185112036,
+      "right_boundary_margin_us": null
+    },
+    {
+      "kind": "post_dc_zero",
+      "point": 242,
+      "scope_channel": 1,
+      "samples": 4,
+      "corrected_native_mv": [
+        -20.083683840000003,
+        -13.38912256,
+        -20.083683840000003,
+        13.389122559999999
+      ],
+      "exact_expected_native_mv": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "recomputed_median_error_mv": -16.7364032,
+      "roi_duration_us": 1.9999999999985307,
+      "left_boundary_margin_us": 1.3585929185101122,
+      "right_boundary_margin_us": null
+    },
+    {
+      "kind": "post_dc_zero",
+      "point": 1073,
+      "scope_channel": 1,
+      "samples": 4,
+      "corrected_native_mv": [
+        -13.38912256,
+        -13.38912256,
+        -20.083683840000003,
+        -20.083683840000003
+      ],
+      "exact_expected_native_mv": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "recomputed_median_error_mv": -16.7364032,
+      "roi_duration_us": 1.9999999999950613,
+      "left_boundary_margin_us": 1.4985929185131681,
+      "right_boundary_margin_us": null
+    },
+    {
+      "kind": "post_dc_zero",
+      "point": 1638,
+      "scope_channel": 1,
+      "samples": 4,
+      "corrected_native_mv": [
+        -20.083683840000003,
+        -13.38912256,
+        -20.083683840000003,
+        6.6945612799999985
+      ],
+      "exact_expected_native_mv": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "recomputed_median_error_mv": -16.7364032,
+      "roi_duration_us": 2.000000000002,
+      "left_boundary_margin_us": 1.098592918511713,
+      "right_boundary_margin_us": null
+    },
+    {
+      "kind": "post_dc_zero",
+      "point": 1728,
+      "scope_channel": 1,
+      "samples": 4,
+      "corrected_native_mv": [
+        -13.38912256,
+        -20.083683840000003,
+        0.0,
+        -20.083683840000003
+      ],
+      "exact_expected_native_mv": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "recomputed_median_error_mv": -16.7364032,
+      "roi_duration_us": 2.000000000002,
+      "left_boundary_margin_us": 1.1985929185175337,
+      "right_boundary_margin_us": null
+    },
+    {
+      "kind": "post_dc_zero",
+      "point": 2552,
+      "scope_channel": 1,
+      "samples": 4,
+      "corrected_native_mv": [
+        -20.083683840000003,
+        -20.083683840000003,
+        -13.38912256,
+        6.6945612799999985
+      ],
+      "exact_expected_native_mv": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "recomputed_median_error_mv": -16.7364032,
+      "roi_duration_us": 2.000000000002,
+      "left_boundary_margin_us": 1.2585929185006535,
+      "right_boundary_margin_us": null
+    },
+    {
+      "kind": "post_dc_zero",
+      "point": 6325,
+      "scope_channel": 1,
+      "samples": 4,
+      "corrected_native_mv": [
+        -20.083683840000003,
+        6.6945612799999985,
+        -20.083683840000003,
+        -20.083683840000003
+      ],
+      "exact_expected_native_mv": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "recomputed_median_error_mv": -20.083683840000003,
+      "roi_duration_us": 2.000000000002,
+      "left_boundary_margin_us": 1.3785929185105488,
+      "right_boundary_margin_us": null
+    },
+    {
+      "kind": "post_dc_zero",
+      "point": 7511,
+      "scope_channel": 1,
+      "samples": 4,
+      "corrected_native_mv": [
+        6.6945612799999985,
+        -20.083683840000003,
+        -20.083683840000003,
+        -13.38912256
+      ],
+      "exact_expected_native_mv": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "recomputed_median_error_mv": -16.7364032,
+      "roi_duration_us": 2.000000000002,
+      "left_boundary_margin_us": 1.2185929184197448,
+      "right_boundary_margin_us": null
+    },
+    {
+      "kind": "post_dc_zero",
+      "point": 9702,
+      "scope_channel": 1,
+      "samples": 4,
+      "corrected_native_mv": [
+        -20.083683840000003,
+        -6.6945612799999985,
+        -13.38912256,
+        -20.083683840000003
+      ],
+      "exact_expected_native_mv": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "recomputed_median_error_mv": -16.7364032,
+      "roi_duration_us": 2.000000000002,
+      "left_boundary_margin_us": 1.2585929185152054,
+      "right_boundary_margin_us": null
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "mode": "fixed_time",
+  "points": 10000,
+  "swept_ramp": "rising",
+  "active_axis": 0,
+  "duration_count": 100,
+  "voltage_count": 100,
+  "duration_range_us": [
+    0.01,
+    1.0
+  ],
+  "requested_ramp_range_us": [
+    0.01,
+    1.0
+  ],
+  "requested_range_mv": [
+    -400.0,
+    400.0
+  ],
+  "sweep_shape": [
+    100,
+    100
+  ],
+  "coordinate_order": "RAMP duration outer, selected-output voltage inner; inactive output remains zero",
+  "pmem_words": 253,
+  "zero_pmem_words": 69,
+  "idle_pmem_words": 14,
+  "dmem_words": 400,
+  "point_spacing_cycles": [
+    15768,
+    15771
+  ],
+  "final_zero_bound_us": 525603.9033333333,
+  "global_rc_bounds_mv": [
+    -611.6240208305564,
+    621.9643401065964
+  ],
+  "hardware_dc_deadline_cycles": 6113,
+  "controls": [
+    {
+      "axis": 0,
+      "rc_enable_reset_cycle": 200,
+      "coefficient": 1466015504,
+      "dc_arm_cycle": 812,
+      "dc_commands": 10000,
+      "rc_commands": 1,
+      "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+      "cleanup_rc_disabled_reset": true,
+      "cleanup_dc_disabled": true
+    },
+    {
+      "axis": 1,
+      "rc_enable_reset_cycle": 200,
+      "coefficient": 1466015504,
+      "dc_arm_cycle": 812,
+      "dc_commands": 10000,
+      "rc_commands": 1,
+      "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+      "cleanup_rc_disabled_reset": true,
+      "cleanup_dc_disabled": true
+    }
+  ],
+  "actual_range_mv": [
+    -399.9573046875,
+    403.9686181640625
+  ],
+  "effective_code_area_range": [
+    -215916606,
+    218072466
+  ],
+  "dc_duration_cycles_range": [
+    6000,
+    6000
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "case": "rising_dac5_fixed_voltage_tau30",
+  "complete_artifacts_hash_valid": true,
+  "source_files_unchanged": 170,
+  "points": 10000,
+  "model_ended": true,
+  "event_count": 140006,
+  "all_dc_residuals_zero": true,
+  "windows_event": "preparation_qt_failure_windows_event.json",
+  "windows_fault_module": "sip.cp312-win_amd64.pyd",
+  "windows_exception": "0xc0000005",
+  "windows_pid": 73288,
+  "controller_exit_code": 1,
+  "classification": "completed checks followed by PyQt SIP process access violation; original evidence preserved, not an exit0 preparation",
+  "retry_run": false
+}

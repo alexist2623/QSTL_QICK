@@ -1,0 +1,22 @@
+{
+  "primary": "GUI-requested ideal RC response for active output; inactive output must remain zero",
+  "ideal_formula": "V_requested*(1+(requested_rise_us/2 + t_since_actual_HOLD)/tau_us)",
+  "error": "median(raw_mv - one_fixed_offset_mv - expected_mv) over central 5 us",
+  "failure": "abs(median error) >15mV; <=15mV passes",
+  "maximum_sample_error_diagnostic_only": true,
+  "compiled_rc_reference": "Separate exact command/fixed-point RC diagnostic; never substitutes for primary",
+  "dc_reference": "Exact compiled integer area compensation plus RC; separate diagnostic",
+  "minimum_main_samples": 10,
+  "minimum_diagnostic_samples": 3,
+  "maximum_sample_interval_s": 5e-07,
+  "baseline": "First 1 ms from native record start+1 us, strictly before first program output",
+  "active_axis": 1,
+  "active_scope_channel": 2,
+  "swept_ramp": "falling",
+  "time_alignment": "First active CH2 -200mV falling crossing versus exact compiled first RAMP, one global offset",
+  "row_alignment_maximum_absolute_residual_s": 2e-06,
+  "per_point_time_fit": false,
+  "gain_fit": false,
+  "per_point_voltage_offset": false,
+  "physical_reference_assumption": "Direct DAC-to-scope connection; external RC network would require a different physical reference"
+}
