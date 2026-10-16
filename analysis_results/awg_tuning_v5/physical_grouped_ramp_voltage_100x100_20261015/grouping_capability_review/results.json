@@ -1,0 +1,252 @@
+{
+  "status": "passed_capability_probe_grouping_unsupported",
+  "scope": "Read current model only, using GUI-accepted dataclass schemas. No Qt GUI, hardware compilation, TProc simulation, instruments, or network.",
+  "probe_shape": [
+    2,
+    2,
+    2,
+    2
+  ],
+  "probe_points": 16,
+  "probe_coordinates": [
+    [
+      0.01,
+      0.01,
+      -0.37430753106752507,
+      -0.37430753106752507
+    ],
+    [
+      0.01,
+      0.01,
+      -0.37430753106752507,
+      0.37430753106752507
+    ],
+    [
+      0.01,
+      0.01,
+      0.37430753106752507,
+      -0.37430753106752507
+    ],
+    [
+      0.01,
+      0.01,
+      0.37430753106752507,
+      0.37430753106752507
+    ],
+    [
+      0.01,
+      1.0,
+      -0.37430753106752507,
+      -0.37430753106752507
+    ],
+    [
+      0.01,
+      1.0,
+      -0.37430753106752507,
+      0.37430753106752507
+    ],
+    [
+      0.01,
+      1.0,
+      0.37430753106752507,
+      -0.37430753106752507
+    ],
+    [
+      0.01,
+      1.0,
+      0.37430753106752507,
+      0.37430753106752507
+    ],
+    [
+      1.0,
+      0.01,
+      -0.37430753106752507,
+      -0.37430753106752507
+    ],
+    [
+      1.0,
+      0.01,
+      -0.37430753106752507,
+      0.37430753106752507
+    ],
+    [
+      1.0,
+      0.01,
+      0.37430753106752507,
+      -0.37430753106752507
+    ],
+    [
+      1.0,
+      0.01,
+      0.37430753106752507,
+      0.37430753106752507
+    ],
+    [
+      1.0,
+      1.0,
+      -0.37430753106752507,
+      -0.37430753106752507
+    ],
+    [
+      1.0,
+      1.0,
+      -0.37430753106752507,
+      0.37430753106752507
+    ],
+    [
+      1.0,
+      1.0,
+      0.37430753106752507,
+      -0.37430753106752507
+    ],
+    [
+      1.0,
+      1.0,
+      0.37430753106752507,
+      0.37430753106752507
+    ]
+  ],
+  "desired_grouped_probe_shape": [
+    2,
+    2
+  ],
+  "desired_grouped_probe_points": 4,
+  "requested_count_per_axis": 100,
+  "current_ungrouped_shape_if_applied": [
+    100,
+    100,
+    100,
+    100
+  ],
+  "current_ungrouped_points_arithmetic_only": 100000000,
+  "requested_grouped_shape_unsupported": [
+    100,
+    100
+  ],
+  "requested_grouped_points": 10000,
+  "no_100million_grid_created_or_compiled": true,
+  "duration_axis_all_outputs": "all_awg_outputs",
+  "duration_cycles_100points": [
+    3,
+    6,
+    9,
+    12,
+    15,
+    18,
+    21,
+    24,
+    27,
+    30,
+    33,
+    36,
+    39,
+    42,
+    45,
+    48,
+    51,
+    54,
+    57,
+    60,
+    63,
+    66,
+    69,
+    72,
+    75,
+    78,
+    81,
+    84,
+    87,
+    90,
+    93,
+    96,
+    99,
+    102,
+    105,
+    108,
+    111,
+    114,
+    117,
+    120,
+    123,
+    126,
+    129,
+    132,
+    135,
+    138,
+    141,
+    144,
+    147,
+    150,
+    153,
+    156,
+    159,
+    162,
+    165,
+    168,
+    171,
+    174,
+    177,
+    180,
+    183,
+    186,
+    189,
+    192,
+    195,
+    198,
+    201,
+    204,
+    207,
+    210,
+    213,
+    216,
+    219,
+    222,
+    225,
+    228,
+    231,
+    234,
+    237,
+    240,
+    243,
+    246,
+    249,
+    252,
+    255,
+    258,
+    261,
+    264,
+    267,
+    270,
+    273,
+    276,
+    279,
+    282,
+    285,
+    288,
+    291,
+    294,
+    297,
+    300
+  ],
+  "duration_scope": "3 through 300 cycles in steps of 3 at 300MHz; coordinate validation only, not analog timing proof.",
+  "before_source_sha256": {
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py": "3acb3280e79b4cc04cecf85cdc7f2d5985150bfa8a50c576850baf9a4a5d2d83",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\dc_waveform_core.py": "5b4010d5f9cc4eaad22a7b44ef19d052732c9e02a0c661bad02aec8be42d1941",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py": "e2f18b70e036c9351392c7f20ade85476343f6733f2ced359c2ea397c9f46b72",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_qick_fine_tune_sweep.py": "6baca7be673d374603f64872455caab3e67634c0a64653b9fbca7c764368a51c",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_awg_tuning_v2.py": "daed0a285a624b7021abe57181c95ece2f7afd0db1230f723d98e654502e5440",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\ramp_sweep_test.json": "0662deef9981f3d0e327fc141ae38e933b990fdb5cd55691a479a945e40ebc08",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\short_ramp_test.json": "7e1d7834e4d85b21ab293bfa46eee470f1afb1b02a6134e2392eeb3df6572b2f"
+  },
+  "after_source_sha256": {
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py": "3acb3280e79b4cc04cecf85cdc7f2d5985150bfa8a50c576850baf9a4a5d2d83",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\dc_waveform_core.py": "5b4010d5f9cc4eaad22a7b44ef19d052732c9e02a0c661bad02aec8be42d1941",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_fine_tune_sweep.py": "e2f18b70e036c9351392c7f20ade85476343f6733f2ced359c2ea397c9f46b72",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_qick_fine_tune_sweep.py": "6baca7be673d374603f64872455caab3e67634c0a64653b9fbca7c764368a51c",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\test_awg_tuning_v2.py": "daed0a285a624b7021abe57181c95ece2f7afd0db1230f723d98e654502e5440",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\ramp_sweep_test.json": "0662deef9981f3d0e327fc141ae38e933b990fdb5cd55691a479a945e40ebc08",
+    "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\short_ramp_test.json": "7e1d7834e4d85b21ab293bfa46eee470f1afb1b02a6134e2392eeb3df6572b2f"
+  },
+  "sources_unchanged": true,
+  "probe_source_sha256": "2b990264dc74deb89459caf026b1076e9526fc21c76d3337af4d212f1c9ca931"
+}

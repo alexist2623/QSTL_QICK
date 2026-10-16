@@ -1,0 +1,1472 @@
+{
+  "new_hardware_execution": false,
+  "existing_sources_and_evidence_changed": false,
+  "original_offsets_and_verdicts_unchanged": true,
+  "cases": {
+    "fixed_voltage_tau10": {
+      "point_index": 5050,
+      "capture_id": "014b9318-62dd-4f5d-bc33-b2698a39925e",
+      "points": [
+        {
+          "point_index": 5049,
+          "axis_indices": [
+            50,
+            49
+          ],
+          "outputs": [
+            {
+              "axis": 0,
+              "output_name": "awg_0",
+              "awg_gen": 1,
+              "dac": "10",
+              "panel_dac": 4,
+              "full_scale_mv": 801.48,
+              "current_ua": 20037,
+              "paired_rf_generators": [
+                0
+              ],
+              "tproc_ch": 0,
+              "tmux_ch": 1,
+              "requested_mv": 3.0303030303030027,
+              "dac_code": 136,
+              "quantized_mv": 3.326455078125,
+              "hold_command_cycle": 66025221,
+              "hold_digital_output_us": 220084.17333333334,
+              "hold_end_digital_output_us": 220094.17333333334,
+              "final_user_zero_digital_output_us": 220095.17666666667,
+              "sequence_start_command_us": 220073.06666666668,
+              "commands": [
+                {
+                  "cycle": 66021920,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 66024913,
+                  "opcode": 2,
+                  "transport_target": 136,
+                  "step_signed": 6783,
+                  "duration_samples": 4800,
+                  "word": "0102000000001a7f000012c00000000000000088"
+                },
+                {
+                  "cycle": 66025221,
+                  "opcode": 1,
+                  "transport_target": 136,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000088"
+                },
+                {
+                  "cycle": 66028214,
+                  "opcode": 2,
+                  "transport_target": 0,
+                  "step_signed": -6783,
+                  "duration_samples": 4800,
+                  "word": "01020000ffffe581000012c00000000000000000"
+                },
+                {
+                  "cycle": 66028522,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 66031522,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                }
+              ],
+              "pre_dc_area_effective_code_samples": 1790946,
+              "dc_runs_effective14": [
+                [
+                  584,
+                  -3066
+                ],
+                [
+                  1,
+                  -402
+                ],
+                [
+                  7,
+                  0
+                ]
+              ],
+              "dc_command_cycle": 66031618,
+              "dc_command_word": "0147000000000000000000000000000000002fe8",
+              "dc_start_digital_output_us": 220105.53666666665,
+              "dc_end_digital_output_us": 220105.66,
+              "dc_duration_cycles": 37,
+              "dc_duration_us": 0.12333333333333334,
+              "dc_residual_area": 0,
+              "dc_zero_reset_bound_us": 220105.66666666666,
+              "rc_dac_bounds_mv": [
+                -302.48970672363185,
+                9.701039087045631
+              ],
+              "rc_tau_us": 10.0,
+              "rc_coefficient": 2932031007
+            },
+            {
+              "axis": 1,
+              "output_name": "awg_1",
+              "awg_gen": 3,
+              "dac": "11",
+              "panel_dac": 5,
+              "full_scale_mv": 801.48,
+              "current_ua": 20037,
+              "paired_rf_generators": [
+                2
+              ],
+              "tproc_ch": 1,
+              "tmux_ch": 1,
+              "requested_mv": -3.0303030303030596,
+              "dac_code": -112,
+              "quantized_mv": -2.7394335937500003,
+              "hold_command_cycle": 66025221,
+              "hold_digital_output_us": 220084.17333333334,
+              "hold_end_digital_output_us": 220094.17333333334,
+              "final_user_zero_digital_output_us": 220095.17666666667,
+              "sequence_start_command_us": 220073.06666666668,
+              "commands": [
+                {
+                  "cycle": 66021920,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 66024913,
+                  "opcode": 2,
+                  "transport_target": -112,
+                  "step_signed": -6751,
+                  "duration_samples": 4800,
+                  "word": "01020000ffffe5a1000012c000000000ffffff90"
+                },
+                {
+                  "cycle": 66025221,
+                  "opcode": 1,
+                  "transport_target": -112,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "01010000000000000000000000000000ffffff90"
+                },
+                {
+                  "cycle": 66028214,
+                  "opcode": 2,
+                  "transport_target": 0,
+                  "step_signed": 6751,
+                  "duration_samples": 4800,
+                  "word": "0102000000001a5f000012c00000000000000000"
+                },
+                {
+                  "cycle": 66028522,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 66031522,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                }
+              ],
+              "pre_dc_area_effective_code_samples": -1483646,
+              "dc_runs_effective14": [
+                [
+                  483,
+                  3066
+                ],
+                [
+                  1,
+                  2768
+                ],
+                [
+                  12,
+                  0
+                ]
+              ],
+              "dc_command_cycle": 66031618,
+              "dc_command_word": "0147000000000000000000000000000000002fe8",
+              "dc_start_digital_output_us": 220105.53666666665,
+              "dc_end_digital_output_us": 220105.64,
+              "dc_duration_cycles": 31,
+              "dc_duration_us": 0.10333333333333333,
+              "dc_residual_area": 0,
+              "dc_zero_reset_bound_us": 220105.64666666667,
+              "rc_dac_bounds_mv": [
+                -8.491081278667371,
+                302.5032855739623
+              ],
+              "rc_tau_us": 10.0,
+              "rc_coefficient": 2932031007
+            }
+          ]
+        },
+        {
+          "point_index": 5050,
+          "axis_indices": [
+            50,
+            50
+          ],
+          "outputs": [
+            {
+              "axis": 0,
+              "output_name": "awg_0",
+              "awg_gen": 1,
+              "dac": "10",
+              "panel_dac": 4,
+              "full_scale_mv": 801.48,
+              "current_ua": 20037,
+              "paired_rf_generators": [
+                0
+              ],
+              "tproc_ch": 0,
+              "tmux_ch": 1,
+              "requested_mv": 3.0303030303030027,
+              "dac_code": 136,
+              "quantized_mv": 3.326455078125,
+              "hold_command_cycle": 66038297,
+              "hold_digital_output_us": 220127.76,
+              "hold_end_digital_output_us": 220137.76,
+              "final_user_zero_digital_output_us": 220138.76333333334,
+              "sequence_start_command_us": 220116.65333333332,
+              "commands": [
+                {
+                  "cycle": 66034996,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 66037989,
+                  "opcode": 2,
+                  "transport_target": 136,
+                  "step_signed": 6783,
+                  "duration_samples": 4800,
+                  "word": "0102000000001a7f000012c00000000000000088"
+                },
+                {
+                  "cycle": 66038297,
+                  "opcode": 1,
+                  "transport_target": 136,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000088"
+                },
+                {
+                  "cycle": 66041290,
+                  "opcode": 2,
+                  "transport_target": 0,
+                  "step_signed": -6783,
+                  "duration_samples": 4800,
+                  "word": "01020000ffffe581000012c00000000000000000"
+                },
+                {
+                  "cycle": 66041598,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 66044598,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                }
+              ],
+              "pre_dc_area_effective_code_samples": 1790946,
+              "dc_runs_effective14": [
+                [
+                  584,
+                  -3066
+                ],
+                [
+                  1,
+                  -402
+                ],
+                [
+                  7,
+                  0
+                ]
+              ],
+              "dc_command_cycle": 66044694,
+              "dc_command_word": "0147000000000000000000000000000000002fe8",
+              "dc_start_digital_output_us": 220149.12333333332,
+              "dc_end_digital_output_us": 220149.24666666667,
+              "dc_duration_cycles": 37,
+              "dc_duration_us": 0.12333333333333334,
+              "dc_residual_area": 0,
+              "dc_zero_reset_bound_us": 220149.25333333333,
+              "rc_dac_bounds_mv": [
+                -302.48970672363185,
+                9.701039087045631
+              ],
+              "rc_tau_us": 10.0,
+              "rc_coefficient": 2932031007
+            },
+            {
+              "axis": 1,
+              "output_name": "awg_1",
+              "awg_gen": 3,
+              "dac": "11",
+              "panel_dac": 5,
+              "full_scale_mv": 801.48,
+              "current_ua": 20037,
+              "paired_rf_generators": [
+                2
+              ],
+              "tproc_ch": 1,
+              "tmux_ch": 1,
+              "requested_mv": 3.0303030303030027,
+              "dac_code": 136,
+              "quantized_mv": 3.326455078125,
+              "hold_command_cycle": 66038297,
+              "hold_digital_output_us": 220127.76,
+              "hold_end_digital_output_us": 220137.76,
+              "final_user_zero_digital_output_us": 220138.76333333334,
+              "sequence_start_command_us": 220116.65333333332,
+              "commands": [
+                {
+                  "cycle": 66034996,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 66037989,
+                  "opcode": 2,
+                  "transport_target": 136,
+                  "step_signed": 6783,
+                  "duration_samples": 4800,
+                  "word": "0102000000001a7f000012c00000000000000088"
+                },
+                {
+                  "cycle": 66038297,
+                  "opcode": 1,
+                  "transport_target": 136,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000088"
+                },
+                {
+                  "cycle": 66041290,
+                  "opcode": 2,
+                  "transport_target": 0,
+                  "step_signed": -6783,
+                  "duration_samples": 4800,
+                  "word": "01020000ffffe581000012c00000000000000000"
+                },
+                {
+                  "cycle": 66041598,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 66044598,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                }
+              ],
+              "pre_dc_area_effective_code_samples": 1790946,
+              "dc_runs_effective14": [
+                [
+                  584,
+                  -3066
+                ],
+                [
+                  1,
+                  -402
+                ],
+                [
+                  7,
+                  0
+                ]
+              ],
+              "dc_command_cycle": 66044694,
+              "dc_command_word": "0147000000000000000000000000000000002fe8",
+              "dc_start_digital_output_us": 220149.12333333332,
+              "dc_end_digital_output_us": 220149.24666666667,
+              "dc_duration_cycles": 37,
+              "dc_duration_us": 0.12333333333333334,
+              "dc_residual_area": 0,
+              "dc_zero_reset_bound_us": 220149.25333333333,
+              "rc_dac_bounds_mv": [
+                -302.48970672363185,
+                9.701039087045631
+              ],
+              "rc_tau_us": 10.0,
+              "rc_coefficient": 2932031007
+            }
+          ]
+        },
+        {
+          "point_index": 5051,
+          "axis_indices": [
+            50,
+            51
+          ],
+          "outputs": [
+            {
+              "axis": 0,
+              "output_name": "awg_0",
+              "awg_gen": 1,
+              "dac": "10",
+              "panel_dac": 4,
+              "full_scale_mv": 801.48,
+              "current_ua": 20037,
+              "paired_rf_generators": [
+                0
+              ],
+              "tproc_ch": 0,
+              "tmux_ch": 1,
+              "requested_mv": 3.0303030303030027,
+              "dac_code": 136,
+              "quantized_mv": 3.326455078125,
+              "hold_command_cycle": 66051373,
+              "hold_digital_output_us": 220171.34666666668,
+              "hold_end_digital_output_us": 220181.34666666668,
+              "final_user_zero_digital_output_us": 220182.35,
+              "sequence_start_command_us": 220160.24,
+              "commands": [
+                {
+                  "cycle": 66048072,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 66051065,
+                  "opcode": 2,
+                  "transport_target": 136,
+                  "step_signed": 6783,
+                  "duration_samples": 4800,
+                  "word": "0102000000001a7f000012c00000000000000088"
+                },
+                {
+                  "cycle": 66051373,
+                  "opcode": 1,
+                  "transport_target": 136,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000088"
+                },
+                {
+                  "cycle": 66054366,
+                  "opcode": 2,
+                  "transport_target": 0,
+                  "step_signed": -6783,
+                  "duration_samples": 4800,
+                  "word": "01020000ffffe581000012c00000000000000000"
+                },
+                {
+                  "cycle": 66054674,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 66057674,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                }
+              ],
+              "pre_dc_area_effective_code_samples": 1790946,
+              "dc_runs_effective14": [
+                [
+                  584,
+                  -3066
+                ],
+                [
+                  1,
+                  -402
+                ],
+                [
+                  7,
+                  0
+                ]
+              ],
+              "dc_command_cycle": 66057770,
+              "dc_command_word": "0147000000000000000000000000000000002fe8",
+              "dc_start_digital_output_us": 220192.71,
+              "dc_end_digital_output_us": 220192.83333333334,
+              "dc_duration_cycles": 37,
+              "dc_duration_us": 0.12333333333333334,
+              "dc_residual_area": 0,
+              "dc_zero_reset_bound_us": 220192.84,
+              "rc_dac_bounds_mv": [
+                -302.48970672363185,
+                9.701039087045631
+              ],
+              "rc_tau_us": 10.0,
+              "rc_coefficient": 2932031007
+            },
+            {
+              "axis": 1,
+              "output_name": "awg_1",
+              "awg_gen": 3,
+              "dac": "11",
+              "panel_dac": 5,
+              "full_scale_mv": 801.48,
+              "current_ua": 20037,
+              "paired_rf_generators": [
+                2
+              ],
+              "tproc_ch": 1,
+              "tmux_ch": 1,
+              "requested_mv": 9.090909090909065,
+              "dac_code": 384,
+              "quantized_mv": 9.39234375,
+              "hold_command_cycle": 66051373,
+              "hold_digital_output_us": 220171.34666666668,
+              "hold_end_digital_output_us": 220181.34666666668,
+              "final_user_zero_digital_output_us": 220182.35,
+              "sequence_start_command_us": 220160.24,
+              "commands": [
+                {
+                  "cycle": 66048072,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 66051065,
+                  "opcode": 2,
+                  "transport_target": 384,
+                  "step_signed": 20317,
+                  "duration_samples": 4800,
+                  "word": "0102000000004f5d000012c00000000000000180"
+                },
+                {
+                  "cycle": 66051373,
+                  "opcode": 1,
+                  "transport_target": 384,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000180"
+                },
+                {
+                  "cycle": 66054366,
+                  "opcode": 2,
+                  "transport_target": 0,
+                  "step_signed": -20317,
+                  "duration_samples": 4800,
+                  "word": "01020000ffffb0a3000012c00000000000000000"
+                },
+                {
+                  "cycle": 66054674,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 66057674,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                }
+              ],
+              "pre_dc_area_effective_code_samples": 5065538,
+              "dc_runs_effective14": [
+                [
+                  1652,
+                  -3066
+                ],
+                [
+                  1,
+                  -506
+                ],
+                [
+                  11,
+                  0
+                ]
+              ],
+              "dc_command_cycle": 66057770,
+              "dc_command_word": "0147000000000000000000000000000000002fe8",
+              "dc_start_digital_output_us": 220192.71,
+              "dc_end_digital_output_us": 220193.05666666667,
+              "dc_duration_cycles": 104,
+              "dc_duration_us": 0.3466666666666667,
+              "dc_residual_area": 0,
+              "dc_zero_reset_bound_us": 220193.06333333332,
+              "rc_dac_bounds_mv": [
+                -302.4906525784997,
+                22.144500918071085
+              ],
+              "rc_tau_us": 10.0,
+              "rc_coefficient": 2932031007
+            }
+          ]
+        }
+      ],
+      "point_spacing_cycles": [
+        13076
+      ],
+      "coordinate_order": "axis0 outer, axis1 fastest; see requested_range_mv",
+      "original_alignment": {
+        "single_time_offset_s": -4.1723758401449334e-05,
+        "anchor_point": 0,
+        "anchor_channel": 2,
+        "anchor_threshold_mv": -200.0,
+        "anchor_observed_scope_s": -2.6987925068116e-05,
+        "anchor_model_program_us": 14.735833333333334,
+        "maximum_row_residual_us": 0.24415759986018415,
+        "note": "One global edge alignment for ROI assignment only, not precision timing or zero channel skew certification."
+      },
+      "fixed_offsets_mv": {
+        "1": -26.778245119999998,
+        "2": -13.389122559999999
+      },
+      "channel_diagnostics": [
+        {
+          "channel": 1,
+          "sample_interval_ns": 500.0,
+          "current_hold_us": 220127.76,
+          "previous_hold_us": 220084.17333333334,
+          "previous_dc_start_relative_us": -22.223333333357004,
+          "previous_dc_end_relative_us": -22.10000000000582,
+          "current_origin_relative_us": -11.00333333335584,
+          "original_plot_start_relative_us": -12.106666666688398,
+          "current_dc_start_relative_us": 21.363333333312767,
+          "current_dc_end_relative_us": 21.48666666666395,
+          "dc_duration_ns": 123.33333333333334,
+          "pre_dc_area_effective_code_samples": 1790946,
+          "final_integer_area": 0,
+          "model_dc_range_mv": [
+            -299.967978515625,
+            0.0
+          ],
+          "native_samples_in_current_dc_interval": 0,
+          "raw_near_feature": [
+            {
+              "case": "fixed_voltage_tau10",
+              "channel": 1,
+              "native_sample_index": 500213,
+              "scope_time_s": 0.2201066402,
+              "program_us": 220148.36395840146,
+              "time_from_current_hold_us": 20.603958401450654,
+              "raw_mv": -33.472806399999996,
+              "fixed_offset_mv": -26.778245119999998,
+              "corrected_mv": -6.6945612799999985,
+              "current_point_model_mv": 3.6199658203125002,
+              "previous_point_model_mv": 0.0
+            },
+            {
+              "case": "fixed_voltage_tau10",
+              "channel": 1,
+              "native_sample_index": 500214,
+              "scope_time_s": 0.22010714019999997,
+              "program_us": 220148.8639584014,
+              "time_from_current_hold_us": 21.103958401392447,
+              "raw_mv": -20.08368384,
+              "fixed_offset_mv": -26.778245119999998,
+              "corrected_mv": 6.6945612799999985,
+              "current_point_model_mv": 3.6199658203125002,
+              "previous_point_model_mv": 0.0
+            },
+            {
+              "case": "fixed_voltage_tau10",
+              "channel": 1,
+              "native_sample_index": 500215,
+              "scope_time_s": 0.22010764019999998,
+              "program_us": 220149.36395840143,
+              "time_from_current_hold_us": 21.60395840142155,
+              "raw_mv": -321.33894144,
+              "fixed_offset_mv": -26.778245119999998,
+              "corrected_mv": -294.56069632,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": 0.0
+            },
+            {
+              "case": "fixed_voltage_tau10",
+              "channel": 1,
+              "native_sample_index": 500216,
+              "scope_time_s": 0.2201081402,
+              "program_us": 220149.86395840143,
+              "time_from_current_hold_us": 22.10395840142155,
+              "raw_mv": -33.472806399999996,
+              "fixed_offset_mv": -26.778245119999998,
+              "corrected_mv": -6.6945612799999985,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": 0.0
+            }
+          ]
+        },
+        {
+          "channel": 2,
+          "sample_interval_ns": 500.0,
+          "current_hold_us": 220127.76,
+          "previous_hold_us": 220084.17333333334,
+          "previous_dc_start_relative_us": -22.223333333357004,
+          "previous_dc_end_relative_us": -22.119999999995343,
+          "current_origin_relative_us": -11.00333333335584,
+          "original_plot_start_relative_us": -12.106666666688398,
+          "current_dc_start_relative_us": 21.363333333312767,
+          "current_dc_end_relative_us": 21.48666666666395,
+          "dc_duration_ns": 123.33333333333334,
+          "pre_dc_area_effective_code_samples": 1790946,
+          "final_integer_area": 0,
+          "model_dc_range_mv": [
+            -299.967978515625,
+            0.0
+          ],
+          "native_samples_in_current_dc_interval": 0,
+          "raw_near_feature": [
+            {
+              "case": "fixed_voltage_tau10",
+              "channel": 2,
+              "native_sample_index": 500213,
+              "scope_time_s": 0.2201066402,
+              "program_us": 220148.36395840146,
+              "time_from_current_hold_us": 20.603958401450654,
+              "raw_mv": 0.0,
+              "fixed_offset_mv": -13.389122559999999,
+              "corrected_mv": 13.389122559999999,
+              "current_point_model_mv": 3.6199658203125002,
+              "previous_point_model_mv": 0.0
+            },
+            {
+              "case": "fixed_voltage_tau10",
+              "channel": 2,
+              "native_sample_index": 500214,
+              "scope_time_s": 0.22010714019999997,
+              "program_us": 220148.8639584014,
+              "time_from_current_hold_us": 21.103958401392447,
+              "raw_mv": -20.08368384,
+              "fixed_offset_mv": -13.389122559999999,
+              "corrected_mv": -6.69456128,
+              "current_point_model_mv": 3.6199658203125002,
+              "previous_point_model_mv": 0.0
+            },
+            {
+              "case": "fixed_voltage_tau10",
+              "channel": 2,
+              "native_sample_index": 500215,
+              "scope_time_s": 0.22010764019999998,
+              "program_us": 220149.36395840143,
+              "time_from_current_hold_us": 21.60395840142155,
+              "raw_mv": -314.64438015999997,
+              "fixed_offset_mv": -13.389122559999999,
+              "corrected_mv": -301.2552576,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": 0.0
+            },
+            {
+              "case": "fixed_voltage_tau10",
+              "channel": 2,
+              "native_sample_index": 500216,
+              "scope_time_s": 0.2201081402,
+              "program_us": 220149.86395840143,
+              "time_from_current_hold_us": 22.10395840142155,
+              "raw_mv": -20.08368384,
+              "fixed_offset_mv": -13.389122559999999,
+              "corrected_mv": -6.69456128,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": 0.0
+            }
+          ]
+        }
+      ]
+    },
+    "fixed_time30_tau20": {
+      "point_index": 9999,
+      "capture_id": "677dfd71-52c0-43fb-b188-b2ee8bed305b",
+      "points": [
+        {
+          "point_index": 9998,
+          "axis_indices": [
+            99,
+            98
+          ],
+          "outputs": [
+            {
+              "axis": 0,
+              "output_name": "awg_0",
+              "awg_gen": 1,
+              "dac": "10",
+              "panel_dac": 4,
+              "full_scale_mv": 801.48,
+              "current_ua": 20037,
+              "paired_rf_generators": [
+                0
+              ],
+              "tproc_ch": 0,
+              "tmux_ch": 1,
+              "requested_mv": 300.0,
+              "dac_code": 12288,
+              "quantized_mv": 300.555,
+              "hold_command_cycle": 187646961,
+              "hold_digital_output_us": 625489.9733333334,
+              "hold_end_digital_output_us": 625499.9733333334,
+              "final_user_zero_digital_output_us": 625500.9766666667,
+              "sequence_start_command_us": 625478.8666666667,
+              "commands": [
+                {
+                  "cycle": 187643660,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 187646653,
+                  "opcode": 2,
+                  "transport_target": 12288,
+                  "step_signed": 669949,
+                  "duration_samples": 4800,
+                  "word": "01020000000a38fd000012c00000000000003000"
+                },
+                {
+                  "cycle": 187646961,
+                  "opcode": 1,
+                  "transport_target": 12288,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000003000"
+                },
+                {
+                  "cycle": 187649954,
+                  "opcode": 2,
+                  "transport_target": 0,
+                  "step_signed": -669949,
+                  "duration_samples": 4800,
+                  "word": "01020000fff5c703000012c00000000000000000"
+                },
+                {
+                  "cycle": 187650262,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 187653262,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                }
+              ],
+              "pre_dc_area_effective_code_samples": 162245954,
+              "dc_runs_effective14": [
+                [
+                  101954,
+                  -1127
+                ],
+                [
+                  42046,
+                  -1126
+                ]
+              ],
+              "dc_command_cycle": 187653358,
+              "dc_command_word": "014b0000000000000000232800007482296a44b8",
+              "dc_start_digital_output_us": 625511.3366666667,
+              "dc_end_digital_output_us": 625541.3366666667,
+              "dc_duration_cycles": 9000,
+              "dc_duration_us": 30.0,
+              "dc_residual_area": 0,
+              "dc_zero_reset_bound_us": 625541.3433333334,
+              "rc_dac_bounds_mv": [
+                -111.38063441390948,
+                460.25483662938944
+              ],
+              "rc_tau_us": 20.0,
+              "rc_coefficient": 1466015504
+            },
+            {
+              "axis": 1,
+              "output_name": "awg_1",
+              "awg_gen": 3,
+              "dac": "11",
+              "panel_dac": 5,
+              "full_scale_mv": 801.48,
+              "current_ua": 20037,
+              "paired_rf_generators": [
+                2
+              ],
+              "tproc_ch": 1,
+              "tmux_ch": 1,
+              "requested_mv": 293.9393939393939,
+              "dac_code": 12040,
+              "quantized_mv": 294.48911132812503,
+              "hold_command_cycle": 187646961,
+              "hold_digital_output_us": 625489.9733333334,
+              "hold_end_digital_output_us": 625499.9733333334,
+              "final_user_zero_digital_output_us": 625500.9766666667,
+              "sequence_start_command_us": 625478.8666666667,
+              "commands": [
+                {
+                  "cycle": 187643660,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 187646653,
+                  "opcode": 2,
+                  "transport_target": 12040,
+                  "step_signed": 656415,
+                  "duration_samples": 4800,
+                  "word": "01020000000a041f000012c00000000000002f08"
+                },
+                {
+                  "cycle": 187646961,
+                  "opcode": 1,
+                  "transport_target": 12040,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000002f08"
+                },
+                {
+                  "cycle": 187649954,
+                  "opcode": 2,
+                  "transport_target": 0,
+                  "step_signed": -656415,
+                  "duration_samples": 4800,
+                  "word": "01020000fff5fbe1000012c00000000000000000"
+                },
+                {
+                  "cycle": 187650262,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 187653262,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                }
+              ],
+              "pre_dc_area_effective_code_samples": 158971362,
+              "dc_runs_effective14": [
+                [
+                  139362,
+                  -1104
+                ],
+                [
+                  4638,
+                  -1103
+                ]
+              ],
+              "dc_command_cycle": 187653358,
+              "dc_command_word": "014b0000000000000000232800007482296a44b8",
+              "dc_start_digital_output_us": 625511.3366666667,
+              "dc_end_digital_output_us": 625541.3366666667,
+              "dc_duration_cycles": 9000,
+              "dc_duration_us": 30.0,
+              "dc_residual_area": 0,
+              "dc_zero_reset_bound_us": 625541.3433333334,
+              "rc_dac_bounds_mv": [
+                -109.1075016949059,
+                450.9749620115899
+              ],
+              "rc_tau_us": 20.0,
+              "rc_coefficient": 1466015504
+            }
+          ]
+        },
+        {
+          "point_index": 9999,
+          "axis_indices": [
+            99,
+            99
+          ],
+          "outputs": [
+            {
+              "axis": 0,
+              "output_name": "awg_0",
+              "awg_gen": 1,
+              "dac": "10",
+              "panel_dac": 4,
+              "full_scale_mv": 801.48,
+              "current_ua": 20037,
+              "paired_rf_generators": [
+                0
+              ],
+              "tproc_ch": 0,
+              "tmux_ch": 1,
+              "requested_mv": 300.0,
+              "dac_code": 12288,
+              "quantized_mv": 300.555,
+              "hold_command_cycle": 187665729,
+              "hold_digital_output_us": 625552.5333333333,
+              "hold_end_digital_output_us": 625562.5333333333,
+              "final_user_zero_digital_output_us": 625563.5366666666,
+              "sequence_start_command_us": 625541.4266666666,
+              "commands": [
+                {
+                  "cycle": 187662428,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 187665421,
+                  "opcode": 2,
+                  "transport_target": 12288,
+                  "step_signed": 669949,
+                  "duration_samples": 4800,
+                  "word": "01020000000a38fd000012c00000000000003000"
+                },
+                {
+                  "cycle": 187665729,
+                  "opcode": 1,
+                  "transport_target": 12288,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000003000"
+                },
+                {
+                  "cycle": 187668722,
+                  "opcode": 2,
+                  "transport_target": 0,
+                  "step_signed": -669949,
+                  "duration_samples": 4800,
+                  "word": "01020000fff5c703000012c00000000000000000"
+                },
+                {
+                  "cycle": 187669030,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 187672030,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                }
+              ],
+              "pre_dc_area_effective_code_samples": 162245954,
+              "dc_runs_effective14": [
+                [
+                  101954,
+                  -1127
+                ],
+                [
+                  42046,
+                  -1126
+                ]
+              ],
+              "dc_command_cycle": 187672126,
+              "dc_command_word": "014b0000000000000000232800007482296a44b8",
+              "dc_start_digital_output_us": 625573.8966666666,
+              "dc_end_digital_output_us": 625603.8966666666,
+              "dc_duration_cycles": 9000,
+              "dc_duration_us": 30.0,
+              "dc_residual_area": 0,
+              "dc_zero_reset_bound_us": 625603.9033333333,
+              "rc_dac_bounds_mv": [
+                -111.38063441390948,
+                460.25483662938944
+              ],
+              "rc_tau_us": 20.0,
+              "rc_coefficient": 1466015504
+            },
+            {
+              "axis": 1,
+              "output_name": "awg_1",
+              "awg_gen": 3,
+              "dac": "11",
+              "panel_dac": 5,
+              "full_scale_mv": 801.48,
+              "current_ua": 20037,
+              "paired_rf_generators": [
+                2
+              ],
+              "tproc_ch": 1,
+              "tmux_ch": 1,
+              "requested_mv": 300.0,
+              "dac_code": 12288,
+              "quantized_mv": 300.555,
+              "hold_command_cycle": 187665729,
+              "hold_digital_output_us": 625552.5333333333,
+              "hold_end_digital_output_us": 625562.5333333333,
+              "final_user_zero_digital_output_us": 625563.5366666666,
+              "sequence_start_command_us": 625541.4266666666,
+              "commands": [
+                {
+                  "cycle": 187662428,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 187665421,
+                  "opcode": 2,
+                  "transport_target": 12288,
+                  "step_signed": 669949,
+                  "duration_samples": 4800,
+                  "word": "01020000000a38fd000012c00000000000003000"
+                },
+                {
+                  "cycle": 187665729,
+                  "opcode": 1,
+                  "transport_target": 12288,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000003000"
+                },
+                {
+                  "cycle": 187668722,
+                  "opcode": 2,
+                  "transport_target": 0,
+                  "step_signed": -669949,
+                  "duration_samples": 4800,
+                  "word": "01020000fff5c703000012c00000000000000000"
+                },
+                {
+                  "cycle": 187669030,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                },
+                {
+                  "cycle": 187672030,
+                  "opcode": 1,
+                  "transport_target": 0,
+                  "step_signed": 0,
+                  "duration_samples": 0,
+                  "word": "0101000000000000000000000000000000000000"
+                }
+              ],
+              "pre_dc_area_effective_code_samples": 162245954,
+              "dc_runs_effective14": [
+                [
+                  101954,
+                  -1127
+                ],
+                [
+                  42046,
+                  -1126
+                ]
+              ],
+              "dc_command_cycle": 187672126,
+              "dc_command_word": "014b0000000000000000232800007482296a44b8",
+              "dc_start_digital_output_us": 625573.8966666666,
+              "dc_end_digital_output_us": 625603.8966666666,
+              "dc_duration_cycles": 9000,
+              "dc_duration_us": 30.0,
+              "dc_residual_area": 0,
+              "dc_zero_reset_bound_us": 625603.9033333333,
+              "rc_dac_bounds_mv": [
+                -111.38063441390948,
+                460.25483662938944
+              ],
+              "rc_tau_us": 20.0,
+              "rc_coefficient": 1466015504
+            }
+          ]
+        }
+      ],
+      "point_spacing_cycles": [
+        18768
+      ],
+      "coordinate_order": "axis0 outer, axis1 fastest; see requested_range_mv",
+      "original_alignment": {
+        "single_time_offset_s": -0.003965383650621692,
+        "anchor_point": 0,
+        "anchor_channel": 2,
+        "anchor_threshold_mv": -200.0,
+        "anchor_observed_scope_s": -0.003950637817288359,
+        "anchor_model_program_us": 14.745833333333334,
+        "maximum_row_residual_us": 0.3116566839045376,
+        "note": "One global edge alignment for ROI assignment only, not precision timing or zero channel skew certification."
+      },
+      "fixed_offsets_mv": {
+        "1": -26.778245119999998,
+        "2": -13.389122559999999
+      },
+      "channel_diagnostics": [
+        {
+          "channel": 1,
+          "sample_interval_ns": 500.0,
+          "current_hold_us": 625552.5333333333,
+          "previous_hold_us": 625489.9733333334,
+          "previous_dc_start_relative_us": -41.1966666666558,
+          "previous_dc_end_relative_us": -11.196666666655801,
+          "current_origin_relative_us": -11.003333333297633,
+          "original_plot_start_relative_us": -12.106666666688398,
+          "current_dc_start_relative_us": 21.363333333283663,
+          "current_dc_end_relative_us": 51.36333333328366,
+          "dc_duration_ns": 30000.0,
+          "pre_dc_area_effective_code_samples": 162245954,
+          "final_integer_area": 0,
+          "model_dc_range_mv": [
+            -110.164365234375,
+            -110.164365234375
+          ],
+          "native_samples_in_current_dc_interval": null,
+          "raw_near_feature": [
+            {
+              "case": "fixed_time30_tau20",
+              "channel": 1,
+              "native_sample_index": 1323150,
+              "scope_time_s": 0.6215751402,
+              "program_us": 625540.5238506218,
+              "time_from_current_hold_us": -12.009482711553574,
+              "raw_mv": -140.58578687999997,
+              "fixed_offset_mv": -26.778245119999998,
+              "corrected_mv": -113.80754175999998,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": -105.6638671875
+            },
+            {
+              "case": "fixed_time30_tau20",
+              "channel": 1,
+              "native_sample_index": 1323151,
+              "scope_time_s": 0.6215756402,
+              "program_us": 625541.0238506217,
+              "time_from_current_hold_us": -11.509482711669989,
+              "raw_mv": -133.89122559999998,
+              "fixed_offset_mv": -26.778245119999998,
+              "corrected_mv": -107.11298047999999,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": -108.40330078125
+            },
+            {
+              "case": "fixed_time30_tau20",
+              "channel": 1,
+              "native_sample_index": 1323152,
+              "scope_time_s": 0.6215761402,
+              "program_us": 625541.5238506217,
+              "time_from_current_hold_us": -11.009482711669989,
+              "raw_mv": -26.778245119999998,
+              "fixed_offset_mv": -26.778245119999998,
+              "corrected_mv": 0.0,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": 0.0
+            },
+            {
+              "case": "fixed_time30_tau20",
+              "channel": 1,
+              "native_sample_index": 1323153,
+              "scope_time_s": 0.6215766402,
+              "program_us": 625542.0238506218,
+              "time_from_current_hold_us": -10.509482711553574,
+              "raw_mv": -20.08368384,
+              "fixed_offset_mv": -26.778245119999998,
+              "corrected_mv": 6.6945612799999985,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": 0.0
+            },
+            {
+              "case": "fixed_time30_tau20",
+              "channel": 1,
+              "native_sample_index": 1323154,
+              "scope_time_s": 0.6215771402,
+              "program_us": 625542.5238506217,
+              "time_from_current_hold_us": -10.009482711669989,
+              "raw_mv": -20.08368384,
+              "fixed_offset_mv": -26.778245119999998,
+              "corrected_mv": 6.6945612799999985,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": 0.0
+            },
+            {
+              "case": "fixed_time30_tau20",
+              "channel": 1,
+              "native_sample_index": 1323155,
+              "scope_time_s": 0.6215776402,
+              "program_us": 625543.0238506217,
+              "time_from_current_hold_us": -9.509482711669989,
+              "raw_mv": -26.778245119999998,
+              "fixed_offset_mv": -26.778245119999998,
+              "corrected_mv": 0.0,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": 0.0
+            }
+          ]
+        },
+        {
+          "channel": 2,
+          "sample_interval_ns": 500.0,
+          "current_hold_us": 625552.5333333333,
+          "previous_hold_us": 625489.9733333334,
+          "previous_dc_start_relative_us": -41.1966666666558,
+          "previous_dc_end_relative_us": -11.196666666655801,
+          "current_origin_relative_us": -11.003333333297633,
+          "original_plot_start_relative_us": -12.106666666688398,
+          "current_dc_start_relative_us": 21.363333333283663,
+          "current_dc_end_relative_us": 51.36333333328366,
+          "dc_duration_ns": 30000.0,
+          "pre_dc_area_effective_code_samples": 162245954,
+          "final_integer_area": 0,
+          "model_dc_range_mv": [
+            -107.91411621093751,
+            -107.91411621093751
+          ],
+          "native_samples_in_current_dc_interval": null,
+          "raw_near_feature": [
+            {
+              "case": "fixed_time30_tau20",
+              "channel": 2,
+              "native_sample_index": 1323150,
+              "scope_time_s": 0.6215751402,
+              "program_us": 625540.5238506218,
+              "time_from_current_hold_us": -12.009482711553574,
+              "raw_mv": -113.80754175999999,
+              "fixed_offset_mv": -13.389122559999999,
+              "corrected_mv": -100.41841919999999,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": -103.511455078125
+            },
+            {
+              "case": "fixed_time30_tau20",
+              "channel": 2,
+              "native_sample_index": 1323151,
+              "scope_time_s": 0.6215756402,
+              "program_us": 625541.0238506217,
+              "time_from_current_hold_us": -11.509482711669989,
+              "raw_mv": -120.50210304,
+              "fixed_offset_mv": -13.389122559999999,
+              "corrected_mv": -107.11298047999999,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": -106.250888671875
+            },
+            {
+              "case": "fixed_time30_tau20",
+              "channel": 2,
+              "native_sample_index": 1323152,
+              "scope_time_s": 0.6215761402,
+              "program_us": 625541.5238506217,
+              "time_from_current_hold_us": -11.009482711669989,
+              "raw_mv": -13.389122559999999,
+              "fixed_offset_mv": -13.389122559999999,
+              "corrected_mv": 0.0,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": 0.0
+            },
+            {
+              "case": "fixed_time30_tau20",
+              "channel": 2,
+              "native_sample_index": 1323153,
+              "scope_time_s": 0.6215766402,
+              "program_us": 625542.0238506218,
+              "time_from_current_hold_us": -10.509482711553574,
+              "raw_mv": -13.389122559999999,
+              "fixed_offset_mv": -13.389122559999999,
+              "corrected_mv": 0.0,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": 0.0
+            },
+            {
+              "case": "fixed_time30_tau20",
+              "channel": 2,
+              "native_sample_index": 1323154,
+              "scope_time_s": 0.6215771402,
+              "program_us": 625542.5238506217,
+              "time_from_current_hold_us": -10.009482711669989,
+              "raw_mv": -6.694561279999999,
+              "fixed_offset_mv": -13.389122559999999,
+              "corrected_mv": 6.694561279999999,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": 0.0
+            },
+            {
+              "case": "fixed_time30_tau20",
+              "channel": 2,
+              "native_sample_index": 1323155,
+              "scope_time_s": 0.6215776402,
+              "program_us": 625543.0238506217,
+              "time_from_current_hold_us": -9.509482711669989,
+              "raw_mv": -13.389122559999999,
+              "fixed_offset_mv": -13.389122559999999,
+              "corrected_mv": 0.0,
+              "current_point_model_mv": 0.0,
+              "previous_point_model_mv": 0.0
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "input_hashes": {
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\analyze_physical.py": "ca56eb7989332af50197a9fd515ea9f9334d5ca6824dcaa4d25402f303e7a077",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\model_review\\command_expectation.py": "0e64284671d7c323cd375d2d72291dfd8de973f1c085755f2b99ea962c228d7f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\model_review\\compact_expectation.py": "9811e3d79137a9b7c4897bfba0e1a52a7cd8d6dc63156124030897893edaa0da",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\offline_range300_fixed_voltage_tau10\\expected_points.json.gz": "be70ea9a29a6871e437fce99ee0f76b72a1ade500d548e3f4e1ed461b539d91d",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\analysis_fixed_voltage_tau10_01\\results.json": "065e14a653de6f844c7bee9e0f5660ae99cb507e4946fb46a5183a5c42242883",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\analysis_fixed_voltage_tau10_01\\alignment.json": "d93eca3835e11702a96ce1d6cad48d67292fbdf9d87260431eabbdf93b1ac5f7",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\run_fixed_voltage_tau10_01\\scope_capture\\capture.json": "c6a691688b2dc9ba6827ac75aa04f55e6c47f6a0a9b973f14651811759aec5a3",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\analysis_fixed_voltage_tau10_01\\representative_waveforms.png": "a16f9e4eacbd1b2dfb9ca802785b74a6a4af4af59d39e5b38656db5b0be74766",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\analysis_fixed_voltage_tau10_01\\all_20000_dc_windows.csv": "b1fcb5baa7eb10afb5d2ed69a9666c60e4be0cb337ece09fd5b0016f658556c0",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\run_fixed_voltage_tau10_01\\scope_capture\\ch1.ieee_block.bin.gz": "309739ebe248f6bda510eeca59765d201bc03b8dc7542be80690a0bce406967e",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\run_fixed_voltage_tau10_01\\scope_capture\\ch1.preamble.json": "3020d8596abdf386db215bdbc1fab83afdbc268a4519285cd3dbfa0ad989ec55",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\run_fixed_voltage_tau10_01\\scope_capture\\ch2.ieee_block.bin.gz": "cac070436ed7dd10733c56edd8731313c78594bac78244063ebc1665b7df1d5e",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\run_fixed_voltage_tau10_01\\scope_capture\\ch2.preamble.json": "83e3d1678be7c035f4a3500a6458583171f42727eb1903cb93a0b9a7a70ba0ad",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\offline_range300_fixed_time30_tau20\\expected_points.json.gz": "8dc10116e688fcdca0d1012ec2626603c02ad50b09c8b5be7e4f201ee3f43a96",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\analysis_fixed_time30_tau20_01\\results.json": "22bcdc172a792cba1e36ddbdec0c7067b75de89cb0c43afe60fb928fdf58157f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\analysis_fixed_time30_tau20_01\\alignment.json": "67d1da496d1f0ea4daec9f86d6b78db05e2eebcfb720a4e65aa46d99ece6b550",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\run_fixed_time30_tau20_01\\scope_capture\\capture.json": "3e04f56ee5753f65c26a7c8a2354079f66e34969099777ba228e8f15944630c7",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\analysis_fixed_time30_tau20_01\\representative_waveforms.png": "497eeb5ff60c9dd481ae40e6545d6c06544d4b072e98bc65ead74eda7919bb7c",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\analysis_fixed_time30_tau20_01\\all_20000_dc_windows.csv": "9f45191b2cea34e3da150dffed32eeaf4e3db2ee8cc7a008546aab2e6b54bac7",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\run_fixed_time30_tau20_01\\scope_capture\\ch1.ieee_block.bin.gz": "eac376e1f49f52860c01f28b11827beed87027da7978b2b2bc45295021dcd7bd",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\run_fixed_time30_tau20_01\\scope_capture\\ch1.preamble.json": "496e86ede31b67127e3f50969878c8a0f749e75b2cee747e9fc0256208999702",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\run_fixed_time30_tau20_01\\scope_capture\\ch2.ieee_block.bin.gz": "099857ab492b83173348ac333e4701179d894bf90efaa36d6c3a524b50eabe47",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\run_fixed_time30_tau20_01\\scope_capture\\ch2.preamble.json": "6aa637dd31aea667185f027d5486e556809d943bc5595d52e9cdfb8317df1e28"
+  },
+  "input_hashes_unchanged": true
+}
