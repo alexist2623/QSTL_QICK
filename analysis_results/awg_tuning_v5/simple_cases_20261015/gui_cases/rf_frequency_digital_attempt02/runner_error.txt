@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\simple_cases_20261015\gui_cases\prepare.py", line 211, in main
+    spin(rf_panel.frequency_sweep_start_mhz,80.);spin(rf_panel.frequency_sweep_stop_mhz,120.);spin(rf_panel.frequency_sweep_count,3)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\simple_cases_20261015\gui_cases\prepare.py", line 122, in spin
+    assert math.isclose(widget.value(),value,abs_tol=1e-8,rel_tol=1e-9),(widget.value(),value)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: (50.0, 80.0)

@@ -1,0 +1,17 @@
+INPUT table port=0 row=0 col=4 value=5.0
+INPUT table port=0 row=1 col=4 value=20.0
+INPUT table port=0 row=2 col=4 value=-10.0
+INPUT table port=1 row=0 col=4 value=-7.0
+INPUT table port=1 row=1 col=4 value=-30.0
+INPUT table port=1 row=2 col=4 value=15.0
+INPUT table port=2 row=0 col=4 value=3.0
+INPUT table port=2 row=1 col=4 value=12.0
+INPUT table port=2 row=2 col=4 value=-6.0
+INPUT table port=0 row=1 col=2 value=0.0
+Windows fatal exception: access violation
+
+Current thread 0x00016824 (most recent call first):
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 2190 in _on_item_changed
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\simple_cases_20261015\gui_cases\prepare.py", line 149 in table_value
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\simple_cases_20261015\gui_cases\prepare.py", line 184 in main
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\simple_cases_20261015\gui_cases\prepare.py", line 340 in <module>

@@ -1,0 +1,21 @@
+{
+  "complete": true,
+  "cases": [
+    {
+      "name": "rf_fine_beyond_final_False",
+      "status": "unexpected_rejection",
+      "error": "fine RF sweep changes shared-port command order or requires commands less than 3 clocks apart",
+      "expected_negative": false,
+      "references": 3,
+      "model_executed": false
+    }
+  ],
+  "source_hashes_unchanged": true,
+  "user_json_unchanged": true,
+  "helper_sha256": "013463f2546130b8268a08e3ea04c9ce5b1734b8f8e8af0264bc630f4b27a7f7",
+  "qt_errors": [],
+  "scope": "offline compile/model only; source/board/RTL untouched",
+  "status_counts": {
+    "unexpected_rejection": 1
+  }
+}

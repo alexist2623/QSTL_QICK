@@ -1,0 +1,214 @@
+# PulseGenerator TODO
+
+
+## RF time-duration sweep: replace per-point tables with register arithmetic
+
+
+- Added: 2026-10-15
+- Status: Not implemented; design and validation required
+
+
+### Objective
+
+
+Sweep RF duration in DAC sample increments (approximately 0.208333 ns at a 300 MHz fabric clock with 16 samples per clock) while reducing the tProcessor DMEM limitation caused by increasing the sweep point count.
+
+
+The current fine-duration implementation uses DDS output for the long plateau and one of 16 reusable `111...000` patterns for the ending. Waveform memory remains fixed at 2,048 samples per channel, but duration sweep settings consume 6 DMEM words per point, so configuration memory grows with the point count.
+
+
+### Features to implement
+
+
+- [ ] Calculate the current sample count `N` inside the tProcessor hardware loop from the starting duration, step, and point count.
+- [ ] At each point, calculate `q = N >> 4` and `r = N & 15` to obtain the whole-clock duration and the number of active samples in the final clock.
+- [ ] Reuse the existing 16 ending patterns selected by `r`, and calculate the starting address, output mode, length, and tail timestamp using register arithmetic.
+- [ ] Preserve the current `plan_duration()` paths for short pulses, DDS plateau plus tail, and long periodic plateaus. Preserve three-clock boundary alignment for periodic output and zero padding for short waveforms.
+- [ ] Remove the per-point six-word duration table so that duration configuration memory does not scale with the point count. Do not unroll points in PMEM.
+- [ ] Keep duration unchanged during repetitions of the same point and update it only when advancing to the next point. Support descending sweeps and restoration of initial values at Cartesian axis boundaries.
+- [ ] Preserve the GUI start/stop/count semantics and sample quantization rules. For noninteger sample steps, design an exact update method, such as remainder accumulation, to avoid accumulating errors from a rounded increment.
+- [ ] Review dependencies on preceding RF pulse durations, frequency/power sweeps, HOLD bounds, command spacing on shared tProcessor ports, and existing DC/RC compensation timing.
+
+
+### Acceptance criteria
+
+
+- [ ] The existing planner and the new register calculations produce the same active sample counts, including `r=0...15`, short/long transitions, and one-shot/periodic transitions.
+- [ ] Support a 4,800-point sweep from one sample through 1 us in single-sample increments at 300 MHz, without exhausting DMEM for duration settings.
+- [ ] Verify exact per-point ending times and pattern selection for long duration ranges, descending sweeps, repetitions, and Cartesian sweeps.
+- [ ] Confirm that DMEM and PMEM used for duration sweeps do not grow proportionally with the point count. Report table memory used by other features separately.
+- [ ] Use the tProcessor execution model and SGv6 RTL simulations to validate actual RF active sample counts, plateau/tail transitions, phase continuity, and command collisions.
+
+
+### Relevant code
+
+
+- [RF fine-duration planner and command generation](./PulseGenerator/DCWaveformGeneratorGUI/qick_rf_fine_duration.py)
+- [Shared sweep register and DMEM management](./PulseGenerator/DCWaveformGeneratorGUI/qick_fine_tune_sweep.py)
+- [Fine-duration compiler tests](./PulseGenerator/DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py)
+
+
+First verify that the existing QICK shift, mask, add, and conditional branch instructions can implement this approach. This item describes planned functionality; confirm the cause of the reported board sweep failure separately using its error message and configuration.
+
+
+## GUI sweep parameter grouping and shared point counts
+
+
+- Added: 2026-10-15
+- Status: Not implemented; design and validation required
+
+
+### Objective and execution semantics
+
+
+Group multiple sweep parameters so they advance together under one hardware loop index. Each member retains its own range (start/stop) and units while sharing a common point count N. At point i, apply the ith value of every member before measuring. A group containing two parameters with N points executes N measurement points, not N x N. Combine independent groups and ungrouped parameters as separate Cartesian sweep axes.
+
+
+### GUI interaction and visual feedback
+
+
+- [ ] Add a selection checkbox to each row of the sweep parameter table.
+- [ ] Provide a `Group sweep` button that groups the checked parameters into one sweep group. Enable it when at least two parameters are selected.
+- [ ] Highlight members of the same group with the same light background color and show a group name or badge. Distinguish checkbox selection from group membership, and preserve membership indicators across tab changes, sorting, and table refreshes.
+- [ ] Add a `Remove from group` context-menu action when right-clicking a grouped parameter. Remove only that parameter from the group, without deleting the parameter or other members.
+- [ ] Convert a removed member into an independent sweep while retaining its current range and the last shared point count. Subsequent edits must not remain linked to its former group.
+- [ ] If removal or deletion leaves one member, convert it into an independent sweep and clear the group indicator and linkage. Remove empty groups.
+- [ ] Define how regrouping existing members works, and prevent a parameter from belonging to multiple groups at once.
+
+
+### Editing multiple parameter ranges and sharing point counts
+
+
+- [ ] Extend the sweep parameter table so the start/stop range and related settings can be edited for every parameter. Review handlers, validation, and signal connections that currently operate only on the first or currently selected row.
+- [ ] Manage each parameter's range and units independently, but store one shared point count for each group.
+- [ ] Editing the point count in any member row must immediately update every member's displayed count, calculated step, sweep coordinates, total measurement point count, and preview consistently.
+- [ ] Define the common-count policy when selected parameters have different point counts before grouping, and clearly show the applied value in every member row.
+- [ ] Recalculate the edited parameter's step from its range and the shared N. Handle quantization, descending ranges, and N=1 correctly for every row.
+- [ ] Immediately remove point-count linkage when a parameter leaves a group or is deleted. Prevent unintended propagation between former members, different groups, and independent parameters.
+
+
+### Safe deletion and re-addition across tabs
+
+
+- [ ] Handle deletion through every tab that manages the source parameters, including AWG Output as well as Experiment. Cover individual sweep deletion and parameters disappearing because their output/port or segment is deleted.
+- [ ] Track membership using stable parameter identifiers rather than row numbers or display names, and propagate deletion events through a shared model. Update membership, selection checkboxes, highlights, point counts, and total measurement points consistently.
+- [ ] Clean up stale references and signal/callback connections on deletion, group removal, and table reconstruction. Prevent access to deleted objects, duplicate connections, recursive valueChanged updates, and connections targeting outdated rows.
+- [ ] Re-adding a parameter with the same name or on the same output/segment must not restore its previous group membership or point-count linkage automatically. Create new group connections only when the user explicitly groups it again.
+- [ ] Restore groups and their shared N when saving/loading settings or rebuilding tabs/tables, while removing references to nonexistent parameters and normalizing the remaining groups.
+
+
+### Compiler and data integration
+
+
+- [ ] Represent each group as one sweep axis, and update every member's registers or required table state when that axis advances. Preserve the values during repetitions of the same point.
+- [ ] Integrate with the RF duration register calculations described above. Each grouped duration parameter must use the same group index when calculating whole clocks and remaining samples.
+- [ ] Validate virtual gate conversion, RF start/end timing, HOLD bounds, DC/RC compensation, and port collisions using the actual combinations of parameters that change together.
+- [ ] Record the group index and every member's actual coordinate in saved data and previews. Prevent incorrect Cartesian reshaping or measurement point-count mismatches after grouping.
+
+
+### Acceptance criteria and regression coverage
+
+
+- [ ] Group at least two parameters with different ranges using the checkboxes and `Group sweep`, and verify the color/badge indicators and actual synchronized N-point execution. Also test multiple groups together with independent axes.
+- [ ] Edit every member row in turn and verify that range changes remain local while point-count changes propagate correctly to all members of that group.
+- [ ] After `Remove from group`, change the point count on both the removed parameter and its former group, and confirm they no longer affect each other.
+- [ ] Delete group members from Experiment and other tabs such as AWG Output. Cover first/middle/last rows, sequential deletion of multiple members, and removal of all members; verify there are no crashes, ghost rows, or incorrect connections.
+- [ ] Re-add a deleted parameter with the same name/location and edit point counts on both sides to confirm the old linkage is completely gone. Verify that explicitly grouping it again establishes a working new linkage.
+- [ ] Repeat group creation -> N change -> removal from group -> deletion -> re-addition -> regrouping, interleaved with tab changes, sorting, and settings save/load. Check for duplicate signals, recursive updates, and stale group references.
+- [ ] Verify that GUI model checks and tProcessor execution model checks agree on group point counts, repetitions, Cartesian combinations, all parameter coordinates, and result data shapes.
+
+
+## Automated GUI-to-hardware validation starting with v5
+
+
+- Added: 2026-10-15
+- Status: Planned; no hardware validation has been performed for this item
+- Baseline: Start physical validation with v5. Earlier versions are outside this validation campaign. Validate later versions against the same suite after confirming their capabilities.
+
+
+### Objective and measurement fixture
+
+
+Verify that actual GUI interactions produce the intended physical waveforms, sweep coordinates, acquisition timing, and saved data. A Python runner should perform the repeatable operations; Codex can launch the runner and analyze its reports.
+
+
+- Connect two distinct AWG outputs, A and B, to two channels of the calibration oscilloscope. The calibration notebooks identify a Keysight/Agilent DSO-X 6004A; confirm the connected instrument and installed configuration when running.
+- Connect a separate third AWG output, C, to the QICK input. This is not a split of A or B. The C loopback does not independently prove the correctness of A or B.
+- Connect a QICK digital marker to an appropriate scope trigger input or spare channel. Record physical connector-to-generator/input mappings, cables, terminations, input gain, and any attenuation for each fixture.
+- Use simple three-segment waveforms, including SET-only and RAMP-containing patterns. Give A and B distinguishable levels or shapes so channel swaps are observable.
+- Use 10 logarithmically spaced nominal duration values from 100 ns to 100 us, including both endpoints: `0.100, 0.215443469, 0.464158883, 1.000, 2.154434690, 4.641588834, 10.00, 21.544346900, 46.415888336, 100.0 us`. Generate the values numerically and record both requested and hardware-quantized durations.
+- Frequency and voltage ranges must use their own units and fixture-appropriate limits; the duration grid does not define those ranges.
+
+
+### Runner and acquisition infrastructure
+
+
+- [ ] Identify the loaded v5 firmware/bitstream, HWH metadata, QICK driver, and GUI revision before running. Check the required capabilities and archive their versions/hashes; do not infer hardware compatibility from a directory or branch name alone.
+- [ ] Drive the visible production GUI with actual Qt mouse/keyboard events, including input commit, tab changes, sweep selection, and Run. Observe the normal worker completion/failure signals and preserve the production compiler, upload, execution, and data-storage paths. Direct model setters or mocked hardware are insufficient evidence for this suite.
+- [ ] Add a scope time-domain acquisition adapter using the existing PyVISA connection and notebook waveform-transfer examples. Read raw samples and preamble scaling, not screen pixels or only FFT marker power. Configure and record sample interval, record length, channel scaling, bandwidth, coupling, and trigger settings.
+- [ ] Arm the scope before clicking Run without blocking the Qt event loop. Retrieve both channels from the same completed acquisition and pair that acquisition with the correct QICK run, sweep point, and repetition. Detect missing, duplicate, stale, or out-of-order records.
+- [ ] Support both GUI-driven individual runs over the logarithmic duration grid and actual FPGA sweep-loop runs. The current HOLD/RAMP hardware axes use arithmetic clock-cycle progressions; individual logarithmic runs must not be reported as validation of a native logarithmic hardware sweep.
+- [ ] For hardware loops, use a verified acquisition strategy such as segmented scope capture, a continuous record covering the complete test loop, or explicitly paced loops. Check capture counts and point identity. Report changed pacing separately and include representative runs with the intended experiment timing.
+- [ ] Acquire individual repetitions before considering averages, and include pre-pulse baseline plus the relevant post-pulse, compensation, and reset intervals. Adapt record length/sample rate without losing the temporal or RF bandwidth needed by the case.
+- [ ] Validate output C through the actual input/acquisition/storage path using its input calibration, FIR response, decimation, and trigger/group delay. Discover the active rate from firmware metadata. At the known 1 MSPS or 50 kSPS FIR rates, do not claim direct reconstruction of 100 ns pulses; use the scope for fast waveform checks and compare loopback data with the expected filtered response.
+
+
+### Required sweep coverage
+
+
+- [ ] **HOLD duration sweep:** Measure every point's plateau length and voltage. Verify the movement of subsequent segment boundaries, anchored RF events, acquisition triggers, and the point-end barrier. Cover increasing/decreasing duration and multiple repetitions.
+- [ ] **RAMP duration sweep:** Keep the intended start/target voltages fixed while changing duration. Measure ramp length, slope, endpoints, and continuity into the following SET; verify all affected physical outputs after virtual-to-physical conversion and the timing of later events.
+- [ ] **RF frequency sweep:** Estimate the carrier frequency from the captured time waveform at every point and compare it with the requested and DDS-quantized frequencies. Check RF envelope timing and the configured amplitude/power behavior across frequency. Select a record/sample rate appropriate to the carrier, and report insufficient bandwidth, too few cycles, or frequency ambiguity as inconclusive rather than passing.
+- [ ] **Voltage sweep:** Measure each requested SET level and the resulting physical voltages. Include positive/negative levels, increasing/decreasing sweeps, DAC scaling/quantization, and a known nonidentity virtual-gate matrix. Confirm that unswept channels and segments follow their independently calculated expected values.
+- [ ] **Multiple voltage parameters in one grouped sweep:** Group at least two voltage parameters through the GUI with distinct ranges and one shared count N. Verify simultaneous application of the ith value of every member, exactly N points rather than N x N, correct physical voltages on both scope channels, and unchanged values during repetitions of a point. Cover opposite sweep directions and parameters on different outputs or segments.
+- [ ] **Grouped sweep lifecycle:** Edit the count from each member, remove a member with `Remove from group`, delete a parameter from Experiment and AWG Output, and re-add it. Verify shared-count updates while grouped, removal of old linkage after leaving/deletion, correct data dimensions, and no stale parameter updates. Re-run representative physical-output checks after regrouping and settings reload. This item depends on implementing the grouping feature above; until then report it as unavailable, not passed.
+- [ ] **RF duration sweep with `require_within_segment=True`:** Check every point, including cases close to the anchor SET boundary. Account separately for active RF duration, output latency, and padded/busy waveform duration. Verify valid cases physically and verify that boundary violations, including a violation occurring only at a later sweep point, are rejected before hardware execution with a useful GUI error.
+- [ ] **RF duration sweep with `require_within_segment=False`:** Include pulses wholly inside the anchor, crossing into the next segment, and extending beyond the final user segment. Verify actual RF start/end times, absence of unintended truncation, preservation of scheduled AWG transitions, and correct point completion, acquisition, and compensation/reset timing. Cover segment-extension settings separately so disabling the restriction is not confused with automatically extending the anchor segment.
+- [ ] **RF duration implementation boundaries:** In addition to the logarithmic grid, include valid nearby values on either side of relevant DAC-sample/whole-clock, tail-pattern, and one-shot/periodic transitions. Check active duration and plateau/tail continuity; use execution-model/RTL checks for exact sample counts where scope uncertainty cannot resolve a single DAC sample.
+
+
+### Combined behavior and failure cases
+
+
+- [ ] Combine HOLD/RAMP duration changes with RF duration/frequency sweeps and acquisition anchors. Combine one grouped voltage axis with an independent axis to verify Cartesian ordering, register restoration, per-point coordinates, and measurement counts.
+- [ ] Repeat representative cases with identity/nonidentity virtual-gate matrices and with DC compensation and RC/IIR compensation independently enabled/disabled. Verify the v5 output composition/scaling, compensation interval, reset ordering, and next-repetition baseline. Interpret measured post-IIR analog area using the appropriate signal-path model rather than assuming the pre-IIR digital area condition directly applies.
+- [ ] Cover N=1, increasing/decreasing ranges, valid quantization boundaries, repeated shots, and rerunning after settings changes. Detect off-by-one endpoints, accumulated timing drift, skipped/duplicated points, and state carried over from an earlier run.
+- [ ] Exercise invalid within-segment bounds, shared-port command collisions, invalid ranges/counts, trigger timeout, incomplete waveform transfer, and cancellation. Check clear GUI failure reporting, cleanup/recovery, and that a subsequent valid run uses the new settings and fresh measurements. Rejected or incomplete runs must not receive a passing waveform result.
+
+
+### Independent comparison and acceptance evidence
+
+
+- [ ] Build simple analytic expectations from the test specification independently of the production preview/compiler. Compare intended GUI values, committed GUI state, compiled/quantized coordinates, and physical measurements separately so shared implementation bugs do not validate themselves.
+- [ ] Fit SET/RAMP parameters and RF carrier/envelope parameters appropriate to each case. Compare fitted voltage, duration, frequency, slope, and channel skew with their expected values; a small fitting residual alone is not a pass. Calibrate fixed path delay/gain/offset separately, and do not allow unrestricted time warping or per-case calibration to hide errors.
+- [ ] Define acceptance limits from hardware quantization, scope timing/bandwidth/voltage uncertainty, noise, fixture calibration, and the required measurement precision. Report residual RMS/peak error, glitches/overshoot, and shot-to-shot variation. Mark results inconclusive when acquisition quality cannot support the required verdict.
+- [ ] Save the test ID, GUI settings and relevant screenshots, firmware/software identities, compiled timing/coordinates, scope configuration and raw waveforms, QICK input data, point/repetition mapping, fitting parameters, tolerances, plots, and GUI/device errors in a reproducible report.
+- [ ] Report each required feature as passed, failed, inconclusive, or unavailable, with a reason and evidence. Acceptance requires coverage of every required sweep category on v5 or a separately identified later version; unsupported grouped sweeps or missing hardware measurements must remain explicit coverage gaps.
+
+
+### Mandatory archive of every intended and measured waveform
+
+
+All validation waveforms must remain available for later inspection and independent reanalysis. Preserve both the intended waveform and the measured waveform for every executed test case, sweep point, repetition, and measured channel, regardless of the test verdict. A summary, screenshot, fitted curve, average, or representative subset is not a substitute for the complete numerical records.
+
+
+- [ ] Before execution, save the intended waveform definition and numerical time/value reference for every configured output, including all segment boundaries and RF events. Preserve the original GUI-requested waveform separately from the independently calculated physical reference and hardware-quantized expectation; identify their units, time origins, reference planes, model versions, and any virtual-gate, compensation, or signal-path transformations.
+- [ ] Save every acquired scope trace from both measured outputs at the full retrieved resolution, including raw sample codes, preamble/scaling metadata, and calibrated time/voltage arrays. Save every QICK loopback trace with its raw input data, time axis, calibration, and expected filtered response. Retain the full configured acquisition window, including baseline, transitions, compensation, and reset intervals covered by the test.
+- [ ] Assign stable run, case, sweep-point, repetition, channel, and acquisition identifiers. Store the full sweep coordinate tuple and group membership so each measurement maps unambiguously to its intended reference. Identical references may be stored once and linked explicitly from every applicable record; measurements from individual repetitions must still be retained separately.
+- [ ] Store numerical data losslessly in a documented machine-readable format, such as HDF5 or NPZ with JSON metadata. Keep original measurements unchanged; save alignment, resampling, calibration corrections, fitted curves, and residuals as separately identified derived results with all transformation parameters.
+- [ ] Generate an intended-versus-measured overlay and an error/residual view for every valid comparison, with clear channel labels, units, segment boundaries, and sweep coordinates. Provide a browsable report/index linking these plots to the full numerical records. Retain both original-time-axis data and any aligned comparison used for fitting.
+- [ ] Archive passing, failing, inconclusive, interrupted, and retried runs without overwriting earlier records. For rejected execution, missing triggers, or incomplete transfers, retain the intended reference, available partial data, and explicit missing-data/error status; never fabricate a measurement or mark an incomplete record as passed.
+- [ ] Write records incrementally and finalize them atomically where supported so a later failure does not discard earlier captures. Maintain an expected-versus-recorded manifest with sample counts and integrity checks. Verify that all required waveform pairs can be reloaded before declaring the validation run complete; report storage or integrity failures as incomplete validation.
+
+
+### Relevant code and examples
+
+
+- [Actual GUI input test precedent](./PulseGenerator/DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py)
+- [Production GUI Run path and experiment worker](./PulseGenerator/DCWaveformGeneratorGUI/DCWaveform_Generator.py)
+- [Existing scope FFT calibration connection](./PulseGenerator/DCWaveformGeneratorGUI/qick_power_calibration.py)
+- [Scope time-waveform acquisition example](./QSTL_Example_Codes/QDACII/qdac_qick_trig.ipynb)
+- [Output trigger markers](./PulseGenerator/DCWaveformGeneratorGUI/qick_output_triggers.py)
+- [Input FIR rate and timing metadata](./PulseGenerator/DCWaveformGeneratorGUI/fir_ddr_profile.py)
+- [DC input voltage calibration](./PulseGenerator/DCWaveformGeneratorGUI/dc_voltage_calibration.py)
+

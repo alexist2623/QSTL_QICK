@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\simple_cases_20261015\gui_cases\prepare.py", line 191, in main
+    np.testing.assert_allclose(pulse.v[::2],LEVELS[port],rtol=0,atol=1e-10)
+  File "C:\Users\Measurement2\.conda\envs\qcodes2\Lib\site-packages\numpy\testing\_private\utils.py", line 1768, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+  File "C:\Users\Measurement2\.conda\envs\qcodes2\Lib\site-packages\numpy\testing\_private\utils.py", line 983, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=0, atol=1e-10
+
+Mismatched elements: 2 / 3 (66.7%)
+Mismatch at indices:
+ [1]: 0.0 (ACTUAL), 20.0 (DESIRED)
+ [2]: 0.0 (ACTUAL), -10.0 (DESIRED)
+Max absolute difference among violations: 20.
+Max relative difference among violations: 1.
+ ACTUAL: array([5., 0., 0.])
+ DESIRED: array([  5.,  20., -10.])

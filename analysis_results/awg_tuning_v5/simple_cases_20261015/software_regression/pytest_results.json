@@ -1,0 +1,3312 @@
+{
+  "pytest_exitstatus": 0,
+  "unique_collected": 110,
+  "counts": {
+    "passed": 110,
+    "failed": 0,
+    "skipped": 0,
+    "not_run": 0
+  },
+  "tests": [
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_set_and_ramp_words_are_updated_by_nested_loop_and_add",
+      "outcome": "passed",
+      "categories": [
+        "hold_ramp_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_set_and_ramp_words_are_updated_by_nested_loop_and_add",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002530000638216734,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_set_and_ramp_words_are_updated_by_nested_loop_and_add",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.01986220001708716,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_set_and_ramp_words_are_updated_by_nested_loop_and_add",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002552999649196863,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_ramp_rate_sweep_recomputes_steps_for_adjacent_voltage_axes",
+      "outcome": "passed",
+      "categories": [
+        "hold_ramp_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_ramp_rate_sweep_recomputes_steps_for_adjacent_voltage_axes",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00021590001415461302,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_ramp_rate_sweep_recomputes_steps_for_adjacent_voltage_axes",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.057543399976566434,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_ramp_rate_sweep_recomputes_steps_for_adjacent_voltage_axes",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00023539992980659008,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_ramp_rate_sweep_moves_50_ksps_ddr_trigger_with_segment",
+      "outcome": "passed",
+      "categories": [
+        "hold_ramp_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_ramp_rate_sweep_moves_50_ksps_ddr_trigger_with_segment",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0001879000337794423,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_ramp_rate_sweep_moves_50_ksps_ddr_trigger_with_segment",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0034540999913588166,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_ramp_rate_sweep_moves_50_ksps_ddr_trigger_with_segment",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00020650005899369717,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_hold_duration_sweep_moves_later_commands_and_50_ksps_trigger",
+      "outcome": "passed",
+      "categories": [
+        "hold_ramp_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_hold_duration_sweep_moves_later_commands_and_50_ksps_trigger",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017799995839595795,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_hold_duration_sweep_moves_later_commands_and_50_ksps_trigger",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.004600699990987778,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_hold_duration_sweep_moves_later_commands_and_50_ksps_trigger",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0001946999691426754,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_hold_duration_axis_drives_exact_bias_t_duration_table",
+      "outcome": "passed",
+      "categories": [
+        "hold_ramp_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_hold_duration_axis_drives_exact_bias_t_duration_table",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017260003369301558,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_hold_duration_axis_drives_exact_bias_t_duration_table",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.010674000019207597,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_hold_duration_axis_drives_exact_bias_t_duration_table",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00020579993724822998,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_set_duration_excludes_startup_lead_and_hides_ramp_pipeline",
+      "outcome": "passed",
+      "categories": [
+        "hold_ramp_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_set_duration_excludes_startup_lead_and_hides_ramp_pipeline",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00018009997438639402,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_set_duration_excludes_startup_lead_and_hides_ramp_pipeline",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.001869100029580295,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_set_duration_excludes_startup_lead_and_hides_ramp_pipeline",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00021430000197142363,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_duration_sweep_updates_length_and_selected_segment_timing[fixed-expected_ramp_offsets0]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_duration_sweep_updates_length_and_selected_segment_timing[fixed-expected_ramp_offsets0]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00038890005089342594,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_duration_sweep_updates_length_and_selected_segment_timing[fixed-expected_ramp_offsets0]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.00353489990811795,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_duration_sweep_updates_length_and_selected_segment_timing[fixed-expected_ramp_offsets0]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00023030000738799572,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_duration_sweep_updates_length_and_selected_segment_timing[extend_by_rf_duration-expected_ramp_offsets1]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_duration_sweep_updates_length_and_selected_segment_timing[extend_by_rf_duration-expected_ramp_offsets1]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0003225000109523535,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_duration_sweep_updates_length_and_selected_segment_timing[extend_by_rf_duration-expected_ramp_offsets1]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0031506000086665154,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_duration_sweep_updates_length_and_selected_segment_timing[extend_by_rf_duration-expected_ramp_offsets1]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002359000500291586,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_duration_is_a_cartesian_axis_with_amplitude_sweep",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_duration_is_a_cartesian_axis_with_amplitude_sweep",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00018610002007335424,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_duration_is_a_cartesian_axis_with_amplitude_sweep",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.008605799986980855,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_duration_is_a_cartesian_axis_with_amplitude_sweep",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022060004994273186,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_frequency_and_power_sweeps_load_exact_dmem_words",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_frequency_and_power_sweeps_load_exact_dmem_words",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00019100005738437176,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_frequency_and_power_sweeps_load_exact_dmem_words",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0033373000333085656,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_frequency_and_power_sweeps_load_exact_dmem_words",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00020299991592764854,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_composite_rf_events_share_one_named_frequency_dmem_table",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_composite_rf_events_share_one_named_frequency_dmem_table",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017849996220320463,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_composite_rf_events_share_one_named_frequency_dmem_table",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0024395999498665333,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_composite_rf_events_share_one_named_frequency_dmem_table",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002039000391960144,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[3-False]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[3-False]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00032679992727935314,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[3-False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.001763500040397048,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[3-False]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00021009996999055147,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[35-False]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[35-False]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00031050003599375486,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[35-False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0017739000031724572,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[35-False]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002114999806508422,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[65535-False]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[65535-False]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00030239997431635857,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[65535-False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.001672700047492981,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[65535-False]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002517999382689595,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[65536-True]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[65536-True]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0003212000010535121,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[65536-True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.001790700014680624,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[65536-True]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00019970000721514225,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[300000-True]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[300000-True]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00032130000181496143,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[300000-True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0018123999470844865,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold[300000-True]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00020949996542185545,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65534-65535-False]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65534-65535-False]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00037560006603598595,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65534-65535-False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0025536000030115247,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65534-65535-False]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00020839995704591274,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65535-65534-False]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65535-65534-False]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0003474999684840441,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65535-65534-False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0022529999259859324,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65535-65534-False]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00020410004071891308,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[35-65536-True]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[35-65536-True]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00035740004386752844,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[35-65536-True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0025961999781429768,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[35-65536-True]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00021269998978823423,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65536-35-True]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65536-35-True]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00035800004843622446,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65536-35-True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0025780999567359686,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65536-35-True]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022330007050186396,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65535-65536-True]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65535-65536-True]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.000354300020262599,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65535-65536-True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0024649000260978937,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long[65535-65536-True]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022339995484799147,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_count_one_ignores_unexecuted_stop_coordinate",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_count_one_ignores_unexecuted_stop_coordinate",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017550005577504635,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_count_one_ignores_unexecuted_stop_coordinate",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0016883999342098832,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_count_one_ignores_unexecuted_stop_coordinate",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00018390000332146883,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[48000-48015-16]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[48000-48015-16]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00036890001501888037,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[48000-48015-16]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.00735470000654459,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[48000-48015-16]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002234000712633133,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[95-110-16]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[95-110-16]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0003635999746620655,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[95-110-16]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0071934000588953495,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[95-110-16]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022199994418770075,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[110-95-16]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[110-95-16]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00035610003396868706,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[110-95-16]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.007266300031915307,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[110-95-16]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002191000385209918,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[1-96-96]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[1-96-96]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00036609999369829893,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[1-96-96]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.029370600008405745,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset[1-96-96]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00024770002346485853,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_no_pmem_unrolling_and_frequency_cross_axis",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_no_pmem_unrolling_and_frequency_cross_axis",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017709995154291391,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_no_pmem_unrolling_and_frequency_cross_axis",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.03685889998450875,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_no_pmem_unrolling_and_frequency_cross_axis",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00021570001263171434,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_summary_distinguishes_active_samples_and_padded_busy_time",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_summary_distinguishes_active_samples_and_padded_busy_time",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.000179499969817698,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_summary_distinguishes_active_samples_and_padded_busy_time",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.001601399970240891,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_summary_distinguishes_active_samples_and_padded_busy_time",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00017969997134059668,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_short_family_emits_no_phantom_tail_instructions",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_short_family_emits_no_phantom_tail_instructions",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00016789999790489674,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_short_family_emits_no_phantom_tail_instructions",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0028286000015214086,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_short_family_emits_no_phantom_tail_instructions",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00024770002346485853,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[1]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[1]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00026949995663017035,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[1]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0014717999147251248,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[1]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0001906000543385744,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[15]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[15]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00026000000070780516,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[15]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0014288000529631972,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[15]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00019249995239078999,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[16]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[16]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00025949999690055847,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[16]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0016349999932572246,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[16]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00020080001559108496,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[17]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[17]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00033950002398341894,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[17]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0016635999782010913,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[17]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022909999825060368,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[31]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[31]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00027359998784959316,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[31]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0015020000282675028,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[31]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00019349996000528336,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[32]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[32]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00024640001356601715,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[32]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0014334000879898667,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[32]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0001993000041693449,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[95]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[95]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002840999513864517,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[95]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.001573599991388619,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[95]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.000219699926674366,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[96]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[96]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002685999497771263,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[96]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0017450000159442425,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[96]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00019429996609687805,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[97]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[97]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002592999953776598,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[97]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0014694000128656626,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[97]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00019329995848238468,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[48000]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[48000]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002470000181347132,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[48000]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0015357999363914132,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[48000]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00020859995856881142,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[48001]",
+      "outcome": "passed",
+      "categories": [
+        "rf_frequency_duration"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[48001]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002519000554457307,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[48001]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0015082999598234892,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[48001]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00020340003538876772,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_waveform_vertices_reconstruct_swept_virtual_and_physical_pulses",
+      "outcome": "passed",
+      "categories": [
+        "voltage_virtual_matrix"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_waveform_vertices_reconstruct_swept_virtual_and_physical_pulses",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017110002227127552,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_waveform_vertices_reconstruct_swept_virtual_and_physical_pulses",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0011633000103756785,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_waveform_vertices_reconstruct_swept_virtual_and_physical_pulses",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0001786000793799758,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_boundary_validation_matches_full_cartesian_tproc_output",
+      "outcome": "passed",
+      "categories": [
+        "voltage_virtual_matrix"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_boundary_validation_matches_full_cartesian_tproc_output",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017070001922547817,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_boundary_validation_matches_full_cartesian_tproc_output",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.024083200027234852,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_boundary_validation_matches_full_cartesian_tproc_output",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00024120009038597345,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_awg_vertex_metadata_stores_all_sweep_points_in_both_spaces",
+      "outcome": "passed",
+      "categories": [
+        "voltage_virtual_matrix"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_awg_vertex_metadata_stores_all_sweep_points_in_both_spaces",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00019310007337480783,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_awg_vertex_metadata_stores_all_sweep_points_in_both_spaces",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0028618999058380723,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_awg_vertex_metadata_stores_all_sweep_points_in_both_spaces",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00019859999883919954,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_awg_vertex_metadata_tracks_segment_extension_per_rf_duration",
+      "outcome": "passed",
+      "categories": [
+        "voltage_virtual_matrix"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_awg_vertex_metadata_tracks_segment_extension_per_rf_duration",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017899996601045132,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_awg_vertex_metadata_tracks_segment_extension_per_rf_duration",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0022714000660926104,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_awg_vertex_metadata_tracks_segment_extension_per_rf_duration",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.000202300027012825,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_awg_vertex_metadata_tracks_ramp_duration_rate_sweep",
+      "outcome": "passed",
+      "categories": [
+        "voltage_virtual_matrix"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_awg_vertex_metadata_tracks_ramp_duration_rate_sweep",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017719995230436325,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_awg_vertex_metadata_tracks_ramp_duration_rate_sweep",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.002644499996677041,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_awg_vertex_metadata_tracks_ramp_duration_rate_sweep",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00019619998056441545,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_sweep_parameter_names_identify_output_segment_and_voltage_unit",
+      "outcome": "passed",
+      "categories": [
+        "voltage_virtual_matrix"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_sweep_parameter_names_identify_output_segment_and_voltage_unit",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017190002836287022,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_sweep_parameter_names_identify_output_segment_and_voltage_unit",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.00028799998108297586,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_sweep_parameter_names_identify_output_segment_and_voltage_unit",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.000175100052729249,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_awg_tuning_v2.py::test_incremental_voltage_grid_dc_and_ramp_with_independent_dac_scales[2-20]",
+      "outcome": "passed",
+      "categories": [
+        "voltage_virtual_matrix"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_awg_tuning_v2.py::test_incremental_voltage_grid_dc_and_ramp_with_independent_dac_scales[2-20]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0003621999640017748,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_awg_tuning_v2.py::test_incremental_voltage_grid_dc_and_ramp_with_independent_dac_scales[2-20]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.006914699915796518,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_awg_tuning_v2.py::test_incremental_voltage_grid_dc_and_ramp_with_independent_dac_scales[2-20]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022190005984157324,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-False-False]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-False-False]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0003736000508069992,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-False-False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0018920000875368714,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-False-False]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022279995027929544,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-True-False]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-True-False]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0003513999981805682,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-True-False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.002138799987733364,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-True-False]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00020809995476156473,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-False-True]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-False-True]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0003480999730527401,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-False-True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0018732999451458454,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-False-True]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002191000385209918,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-True-True]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-True-True]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0003440999425947666,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-True-True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0023430000292137265,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[False-True-True]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022060004994273186,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-False-False]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-False-False]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00035069999285042286,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-False-False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0018811000045388937,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-False-False]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00023600005079060793,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-True-False]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-True-False]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00037139991763979197,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-True-False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0022162001114338636,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-True-False]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002899999963119626,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-False-True]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-False-True]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0003915999550372362,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-False-True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0020291999680921435,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-False-True]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022519996855407953,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-True-True]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-True-True]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0003584999358281493,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-True-True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0025001000612974167,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform[True-True-True]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022060004994273186,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[voltage-fixed_time]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[voltage-fixed_time]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00030259997583925724,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[voltage-fixed_time]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.014476999989710748,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[voltage-fixed_time]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00023150001652538776,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[voltage-fixed_voltage]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[voltage-fixed_voltage]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00032160000409930944,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[voltage-fixed_voltage]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.015923300059512258,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[voltage-fixed_voltage]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022039993200451136,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[ramp-fixed_time]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[ramp-fixed_time]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0003301999531686306,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[ramp-fixed_time]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.05842730007134378,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[ramp-fixed_time]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.000256099971011281,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[ramp-fixed_voltage]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[ramp-fixed_voltage]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00032870005816221237,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[ramp-fixed_voltage]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.020806699991226196,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[ramp-fixed_voltage]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002460000105202198,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[hold-fixed_time]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[hold-fixed_time]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0003378000110387802,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[hold-fixed_time]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.018043300020508468,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[hold-fixed_time]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00026759994216263294,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[hold-fixed_voltage]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[hold-fixed_voltage]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00036289996933192015,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[hold-fixed_voltage]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.019625899964012206,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[hold-fixed_voltage]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00025399995502084494,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[rf-fixed_time]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[rf-fixed_time]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.000319099985063076,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[rf-fixed_time]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.019514900050126016,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[rf-fixed_time]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002637000288814306,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[rf-fixed_voltage]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[rf-fixed_voltage]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00034959998447448015,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[rf-fixed_voltage]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.020533999893814325,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes[rf-fixed_voltage]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00026439991779625416,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_zero_area_still_waits_for_capture[fixed_time]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_zero_area_still_waits_for_capture[fixed_time]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002761000068858266,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_zero_area_still_waits_for_capture[fixed_time]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.003779500024393201,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_zero_area_still_waits_for_capture[fixed_time]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022110005374997854,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_zero_area_still_waits_for_capture[fixed_voltage]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_zero_area_still_waits_for_capture[fixed_voltage]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00026949995663017035,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_zero_area_still_waits_for_capture[fixed_voltage]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.003907300066202879,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_zero_area_still_waits_for_capture[fixed_voltage]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002215999411419034,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_option_has_no_effect_without_dc_compensation",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_option_has_no_effect_without_dc_compensation",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017710006795823574,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_option_has_no_effect_without_dc_compensation",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.004960700054652989,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_option_has_no_effect_without_dc_compensation",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00018580001778900623,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[False-False]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[False-False]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00032599992118775845,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[False-False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0019466999219730496,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[False-False]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00019950000569224358,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[False-True]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[False-True]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00030259997583925724,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[False-True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.002606100053526461,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[False-True]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00019940000493079424,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[True-False]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[True-False]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0003122999332845211,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[True-False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0032464999239891768,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[True-False]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00020970008336007595,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[True-True]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[True-True]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00031729997135698795,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[True-True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0041507999412715435,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat[True-True]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022000004537403584,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_repeat_reset_preserves_duration_and_amplitude_sweeps[None]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_repeat_reset_preserves_duration_and_amplitude_sweeps[None]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002508999314159155,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_repeat_reset_preserves_duration_and_amplitude_sweeps[None]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.016355200088582933,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_repeat_reset_preserves_duration_and_amplitude_sweeps[None]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022029993124306202,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_repeat_reset_preserves_duration_and_amplitude_sweeps[fixed_time]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_repeat_reset_preserves_duration_and_amplitude_sweeps[fixed_time]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002590999938547611,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_repeat_reset_preserves_duration_and_amplitude_sweeps[fixed_time]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.021437100018374622,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_repeat_reset_preserves_duration_and_amplitude_sweeps[fixed_time]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022190005984157324,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_repeat_reset_preserves_duration_and_amplitude_sweeps[fixed_voltage]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_repeat_reset_preserves_duration_and_amplitude_sweeps[fixed_voltage]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002601000014692545,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_repeat_reset_preserves_duration_and_amplitude_sweeps[fixed_voltage]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.02352759998757392,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_repeat_reset_preserves_duration_and_amplitude_sweeps[fixed_voltage]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.000228599994443357,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_ddr_trigger_anchor_includes_bypass_or_rc_output_latency",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_ddr_trigger_anchor_includes_bypass_or_rc_output_latency",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00018470000941306353,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_ddr_trigger_anchor_includes_bypass_or_rc_output_latency",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0029833000153303146,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_ddr_trigger_anchor_includes_bypass_or_rc_output_latency",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0001849000109359622,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_avg_buffer_cartesian_sweep_and_repetitions_are_tprocessor_loops",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_avg_buffer_cartesian_sweep_and_repetitions_are_tprocessor_loops",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017689995002001524,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_avg_buffer_cartesian_sweep_and_repetitions_are_tprocessor_loops",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.003720999928191304,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_avg_buffer_cartesian_sweep_and_repetitions_are_tprocessor_loops",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00024500000290572643,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_counter_progress_tracks_hardware_sweep_and_repetition_count",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_counter_progress_tracks_hardware_sweep_and_repetition_count",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00022139993961900473,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_counter_progress_tracks_hardware_sweep_and_repetition_count",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0015269999857991934,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_counter_progress_tracks_hardware_sweep_and_repetition_count",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002133999951183796,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_preview_cancels_positive_and_negative_physical_area",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_preview_cancels_positive_and_negative_physical_area",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0001946999691426754,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_preview_cancels_positive_and_negative_physical_area",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0010204999707639217,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_preview_cancels_positive_and_negative_physical_area",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00019719998817890882,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_tprocessor_selects_opposite_polarity_across_zero_area",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_tprocessor_selects_opposite_polarity_across_zero_area",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017819995991885662,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_tprocessor_selects_opposite_polarity_across_zero_area",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0019546999828889966,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_tprocessor_selects_opposite_polarity_across_zero_area",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00019679998513311148,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_fixed_time_preview_adjusts_voltage_and_keeps_duration",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_fixed_time_preview_adjusts_voltage_and_keeps_duration",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017630006186664104,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_fixed_time_preview_adjusts_voltage_and_keeps_duration",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0005959999980404973,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_fixed_time_preview_adjusts_voltage_and_keeps_duration",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0001941000809893012,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_overlap_readout_dc_waits_for_masked_tail_after_hold[False]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_overlap_readout_dc_waits_for_masked_tail_after_hold[False]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00027660001069307327,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_overlap_readout_dc_waits_for_masked_tail_after_hold[False]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.00420050008688122,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_overlap_readout_dc_waits_for_masked_tail_after_hold[False]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002106999745592475,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_overlap_readout_dc_waits_for_masked_tail_after_hold[True]",
+      "outcome": "passed",
+      "categories": [
+        "acquisition_compensation"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_overlap_readout_dc_waits_for_masked_tail_after_hold[True]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002799000358209014,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_overlap_readout_dc_waits_for_masked_tail_after_hold[True]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0054339999333024025,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_overlap_readout_dc_waits_for_masked_tail_after_hold[True]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00020950008183717728,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_gain_out_of_preservable_range_rejected[16384]",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_gain_out_of_preservable_range_rejected[16384]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002597999991849065,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_gain_out_of_preservable_range_rejected[16384]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0008452999172732234,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_gain_out_of_preservable_range_rejected[16384]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00019019993487745523,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_gain_out_of_preservable_range_rejected[-16384]",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_gain_out_of_preservable_range_rejected[-16384]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00024800002574920654,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_gain_out_of_preservable_range_rejected[-16384]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0008179000578820705,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_gain_out_of_preservable_range_rejected[-16384]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00020720006432384253,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_gain_out_of_preservable_range_rejected[32766]",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_gain_out_of_preservable_range_rejected[32766]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0005118000553920865,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_gain_out_of_preservable_range_rejected[32766]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0007734999526292086,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_gain_out_of_preservable_range_rejected[32766]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0001919000642374158,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fractional_extension_rejected_without_changing_awg_timing",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fractional_extension_rejected_without_changing_awg_timing",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017739995382726192,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fractional_extension_rejected_without_changing_awg_timing",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0015231999568641186,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fractional_extension_rejected_without_changing_awg_timing",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002001000102609396,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fine_tail_checks_shared_port_spacing_to_compensation_pre_zero",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fine_tail_checks_shared_port_spacing_to_compensation_pre_zero",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0001740000443533063,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fine_tail_checks_shared_port_spacing_to_compensation_pre_zero",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0014172999653965235,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fine_tail_checks_shared_port_spacing_to_compensation_pre_zero",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00019940000493079424,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_readout_control_shared_port_collision_is_rejected",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_readout_control_shared_port_collision_is_rejected",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00018420000560581684,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_readout_control_shared_port_collision_is_rejected",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0014908999437466264,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_readout_control_shared_port_collision_is_rejected",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00019519997294992208,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_padding_overlap_and_shared_port_reordering_are_rejected",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_padding_overlap_and_shared_port_reordering_are_rejected",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00018039997667074203,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_padding_overlap_and_shared_port_reordering_are_rejected",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0031889999518170953,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_padding_overlap_and_shared_port_reordering_are_rejected",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00021239998750388622,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_short_duration_below_supported_minimum_is_rejected",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_short_duration_below_supported_minimum_is_rejected",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0001775000710040331,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_short_duration_below_supported_minimum_is_rejected",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0015440999995917082,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_short_duration_below_supported_minimum_is_rejected",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00020109990146011114,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_positive_and_negative_rc_overflow_rejected[1]",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_positive_and_negative_rc_overflow_rejected[1]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002703999634832144,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_positive_and_negative_rc_overflow_rejected[1]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0021960000740364194,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_positive_and_negative_rc_overflow_rejected[1]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00021440000273287296,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_positive_and_negative_rc_overflow_rejected[-1]",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_positive_and_negative_rc_overflow_rejected[-1]",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002642999170348048,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_positive_and_negative_rc_overflow_rejected[-1]",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0020281000761315227,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_positive_and_negative_rc_overflow_rejected[-1]",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0001996000064536929,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_ramp_interior_peak_is_checked",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_ramp_interior_peak_is_checked",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017740007024258375,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_ramp_interior_peak_is_checked",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0015971999382600188,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_ramp_interior_peak_is_checked",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.0002047000452876091,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_hardware_rounded_sweep_stop_rechecked",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_hardware_rounded_sweep_stop_rechecked",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00018159998580813408,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_hardware_rounded_sweep_stop_rechecked",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.003943299991078675,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_hardware_rounded_sweep_stop_rechecked",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00022050004918128252,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_fixed_time_rejects_duration_that_requires_overrange_voltage",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_fixed_time_rejects_duration_that_requires_overrange_voltage",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0001854998990893364,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_fixed_time_rejects_duration_that_requires_overrange_voltage",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0008596000261604786,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_fixed_time_rejects_duration_that_requires_overrange_voltage",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00018750003073364496,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_program_compilation_observes_cancellation_between_sweep_points",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_program_compilation_observes_cancellation_between_sweep_points",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00017650006338953972,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_program_compilation_observes_cancellation_between_sweep_points",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.001774400006979704,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_program_compilation_observes_cancellation_between_sweep_points",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00019729998894035816,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_counter_progress_cancellation_stops_tprocessor",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_counter_progress_cancellation_stops_tprocessor",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0001740000443533063,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_counter_progress_cancellation_stops_tprocessor",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.001317199901677668,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_counter_progress_cancellation_stops_tprocessor",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00018039997667074203,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_experiment_cancellation_is_checked_before_connection",
+      "outcome": "passed",
+      "categories": [
+        "invalid_bounds_spacing"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_experiment_cancellation_is_checked_before_connection",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.002405300037935376,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_experiment_cancellation_is_checked_before_connection",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0004270999925211072,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_experiment_cancellation_is_checked_before_connection",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00021219998598098755,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_segment_sweep_dialog_uses_voltage_values_but_returns_normalized_spec",
+      "outcome": "passed",
+      "categories": [
+        "gui_input_serialization"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_segment_sweep_dialog_uses_voltage_values_but_returns_normalized_spec",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00023340003099292517,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_segment_sweep_dialog_uses_voltage_values_but_returns_normalized_spec",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.007461500004865229,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_segment_sweep_dialog_uses_voltage_values_but_returns_normalized_spec",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.04241999995429069,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_ramp_rate_sweep_dialog_uses_duration_and_reports_derived_rate",
+      "outcome": "passed",
+      "categories": [
+        "gui_input_serialization"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_ramp_rate_sweep_dialog_uses_duration_and_reports_derived_rate",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002642999170348048,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_ramp_rate_sweep_dialog_uses_duration_and_reports_derived_rate",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.0010697999969124794,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_ramp_rate_sweep_dialog_uses_duration_and_reports_derived_rate",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.04192799993325025,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_hold_duration_sweep_dialog_uses_shared_set_timing",
+      "outcome": "passed",
+      "categories": [
+        "gui_input_serialization"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_hold_duration_sweep_dialog_uses_shared_set_timing",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002682000631466508,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_hold_duration_sweep_dialog_uses_shared_set_timing",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.000873900018632412,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_hold_duration_sweep_dialog_uses_shared_set_timing",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.04218320001382381,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_rf_duration_sweep_controls_build_sequence_axis_and_round_trip",
+      "outcome": "passed",
+      "categories": [
+        "gui_input_serialization"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_rf_duration_sweep_controls_build_sequence_axis_and_round_trip",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002533000661060214,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_rf_duration_sweep_controls_build_sequence_axis_and_round_trip",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.160902800038457,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_rf_duration_sweep_controls_build_sequence_axis_and_round_trip",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.13066230004187673,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_rf_frequency_and_power_sweep_controls_round_trip",
+      "outcome": "passed",
+      "categories": [
+        "gui_input_serialization"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_rf_frequency_and_power_sweep_controls_round_trip",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0003334999782964587,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_rf_frequency_and_power_sweep_controls_round_trip",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 1.0894811999751255,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_rf_frequency_and_power_sweep_controls_round_trip",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.14621429995168,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_generated_qick_module_preserves_rf_duration_sweep_mode",
+      "outcome": "passed",
+      "categories": [
+        "gui_input_serialization"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_generated_qick_module_preserves_rf_duration_sweep_mode",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002562999725341797,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_generated_qick_module_preserves_rf_duration_sweep_mode",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.004785400000400841,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_generated_qick_module_preserves_rf_duration_sweep_mode",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.08832900004927069,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_generated_qick_module_preserves_hold_duration_sweep",
+      "outcome": "passed",
+      "categories": [
+        "gui_input_serialization"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_generated_qick_module_preserves_hold_duration_sweep",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.0002911000046879053,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_generated_qick_module_preserves_hold_duration_sweep",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.004622200038284063,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_generated_qick_module_preserves_hold_duration_sweep",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.05064579995814711,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_experiment_panel_builds_hardware_run_snapshot",
+      "outcome": "passed",
+      "categories": [
+        "gui_input_serialization"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_experiment_panel_builds_hardware_run_snapshot",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00196020002476871,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_experiment_panel_builds_hardware_run_snapshot",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.9492122000083327,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_experiment_panel_builds_hardware_run_snapshot",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.1171555999899283,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_experiment_panel_stop_button_and_worker_cancellation",
+      "outcome": "passed",
+      "categories": [
+        "gui_input_serialization"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_experiment_panel_stop_button_and_worker_cancellation",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00033819989766925573,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_experiment_panel_stop_button_and_worker_cancellation",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.029605800053104758,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_experiment_panel_stop_button_and_worker_cancellation",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.07183129992336035,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_awg_segment_sweep_structure.py::test_awg_sweep_parameter_table_edits_all_supported_sweep_types",
+      "outcome": "passed",
+      "categories": [
+        "gui_input_serialization"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_awg_segment_sweep_structure.py::test_awg_sweep_parameter_table_edits_all_supported_sweep_types",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.00021030008792877197,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_awg_segment_sweep_structure.py::test_awg_sweep_parameter_table_edits_all_supported_sweep_types",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.9952020000200719,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_awg_segment_sweep_structure.py::test_awg_sweep_parameter_table_edits_all_supported_sweep_types",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.00025180005468428135,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_selected_hold_translates_rf_and_acquisition_without_mutating_settings",
+      "outcome": "passed",
+      "categories": [
+        "gui_input_serialization"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_selected_hold_translates_rf_and_acquisition_without_mutating_settings",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.7244758999440819,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_selected_hold_translates_rf_and_acquisition_without_mutating_settings",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.4804329000180587,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_selected_hold_translates_rf_and_acquisition_without_mutating_settings",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.08819729997776449,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_own_anchor_hold_changes_do_not_translate_capture",
+      "outcome": "passed",
+      "categories": [
+        "gui_input_serialization"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_own_anchor_hold_changes_do_not_translate_capture",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.8413743000710383,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_own_anchor_hold_changes_do_not_translate_capture",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.11568879999686033,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_own_anchor_hold_changes_do_not_translate_capture",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.3211678999941796,
+          "longrepr": null
+        }
+      ]
+    },
+    {
+      "nodeid": "DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_sample_count_spillover_fit_and_disable",
+      "outcome": "passed",
+      "categories": [
+        "gui_input_serialization"
+      ],
+      "phases": [
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_sample_count_spillover_fit_and_disable",
+          "when": "setup",
+          "outcome": "passed",
+          "duration": 0.697535999934189,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_sample_count_spillover_fit_and_disable",
+          "when": "call",
+          "outcome": "passed",
+          "duration": 0.11722699995152652,
+          "longrepr": null
+        },
+        {
+          "nodeid": "DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_sample_count_spillover_fit_and_disable",
+          "when": "teardown",
+          "outcome": "passed",
+          "duration": 0.30004110001027584,
+          "longrepr": null
+        }
+      ]
+    }
+  ]
+}

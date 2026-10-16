@@ -1,0 +1,6 @@
+COMPILE points_10000: actual GUI count=10000
+REJECTED points_10000: RuntimeError: runtime sweep tables do not fit tProcessor DMEM: low table ends at 60015, high state uses down through 4096
+COMPILE points_100: actual GUI count=100
+COMPILED points_100: PMEM=234 DMEM=600
+COMPILE points_2: actual GUI count=2
+COMPILED points_2: PMEM=234 DMEM=12

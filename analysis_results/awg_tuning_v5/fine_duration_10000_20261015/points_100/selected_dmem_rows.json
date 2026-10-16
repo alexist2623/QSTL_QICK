@@ -1,0 +1,134 @@
+{
+  "row_width_words": 6,
+  "table_base": 16,
+  "columns": [
+    "start_cycle",
+    "first_mode",
+    "envelope_address",
+    "tail_mode",
+    "tail_cycle",
+    "long_enabled"
+  ],
+  "rows": [
+    {
+      "point": 0,
+      "sample_count": 1,
+      "dmem_address": 16,
+      "words": [
+        91,
+        524291,
+        13,
+        524291,
+        91,
+        0
+      ],
+      "details": {
+        "start": 91,
+        "tail": 91,
+        "active_tail": false,
+        "busy_end": 94,
+        "samples": 1
+      }
+    },
+    {
+      "point": 1,
+      "sample_count": 2,
+      "dmem_address": 22,
+      "words": [
+        91,
+        524291,
+        21,
+        524291,
+        91,
+        0
+      ],
+      "details": {
+        "start": 91,
+        "tail": 91,
+        "active_tail": false,
+        "busy_end": 94,
+        "samples": 2
+      }
+    },
+    {
+      "point": 2,
+      "sample_count": 3,
+      "dmem_address": 28,
+      "words": [
+        91,
+        524291,
+        29,
+        524291,
+        91,
+        0
+      ],
+      "details": {
+        "start": 91,
+        "tail": 91,
+        "active_tail": false,
+        "busy_end": 94,
+        "samples": 3
+      }
+    },
+    {
+      "point": 94,
+      "sample_count": 95,
+      "dmem_address": 580,
+      "words": [
+        91,
+        524294,
+        120,
+        524291,
+        91,
+        0
+      ],
+      "details": {
+        "start": 91,
+        "tail": 91,
+        "active_tail": false,
+        "busy_end": 97,
+        "samples": 95
+      }
+    },
+    {
+      "point": 95,
+      "sample_count": 96,
+      "dmem_address": 586,
+      "words": [
+        91,
+        589827,
+        2,
+        524291,
+        94,
+        1
+      ],
+      "details": {
+        "start": 91,
+        "tail": 94,
+        "active_tail": true,
+        "busy_end": 97,
+        "samples": 96
+      }
+    },
+    {
+      "point": 99,
+      "sample_count": 100,
+      "dmem_address": 610,
+      "words": [
+        91,
+        589827,
+        34,
+        524292,
+        94,
+        1
+      ],
+      "details": {
+        "start": 91,
+        "tail": 94,
+        "active_tail": true,
+        "busy_end": 98,
+        "samples": 100
+      }
+    }
+  ]
+}

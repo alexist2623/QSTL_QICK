@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\simple_cases_20261015\gui_cases\prepare.py", line 202, in main
+    modal(window._configure_cross_capacitance,matrix_edit)
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\simple_cases_20261015\gui_cases\prepare.py", line 137, in modal
+    QtCore.QTimer.singleShot(25,apply);action();assert not errors,errors
+                                                       ^^^^^^^^^^
+AssertionError: ['Traceback (most recent call last):\n  File "C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py", line 2450, in <lambda>\n    lambda: self.panel_scroll.ensureWidgetVisible(\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: wrapped C/C++ object of type QScrollArea has been deleted\n']

@@ -1,0 +1,128 @@
+{
+  "complete": true,
+  "pid": 91676,
+  "started": "2026-10-16T01:46:36.662079+00:00",
+  "cases": {
+    "hold_fixed_time": {
+      "folder": "F:\\Vivado_Output\\a5simple1\\rc_precomp_repeat_reset_hold_duration_2x2_v5simple_20261015_hold_fixed_time_output_sum_awg_v3",
+      "rf_offset_us": 0.1,
+      "prepare": {
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\run_case.py",
+          "--case",
+          "hold_fixed_time",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\hold_fixed_time.prepare.log",
+        "started": "2026-10-16T01:46:36.662079+00:00",
+        "pid": 66736,
+        "exit_code": 0,
+        "finished": "2026-10-16T01:47:09.352259+00:00"
+      },
+      "rtl": {
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\run_case.py",
+          "--case",
+          "hold_fixed_time",
+          "--reuse-snapshot"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\hold_fixed_time.rtl.log",
+        "started": "2026-10-16T01:47:09.352259+00:00",
+        "pid": 73076,
+        "exit_code": 0,
+        "finished": "2026-10-16T01:50:02.789940+00:00"
+      },
+      "passed": true
+    },
+    "ramp_fixed_time": {
+      "folder": "F:\\Vivado_Output\\a5simple1\\rc_precomp_repeat_reset_ramp_rate_2x2_v5simple_20261015_ramp_fixed_time_output_sum_awg_v3",
+      "rf_offset_us": 0.1,
+      "prepare": {
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\run_case.py",
+          "--case",
+          "ramp_fixed_time",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\ramp_fixed_time.prepare.log",
+        "started": "2026-10-16T01:50:02.796907+00:00",
+        "pid": 119384,
+        "exit_code": 0,
+        "finished": "2026-10-16T01:50:30.503540+00:00"
+      },
+      "rtl": {
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\run_case.py",
+          "--case",
+          "ramp_fixed_time",
+          "--reuse-snapshot"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\ramp_fixed_time.rtl.log",
+        "started": "2026-10-16T01:50:30.504580+00:00",
+        "pid": 107984,
+        "exit_code": 0,
+        "finished": "2026-10-16T01:52:51.190247+00:00"
+      },
+      "passed": true
+    },
+    "rf_frequency": {
+      "folder": "F:\\Vivado_Output\\a5simple1\\rc_precomp_repeat_reset_rf_frequency_2x2_v5simple_20261015_rf_frequency_output_sum_awg_v3",
+      "rf_offset_us": 0.1,
+      "prepare": {
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\run_case.py",
+          "--case",
+          "rf_frequency",
+          "--prepare-only"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\rf_frequency.prepare.log",
+        "started": "2026-10-16T01:52:51.202730+00:00",
+        "pid": 89784,
+        "exit_code": 0,
+        "finished": "2026-10-16T01:53:16.254446+00:00"
+      },
+      "rtl": {
+        "command": [
+          "C:\\Users\\Measurement2\\.conda\\envs\\qcodes2\\python.exe",
+          "-X",
+          "utf8",
+          "-u",
+          "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\run_case.py",
+          "--case",
+          "rf_frequency",
+          "--reuse-snapshot"
+        ],
+        "log": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\rf_frequency.rtl.log",
+        "started": "2026-10-16T01:53:16.256450+00:00",
+        "pid": 118088,
+        "exit_code": 0,
+        "finished": "2026-10-16T01:55:32.819587+00:00"
+      },
+      "passed": true
+    }
+  },
+  "max_xsim": 1,
+  "updated": "2026-10-16T01:55:32.823866+00:00",
+  "passed": true,
+  "finished": "2026-10-16T01:55:32.823866+00:00"
+}

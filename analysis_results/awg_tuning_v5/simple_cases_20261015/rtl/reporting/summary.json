@@ -1,0 +1,74 @@
+{
+  "complete": true,
+  "passed": true,
+  "cases": [
+    {
+      "name": "hold_fixed_time",
+      "shots": 8,
+      "points": 4,
+      "command_value_errors": 0,
+      "command_timing_errors": 0,
+      "sum_lane_checks": 884976,
+      "final_dac_lane_checks": 882576
+    },
+    {
+      "name": "ramp_fixed_time",
+      "shots": 8,
+      "points": 4,
+      "command_value_errors": 0,
+      "command_timing_errors": 0,
+      "sum_lane_checks": 832848,
+      "final_dac_lane_checks": 830448
+    },
+    {
+      "name": "rf_frequency",
+      "shots": 8,
+      "points": 4,
+      "command_value_errors": 0,
+      "command_timing_errors": 0,
+      "sum_lane_checks": 784464,
+      "final_dac_lane_checks": 782064
+    },
+    {
+      "name": "fine_duration94_97",
+      "shots": 8,
+      "points": 4,
+      "command_value_errors": 0,
+      "command_timing_errors": 0,
+      "sum_lane_checks": 1316256,
+      "final_dac_lane_checks": 1313856
+    }
+  ],
+  "totals": {
+    "case_count": 4,
+    "points": 16,
+    "shots": 32,
+    "commands": 904,
+    "sum_lane_checks": 3818544,
+    "final_dac_lane_checks": 3808944,
+    "executed_matrix_target_checks": 72
+  },
+  "archive_verified": true,
+  "failed_attempts": [],
+  "source_hashes_match": true,
+  "detail": {
+    "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\reporting\\result.json",
+    "sha256": "2a7b944ed5d82ed9d2a541cad40325a2007313e98115a4499a29291c04931e23"
+  },
+  "archive_manifest": {
+    "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\reporting\\archive_manifest.json",
+    "sha256": "7e6424e11ca58050904af7b903d1e783609a951cec71ccb90392e56803f86e90"
+  },
+  "plots": {
+    "fine_94_97_rtl.png": {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\reporting\\fine_94_97_rtl.png",
+      "sha256": "6a007522a1b2683d8b445b8661263e40e48de0f052dda69d2d3a042546f29331"
+    },
+    "matrix_hold_final_dac_rtl.png": {
+      "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\reporting\\matrix_hold_final_dac_rtl.png",
+      "sha256": "545a507055ce8520c83fc71f57f715005d9578c1ffdfb83bbf0c5df88ab6c79e"
+    }
+  },
+  "measured_physical": false,
+  "scope": "Three fresh GUI modal matrix/axis cases and one fresh GUI fine-duration case -> tProcessor/TMUX -> actual AWG-v3/SG-v6 -> v5 sum-v2 -> final DAC register slices. 100ns RF offset explicitly requested. No exact simultaneous-start claim."
+}

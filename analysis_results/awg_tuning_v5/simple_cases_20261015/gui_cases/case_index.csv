@@ -1,0 +1,39 @@
+name,folder,status,exit_code,shots,pmem_words,dmem_words,requested_duration_us,expected_cycles,actual_cycles,extra_cycles,note
+log_hold_00,log_hold_00_attempt03,passed,0,1,194,0,0.1,,,,
+log_hold_01,log_hold_01,passed,0,1,193,0,0.21544346900318834,,,,
+log_hold_02,log_hold_02,passed,0,1,194,0,0.46415888336127786,,,,
+log_hold_03,log_hold_03,passed,0,1,193,0,1.0,,,,
+log_hold_04,log_hold_04,passed,0,1,194,0,2.1544346900318834,,,,
+log_hold_05,log_hold_05,passed,0,1,193,0,4.6415888336127775,,,,
+log_hold_06,log_hold_06,passed,0,1,194,0,10.0,,,,
+log_hold_07,log_hold_07,passed,0,1,193,0,21.54434690031882,,,,
+log_hold_08,log_hold_08,passed,0,1,194,0,46.41588833612777,,,,
+log_hold_09,log_hold_09,passed,0,1,193,0,100.0,,,,
+log_ramp_00,log_ramp_00,passed,0,1,194,0,0.1,,,,
+log_ramp_01,log_ramp_01_attempt02,passed,0,1,193,0,0.21544346900318834,,,,
+log_ramp_02,log_ramp_02,failed,0,0,,,0.46415888336127786,300,301,1,"AssertionError((4816, 1.0))"
+log_ramp_03,log_ramp_03,passed,0,1,193,0,1.0,,,,
+log_ramp_04,log_ramp_04,passed,0,1,194,0,2.1544346900318834,,,,
+log_ramp_05,log_ramp_05,passed,0,1,193,0,4.6415888336127775,,,,
+log_ramp_06,log_ramp_06,passed,0,1,194,0,10.0,,,,
+log_ramp_07,log_ramp_07,passed,0,1,193,0,21.54434690031882,,,,
+log_ramp_08,log_ramp_08,passed,0,1,194,0,46.41588833612777,,,,
+log_ramp_09,log_ramp_09,passed,0,1,193,0,100.0,,,,
+set_only_identity,set_only_identity,unavailable,0,0,,,,,,,Exact zero-time SET transitions cannot be represented: production PulseSequence requires strictly increasing times and positive incoming ramp duration.
+set_only_mixed,set_only_mixed_attempt03,unavailable,0,0,,,,,,,Exact zero-time SET transitions cannot be represented: production PulseSequence requires strictly increasing times and positive incoming ramp duration.
+voltage_ascending,voltage_ascending,passed,0,6,213,0,,,,,
+voltage_descending,voltage_descending_attempt02,passed,0,6,213,0,,,,,
+voltage_n1,voltage_n1,passed,0,2,195,0,,,,,
+rf_frequency_digital,rf_frequency_digital_attempt05,passed,0,6,229,3,,,,,
+rf_coarse_inside_True,rf_coarse_inside_True,passed,0,6,231,3,,,,,
+rf_coarse_inside_False,rf_coarse_inside_False,passed,0,6,231,3,,,,,
+rf_coarse_crossing_True,rf_coarse_crossing_True_attempt05,expected_rejection,0,0,,,,,,,RF pulse for generator 0 exceeds SET segment 'set_1' by up to 180 tProcessor cycles
+rf_coarse_crossing_False,rf_coarse_crossing_False,passed,0,6,231,3,,,,,
+rf_coarse_beyond_final_True,rf_coarse_beyond_final_True,expected_rejection,0,0,,,,,,,RF pulse for generator 0 exceeds SET segment 'set_1' by up to 1230 tProcessor cycles
+rf_coarse_beyond_final_False,rf_coarse_beyond_final_False_attempt05,passed,0,6,231,3,,,,,
+rf_fine_inside_True,rf_fine_inside_True_attempt07,passed,0,6,236,18,,,,,
+rf_fine_inside_False,rf_fine_inside_False,passed,0,6,236,18,,,,,
+rf_fine_crossing_True,rf_fine_crossing_True,expected_rejection,0,0,,,,,,,fine RF padded waveform exceeds its HOLD segment at a hardware sweep point
+rf_fine_crossing_False,rf_fine_crossing_False,unexpected_rejection,0,0,,,,,,,fine RF sweep changes shared-port command order or requires commands less than 3 clocks apart
+rf_fine_beyond_final_True,rf_fine_beyond_final_True,expected_rejection,0,0,,,,,,,fine RF padded waveform exceeds its HOLD segment at a hardware sweep point
+rf_fine_beyond_final_False,rf_fine_beyond_final_False,unexpected_rejection,0,0,,,,,,,fine RF sweep changes shared-port command order or requires commands less than 3 clocks apart

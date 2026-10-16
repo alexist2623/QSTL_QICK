@@ -1,0 +1,13 @@
+{
+  "name": "set_only_identity",
+  "status": "unavailable",
+  "model_executed": false,
+  "reason": "Exact zero-time SET transitions cannot be represented: production PulseSequence requires strictly increasing times and positive incoming ramp duration.",
+  "fault_evidence": [
+    "set_only_mixed",
+    "set_only_mixed_attempt02",
+    "smoke3.log",
+    "smoke_set.log"
+  ],
+  "limitation": "Mixed-matrix input attempts faulted while showing the production invalid-edit QMessageBox. Identity variant not executed because the same zero-ramp input is unsupported."
+}

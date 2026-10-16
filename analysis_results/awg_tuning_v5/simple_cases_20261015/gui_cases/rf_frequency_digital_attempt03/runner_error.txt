@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\simple_cases_20261015\gui_cases\prepare.py", line 212, in main
+    spin(rf_panel.duration,.5);spin(rf_panel.frequency_mhz,80.)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\simple_cases_20261015\gui_cases\prepare.py", line 121, in spin
+    assert widget.hasFocus() or widget.isAncestorOf(app.focusWidget()),('spin focus',type(app.focusWidget()).__name__)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('spin focus', 'NoneType')

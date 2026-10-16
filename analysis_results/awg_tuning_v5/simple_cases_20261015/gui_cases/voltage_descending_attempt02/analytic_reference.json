@@ -1,0 +1,276 @@
+{
+  "matrix": [
+    [
+      1.0,
+      0.23,
+      -0.11
+    ],
+    [
+      -0.17,
+      1.0,
+      0.07
+    ],
+    [
+      0.12,
+      -0.09,
+      1.0
+    ]
+  ],
+  "scales_mv": [
+    800.0,
+    800.0,
+    800.0
+  ],
+  "points": [
+    {
+      "point": 0,
+      "repetitions": 2,
+      "virtual_mv": [
+        [
+          5.0,
+          20.0,
+          -10.0
+        ],
+        [
+          -7.0,
+          -30.0,
+          15.0
+        ],
+        [
+          3.0,
+          12.0,
+          -6.0
+        ]
+      ],
+      "physical_mv": [
+        [
+          3.06,
+          11.78,
+          -5.89
+        ],
+        [
+          -7.64,
+          -32.559999999999995,
+          16.279999999999998
+        ],
+        [
+          4.23,
+          17.1,
+          -8.55
+        ]
+      ],
+      "requested_times_ns": [
+        0.0,
+        1000.0,
+        2000.0,
+        4000.0,
+        5000.0,
+        6000.0
+      ],
+      "gui_committed_times_ns": [
+        0.0,
+        1000.0,
+        2000.0,
+        4000.0,
+        5000.0,
+        6000.0
+      ],
+      "ideal_physical_vertices_mv": [
+        [
+          3.06,
+          3.06,
+          11.78,
+          11.78,
+          -5.89,
+          -5.89
+        ],
+        [
+          -7.64,
+          -7.64,
+          -32.559999999999995,
+          -32.559999999999995,
+          16.279999999999998,
+          16.279999999999998
+        ],
+        [
+          4.23,
+          4.23,
+          17.1,
+          17.1,
+          -8.55,
+          -8.55
+        ]
+      ],
+      "reference_plane": "piecewise ideal requested DAC output; no analog filter/calibration",
+      "frequency_mhz": 0.0,
+      "rf_duration_us": null
+    },
+    {
+      "point": 1,
+      "repetitions": 2,
+      "virtual_mv": [
+        [
+          5.0,
+          0.0,
+          -10.0
+        ],
+        [
+          -7.0,
+          -30.0,
+          15.0
+        ],
+        [
+          3.0,
+          12.0,
+          -6.0
+        ]
+      ],
+      "physical_mv": [
+        [
+          3.06,
+          -8.22,
+          -5.89
+        ],
+        [
+          -7.64,
+          -29.16,
+          16.279999999999998
+        ],
+        [
+          4.23,
+          14.7,
+          -8.55
+        ]
+      ],
+      "requested_times_ns": [
+        0.0,
+        1000.0,
+        2000.0,
+        4000.0,
+        5000.0,
+        6000.0
+      ],
+      "gui_committed_times_ns": [
+        0.0,
+        1000.0,
+        2000.0,
+        4000.0,
+        5000.0,
+        6000.0
+      ],
+      "ideal_physical_vertices_mv": [
+        [
+          3.06,
+          3.06,
+          -8.22,
+          -8.22,
+          -5.89,
+          -5.89
+        ],
+        [
+          -7.64,
+          -7.64,
+          -29.16,
+          -29.16,
+          16.279999999999998,
+          16.279999999999998
+        ],
+        [
+          4.23,
+          4.23,
+          14.7,
+          14.7,
+          -8.55,
+          -8.55
+        ]
+      ],
+      "reference_plane": "piecewise ideal requested DAC output; no analog filter/calibration",
+      "frequency_mhz": 0.0,
+      "rf_duration_us": null
+    },
+    {
+      "point": 2,
+      "repetitions": 2,
+      "virtual_mv": [
+        [
+          5.0,
+          -20.0,
+          -10.0
+        ],
+        [
+          -7.0,
+          -30.0,
+          15.0
+        ],
+        [
+          3.0,
+          12.0,
+          -6.0
+        ]
+      ],
+      "physical_mv": [
+        [
+          3.06,
+          -28.22,
+          -5.89
+        ],
+        [
+          -7.64,
+          -25.76,
+          16.279999999999998
+        ],
+        [
+          4.23,
+          12.3,
+          -8.55
+        ]
+      ],
+      "requested_times_ns": [
+        0.0,
+        1000.0,
+        2000.0,
+        4000.0,
+        5000.0,
+        6000.0
+      ],
+      "gui_committed_times_ns": [
+        0.0,
+        1000.0,
+        2000.0,
+        4000.0,
+        5000.0,
+        6000.0
+      ],
+      "ideal_physical_vertices_mv": [
+        [
+          3.06,
+          3.06,
+          -28.22,
+          -28.22,
+          -5.89,
+          -5.89
+        ],
+        [
+          -7.64,
+          -7.64,
+          -25.76,
+          -25.76,
+          16.279999999999998,
+          16.279999999999998
+        ],
+        [
+          4.23,
+          4.23,
+          12.3,
+          12.3,
+          -8.55,
+          -8.55
+        ]
+      ],
+      "reference_plane": "piecewise ideal requested DAC output; no analog filter/calibration",
+      "frequency_mhz": 0.0,
+      "rf_duration_us": null
+    }
+  ],
+  "notes": "Independent C @ V; numerical piecewise vertices define each complete requested waveform. Repetition references explicitly share the same immutable record."
+}

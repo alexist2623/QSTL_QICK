@@ -1,0 +1,360 @@
+{
+  "cases": [
+    {
+      "name": "log_hold_00",
+      "kind": "hold",
+      "duration": 0.1,
+      "matrix": false,
+      "reps": 1
+    },
+    {
+      "name": "log_hold_01",
+      "kind": "hold",
+      "duration": 0.21544346900318834,
+      "matrix": true,
+      "reps": 1
+    },
+    {
+      "name": "log_hold_02",
+      "kind": "hold",
+      "duration": 0.46415888336127786,
+      "matrix": false,
+      "reps": 1
+    },
+    {
+      "name": "log_hold_03",
+      "kind": "hold",
+      "duration": 1.0,
+      "matrix": true,
+      "reps": 1
+    },
+    {
+      "name": "log_hold_04",
+      "kind": "hold",
+      "duration": 2.1544346900318834,
+      "matrix": false,
+      "reps": 1
+    },
+    {
+      "name": "log_hold_05",
+      "kind": "hold",
+      "duration": 4.6415888336127775,
+      "matrix": true,
+      "reps": 1
+    },
+    {
+      "name": "log_hold_06",
+      "kind": "hold",
+      "duration": 10.0,
+      "matrix": false,
+      "reps": 1
+    },
+    {
+      "name": "log_hold_07",
+      "kind": "hold",
+      "duration": 21.54434690031882,
+      "matrix": true,
+      "reps": 1
+    },
+    {
+      "name": "log_hold_08",
+      "kind": "hold",
+      "duration": 46.41588833612777,
+      "matrix": false,
+      "reps": 1
+    },
+    {
+      "name": "log_hold_09",
+      "kind": "hold",
+      "duration": 100.0,
+      "matrix": true,
+      "reps": 1
+    },
+    {
+      "name": "log_ramp_00",
+      "kind": "ramp",
+      "duration": 0.1,
+      "matrix": false,
+      "reps": 1
+    },
+    {
+      "name": "log_ramp_01",
+      "kind": "ramp",
+      "duration": 0.21544346900318834,
+      "matrix": true,
+      "reps": 1
+    },
+    {
+      "name": "log_ramp_02",
+      "kind": "ramp",
+      "duration": 0.46415888336127786,
+      "matrix": false,
+      "reps": 1
+    },
+    {
+      "name": "log_ramp_03",
+      "kind": "ramp",
+      "duration": 1.0,
+      "matrix": true,
+      "reps": 1
+    },
+    {
+      "name": "log_ramp_04",
+      "kind": "ramp",
+      "duration": 2.1544346900318834,
+      "matrix": false,
+      "reps": 1
+    },
+    {
+      "name": "log_ramp_05",
+      "kind": "ramp",
+      "duration": 4.6415888336127775,
+      "matrix": true,
+      "reps": 1
+    },
+    {
+      "name": "log_ramp_06",
+      "kind": "ramp",
+      "duration": 10.0,
+      "matrix": false,
+      "reps": 1
+    },
+    {
+      "name": "log_ramp_07",
+      "kind": "ramp",
+      "duration": 21.54434690031882,
+      "matrix": true,
+      "reps": 1
+    },
+    {
+      "name": "log_ramp_08",
+      "kind": "ramp",
+      "duration": 46.41588833612777,
+      "matrix": false,
+      "reps": 1
+    },
+    {
+      "name": "log_ramp_09",
+      "kind": "ramp",
+      "duration": 100.0,
+      "matrix": true,
+      "reps": 1
+    },
+    {
+      "name": "set_only_identity",
+      "kind": "set",
+      "matrix": false,
+      "reps": 2
+    },
+    {
+      "name": "set_only_mixed",
+      "kind": "set",
+      "matrix": true,
+      "reps": 2
+    },
+    {
+      "name": "voltage_ascending",
+      "kind": "voltage",
+      "matrix": true,
+      "reps": 2,
+      "count": 3,
+      "start": -20.0,
+      "stop": 20.0
+    },
+    {
+      "name": "voltage_descending",
+      "kind": "voltage",
+      "matrix": true,
+      "reps": 2,
+      "count": 3,
+      "start": 20.0,
+      "stop": -20.0
+    },
+    {
+      "name": "voltage_n1",
+      "kind": "voltage",
+      "matrix": true,
+      "reps": 2,
+      "count": 1,
+      "start": -20.0,
+      "stop": -20.0
+    },
+    {
+      "name": "rf_frequency_digital",
+      "kind": "frequency",
+      "matrix": true,
+      "reps": 2
+    },
+    {
+      "name": "rf_coarse_inside_True",
+      "kind": "rf_duration",
+      "matrix": true,
+      "reps": 2,
+      "fine": false,
+      "extent": "inside",
+      "require": true,
+      "first": 0.1,
+      "last": 0.5,
+      "expected_rejection": false
+    },
+    {
+      "name": "rf_coarse_inside_False",
+      "kind": "rf_duration",
+      "matrix": true,
+      "reps": 2,
+      "fine": false,
+      "extent": "inside",
+      "require": false,
+      "first": 0.1,
+      "last": 0.5,
+      "expected_rejection": false
+    },
+    {
+      "name": "rf_coarse_crossing_True",
+      "kind": "rf_duration",
+      "matrix": true,
+      "reps": 2,
+      "fine": false,
+      "extent": "crossing",
+      "require": true,
+      "first": 0.1,
+      "last": 2.5,
+      "expected_rejection": true
+    },
+    {
+      "name": "rf_coarse_crossing_False",
+      "kind": "rf_duration",
+      "matrix": true,
+      "reps": 2,
+      "fine": false,
+      "extent": "crossing",
+      "require": false,
+      "first": 0.1,
+      "last": 2.5,
+      "expected_rejection": false
+    },
+    {
+      "name": "rf_coarse_beyond_final_True",
+      "kind": "rf_duration",
+      "matrix": true,
+      "reps": 2,
+      "fine": false,
+      "extent": "beyond_final",
+      "require": true,
+      "first": 0.1,
+      "last": 6.0,
+      "expected_rejection": true
+    },
+    {
+      "name": "rf_coarse_beyond_final_False",
+      "kind": "rf_duration",
+      "matrix": true,
+      "reps": 2,
+      "fine": false,
+      "extent": "beyond_final",
+      "require": false,
+      "first": 0.1,
+      "last": 6.0,
+      "expected_rejection": false
+    },
+    {
+      "name": "rf_fine_inside_True",
+      "kind": "rf_duration",
+      "matrix": true,
+      "reps": 2,
+      "fine": true,
+      "extent": "inside",
+      "require": true,
+      "first": 0.1,
+      "last": 0.5,
+      "expected_rejection": false
+    },
+    {
+      "name": "rf_fine_inside_False",
+      "kind": "rf_duration",
+      "matrix": true,
+      "reps": 2,
+      "fine": true,
+      "extent": "inside",
+      "require": false,
+      "first": 0.1,
+      "last": 0.5,
+      "expected_rejection": false
+    },
+    {
+      "name": "rf_fine_crossing_True",
+      "kind": "rf_duration",
+      "matrix": true,
+      "reps": 2,
+      "fine": true,
+      "extent": "crossing",
+      "require": true,
+      "first": 0.1,
+      "last": 2.5,
+      "expected_rejection": true
+    },
+    {
+      "name": "rf_fine_crossing_False",
+      "kind": "rf_duration",
+      "matrix": true,
+      "reps": 2,
+      "fine": true,
+      "extent": "crossing",
+      "require": false,
+      "first": 0.1,
+      "last": 2.5,
+      "expected_rejection": false
+    },
+    {
+      "name": "rf_fine_beyond_final_True",
+      "kind": "rf_duration",
+      "matrix": true,
+      "reps": 2,
+      "fine": true,
+      "extent": "beyond_final",
+      "require": true,
+      "first": 0.1,
+      "last": 6.0,
+      "expected_rejection": true
+    },
+    {
+      "name": "rf_fine_beyond_final_False",
+      "kind": "rf_duration",
+      "matrix": true,
+      "reps": 2,
+      "fine": true,
+      "extent": "beyond_final",
+      "require": false,
+      "first": 0.1,
+      "last": 6.0,
+      "expected_rejection": false
+    }
+  ],
+  "duration_grid_us": [
+    0.1,
+    0.21544346900318834,
+    0.46415888336127786,
+    1.0,
+    2.1544346900318834,
+    4.6415888336127775,
+    10.0,
+    21.54434690031882,
+    46.41588833612777,
+    100.0
+  ],
+  "planned_cases": 38,
+  "expected_negative_cases": 4,
+  "scope": "offline actual Qt input + production compiler + tProcessor instruction model",
+  "unavailable": [
+    "sweep grouping",
+    "register-arithmetic fine-duration implementation"
+  ],
+  "not_performed": [
+    "live GUI Run worker",
+    "upload",
+    "physical board identification",
+    "scope waveforms",
+    "analog RF frequency/timing",
+    "ADC/FIR acquisition"
+  ]
+}

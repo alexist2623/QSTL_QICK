@@ -1,0 +1,49 @@
+{
+  "reviewed_utc": "2026-10-16T01:48:43.701207+00:00",
+  "source_hashes": {
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\gui_cases\\prepare.py": "9ee5ecf65f93fcbac83e8ec730c05ae04fbe699b39f8457145d118e1cac7b587",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\create_adapters.py": "49ad968fe4ed952d10763212ae1cd094b4bbdc8472536ddee55494c4b344cbc6",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\run_coarse.py": "c004caa4e53193114790b4ab143fded6aa6d2bb8c6e6c2c05d64d2dbac64bebc",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\run_case.py": "c5df81cf27a9f0be032b4163892ceb4b6a65290e83ad98e475dd8f729c1589bd",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\support.py": "e1cd12125ef3add5b21bc3d4bb65bc25a779a07ed9146a03f775f8a59b39d13c",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\extension_v5.py": "210c0192892e5174fc5f3016a7852e4b46b0a89cc75fd2f5770913e01362c244",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\fine\\prepare.py": "6a9444b3bb376cb4b940a87df839e4b0636a6f62c6a6720f1707f2bfeb6d129d",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\fine\\harness.py": "469203e6a9d28c974d0deceba7f1db693f5db6f8820ebf387798e4251636766a",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\fine\\run.py": "a005a1e8eabcbcf3cafcb0978f446f2e65b0e0d20514b26339bb597d0873364a"
+  },
+  "scope": "Read-only independent source review; no production changes or additional execution",
+  "findings": [
+    {
+      "id": "G1",
+      "status": "reported_to_owner",
+      "file": "gui_cases/prepare.py",
+      "issue": "Production sequence.segment kinds are used as the test oracle. An omitted requested RAMP could skip the ramp-duration assertion. Assert expected segment structure from the case before interpreting emitted commands."
+    },
+    {
+      "id": "G2",
+      "status": "reported_to_owner",
+      "file": "gui_cases/prepare.py",
+      "issue": "Requested times are copied from committed GUI pulse.t. Independently construct expected timing from requested case durations and compare GUI timeline; otherwise label these as committed GUI timing only."
+    },
+    {
+      "id": "G3",
+      "status": "reported_to_owner",
+      "file": "gui_cases/prepare.py",
+      "issue": "Taking the last shots*nseg AWG commands can discard unexpected duplicates. Explicitly validate allowed startup zero SET commands, then require exact shot command count."
+    }
+  ],
+  "positive_findings": [
+    "Matrix reference uses literal case LEVELS, explicit matrix multiplication and separate DAC/constant-increment rounding; it does not call the production transform.",
+    "Coarse RTL adapters create new GUI input and current compile PMEM/DMEM, require GUI/export byte equality and fingerprint, and execute fresh isolated simulations. Old build reuse is infrastructure/vendor libraries, not reuse of previous test inputs/results.",
+    "Fine adapter uses current MainWindow arguments/current compiler and new PMEM/DMEM/envelope content. Independent requested sample counts do not call plan_duration or ending_patterns.",
+    "Fine source checks compare cached SG-v6 source to production after namespace/comment normalization; actual data_writer/BRAM receives AXIS envelope upload.",
+    "Fine actual RTL sample check uses zero-frequency nonzero carrier in selected fixture, making exact sample mask counts meaningful; final DAC lane checker separately checks delayed composition."
+  ],
+  "limitations": [
+    "Offline GUI tests call the normal Run argument builder and compiler; they do not click the live Run worker or perform upload/acquisition.",
+    "Coarse Qt keyboard entry covers matrix/AWG sweep dialogs; other fields such as coarse RF specs are initialized through settings load.",
+    "Fine independent sample-width reference uses model command cycles for start timing. It is not an independent absolute-requested-start timing oracle.",
+    "Matrix independent oracle in coarse support covers the swept initial SET target; other segment raw RTL checks use the compiled command reference.",
+    "Board, analog scope and precision measurement remain unperformed."
+  ]
+}

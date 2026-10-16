@@ -1,0 +1,108 @@
+{
+  "description": "Focused fresh software checks of implemented simple TODO categories; no physical hardware/scope validation",
+  "categories": {
+    "hold_ramp_duration": [
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_set_and_ramp_words_are_updated_by_nested_loop_and_add",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_ramp_rate_sweep_recomputes_steps_for_adjacent_voltage_axes",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_ramp_rate_sweep_moves_50_ksps_ddr_trigger_with_segment",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_hold_duration_sweep_moves_later_commands_and_50_ksps_trigger",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_hold_duration_axis_drives_exact_bias_t_duration_table",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_set_duration_excludes_startup_lead_and_hides_ramp_pipeline"
+    ],
+    "rf_frequency_duration": [
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_duration_sweep_updates_length_and_selected_segment_timing",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_duration_is_a_cartesian_axis_with_amplitude_sweep",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_rf_frequency_and_power_sweeps_load_exact_dmem_words",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_composite_rf_events_share_one_named_frequency_dmem_table",
+      "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_fixed_pulse_threshold",
+      "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_entire_duration_axis_uses_periodic_if_any_point_is_long",
+      "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_count_one_ignores_unexecuted_stop_coordinate",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_hardware_sweep_pattern_selection_and_outer_reset",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_no_pmem_unrolling_and_frequency_cross_axis",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_summary_distinguishes_active_samples_and_padded_busy_time",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_short_family_emits_no_phantom_tail_instructions",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[1]",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[15]",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[16]",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[17]",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[31]",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[32]",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[95]",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[96]",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[97]",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[48000]",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fixed_all_short_lengths_and_long_tail[48001]"
+    ],
+    "voltage_virtual_matrix": [
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_waveform_vertices_reconstruct_swept_virtual_and_physical_pulses",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_boundary_validation_matches_full_cartesian_tproc_output",
+      "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_awg_vertex_metadata_stores_all_sweep_points_in_both_spaces",
+      "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_awg_vertex_metadata_tracks_segment_extension_per_rf_duration",
+      "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_awg_vertex_metadata_tracks_ramp_duration_rate_sweep",
+      "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_sweep_parameter_names_identify_output_segment_and_voltage_unit",
+      "DCWaveformGeneratorGUI/test_awg_tuning_v2.py::test_incremental_voltage_grid_dc_and_ramp_with_independent_dac_scales[2-20]"
+    ],
+    "acquisition_compensation": [
+      "DCWaveformGeneratorGUI/test_acquisition_segment_timing.py::test_capture_crosses_segments_without_stretching_the_waveform",
+      "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_swept_end_and_capture_registers_follow_both_axes",
+      "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_zero_area_still_waits_for_capture",
+      "DCWaveformGeneratorGUI/test_dc_readout_timing.py::test_option_has_no_effect_without_dc_compensation",
+      "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_independent_modes_clear_rc_after_each_repeat",
+      "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_repeat_reset_preserves_duration_and_amplitude_sweeps",
+      "DCWaveformGeneratorGUI/test_rc_precompensation.py::test_ddr_trigger_anchor_includes_bypass_or_rc_output_latency",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_avg_buffer_cartesian_sweep_and_repetitions_are_tprocessor_loops",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_counter_progress_tracks_hardware_sweep_and_repetition_count",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_preview_cancels_positive_and_negative_physical_area",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_tprocessor_selects_opposite_polarity_across_zero_area",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_fixed_time_preview_adjusts_voltage_and_keeps_duration",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_overlap_readout_dc_waits_for_masked_tail_after_hold"
+    ],
+    "invalid_bounds_spacing": [
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_gain_out_of_preservable_range_rejected",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fractional_extension_rejected_without_changing_awg_timing",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_fine_tail_checks_shared_port_spacing_to_compensation_pre_zero",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_readout_control_shared_port_collision_is_rejected",
+      "DCWaveformGeneratorGUI/test_rf_fine_duration_compiler.py::test_padding_overlap_and_shared_port_reordering_are_rejected",
+      "DCWaveformGeneratorGUI/test_rf_duration_oneshot.py::test_short_duration_below_supported_minimum_is_rejected",
+      "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_positive_and_negative_rc_overflow_rejected",
+      "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_ramp_interior_peak_is_checked",
+      "DCWaveformGeneratorGUI/test_qick_rc_validation.py::test_hardware_rounded_sweep_stop_rechecked",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_bias_t_fixed_time_rejects_duration_that_requires_overrange_voltage",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_program_compilation_observes_cancellation_between_sweep_points",
+      "DCWaveformGeneratorGUI/test_qick_fine_tune_sweep.py::test_counter_progress_cancellation_stops_tprocessor",
+      "DCWaveformGeneratorGUI/test_qick_qcodes_experiment.py::test_experiment_cancellation_is_checked_before_connection"
+    ],
+    "gui_input_serialization": [
+      "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_segment_sweep_dialog_uses_voltage_values_but_returns_normalized_spec",
+      "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_ramp_rate_sweep_dialog_uses_duration_and_reports_derived_rate",
+      "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_hold_duration_sweep_dialog_uses_shared_set_timing",
+      "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_rf_duration_sweep_controls_build_sequence_axis_and_round_trip",
+      "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_rf_frequency_and_power_sweep_controls_round_trip",
+      "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_generated_qick_module_preserves_rf_duration_sweep_mode",
+      "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_generated_qick_module_preserves_hold_duration_sweep",
+      "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_experiment_panel_builds_hardware_run_snapshot",
+      "DCWaveformGeneratorGUI/test_dc_waveform_gui_rf.py::test_experiment_panel_stop_button_and_worker_cancellation",
+      "DCWaveformGeneratorGUI/test_awg_segment_sweep_structure.py::test_awg_sweep_parameter_table_edits_all_supported_sweep_types",
+      "DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_selected_hold_translates_rf_and_acquisition_without_mutating_settings",
+      "DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_own_anchor_hold_changes_do_not_translate_capture",
+      "DCWaveformGeneratorGUI/test_acquisition_preview.py::test_gui_sample_count_spillover_fit_and_disable"
+    ]
+  },
+  "unavailable": {
+    "rf_duration_register_arithmetic": "Not implemented; current fine duration uses six-word per-dependent-point tables. Existing table behavior is tested, not the TODO arithmetic implementation.",
+    "grouped_sweeps": "Not implemented; no grouping/shared-count/lifecycle claim."
+  },
+  "deferred": [
+    "Physical board and scope measurements",
+    "Precision timing, analog carrier/envelope measurements and uncertainty",
+    "Scope trigger timeout and incomplete waveform transfer recovery",
+    "Full physical waveform archive"
+  ],
+  "environment_setup": [
+    "qcodes2 Python",
+    "Explicit existing qick.sim desktop bootstrap",
+    "Qt offscreen and one owned QApplication with explicit teardown",
+    "No production/test file edits; bytecode and pytest cache disabled",
+    "TCP connect disabled in this validation subprocess"
+  ]
+}

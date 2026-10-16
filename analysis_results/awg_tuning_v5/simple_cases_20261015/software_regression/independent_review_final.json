@@ -1,0 +1,94 @@
+{
+  "reviewed_utc": "2026-10-16T01:58:37.912736+00:00",
+  "scope": "Independent read-only validation-harness source review. No additional production or test execution.",
+  "reviewed_helper_hashes": {
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\gui_cases\\prepare.py": "013463f2546130b8268a08e3ea04c9ce5b1734b8f8e8af0264bc630f4b27a7f7",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\create_adapters.py": "49ad968fe4ed952d10763212ae1cd094b4bbdc8472536ddee55494c4b344cbc6",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\run_coarse.py": "c004caa4e53193114790b4ab143fded6aa6d2bb8c6e6c2c05d64d2dbac64bebc",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\run_case.py": "c5df81cf27a9f0be032b4163892ceb4b6a65290e83ad98e475dd8f729c1589bd",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\support.py": "e1cd12125ef3add5b21bc3d4bb65bc25a779a07ed9146a03f775f8a59b39d13c",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\extension_v5.py": "210c0192892e5174fc5f3016a7852e4b46b0a89cc75fd2f5770913e01362c244",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\fine\\prepare.py": "6a9444b3bb376cb4b940a87df839e4b0636a6f62c6a6720f1707f2bfeb6d129d",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\fine\\harness.py": "469203e6a9d28c974d0deceba7f1db693f5db6f8820ebf387798e4251636766a",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\fine\\run.py": "a005a1e8eabcbcf3cafcb0978f446f2e65b0e0d20514b26339bb597d0873364a",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\gui_cases\\run_batch.py": "bdb1bb90ced2674a51bbbbeaf140212378bbb255df5ae977bfdbcbf0ad5185ef"
+  },
+  "original_rtl_adapters_unchanged": true,
+  "resolutions": [
+    {
+      "id": "G1",
+      "status": "resolved",
+      "lines": "290-292",
+      "resolution": "Assert literal requested SET/RAMP structure before interpreting model commands."
+    },
+    {
+      "id": "G2",
+      "status": "resolved",
+      "lines": "190-194,239-242,250-253",
+      "resolution": "Compute independent requested timeline from ramp/hold constants and compare committed GUI pulse.t."
+    },
+    {
+      "id": "G3",
+      "status": "resolved",
+      "lines": "293-298",
+      "resolution": "Require exact shots*segment_count+1 AWG count and validate the sole startup zero SET before removal."
+    }
+  ],
+  "additional_checks": [
+    "Independent literal matrix @ voltage reference and separate documented DAC/increment quantization.",
+    "Fine command parser checks plateau/tail mode, gain, address, loaded envelope active/zero samples and total requested sample count. This is digital command/memory evidence, not a measured waveform.",
+    "RF command start offset is compared to the corresponding AWG anchor with the explicit 30-clock requested offset.",
+    "Current Qt inputs enter normal MainWindow argument builder, current production compiler and tProcessor instruction model.",
+    "Per-case child process isolation and unique attempt folders preserve initial failures. Parent must inspect both result.status and exit_code, not exit_code alone."
+  ],
+  "reviewed_retry": {
+    "path": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\gui_cases\\batch_smoke_input_fixed.json",
+    "sha256": "5eda42143ed18f0e3bef03e5e1ddd3e6a02de195b7d85dde0237610edfd5dd8e",
+    "counts": {
+      "expected_rejection": 1,
+      "passed": 3
+    },
+    "all_exit_zero": true
+  },
+  "observed_limitations": [
+    {
+      "name": "Exact zero-ramp SET-only GUI construction",
+      "status": "unavailable",
+      "cases": [
+        "set_only_identity",
+        "set_only_mixed"
+      ],
+      "evidence": [
+        "gui_cases/smoke_set.log",
+        "gui_cases/set_only_mixed",
+        "gui_cases/set_only_mixed_attempt02"
+      ],
+      "detail": "Mixed-matrix zero-ramp edit reached production invalid-edit QMessageBox path (DCWaveform_Generator.py:2190) and produced a Windows access violation. Identity variant was not executed because the same requested zero-time transition cannot be represented by the current strict-increasing PulseSequence. Neither case is PASS; no claim that every digital SET feature is unsupported."
+    },
+    {
+      "name": "Cross-window deferred Qt callback",
+      "status": "preserved_harness_lifecycle_failure",
+      "evidence": [
+        "gui_cases/smoke4.log"
+      ],
+      "detail": "The earlier multi-window process executed a pending production scroll callback after its QScrollArea was deleted (line2450). The final harness isolates each case in a fresh process. This does not establish that production callback has been fixed."
+    },
+    {
+      "name": "RF field entry",
+      "status": "harness_retry_passed",
+      "evidence": [
+        "gui_cases/batch_smoke_disabled_fields.json",
+        "gui_cases/batch_smoke_focus.json",
+        "gui_cases/batch_smoke_input_fixed.json"
+      ],
+      "detail": "Earlier simulated input left default frequency/duration values unchanged. Final helper reveals the tab, scrolls to the widget, verifies enabled/visible/focus, and enables sweep before typing bounds. Reviewed four-case retry produced three passes and one intended bound rejection, all exit0."
+    },
+    {
+      "name": "Layer boundaries",
+      "status": "limited_scope",
+      "detail": "No live Run worker, board upload, scope, analog timing/frequency, ADC/FIR acquisition or exact zero-offset AWG/RF simultaneity. Coarse RTL matrix oracle independently checks initial SET targets; other raw checks derive from compiler commands. Fine RTL width is independent from requested sample counts, while starts use executed model command cycles."
+    }
+  ],
+  "final_batch_status": "Not asserted here: final 38-case batch still running at source-review freeze; root/GUI owner must reconcile final counts and exits.",
+  "new_blocking_review_findings": []
+}

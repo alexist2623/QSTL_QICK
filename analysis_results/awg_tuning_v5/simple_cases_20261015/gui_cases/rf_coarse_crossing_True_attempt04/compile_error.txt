@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\simple_cases_20261015\gui_cases\prepare.py", line 261, in main
+    program=runtime.build_qick_program(cfg,args['sequence'],awg_channels=args['awg_channels'],repetitions_per_sweep=args['repetitions_per_sweep'],
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_qcodes_experiment.py", line 1040, in build_qick_program
+    return sequence.make_program(soccfg, **program_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 2367, in make_program
+    return FineTuneAmplitudeSweepProgram(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 2683, in __init__
+    super().__init__(soccfg, cfg)
+  File "C:\GIT_Workspace\QSTL_QICK\qick\qick_lib\qick\averager_program.py", line 211, in __init__
+    self.make_program()
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 7150, in make_program
+    self.initialize()
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 2807, in initialize
+    self._build_sweep_register_plan()
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_rf_fine_duration.py", line 252, in _build_sweep_register_plan
+    super()._build_sweep_register_plan()
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 4361, in _build_sweep_register_plan
+    event_timing_models = self._build_event_timing_models()
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_rf_fine_duration.py", line 150, in _build_event_timing_models
+    models = list(super()._build_event_timing_models())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_fine_tune_sweep.py", line 5662, in _build_event_timing_models
+    raise ValueError(
+ValueError: RF pulse for generator 0 exceeds SET segment 'set_1' by up to 180 tProcessor cycles

@@ -1,0 +1,599 @@
+{
+  "points": 4,
+  "repetitions": 2,
+  "commands": 233,
+  "cycle_offset": 756,
+  "command_value_mismatches": 0,
+  "command_timing_mismatches": 0,
+  "voltage_grid_policy": "constant_quantized_increment",
+  "compiled_target_error_codes": 0,
+  "compiled_step_error_units": 0,
+  "awg_ip_version": 3,
+  "hardware_area_results": [
+    "AREA_V3_RESULT ch=0 shots=8 samples=277536 reset_checks=8 residual=0",
+    "AREA_V3_RESULT ch=1 shots=8 samples=277536 reset_checks=8 residual=0",
+    "AREA_V3_RESULT ch=3 shots=8 samples=277536 reset_checks=8 residual=0"
+  ],
+  "rc_only": false,
+  "rc_only_results": [],
+  "v2_fixture": null,
+  "raw_awg_results": [
+    "RAW_AWG_V2_RESULT ch=0 samples=277616 ramps=16 sets=33",
+    "RAW_AWG_V2_RESULT ch=1 samples=277616 ramps=16 sets=33",
+    "RAW_AWG_V2_RESULT ch=3 samples=277616 ramps=16 sets=33"
+  ],
+  "dac_current_ma": [
+    20.0,
+    10.0,
+    20.0
+  ],
+  "cross_capacitance": [
+    [
+      1.0,
+      0.23,
+      -0.11
+    ],
+    [
+      -0.17,
+      1.0,
+      0.07
+    ],
+    [
+      0.12,
+      -0.09,
+      1.0
+    ]
+  ],
+  "dc_mode": "fixed_time",
+  "dc_voltage_mv": 20.0,
+  "dc_readout_policy": null,
+  "ddr_capture_results": [],
+  "sweep_case": "ramp_rate",
+  "run_tag": "v5simple_20261015_ramp_fixed_time",
+  "rf_length_boundary": null,
+  "rc_range_corners": [
+    {
+      "point_index": 0,
+      "gen_ch": 1,
+      "minimum_normalized": -0.011662858825075673,
+      "maximum_normalized": 0.007713884413696398
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 3,
+      "minimum_normalized": -0.015879599675014726,
+      "maximum_normalized": 0.016898248470572065
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 5,
+      "minimum_normalized": -0.005427601303190615,
+      "maximum_normalized": 0.0050548125886634345
+    },
+    {
+      "point_index": 1,
+      "gen_ch": 1,
+      "minimum_normalized": -0.010401269542125318,
+      "maximum_normalized": 0.018972458244361657
+    },
+    {
+      "point_index": 1,
+      "gen_ch": 3,
+      "minimum_normalized": -0.020594584103712378,
+      "maximum_normalized": 0.01646490156504123
+    },
+    {
+      "point_index": 1,
+      "gen_ch": 5,
+      "minimum_normalized": -0.005267259528012616,
+      "maximum_normalized": 0.006806714475377131
+    },
+    {
+      "point_index": 2,
+      "gen_ch": 1,
+      "minimum_normalized": -0.011759906460416447,
+      "maximum_normalized": 0.008695941814674745
+    },
+    {
+      "point_index": 2,
+      "gen_ch": 3,
+      "minimum_normalized": -0.01587968011800211,
+      "maximum_normalized": 0.01693487359577963
+    },
+    {
+      "point_index": 2,
+      "gen_ch": 5,
+      "minimum_normalized": -0.005442254903708125,
+      "maximum_normalized": 0.005054927956247365
+    },
+    {
+      "point_index": 3,
+      "gen_ch": 1,
+      "minimum_normalized": -0.01031155544807251,
+      "maximum_normalized": 0.01897263426432826
+    },
+    {
+      "point_index": 3,
+      "gen_ch": 3,
+      "minimum_normalized": -0.020594565244430242,
+      "maximum_normalized": 0.016437436286063745
+    },
+    {
+      "point_index": 3,
+      "gen_ch": 5,
+      "minimum_normalized": -0.005258104227800849,
+      "maximum_normalized": 0.0068066908430668
+    }
+  ],
+  "square_amplitude_sweep": false,
+  "rc_reset_each_repeat": true,
+  "no_aux": false,
+  "grid_count": 0,
+  "waveform_capture_cycles": 12000,
+  "reset_results": [],
+  "cycles": 16595,
+  "analog_results": [
+    "GUI_RC_RESULT ch=0 max_error_codes=2.340066",
+    "GUI_RC_RESULT ch=1 max_error_codes=2.554380",
+    "GUI_RC_RESULT ch=2 max_error_codes=0.000000"
+  ],
+  "exact_awg_results": [
+    "EXACT_AWG_RESULT ch=0 samples=277136",
+    "EXACT_AWG_RESULT ch=1 samples=277136",
+    "EXACT_AWG_RESULT ch=2 samples=277136"
+  ],
+  "retained_cells": [
+    "axis_awg_tuning_v1_4",
+    "axis_awg_tuning_v1_5",
+    "axis_awg_tuning_v1_6",
+    "axis_register_slice_0",
+    "axis_register_slice_1",
+    "axis_register_slice_10",
+    "axis_register_slice_11",
+    "axis_register_slice_12",
+    "axis_register_slice_21",
+    "axis_register_slice_22",
+    "axis_register_slice_23",
+    "axis_register_slice_3",
+    "axis_register_slice_4",
+    "axis_register_slice_5",
+    "axis_register_slice_7",
+    "axis_register_slice_8",
+    "axis_register_slice_9",
+    "axis_set_reg_0",
+    "axis_signal_gen_v6_0",
+    "axis_signal_gen_v6_1",
+    "axis_signal_gen_v6_3",
+    "axis_square_pulse_v1_0",
+    "axis_tmux_v1_0",
+    "axis_tmux_v1_1",
+    "axis_tmux_v1_2",
+    "axis_tmux_v1_3",
+    "axis_tproc64x32_x8_0",
+    "qick_vec2bit_0",
+    "xlconstant_0",
+    "xlconstant_1",
+    "xlconstant_2",
+    "xlconstant_3",
+    "xlconstant_4"
+  ],
+  "pmem_words": 435,
+  "dmem_words": 18,
+  "rf_measurements": {
+    "pulses": 8,
+    "periodic": false,
+    "repetition_command_mismatches": 0,
+    "frequency_error_max_mhz": 0.0017262697367641522,
+    "peak_error_max_codes": 0,
+    "amplitude_error_max_codes": 0.1373397613540419,
+    "fit_residual_max_codes": 1.4869136965867256,
+    "width_mismatch_pulses": 0,
+    "width_error_max_cycles": 0,
+    "gain_codes": [
+      2000
+    ],
+    "requested_width_error_max_cycles": 0.0,
+    "widths_cycles": [
+      30
+    ],
+    "latency_cycles": 42
+  },
+  "validation_status": "passed",
+  "output_sum": {
+    "pairs": [
+      {
+        "suffix": 4,
+        "shots": 8,
+        "measurements": [
+          {
+            "shot": 0,
+            "awg_hold_command": 1708,
+            "rf_command": 1738,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 2526,
+            "rf_sum_input_stop": 2556,
+            "awg_hold_physical_start": 2508,
+            "rf_physical_start": 2538,
+            "rf_physical_stop": 2568,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 1,
+            "awg_hold_command": 3319,
+            "rf_command": 3349,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 4137,
+            "rf_sum_input_stop": 4167,
+            "awg_hold_physical_start": 4119,
+            "rf_physical_start": 4149,
+            "rf_physical_stop": 4179,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 2,
+            "awg_hold_command": 4930,
+            "rf_command": 4960,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 5748,
+            "rf_sum_input_stop": 5778,
+            "awg_hold_physical_start": 5730,
+            "rf_physical_start": 5760,
+            "rf_physical_stop": 5790,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 3,
+            "awg_hold_command": 6541,
+            "rf_command": 6571,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 7359,
+            "rf_sum_input_stop": 7389,
+            "awg_hold_physical_start": 7341,
+            "rf_physical_start": 7371,
+            "rf_physical_stop": 7401,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 4,
+            "awg_hold_command": 8152,
+            "rf_command": 8182,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 8970,
+            "rf_sum_input_stop": 9000,
+            "awg_hold_physical_start": 8952,
+            "rf_physical_start": 8982,
+            "rf_physical_stop": 9012,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 5,
+            "awg_hold_command": 9763,
+            "rf_command": 9793,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 10581,
+            "rf_sum_input_stop": 10611,
+            "awg_hold_physical_start": 10563,
+            "rf_physical_start": 10593,
+            "rf_physical_stop": 10623,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 6,
+            "awg_hold_command": 11374,
+            "rf_command": 11404,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 12192,
+            "rf_sum_input_stop": 12222,
+            "awg_hold_physical_start": 12174,
+            "rf_physical_start": 12204,
+            "rf_physical_stop": 12234,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 7,
+            "awg_hold_command": 12985,
+            "rf_command": 13015,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 13803,
+            "rf_sum_input_stop": 13833,
+            "awg_hold_physical_start": 13785,
+            "rf_physical_start": 13815,
+            "rf_physical_stop": 13845,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          }
+        ],
+        "physical_sample_checks": 276816,
+        "unexpected_rf_pulses": 0
+      },
+      {
+        "suffix": 5,
+        "shots": 8,
+        "measurements": [
+          {
+            "shot": 0,
+            "awg_hold_command": 1708,
+            "rf_command": 1738,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 2526,
+            "rf_sum_input_stop": 2556,
+            "awg_hold_physical_start": 2508,
+            "rf_physical_start": 2538,
+            "rf_physical_stop": 2568,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 1,
+            "awg_hold_command": 3319,
+            "rf_command": 3349,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 4137,
+            "rf_sum_input_stop": 4167,
+            "awg_hold_physical_start": 4119,
+            "rf_physical_start": 4149,
+            "rf_physical_stop": 4179,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 2,
+            "awg_hold_command": 4930,
+            "rf_command": 4960,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 5748,
+            "rf_sum_input_stop": 5778,
+            "awg_hold_physical_start": 5730,
+            "rf_physical_start": 5760,
+            "rf_physical_stop": 5790,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 3,
+            "awg_hold_command": 6541,
+            "rf_command": 6571,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 7359,
+            "rf_sum_input_stop": 7389,
+            "awg_hold_physical_start": 7341,
+            "rf_physical_start": 7371,
+            "rf_physical_stop": 7401,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 4,
+            "awg_hold_command": 8152,
+            "rf_command": 8182,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 8970,
+            "rf_sum_input_stop": 9000,
+            "awg_hold_physical_start": 8952,
+            "rf_physical_start": 8982,
+            "rf_physical_stop": 9012,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 5,
+            "awg_hold_command": 9763,
+            "rf_command": 9793,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 10581,
+            "rf_sum_input_stop": 10611,
+            "awg_hold_physical_start": 10563,
+            "rf_physical_start": 10593,
+            "rf_physical_stop": 10623,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 6,
+            "awg_hold_command": 11374,
+            "rf_command": 11404,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 12192,
+            "rf_sum_input_stop": 12222,
+            "awg_hold_physical_start": 12174,
+            "rf_physical_start": 12204,
+            "rf_physical_stop": 12234,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 7,
+            "awg_hold_command": 12985,
+            "rf_command": 13015,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 13803,
+            "rf_sum_input_stop": 13833,
+            "awg_hold_physical_start": 13785,
+            "rf_physical_start": 13815,
+            "rf_physical_stop": 13845,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          }
+        ],
+        "physical_sample_checks": 276816,
+        "unexpected_rf_pulses": 0
+      },
+      {
+        "suffix": 6,
+        "shots": 8,
+        "measurements": [
+          {
+            "shot": 0,
+            "awg_hold_command": 1708,
+            "rf_command": 1738,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 2526,
+            "rf_sum_input_stop": 2556,
+            "awg_hold_physical_start": 2508,
+            "rf_physical_start": 2538,
+            "rf_physical_stop": 2568,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 1,
+            "awg_hold_command": 3319,
+            "rf_command": 3349,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 4137,
+            "rf_sum_input_stop": 4167,
+            "awg_hold_physical_start": 4119,
+            "rf_physical_start": 4149,
+            "rf_physical_stop": 4179,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 2,
+            "awg_hold_command": 4930,
+            "rf_command": 4960,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 5748,
+            "rf_sum_input_stop": 5778,
+            "awg_hold_physical_start": 5730,
+            "rf_physical_start": 5760,
+            "rf_physical_stop": 5790,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 3,
+            "awg_hold_command": 6541,
+            "rf_command": 6571,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 7359,
+            "rf_sum_input_stop": 7389,
+            "awg_hold_physical_start": 7341,
+            "rf_physical_start": 7371,
+            "rf_physical_stop": 7401,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 4,
+            "awg_hold_command": 8152,
+            "rf_command": 8182,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 8970,
+            "rf_sum_input_stop": 9000,
+            "awg_hold_physical_start": 8952,
+            "rf_physical_start": 8982,
+            "rf_physical_stop": 9012,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 5,
+            "awg_hold_command": 9763,
+            "rf_command": 9793,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 10581,
+            "rf_sum_input_stop": 10611,
+            "awg_hold_physical_start": 10563,
+            "rf_physical_start": 10593,
+            "rf_physical_stop": 10623,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 6,
+            "awg_hold_command": 11374,
+            "rf_command": 11404,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 12192,
+            "rf_sum_input_stop": 12222,
+            "awg_hold_physical_start": 12174,
+            "rf_physical_start": 12204,
+            "rf_physical_stop": 12234,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          },
+          {
+            "shot": 7,
+            "awg_hold_command": 12985,
+            "rf_command": 13015,
+            "requested_offset_cycles": 30,
+            "rf_sum_input_start": 13803,
+            "rf_sum_input_stop": 13833,
+            "awg_hold_physical_start": 13785,
+            "rf_physical_start": 13815,
+            "rf_physical_stop": 13845,
+            "width_cycles": 30,
+            "requested_timing_error_cycles": 0
+          }
+        ],
+        "physical_sample_checks": 276816,
+        "unexpected_rf_pulses": 0
+      }
+    ],
+    "sample_oracles": [
+      [
+        "4",
+        "277616"
+      ],
+      [
+        "5",
+        "277616"
+      ],
+      [
+        "6",
+        "277616"
+      ]
+    ],
+    "awg_delay_cycles": 13,
+    "combiner_pipeline_cycles": 2,
+    "output_register_cycles": 10,
+    "timing_profile": "v5 candidate HWH metadata, native AWG=RF=31",
+    "explicit_rf_offset_us": 0.1,
+    "board_measurement": false
+  },
+  "virtual_case": {
+    "count": 2,
+    "mode": "fixed_time",
+    "compensation": "dc_rc",
+    "descending": false,
+    "swap": false,
+    "delay": 0.1,
+    "two_voltage": false,
+    "square": null,
+    "sweep": "ramp_rate"
+  },
+  "matrix_direct_gui_input": true,
+  "independent_matrix_oracle": "independent_matrix_oracle.json",
+  "test_source_sha256": {
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\adapter_provenance.json": "776a1fc21cc4eec085d4fcedab8a220468d1dc3ac4ed094be5d2d5b770a93dd9",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\cases.py": "ba417baf3f2a47a0642c57cd47fe9560d1b7032ded96de82050c65ecabd2c82f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\coarse_controller.log": "6b3473e750aa8cce1562d2ee1148da7cb142f44b2edd4ad7baa0abe68dcf38b5",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\coarse_status.json": "5de8bbafee6b1185fbef20543ba8442da1e1a42533972406ae4909267898c205",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\create_adapters.py": "49ad968fe4ed952d10763212ae1cd094b4bbdc8472536ddee55494c4b344cbc6",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\extension_v5.py": "210c0192892e5174fc5f3016a7852e4b46b0a89cc75fd2f5770913e01362c244",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\fine_controller.log": "22a87e00a710d7695dcef44fd76b91201953200363518ab6cb24f54d241d7244",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\harness_hold_fixed_time.json": "306cdd4c51cc53ba2dfd1b4b7b48710301a8eafd08ee4fd37601d7a71c68ee7f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\harness_ramp_fixed_time.json": "d13b6f63cc31dc9bb86210a8090fb986346c57fcbe23b1ac0f6f0d129c58d6ea",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\harness_rf_frequency.json": "90d70c92cf9fdae74c337fb70858c5ee609467d499f9b0ec850d2c154e21142a",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\hold_fixed_time.prepare.log": "9d9758e22dc3d4ca45538173e866a6e73540dc1067c8cb9b675546f5b48c0232",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\hold_fixed_time.rtl.log": "087ac860d79419e14730a7c8b0f244e948510d98c253a45cb9f4da5a5fa89425",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\ramp_fixed_time.prepare.log": "9ba00a17ab1096358edb5a347ca7c028a7dc32d19a8cb8d8bb6d227503dea7ab",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\ramp_fixed_time.rtl.log": "360642ac936c3e717127c55caf722918071b4e49b2da485ba47e8453aaa6b834",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\run.ps1": "283c4fbbed77d73aa4225aef28eaed0682e2f2c7e81783c76d044a5c7a0e1fc8",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\run_case.py": "c5df81cf27a9f0be032b4163892ceb4b6a65290e83ad98e475dd8f729c1589bd",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\run_coarse.py": "c004caa4e53193114790b4ab143fded6aa6d2bb8c6e6c2c05d64d2dbac64bebc",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\square_oracle.svh": "e41aec9d3f8c5b084922a5e2d2395a0b7dc633fcd0597f52bfb4ec96248bf75d",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\support.py": "e1cd12125ef3add5b21bc3d4bb65bc25a779a07ed9146a03f775f8a59b39d13c",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\verify_hold_fixed_time.py": "32f38ec834a4cc8679a8699a9dd00f31b72181851ed1859ccaa52eb3ec38da17",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\verify_ramp_fixed_time.py": "c570711065565383647dec7ec24af84df22647a21cd3d3777e994de8c7aeab24",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\simple_cases_20261015\\rtl\\verify_rf_frequency.py": "6395c75f311b452a925b5b7a33115fe60f87feaf854d8160d00280d8d7d8cdf8"
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "matrix": [
+    [
+      1.0,
+      0.23,
+      -0.11
+    ],
+    [
+      -0.17,
+      1.0,
+      0.07
+    ],
+    [
+      0.12,
+      -0.09,
+      1.0
+    ]
+  ],
+  "scales_mv": [
+    800.0,
+    800.0,
+    800.0
+  ],
+  "points": [
+    {
+      "point": 0,
+      "repetitions": 1,
+      "virtual_mv": [
+        [
+          5.0,
+          20.0,
+          -10.0
+        ],
+        [
+          -7.0,
+          -30.0,
+          15.0
+        ],
+        [
+          3.0,
+          12.0,
+          -6.0
+        ]
+      ],
+      "physical_mv": [
+        [
+          3.06,
+          11.78,
+          -5.89
+        ],
+        [
+          -7.64,
+          -32.559999999999995,
+          16.279999999999998
+        ],
+        [
+          4.23,
+          17.1,
+          -8.55
+        ]
+      ],
+      "requested_times_ns": [
+        0.0,
+        1000.0,
+        1215.4434690031883,
+        3215.4434690031885,
+        4215.4434690031885,
+        5215.4434690031885
+      ],
+      "gui_committed_times_ns": [
+        0.0,
+        1000.0,
+        1215.443469003,
+        3215.4434690030002,
+        4215.443469003,
+        5215.443469003
+      ],
+      "ideal_physical_vertices_mv": [
+        [
+          3.06,
+          3.06,
+          11.78,
+          11.78,
+          -5.89,
+          -5.89
+        ],
+        [
+          -7.64,
+          -7.64,
+          -32.559999999999995,
+          -32.559999999999995,
+          16.279999999999998,
+          16.279999999999998
+        ],
+        [
+          4.23,
+          4.23,
+          17.1,
+          17.1,
+          -8.55,
+          -8.55
+        ]
+      ],
+      "reference_plane": "piecewise ideal requested DAC output; no analog filter/calibration",
+      "frequency_mhz": 0.0,
+      "rf_duration_us": null
+    }
+  ],
+  "notes": "Independent C @ V; numerical piecewise vertices define each complete requested waveform. Repetition references explicitly share the same immutable record."
+}

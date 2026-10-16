@@ -1,0 +1,483 @@
+{
+  "hwh": "C:\\GIT_Workspace\\QSTL_QICK\\qick\\firmware\\projects\\qstl_awg_v5\\bitstream.hwh",
+  "sha256": "52d16d740d227698e4f07f20113d24aa866531d8cb161e54ef899b8c67f54080",
+  "modules": [
+    {
+      "name": "axis_output_sum_10",
+      "type": "axis_output_sum_v2",
+      "parameters": {
+        "N_PTS": "16",
+        "BYPASS": "1",
+        "PIPELINE_CYCLES": "2",
+        "AWG_DELAY_CYCLES": "13",
+        "Component_Name": "d_1_axis_output_sum_10_0",
+        "EDK_IPTYPE": "PERIPHERAL"
+      },
+      "buses": [
+        {
+          "NAME": "m_axis",
+          "BUSNAME": "axis_output_sum_10_m_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "s0_axis",
+          "BUSNAME": "axis_awg_tuning_v3_10_m_axis",
+          "TYPE": "TARGET"
+        },
+        {
+          "NAME": "s1_axis",
+          "BUSNAME": "__NOC__",
+          "TYPE": "TARGET"
+        }
+      ]
+    },
+    {
+      "name": "axis_output_sum_11",
+      "type": "axis_output_sum_v2",
+      "parameters": {
+        "N_PTS": "16",
+        "BYPASS": "1",
+        "PIPELINE_CYCLES": "2",
+        "AWG_DELAY_CYCLES": "13",
+        "Component_Name": "d_1_axis_output_sum_11_0",
+        "EDK_IPTYPE": "PERIPHERAL"
+      },
+      "buses": [
+        {
+          "NAME": "m_axis",
+          "BUSNAME": "axis_output_sum_11_m_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "s0_axis",
+          "BUSNAME": "axis_awg_tuning_v3_11_m_axis",
+          "TYPE": "TARGET"
+        },
+        {
+          "NAME": "s1_axis",
+          "BUSNAME": "__NOC__",
+          "TYPE": "TARGET"
+        }
+      ]
+    },
+    {
+      "name": "axis_output_sum_4",
+      "type": "axis_output_sum_v2",
+      "parameters": {
+        "N_PTS": "16",
+        "BYPASS": "0",
+        "PIPELINE_CYCLES": "2",
+        "AWG_DELAY_CYCLES": "13",
+        "Component_Name": "d_1_axis_output_sum_4_0",
+        "EDK_IPTYPE": "PERIPHERAL"
+      },
+      "buses": [
+        {
+          "NAME": "m_axis",
+          "BUSNAME": "axis_output_sum_4_m_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "s0_axis",
+          "BUSNAME": "axis_awg_tuning_v3_4_m_axis",
+          "TYPE": "TARGET"
+        },
+        {
+          "NAME": "s1_axis",
+          "BUSNAME": "axis_signal_gen_v6_0_m_axis",
+          "TYPE": "TARGET"
+        }
+      ]
+    },
+    {
+      "name": "axis_output_sum_5",
+      "type": "axis_output_sum_v2",
+      "parameters": {
+        "N_PTS": "16",
+        "BYPASS": "0",
+        "PIPELINE_CYCLES": "2",
+        "AWG_DELAY_CYCLES": "13",
+        "Component_Name": "d_1_axis_output_sum_5_0",
+        "EDK_IPTYPE": "PERIPHERAL"
+      },
+      "buses": [
+        {
+          "NAME": "m_axis",
+          "BUSNAME": "axis_output_sum_5_m_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "s0_axis",
+          "BUSNAME": "axis_awg_tuning_v3_5_m_axis",
+          "TYPE": "TARGET"
+        },
+        {
+          "NAME": "s1_axis",
+          "BUSNAME": "axis_signal_gen_v6_1_m_axis",
+          "TYPE": "TARGET"
+        }
+      ]
+    },
+    {
+      "name": "axis_output_sum_6",
+      "type": "axis_output_sum_v2",
+      "parameters": {
+        "N_PTS": "16",
+        "BYPASS": "0",
+        "PIPELINE_CYCLES": "2",
+        "AWG_DELAY_CYCLES": "13",
+        "Component_Name": "d_1_axis_output_sum_6_0",
+        "EDK_IPTYPE": "PERIPHERAL"
+      },
+      "buses": [
+        {
+          "NAME": "m_axis",
+          "BUSNAME": "axis_output_sum_6_m_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "s0_axis",
+          "BUSNAME": "axis_awg_tuning_v3_6_m_axis",
+          "TYPE": "TARGET"
+        },
+        {
+          "NAME": "s1_axis",
+          "BUSNAME": "axis_signal_gen_v6_3_m_axis",
+          "TYPE": "TARGET"
+        }
+      ]
+    },
+    {
+      "name": "axis_output_sum_8",
+      "type": "axis_output_sum_v2",
+      "parameters": {
+        "N_PTS": "16",
+        "BYPASS": "1",
+        "PIPELINE_CYCLES": "2",
+        "AWG_DELAY_CYCLES": "13",
+        "Component_Name": "d_1_axis_output_sum_8_0",
+        "EDK_IPTYPE": "PERIPHERAL"
+      },
+      "buses": [
+        {
+          "NAME": "m_axis",
+          "BUSNAME": "axis_output_sum_8_m_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "s0_axis",
+          "BUSNAME": "axis_awg_tuning_v3_8_m_axis",
+          "TYPE": "TARGET"
+        },
+        {
+          "NAME": "s1_axis",
+          "BUSNAME": "__NOC__",
+          "TYPE": "TARGET"
+        }
+      ]
+    },
+    {
+      "name": "axis_output_sum_9",
+      "type": "axis_output_sum_v2",
+      "parameters": {
+        "N_PTS": "16",
+        "BYPASS": "1",
+        "PIPELINE_CYCLES": "2",
+        "AWG_DELAY_CYCLES": "13",
+        "Component_Name": "d_1_axis_output_sum_9_0",
+        "EDK_IPTYPE": "PERIPHERAL"
+      },
+      "buses": [
+        {
+          "NAME": "m_axis",
+          "BUSNAME": "axis_output_sum_9_m_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "s0_axis",
+          "BUSNAME": "axis_awg_tuning_v3_9_m_axis",
+          "TYPE": "TARGET"
+        },
+        {
+          "NAME": "s1_axis",
+          "BUSNAME": "__NOC__",
+          "TYPE": "TARGET"
+        }
+      ]
+    },
+    {
+      "name": "axis_signal_gen_v6_0",
+      "type": "axis_signal_gen_v6",
+      "parameters": {
+        "N": "10",
+        "N_DDS": "16",
+        "GEN_DDS": "TRUE",
+        "ENVELOPE_TYPE": "COMPLEX",
+        "Component_Name": "d_1_axis_signal_gen_v6_0_0",
+        "EDK_IPTYPE": "PERIPHERAL",
+        "C_BASEADDR": "0xA00B0000",
+        "C_HIGHADDR": "0xA00BFFFF"
+      },
+      "buses": [
+        {
+          "NAME": "m_axis",
+          "BUSNAME": "axis_signal_gen_v6_0_m_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "s0_axis",
+          "BUSNAME": "axis_switch_gen_M00_AXIS",
+          "TYPE": "TARGET"
+        },
+        {
+          "NAME": "s1_axis",
+          "BUSNAME": "axis_register_slice_4_M_AXIS",
+          "TYPE": "SLAVE"
+        },
+        {
+          "NAME": "s_axi",
+          "BUSNAME": "ps8_0_axi_periph_M02_AXI",
+          "TYPE": "SLAVE"
+        }
+      ]
+    },
+    {
+      "name": "axis_signal_gen_v6_1",
+      "type": "axis_signal_gen_v6",
+      "parameters": {
+        "N": "10",
+        "N_DDS": "16",
+        "GEN_DDS": "TRUE",
+        "ENVELOPE_TYPE": "COMPLEX",
+        "Component_Name": "d_1_axis_signal_gen_v6_1_0",
+        "EDK_IPTYPE": "PERIPHERAL",
+        "C_BASEADDR": "0xA00C0000",
+        "C_HIGHADDR": "0xA00CFFFF"
+      },
+      "buses": [
+        {
+          "NAME": "m_axis",
+          "BUSNAME": "axis_signal_gen_v6_1_m_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "s0_axis",
+          "BUSNAME": "axis_switch_gen_M01_AXIS",
+          "TYPE": "TARGET"
+        },
+        {
+          "NAME": "s1_axis",
+          "BUSNAME": "axis_register_slice_5_M_AXIS",
+          "TYPE": "SLAVE"
+        },
+        {
+          "NAME": "s_axi",
+          "BUSNAME": "ps8_0_axi_periph_M28_AXI",
+          "TYPE": "SLAVE"
+        }
+      ]
+    },
+    {
+      "name": "axis_signal_gen_v6_2",
+      "type": "axis_signal_gen_v6",
+      "parameters": {
+        "N": "10",
+        "N_DDS": "16",
+        "GEN_DDS": "TRUE",
+        "ENVELOPE_TYPE": "COMPLEX",
+        "Component_Name": "d_1_axis_signal_gen_v6_2_0",
+        "EDK_IPTYPE": "PERIPHERAL",
+        "C_BASEADDR": "0xA00D0000",
+        "C_HIGHADDR": "0xA00DFFFF"
+      },
+      "buses": [
+        {
+          "NAME": "m_axis",
+          "BUSNAME": "axis_signal_gen_v6_2_m_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "s0_axis",
+          "BUSNAME": "axis_switch_gen_M02_AXIS",
+          "TYPE": "TARGET"
+        },
+        {
+          "NAME": "s1_axis",
+          "BUSNAME": "axis_register_slice_6_M_AXIS",
+          "TYPE": "SLAVE"
+        },
+        {
+          "NAME": "s_axi",
+          "BUSNAME": "ps8_0_axi_periph_M29_AXI",
+          "TYPE": "SLAVE"
+        }
+      ]
+    },
+    {
+      "name": "axis_signal_gen_v6_3",
+      "type": "axis_signal_gen_v6",
+      "parameters": {
+        "N": "10",
+        "N_DDS": "16",
+        "GEN_DDS": "TRUE",
+        "ENVELOPE_TYPE": "COMPLEX",
+        "Component_Name": "d_1_axis_signal_gen_v6_3_0",
+        "EDK_IPTYPE": "PERIPHERAL",
+        "C_BASEADDR": "0xA00E0000",
+        "C_HIGHADDR": "0xA00EFFFF"
+      },
+      "buses": [
+        {
+          "NAME": "m_axis",
+          "BUSNAME": "axis_signal_gen_v6_3_m_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "s0_axis",
+          "BUSNAME": "axis_switch_gen_M03_AXIS",
+          "TYPE": "TARGET"
+        },
+        {
+          "NAME": "s1_axis",
+          "BUSNAME": "axis_register_slice_7_M_AXIS",
+          "TYPE": "SLAVE"
+        },
+        {
+          "NAME": "s_axi",
+          "BUSNAME": "ps8_0_axi_periph_M30_AXI",
+          "TYPE": "SLAVE"
+        }
+      ]
+    },
+    {
+      "name": "axis_tproc64x32_x8_0",
+      "type": "axis_tproc64x32_x8",
+      "parameters": {
+        "PMEM_N": "20",
+        "DMEM_N": "12",
+        "Component_Name": "d_1_axis_tproc64x32_x8_0_0",
+        "EDK_IPTYPE": "PERIPHERAL",
+        "C_BASEADDR": "0x400000000",
+        "C_HIGHADDR": "0x4FFFFFFFF"
+      },
+      "buses": [
+        {
+          "NAME": "m0_axis",
+          "BUSNAME": "axis_tproc64x32_x8_0_m0_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "m1_axis",
+          "BUSNAME": "axis_tproc64x32_x8_0_m1_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "m2_axis",
+          "BUSNAME": "axis_tproc64x32_x8_0_m2_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "m3_axis",
+          "BUSNAME": "axis_tproc64x32_x8_0_m3_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "m4_axis",
+          "BUSNAME": "axis_tproc64x32_x8_0_m4_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "m5_axis",
+          "BUSNAME": "axis_tproc64x32_x8_0_m5_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "m6_axis",
+          "BUSNAME": "axis_tproc64x32_x8_0_m6_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "m7_axis",
+          "BUSNAME": "axis_tproc64x32_x8_0_m7_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "m8_axis",
+          "BUSNAME": "axis_tproc64x32_x8_0_m8_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "s0_axis",
+          "BUSNAME": "axi_dma_tproc_M_AXIS_MM2S",
+          "TYPE": "TARGET"
+        },
+        {
+          "NAME": "s1_axis",
+          "BUSNAME": "axis_clk_cnvrt_avg_0_M_AXIS",
+          "TYPE": "SLAVE"
+        },
+        {
+          "NAME": "s2_axis",
+          "BUSNAME": "axis_clk_cnvrt_avg_1_M_AXIS",
+          "TYPE": "SLAVE"
+        },
+        {
+          "NAME": "s3_axis",
+          "BUSNAME": "axis_clk_cnvrt_avg_2_M_AXIS",
+          "TYPE": "SLAVE"
+        },
+        {
+          "NAME": "s4_axis",
+          "BUSNAME": "axis_clk_cnvrt_avg_3_M_AXIS",
+          "TYPE": "SLAVE"
+        },
+        {
+          "NAME": "s_axi",
+          "BUSNAME": "ps8_0_axi_periph_M31_AXI",
+          "TYPE": "SLAVE"
+        }
+      ]
+    },
+    {
+      "name": "ddr4_axis_fir_decim_300to1_v2_0",
+      "type": "axis_fir_decim_300to1_v2",
+      "parameters": {
+        "S_AXIS_DATA_WIDTH": "32",
+        "M_AXIS_DATA_WIDTH": "128",
+        "LANE_WIDTH": "16",
+        "DECIM0": "10",
+        "DECIM1": "10",
+        "DECIM2": "3",
+        "COEF_WIDTH_PARAM": "18",
+        "ACC_WIDTH": "69",
+        "OUT_WIDTH": "64",
+        "OUTPUT_SCALE_LOG2": "46",
+        "FORMAT_VERSION": "1",
+        "PIPELINE_LATENCY_CYCLES": "35",
+        "Component_Name": "d_1_axis_fir_decim_300to1_v2_0_0",
+        "EDK_IPTYPE": "PERIPHERAL"
+      },
+      "buses": [
+        {
+          "NAME": "m_axis",
+          "BUSNAME": "ddr4_axis_fir_decim_300to1_v2_0_m_axis",
+          "TYPE": "INITIATOR"
+        },
+        {
+          "NAME": "s_axis",
+          "BUSNAME": "axis_switch_ddr_M00_AXIS",
+          "TYPE": "TARGET"
+        }
+      ]
+    }
+  ],
+  "memory_requirement": {
+    "fine_waveform_samples_per_channel": 2048,
+    "fine_waveform_bytes_per_channel": 8192,
+    "fine_table_words_per_point": 6,
+    "points": 10000,
+    "fine_table_words": 60000,
+    "fine_table_bytes": 240000
+  },
+  "board_access": false
+}

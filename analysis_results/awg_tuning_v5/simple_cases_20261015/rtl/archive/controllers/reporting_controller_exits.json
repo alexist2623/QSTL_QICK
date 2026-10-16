@@ -1,0 +1,23 @@
+{
+  "recorded": "2026-10-15T18:56:09.7828079-07:00",
+  "coarse": {
+    "command": "run.ps1 -Stage coarse -> run_coarse.py",
+    "session_id": 98150,
+    "python_pid": 91676,
+    "python_creation": "2026-10-15T18:46:33.805349-07:00",
+    "powershell_pid": 49412,
+    "exit_evidence": "write_stdin chunk 67addc returned exit_code 0",
+    "exit_code": 0
+  },
+  "fine": {
+    "command": "run.ps1 -Stage fine -> fine/prepare.py -> fine/run.py",
+    "session_id": 74698,
+    "python_pid": 35424,
+    "python_creation": "2026-10-15T18:46:39.304807-07:00",
+    "powershell_pid": 146148,
+    "exit_evidence": "write_stdin chunk 1a5510 returned exit_code 0",
+    "exit_code": 0
+  },
+  "active_xsim_processes": [],
+  "active_validation_controllers": []
+}

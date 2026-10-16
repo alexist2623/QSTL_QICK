@@ -1,0 +1,92 @@
+{
+  "hwh": "F:\\Vivado_Output\\a5full1\\bitstream.hwh",
+  "hwh_sha256": "52d16d740d227698e4f07f20113d24aa866531d8cb161e54ef899b8c67f54080",
+  "routes": [
+    {
+      "channel": 1,
+      "fullpath": "axis_awg_tuning_v3_4",
+      "route": {
+        "output_sum_version": 2,
+        "output_sum_block": "axis_output_sum_4",
+        "output_sum_role": "awg",
+        "output_sum_bypass": false,
+        "output_sum_awg": "axis_awg_tuning_v3_4",
+        "output_sum_rf": "axis_signal_gen_v6_0",
+        "output_sum_awg_delay_cycles": 13,
+        "post_output_latency_cycles": 2
+      }
+    },
+    {
+      "channel": 0,
+      "fullpath": "axis_signal_gen_v6_0",
+      "route": {
+        "output_sum_version": 2,
+        "output_sum_block": "axis_output_sum_4",
+        "output_sum_role": "rf",
+        "output_sum_bypass": false,
+        "output_sum_awg": "axis_awg_tuning_v3_4",
+        "output_sum_rf": "axis_signal_gen_v6_0",
+        "output_sum_awg_delay_cycles": 13,
+        "post_output_latency_cycles": 2
+      }
+    },
+    {
+      "channel": 3,
+      "fullpath": "axis_awg_tuning_v3_5",
+      "route": {
+        "output_sum_version": 2,
+        "output_sum_block": "axis_output_sum_5",
+        "output_sum_role": "awg",
+        "output_sum_bypass": false,
+        "output_sum_awg": "axis_awg_tuning_v3_5",
+        "output_sum_rf": "axis_signal_gen_v6_1",
+        "output_sum_awg_delay_cycles": 13,
+        "post_output_latency_cycles": 2
+      }
+    },
+    {
+      "channel": 2,
+      "fullpath": "axis_signal_gen_v6_1",
+      "route": {
+        "output_sum_version": 2,
+        "output_sum_block": "axis_output_sum_5",
+        "output_sum_role": "rf",
+        "output_sum_bypass": false,
+        "output_sum_awg": "axis_awg_tuning_v3_5",
+        "output_sum_rf": "axis_signal_gen_v6_1",
+        "output_sum_awg_delay_cycles": 13,
+        "post_output_latency_cycles": 2
+      }
+    },
+    {
+      "channel": 5,
+      "fullpath": "axis_awg_tuning_v3_6",
+      "route": {
+        "output_sum_version": 2,
+        "output_sum_block": "axis_output_sum_6",
+        "output_sum_role": "awg",
+        "output_sum_bypass": false,
+        "output_sum_awg": "axis_awg_tuning_v3_6",
+        "output_sum_rf": "axis_signal_gen_v6_3",
+        "output_sum_awg_delay_cycles": 13,
+        "post_output_latency_cycles": 2
+      }
+    },
+    {
+      "channel": 4,
+      "fullpath": "axis_signal_gen_v6_3",
+      "route": {
+        "output_sum_version": 2,
+        "output_sum_block": "axis_output_sum_6",
+        "output_sum_role": "rf",
+        "output_sum_bypass": false,
+        "output_sum_awg": "axis_awg_tuning_v3_6",
+        "output_sum_rf": "axis_signal_gen_v6_3",
+        "output_sum_awg_delay_cycles": 13,
+        "post_output_latency_cycles": 2
+      }
+    }
+  ],
+  "helper": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\software_followup\\gui_rtl\\extension_v5.py",
+  "helper_sha256": "682c4f80691015cfd5bde8b3e272d774d1d3b2afa002993d8215b309de979be3"
+}

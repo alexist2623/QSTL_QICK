@@ -1,0 +1,28 @@
+{
+  "case": "log_ramp_02",
+  "input_last_ramp_us": 1.0,
+  "gui_start_ns": 3464.158883361,
+  "gui_end_ns": 4464.158883361,
+  "float_difference_ns": "1000.0000000000005",
+  "float_difference_hex": "0x1.f400000000004p+9",
+  "decimal_display_difference_ns": "1000.000000000",
+  "float_cycles_before_ceil": "300.0000000000001",
+  "actual_ceil_cycles": 301,
+  "intended_cycles": 300,
+  "actual_samples": 4816,
+  "intended_samples": 4800,
+  "excess_ns": 3.3333333333333335,
+  "evidence": [
+    "log_ramp_02/request.json",
+    "log_ramp_02/committed_waveforms.json",
+    "log_ramp_02/program.asm",
+    "log_ramp_02/model_commands.json",
+    "log_ramp_02/runner_error.txt"
+  ],
+  "source_references": [
+    "dc_waveform_core.py:2197 absolute boundary subtraction",
+    "dc_waveform_core.py:2128 ceil without near-integer tolerance"
+  ],
+  "source_modified": false,
+  "oracle_tolerance_weakened": false
+}
