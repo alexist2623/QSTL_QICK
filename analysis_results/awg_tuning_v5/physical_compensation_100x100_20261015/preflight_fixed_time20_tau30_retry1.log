@@ -1,0 +1,84 @@
+{
+  "status": "preflight_accepted",
+  "mode": "fixed_time",
+  "hold_us": 10.0,
+  "dc_time_us": 20.0,
+  "tau_us": 30.0,
+  "start_mv": -400.0,
+  "stop_mv": 400.0,
+  "dc_voltage_mv": 300.0,
+  "points": 10000,
+  "pmem_words": 189,
+  "rc_output_range_validation": [
+    {
+      "point_index": 0,
+      "gen_ch": 1,
+      "minimum_normalized": -0.6751477444056008,
+      "maximum_normalized": 0.27583268554129536,
+      "minimum_mv": -541.1174141862009,
+      "maximum_mv": 221.07438080763743
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 3,
+      "minimum_normalized": -0.6751477444056008,
+      "maximum_normalized": 0.27583268554129536,
+      "minimum_mv": -541.1174141862009,
+      "maximum_mv": 221.07438080763743
+    },
+    {
+      "point_index": 99,
+      "gen_ch": 1,
+      "minimum_normalized": -0.6751477444056008,
+      "maximum_normalized": 0.27583268554129536,
+      "minimum_mv": -541.1174141862009,
+      "maximum_mv": 221.07438080763743
+    },
+    {
+      "point_index": 99,
+      "gen_ch": 3,
+      "minimum_normalized": -0.2788556903482634,
+      "maximum_normalized": 0.6870836777566971,
+      "minimum_mv": -223.49725870032617,
+      "maximum_mv": 550.6838260484376
+    },
+    {
+      "point_index": 9900,
+      "gen_ch": 1,
+      "minimum_normalized": -0.2788556903482634,
+      "maximum_normalized": 0.6870836777566971,
+      "minimum_mv": -223.49725870032617,
+      "maximum_mv": 550.6838260484376
+    },
+    {
+      "point_index": 9900,
+      "gen_ch": 3,
+      "minimum_normalized": -0.6751477444056008,
+      "maximum_normalized": 0.27583268554129536,
+      "minimum_mv": -541.1174141862009,
+      "maximum_mv": 221.07438080763743
+    },
+    {
+      "point_index": 9999,
+      "gen_ch": 1,
+      "minimum_normalized": -0.2788556903482634,
+      "maximum_normalized": 0.6870836777566971,
+      "minimum_mv": -223.49725870032617,
+      "maximum_mv": 550.6838260484376
+    },
+    {
+      "point_index": 9999,
+      "gen_ch": 3,
+      "minimum_normalized": -0.2788556903482634,
+      "maximum_normalized": 0.6870836777566971,
+      "minimum_mv": -223.49725870032617,
+      "maximum_mv": 550.6838260484376
+    }
+  ],
+  "global_rc_bounds_mv": [
+    -541.1174141862009,
+    550.6838260484376
+  ],
+  "helper_sha256": "2d7eba951a494922dc1b8b905e6464f0209f4c065d2e71371d17ce732e318b08",
+  "physical_execution": false
+}

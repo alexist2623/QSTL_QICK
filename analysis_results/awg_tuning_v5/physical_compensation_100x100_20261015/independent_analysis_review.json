@@ -1,0 +1,21 @@
+{
+  "review_type": "Independent read-only review by a separate agent",
+  "physical_instrument_access": false,
+  "source_or_criterion_changes": false,
+  "first_capture_raw_channels_independently_decoded": 2,
+  "first_capture_hold_windows_recomputed": 20000,
+  "maximum_recomputed_median_error_difference_mv": 2.1e-9,
+  "first_capture_failed_holds_reconfirmed": 24,
+  "hold_roi_duration_us": 5,
+  "minimum_native_samples": 10,
+  "first_capture_fixed_offsets_mv": [-26.77824512, -13.38912256],
+  "first_capture_distinct_row_alignment_edges": 100,
+  "first_capture_maximum_row_residual_us": 0.244158,
+  "all_12_csv_recount_main_failures": 107,
+  "all_12_csv_recount_dc_failures": 67,
+  "all_12_csv_recount_dc_incomplete": 13448,
+  "all_12_csv_recount_post_dc_zero_failures": 218,
+  "all_12_csv_recount_post_dc_zero_incomplete": 0,
+  "aggregate_guard_review": "Added post-DC-zero INCOMPLETE==0 to the overall-pass guard. Current value was already zero and overall result remained false; no raw evidence or analysis was changed.",
+  "conclusion": "No analysis defect found that changes the reported current result; complete waveform validation is not PASS."
+}

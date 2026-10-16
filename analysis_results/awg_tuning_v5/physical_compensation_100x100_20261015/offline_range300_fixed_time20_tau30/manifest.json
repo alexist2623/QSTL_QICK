@@ -1,0 +1,83 @@
+{
+  "status": "offline_prepared",
+  "mapping": [
+    {
+      "axis": 0,
+      "output_name": "awg_0",
+      "awg_gen": 1,
+      "dac": "10",
+      "panel_dac": 4,
+      "full_scale_mv": 801.48,
+      "current_ua": 20037,
+      "paired_rf_generators": [
+        0
+      ],
+      "tproc_ch": 0,
+      "tmux_ch": 1
+    },
+    {
+      "axis": 1,
+      "output_name": "awg_1",
+      "awg_gen": 3,
+      "dac": "11",
+      "panel_dac": 5,
+      "full_scale_mv": 801.48,
+      "current_ua": 20037,
+      "paired_rf_generators": [
+        2
+      ],
+      "tproc_ch": 1,
+      "tmux_ch": 1
+    }
+  ],
+  "points": 10000,
+  "axis_count": 100,
+  "mode": "fixed_time",
+  "hold_us": 10.0,
+  "dc_time_us": 20.0,
+  "tau_us": 30.0,
+  "dc_voltage_mv": 300.0,
+  "start_mv": -300.0,
+  "stop_mv": 300.0,
+  "paired_dds_idle_channels": [
+    0,
+    2
+  ],
+  "physical_execution": false,
+  "production_sources_unchanged": true,
+  "board_config_sha256": "5cbe45a95bf58d684ff630e91a5b6ed71dfc72c1268b945fa7a4cc8ec585720a",
+  "current_settings_sha256": "08fb513a925778609358974ece922c8c28357d92c4a58ea42d53904109c031aa",
+  "helper_sha256": "bbe422b19710cdc2bdb75c343afe16856759b0fac798b782cce226cd66989764",
+  "files": {
+    "axis_0_dialog.png": "3065fe1124cfd92c093a416ec6ab4f37e0765c035122600056d8b8f6fd8da5a9",
+    "axis_1_dialog.png": "3065fe1124cfd92c093a416ec6ab4f37e0765c035122600056d8b8f6fd8da5a9",
+    "board_config_snapshot.json": "5cbe45a95bf58d684ff630e91a5b6ed71dfc72c1268b945fa7a4cc8ec585720a",
+    "compensation_panel.png": "ac1d61a31527155edd45b663e30fd11c9ca18e457125cb1d96744b1373654cb8",
+    "compiler_compensation.json": "56520927b8036cc2f0848fc3781f9de949083f60250f0cd7e00575170de4030e",
+    "dac_current_snapshot.json": "08fb513a925778609358974ece922c8c28357d92c4a58ea42d53904109c031aa",
+    "expected_points.json.gz": "b6f247e1c908a722cb9771b8985a825cf14248ed7195277ab15678e7159aa15a",
+    "gui.png": "db8f19826945aa60d05018a356ac31361fb070eeb95e786d5829a38700139659",
+    "gui_arguments.json": "6dc2044005e63d3df670bed41f99864052956ca9dc70bf45be293a32fb7ac53d",
+    "gui_input.json": "852465a1cbcd9480c9da6c47308ac655d445b23cf33940330b25cfe23497ca53",
+    "gui_seed.json": "e965b47f37b1a500c3d2208a6bcf92518c31f8462c05c9d18fefec153c1c615f",
+    "mapping.json": "b36711fa036f02a28f791a9c9560539b1a8c5bce2a9e124f8fc1f15a54237e32",
+    "paired_dds_idle.asm": "e0bbdbb41e5b9ee9aaf644cc8bec11c797010f0254834c5177bdd648d6de7fb1",
+    "paired_dds_idle.dmem.json": "dda9dc3e1d5c564d64b37a2bd9b0380d932d8bf3d936a5ff0f2506d5b8d8777d",
+    "paired_dds_idle.pmem": "89e53036a4cb2af91e5b3acb93ad3f38669377b2fc3d07bcfb7ddc0c641872b5",
+    "paired_dds_idle_model.json": "4495b1ca4fb41c92b30b9dc5c582e38f5e7bc4273d11f79a27b76dea5edafd3e",
+    "preflight.json": "d8a6f734475d58d4be1fe7408cd76631f5ff8f8830f0cef15e0b40bd6b23c3de",
+    "preparation_summary.json": "392e875683bee87c91525a53e005577479258aa22b436608dec714cfbf33b8e8",
+    "prepare_program_snapshot.py": "bbe422b19710cdc2bdb75c343afe16856759b0fac798b782cce226cd66989764",
+    "source_after.json": "0c27abc9dc2d0fe2818896acfcc39135f2f0b6264a740b51a5facb2cb1789c98",
+    "source_before.json": "0c27abc9dc2d0fe2818896acfcc39135f2f0b6264a740b51a5facb2cb1789c98",
+    "sweep.asm": "6d0e9011b091ce6a0dcb0bc8272756c24018e0815e4580105c18998165b7d968",
+    "sweep.dmem.json": "dda9dc3e1d5c564d64b37a2bd9b0380d932d8bf3d936a5ff0f2506d5b8d8777d",
+    "sweep.pmem": "5e0f6c09ef9aa650cc90af83641f8d760a9bc692bfc3bc18750a882d791befe1",
+    "sweep_model.json.gz": "252b84898486a47479dd8f7a02ddde10425139784d2f5af3989780840b8adb99",
+    "zero_gui_input.json": "d03da89cbe5fad3ddecd169582883acc4c8452b96d9af3816a3f58a55be6f45d",
+    "zero_recovery.asm": "cc00612d4d68171d37e238c5cd2d31e565a155cfacb5531de00e37b97e93d533",
+    "zero_recovery.dmem.json": "dda9dc3e1d5c564d64b37a2bd9b0380d932d8bf3d936a5ff0f2506d5b8d8777d",
+    "zero_recovery.pmem": "b8f8b7f7ed654f8898fa044e7b30d7b5d535549671e3b2c5c67597ddd4e5906e",
+    "zero_recovery_model.json": "d099d258c331442837fe203bf89b630c43e2f1a3a083c96e7f5d565ca2e15970"
+  }
+}

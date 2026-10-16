@@ -1,0 +1,15 @@
+{
+  "status": "preparation_rejected",
+  "error_type": "AssertionError",
+  "error": "",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\prepare_program.py\", line 208, in prepare_program\n    assert all(a['start']==start_mv and a['stop']==stop_mv for a in actual['awg']['sweeps'])\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "mode": "fixed_time",
+  "hold_us": 10.0,
+  "dc_time_us": 10.0,
+  "tau_us": 20.0,
+  "start_mv": -400.0,
+  "stop_mv": 400.0,
+  "dc_voltage_mv": 300.0,
+  "physical_execution": false,
+  "helper_sha256": "0e2a253dd6cae01d21db9bb180fa1c56f5fe96712d65fc46bc0ab343e29e4a2c"
+}

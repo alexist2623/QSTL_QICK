@@ -1,0 +1,98 @@
+{
+  "mode": "fixed_voltage",
+  "dc_settings": [
+    {
+      "amplitude": 12264
+    },
+    {
+      "amplitude": 12264
+    }
+  ],
+  "deadline_cycles": 4484,
+  "validation": [
+    {
+      "point": 0,
+      "output": 0,
+      "area": 0,
+      "prefix_min": 0,
+      "prefix_max": 0,
+      "compensation_words": 1,
+      "residual": 0
+    },
+    {
+      "point": 0,
+      "output": 1,
+      "area": 0,
+      "prefix_min": 0,
+      "prefix_max": 0,
+      "compensation_words": 1,
+      "residual": 0
+    },
+    {
+      "point": 99,
+      "output": 0,
+      "area": 0,
+      "prefix_min": 0,
+      "prefix_max": 0,
+      "compensation_words": 1,
+      "residual": 0
+    },
+    {
+      "point": 99,
+      "output": 1,
+      "area": 214375346,
+      "prefix_min": 0,
+      "prefix_max": 214375835,
+      "compensation_words": 4371,
+      "residual": 0
+    },
+    {
+      "point": 9900,
+      "output": 0,
+      "area": 214375346,
+      "prefix_min": 0,
+      "prefix_max": 214375835,
+      "compensation_words": 4371,
+      "residual": 0
+    },
+    {
+      "point": 9900,
+      "output": 1,
+      "area": 0,
+      "prefix_min": 0,
+      "prefix_max": 0,
+      "compensation_words": 1,
+      "residual": 0
+    },
+    {
+      "point": 9999,
+      "output": 0,
+      "area": 214375346,
+      "prefix_min": 0,
+      "prefix_max": 214375835,
+      "compensation_words": 4371,
+      "residual": 0
+    },
+    {
+      "point": 9999,
+      "output": 1,
+      "area": 214375346,
+      "prefix_min": 0,
+      "prefix_max": 214375835,
+      "compensation_words": 4371,
+      "residual": 0
+    }
+  ],
+  "rc_validation": null,
+  "net_area_bounds": [
+    [
+      -9598,
+      214380144
+    ],
+    [
+      -9598,
+      214380144
+    ]
+  ],
+  "note": "Planning bounds from current production compiler; not a new scalar RTL execution."
+}

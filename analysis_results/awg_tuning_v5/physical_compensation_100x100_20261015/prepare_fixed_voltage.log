@@ -1,0 +1,76 @@
+{
+  "status": "offline_prepared",
+  "mapping": [
+    {
+      "axis": 0,
+      "output_name": "awg_0",
+      "awg_gen": 1,
+      "dac": "10",
+      "panel_dac": 4,
+      "full_scale_mv": 801.48,
+      "current_ua": 20037,
+      "paired_rf_generators": [
+        0
+      ],
+      "tproc_ch": 0,
+      "tmux_ch": 1
+    },
+    {
+      "axis": 1,
+      "output_name": "awg_1",
+      "awg_gen": 3,
+      "dac": "11",
+      "panel_dac": 5,
+      "full_scale_mv": 801.48,
+      "current_ua": 20037,
+      "paired_rf_generators": [
+        2
+      ],
+      "tproc_ch": 1,
+      "tmux_ch": 1
+    }
+  ],
+  "points": 10000,
+  "axis_count": 100,
+  "mode": "fixed_voltage",
+  "paired_dds_idle_channels": [
+    0,
+    2
+  ],
+  "physical_execution": false,
+  "production_sources_unchanged": true,
+  "board_config_sha256": "5cbe45a95bf58d684ff630e91a5b6ed71dfc72c1268b945fa7a4cc8ec585720a",
+  "current_settings_sha256": "08fb513a925778609358974ece922c8c28357d92c4a58ea42d53904109c031aa",
+  "helper_sha256": "4cfdf0a035cd048d68edfe7895e109680941e22ac7fc03907c2f44938d741671",
+  "files": {
+    "axis_0_dialog.png": "3065fe1124cfd92c093a416ec6ab4f37e0765c035122600056d8b8f6fd8da5a9",
+    "axis_1_dialog.png": "3065fe1124cfd92c093a416ec6ab4f37e0765c035122600056d8b8f6fd8da5a9",
+    "board_config_snapshot.json": "5cbe45a95bf58d684ff630e91a5b6ed71dfc72c1268b945fa7a4cc8ec585720a",
+    "compensation_panel.png": "ef87650e55e5c8abc96da264175262564b07ad8bef5e600f957dee61bda9b15a",
+    "compiler_compensation.json": "1acf1514899dcf58c4b95fd529bafe5942f6742da429886e68118cd8388358cc",
+    "dac_current_snapshot.json": "08fb513a925778609358974ece922c8c28357d92c4a58ea42d53904109c031aa",
+    "expected_points.json": "3f7ddfb099a14c96de7cd1dd657e4ac5f04c33602757535237d61f5fd8c38c5e",
+    "gui.png": "9b4932f3d837c386164767185b8097afe42ceae61a44de8c286bda6746eb2d2b",
+    "gui_arguments.json": "c8db72956521d156d786ba5ad42f0e9e5793ff6a2f8fa67c320e62d437d626fc",
+    "gui_input.json": "4e79f2daee001ab06cceab05dfe8611df686b34a937f075ae71a9ae545b35043",
+    "gui_seed.json": "e965b47f37b1a500c3d2208a6bcf92518c31f8462c05c9d18fefec153c1c615f",
+    "mapping.json": "b36711fa036f02a28f791a9c9560539b1a8c5bce2a9e124f8fc1f15a54237e32",
+    "paired_dds_idle.asm": "e0bbdbb41e5b9ee9aaf644cc8bec11c797010f0254834c5177bdd648d6de7fb1",
+    "paired_dds_idle.dmem.json": "dda9dc3e1d5c564d64b37a2bd9b0380d932d8bf3d936a5ff0f2506d5b8d8777d",
+    "paired_dds_idle.pmem": "89e53036a4cb2af91e5b3acb93ad3f38669377b2fc3d07bcfb7ddc0c641872b5",
+    "paired_dds_idle_model.json": "4495b1ca4fb41c92b30b9dc5c582e38f5e7bc4273d11f79a27b76dea5edafd3e",
+    "preparation_summary.json": "bf80ad393aa651c9be143f2be6e75008715f43521e97ccc8824f51bcd1268cb7",
+    "prepare_program_snapshot.py": "4cfdf0a035cd048d68edfe7895e109680941e22ac7fc03907c2f44938d741671",
+    "source_after.json": "0c27abc9dc2d0fe2818896acfcc39135f2f0b6264a740b51a5facb2cb1789c98",
+    "source_before.json": "0c27abc9dc2d0fe2818896acfcc39135f2f0b6264a740b51a5facb2cb1789c98",
+    "sweep.asm": "b94da28dd0a3177bf3b2734ec90ad6414b98a9873ad61183daba0d39dc3b8263",
+    "sweep.dmem.json": "dda9dc3e1d5c564d64b37a2bd9b0380d932d8bf3d936a5ff0f2506d5b8d8777d",
+    "sweep.pmem": "a3819b7e9eebfd24f464dac0faceda67a48547a235538c209148926cfeecfb30",
+    "sweep_model.json": "a06fc2a3b736058f52d4fb18b0a778ee6940df6f32404ca3527273fe0dfa09cd",
+    "zero_gui_input.json": "90450a119036c16d3ada99dfe4fe5d4e213d76dd51b2e77b48b7909ef01ddc97",
+    "zero_recovery.asm": "cc00612d4d68171d37e238c5cd2d31e565a155cfacb5531de00e37b97e93d533",
+    "zero_recovery.dmem.json": "dda9dc3e1d5c564d64b37a2bd9b0380d932d8bf3d936a5ff0f2506d5b8d8777d",
+    "zero_recovery.pmem": "b8f8b7f7ed654f8898fa044e7b30d7b5d535549671e3b2c5c67597ddd4e5906e",
+    "zero_recovery_model.json": "d099d258c331442837fe203bf89b630c43e2f1a3a083c96e7f5d565ca2e15970"
+  }
+}

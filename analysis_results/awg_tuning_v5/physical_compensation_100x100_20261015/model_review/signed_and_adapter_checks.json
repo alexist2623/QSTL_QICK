@@ -1,0 +1,550 @@
+{
+  "passed": true,
+  "physical_execution": false,
+  "signed_conditions": [
+    {
+      "tau_us": 10.0,
+      "sign": -1,
+      "mode": "fixed_voltage",
+      "coefficient": 2932031007,
+      "pre_dc_area": -2948255,
+      "dc_effective_code_runs": [
+        [
+          982,
+          3000
+        ],
+        [
+          1,
+          2255
+        ],
+        [
+          9,
+          0
+        ]
+      ],
+      "residual_area": 0,
+      "final_integral_q48": 0
+    },
+    {
+      "tau_us": 10.0,
+      "sign": -1,
+      "mode": "fixed_time",
+      "coefficient": 2932031007,
+      "pre_dc_area": -2948255,
+      "dc_effective_code_runs": [
+        [
+          1055,
+          1843
+        ],
+        [
+          545,
+          1842
+        ]
+      ],
+      "residual_area": 0,
+      "final_integral_q48": 0
+    },
+    {
+      "tau_us": 10.0,
+      "sign": 1,
+      "mode": "fixed_voltage",
+      "coefficient": 2932031007,
+      "pre_dc_area": 2947745,
+      "dc_effective_code_runs": [
+        [
+          982,
+          -3000
+        ],
+        [
+          1,
+          -1745
+        ],
+        [
+          9,
+          0
+        ]
+      ],
+      "residual_area": 0,
+      "final_integral_q48": 0
+    },
+    {
+      "tau_us": 10.0,
+      "sign": 1,
+      "mode": "fixed_time",
+      "coefficient": 2932031007,
+      "pre_dc_area": 2947745,
+      "dc_effective_code_runs": [
+        [
+          545,
+          -1843
+        ],
+        [
+          1055,
+          -1842
+        ]
+      ],
+      "residual_area": 0,
+      "final_integral_q48": 0
+    },
+    {
+      "tau_us": 20.0,
+      "sign": -1,
+      "mode": "fixed_voltage",
+      "coefficient": 1466015504,
+      "pre_dc_area": -2948255,
+      "dc_effective_code_runs": [
+        [
+          982,
+          3000
+        ],
+        [
+          1,
+          2255
+        ],
+        [
+          9,
+          0
+        ]
+      ],
+      "residual_area": 0,
+      "final_integral_q48": 0
+    },
+    {
+      "tau_us": 20.0,
+      "sign": -1,
+      "mode": "fixed_time",
+      "coefficient": 1466015504,
+      "pre_dc_area": -2948255,
+      "dc_effective_code_runs": [
+        [
+          1055,
+          1843
+        ],
+        [
+          545,
+          1842
+        ]
+      ],
+      "residual_area": 0,
+      "final_integral_q48": 0
+    },
+    {
+      "tau_us": 20.0,
+      "sign": 1,
+      "mode": "fixed_voltage",
+      "coefficient": 1466015504,
+      "pre_dc_area": 2947745,
+      "dc_effective_code_runs": [
+        [
+          982,
+          -3000
+        ],
+        [
+          1,
+          -1745
+        ],
+        [
+          9,
+          0
+        ]
+      ],
+      "residual_area": 0,
+      "final_integral_q48": 0
+    },
+    {
+      "tau_us": 20.0,
+      "sign": 1,
+      "mode": "fixed_time",
+      "coefficient": 1466015504,
+      "pre_dc_area": 2947745,
+      "dc_effective_code_runs": [
+        [
+          545,
+          -1843
+        ],
+        [
+          1055,
+          -1842
+        ]
+      ],
+      "residual_area": 0,
+      "final_integral_q48": 0
+    },
+    {
+      "tau_us": 30.0,
+      "sign": -1,
+      "mode": "fixed_voltage",
+      "coefficient": 977343669,
+      "pre_dc_area": -2948255,
+      "dc_effective_code_runs": [
+        [
+          982,
+          3000
+        ],
+        [
+          1,
+          2255
+        ],
+        [
+          9,
+          0
+        ]
+      ],
+      "residual_area": 0,
+      "final_integral_q48": 0
+    },
+    {
+      "tau_us": 30.0,
+      "sign": -1,
+      "mode": "fixed_time",
+      "coefficient": 977343669,
+      "pre_dc_area": -2948255,
+      "dc_effective_code_runs": [
+        [
+          1055,
+          1843
+        ],
+        [
+          545,
+          1842
+        ]
+      ],
+      "residual_area": 0,
+      "final_integral_q48": 0
+    },
+    {
+      "tau_us": 30.0,
+      "sign": 1,
+      "mode": "fixed_voltage",
+      "coefficient": 977343669,
+      "pre_dc_area": 2947745,
+      "dc_effective_code_runs": [
+        [
+          982,
+          -3000
+        ],
+        [
+          1,
+          -1745
+        ],
+        [
+          9,
+          0
+        ]
+      ],
+      "residual_area": 0,
+      "final_integral_q48": 0
+    },
+    {
+      "tau_us": 30.0,
+      "sign": 1,
+      "mode": "fixed_time",
+      "coefficient": 977343669,
+      "pre_dc_area": 2947745,
+      "dc_effective_code_runs": [
+        [
+          545,
+          -1843
+        ],
+        [
+          1055,
+          -1842
+        ]
+      ],
+      "residual_area": 0,
+      "final_integral_q48": 0
+    }
+  ],
+  "direct_scalar_checks": 28440,
+  "actual_command_adapter_checks": [
+    {
+      "point": 0,
+      "axis": 0,
+      "actual_word_area": 0,
+      "scalar_recurrence_code": 0,
+      "compact_result": {
+        "program_time_us": 20.093333333333334,
+        "relative_scalar_index": 76816,
+        "nominal_code": 0,
+        "rc_dac_code": 0,
+        "nominal_mv": 0.0,
+        "expected_direct_dac_mv": 0.0,
+        "unclipped_direct_dac_mv": 0.0,
+        "rtl_clipped_at_sample": false
+      },
+      "metadata_step_mismatches": []
+    },
+    {
+      "point": 0,
+      "axis": 1,
+      "actual_word_area": 0,
+      "scalar_recurrence_code": 0,
+      "compact_result": {
+        "program_time_us": 20.093333333333334,
+        "relative_scalar_index": 76816,
+        "nominal_code": 0,
+        "rc_dac_code": 0,
+        "nominal_mv": 0.0,
+        "expected_direct_dac_mv": 0.0,
+        "unclipped_direct_dac_mv": 0.0,
+        "rtl_clipped_at_sample": false
+      },
+      "metadata_step_mismatches": []
+    },
+    {
+      "point": 1,
+      "axis": 0,
+      "actual_word_area": 0,
+      "scalar_recurrence_code": 0,
+      "compact_result": {
+        "program_time_us": 67.22333333333333,
+        "relative_scalar_index": 76816,
+        "nominal_code": 0,
+        "rc_dac_code": 0,
+        "nominal_mv": 0.0,
+        "expected_direct_dac_mv": 0.0,
+        "unclipped_direct_dac_mv": 0.0,
+        "rtl_clipped_at_sample": false
+      },
+      "metadata_step_mismatches": []
+    },
+    {
+      "point": 1,
+      "axis": 1,
+      "actual_word_area": 2160658,
+      "scalar_recurrence_code": 43,
+      "compact_result": {
+        "program_time_us": 67.22333333333333,
+        "relative_scalar_index": 76816,
+        "nominal_code": 41,
+        "rc_dac_code": 43,
+        "nominal_mv": 4.0113134765625,
+        "expected_direct_dac_mv": 4.2069873046875,
+        "unclipped_direct_dac_mv": 4.231729139401187,
+        "rtl_clipped_at_sample": false
+      },
+      "metadata_step_mismatches": [
+        {
+          "command": 1,
+          "metadata_step": 0,
+          "actual_word_step": 9022
+        },
+        {
+          "command": 3,
+          "metadata_step": 0,
+          "actual_word_step": -9022
+        }
+      ]
+    },
+    {
+      "point": 99,
+      "axis": 0,
+      "actual_word_area": 0,
+      "scalar_recurrence_code": 0,
+      "compact_result": {
+        "program_time_us": 4685.963333333333,
+        "relative_scalar_index": 76816,
+        "nominal_code": 0,
+        "rc_dac_code": 0,
+        "nominal_mv": 0.0,
+        "expected_direct_dac_mv": 0.0,
+        "unclipped_direct_dac_mv": 0.0,
+        "rtl_clipped_at_sample": false
+      },
+      "metadata_step_mismatches": []
+    },
+    {
+      "point": 99,
+      "axis": 1,
+      "actual_word_area": 214375346,
+      "scalar_recurrence_code": 4283,
+      "compact_result": {
+        "program_time_us": 4685.963333333333,
+        "relative_scalar_index": 76816,
+        "nominal_code": 4059,
+        "rc_dac_code": 4283,
+        "nominal_mv": 397.12003417968754,
+        "expected_direct_dac_mv": 419.0355029296875,
+        "unclipped_direct_dac_mv": 418.98887642365406,
+        "rtl_clipped_at_sample": false
+      },
+      "metadata_step_mismatches": [
+        {
+          "command": 1,
+          "metadata_step": 0,
+          "actual_word_step": 893178
+        },
+        {
+          "command": 3,
+          "metadata_step": 0,
+          "actual_word_step": -893178
+        }
+      ]
+    },
+    {
+      "point": 100,
+      "axis": 0,
+      "actual_word_area": 2160658,
+      "scalar_recurrence_code": 43,
+      "compact_result": {
+        "program_time_us": 4733.093333333333,
+        "relative_scalar_index": 76816,
+        "nominal_code": 41,
+        "rc_dac_code": 43,
+        "nominal_mv": 4.0113134765625,
+        "expected_direct_dac_mv": 4.2069873046875,
+        "unclipped_direct_dac_mv": 4.231729139401187,
+        "rtl_clipped_at_sample": false
+      },
+      "metadata_step_mismatches": [
+        {
+          "command": 1,
+          "metadata_step": 0,
+          "actual_word_step": 9022
+        },
+        {
+          "command": 3,
+          "metadata_step": 0,
+          "actual_word_step": -9022
+        }
+      ]
+    },
+    {
+      "point": 100,
+      "axis": 1,
+      "actual_word_area": 0,
+      "scalar_recurrence_code": 0,
+      "compact_result": {
+        "program_time_us": 4733.093333333333,
+        "relative_scalar_index": 76816,
+        "nominal_code": 0,
+        "rc_dac_code": 0,
+        "nominal_mv": 0.0,
+        "expected_direct_dac_mv": 0.0,
+        "unclipped_direct_dac_mv": 0.0,
+        "rtl_clipped_at_sample": false
+      },
+      "metadata_step_mismatches": []
+    },
+    {
+      "point": 5050,
+      "axis": 0,
+      "actual_word_area": 108268002,
+      "scalar_recurrence_code": 2163,
+      "compact_result": {
+        "program_time_us": 238026.59333333332,
+        "relative_scalar_index": 76816,
+        "nominal_code": 2050,
+        "rc_dac_code": 2163,
+        "nominal_mv": 200.565673828125,
+        "expected_direct_dac_mv": 211.6212451171875,
+        "unclipped_direct_dac_mv": 211.61030206813348,
+        "rtl_clipped_at_sample": false
+      },
+      "metadata_step_mismatches": [
+        {
+          "command": 1,
+          "metadata_step": 0,
+          "actual_word_step": 451100
+        },
+        {
+          "command": 3,
+          "metadata_step": 0,
+          "actual_word_step": -451100
+        }
+      ]
+    },
+    {
+      "point": 5050,
+      "axis": 1,
+      "actual_word_area": 108268002,
+      "scalar_recurrence_code": 2163,
+      "compact_result": {
+        "program_time_us": 238026.59333333332,
+        "relative_scalar_index": 76816,
+        "nominal_code": 2050,
+        "rc_dac_code": 2163,
+        "nominal_mv": 200.565673828125,
+        "expected_direct_dac_mv": 211.6212451171875,
+        "unclipped_direct_dac_mv": 211.61030206813348,
+        "rtl_clipped_at_sample": false
+      },
+      "metadata_step_mismatches": [
+        {
+          "command": 1,
+          "metadata_step": 0,
+          "actual_word_step": 451100
+        },
+        {
+          "command": 3,
+          "metadata_step": 0,
+          "actual_word_step": -451100
+        }
+      ]
+    },
+    {
+      "point": 9999,
+      "axis": 0,
+      "actual_word_area": 214375346,
+      "scalar_recurrence_code": 4283,
+      "compact_result": {
+        "program_time_us": 471272.9633333333,
+        "relative_scalar_index": 76816,
+        "nominal_code": 4059,
+        "rc_dac_code": 4283,
+        "nominal_mv": 397.12003417968754,
+        "expected_direct_dac_mv": 419.0355029296875,
+        "unclipped_direct_dac_mv": 418.98887642365406,
+        "rtl_clipped_at_sample": false
+      },
+      "metadata_step_mismatches": [
+        {
+          "command": 1,
+          "metadata_step": 0,
+          "actual_word_step": 893178
+        },
+        {
+          "command": 3,
+          "metadata_step": 0,
+          "actual_word_step": -893178
+        }
+      ]
+    },
+    {
+      "point": 9999,
+      "axis": 1,
+      "actual_word_area": 214375346,
+      "scalar_recurrence_code": 4283,
+      "compact_result": {
+        "program_time_us": 471272.9633333333,
+        "relative_scalar_index": 76816,
+        "nominal_code": 4059,
+        "rc_dac_code": 4283,
+        "nominal_mv": 397.12003417968754,
+        "expected_direct_dac_mv": 419.0355029296875,
+        "unclipped_direct_dac_mv": 418.98887642365406,
+        "rtl_clipped_at_sample": false
+      },
+      "metadata_step_mismatches": [
+        {
+          "command": 1,
+          "metadata_step": 0,
+          "actual_word_step": 893178
+        },
+        {
+          "command": 3,
+          "metadata_step": 0,
+          "actual_word_step": -893178
+        }
+      ]
+    }
+  ],
+  "original_fixture": "Early unipolar tau100 prep only; not current user bipolar tau10/20/30 physical validation",
+  "metadata_decode_bug_preserved": true,
+  "source_expected_sha256": "3f7ddfb099a14c96de7cd1dd657e4ac5f04c33602757535237d61f5fd8c38c5e",
+  "model_source_hashes": {
+    "compact_expectation.py": "9811e3d79137a9b7c4897bfba0e1a52a7cd8d6dc63156124030897893edaa0da",
+    "command_expectation.py": "056c953b6d15ffd4fc1592685ece8681bed10fabe66911562bbbad8480bb936c",
+    "check_signed_and_adapter.py": "f3e8f8d8cfb73233acbd76d1e37691038852ecd7371207ee301a4f79cea7e7ab"
+  }
+}

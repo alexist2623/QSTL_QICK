@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\physical_compensation_100x100_20261015\prepare_program.py", line 522, in <module>
+    main()
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\physical_compensation_100x100_20261015\prepare_program.py", line 517, in main
+    result=prepare_program(**vars(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\physical_compensation_100x100_20261015\prepare_program.py", line 201, in prepare_program
+    args = window._experiment_run_arguments(require_readout=False,require_run_config=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\DCWaveform_Generator.py", line 13334, in _experiment_run_arguments
+    sequence = build_qick_sequence(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\dc_waveform_core.py", line 2395, in build_qick_sequence
+    sequence.rc_output_range_preview = (validate_sequence_rc_range(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_rc_validation.py", line 94, in validate_sequence_rc_range
+    check_limits(bounds, name=name, point=point, limits=(-1.0, 1.0),
+  File "C:\GIT_Workspace\PulseGenerator\DCWaveformGeneratorGUI\qick_rc_validation.py", line 56, in check_limits
+    raise ValueError(
+ValueError: RC-compensated DAC output exceeds range: awg_0, sweep corner 0. Predicted bounds [-820, +300] mV; allowed [-801.48, +801.48] mV. Includes DC compensation and the zero-input hold before IIR reset. Reduce voltage/duration or increase RC tau.

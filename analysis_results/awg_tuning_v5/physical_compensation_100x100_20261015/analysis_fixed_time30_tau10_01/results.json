@@ -1,0 +1,136 @@
+{
+  "analysis_complete": true,
+  "new_hardware_execution": false,
+  "prepared_bundle": "offline_range300_fixed_time30_tau10",
+  "source_run": "run_fixed_time30_tau10_01",
+  "capture_id": "c7d9bee9-9a60-446f-9659-5594f894b227",
+  "mode": "fixed_time",
+  "rc_tau_us": 10.0,
+  "dc_time_us": 30.0,
+  "dc_voltage_mv": null,
+  "requested_range_mv": [
+    -300.0,
+    300.0
+  ],
+  "failure_threshold_mv": 15.0,
+  "physical_reference": "Direct DAC-to-scope RC-precompensated waveform; no external RC-network transfer model",
+  "integrity_passed": true,
+  "integrity_issues": [],
+  "overall_primary_passed": false,
+  "primary_channel_counts": {
+    "PASS": 19959,
+    "FAIL": 41,
+    "INCOMPLETE": 0
+  },
+  "primary_point_counts": {
+    "PASS": 9959,
+    "FAIL": 41,
+    "INCOMPLETE": 0
+  },
+  "compiled_channel_counts": {
+    "PASS": 19951,
+    "FAIL": 49,
+    "INCOMPLETE": 0
+  },
+  "dc_diagnostics": {
+    "central_compensation": {
+      "PASS": 19978,
+      "FAIL": 22,
+      "INCOMPLETE": 0
+    },
+    "post_dc_zero": {
+      "PASS": 19847,
+      "FAIL": 153,
+      "INCOMPLETE": 0
+    },
+    "final_zero": {
+      "1": {
+        "point": 9999,
+        "scope_channel": 1,
+        "kind": "final_zero_100_to_500us",
+        "expected_window_duration_us": 400.0,
+        "samples": 800,
+        "roi_start_index": 1323854,
+        "roi_stop_index_exclusive": 1324654,
+        "roi_start_scope_s": 0.6219268285332684,
+        "roi_end_scope_s": 0.6223268285332685,
+        "raw_median_mv": -26.778245119999998,
+        "fixed_offset_mv": -20.08368384,
+        "expected_compiled_median_mv": 0.0,
+        "median_error_mv": -6.6945612799999985,
+        "passed": true,
+        "valid": true,
+        "note": ""
+      },
+      "2": {
+        "point": 9999,
+        "scope_channel": 2,
+        "kind": "final_zero_100_to_500us",
+        "expected_window_duration_us": 400.0,
+        "samples": 800,
+        "roi_start_index": 1323854,
+        "roi_stop_index_exclusive": 1324654,
+        "roi_start_scope_s": 0.6219268285332684,
+        "roi_end_scope_s": 0.6223268285332685,
+        "raw_median_mv": -13.389122559999999,
+        "fixed_offset_mv": -13.389122559999999,
+        "expected_compiled_median_mv": 0.0,
+        "median_error_mv": 0.0,
+        "passed": true,
+        "valid": true,
+        "note": ""
+      }
+    },
+    "duration_certified": false,
+    "duration_note": "Expected integer/DC windows only; no precision duration or external-capacitor-state claim"
+  },
+  "fixed_offsets_mv": {
+    "1": -20.08368384,
+    "2": -13.389122559999999
+  },
+  "single_time_offset_s": -0.003777074800064875,
+  "maximum_primary_median_error_mv": 17.758643963661967,
+  "maximum_compiled_median_error_mv": 17.70880180984372,
+  "per_channel": {
+    "1": {
+      "primary_counts": {
+        "PASS": 9959,
+        "FAIL": 41,
+        "INCOMPLETE": 0
+      },
+      "compiled_counts": {
+        "PASS": 9951,
+        "FAIL": 49,
+        "INCOMPLETE": 0
+      },
+      "maximum_primary_median_error_mv": 17.758643963661967,
+      "sample_interval_s": 5e-07,
+      "observed_vertical_step_mv": 6.694561279999999
+    },
+    "2": {
+      "primary_counts": {
+        "PASS": 10000,
+        "FAIL": 0,
+        "INCOMPLETE": 0
+      },
+      "compiled_counts": {
+        "PASS": 10000,
+        "FAIL": 0,
+        "INCOMPLETE": 0
+      },
+      "maximum_primary_median_error_mv": 13.24787479092916,
+      "sample_interval_s": 5e-07,
+      "observed_vertical_step_mv": 6.694561279999999
+    }
+  },
+  "input_hashes_unchanged": true,
+  "analogue_accuracy_calibrated": false,
+  "limitations": [
+    "Primary ideal includes GUI voltage quantization error; exact compiled expectation is not substituted.",
+    "First-RAMP scalar timing and per-channel scope grids are retained; one global timing offset only.",
+    "Maximum per-sample residual is diagnostic; criterion remains the central-window median residual.",
+    "Sub-resolution fixed-voltage DC tails can be unresolved and remain INCOMPLETE in separate diagnostics.",
+    "Scope noise/bandwidth/vertical quantization and uncalibrated DC path are not removed by fitted gain.",
+    "DC zero diagnostics do not expose internal per-shot area/overflow counters or certify an external RC circuit."
+  ]
+}

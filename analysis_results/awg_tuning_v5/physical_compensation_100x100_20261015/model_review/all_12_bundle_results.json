@@ -1,0 +1,240 @@
+{
+  "passed": true,
+  "physical_execution": false,
+  "conditions": 12,
+  "independent_exact_command_area_checks": 240000,
+  "exact_zero_residuals": 240000,
+  "exact_final_rc_zero_checks": 240000,
+  "metadata_decode_mismatches": 0,
+  "maximum_expected_frame_us": 625603.9033333333,
+  "results": [
+    {
+      "name": "fixed_voltage_tau10",
+      "result_sha256": "e4d2f6a388a7489b162ae78347cefb14ef507ad5b2bcdb924c7ccaa90c77e980",
+      "mode": "fixed_voltage",
+      "rc_tau_us": 10.0,
+      "dc_time_us": null,
+      "outputs": 20000,
+      "sampled_rc_mv_bounds": [
+        -615.002841796875,
+        616.176884765625
+      ],
+      "compiler_range_mv": [
+        -617.597116910585,
+        619.4353772087816
+      ],
+      "frame_us": 435870.57,
+      "midpoint_ideal_vs_compiled_max_mv": 0.9089586292614058
+    },
+    {
+      "name": "fixed_time10_tau10",
+      "result_sha256": "c69365afdbfa696733cef1cc4c32ce1dbc6cf1ec29d11c3b4c42edfaa2ccdc3f",
+      "mode": "fixed_time",
+      "rc_tau_us": 10.0,
+      "dc_time_us": 10.0,
+      "outputs": 20000,
+      "sampled_rc_mv_bounds": [
+        -615.002841796875,
+        616.176884765625
+      ],
+      "compiler_range_mv": [
+        -617.6187470216661,
+        619.4573354811785
+      ],
+      "frame_us": 425603.9033333333,
+      "midpoint_ideal_vs_compiled_max_mv": 0.9089586292614058
+    },
+    {
+      "name": "fixed_time20_tau10",
+      "result_sha256": "af4e0782e2759fe523c687b12f1762bd9c71df0b2691db84144cccbc34d200a3",
+      "mode": "fixed_time",
+      "rc_tau_us": 10.0,
+      "dc_time_us": 20.0,
+      "outputs": 20000,
+      "sampled_rc_mv_bounds": [
+        -615.002841796875,
+        616.176884765625
+      ],
+      "compiler_range_mv": [
+        -617.3971382582687,
+        619.2350072088091
+      ],
+      "frame_us": 525603.9033333333,
+      "midpoint_ideal_vs_compiled_max_mv": 0.9089586292614058
+    },
+    {
+      "name": "fixed_time30_tau10",
+      "result_sha256": "82eba8d2209e1d7a4eb9db01ef20330a3dc8efdc189fc8ccb448fa4df4d228c0",
+      "mode": "fixed_time",
+      "rc_tau_us": 10.0,
+      "dc_time_us": 30.0,
+      "outputs": 20000,
+      "sampled_rc_mv_bounds": [
+        -615.002841796875,
+        616.176884765625
+      ],
+      "compiler_range_mv": [
+        -617.3971382582687,
+        619.2350072088091
+      ],
+      "frame_us": 625603.9033333333,
+      "midpoint_ideal_vs_compiled_max_mv": 0.9089586292614058
+    },
+    {
+      "name": "fixed_voltage_tau20",
+      "result_sha256": "afa7a02b864978f1046da4c67cdcc1986e15fdecad2270b005a385e36cd88e96",
+      "mode": "fixed_voltage",
+      "rc_tau_us": 20.0,
+      "dc_time_us": null,
+      "outputs": 20000,
+      "sampled_rc_mv_bounds": [
+        -457.48541015625,
+        458.36594238281253
+      ],
+      "compiler_range_mv": [
+        -458.85603429255224,
+        460.35502162940986
+      ],
+      "frame_us": 435870.57,
+      "midpoint_ideal_vs_compiled_max_mv": 0.7271923828125182
+    },
+    {
+      "name": "fixed_time10_tau20",
+      "result_sha256": "fb6da80be9887eb7e4640a69af42fc4837ec82d9bbb155793877b44b99b58899",
+      "mode": "fixed_time",
+      "rc_tau_us": 20.0,
+      "dc_time_us": 10.0,
+      "outputs": 20000,
+      "sampled_rc_mv_bounds": [
+        -457.48541015625,
+        458.36594238281253
+      ],
+      "compiler_range_mv": [
+        -458.8668493480965,
+        460.36600076561206
+      ],
+      "frame_us": 425603.9033333333,
+      "midpoint_ideal_vs_compiled_max_mv": 0.7271923828125182
+    },
+    {
+      "name": "fixed_time20_tau20",
+      "result_sha256": "8efd409c3ec3311821b7882b1d160b22991d277a6a3b5015374d07f068db8715",
+      "mode": "fixed_time",
+      "rc_tau_us": 20.0,
+      "dc_time_us": 20.0,
+      "outputs": 20000,
+      "sampled_rc_mv_bounds": [
+        -457.48541015625,
+        458.36594238281253
+      ],
+      "compiler_range_mv": [
+        -458.75604496636,
+        460.25483662938944
+      ],
+      "frame_us": 525603.9033333333,
+      "midpoint_ideal_vs_compiled_max_mv": 0.7271923828125182
+    },
+    {
+      "name": "fixed_time30_tau20",
+      "result_sha256": "dbb0e01f4e2093364e9ccf98a30dc4df59a93ce1f00a26b10f160ee0dd3e4839",
+      "mode": "fixed_time",
+      "rc_tau_us": 20.0,
+      "dc_time_us": 30.0,
+      "outputs": 20000,
+      "sampled_rc_mv_bounds": [
+        -457.48541015625,
+        458.36594238281253
+      ],
+      "compiler_range_mv": [
+        -458.75604496636,
+        460.25483662938944
+      ],
+      "frame_us": 625603.9033333333,
+      "midpoint_ideal_vs_compiled_max_mv": 0.7271923828125182
+    },
+    {
+      "name": "fixed_voltage_tau30",
+      "result_sha256": "210918ded895ade966c2bbe3314e43a35cbb607b08f02febfd97cadb4aadeda6",
+      "mode": "fixed_voltage",
+      "rc_tau_us": 30.0,
+      "dc_time_us": null,
+      "outputs": 20000,
+      "sampled_rc_mv_bounds": [
+        -404.9469873046875,
+        405.7296826171875
+      ],
+      "compiler_range_mv": [
+        -405.9423400143544,
+        407.32823636394465
+      ],
+      "frame_us": 435870.57,
+      "midpoint_ideal_vs_compiled_max_mv": 0.6964275074968782
+    },
+    {
+      "name": "fixed_time10_tau30",
+      "result_sha256": "aae8f627d2ef91865d98b590e77f52c77c98c1100929a36c814d21b9a4b09b49",
+      "mode": "fixed_time",
+      "rc_tau_us": 30.0,
+      "dc_time_us": 10.0,
+      "outputs": 20000,
+      "sampled_rc_mv_bounds": [
+        -404.9469873046875,
+        405.7296826171875
+      ],
+      "compiler_range_mv": [
+        -405.9495500513814,
+        407.335555788077
+      ],
+      "frame_us": 425603.9033333333,
+      "midpoint_ideal_vs_compiled_max_mv": 0.6964275074968782
+    },
+    {
+      "name": "fixed_time20_tau30",
+      "result_sha256": "f2ae1567b36c27c0ce9c6cce2d7c81c52bbde41b52cd4f33df48be6decf9f29e",
+      "mode": "fixed_time",
+      "rc_tau_us": 30.0,
+      "dc_time_us": 20.0,
+      "outputs": 20000,
+      "sampled_rc_mv_bounds": [
+        -404.9469873046875,
+        405.7296826171875
+      ],
+      "compiler_range_mv": [
+        -405.8756804635822,
+        407.26144636395384
+      ],
+      "frame_us": 525603.9033333333,
+      "midpoint_ideal_vs_compiled_max_mv": 0.6964275074968782
+    },
+    {
+      "name": "fixed_time30_tau30",
+      "result_sha256": "1a991e26c2009152b37cd583d8d52e9631b4a1e347e0d12b454a3a8349c39c4a",
+      "mode": "fixed_time",
+      "rc_tau_us": 30.0,
+      "dc_time_us": 30.0,
+      "outputs": 20000,
+      "sampled_rc_mv_bounds": [
+        -404.9469873046875,
+        405.7296826171875
+      ],
+      "compiler_range_mv": [
+        -405.8756804635822,
+        407.26144636395384
+      ],
+      "frame_us": 625603.9033333333,
+      "midpoint_ideal_vs_compiled_max_mv": 0.6964275074968782
+    }
+  ],
+  "source_hashes": {
+    "compact_expectation.py": "9811e3d79137a9b7c4897bfba0e1a52a7cd8d6dc63156124030897893edaa0da",
+    "command_expectation.py": "0e64284671d7c323cd375d2d72291dfd8de973f1c085755f2b99ea962c228d7f",
+    "validate_bundle.py": "006484eb07a5835bb5d1c6eef98852723e8f6aa87163acbb1d47ffbc5f54deef",
+    "aggregate.py": "55fd61ad587b5ff88feadbce7e480377761312dac8b0235a826489c7d04e26ba"
+  },
+  "limits": [
+    "These checks do not constitute new RTL execution or physical measurement PASS.",
+    "RC boundaries and midpoints are sampled diagnostics; full scalar range remains bounded by the separately retained compiler conservative gate.",
+    "Exact compiled voltage is diagnostic; primary physical accuracy must retain the separately declared GUI requested ideal reference.",
+    "External analog RC capacitor state and instrument uncertainty are not included."
+  ]
+}

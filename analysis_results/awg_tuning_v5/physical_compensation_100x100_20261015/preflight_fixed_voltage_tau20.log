@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\physical_compensation_100x100_20261015\prepare_program.py", line 522, in <module>
+    main()
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\physical_compensation_100x100_20261015\prepare_program.py", line 517, in main
+    result=prepare_program(**vars(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\GIT_Workspace\QSTL_QICK\analysis_results\awg_tuning_v5\physical_compensation_100x100_20261015\prepare_program.py", line 208, in prepare_program
+    assert all(a['start']==start_mv and a['stop']==stop_mv for a in actual['awg']['sweeps'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

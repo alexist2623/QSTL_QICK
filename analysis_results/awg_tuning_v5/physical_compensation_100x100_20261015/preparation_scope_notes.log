@@ -1,0 +1,11 @@
+Scope notes for physical_compensation_100x100_20261015 preparation
+Final requested conditions: both axes -300..+300 mV, 100 points each, HOLD10us, ramp1us and initial/final zero10us, RC tau10/20/30us; fixed_voltage300mV or fixed_time10/20/30us, 12 combinations. Physical measurement belongs to parent runner; this helper does no instrument/network I/O.
+
+Nonfinal preserved evidence:
+- offline_fixed_voltage and prepare_fixed_voltage.log: completed older 0..400mV/tau100/HOLD10 input. Do not use for final request. Its extra step_signed metadata was initially decoded from the wrong field; full raw 160-bit words remain intact. Final helper decodes signed STEP correctly from bits127:96.
+- offline_preflight_* (without range300) and preflight_batch.json: older -400..400mV request. tau10 four conditions correctly rejected by production RC headroom gate. The eight tau20/30 first attempts hit a validation-only assertion that treated normalized GUI JSON amplitudes as mV.
+- offline_preflight_*_retry1 and preflight_retry1_batch.json: same eight original inputs rerun after fixing the assertion by multiplying the saved common full scale. All exit0. No production logic or voltage threshold changed.
+- Only offline_range300_* bundles implement the final requested range. Every one performs actual GUI-input compilation, a fresh full10000-point TProc command model, signed voltage/order checks, hardware DC planning residual check, RC bound checks, and separate RC/DC-disabled cleanup compilation.
+
+The TProc command model does not execute scalar area/IIR RTL. Hardware DC duration/area and RC bounds in expected_points are production planning predictions against executed command words; independent RTL arithmetic checks and physical waveform analysis are separate evidence.
+For direct DAC/scope wiring, compare RC-precompensated DAC predictions, not a flat nominal HOLD target.

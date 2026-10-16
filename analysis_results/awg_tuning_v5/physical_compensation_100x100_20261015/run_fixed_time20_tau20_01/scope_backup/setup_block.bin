@@ -1,0 +1,6996 @@
+#800167579<setup prod="InfiniiVision" ver="07.31.2020012834" srver="3.0">
+<command_section/>
+<control_section>
+<ctrl type="enum">
+<name>expandMode</name>
+<val>0,"ground"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmAntialiasing</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>storeDemoState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>screenSaverSelect</name>
+<val>2,"logo"</val>
+</ctrl>
+<ctrl type="i32">
+<name>screenSaverTimeout</name>
+<val>120</val>
+</ctrl>
+<ctrl type="str">
+<name>screenSaverText</name>
+<val>KEYSIGHT TECHNOLOGIES</val>
+</ctrl>
+<ctrl type="enum">
+<name>delayedMainView</name>
+<val>0,"zoomWin"</val>
+</ctrl>
+<ctrl type="enum">
+<name>autoscaleMode</name>
+<val>1,"custom"</val>
+</ctrl>
+<ctrl type="enum">
+<name>autoscaleFastDebugMode</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>autoscaleChan</name>
+<val>0,"displayed"</val>
+</ctrl>
+<ctrl type="enum">
+<name>autoscaleTrig</name>
+<val>1,"edge"</val>
+</ctrl>
+<ctrl type="enum">
+<name>autoscaleTime</name>
+<val>1,"auto"</val>
+</ctrl>
+<ctrl type="enum">
+<name>autoscaleAcq</name>
+<val>1,"normal"</val>
+</ctrl>
+<ctrl type="enum">
+<name>digActivityLoc</name>
+<val>0,"docked"</val>
+</ctrl>
+<ctrl type="enum">
+<name>fiftyOhmImpedLock</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>lanLedDisplayMode</name>
+<val>0,"lan"</val>
+</ctrl>
+<ctrl type="enum">
+<name>displayMeasStats</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>dialogTransparency</name>
+<val>1,"solid"</val>
+</ctrl>
+<ctrl type="enum">
+<name>remoteLang</name>
+<val>0,"InfiniiVision"</val>
+</ctrl>
+<ctrl type="enum">
+<name>quickActionMode</name>
+<val>3,"save"</val>
+</ctrl>
+<ctrl type="enum">
+<name>muxKnobMode</name>
+<val>4,"math"</val>
+</ctrl>
+<ctrl type="enum">
+<name>deepAnalysisMode</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="i32">
+<name>analysisLength</name>
+<val>100000</val>
+</ctrl>
+<ctrl type="enum">
+<name>fullAnalysisState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>gratSelectMode</name>
+<val>2,"wfm"</val>
+</ctrl>
+<ctrl type="enum">
+<name>fileBrowserViewMode</name>
+<val>0,"list"</val>
+</ctrl>
+<ctrl type="str">
+<name>userIdnString</name>
+<val>AGILENT TECHNOLOGIES,Unset,Unset,07.31.2020012834</val>
+</ctrl>
+<ctrl type="enum">
+<name>animationState</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nuiSelChan</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="i32">
+<name>speakerVolume</name>
+<val>50</val>
+</ctrl>
+<ctrl type="enum">
+<name>beepSel</name>
+<val>0,"beepOnSingle"</val>
+</ctrl>
+<ctrl type="enum">
+<name>beepOnSingle</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>beepOnTrigger</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>beepOnMaskFail</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>beepOnDvmLimit</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>beepOnLongOperation</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>beepOnCal</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>timeMode</name>
+<val>0,"normal"</val>
+</ctrl>
+<ctrl type="enum">
+<name>zoomMode</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>segmentedState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>runMode</name>
+<val>0,"stop"</val>
+</ctrl>
+<ctrl type="enum">
+<name>timeRef</name>
+<val>1,"center"</val>
+</ctrl>
+<ctrl type="f64">
+<name>mainRef</name>
+<val>4602678819172646912</val>
+</ctrl>
+<ctrl type="f64">
+<name>mainScale</name>
+<val>4532020583610935537</val>
+</ctrl>
+<ctrl type="f64">
+<name>mainDelay</name>
+<val>4530851797906425299</val>
+</ctrl>
+<ctrl type="f64">
+<name>mainScaleLeftEdge</name>
+<val>-4676364914835832019</val>
+</ctrl>
+<ctrl type="f64">
+<name>mainScaleRightEdge</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="f64">
+<name>dlydScale</name>
+<val>4512825593480736141</val>
+</ctrl>
+<ctrl type="f64">
+<name>dlydDelay</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>dlydScaleLeftEdge</name>
+<val>-4676364914835832019</val>
+</ctrl>
+<ctrl type="f64">
+<name>dlydScaleRightEdge</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="enum">
+<name>timeVernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMemLockTime</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>pxiTrigMode</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>trigMode</name>
+<val>1,"edge"</val>
+</ctrl>
+<ctrl type="enum">
+<name>trigCoup</name>
+<val>1,"dc"</val>
+</ctrl>
+<ctrl type="enum">
+<name>trigHfRej</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>trigNRej</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>trigHoldoff</name>
+<val>4496133457586457658</val>
+</ctrl>
+<ctrl type="f64">
+<name>trigHoldoffMin</name>
+<val>4496133457586457658</val>
+</ctrl>
+<ctrl type="f64">
+<name>trigHoldoffMax</name>
+<val>4496889036223716801</val>
+</ctrl>
+<ctrl type="enum">
+<name>trigHoldoffRandomState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>trigSweepMode</name>
+<val>1,"auto"</val>
+</ctrl>
+<ctrl type="enum">
+<name>pxiTrigLine</name>
+<val>1,"pxiTrig0"</val>
+</ctrl>
+<ctrl type="enum">
+<name>pxiArmLine</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>pxiArmLinesSelect</name>
+<val>1,"pxiTrig0"</val>
+</ctrl>
+<ctrl type="enum">
+<name>pxiArmLinesState</name>
+<val muxpos="0">0,"off"</val>
+<val muxpos="1">0,"off"</val>
+<val muxpos="2">0,"off"</val>
+<val muxpos="3">0,"off"</val>
+<val muxpos="4">0,"off"</val>
+<val muxpos="5">0,"off"</val>
+<val muxpos="6">0,"off"</val>
+<val muxpos="7">0,"off"</val>
+<val muxpos="8">0,"off"</val>
+</ctrl>
+<ctrl type="i32">
+<name>pxiMasterSlotNum</name>
+<val>2</val>
+</ctrl>
+<ctrl type="enum">
+<name>pxiSync</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>zoneTrigZone1State</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>zoneTrigZone2State</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>zoneTrigMasterState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>zoneTrigSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>zoneTrigZone1Qual</name>
+<val>0,"mustIntersect"</val>
+</ctrl>
+<ctrl type="enum">
+<name>zoneTrigZone2Qual</name>
+<val>0,"mustIntersect"</val>
+</ctrl>
+<ctrl type="enum">
+<name>zoneTrigSelection</name>
+<val>0,"zone1"</val>
+</ctrl>
+<ctrl type="ui32">
+<name>zoneTrigZone1NumPoints</name>
+<val>2</val>
+</ctrl>
+<ctrl type="ui32">
+<name>zoneTrigZone2NumPoints</name>
+<val>2</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone1X1</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone1X2</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone2X1</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone2X2</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone1Y1</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone1Y2</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone2Y1</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone2Y2</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone1X1Grid</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone1X2Grid</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone2X1Grid</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone2X2Grid</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone1Y1Grid</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone1Y2Grid</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone2Y1Grid</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>zoneTrigZone2Y2Grid</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="enum">
+<name>zoneTrigZone1Valid</name>
+<val>0,"valid"</val>
+</ctrl>
+<ctrl type="enum">
+<name>zoneTrigZone2Valid</name>
+<val>0,"valid"</val>
+</ctrl>
+<ctrl type="enum">
+<name>zoneTrigHwState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>edgeSrc</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>edgeSlope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>glitchSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>glitchPolarity</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>glitchMode</name>
+<val>1,"lt"</val>
+</ctrl>
+<ctrl type="f64">
+<name>glitchMinWidth</name>
+<val>4491629857959087162</val>
+</ctrl>
+<ctrl type="f64">
+<name>glitchMaxWidth</name>
+<val>4494622300311939371</val>
+</ctrl>
+<ctrl type="f64">
+<name>glitchRangeMinWidth</name>
+<val>4491629857959087162</val>
+</ctrl>
+<ctrl type="f64">
+<name>glitchRangeMaxWidth</name>
+<val>4494622300311939372</val>
+</ctrl>
+<ctrl type="enum">
+<name>tvSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>tvStd</name>
+<val>0,"ntsc"</val>
+</ctrl>
+<ctrl type="enum">
+<name>tvPolarity</name>
+<val>0,"negative"</val>
+</ctrl>
+<ctrl type="enum">
+<name>tvMode</name>
+<val>0,"field1"</val>
+</ctrl>
+<ctrl type="i32">
+<name>tvLine</name>
+<val>1</val>
+</ctrl>
+<ctrl type="f64">
+<name>tvGenTime</name>
+<val>4538295070669382149</val>
+</ctrl>
+<ctrl type="i32">
+<name>tvGenEdge</name>
+<val>1</val>
+</ctrl>
+<ctrl type="enum">
+<name>tvHorzSyncEnable</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>tvHorzSync</name>
+<val>0</val>
+</ctrl>
+<ctrl type="str">
+<name>patnPattern</name>
+<val>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>patnQual</name>
+<val>0,"entered"</val>
+</ctrl>
+<ctrl type="enum">
+<name>patnChan</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="str">
+<name>seqPattern1</name>
+<val>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>seqPattern2</name>
+<val>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>seqE1Src</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>seqE1Slope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>seqE2Src</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>seqE2Slope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>seqFind</name>
+<val>0,"p1Enter"</val>
+</ctrl>
+<ctrl type="enum">
+<name>seqTrigger</name>
+<val>0,"p2Enter"</val>
+</ctrl>
+<ctrl type="enum">
+<name>seqReset</name>
+<val>0,"none"</val>
+</ctrl>
+<ctrl type="i32">
+<name>seqEventCount</name>
+<val>1</val>
+</ctrl>
+<ctrl type="f64">
+<name>seqTimeout</name>
+<val>4502148214488346440</val>
+</ctrl>
+<ctrl type="enum">
+<name>nthEdgeSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nthEdgeSlope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="f64">
+<name>nthEdgeIdleTime</name>
+<val>4512825593480736141</val>
+</ctrl>
+<ctrl type="i32">
+<name>nthEdgeEdgeNum</name>
+<val>1</val>
+</ctrl>
+<ctrl type="enum">
+<name>trigLevelSel</name>
+<val>0,"norm"</val>
+</ctrl>
+<ctrl type="enum">
+<name>edgeTransSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>edgeTransSlope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>edgeTransQual</name>
+<val>2,"gt"</val>
+</ctrl>
+<ctrl type="f64">
+<name>edgeTransQualTime</name>
+<val>4491629857959087162</val>
+</ctrl>
+<ctrl type="enum">
+<name>runtSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>runtPolarity</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>runtQual</name>
+<val>0,"none"</val>
+</ctrl>
+<ctrl type="f64">
+<name>runtQualTime</name>
+<val>4491629857959087162</val>
+</ctrl>
+<ctrl type="enum">
+<name>setupHoldClkSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>setupHoldDataSrc</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>setupHoldClkSlope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="f64">
+<name>setupHoldSetupTime</name>
+<val>4476910133257361045</val>
+</ctrl>
+<ctrl type="f64">
+<name>setupHoldHoldTime</name>
+<val>4476910133257361045</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbBitRate</name>
+<val>12,"b12M"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbTrig</name>
+<val>0,"sop"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbDpSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbDnSrc</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="str">
+<name>orData</name>
+<val>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>delayArmSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>delayArmSlope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>delayTrigSrc</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>delayTrigSlope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="f64">
+<name>delayTime</name>
+<val>4481413732884731541</val>
+</ctrl>
+<ctrl type="i32">
+<name>delayEvents</name>
+<val>1</val>
+</ctrl>
+<ctrl type="enum">
+<name>nfcTrigSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nfcTrigStd</name>
+<val>0,"a"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nfcTrigDeviceMode</name>
+<val>0,"poll"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nfcTrigEvent</name>
+<val>4,"either"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nfcTrigArmEvent</name>
+<val>1,"sensReq"</val>
+</ctrl>
+<ctrl type="f64">
+<name>nfcTrigTimeout</name>
+<val>4591870180066957722</val>
+</ctrl>
+<ctrl type="enum">
+<name>nfcTrigOnTimeout</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nfcTrigRevPolarity</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="ui32">
+<name>nfcTrigModDepth</name>
+<val>10</val>
+</ctrl>
+<ctrl type="f32">
+<name>nfcTrigModAvgLength</name>
+<val>928102167</val>
+</ctrl>
+<ctrl type="f32">
+<name>nfcTrigModDetectLength</name>
+<val>928102167</val>
+</ctrl>
+<ctrl type="f64">
+<name>trigHoldoffTvField</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>serialBusSel</name>
+<val>0,"serial1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>serialBusMuxIndex</name>
+<val>0,"serial1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>serialDecodeMode</name>
+<val muxpos="0">1,"i2c"</val>
+<val muxpos="1">1,"i2c"</val>
+<val muxpos="2">1,"i2c"</val>
+<val muxpos="3">1,"i2c"</val>
+</ctrl>
+<ctrl type="enum">
+<name>serialDecodeState</name>
+<val muxpos="0">0,"off"</val>
+<val muxpos="1">0,"off"</val>
+<val muxpos="2">0,"off"</val>
+<val muxpos="3">0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>serialDecodeMasterState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>symbolicLoadDest</name>
+<val>0,"serial1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2cClkSrc</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2cDataSrc</name>
+<val muxpos="0">1,"ch2"</val>
+<val muxpos="1">1,"ch2"</val>
+<val muxpos="2">1,"ch2"</val>
+<val muxpos="3">1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2cTrig</name>
+<val muxpos="0">0,"start"</val>
+<val muxpos="1">0,"start"</val>
+<val muxpos="2">0,"start"</val>
+<val muxpos="3">0,"start"</val>
+</ctrl>
+<ctrl type="i32">
+<name>i2cAddr</name>
+<val muxpos="0">-1</val>
+<val muxpos="1">-1</val>
+<val muxpos="2">-1</val>
+<val muxpos="3">-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2cDataQual</name>
+<val muxpos="0">2,"equal"</val>
+<val muxpos="1">2,"equal"</val>
+<val muxpos="2">2,"equal"</val>
+<val muxpos="3">2,"equal"</val>
+</ctrl>
+<ctrl type="i32">
+<name>i2cData</name>
+<val muxpos="0">-1</val>
+<val muxpos="1">-1</val>
+<val muxpos="2">-1</val>
+<val muxpos="3">-1</val>
+</ctrl>
+<ctrl type="i32">
+<name>i2cData2</name>
+<val muxpos="0">-1</val>
+<val muxpos="1">-1</val>
+<val muxpos="2">-1</val>
+<val muxpos="3">-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2cDecodeAddrMode</name>
+<val muxpos="0">0,"addr7Bit"</val>
+<val muxpos="1">0,"addr7Bit"</val>
+<val muxpos="2">0,"addr7Bit"</val>
+<val muxpos="3">0,"addr7Bit"</val>
+</ctrl>
+<ctrl type="enum">
+<name>spiTrigger</name>
+<val muxpos="0">0,"mosi"</val>
+<val muxpos="1">0,"mosi"</val>
+<val muxpos="2">0,"mosi"</val>
+<val muxpos="3">0,"mosi"</val>
+</ctrl>
+<ctrl type="enum">
+<name>spiClkSrc</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>spiMosiSrc</name>
+<val muxpos="0">1,"ch2"</val>
+<val muxpos="1">1,"ch2"</val>
+<val muxpos="2">1,"ch2"</val>
+<val muxpos="3">1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>spiMisoSrc</name>
+<val muxpos="0">2,"ch3"</val>
+<val muxpos="1">2,"ch3"</val>
+<val muxpos="2">2,"ch3"</val>
+<val muxpos="3">2,"ch3"</val>
+</ctrl>
+<ctrl type="enum">
+<name>spiFrame</name>
+<val muxpos="0">0,"notCs"</val>
+<val muxpos="1">0,"notCs"</val>
+<val muxpos="2">0,"notCs"</val>
+<val muxpos="3">0,"notCs"</val>
+</ctrl>
+<ctrl type="enum">
+<name>spiFrameSrc</name>
+<val muxpos="0">3,"ch4"</val>
+<val muxpos="1">3,"ch4"</val>
+<val muxpos="2">3,"ch4"</val>
+<val muxpos="3">3,"ch4"</val>
+</ctrl>
+<ctrl type="enum">
+<name>spiClkPolarity</name>
+<val muxpos="0">1,"positive"</val>
+<val muxpos="1">1,"positive"</val>
+<val muxpos="2">1,"positive"</val>
+<val muxpos="3">1,"positive"</val>
+</ctrl>
+<ctrl type="i32">
+<name>spiMosiDataLength</name>
+<val muxpos="0">8</val>
+<val muxpos="1">8</val>
+<val muxpos="2">8</val>
+<val muxpos="3">8</val>
+</ctrl>
+<ctrl type="str">
+<name>spiData</name>
+<val muxpos="0">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="i32">
+<name>spiMisoDataLength</name>
+<val muxpos="0">8</val>
+<val muxpos="1">8</val>
+<val muxpos="2">8</val>
+<val muxpos="3">8</val>
+</ctrl>
+<ctrl type="str">
+<name>spiMisoData</name>
+<val muxpos="0">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="f64">
+<name>spiTimeout</name>
+<val muxpos="0">4532020583610935537</val>
+<val muxpos="1">4532020583610935537</val>
+<val muxpos="2">4532020583610935537</val>
+<val muxpos="3">4532020583610935537</val>
+</ctrl>
+<ctrl type="enum">
+<name>spiBitOrder</name>
+<val muxpos="0">0,"msb"</val>
+<val muxpos="1">0,"msb"</val>
+<val muxpos="2">0,"msb"</val>
+<val muxpos="3">0,"msb"</val>
+</ctrl>
+<ctrl type="i32">
+<name>serialDecodeWordSize</name>
+<val muxpos="0">8</val>
+<val muxpos="1">8</val>
+<val muxpos="2">8</val>
+<val muxpos="3">8</val>
+</ctrl>
+<ctrl type="enum">
+<name>spiSummaryEnable</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>spiBase</name>
+<val muxpos="0">0,"hex"</val>
+<val muxpos="1">0,"hex"</val>
+<val muxpos="2">0,"hex"</val>
+<val muxpos="3">0,"hex"</val>
+</ctrl>
+<ctrl type="i32">
+<name>spiDelay</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="i32">
+<name>spiTruncate</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="enum">
+<name>linSignal</name>
+<val muxpos="0">6,"lin"</val>
+<val muxpos="1">6,"lin"</val>
+<val muxpos="2">6,"lin"</val>
+<val muxpos="3">6,"lin"</val>
+</ctrl>
+<ctrl type="enum">
+<name>linBitRate</name>
+<val muxpos="0">15,"b19_2k"</val>
+<val muxpos="1">15,"b19_2k"</val>
+<val muxpos="2">15,"b19_2k"</val>
+<val muxpos="3">15,"b19_2k"</val>
+</ctrl>
+<ctrl type="i32">
+<name>linUserBitRate</name>
+<val muxpos="0">2400</val>
+<val muxpos="1">2400</val>
+<val muxpos="2">2400</val>
+<val muxpos="3">2400</val>
+</ctrl>
+<ctrl type="enum">
+<name>linDisplayMode</name>
+<val muxpos="0">0,"hex"</val>
+<val muxpos="1">0,"hex"</val>
+<val muxpos="2">0,"hex"</val>
+<val muxpos="3">0,"hex"</val>
+</ctrl>
+<ctrl type="enum">
+<name>linTrig</name>
+<val muxpos="0">0,"sync"</val>
+<val muxpos="1">0,"sync"</val>
+<val muxpos="2">0,"sync"</val>
+<val muxpos="3">0,"sync"</val>
+</ctrl>
+<ctrl type="enum">
+<name>linSrc</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="i32">
+<name>linFrameId</name>
+<val muxpos="0">-1</val>
+<val muxpos="1">-1</val>
+<val muxpos="2">-1</val>
+<val muxpos="3">-1</val>
+</ctrl>
+<ctrl type="i32">
+<name>linDataBytes</name>
+<val muxpos="0">4</val>
+<val muxpos="1">4</val>
+<val muxpos="2">4</val>
+<val muxpos="3">4</val>
+</ctrl>
+<ctrl type="str">
+<name>linData</name>
+<val muxpos="0">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>linStandard</name>
+<val muxpos="0">0,"std1_3"</val>
+<val muxpos="1">0,"std1_3"</val>
+<val muxpos="2">0,"std1_3"</val>
+<val muxpos="3">0,"std1_3"</val>
+</ctrl>
+<ctrl type="enum">
+<name>linSyncBreak</name>
+<val muxpos="0">2,"sb13"</val>
+<val muxpos="1">2,"sb13"</val>
+<val muxpos="2">2,"sb13"</val>
+<val muxpos="3">2,"sb13"</val>
+</ctrl>
+<ctrl type="enum">
+<name>linSampleLocation</name>
+<val muxpos="0">0,"per60"</val>
+<val muxpos="1">0,"per60"</val>
+<val muxpos="2">0,"per60"</val>
+<val muxpos="3">0,"per60"</val>
+</ctrl>
+<ctrl type="enum">
+<name>linParityState</name>
+<val muxpos="0">0,"off"</val>
+<val muxpos="1">0,"off"</val>
+<val muxpos="2">0,"off"</val>
+<val muxpos="3">0,"off"</val>
+</ctrl>
+<ctrl type="i32">
+<name>linSymbolicFrmIndex</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="i32">
+<name>linSymbolicSigIndex</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="enum">
+<name>linSymbolicValType</name>
+<val muxpos="0">1,"encoded"</val>
+<val muxpos="1">1,"encoded"</val>
+<val muxpos="2">1,"encoded"</val>
+<val muxpos="3">1,"encoded"</val>
+</ctrl>
+<ctrl type="i32">
+<name>linSymbolicValIndex</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="f64">
+<name>linSymbolicVal</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="str">
+<name>linSymbolicValUnit</name>
+<val muxpos="0"/>
+<val muxpos="1"/>
+<val muxpos="2"/>
+<val muxpos="3"/>
+</ctrl>
+<ctrl type="str">
+<name>linSymbolicAddr</name>
+<val muxpos="0">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="i32">
+<name>linSymbolicDataBytes</name>
+<val muxpos="0">4</val>
+<val muxpos="1">4</val>
+<val muxpos="2">4</val>
+<val muxpos="3">4</val>
+</ctrl>
+<ctrl type="str">
+<name>linSymbolicData</name>
+<val muxpos="0">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>frayTrig</name>
+<val muxpos="0">0,"frame"</val>
+<val muxpos="1">0,"frame"</val>
+<val muxpos="2">0,"frame"</val>
+<val muxpos="3">0,"frame"</val>
+</ctrl>
+<ctrl type="enum">
+<name>frayError</name>
+<val muxpos="0">0,"allErrs"</val>
+<val muxpos="1">0,"allErrs"</val>
+<val muxpos="2">0,"allErrs"</val>
+<val muxpos="3">0,"allErrs"</val>
+</ctrl>
+<ctrl type="enum">
+<name>frayEvent</name>
+<val muxpos="0">0,"wake"</val>
+<val muxpos="1">0,"wake"</val>
+<val muxpos="2">0,"wake"</val>
+<val muxpos="3">0,"wake"</val>
+</ctrl>
+<ctrl type="enum">
+<name>frayEventSrc</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>frayBitRate</name>
+<val muxpos="0">19,"b10M"</val>
+<val muxpos="1">19,"b10M"</val>
+<val muxpos="2">19,"b10M"</val>
+<val muxpos="3">19,"b10M"</val>
+</ctrl>
+<ctrl type="i32">
+<name>frayEventBssSlotHigh</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="enum">
+<name>frayChan</name>
+<val muxpos="0">0,"a"</val>
+<val muxpos="1">0,"a"</val>
+<val muxpos="2">0,"a"</val>
+<val muxpos="3">0,"a"</val>
+</ctrl>
+<ctrl type="i32">
+<name>frayCycleCntRep</name>
+<val muxpos="0">1</val>
+<val muxpos="1">1</val>
+<val muxpos="2">1</val>
+<val muxpos="3">1</val>
+</ctrl>
+<ctrl type="i32">
+<name>frayCycleCntBase</name>
+<val muxpos="0">-1</val>
+<val muxpos="1">-1</val>
+<val muxpos="2">-1</val>
+<val muxpos="3">-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>frayFrameType</name>
+<val muxpos="0">0,"all"</val>
+<val muxpos="1">0,"all"</val>
+<val muxpos="2">0,"all"</val>
+<val muxpos="3">0,"all"</val>
+</ctrl>
+<ctrl type="i32">
+<name>fraySlotId</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="enum">
+<name>canSignal</name>
+<val muxpos="0">4,"canDiffLh"</val>
+<val muxpos="1">4,"canDiffLh"</val>
+<val muxpos="2">4,"canDiffLh"</val>
+<val muxpos="3">4,"canDiffLh"</val>
+</ctrl>
+<ctrl type="enum">
+<name>canDisplayMode</name>
+<val muxpos="0">0,"hex"</val>
+<val muxpos="1">0,"hex"</val>
+<val muxpos="2">0,"hex"</val>
+<val muxpos="3">0,"hex"</val>
+</ctrl>
+<ctrl type="enum">
+<name>canTrig</name>
+<val muxpos="0">4,"sof"</val>
+<val muxpos="1">4,"sof"</val>
+<val muxpos="2">4,"sof"</val>
+<val muxpos="3">4,"sof"</val>
+</ctrl>
+<ctrl type="enum">
+<name>canSrc</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="i32">
+<name>canSymbolicMsgIndex</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="i32">
+<name>canSymbolicSigIndex</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="enum">
+<name>canSymbolicValType</name>
+<val muxpos="0">1,"encoded"</val>
+<val muxpos="1">1,"encoded"</val>
+<val muxpos="2">1,"encoded"</val>
+<val muxpos="3">1,"encoded"</val>
+</ctrl>
+<ctrl type="i32">
+<name>canSymbolicValIndex</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="f64">
+<name>canSymbolicVal</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="str">
+<name>canSymbolicValUnit</name>
+<val muxpos="0"/>
+<val muxpos="1"/>
+<val muxpos="2"/>
+<val muxpos="3"/>
+</ctrl>
+<ctrl type="i32">
+<name>canSymbolicDataBytes</name>
+<val muxpos="0">4</val>
+<val muxpos="1">4</val>
+<val muxpos="2">4</val>
+<val muxpos="3">4</val>
+</ctrl>
+<ctrl type="str">
+<name>canSymbolicData</name>
+<val muxpos="0">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>canSymbolicAddrMode</name>
+<val muxpos="0">0,"std"</val>
+<val muxpos="1">0,"std"</val>
+<val muxpos="2">0,"std"</val>
+<val muxpos="3">0,"std"</val>
+</ctrl>
+<ctrl type="i32">
+<name>canSymbolicAddrLength</name>
+<val muxpos="0">11</val>
+<val muxpos="1">11</val>
+<val muxpos="2">11</val>
+<val muxpos="3">11</val>
+</ctrl>
+<ctrl type="str">
+<name>canSymbolicAddr</name>
+<val muxpos="0">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>canAddrMode</name>
+<val muxpos="0">0,"std"</val>
+<val muxpos="1">0,"std"</val>
+<val muxpos="2">0,"std"</val>
+<val muxpos="3">0,"std"</val>
+</ctrl>
+<ctrl type="enum">
+<name>canBitRate</name>
+<val muxpos="0">6,"b125k"</val>
+<val muxpos="1">6,"b125k"</val>
+<val muxpos="2">6,"b125k"</val>
+<val muxpos="3">6,"b125k"</val>
+</ctrl>
+<ctrl type="i32">
+<name>canUserBitRate</name>
+<val muxpos="0">125000</val>
+<val muxpos="1">125000</val>
+<val muxpos="2">125000</val>
+<val muxpos="3">125000</val>
+</ctrl>
+<ctrl type="f64">
+<name>canSampleLocation</name>
+<val muxpos="0">4635329916471083008</val>
+<val muxpos="1">4635329916471083008</val>
+<val muxpos="2">4635329916471083008</val>
+<val muxpos="3">4635329916471083008</val>
+</ctrl>
+<ctrl type="enum">
+<name>canFdBitRate</name>
+<val muxpos="0">18,"b5M"</val>
+<val muxpos="1">18,"b5M"</val>
+<val muxpos="2">18,"b5M"</val>
+<val muxpos="3">18,"b5M"</val>
+</ctrl>
+<ctrl type="i32">
+<name>canFdUserBitRate</name>
+<val muxpos="0">5000000</val>
+<val muxpos="1">5000000</val>
+<val muxpos="2">5000000</val>
+<val muxpos="3">5000000</val>
+</ctrl>
+<ctrl type="f64">
+<name>canFdSampleLocation</name>
+<val muxpos="0">4632233691727265792</val>
+<val muxpos="1">4632233691727265792</val>
+<val muxpos="2">4632233691727265792</val>
+<val muxpos="3">4632233691727265792</val>
+</ctrl>
+<ctrl type="enum">
+<name>canFdStd</name>
+<val muxpos="0">1,"iso_can_fd"</val>
+<val muxpos="1">1,"iso_can_fd"</val>
+<val muxpos="2">1,"iso_can_fd"</val>
+<val muxpos="3">1,"iso_can_fd"</val>
+</ctrl>
+<ctrl type="i32">
+<name>canDlc</name>
+<val muxpos="0">-1</val>
+<val muxpos="1">-1</val>
+<val muxpos="2">-1</val>
+<val muxpos="3">-1</val>
+</ctrl>
+<ctrl type="i32">
+<name>canDataBytes</name>
+<val muxpos="0">4</val>
+<val muxpos="1">4</val>
+<val muxpos="2">4</val>
+<val muxpos="3">4</val>
+</ctrl>
+<ctrl type="i32">
+<name>canStartByte</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="str">
+<name>canData</name>
+<val muxpos="0">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="i32">
+<name>canAddrLength</name>
+<val muxpos="0">11</val>
+<val muxpos="1">11</val>
+<val muxpos="2">11</val>
+<val muxpos="3">11</val>
+</ctrl>
+<ctrl type="str">
+<name>canAddr</name>
+<val muxpos="0">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>canFilterTrigById</name>
+<val muxpos="0">0,"off"</val>
+<val muxpos="1">0,"off"</val>
+<val muxpos="2">0,"off"</val>
+<val muxpos="3">0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>uartRxSrc</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>uartTxSrc</name>
+<val muxpos="0">1,"ch2"</val>
+<val muxpos="1">1,"ch2"</val>
+<val muxpos="2">1,"ch2"</val>
+<val muxpos="3">1,"ch2"</val>
+</ctrl>
+<ctrl type="i32">
+<name>uartDataLength</name>
+<val muxpos="0">8</val>
+<val muxpos="1">8</val>
+<val muxpos="2">8</val>
+<val muxpos="3">8</val>
+</ctrl>
+<ctrl type="enum">
+<name>uartParity</name>
+<val muxpos="0">2,"none"</val>
+<val muxpos="1">2,"none"</val>
+<val muxpos="2">2,"none"</val>
+<val muxpos="3">2,"none"</val>
+</ctrl>
+<ctrl type="enum">
+<name>uartBitRate</name>
+<val muxpos="0">10,"b19_2k"</val>
+<val muxpos="1">10,"b19_2k"</val>
+<val muxpos="2">10,"b19_2k"</val>
+<val muxpos="3">10,"b19_2k"</val>
+</ctrl>
+<ctrl type="i32">
+<name>uartUserBitRate</name>
+<val muxpos="0">19200</val>
+<val muxpos="1">19200</val>
+<val muxpos="2">19200</val>
+<val muxpos="3">19200</val>
+</ctrl>
+<ctrl type="enum">
+<name>uartPolarity</name>
+<val muxpos="0">0,"low"</val>
+<val muxpos="1">0,"low"</val>
+<val muxpos="2">0,"low"</val>
+<val muxpos="3">0,"low"</val>
+</ctrl>
+<ctrl type="enum">
+<name>uartBitOrder</name>
+<val muxpos="0">1,"lsb"</val>
+<val muxpos="1">1,"lsb"</val>
+<val muxpos="2">1,"lsb"</val>
+<val muxpos="3">1,"lsb"</val>
+</ctrl>
+<ctrl type="enum">
+<name>uartTrig</name>
+<val muxpos="0">0,"rxStart"</val>
+<val muxpos="1">0,"rxStart"</val>
+<val muxpos="2">0,"rxStart"</val>
+<val muxpos="3">0,"rxStart"</val>
+</ctrl>
+<ctrl type="enum">
+<name>uartDataQual</name>
+<val muxpos="0">2,"equal"</val>
+<val muxpos="1">2,"equal"</val>
+<val muxpos="2">2,"equal"</val>
+<val muxpos="3">2,"equal"</val>
+</ctrl>
+<ctrl type="i32">
+<name>uartData</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="i32">
+<name>uartBurstCnt</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="f64">
+<name>uartIdleTime</name>
+<val muxpos="0">4572414629676717179</val>
+<val muxpos="1">4572414629676717179</val>
+<val muxpos="2">4572414629676717179</val>
+<val muxpos="3">4572414629676717179</val>
+</ctrl>
+<ctrl type="enum">
+<name>uartBase</name>
+<val muxpos="0">0,"hex"</val>
+<val muxpos="1">0,"hex"</val>
+<val muxpos="2">0,"hex"</val>
+<val muxpos="3">0,"hex"</val>
+</ctrl>
+<ctrl type="i32">
+<name>uartFrameId</name>
+<val muxpos="0">-1</val>
+<val muxpos="1">-1</val>
+<val muxpos="2">-1</val>
+<val muxpos="3">-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>uartTrigBase</name>
+<val muxpos="0">0,"hex"</val>
+<val muxpos="1">0,"hex"</val>
+<val muxpos="2">0,"hex"</val>
+<val muxpos="3">0,"hex"</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2sSclkSrc</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2sWsSrc</name>
+<val muxpos="0">1,"ch2"</val>
+<val muxpos="1">1,"ch2"</val>
+<val muxpos="2">1,"ch2"</val>
+<val muxpos="3">1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2sSdataSrc</name>
+<val muxpos="0">2,"ch3"</val>
+<val muxpos="1">2,"ch3"</val>
+<val muxpos="2">2,"ch3"</val>
+<val muxpos="3">2,"ch3"</val>
+</ctrl>
+<ctrl type="i32">
+<name>i2sTxWordSize</name>
+<val muxpos="0">8</val>
+<val muxpos="1">8</val>
+<val muxpos="2">8</val>
+<val muxpos="3">8</val>
+</ctrl>
+<ctrl type="i32">
+<name>i2sRxWordSize</name>
+<val muxpos="0">8</val>
+<val muxpos="1">8</val>
+<val muxpos="2">8</val>
+<val muxpos="3">8</val>
+</ctrl>
+<ctrl type="i32">
+<name>i2sTrigWordSize</name>
+<val muxpos="0">8</val>
+<val muxpos="1">8</val>
+<val muxpos="2">8</val>
+<val muxpos="3">8</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2sDataAlign</name>
+<val muxpos="0">0,"i2s"</val>
+<val muxpos="1">0,"i2s"</val>
+<val muxpos="2">0,"i2s"</val>
+<val muxpos="3">0,"i2s"</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2sWsPolarity</name>
+<val muxpos="0">0,"left"</val>
+<val muxpos="1">0,"left"</val>
+<val muxpos="2">0,"left"</val>
+<val muxpos="3">0,"left"</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2sSclkPolarity</name>
+<val muxpos="0">1,"positive"</val>
+<val muxpos="1">1,"positive"</val>
+<val muxpos="2">1,"positive"</val>
+<val muxpos="3">1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2sDecodeBase</name>
+<val muxpos="0">3,"dec"</val>
+<val muxpos="1">3,"dec"</val>
+<val muxpos="2">3,"dec"</val>
+<val muxpos="3">3,"dec"</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2sTrig</name>
+<val muxpos="0">0,"equal"</val>
+<val muxpos="1">0,"equal"</val>
+<val muxpos="2">0,"equal"</val>
+<val muxpos="3">0,"equal"</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2sAudioChan</name>
+<val muxpos="0">2,"left"</val>
+<val muxpos="1">2,"left"</val>
+<val muxpos="2">2,"left"</val>
+<val muxpos="3">2,"left"</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2sTrigBase</name>
+<val muxpos="0">3,"dec"</val>
+<val muxpos="1">3,"dec"</val>
+<val muxpos="2">3,"dec"</val>
+<val muxpos="3">3,"dec"</val>
+</ctrl>
+<ctrl type="str">
+<name>i2sData</name>
+<val muxpos="0">00000000000000000000000000000000</val>
+<val muxpos="1">00000000000000000000000000000000</val>
+<val muxpos="2">00000000000000000000000000000000</val>
+<val muxpos="3">00000000000000000000000000000000</val>
+</ctrl>
+<ctrl type="str">
+<name>i2sRangeMin</name>
+<val muxpos="0">11110110000000000000000000000000</val>
+<val muxpos="1">11110110000000000000000000000000</val>
+<val muxpos="2">11110110000000000000000000000000</val>
+<val muxpos="3">11110110000000000000000000000000</val>
+</ctrl>
+<ctrl type="str">
+<name>i2sRangeMax</name>
+<val muxpos="0">00001010000000000000000000000000</val>
+<val muxpos="1">00001010000000000000000000000000</val>
+<val muxpos="2">00001010000000000000000000000000</val>
+<val muxpos="3">00001010000000000000000000000000</val>
+</ctrl>
+<ctrl type="enum">
+<name>i2sBitsDefine</name>
+<val muxpos="0">2,"data"</val>
+<val muxpos="1">2,"data"</val>
+<val muxpos="2">2,"data"</val>
+<val muxpos="3">2,"data"</val>
+</ctrl>
+<ctrl type="enum">
+<name>m1553InputLow</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>m1553Trigger</name>
+<val muxpos="0">2,"csStart"</val>
+<val muxpos="1">2,"csStart"</val>
+<val muxpos="2">2,"csStart"</val>
+<val muxpos="3">2,"csStart"</val>
+</ctrl>
+<ctrl type="i32">
+<name>m1553Rta</name>
+<val muxpos="0">-1</val>
+<val muxpos="1">-1</val>
+<val muxpos="2">-1</val>
+<val muxpos="3">-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>m1553Base</name>
+<val muxpos="0">0,"hex"</val>
+<val muxpos="1">0,"hex"</val>
+<val muxpos="2">0,"hex"</val>
+<val muxpos="3">0,"hex"</val>
+</ctrl>
+<ctrl type="str">
+<name>m1553Data</name>
+<val muxpos="0">XXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>a429Src</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>a429Speed</name>
+<val muxpos="0">0,"high"</val>
+<val muxpos="1">0,"high"</val>
+<val muxpos="2">0,"high"</val>
+<val muxpos="3">0,"high"</val>
+</ctrl>
+<ctrl type="enum">
+<name>a429SigType</name>
+<val muxpos="0">2,"diff"</val>
+<val muxpos="1">2,"diff"</val>
+<val muxpos="2">2,"diff"</val>
+<val muxpos="3">2,"diff"</val>
+</ctrl>
+<ctrl type="i32">
+<name>a429BitRate</name>
+<val muxpos="0">100000</val>
+<val muxpos="1">100000</val>
+<val muxpos="2">100000</val>
+<val muxpos="3">100000</val>
+</ctrl>
+<ctrl type="enum">
+<name>a429Trigger</name>
+<val muxpos="0">0,"wordStart"</val>
+<val muxpos="1">0,"wordStart"</val>
+<val muxpos="2">0,"wordStart"</val>
+<val muxpos="3">0,"wordStart"</val>
+</ctrl>
+<ctrl type="enum">
+<name>a429Base</name>
+<val muxpos="0">0,"hex"</val>
+<val muxpos="1">0,"hex"</val>
+<val muxpos="2">0,"hex"</val>
+<val muxpos="3">0,"hex"</val>
+</ctrl>
+<ctrl type="enum">
+<name>a429Format</name>
+<val muxpos="0">0,"labelSdiDataSsm"</val>
+<val muxpos="1">0,"labelSdiDataSsm"</val>
+<val muxpos="2">0,"labelSdiDataSsm"</val>
+<val muxpos="3">0,"labelSdiDataSsm"</val>
+</ctrl>
+<ctrl type="i32">
+<name>a429Label</name>
+<val muxpos="0">-1</val>
+<val muxpos="1">-1</val>
+<val muxpos="2">-1</val>
+<val muxpos="3">-1</val>
+</ctrl>
+<ctrl type="i32">
+<name>a429LabelMin</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="i32">
+<name>a429LabelMax</name>
+<val muxpos="0">1</val>
+<val muxpos="1">1</val>
+<val muxpos="2">1</val>
+<val muxpos="3">1</val>
+</ctrl>
+<ctrl type="str">
+<name>a429Data</name>
+<val muxpos="0">XXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>a429Sdi</name>
+<val muxpos="0">XX</val>
+<val muxpos="1">XX</val>
+<val muxpos="2">XX</val>
+<val muxpos="3">XX</val>
+</ctrl>
+<ctrl type="str">
+<name>a429Ssm</name>
+<val muxpos="0">XX</val>
+<val muxpos="1">XX</val>
+<val muxpos="2">XX</val>
+<val muxpos="3">XX</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbDPosSrc</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbDNegSrc</name>
+<val muxpos="0">1,"ch2"</val>
+<val muxpos="1">1,"ch2"</val>
+<val muxpos="2">1,"ch2"</val>
+<val muxpos="3">1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbHighSpeedSrc</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbSpeed</name>
+<val muxpos="0">1,"full"</val>
+<val muxpos="1">1,"full"</val>
+<val muxpos="2">1,"full"</val>
+<val muxpos="3">1,"full"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbDecodeBase</name>
+<val muxpos="0">0,"hex"</val>
+<val muxpos="1">0,"hex"</val>
+<val muxpos="2">0,"hex"</val>
+<val muxpos="3">0,"hex"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbSerTrig</name>
+<val muxpos="0">0,"sop"</val>
+<val muxpos="1">0,"sop"</val>
+<val muxpos="2">0,"sop"</val>
+<val muxpos="3">0,"sop"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbTrigBase</name>
+<val muxpos="0">0,"hex"</val>
+<val muxpos="1">0,"hex"</val>
+<val muxpos="2">0,"hex"</val>
+<val muxpos="3">0,"hex"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbTokenPidBase</name>
+<val muxpos="0">0,"out"</val>
+<val muxpos="1">0,"out"</val>
+<val muxpos="2">0,"out"</val>
+<val muxpos="3">0,"out"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbDataPidBase</name>
+<val muxpos="0">0,"data0"</val>
+<val muxpos="1">0,"data0"</val>
+<val muxpos="2">0,"data0"</val>
+<val muxpos="3">0,"data0"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbHandshakePidBase</name>
+<val muxpos="0">0,"ack"</val>
+<val muxpos="1">0,"ack"</val>
+<val muxpos="2">0,"ack"</val>
+<val muxpos="3">0,"ack"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbSpecialPidBase</name>
+<val muxpos="0">0,"pre"</val>
+<val muxpos="1">0,"pre"</val>
+<val muxpos="2">0,"pre"</val>
+<val muxpos="3">0,"pre"</val>
+</ctrl>
+<ctrl type="str">
+<name>usbPidCheck</name>
+<val muxpos="0">XXXX</val>
+<val muxpos="1">XXXX</val>
+<val muxpos="2">XXXX</val>
+<val muxpos="3">XXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>usbAddress</name>
+<val muxpos="0">XXXXXXX</val>
+<val muxpos="1">XXXXXXX</val>
+<val muxpos="2">XXXXXXX</val>
+<val muxpos="3">XXXXXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>usbEndpoint</name>
+<val muxpos="0">XXXX</val>
+<val muxpos="1">XXXX</val>
+<val muxpos="2">XXXX</val>
+<val muxpos="3">XXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>usbCrc</name>
+<val muxpos="0">XXXXX</val>
+<val muxpos="1">XXXXX</val>
+<val muxpos="2">XXXXX</val>
+<val muxpos="3">XXXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>usbData</name>
+<val muxpos="0">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="i32">
+<name>usbDataBytes</name>
+<val muxpos="0">4</val>
+<val muxpos="1">4</val>
+<val muxpos="2">4</val>
+<val muxpos="3">4</val>
+</ctrl>
+<ctrl type="str">
+<name>usbFrame</name>
+<val muxpos="0">XXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>usbHubAddr</name>
+<val muxpos="0">XXXXXXX</val>
+<val muxpos="1">XXXXXXX</val>
+<val muxpos="2">XXXXXXX</val>
+<val muxpos="3">XXXXXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>usbSc</name>
+<val muxpos="0">X</val>
+<val muxpos="1">X</val>
+<val muxpos="2">X</val>
+<val muxpos="3">X</val>
+</ctrl>
+<ctrl type="str">
+<name>usbPort</name>
+<val muxpos="0">XXXXXXX</val>
+<val muxpos="1">XXXXXXX</val>
+<val muxpos="2">XXXXXXX</val>
+<val muxpos="3">XXXXXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>usbSeu</name>
+<val muxpos="0">XX</val>
+<val muxpos="1">XX</val>
+<val muxpos="2">XX</val>
+<val muxpos="3">XX</val>
+</ctrl>
+<ctrl type="str">
+<name>usbEt</name>
+<val muxpos="0">XX</val>
+<val muxpos="1">XX</val>
+<val muxpos="2">XX</val>
+<val muxpos="3">XX</val>
+</ctrl>
+<ctrl type="enum">
+<name>sentSrc</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="f64">
+<name>sentClkTick</name>
+<val muxpos="0">4524193975976911956</val>
+<val muxpos="1">4524193975976911956</val>
+<val muxpos="2">4524193975976911956</val>
+<val muxpos="3">4524193975976911956</val>
+</ctrl>
+<ctrl type="i32">
+<name>sentClkTickTolerance</name>
+<val muxpos="0">20</val>
+<val muxpos="1">20</val>
+<val muxpos="2">20</val>
+<val muxpos="3">20</val>
+</ctrl>
+<ctrl type="i32">
+<name>sentTrigTolerance</name>
+<val muxpos="0">15</val>
+<val muxpos="1">15</val>
+<val muxpos="2">15</val>
+<val muxpos="3">15</val>
+</ctrl>
+<ctrl type="enum">
+<name>sentIdleState</name>
+<val muxpos="0">1,"high"</val>
+<val muxpos="1">1,"high"</val>
+<val muxpos="2">1,"high"</val>
+<val muxpos="3">1,"high"</val>
+</ctrl>
+<ctrl type="i32">
+<name>sentNumDataNibbles</name>
+<val muxpos="0">6</val>
+<val muxpos="1">6</val>
+<val muxpos="2">6</val>
+<val muxpos="3">6</val>
+</ctrl>
+<ctrl type="enum">
+<name>SentPausePulse</name>
+<val muxpos="0">0,"off"</val>
+<val muxpos="1">0,"off"</val>
+<val muxpos="2">0,"off"</val>
+<val muxpos="3">0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>sentCrcFormat</name>
+<val muxpos="0">1,"2010"</val>
+<val muxpos="1">1,"2010"</val>
+<val muxpos="2">1,"2010"</val>
+<val muxpos="3">1,"2010"</val>
+</ctrl>
+<ctrl type="enum">
+<name>sentMsgForamt</name>
+<val muxpos="0">0,"raw"</val>
+<val muxpos="1">0,"raw"</val>
+<val muxpos="2">0,"raw"</val>
+<val muxpos="3">0,"raw"</val>
+</ctrl>
+<ctrl type="enum">
+<name>sentDisplayMode</name>
+<val muxpos="0">0,"hex"</val>
+<val muxpos="1">0,"hex"</val>
+<val muxpos="2">0,"hex"</val>
+<val muxpos="3">0,"hex"</val>
+</ctrl>
+<ctrl type="enum">
+<name>sentTrigger</name>
+<val muxpos="0">0,"startOfMessage"</val>
+<val muxpos="1">0,"startOfMessage"</val>
+<val muxpos="2">0,"startOfMessage"</val>
+<val muxpos="3">0,"startOfMessage"</val>
+</ctrl>
+<ctrl type="enum">
+<name>sentTrigEnhFmt</name>
+<val muxpos="0">0,"Id4Data16"</val>
+<val muxpos="1">0,"Id4Data16"</val>
+<val muxpos="2">0,"Id4Data16"</val>
+<val muxpos="3">0,"Id4Data16"</val>
+</ctrl>
+<ctrl type="i32">
+<name>sentTrigSlowId</name>
+<val muxpos="0">-1</val>
+<val muxpos="1">-1</val>
+<val muxpos="2">-1</val>
+<val muxpos="3">-1</val>
+</ctrl>
+<ctrl type="i32">
+<name>sentTrigSlowData</name>
+<val muxpos="0">-1</val>
+<val muxpos="1">-1</val>
+<val muxpos="2">-1</val>
+<val muxpos="3">-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>sentTrigBase</name>
+<val muxpos="0">0,"hex"</val>
+<val muxpos="1">0,"hex"</val>
+<val muxpos="2">0,"hex"</val>
+<val muxpos="3">0,"hex"</val>
+</ctrl>
+<ctrl type="str">
+<name>sentTrigFastData</name>
+<val muxpos="0">XXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="i32">
+<name>sentNumTrigNibbles</name>
+<val muxpos="0">28</val>
+<val muxpos="1">28</val>
+<val muxpos="2">28</val>
+<val muxpos="3">28</val>
+</ctrl>
+<ctrl type="enum">
+<name>sentSBus1SigState</name>
+<val muxpos="0">0,"off"</val>
+<val muxpos="1">0,"off"</val>
+<val muxpos="2">0,"off"</val>
+<val muxpos="3">0,"off"</val>
+<val muxpos="4">0,"off"</val>
+<val muxpos="5">0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>sentSBus2SigState</name>
+<val muxpos="0">0,"off"</val>
+<val muxpos="1">0,"off"</val>
+<val muxpos="2">0,"off"</val>
+<val muxpos="3">0,"off"</val>
+<val muxpos="4">0,"off"</val>
+<val muxpos="5">0,"off"</val>
+</ctrl>
+<ctrl type="i32">
+<name>sentSBus1SigStartBit</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+<val muxpos="4">0</val>
+<val muxpos="5">0</val>
+</ctrl>
+<ctrl type="i32">
+<name>sentSBus2SigStartBit</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+<val muxpos="4">0</val>
+<val muxpos="5">0</val>
+</ctrl>
+<ctrl type="i32">
+<name>sentSBus1SigNumBits</name>
+<val muxpos="0">1</val>
+<val muxpos="1">1</val>
+<val muxpos="2">1</val>
+<val muxpos="3">1</val>
+<val muxpos="4">1</val>
+<val muxpos="5">1</val>
+</ctrl>
+<ctrl type="i32">
+<name>sentSBus2SigNumBits</name>
+<val muxpos="0">1</val>
+<val muxpos="1">1</val>
+<val muxpos="2">1</val>
+<val muxpos="3">1</val>
+<val muxpos="4">1</val>
+<val muxpos="5">1</val>
+</ctrl>
+<ctrl type="enum">
+<name>sentSBus1SigNibOrder</name>
+<val muxpos="0">0,"msn"</val>
+<val muxpos="1">0,"msn"</val>
+<val muxpos="2">0,"msn"</val>
+<val muxpos="3">0,"msn"</val>
+<val muxpos="4">0,"msn"</val>
+<val muxpos="5">0,"msn"</val>
+</ctrl>
+<ctrl type="enum">
+<name>sentSBus2SigNibOrder</name>
+<val muxpos="0">0,"msn"</val>
+<val muxpos="1">0,"msn"</val>
+<val muxpos="2">0,"msn"</val>
+<val muxpos="3">0,"msn"</val>
+<val muxpos="4">0,"msn"</val>
+<val muxpos="5">0,"msn"</val>
+</ctrl>
+<ctrl type="f64">
+<name>sentSBus1SigSlope</name>
+<val muxpos="0">4607182418800017408</val>
+<val muxpos="1">4607182418800017408</val>
+<val muxpos="2">4607182418800017408</val>
+<val muxpos="3">4607182418800017408</val>
+<val muxpos="4">4607182418800017408</val>
+<val muxpos="5">4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>sentSBus2SigSlope</name>
+<val muxpos="0">4607182418800017408</val>
+<val muxpos="1">4607182418800017408</val>
+<val muxpos="2">4607182418800017408</val>
+<val muxpos="3">4607182418800017408</val>
+<val muxpos="4">4607182418800017408</val>
+<val muxpos="5">4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>sentSBus1SigOffset</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+<val muxpos="4">0</val>
+<val muxpos="5">0</val>
+</ctrl>
+<ctrl type="f64">
+<name>sentSBus2SigOffset</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+<val muxpos="4">0</val>
+<val muxpos="5">0</val>
+</ctrl>
+<ctrl type="enum">
+<name>cxpiSrc</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="i32">
+<name>cxpiTolerance</name>
+<val muxpos="0">4</val>
+<val muxpos="1">4</val>
+<val muxpos="2">4</val>
+<val muxpos="3">4</val>
+</ctrl>
+<ctrl type="enum">
+<name>cxpiParityState</name>
+<val muxpos="0">0,"off"</val>
+<val muxpos="1">0,"off"</val>
+<val muxpos="2">0,"off"</val>
+<val muxpos="3">0,"off"</val>
+</ctrl>
+<ctrl type="i32">
+<name>cxpiBitRate</name>
+<val muxpos="0">20000</val>
+<val muxpos="1">20000</val>
+<val muxpos="2">20000</val>
+<val muxpos="3">20000</val>
+</ctrl>
+<ctrl type="enum">
+<name>cxpiTrigger</name>
+<val muxpos="0">0,"startOfFrame"</val>
+<val muxpos="1">0,"startOfFrame"</val>
+<val muxpos="2">0,"startOfFrame"</val>
+<val muxpos="3">0,"startOfFrame"</val>
+</ctrl>
+<ctrl type="enum">
+<name>cxpiTrigFilterById</name>
+<val muxpos="0">0,"off"</val>
+<val muxpos="1">0,"off"</val>
+<val muxpos="2">0,"off"</val>
+<val muxpos="3">0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>cxpiTrigPtype</name>
+<val muxpos="0">0,"notPresent"</val>
+<val muxpos="1">0,"notPresent"</val>
+<val muxpos="2">0,"notPresent"</val>
+<val muxpos="3">0,"notPresent"</val>
+</ctrl>
+<ctrl type="str">
+<name>cxpiTrigData</name>
+<val muxpos="0">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="i32">
+<name>cxpiTrigDlc</name>
+<val muxpos="0">-1</val>
+<val muxpos="1">-1</val>
+<val muxpos="2">-1</val>
+<val muxpos="3">-1</val>
+</ctrl>
+<ctrl type="i32">
+<name>cxpiTrigDataLen</name>
+<val muxpos="0">12</val>
+<val muxpos="1">12</val>
+<val muxpos="2">12</val>
+<val muxpos="3">12</val>
+</ctrl>
+<ctrl type="i32">
+<name>cxpiTrigDataStart</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="str">
+<name>cxpiTrigId</name>
+<val muxpos="0">XXXXXXX</val>
+<val muxpos="1">XXXXXXX</val>
+<val muxpos="2">XXXXXXX</val>
+<val muxpos="3">XXXXXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>cxpiTrigNm</name>
+<val muxpos="0">XX</val>
+<val muxpos="1">XX</val>
+<val muxpos="2">XX</val>
+<val muxpos="3">XX</val>
+</ctrl>
+<ctrl type="str">
+<name>cxpiTrigCount</name>
+<val muxpos="0">XX</val>
+<val muxpos="1">XX</val>
+<val muxpos="2">XX</val>
+<val muxpos="3">XX</val>
+</ctrl>
+<ctrl type="enum">
+<name>mancSrc</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="i32">
+<name>mancBitRate</name>
+<val muxpos="0">125000</val>
+<val muxpos="1">125000</val>
+<val muxpos="2">125000</val>
+<val muxpos="3">125000</val>
+</ctrl>
+<ctrl type="i32">
+<name>mancTolerance</name>
+<val muxpos="0">20</val>
+<val muxpos="1">20</val>
+<val muxpos="2">20</val>
+<val muxpos="3">20</val>
+</ctrl>
+<ctrl type="enum">
+<name>mancDispFormat</name>
+<val muxpos="0">1,"wordFormat"</val>
+<val muxpos="1">1,"wordFormat"</val>
+<val muxpos="2">1,"wordFormat"</val>
+<val muxpos="3">1,"wordFormat"</val>
+</ctrl>
+<ctrl type="i32">
+<name>mancStartEdgeNum</name>
+<val muxpos="0">1</val>
+<val muxpos="1">1</val>
+<val muxpos="2">1</val>
+<val muxpos="3">1</val>
+</ctrl>
+<ctrl type="i32">
+<name>mancSyncSize</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="i32">
+<name>mancHeaderSize</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="i32">
+<name>mancWordSize</name>
+<val muxpos="0">8</val>
+<val muxpos="1">8</val>
+<val muxpos="2">8</val>
+<val muxpos="3">8</val>
+</ctrl>
+<ctrl type="i32">
+<name>mancNumWords</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="i32">
+<name>mancTrailerSize</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="enum">
+<name>mancPolarity</name>
+<val muxpos="0">1,"falling1"</val>
+<val muxpos="1">1,"falling1"</val>
+<val muxpos="2">1,"falling1"</val>
+<val muxpos="3">1,"falling1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>mancBitOrder</name>
+<val muxpos="0">0,"msb"</val>
+<val muxpos="1">0,"msb"</val>
+<val muxpos="2">0,"msb"</val>
+<val muxpos="3">0,"msb"</val>
+</ctrl>
+<ctrl type="f64">
+<name>mancMinIdleBits</name>
+<val muxpos="0">4609434218613702656</val>
+<val muxpos="1">4609434218613702656</val>
+<val muxpos="2">4609434218613702656</val>
+<val muxpos="3">4609434218613702656</val>
+</ctrl>
+<ctrl type="enum">
+<name>mancDecodeBase</name>
+<val muxpos="0">0,"hex"</val>
+<val muxpos="1">0,"hex"</val>
+<val muxpos="2">0,"hex"</val>
+<val muxpos="3">0,"hex"</val>
+</ctrl>
+<ctrl type="enum">
+<name>mancTrigger</name>
+<val muxpos="0">0,"startOfFrame"</val>
+<val muxpos="1">0,"startOfFrame"</val>
+<val muxpos="2">0,"startOfFrame"</val>
+<val muxpos="3">0,"startOfFrame"</val>
+</ctrl>
+<ctrl type="i32">
+<name>mancTrigValLength</name>
+<val muxpos="0">8</val>
+<val muxpos="1">8</val>
+<val muxpos="2">8</val>
+<val muxpos="3">8</val>
+</ctrl>
+<ctrl type="str">
+<name>mancVal</name>
+<val muxpos="0">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>nrzSrc</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="i32">
+<name>nrzBitRate</name>
+<val muxpos="0">125000</val>
+<val muxpos="1">125000</val>
+<val muxpos="2">125000</val>
+<val muxpos="3">125000</val>
+</ctrl>
+<ctrl type="enum">
+<name>nrzDispFormat</name>
+<val muxpos="0">1,"wordFormat"</val>
+<val muxpos="1">1,"wordFormat"</val>
+<val muxpos="2">1,"wordFormat"</val>
+<val muxpos="3">1,"wordFormat"</val>
+</ctrl>
+<ctrl type="i32">
+<name>nrzNumStartBits</name>
+<val muxpos="0">1</val>
+<val muxpos="1">1</val>
+<val muxpos="2">1</val>
+<val muxpos="3">1</val>
+</ctrl>
+<ctrl type="i32">
+<name>nrzHeaderSize</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="i32">
+<name>nrzWordSize</name>
+<val muxpos="0">8</val>
+<val muxpos="1">8</val>
+<val muxpos="2">8</val>
+<val muxpos="3">8</val>
+</ctrl>
+<ctrl type="i32">
+<name>nrzNumWords</name>
+<val muxpos="0">1</val>
+<val muxpos="1">1</val>
+<val muxpos="2">1</val>
+<val muxpos="3">1</val>
+</ctrl>
+<ctrl type="i32">
+<name>nrzTrailerSize</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+</ctrl>
+<ctrl type="i32">
+<name>nrzTotalFrameSize</name>
+<val muxpos="0">8</val>
+<val muxpos="1">8</val>
+<val muxpos="2">8</val>
+<val muxpos="3">8</val>
+</ctrl>
+<ctrl type="enum">
+<name>nrzPolarity</name>
+<val muxpos="0">0,"high1"</val>
+<val muxpos="1">0,"high1"</val>
+<val muxpos="2">0,"high1"</val>
+<val muxpos="3">0,"high1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nrzBitOrder</name>
+<val muxpos="0">0,"msb"</val>
+<val muxpos="1">0,"msb"</val>
+<val muxpos="2">0,"msb"</val>
+<val muxpos="3">0,"msb"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nrzIdleState</name>
+<val muxpos="0">0,"low"</val>
+<val muxpos="1">0,"low"</val>
+<val muxpos="2">0,"low"</val>
+<val muxpos="3">0,"low"</val>
+</ctrl>
+<ctrl type="f64">
+<name>nrzMinIdleBits</name>
+<val muxpos="0">4621819117588971520</val>
+<val muxpos="1">4621819117588971520</val>
+<val muxpos="2">4621819117588971520</val>
+<val muxpos="3">4621819117588971520</val>
+</ctrl>
+<ctrl type="enum">
+<name>nrzDecodeBase</name>
+<val muxpos="0">0,"hex"</val>
+<val muxpos="1">0,"hex"</val>
+<val muxpos="2">0,"hex"</val>
+<val muxpos="3">0,"hex"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nrzTrigger</name>
+<val muxpos="0">0,"startOfFrame"</val>
+<val muxpos="1">0,"startOfFrame"</val>
+<val muxpos="2">0,"startOfFrame"</val>
+<val muxpos="3">0,"startOfFrame"</val>
+</ctrl>
+<ctrl type="i32">
+<name>nrzTrigValLength</name>
+<val muxpos="0">8</val>
+<val muxpos="1">8</val>
+<val muxpos="2">8</val>
+<val muxpos="3">8</val>
+</ctrl>
+<ctrl type="str">
+<name>nrzVal</name>
+<val muxpos="0">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbPdSrc</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">0,"ch1"</val>
+<val muxpos="3">0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbPdTrigger</name>
+<val muxpos="0">0,"preambleStart"</val>
+<val muxpos="1">0,"preambleStart"</val>
+<val muxpos="2">0,"preambleStart"</val>
+<val muxpos="3">0,"preambleStart"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbPdHeaderType</name>
+<val muxpos="0">0,"ctrlMsg"</val>
+<val muxpos="1">0,"ctrlMsg"</val>
+<val muxpos="2">0,"ctrlMsg"</val>
+<val muxpos="3">0,"ctrlMsg"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbPdCtrlMsg</name>
+<val muxpos="0">0,"goodCrc"</val>
+<val muxpos="1">0,"goodCrc"</val>
+<val muxpos="2">0,"goodCrc"</val>
+<val muxpos="3">0,"goodCrc"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbPdDataMsg</name>
+<val muxpos="0">0,"sourceCap"</val>
+<val muxpos="1">0,"sourceCap"</val>
+<val muxpos="2">0,"sourceCap"</val>
+<val muxpos="3">0,"sourceCap"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbPdExtMsg</name>
+<val muxpos="0">0,"sourceCapExt"</val>
+<val muxpos="1">0,"sourceCapExt"</val>
+<val muxpos="2">0,"sourceCapExt"</val>
+<val muxpos="3">0,"sourceCapExt"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbPdQualifier</name>
+<val muxpos="0">0,"none"</val>
+<val muxpos="1">0,"none"</val>
+<val muxpos="2">0,"none"</val>
+<val muxpos="3">0,"none"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbPdBase</name>
+<val muxpos="0">0,"hex"</val>
+<val muxpos="1">0,"hex"</val>
+<val muxpos="2">0,"hex"</val>
+<val muxpos="3">0,"hex"</val>
+</ctrl>
+<ctrl type="str">
+<name>usbPdTrigHeader</name>
+<val muxpos="0">XXXXXXXXXXXXXXXX</val>
+<val muxpos="1">XXXXXXXXXXXXXXXX</val>
+<val muxpos="2">XXXXXXXXXXXXXXXX</val>
+<val muxpos="3">XXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbCompTest</name>
+<val>0,"devHiSpeedSQ"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbCompTestType</name>
+<val>1,"nearEnd"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbCompTestConn</name>
+<val>1,"differential"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbCompDiffSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbCompDPlusSrc</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbCompDNegSrc</name>
+<val>2,"ch3"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbCompAdjSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>usbCompDispResults</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="i32">
+<name>usbCompNumOfHubs</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>brickProbeA1Src</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>brickProbeA2Src</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>brickProbeB1Src</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>brickProbeB2Src</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1On</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1TekProbe</name>
+<val>67,"P5205"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1SingleButtonMode</name>
+<val>1,"headlight"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1RSense</name>
+<val>4591870180066957722</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1PClampVolt</name>
+<val>9218868437227405311</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1NClampVolt</name>
+<val>-4503599627370497</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1ProbeId</name>
+<val>0</val>
+</ctrl>
+<ctrl type="str">
+<name>chan1ProbeSerialNumber</name>
+<val>&lt;NA&gt;</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1ProbeHead</name>
+<val>0,"none"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1ProbeDiffMode</name>
+<val>0,"single"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1LcapInfiniiMode</name>
+<val>0,"differential"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1ProbeAttenUnits</name>
+<val>16,"ratio"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1ProbeAtten</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1ProbeAttenDecibel</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1ProbeAttenAmp</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="ui32">
+<name>chan1ProbeAttenIndex</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1Units</name>
+<val>1,"volt"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1Coupling</name>
+<val>1,"dc"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1Impedance</name>
+<val>1,"1M"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1Scale</name>
+<val>4587366580439587226</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1Offset</name>
+<val>4588894201433191298</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1ScaleBot</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1ScaleTop</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1Position</name>
+<val>-4615234854933755855</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1TekOffset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1TekPosition</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1BwLimit</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1Invert</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1TrigNRej</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1TrigHfRej</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1TrigCoup</name>
+<val>1,"dc"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1TrigLevel</name>
+<val>-4646231906340596504</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1TrigLevelHigh</name>
+<val>4578071150808694522</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1TrigLevelLow</name>
+<val>0</val>
+</ctrl>
+<ctrl type="str">
+<name>chan1Label</name>
+<val>1</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1Skew</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1Vernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1ProbeCaled</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2On</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2TekProbe</name>
+<val>67,"P5205"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2SingleButtonMode</name>
+<val>1,"headlight"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2RSense</name>
+<val>4591870180066957722</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2PClampVolt</name>
+<val>9218868437227405311</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2NClampVolt</name>
+<val>-4503599627370497</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2ProbeId</name>
+<val>0</val>
+</ctrl>
+<ctrl type="str">
+<name>chan2ProbeSerialNumber</name>
+<val>&lt;NA&gt;</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2ProbeHead</name>
+<val>0,"none"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2ProbeDiffMode</name>
+<val>0,"single"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2LcapInfiniiMode</name>
+<val>0,"differential"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2ProbeAttenUnits</name>
+<val>16,"ratio"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2ProbeAtten</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2ProbeAttenDecibel</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2ProbeAttenAmp</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="ui32">
+<name>chan2ProbeAttenIndex</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2Units</name>
+<val>1,"volt"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2Coupling</name>
+<val>1,"dc"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2Impedance</name>
+<val>1,"1M"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2Scale</name>
+<val>4596373779694328218</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2Offset</name>
+<val>4586991880950590001</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2ScaleBot</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2ScaleTop</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2Position</name>
+<val>-4625665191670745923</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2TekOffset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2TekPosition</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2BwLimit</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2Invert</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2TrigNRej</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2TrigHfRej</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2TrigCoup</name>
+<val>1,"dc"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2TrigLevel</name>
+<val>4593671619917905920</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2TrigLevelHigh</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2TrigLevelLow</name>
+<val>0</val>
+</ctrl>
+<ctrl type="str">
+<name>chan2Label</name>
+<val>2</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2Skew</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2Vernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2ProbeCaled</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3On</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3TekProbe</name>
+<val>67,"P5205"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3SingleButtonMode</name>
+<val>1,"headlight"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3RSense</name>
+<val>4591870180066957722</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3PClampVolt</name>
+<val>9218868437227405311</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3NClampVolt</name>
+<val>-4503599627370497</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3ProbeId</name>
+<val>0</val>
+</ctrl>
+<ctrl type="str">
+<name>chan3ProbeSerialNumber</name>
+<val>&lt;NA&gt;</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3ProbeHead</name>
+<val>0,"none"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3ProbeDiffMode</name>
+<val>0,"single"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3LcapInfiniiMode</name>
+<val>0,"differential"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3ProbeAttenUnits</name>
+<val>16,"ratio"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3ProbeAtten</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3ProbeAttenDecibel</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3ProbeAttenAmp</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="ui32">
+<name>chan3ProbeAttenIndex</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3Units</name>
+<val>1,"volt"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3Coupling</name>
+<val>1,"dc"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3Impedance</name>
+<val>1,"1M"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3Scale</name>
+<val>4573567551181324026</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3Offset</name>
+<val>4577752656243046881</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3ScaleBot</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3ScaleTop</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3Position</name>
+<val>-4612100724893074937</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3TekOffset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3TekPosition</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3BwLimit</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3Invert</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3TrigNRej</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3TrigHfRej</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3TrigCoup</name>
+<val>1,"dc"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3TrigLevel</name>
+<val>4571081564187015512</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3TrigLevelHigh</name>
+<val>4586998726422023604</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3TrigLevelLow</name>
+<val>0</val>
+</ctrl>
+<ctrl type="str">
+<name>chan3Label</name>
+<val>3</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3Skew</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3Vernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3ProbeCaled</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4On</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4TekProbe</name>
+<val>67,"P5205"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4SingleButtonMode</name>
+<val>1,"headlight"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4RSense</name>
+<val>4591870180066957722</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4PClampVolt</name>
+<val>9218868437227405311</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4NClampVolt</name>
+<val>-4503599627370497</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4ProbeId</name>
+<val>0</val>
+</ctrl>
+<ctrl type="str">
+<name>chan4ProbeSerialNumber</name>
+<val>&lt;NA&gt;</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4ProbeHead</name>
+<val>0,"none"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4ProbeDiffMode</name>
+<val>0,"single"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4LcapInfiniiMode</name>
+<val>0,"differential"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4ProbeAttenUnits</name>
+<val>16,"ratio"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4ProbeAtten</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4ProbeAttenDecibel</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4ProbeAttenAmp</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="ui32">
+<name>chan4ProbeAttenIndex</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4Units</name>
+<val>1,"volt"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4Coupling</name>
+<val>1,"dc"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4Impedance</name>
+<val>1,"1M"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4Scale</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4Offset</name>
+<val>-4620576124091817263</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4ScaleBot</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4ScaleTop</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4Position</name>
+<val>4602795912762958545</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4TekOffset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4TekPosition</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4BwLimit</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4Invert</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4TrigNRej</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4TrigHfRej</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4TrigCoup</name>
+<val>1,"dc"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4TrigLevel</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4TrigLevelHigh</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4TrigLevelLow</name>
+<val>0</val>
+</ctrl>
+<ctrl type="str">
+<name>chan4Label</name>
+<val>4</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4Skew</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4Vernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4ProbeCaled</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chanExtTekProbe</name>
+<val>67,"P5205"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chanExtProbeId</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>chanExtLcapInfiniiMode</name>
+<val>0,"differential"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chanExtRSense</name>
+<val>4591870180066957722</val>
+</ctrl>
+<ctrl type="enum">
+<name>chanExtProbeAttenUnits</name>
+<val>16,"ratio"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chanExtProbeAtten</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>chanExtProbeAttenDecibel</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>chanExtProbeAttenAmp</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="ui32">
+<name>chanExtProbeAttenIndex</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>chanExtProbeHead</name>
+<val>0,"none"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chanExtUnits</name>
+<val>1,"volt"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chanExtRange</name>
+<val>4620693217682128896</val>
+</ctrl>
+<ctrl type="enum">
+<name>chanExtCoupling</name>
+<val>1,"dc"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chanExtTrigLevel</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>mathMasterState</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>fftMasterState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1On</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1Op</name>
+<val>6,"fft"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1MeasTrendMeas</name>
+<val>0,"meas1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1MeasLogMeas</name>
+<val>0,"meas1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1Src1</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1Src2</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1PlotBusYUnits</name>
+<val>1,"volt"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math1PlotBusYOrg</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>math1PlotBusYInc</name>
+<val>4562254508917369340</val>
+</ctrl>
+<ctrl type="f64">
+<name>math1LinearGain</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>math1LinearOffset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1FftVertType</name>
+<val>0,"decibels"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math1Scale</name>
+<val>4626322717216342016</val>
+</ctrl>
+<ctrl type="f64">
+<name>math1Offset</name>
+<val>-4588042120383692800</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1FftDispMode</name>
+<val>0,"normal"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1FftDetType</name>
+<val>0,"none"</val>
+</ctrl>
+<ctrl type="i32">
+<name>math1DetLength</name>
+<val>8</val>
+</ctrl>
+<ctrl type="f64">
+<name>math1FftSpan</name>
+<val>4726483295884279808</val>
+</ctrl>
+<ctrl type="f64">
+<name>math1FftCenter</name>
+<val>4731959974039650304</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1FftWindow</name>
+<val>2,"hanning"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1FftInhibitWrap</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math1FftWrapFreq</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1FftPhaseRef</name>
+<val>1,"trigger"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1FftWgt</name>
+<val>1,"res"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1FftWgt2</name>
+<val>0,"smplRate"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1FreqLeftParam</name>
+<val>0,"span"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1FreqRightParam</name>
+<val>0,"center"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math1LowPassBw</name>
+<val>4741671816366391296</val>
+</ctrl>
+<ctrl type="f64">
+<name>math1HighPassBw</name>
+<val>4741671816366391296</val>
+</ctrl>
+<ctrl type="f64">
+<name>math1IntOffsetCorrect</name>
+<val>0</val>
+</ctrl>
+<ctrl type="ui32">
+<name>math1MeasLogMaxLength</name>
+<val>640</val>
+</ctrl>
+<ctrl type="f64">
+<name>math1MeasLogMinTime</name>
+<val>0</val>
+</ctrl>
+<ctrl type="ui32">
+<name>math1MeasLogIntrp</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1PlotBusClock</name>
+<val>10,"d0"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1PlotBusSlope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="i32">
+<name>math1AverCount</name>
+<val>8</val>
+</ctrl>
+<ctrl type="i32">
+<name>math1UsrFiltNumTaps</name>
+<val>4</val>
+</ctrl>
+<ctrl type="f64">
+<name>Math1UsrFiltTaps</name>
+<val muxpos="0">4607182418800017408</val>
+<val muxpos="1">4607182418800017408</val>
+<val muxpos="2">4607182418800017408</val>
+<val muxpos="3">4607182418800017408</val>
+</ctrl>
+<ctrl type="i32">
+<name>math1UsrFiltDlyIdx</name>
+<val>0</val>
+</ctrl>
+<ctrl type="i32">
+<name>math1UsrFiltIntrpFact</name>
+<val>4</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1UsrFiltNorm</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="ui32">
+<name>math1SmoothingPoints</name>
+<val>5</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1ZoomOnly</name>
+<val>0,"normal"</val>
+</ctrl>
+<ctrl type="str">
+<name>math1Label</name>
+<val>MATH1</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1Vernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math1RunMode</name>
+<val>0,"auto"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2On</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2Op</name>
+<val>0,"add"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2MeasTrendMeas</name>
+<val>0,"meas1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2MeasLogMeas</name>
+<val>0,"meas1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2Src1</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2Src2</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2PlotBusYUnits</name>
+<val>1,"volt"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math2PlotBusYOrg</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>math2PlotBusYInc</name>
+<val>4562254508917369340</val>
+</ctrl>
+<ctrl type="f64">
+<name>math2LinearGain</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>math2LinearOffset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2FftVertType</name>
+<val>0,"decibels"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math2Scale</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>math2Offset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2FftDispMode</name>
+<val>0,"normal"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2FftDetType</name>
+<val>0,"none"</val>
+</ctrl>
+<ctrl type="i32">
+<name>math2DetLength</name>
+<val>8</val>
+</ctrl>
+<ctrl type="f64">
+<name>math2FftSpan</name>
+<val>4681608360884174848</val>
+</ctrl>
+<ctrl type="f64">
+<name>math2FftCenter</name>
+<val>4677104761256804352</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2FftWindow</name>
+<val>2,"hanning"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2FftInhibitWrap</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math2FftWrapFreq</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2FftPhaseRef</name>
+<val>1,"trigger"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2FftWgt</name>
+<val>1,"res"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2FftWgt2</name>
+<val>0,"smplRate"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2FreqLeftParam</name>
+<val>0,"span"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2FreqRightParam</name>
+<val>0,"center"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math2LowPassBw</name>
+<val>4741671816366391296</val>
+</ctrl>
+<ctrl type="f64">
+<name>math2HighPassBw</name>
+<val>4741671816366391296</val>
+</ctrl>
+<ctrl type="f64">
+<name>math2IntOffsetCorrect</name>
+<val>0</val>
+</ctrl>
+<ctrl type="ui32">
+<name>math2MeasLogMaxLength</name>
+<val>640</val>
+</ctrl>
+<ctrl type="f64">
+<name>math2MeasLogMinTime</name>
+<val>0</val>
+</ctrl>
+<ctrl type="ui32">
+<name>math2MeasLogIntrp</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2PlotBusClock</name>
+<val>10,"d0"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2PlotBusSlope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="i32">
+<name>math2AverCount</name>
+<val>8</val>
+</ctrl>
+<ctrl type="i32">
+<name>math2UsrFiltNumTaps</name>
+<val>4</val>
+</ctrl>
+<ctrl type="f64">
+<name>Math2UsrFiltTaps</name>
+<val muxpos="0">4607182418800017408</val>
+<val muxpos="1">4607182418800017408</val>
+<val muxpos="2">4607182418800017408</val>
+<val muxpos="3">4607182418800017408</val>
+</ctrl>
+<ctrl type="i32">
+<name>math2UsrFiltDlyIdx</name>
+<val>0</val>
+</ctrl>
+<ctrl type="i32">
+<name>math2UsrFiltIntrpFact</name>
+<val>4</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2UsrFiltNorm</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="ui32">
+<name>math2SmoothingPoints</name>
+<val>5</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2ZoomOnly</name>
+<val>0,"normal"</val>
+</ctrl>
+<ctrl type="str">
+<name>math2Label</name>
+<val>MATH2</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2Vernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math2RunMode</name>
+<val>0,"auto"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3On</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3Op</name>
+<val>0,"add"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3MeasTrendMeas</name>
+<val>0,"meas1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3MeasLogMeas</name>
+<val>0,"meas1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3Src1</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3Src2</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3PlotBusYUnits</name>
+<val>1,"volt"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math3PlotBusYOrg</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>math3PlotBusYInc</name>
+<val>4562254508917369340</val>
+</ctrl>
+<ctrl type="f64">
+<name>math3LinearGain</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>math3LinearOffset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3FftVertType</name>
+<val>0,"decibels"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math3Scale</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>math3Offset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3FftDispMode</name>
+<val>0,"normal"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3FftDetType</name>
+<val>0,"none"</val>
+</ctrl>
+<ctrl type="i32">
+<name>math3DetLength</name>
+<val>8</val>
+</ctrl>
+<ctrl type="f64">
+<name>math3FftSpan</name>
+<val>4681608360884174848</val>
+</ctrl>
+<ctrl type="f64">
+<name>math3FftCenter</name>
+<val>4677104761256804352</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3FftWindow</name>
+<val>2,"hanning"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3FftInhibitWrap</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math3FftWrapFreq</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3FftPhaseRef</name>
+<val>1,"trigger"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3FftWgt</name>
+<val>1,"res"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3FftWgt2</name>
+<val>0,"smplRate"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3FreqLeftParam</name>
+<val>0,"span"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3FreqRightParam</name>
+<val>0,"center"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math3LowPassBw</name>
+<val>4741671816366391296</val>
+</ctrl>
+<ctrl type="f64">
+<name>math3HighPassBw</name>
+<val>4741671816366391296</val>
+</ctrl>
+<ctrl type="f64">
+<name>math3IntOffsetCorrect</name>
+<val>0</val>
+</ctrl>
+<ctrl type="ui32">
+<name>math3MeasLogMaxLength</name>
+<val>640</val>
+</ctrl>
+<ctrl type="f64">
+<name>math3MeasLogMinTime</name>
+<val>0</val>
+</ctrl>
+<ctrl type="ui32">
+<name>math3MeasLogIntrp</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3PlotBusClock</name>
+<val>10,"d0"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3PlotBusSlope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="i32">
+<name>math3AverCount</name>
+<val>8</val>
+</ctrl>
+<ctrl type="i32">
+<name>math3UsrFiltNumTaps</name>
+<val>4</val>
+</ctrl>
+<ctrl type="f64">
+<name>Math3UsrFiltTaps</name>
+<val muxpos="0">4607182418800017408</val>
+<val muxpos="1">4607182418800017408</val>
+<val muxpos="2">4607182418800017408</val>
+<val muxpos="3">4607182418800017408</val>
+</ctrl>
+<ctrl type="i32">
+<name>math3UsrFiltDlyIdx</name>
+<val>0</val>
+</ctrl>
+<ctrl type="i32">
+<name>math3UsrFiltIntrpFact</name>
+<val>4</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3UsrFiltNorm</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="ui32">
+<name>math3SmoothingPoints</name>
+<val>5</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3ZoomOnly</name>
+<val>0,"normal"</val>
+</ctrl>
+<ctrl type="str">
+<name>math3Label</name>
+<val>MATH3</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3Vernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math3RunMode</name>
+<val>0,"auto"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4On</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4Op</name>
+<val>0,"add"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4MeasTrendMeas</name>
+<val>0,"meas1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4MeasLogMeas</name>
+<val>0,"meas1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4Src1</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4Src2</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4PlotBusYUnits</name>
+<val>1,"volt"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math4PlotBusYOrg</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>math4PlotBusYInc</name>
+<val>4562254508917369340</val>
+</ctrl>
+<ctrl type="f64">
+<name>math4LinearGain</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>math4LinearOffset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4FftVertType</name>
+<val>0,"decibels"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math4Scale</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>math4Offset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4FftDispMode</name>
+<val>0,"normal"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4FftDetType</name>
+<val>0,"none"</val>
+</ctrl>
+<ctrl type="i32">
+<name>math4DetLength</name>
+<val>8</val>
+</ctrl>
+<ctrl type="f64">
+<name>math4FftSpan</name>
+<val>4681608360884174848</val>
+</ctrl>
+<ctrl type="f64">
+<name>math4FftCenter</name>
+<val>4677104761256804352</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4FftWindow</name>
+<val>2,"hanning"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4FftInhibitWrap</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math4FftWrapFreq</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4FftPhaseRef</name>
+<val>1,"trigger"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4FftWgt</name>
+<val>1,"res"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4FftWgt2</name>
+<val>0,"smplRate"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4FreqLeftParam</name>
+<val>0,"span"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4FreqRightParam</name>
+<val>0,"center"</val>
+</ctrl>
+<ctrl type="f64">
+<name>math4LowPassBw</name>
+<val>4741671816366391296</val>
+</ctrl>
+<ctrl type="f64">
+<name>math4HighPassBw</name>
+<val>4741671816366391296</val>
+</ctrl>
+<ctrl type="f64">
+<name>math4IntOffsetCorrect</name>
+<val>0</val>
+</ctrl>
+<ctrl type="ui32">
+<name>math4MeasLogMaxLength</name>
+<val>640</val>
+</ctrl>
+<ctrl type="f64">
+<name>math4MeasLogMinTime</name>
+<val>0</val>
+</ctrl>
+<ctrl type="ui32">
+<name>math4MeasLogIntrp</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4PlotBusClock</name>
+<val>10,"d0"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4PlotBusSlope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="i32">
+<name>math4AverCount</name>
+<val>8</val>
+</ctrl>
+<ctrl type="i32">
+<name>math4UsrFiltNumTaps</name>
+<val>4</val>
+</ctrl>
+<ctrl type="f64">
+<name>Math4UsrFiltTaps</name>
+<val muxpos="0">4607182418800017408</val>
+<val muxpos="1">4607182418800017408</val>
+<val muxpos="2">4607182418800017408</val>
+<val muxpos="3">4607182418800017408</val>
+</ctrl>
+<ctrl type="i32">
+<name>math4UsrFiltDlyIdx</name>
+<val>0</val>
+</ctrl>
+<ctrl type="i32">
+<name>math4UsrFiltIntrpFact</name>
+<val>4</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4UsrFiltNorm</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="ui32">
+<name>math4SmoothingPoints</name>
+<val>5</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4ZoomOnly</name>
+<val>0,"normal"</val>
+</ctrl>
+<ctrl type="str">
+<name>math4Label</name>
+<val>MATH4</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4Vernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>math4RunMode</name>
+<val>0,"auto"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMemMasterState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMemSel</name>
+<val>0,"r1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMemSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMemFileSaveSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMemLoadFileMemSel</name>
+<val>0,"r1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMemInfoEnable</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMemVecSetOffNeeded</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMemRunSetOnNeeded</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem1State</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem1Loaded</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="str">
+<name>wfmMem1Label</name>
+<val>REF1</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem1YUnits</name>
+<val>1,"volt"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem1YVernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem1YScale</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem1YOffset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem1XUnits</name>
+<val>3,"second"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem1XVernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem1XScale</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem1XPosition</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem1XSkew</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem2State</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem2Loaded</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="str">
+<name>wfmMem2Label</name>
+<val>REF2</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem2YUnits</name>
+<val>1,"volt"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem2YVernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem2YScale</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem2YOffset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem2XUnits</name>
+<val>3,"second"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem2XVernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem2XScale</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem2XPosition</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem2XSkew</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem3State</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem3Loaded</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="str">
+<name>wfmMem3Label</name>
+<val>REF3</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem3YUnits</name>
+<val>1,"volt"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem3YVernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem3YScale</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem3YOffset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem3XUnits</name>
+<val>3,"second"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem3XVernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem3XScale</name>
+<val>4532020583610935537</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem3XPosition</name>
+<val>4540348942683764017</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem3XSkew</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem4State</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem4Loaded</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="str">
+<name>wfmMem4Label</name>
+<val>REF4</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem4YUnits</name>
+<val>1,"volt"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem4YVernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem4YScale</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem4YOffset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem4XUnits</name>
+<val>3,"second"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmMem4XVernier</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem4XScale</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem4XPosition</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>wfmMem4XSkew</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>measState</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextMeasSrc1</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextMeasAlg</name>
+<val>7,"YAtX"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextMeasSrc2</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextMeasSrc3</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextMeasSrc4</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextMeasSrc1Slope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextMeasSrc2Slope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextMeasSrc3Slope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextMeasSrc4Slope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="ui32">
+<name>nextMeasSrc1Count</name>
+<val>0</val>
+</ctrl>
+<ctrl type="ui32">
+<name>nextMeasSrc2Count</name>
+<val>0</val>
+</ctrl>
+<ctrl type="ui32">
+<name>nextMeasSrc3Count</name>
+<val>0</val>
+</ctrl>
+<ctrl type="ui32">
+<name>nextMeasSrc4Count</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextUnits</name>
+<val>3,"second"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextFilterState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextFilterType</name>
+<val>0,"low"</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextFilterShape</name>
+<val>0,"rec"</val>
+</ctrl>
+<ctrl type="f64">
+<name>nextStartFreq</name>
+<val>4669471951536783360</val>
+</ctrl>
+<ctrl type="f64">
+<name>nextStopFreq</name>
+<val>4669416975955394560</val>
+</ctrl>
+<ctrl type="i32">
+<name>nextNEvents</name>
+<val>1</val>
+</ctrl>
+<ctrl type="ui32">
+<name>nextMeasEyeWindowStart</name>
+<val>40</val>
+</ctrl>
+<ctrl type="ui32">
+<name>nextMeasEyeWindowStop</name>
+<val>39</val>
+</ctrl>
+<ctrl type="ui32">
+<name>nextMeasStartHits</name>
+<val>1</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextMeasEyeJitterType</name>
+<val>0,"rms"</val>
+</ctrl>
+<ctrl type="f64">
+<name>nextMeasCenter</name>
+<val>4666723172467343360</val>
+</ctrl>
+<ctrl type="f64">
+<name>nextMeasSpan</name>
+<val>4652007308841189376</val>
+</ctrl>
+<ctrl type="f64">
+<name>nextMeasChanWidth</name>
+<val>4652007308841189376</val>
+</ctrl>
+<ctrl type="f64">
+<name>nextMeasPercent</name>
+<val>4636666922610458624</val>
+</ctrl>
+<ctrl type="f64">
+<name>nextMeasTime</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>nextMeasOffset</name>
+<val>4652007308841189376</val>
+</ctrl>
+<ctrl type="i32">
+<name>nextMeasBands</name>
+<val>5</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextMeasHarmonicTrack</name>
+<val>0,"auto"</val>
+</ctrl>
+<ctrl type="f64">
+<name>nextMeasFundamental</name>
+<val>4666723172467343360</val>
+</ctrl>
+<ctrl type="enum">
+<name>nextMeasChannelSelect</name>
+<val>0,"main"</val>
+</ctrl>
+<ctrl type="enum">
+<name>measSrc1</name>
+<val muxpos="0">0,"ch1"</val>
+<val muxpos="1">0,"ch1"</val>
+<val muxpos="2">1,"ch2"</val>
+<val muxpos="3">1,"ch2"</val>
+<val muxpos="4">1,"ch2"</val>
+<val muxpos="5">-1</val>
+<val muxpos="6">-1</val>
+<val muxpos="7">-1</val>
+<val muxpos="8">-1</val>
+<val muxpos="9">-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>measSrc2</name>
+<val muxpos="0">-1</val>
+<val muxpos="1">-1</val>
+<val muxpos="2">-1</val>
+<val muxpos="3">-1</val>
+<val muxpos="4">-1</val>
+<val muxpos="5">-1</val>
+<val muxpos="6">-1</val>
+<val muxpos="7">-1</val>
+<val muxpos="8">-1</val>
+<val muxpos="9">-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>measSrc3</name>
+<val muxpos="0">-1</val>
+<val muxpos="1">-1</val>
+<val muxpos="2">-1</val>
+<val muxpos="3">-1</val>
+<val muxpos="4">-1</val>
+<val muxpos="5">-1</val>
+<val muxpos="6">-1</val>
+<val muxpos="7">-1</val>
+<val muxpos="8">-1</val>
+<val muxpos="9">-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>measSrc4</name>
+<val muxpos="0">-1</val>
+<val muxpos="1">-1</val>
+<val muxpos="2">-1</val>
+<val muxpos="3">-1</val>
+<val muxpos="4">-1</val>
+<val muxpos="5">-1</val>
+<val muxpos="6">-1</val>
+<val muxpos="7">-1</val>
+<val muxpos="8">-1</val>
+<val muxpos="9">-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>measAlg</name>
+<val muxpos="0">0,"freq"</val>
+<val muxpos="1">16,"pkpk"</val>
+<val muxpos="2">0,"freq"</val>
+<val muxpos="3">16,"pkpk"</val>
+<val muxpos="4">7,"YAtX"</val>
+<val muxpos="5">-1,"none"</val>
+<val muxpos="6">-1,"none"</val>
+<val muxpos="7">-1,"none"</val>
+<val muxpos="8">-1,"none"</val>
+<val muxpos="9">-1,"none"</val>
+</ctrl>
+<ctrl type="ui32">
+<name>measUid</name>
+<val muxpos="0">9</val>
+<val muxpos="1">10</val>
+<val muxpos="2">11</val>
+<val muxpos="3">12</val>
+<val muxpos="4">13</val>
+<val muxpos="5">0</val>
+<val muxpos="6">0</val>
+<val muxpos="7">0</val>
+<val muxpos="8">0</val>
+<val muxpos="9">0</val>
+</ctrl>
+<ctrl type="enum">
+<name>measSrc1Slope</name>
+<val muxpos="0">1,"positive"</val>
+<val muxpos="1">1,"positive"</val>
+<val muxpos="2">1,"positive"</val>
+<val muxpos="3">1,"positive"</val>
+<val muxpos="4">1,"positive"</val>
+<val muxpos="5">1,"positive"</val>
+<val muxpos="6">1,"positive"</val>
+<val muxpos="7">1,"positive"</val>
+<val muxpos="8">1,"positive"</val>
+<val muxpos="9">1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>measSrc2Slope</name>
+<val muxpos="0">1,"positive"</val>
+<val muxpos="1">1,"positive"</val>
+<val muxpos="2">1,"positive"</val>
+<val muxpos="3">1,"positive"</val>
+<val muxpos="4">1,"positive"</val>
+<val muxpos="5">1,"positive"</val>
+<val muxpos="6">1,"positive"</val>
+<val muxpos="7">1,"positive"</val>
+<val muxpos="8">1,"positive"</val>
+<val muxpos="9">1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>measSrc3Slope</name>
+<val muxpos="0">1,"positive"</val>
+<val muxpos="1">1,"positive"</val>
+<val muxpos="2">1,"positive"</val>
+<val muxpos="3">1,"positive"</val>
+<val muxpos="4">1,"positive"</val>
+<val muxpos="5">1,"positive"</val>
+<val muxpos="6">1,"positive"</val>
+<val muxpos="7">1,"positive"</val>
+<val muxpos="8">1,"positive"</val>
+<val muxpos="9">1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>measSrc4Slope</name>
+<val muxpos="0">1,"positive"</val>
+<val muxpos="1">1,"positive"</val>
+<val muxpos="2">1,"positive"</val>
+<val muxpos="3">1,"positive"</val>
+<val muxpos="4">1,"positive"</val>
+<val muxpos="5">1,"positive"</val>
+<val muxpos="6">1,"positive"</val>
+<val muxpos="7">1,"positive"</val>
+<val muxpos="8">1,"positive"</val>
+<val muxpos="9">1,"positive"</val>
+</ctrl>
+<ctrl type="ui32">
+<name>measSrc1Count</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+<val muxpos="4">0</val>
+<val muxpos="5">0</val>
+<val muxpos="6">0</val>
+<val muxpos="7">0</val>
+<val muxpos="8">0</val>
+<val muxpos="9">0</val>
+</ctrl>
+<ctrl type="ui32">
+<name>measSrc2Count</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+<val muxpos="4">0</val>
+<val muxpos="5">0</val>
+<val muxpos="6">0</val>
+<val muxpos="7">0</val>
+<val muxpos="8">0</val>
+<val muxpos="9">0</val>
+</ctrl>
+<ctrl type="ui32">
+<name>measSrc3Count</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+<val muxpos="4">0</val>
+<val muxpos="5">0</val>
+<val muxpos="6">0</val>
+<val muxpos="7">0</val>
+<val muxpos="8">0</val>
+<val muxpos="9">0</val>
+</ctrl>
+<ctrl type="ui32">
+<name>measSrc4Count</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+<val muxpos="4">0</val>
+<val muxpos="5">0</val>
+<val muxpos="6">0</val>
+<val muxpos="7">0</val>
+<val muxpos="8">0</val>
+<val muxpos="9">0</val>
+</ctrl>
+<ctrl type="f64">
+<name>measXInput</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+<val muxpos="4">0</val>
+<val muxpos="5">0</val>
+<val muxpos="6">0</val>
+<val muxpos="7">0</val>
+<val muxpos="8">0</val>
+<val muxpos="9">0</val>
+</ctrl>
+<ctrl type="f64">
+<name>measYInput</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+<val muxpos="4">0</val>
+<val muxpos="5">0</val>
+<val muxpos="6">0</val>
+<val muxpos="7">0</val>
+<val muxpos="8">0</val>
+<val muxpos="9">0</val>
+</ctrl>
+<ctrl type="enum">
+<name>measUnits</name>
+<val muxpos="0">3,"second"</val>
+<val muxpos="1">3,"second"</val>
+<val muxpos="2">3,"second"</val>
+<val muxpos="3">3,"second"</val>
+<val muxpos="4">3,"second"</val>
+<val muxpos="5">3,"second"</val>
+<val muxpos="6">3,"second"</val>
+<val muxpos="7">3,"second"</val>
+<val muxpos="8">3,"second"</val>
+<val muxpos="9">3,"second"</val>
+</ctrl>
+<ctrl type="enum">
+<name>measFilterState</name>
+<val muxpos="0">0,"off"</val>
+<val muxpos="1">0,"off"</val>
+<val muxpos="2">0,"off"</val>
+<val muxpos="3">0,"off"</val>
+<val muxpos="4">0,"off"</val>
+<val muxpos="5">0,"off"</val>
+<val muxpos="6">0,"off"</val>
+<val muxpos="7">0,"off"</val>
+<val muxpos="8">0,"off"</val>
+<val muxpos="9">0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>measFilterType</name>
+<val muxpos="0">0,"low"</val>
+<val muxpos="1">0,"low"</val>
+<val muxpos="2">0,"low"</val>
+<val muxpos="3">0,"low"</val>
+<val muxpos="4">0,"low"</val>
+<val muxpos="5">0,"low"</val>
+<val muxpos="6">0,"low"</val>
+<val muxpos="7">0,"low"</val>
+<val muxpos="8">0,"low"</val>
+<val muxpos="9">0,"low"</val>
+</ctrl>
+<ctrl type="enum">
+<name>measFilterShape</name>
+<val muxpos="0">0,"rec"</val>
+<val muxpos="1">0,"rec"</val>
+<val muxpos="2">0,"rec"</val>
+<val muxpos="3">0,"rec"</val>
+<val muxpos="4">0,"rec"</val>
+<val muxpos="5">0,"rec"</val>
+<val muxpos="6">0,"rec"</val>
+<val muxpos="7">0,"rec"</val>
+<val muxpos="8">0,"rec"</val>
+<val muxpos="9">0,"rec"</val>
+</ctrl>
+<ctrl type="f64">
+<name>measStartFreq</name>
+<val muxpos="0">4669471951536783360</val>
+<val muxpos="1">4669471951536783360</val>
+<val muxpos="2">4669471951536783360</val>
+<val muxpos="3">4669471951536783360</val>
+<val muxpos="4">4669471951536783360</val>
+<val muxpos="5">4669471951536783360</val>
+<val muxpos="6">4669471951536783360</val>
+<val muxpos="7">4669471951536783360</val>
+<val muxpos="8">4669471951536783360</val>
+<val muxpos="9">4669471951536783360</val>
+</ctrl>
+<ctrl type="f64">
+<name>measStopFreq</name>
+<val muxpos="0">4699193262664056832</val>
+<val muxpos="1">4699193262664056832</val>
+<val muxpos="2">4669416975955394560</val>
+<val muxpos="3">4669416975955394560</val>
+<val muxpos="4">4669416975955394560</val>
+<val muxpos="5">4699193262664056832</val>
+<val muxpos="6">4699193262664056832</val>
+<val muxpos="7">4699193262664056832</val>
+<val muxpos="8">4699193262664056832</val>
+<val muxpos="9">4699193262664056832</val>
+</ctrl>
+<ctrl type="i32">
+<name>measNEvents</name>
+<val muxpos="0">1</val>
+<val muxpos="1">1</val>
+<val muxpos="2">1</val>
+<val muxpos="3">1</val>
+<val muxpos="4">1</val>
+<val muxpos="5">1</val>
+<val muxpos="6">1</val>
+<val muxpos="7">1</val>
+<val muxpos="8">1</val>
+<val muxpos="9">1</val>
+</ctrl>
+<ctrl type="ui32">
+<name>measEyeWindowStart</name>
+<val muxpos="0">40</val>
+<val muxpos="1">40</val>
+<val muxpos="2">40</val>
+<val muxpos="3">40</val>
+<val muxpos="4">40</val>
+<val muxpos="5">40</val>
+<val muxpos="6">40</val>
+<val muxpos="7">40</val>
+<val muxpos="8">40</val>
+<val muxpos="9">40</val>
+</ctrl>
+<ctrl type="ui32">
+<name>measEyeWindowStop</name>
+<val muxpos="0">40</val>
+<val muxpos="1">40</val>
+<val muxpos="2">39</val>
+<val muxpos="3">39</val>
+<val muxpos="4">39</val>
+<val muxpos="5">40</val>
+<val muxpos="6">40</val>
+<val muxpos="7">40</val>
+<val muxpos="8">40</val>
+<val muxpos="9">40</val>
+</ctrl>
+<ctrl type="ui32">
+<name>measStartHits</name>
+<val muxpos="0">1</val>
+<val muxpos="1">1</val>
+<val muxpos="2">1</val>
+<val muxpos="3">1</val>
+<val muxpos="4">1</val>
+<val muxpos="5">1</val>
+<val muxpos="6">1</val>
+<val muxpos="7">1</val>
+<val muxpos="8">1</val>
+<val muxpos="9">1</val>
+</ctrl>
+<ctrl type="enum">
+<name>measEyeJitterType</name>
+<val muxpos="0">0,"rms"</val>
+<val muxpos="1">0,"rms"</val>
+<val muxpos="2">0,"rms"</val>
+<val muxpos="3">0,"rms"</val>
+<val muxpos="4">0,"rms"</val>
+<val muxpos="5">0,"rms"</val>
+<val muxpos="6">0,"rms"</val>
+<val muxpos="7">0,"rms"</val>
+<val muxpos="8">0,"rms"</val>
+<val muxpos="9">0,"rms"</val>
+</ctrl>
+<ctrl type="f64">
+<name>measCenter</name>
+<val muxpos="0">4666723172467343360</val>
+<val muxpos="1">4666723172467343360</val>
+<val muxpos="2">4666723172467343360</val>
+<val muxpos="3">4666723172467343360</val>
+<val muxpos="4">4666723172467343360</val>
+<val muxpos="5">4666723172467343360</val>
+<val muxpos="6">4666723172467343360</val>
+<val muxpos="7">4666723172467343360</val>
+<val muxpos="8">4666723172467343360</val>
+<val muxpos="9">4666723172467343360</val>
+</ctrl>
+<ctrl type="f64">
+<name>measSpan</name>
+<val muxpos="0">4652007308841189376</val>
+<val muxpos="1">4652007308841189376</val>
+<val muxpos="2">4652007308841189376</val>
+<val muxpos="3">4652007308841189376</val>
+<val muxpos="4">4652007308841189376</val>
+<val muxpos="5">4652007308841189376</val>
+<val muxpos="6">4652007308841189376</val>
+<val muxpos="7">4652007308841189376</val>
+<val muxpos="8">4652007308841189376</val>
+<val muxpos="9">4652007308841189376</val>
+</ctrl>
+<ctrl type="f64">
+<name>measChanWidth</name>
+<val muxpos="0">4652007308841189376</val>
+<val muxpos="1">4652007308841189376</val>
+<val muxpos="2">4652007308841189376</val>
+<val muxpos="3">4652007308841189376</val>
+<val muxpos="4">4652007308841189376</val>
+<val muxpos="5">4652007308841189376</val>
+<val muxpos="6">4652007308841189376</val>
+<val muxpos="7">4652007308841189376</val>
+<val muxpos="8">4652007308841189376</val>
+<val muxpos="9">4652007308841189376</val>
+</ctrl>
+<ctrl type="f64">
+<name>measPercent</name>
+<val muxpos="0">4636666922610458624</val>
+<val muxpos="1">4636666922610458624</val>
+<val muxpos="2">4636666922610458624</val>
+<val muxpos="3">4636666922610458624</val>
+<val muxpos="4">4636666922610458624</val>
+<val muxpos="5">4636666922610458624</val>
+<val muxpos="6">4636666922610458624</val>
+<val muxpos="7">4636666922610458624</val>
+<val muxpos="8">4636666922610458624</val>
+<val muxpos="9">4636666922610458624</val>
+</ctrl>
+<ctrl type="f64">
+<name>measTime</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">4499465910326076482</val>
+<val muxpos="3">0</val>
+<val muxpos="4">0</val>
+<val muxpos="5">0</val>
+<val muxpos="6">0</val>
+<val muxpos="7">0</val>
+<val muxpos="8">0</val>
+<val muxpos="9">0</val>
+</ctrl>
+<ctrl type="f64">
+<name>measOffset</name>
+<val muxpos="0">4652007308841189376</val>
+<val muxpos="1">4652007308841189376</val>
+<val muxpos="2">4652007308841189376</val>
+<val muxpos="3">4652007308841189376</val>
+<val muxpos="4">4652007308841189376</val>
+<val muxpos="5">4652007308841189376</val>
+<val muxpos="6">4652007308841189376</val>
+<val muxpos="7">4652007308841189376</val>
+<val muxpos="8">4652007308841189376</val>
+<val muxpos="9">4652007308841189376</val>
+</ctrl>
+<ctrl type="i32">
+<name>measBands</name>
+<val muxpos="0">5</val>
+<val muxpos="1">5</val>
+<val muxpos="2">5</val>
+<val muxpos="3">5</val>
+<val muxpos="4">5</val>
+<val muxpos="5">5</val>
+<val muxpos="6">5</val>
+<val muxpos="7">5</val>
+<val muxpos="8">5</val>
+<val muxpos="9">5</val>
+</ctrl>
+<ctrl type="enum">
+<name>measHarmonicTrack</name>
+<val muxpos="0">0,"auto"</val>
+<val muxpos="1">0,"auto"</val>
+<val muxpos="2">0,"auto"</val>
+<val muxpos="3">0,"auto"</val>
+<val muxpos="4">0,"auto"</val>
+<val muxpos="5">0,"auto"</val>
+<val muxpos="6">0,"auto"</val>
+<val muxpos="7">0,"auto"</val>
+<val muxpos="8">0,"auto"</val>
+<val muxpos="9">0,"auto"</val>
+</ctrl>
+<ctrl type="f64">
+<name>measFundamental</name>
+<val muxpos="0">4666723172467343360</val>
+<val muxpos="1">4666723172467343360</val>
+<val muxpos="2">4666723172467343360</val>
+<val muxpos="3">4666723172467343360</val>
+<val muxpos="4">4666723172467343360</val>
+<val muxpos="5">4666723172467343360</val>
+<val muxpos="6">4666723172467343360</val>
+<val muxpos="7">4666723172467343360</val>
+<val muxpos="8">4666723172467343360</val>
+<val muxpos="9">4666723172467343360</val>
+</ctrl>
+<ctrl type="enum">
+<name>measChannelSelect</name>
+<val muxpos="0">0,"main"</val>
+<val muxpos="1">0,"main"</val>
+<val muxpos="2">0,"main"</val>
+<val muxpos="3">0,"main"</val>
+<val muxpos="4">0,"main"</val>
+<val muxpos="5">0,"main"</val>
+<val muxpos="6">0,"main"</val>
+<val muxpos="7">0,"main"</val>
+<val muxpos="8">0,"main"</val>
+<val muxpos="9">0,"main"</val>
+</ctrl>
+<ctrl type="enum">
+<name>measDefThresholdSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>measDefThresholdType</name>
+<val muxpos="0">0,"percent"</val>
+<val muxpos="1">0,"percent"</val>
+<val muxpos="2">0,"percent"</val>
+<val muxpos="3">0,"percent"</val>
+<val muxpos="4">0,"percent"</val>
+<val muxpos="5">0,"percent"</val>
+<val muxpos="6">0,"percent"</val>
+<val muxpos="7">0,"percent"</val>
+<val muxpos="8">0,"percent"</val>
+<val muxpos="9">0,"percent"</val>
+<val muxpos="10">0,"percent"</val>
+<val muxpos="11">0,"percent"</val>
+<val muxpos="12">0,"percent"</val>
+<val muxpos="13">0,"percent"</val>
+<val muxpos="14">0,"percent"</val>
+<val muxpos="15">0,"percent"</val>
+<val muxpos="16">0,"percent"</val>
+<val muxpos="17">0,"percent"</val>
+<val muxpos="18">0,"percent"</val>
+<val muxpos="19">0,"percent"</val>
+<val muxpos="20">0,"percent"</val>
+<val muxpos="21">0,"percent"</val>
+<val muxpos="22">0,"percent"</val>
+<val muxpos="23">0,"percent"</val>
+<val muxpos="24">0,"percent"</val>
+<val muxpos="25">0,"percent"</val>
+<val muxpos="26">0,"percent"</val>
+<val muxpos="27">0,"percent"</val>
+<val muxpos="28">0,"percent"</val>
+<val muxpos="29">0,"percent"</val>
+<val muxpos="30">0,"percent"</val>
+<val muxpos="31">0,"percent"</val>
+<val muxpos="32">0,"percent"</val>
+<val muxpos="33">0,"percent"</val>
+<val muxpos="34">0,"percent"</val>
+<val muxpos="35">0,"percent"</val>
+<val muxpos="36">0,"percent"</val>
+<val muxpos="37">0,"percent"</val>
+<val muxpos="38">0,"percent"</val>
+<val muxpos="39">0,"percent"</val>
+<val muxpos="40">0,"percent"</val>
+<val muxpos="41">0,"percent"</val>
+<val muxpos="42">0,"percent"</val>
+<val muxpos="43">0,"percent"</val>
+<val muxpos="44">0,"percent"</val>
+</ctrl>
+<ctrl type="f64">
+<name>measDefThresholdPercentTop</name>
+<val muxpos="0">4636033603912859648</val>
+<val muxpos="1">4636033603912859648</val>
+<val muxpos="2">4636033603912859648</val>
+<val muxpos="3">4636033603912859648</val>
+<val muxpos="4">4636033603912859648</val>
+<val muxpos="5">4636033603912859648</val>
+<val muxpos="6">4636033603912859648</val>
+<val muxpos="7">4636033603912859648</val>
+<val muxpos="8">4636033603912859648</val>
+<val muxpos="9">4636033603912859648</val>
+<val muxpos="10">4636033603912859648</val>
+<val muxpos="11">4636033603912859648</val>
+<val muxpos="12">4636033603912859648</val>
+<val muxpos="13">4636033603912859648</val>
+<val muxpos="14">4636033603912859648</val>
+<val muxpos="15">4636033603912859648</val>
+<val muxpos="16">4636033603912859648</val>
+<val muxpos="17">4636033603912859648</val>
+<val muxpos="18">4636033603912859648</val>
+<val muxpos="19">4636033603912859648</val>
+<val muxpos="20">4636033603912859648</val>
+<val muxpos="21">4636033603912859648</val>
+<val muxpos="22">4636033603912859648</val>
+<val muxpos="23">4636033603912859648</val>
+<val muxpos="24">4636033603912859648</val>
+<val muxpos="25">4636033603912859648</val>
+<val muxpos="26">4636033603912859648</val>
+<val muxpos="27">4636033603912859648</val>
+<val muxpos="28">4636033603912859648</val>
+<val muxpos="29">4636033603912859648</val>
+<val muxpos="30">4636033603912859648</val>
+<val muxpos="31">4636033603912859648</val>
+<val muxpos="32">4636033603912859648</val>
+<val muxpos="33">4636033603912859648</val>
+<val muxpos="34">4636033603912859648</val>
+<val muxpos="35">4636033603912859648</val>
+<val muxpos="36">4636033603912859648</val>
+<val muxpos="37">4636033603912859648</val>
+<val muxpos="38">4636033603912859648</val>
+<val muxpos="39">4636033603912859648</val>
+<val muxpos="40">4636033603912859648</val>
+<val muxpos="41">4636033603912859648</val>
+<val muxpos="42">4636033603912859648</val>
+<val muxpos="43">4636033603912859648</val>
+<val muxpos="44">4636033603912859648</val>
+</ctrl>
+<ctrl type="f64">
+<name>measDefThresholdPercentMid</name>
+<val muxpos="0">4632233691727265792</val>
+<val muxpos="1">4632233691727265792</val>
+<val muxpos="2">4632233691727265792</val>
+<val muxpos="3">4632233691727265792</val>
+<val muxpos="4">4632233691727265792</val>
+<val muxpos="5">4632233691727265792</val>
+<val muxpos="6">4632233691727265792</val>
+<val muxpos="7">4632233691727265792</val>
+<val muxpos="8">4632233691727265792</val>
+<val muxpos="9">4632233691727265792</val>
+<val muxpos="10">4632233691727265792</val>
+<val muxpos="11">4632233691727265792</val>
+<val muxpos="12">4632233691727265792</val>
+<val muxpos="13">4632233691727265792</val>
+<val muxpos="14">4632233691727265792</val>
+<val muxpos="15">4632233691727265792</val>
+<val muxpos="16">4632233691727265792</val>
+<val muxpos="17">4632233691727265792</val>
+<val muxpos="18">4632233691727265792</val>
+<val muxpos="19">4632233691727265792</val>
+<val muxpos="20">4632233691727265792</val>
+<val muxpos="21">4632233691727265792</val>
+<val muxpos="22">4632233691727265792</val>
+<val muxpos="23">4632233691727265792</val>
+<val muxpos="24">4632233691727265792</val>
+<val muxpos="25">4632233691727265792</val>
+<val muxpos="26">4632233691727265792</val>
+<val muxpos="27">4632233691727265792</val>
+<val muxpos="28">4632233691727265792</val>
+<val muxpos="29">4632233691727265792</val>
+<val muxpos="30">4632233691727265792</val>
+<val muxpos="31">4632233691727265792</val>
+<val muxpos="32">4632233691727265792</val>
+<val muxpos="33">4632233691727265792</val>
+<val muxpos="34">4632233691727265792</val>
+<val muxpos="35">4632233691727265792</val>
+<val muxpos="36">4632233691727265792</val>
+<val muxpos="37">4632233691727265792</val>
+<val muxpos="38">4632233691727265792</val>
+<val muxpos="39">4632233691727265792</val>
+<val muxpos="40">4632233691727265792</val>
+<val muxpos="41">4632233691727265792</val>
+<val muxpos="42">4632233691727265792</val>
+<val muxpos="43">4632233691727265792</val>
+<val muxpos="44">4632233691727265792</val>
+</ctrl>
+<ctrl type="f64">
+<name>measDefThresholdPercentBot</name>
+<val muxpos="0">4621819117588971520</val>
+<val muxpos="1">4621819117588971520</val>
+<val muxpos="2">4621819117588971520</val>
+<val muxpos="3">4621819117588971520</val>
+<val muxpos="4">4621819117588971520</val>
+<val muxpos="5">4621819117588971520</val>
+<val muxpos="6">4621819117588971520</val>
+<val muxpos="7">4621819117588971520</val>
+<val muxpos="8">4621819117588971520</val>
+<val muxpos="9">4621819117588971520</val>
+<val muxpos="10">4621819117588971520</val>
+<val muxpos="11">4621819117588971520</val>
+<val muxpos="12">4621819117588971520</val>
+<val muxpos="13">4621819117588971520</val>
+<val muxpos="14">4621819117588971520</val>
+<val muxpos="15">4621819117588971520</val>
+<val muxpos="16">4621819117588971520</val>
+<val muxpos="17">4621819117588971520</val>
+<val muxpos="18">4621819117588971520</val>
+<val muxpos="19">4621819117588971520</val>
+<val muxpos="20">4621819117588971520</val>
+<val muxpos="21">4621819117588971520</val>
+<val muxpos="22">4621819117588971520</val>
+<val muxpos="23">4621819117588971520</val>
+<val muxpos="24">4621819117588971520</val>
+<val muxpos="25">4621819117588971520</val>
+<val muxpos="26">4621819117588971520</val>
+<val muxpos="27">4621819117588971520</val>
+<val muxpos="28">4621819117588971520</val>
+<val muxpos="29">4621819117588971520</val>
+<val muxpos="30">4621819117588971520</val>
+<val muxpos="31">4621819117588971520</val>
+<val muxpos="32">4621819117588971520</val>
+<val muxpos="33">4621819117588971520</val>
+<val muxpos="34">4621819117588971520</val>
+<val muxpos="35">4621819117588971520</val>
+<val muxpos="36">4621819117588971520</val>
+<val muxpos="37">4621819117588971520</val>
+<val muxpos="38">4621819117588971520</val>
+<val muxpos="39">4621819117588971520</val>
+<val muxpos="40">4621819117588971520</val>
+<val muxpos="41">4621819117588971520</val>
+<val muxpos="42">4621819117588971520</val>
+<val muxpos="43">4621819117588971520</val>
+<val muxpos="44">4621819117588971520</val>
+</ctrl>
+<ctrl type="f64">
+<name>measDefThresholdAbsoluteTop</name>
+<val muxpos="0">4605383681108845632</val>
+<val muxpos="1">4609434218613702656</val>
+<val muxpos="2">4605380978949069210</val>
+<val muxpos="3">4609434218613702656</val>
+<val muxpos="4">4609434218613702657</val>
+<val muxpos="5">4609434218613702657</val>
+<val muxpos="6">4609434218613702657</val>
+<val muxpos="7">4609434218613702657</val>
+<val muxpos="8">4609434218613702657</val>
+<val muxpos="9">4609434218613702657</val>
+<val muxpos="10">4609434218613702657</val>
+<val muxpos="11">4609434218613702657</val>
+<val muxpos="12">4609434218613702657</val>
+<val muxpos="13">4609434218613702657</val>
+<val muxpos="14">4609434218613702657</val>
+<val muxpos="15">4609434218613702657</val>
+<val muxpos="16">4609434218613702657</val>
+<val muxpos="17">4609434218613702657</val>
+<val muxpos="18">4609434218613702657</val>
+<val muxpos="19">4609434218613702657</val>
+<val muxpos="20">4609434218613702657</val>
+<val muxpos="21">4609434218613702657</val>
+<val muxpos="22">4609434218613702657</val>
+<val muxpos="23">4609434218613702657</val>
+<val muxpos="24">4609434218613702657</val>
+<val muxpos="25">4609434218613702657</val>
+<val muxpos="26">4609434218613702657</val>
+<val muxpos="27">4609434218613702657</val>
+<val muxpos="28">4609434218613702657</val>
+<val muxpos="29">4609434218613702657</val>
+<val muxpos="30">4609434218613702657</val>
+<val muxpos="31">4609434218613702657</val>
+<val muxpos="32">4609434218613702657</val>
+<val muxpos="33">4609434218613702657</val>
+<val muxpos="34">4609434218613702657</val>
+<val muxpos="35">4609434218613702657</val>
+<val muxpos="36">4609434218613702657</val>
+<val muxpos="37">4609434218613702657</val>
+<val muxpos="38">4609434218613702657</val>
+<val muxpos="39">4609434218613702657</val>
+<val muxpos="40">4609434218613702657</val>
+<val muxpos="41">4609434218613702657</val>
+<val muxpos="42">4609434218613702657</val>
+<val muxpos="43">4609434218613702657</val>
+<val muxpos="44">4609434218613702657</val>
+</ctrl>
+<ctrl type="f64">
+<name>measDefThresholdAbsoluteMid</name>
+<val muxpos="0">4605381429309031947</val>
+<val muxpos="1">4608083138725491507</val>
+<val muxpos="2">4605380078229143736</val>
+<val muxpos="3">4608083138725491507</val>
+<val muxpos="4">4608083138725491508</val>
+<val muxpos="5">4608083138725491508</val>
+<val muxpos="6">4608083138725491508</val>
+<val muxpos="7">4608083138725491508</val>
+<val muxpos="8">4608083138725491508</val>
+<val muxpos="9">4608083138725491508</val>
+<val muxpos="10">4608083138725491508</val>
+<val muxpos="11">4608083138725491508</val>
+<val muxpos="12">4608083138725491508</val>
+<val muxpos="13">4608083138725491508</val>
+<val muxpos="14">4608083138725491508</val>
+<val muxpos="15">4608083138725491508</val>
+<val muxpos="16">4608083138725491508</val>
+<val muxpos="17">4608083138725491508</val>
+<val muxpos="18">4608083138725491508</val>
+<val muxpos="19">4608083138725491508</val>
+<val muxpos="20">4608083138725491508</val>
+<val muxpos="21">4608083138725491508</val>
+<val muxpos="22">4608083138725491508</val>
+<val muxpos="23">4608083138725491508</val>
+<val muxpos="24">4608083138725491508</val>
+<val muxpos="25">4608083138725491508</val>
+<val muxpos="26">4608083138725491508</val>
+<val muxpos="27">4608083138725491508</val>
+<val muxpos="28">4608083138725491508</val>
+<val muxpos="29">4608083138725491508</val>
+<val muxpos="30">4608083138725491508</val>
+<val muxpos="31">4608083138725491508</val>
+<val muxpos="32">4608083138725491508</val>
+<val muxpos="33">4608083138725491508</val>
+<val muxpos="34">4608083138725491508</val>
+<val muxpos="35">4608083138725491508</val>
+<val muxpos="36">4608083138725491508</val>
+<val muxpos="37">4608083138725491508</val>
+<val muxpos="38">4608083138725491508</val>
+<val muxpos="39">4608083138725491508</val>
+<val muxpos="40">4608083138725491508</val>
+<val muxpos="41">4608083138725491508</val>
+<val muxpos="42">4608083138725491508</val>
+<val muxpos="43">4608083138725491508</val>
+<val muxpos="44">4608083138725491508</val>
+</ctrl>
+<ctrl type="f64">
+<name>measDefThresholdAbsoluteBot</name>
+<val muxpos="0">4605379177509218262</val>
+<val muxpos="1">4605380978949069210</val>
+<val muxpos="2">4605379177509218262</val>
+<val muxpos="3">4605380978949069210</val>
+<val muxpos="4">4605380978949069209</val>
+<val muxpos="5">4605380978949069209</val>
+<val muxpos="6">4605380978949069209</val>
+<val muxpos="7">4605380978949069209</val>
+<val muxpos="8">4605380978949069209</val>
+<val muxpos="9">4605380978949069209</val>
+<val muxpos="10">4605380978949069209</val>
+<val muxpos="11">4605380978949069209</val>
+<val muxpos="12">4605380978949069209</val>
+<val muxpos="13">4605380978949069209</val>
+<val muxpos="14">4605380978949069209</val>
+<val muxpos="15">4605380978949069209</val>
+<val muxpos="16">4605380978949069209</val>
+<val muxpos="17">4605380978949069209</val>
+<val muxpos="18">4605380978949069209</val>
+<val muxpos="19">4605380978949069209</val>
+<val muxpos="20">4605380978949069209</val>
+<val muxpos="21">4605380978949069209</val>
+<val muxpos="22">4605380978949069209</val>
+<val muxpos="23">4605380978949069209</val>
+<val muxpos="24">4605380978949069209</val>
+<val muxpos="25">4605380978949069209</val>
+<val muxpos="26">4605380978949069209</val>
+<val muxpos="27">4605380978949069209</val>
+<val muxpos="28">4605380978949069209</val>
+<val muxpos="29">4605380978949069209</val>
+<val muxpos="30">4605380978949069209</val>
+<val muxpos="31">4605380978949069209</val>
+<val muxpos="32">4605380978949069209</val>
+<val muxpos="33">4605380978949069209</val>
+<val muxpos="34">4605380978949069209</val>
+<val muxpos="35">4605380978949069209</val>
+<val muxpos="36">4605380978949069209</val>
+<val muxpos="37">4605380978949069209</val>
+<val muxpos="38">4605380978949069209</val>
+<val muxpos="39">4605380978949069209</val>
+<val muxpos="40">4605380978949069209</val>
+<val muxpos="41">4605380978949069209</val>
+<val muxpos="42">4605380978949069209</val>
+<val muxpos="43">4605380978949069209</val>
+<val muxpos="44">4605380978949069209</val>
+</ctrl>
+<ctrl type="enum">
+<name>addParam</name>
+<val>1,"src"</val>
+</ctrl>
+<ctrl type="enum">
+<name>editParam</name>
+<val muxpos="0">1,"src"</val>
+<val muxpos="1">1,"src"</val>
+<val muxpos="2">1,"src"</val>
+<val muxpos="3">1,"src"</val>
+<val muxpos="4">1,"src"</val>
+<val muxpos="5">1,"src"</val>
+<val muxpos="6">1,"src"</val>
+<val muxpos="7">1,"src"</val>
+<val muxpos="8">1,"src"</val>
+<val muxpos="9">1,"src"</val>
+</ctrl>
+<ctrl type="enum">
+<name>editMeasSelect</name>
+<val>-1,"none"</val>
+</ctrl>
+<ctrl type="enum">
+<name>clearMeasSelect</name>
+<val>0,"meas1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>measAllEdges</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>measWindow</name>
+<val>2,"auto"</val>
+</ctrl>
+<ctrl type="enum">
+<name>measSnapshotSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>measSnapshotAlg</name>
+<val>0,"freq"</val>
+</ctrl>
+<ctrl type="enum">
+<name>relativeStdDev</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="i32">
+<name>measStatsLength</name>
+<val>2001</val>
+</ctrl>
+<ctrl type="enum">
+<name>markerState</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>markerMode</name>
+<val>2,"trackWfm"</val>
+</ctrl>
+<ctrl type="enum">
+<name>markerMeasId</name>
+<val>4,"meas5"</val>
+</ctrl>
+<ctrl type="f64">
+<name>markerDualX</name>
+<val>4532965056907509465</val>
+</ctrl>
+<ctrl type="f64">
+<name>markerDualY</name>
+<val>-4641926088052703232</val>
+</ctrl>
+<ctrl type="enum">
+<name>marker1Src</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>marker1DigSrc</name>
+<val>10,"D0"</val>
+</ctrl>
+<ctrl type="enum">
+<name>marker1XOn</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="f64">
+<name>marker1X</name>
+<val>4532965056907509465</val>
+</ctrl>
+<ctrl type="enum">
+<name>marker1YOn</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="f64">
+<name>marker1Y</name>
+<val>-4641926088052703232</val>
+</ctrl>
+<ctrl type="enum">
+<name>marker2Src</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>marker2XOn</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="f64">
+<name>marker2X</name>
+<val>4528201727123581139</val>
+</ctrl>
+<ctrl type="enum">
+<name>marker2YOn</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="f64">
+<name>marker2Y</name>
+<val>4597738713590781704</val>
+</ctrl>
+<ctrl type="enum">
+<name>markerXUnits</name>
+<val>0,"seconds"</val>
+</ctrl>
+<ctrl type="enum">
+<name>markerYUnits</name>
+<val>0,"base"</val>
+</ctrl>
+<ctrl type="f64">
+<name>markerXRatioStart</name>
+<val>-4670124727192147460</val>
+</ctrl>
+<ctrl type="f64">
+<name>markerXRatioEnd</name>
+<val>4553247309662628348</val>
+</ctrl>
+<ctrl type="f64">
+<name>markerYRatioStart</name>
+<val>4612811918334230528</val>
+</ctrl>
+<ctrl type="f64">
+<name>markerYRatioEnd</name>
+<val>-4610560118520545280</val>
+</ctrl>
+<ctrl type="f64">
+<name>rasterMarker1X</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>rasterMarker2X</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>rasterMarker1Y</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>rasterMarker2Y</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>markerSelect</name>
+<val>0,"x1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>auxOutput</name>
+<val>0,"trigOut"</val>
+</ctrl>
+<ctrl type="f64">
+<name>auxOutputDc</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>acqMode</name>
+<val>0,"normal"</val>
+</ctrl>
+<ctrl type="enum">
+<name>digitizerState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>wantedSampleRate</name>
+<val>4743029687993761792</val>
+</ctrl>
+<ctrl type="i32">
+<name>wantedPoints</name>
+<val>2000000</val>
+</ctrl>
+<ctrl type="i32">
+<name>avgCount</name>
+<val>8</val>
+</ctrl>
+<ctrl type="enum">
+<name>dvmsState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>dvmSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="i32">
+<name>wantedSegments</name>
+<val>2</val>
+</ctrl>
+<ctrl type="f64">
+<name>indexedTimeTag</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>realtime</name>
+<val>1,"realtime"</val>
+</ctrl>
+<ctrl type="enum">
+<name>acqRefSignalModeSel</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>acqRefSignalMode</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="i32">
+<name>acqComplete</name>
+<val>100</val>
+</ctrl>
+<ctrl type="i32">
+<name>updateRate</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>avgfast</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>waveByteOrder</name>
+<val>0,"lsbf"</val>
+</ctrl>
+<ctrl type="enum">
+<name>waveFormat</name>
+<val>1,"word"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wavePointsMode</name>
+<val>0,"normal"</val>
+</ctrl>
+<ctrl type="enum">
+<name>waveSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>waveUnsignedMode</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>waveView</name>
+<val>0,"main"</val>
+</ctrl>
+<ctrl type="enum">
+<name>readAllSegmentsState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>dvmMode</name>
+<val>1,"dc"</val>
+</ctrl>
+<ctrl type="enum">
+<name>dvmsAutoRange</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>dvmLowerLimit</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>dvmUpperLimit</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="enum">
+<name>dvmLimitRange</name>
+<val>0,"beepWithinLimits"</val>
+</ctrl>
+<ctrl type="enum">
+<name>counterState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>counterSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>counterMode</name>
+<val>0,"frequency"</val>
+</ctrl>
+<ctrl type="i32">
+<name>counterNumDigits</name>
+<val>5</val>
+</ctrl>
+<ctrl type="enum">
+<name>counterGateState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>counterGateSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>counterGatePolarity</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>counterTotalizeSlope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>counterThreshSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>ansRecLengthAuto</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="i32">
+<name>ansRecLength</name>
+<val>65536</val>
+</ctrl>
+<ctrl type="enum">
+<name>gratType</name>
+<val>0,"full"</val>
+</ctrl>
+<ctrl type="i32">
+<name>gratInten</name>
+<val>20</val>
+</ctrl>
+<ctrl type="enum">
+<name>persistMode</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>persistTime</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="enum">
+<name>vectors</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>labels</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="i32">
+<name>labelOffset</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+<val muxpos="4">0</val>
+<val muxpos="5">0</val>
+<val muxpos="6">0</val>
+<val muxpos="7">0</val>
+<val muxpos="8">0</val>
+<val muxpos="9">0</val>
+<val muxpos="10">0</val>
+<val muxpos="11">0</val>
+<val muxpos="12">0</val>
+<val muxpos="13">0</val>
+<val muxpos="14">0</val>
+<val muxpos="15">0</val>
+<val muxpos="16">0</val>
+<val muxpos="17">0</val>
+<val muxpos="18">0</val>
+<val muxpos="19">0</val>
+<val muxpos="20">0</val>
+<val muxpos="21">0</val>
+<val muxpos="22">0</val>
+<val muxpos="23">0</val>
+<val muxpos="24">0</val>
+<val muxpos="25">0</val>
+<val muxpos="26">0</val>
+<val muxpos="27">0</val>
+<val muxpos="28">0</val>
+<val muxpos="29">0</val>
+<val muxpos="30">0</val>
+<val muxpos="31">0</val>
+<val muxpos="32">0</val>
+<val muxpos="33">0</val>
+<val muxpos="34">0</val>
+<val muxpos="35">0</val>
+<val muxpos="36">0</val>
+<val muxpos="37">0</val>
+<val muxpos="38">0</val>
+<val muxpos="39">0</val>
+<val muxpos="40">0</val>
+<val muxpos="41">0</val>
+<val muxpos="42">0</val>
+<val muxpos="43">0</val>
+<val muxpos="44">0</val>
+</ctrl>
+<ctrl type="i32">
+<name>traceInten</name>
+<val>50</val>
+</ctrl>
+<ctrl type="str">
+<name>zOrder</name>
+<val>)-	
+ !"#$%&amp;'(*+,./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~</val>
+</ctrl>
+<ctrl type="enum">
+<name>freezeWfmDispState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>listerMode</name>
+<val>0,"serial1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>serialListerWindow</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>listerSerialBus</name>
+<val>0,"serial1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>serialListerLockToTime</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>serialListerTimeFormat</name>
+<val>0,"trigger"</val>
+</ctrl>
+<ctrl type="enum">
+<name>backlightLevel</name>
+<val>0,"high"</val>
+</ctrl>
+<ctrl type="str">
+<name>annotationText</name>
+<val muxpos="0"/>
+<val muxpos="1"/>
+<val muxpos="2"/>
+<val muxpos="3"/>
+<val muxpos="4"/>
+<val muxpos="5"/>
+<val muxpos="6"/>
+<val muxpos="7"/>
+<val muxpos="8"/>
+<val muxpos="9"/>
+</ctrl>
+<ctrl type="enum">
+<name>annotationDisp</name>
+<val muxpos="0">0,"off"</val>
+<val muxpos="1">0,"off"</val>
+<val muxpos="2">0,"off"</val>
+<val muxpos="3">0,"off"</val>
+<val muxpos="4">0,"off"</val>
+<val muxpos="5">0,"off"</val>
+<val muxpos="6">0,"off"</val>
+<val muxpos="7">0,"off"</val>
+<val muxpos="8">0,"off"</val>
+<val muxpos="9">0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>annotationSelect</name>
+<val>0,"annotation1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>annotationTextColor</name>
+<val muxpos="0">1,"channel1"</val>
+<val muxpos="1">2,"channel2"</val>
+<val muxpos="2">3,"channel3"</val>
+<val muxpos="3">4,"channel4"</val>
+<val muxpos="4">0,"white"</val>
+<val muxpos="5">0,"white"</val>
+<val muxpos="6">0,"white"</val>
+<val muxpos="7">0,"white"</val>
+<val muxpos="8">0,"white"</val>
+<val muxpos="9">0,"white"</val>
+</ctrl>
+<ctrl type="enum">
+<name>annotationBgMode</name>
+<val muxpos="0">0,"solid"</val>
+<val muxpos="1">0,"solid"</val>
+<val muxpos="2">0,"solid"</val>
+<val muxpos="3">0,"solid"</val>
+<val muxpos="4">0,"solid"</val>
+<val muxpos="5">0,"solid"</val>
+<val muxpos="6">0,"solid"</val>
+<val muxpos="7">0,"solid"</val>
+<val muxpos="8">0,"solid"</val>
+<val muxpos="9">0,"solid"</val>
+</ctrl>
+<ctrl type="i32">
+<name>annotationX1Pos</name>
+<val muxpos="0">34</val>
+<val muxpos="1">34</val>
+<val muxpos="2">34</val>
+<val muxpos="3">34</val>
+<val muxpos="4">34</val>
+<val muxpos="5">354</val>
+<val muxpos="6">354</val>
+<val muxpos="7">354</val>
+<val muxpos="8">354</val>
+<val muxpos="9">354</val>
+</ctrl>
+<ctrl type="i32">
+<name>annotationY1Pos</name>
+<val muxpos="0">77</val>
+<val muxpos="1">127</val>
+<val muxpos="2">177</val>
+<val muxpos="3">227</val>
+<val muxpos="4">277</val>
+<val muxpos="5">77</val>
+<val muxpos="6">127</val>
+<val muxpos="7">177</val>
+<val muxpos="8">227</val>
+<val muxpos="9">277</val>
+</ctrl>
+<ctrl type="enum">
+<name>wfmZoomState</name>
+<val>0,"nothing"</val>
+</ctrl>
+<ctrl type="enum">
+<name>pwrListerWindow</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>sidebarCtrlsDisp</name>
+<val muxpos="0">1,"on"</val>
+<val muxpos="1">1,"on"</val>
+<val muxpos="2">0,"off"</val>
+<val muxpos="3">1,"on"</val>
+<val muxpos="4">1,"on"</val>
+<val muxpos="5">0,"off"</val>
+<val muxpos="6">1,"on"</val>
+<val muxpos="7">1,"on"</val>
+<val muxpos="8">1,"on"</val>
+<val muxpos="9">0,"off"</val>
+<val muxpos="10">0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>sidebarCtrlsSel</name>
+<val>0,"runStop"</val>
+</ctrl>
+<ctrl type="enum">
+<name>tableView</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>axisLabelState</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>colorGradeSrc</name>
+<val>3,"ch4"</val>
+</ctrl>
+<ctrl type="enum">
+<name>colorGradeState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>colorGradeTheme</name>
+<val>0,"temp"</val>
+</ctrl>
+<ctrl type="enum">
+<name>colorGradeShowStats</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>rasterSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>rasterState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>rasterHSyncFreqGranularity</name>
+<val>1,"horzFreq"</val>
+</ctrl>
+<ctrl type="f64">
+<name>rasterHSyncFreq</name>
+<val>4669884268397199360</val>
+</ctrl>
+<ctrl type="i32">
+<name>rasterFullScreenVSyncOffset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="i32">
+<name>rasterCursorGatedVSyncXOffset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>rasterGatedCursorVSync</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>rasterSize</name>
+<val>1,"small"</val>
+</ctrl>
+<ctrl type="i32">
+<name>rasterAvg</name>
+<val>1</val>
+</ctrl>
+<ctrl type="enum">
+<name>hist1Src</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>hist1State</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>hist1type</name>
+<val>0,"horz"</val>
+</ctrl>
+<ctrl type="enum">
+<name>hist1Meas</name>
+<val>-1,"none"</val>
+</ctrl>
+<ctrl type="f64">
+<name>hist1RegionX1</name>
+<val>4541527639454930176</val>
+</ctrl>
+<ctrl type="f64">
+<name>hist1RegionX2</name>
+<val>4542117935265288882</val>
+</ctrl>
+<ctrl type="f64">
+<name>hist1RegionY1</name>
+<val>4599075939470750516</val>
+</ctrl>
+<ctrl type="f64">
+<name>hist1RegionY2</name>
+<val>-4624296097384025292</val>
+</ctrl>
+<ctrl type="f64">
+<name>hist1RegionX1Grid</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="f64">
+<name>hist1RegionX2Grid</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="f64">
+<name>hist1RegionY1Grid</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>hist1RegionY2Grid</name>
+<val>4617315517961601024</val>
+</ctrl>
+<ctrl type="f64">
+<name>hist1Size</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="enum">
+<name>configIoSelect</name>
+<val>1,"lan"</val>
+</ctrl>
+<ctrl type="i32">
+<name>instGpibAddr</name>
+<val>7</val>
+</ctrl>
+<ctrl type="enum">
+<name>ipSelect</name>
+<val>0,"ip"</val>
+</ctrl>
+<ctrl type="str">
+<name>lanUserName</name>
+<val/>
+</ctrl>
+<ctrl type="enum">
+<name>maskTestState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>maskTestShowStats</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>maskTestRunUntil</name>
+<val>0,"forever"</val>
+</ctrl>
+<ctrl type="f64">
+<name>maskTestRunUntilTime</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>maskTestRunUntilNumTests</name>
+<val>4652007308841189376</val>
+</ctrl>
+<ctrl type="f64">
+<name>maskTestRunUntilSigma</name>
+<val>4618441417868443648</val>
+</ctrl>
+<ctrl type="enum">
+<name>maskTestPrintOnError</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>maskTestSaveOnError</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>maskTestMeasOnError</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>maskTestStopOnError</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>maskTestSrc</name>
+<val>1,"ch2"</val>
+</ctrl>
+<ctrl type="enum">
+<name>maskTestSrcLock</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>maskTestAllChans</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>maskTestScalingEnable</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>maskTestBindY</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="f64">
+<name>maskTestY1</name>
+<val>-4609434218613702655</val>
+</ctrl>
+<ctrl type="f64">
+<name>maskTestY2</name>
+<val>4613937818241073153</val>
+</ctrl>
+<ctrl type="f64">
+<name>maskTestX</name>
+<val>4551510721646314285</val>
+</ctrl>
+<ctrl type="f64">
+<name>maskTestDeltaX</name>
+<val>4556014321273684781</val>
+</ctrl>
+<ctrl type="enum">
+<name>maskTestAutoUnits</name>
+<val>0,"div"</val>
+</ctrl>
+<ctrl type="f64">
+<name>maskTestAutoVertDiv</name>
+<val>4598175219545276416</val>
+</ctrl>
+<ctrl type="f64">
+<name>maskTestAutoHorzDiv</name>
+<val>4598175219545276416</val>
+</ctrl>
+<ctrl type="f64">
+<name>maskTestAutoVertVolt</name>
+<val>4608308318706860032</val>
+</ctrl>
+<ctrl type="f64">
+<name>maskTestAutoHorzTime</name>
+<val>4537999922764202797</val>
+</ctrl>
+<ctrl type="enum">
+<name>MaskRegionSel</name>
+<val>0</val>
+</ctrl>
+<ctrl type="str">
+<name>maskTitle</name>
+<val/>
+</ctrl>
+<ctrl type="i32">
+<name>MaskRegionNumVertices</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+<val muxpos="2">0</val>
+<val muxpos="3">0</val>
+<val muxpos="4">0</val>
+<val muxpos="5">0</val>
+<val muxpos="6">0</val>
+<val muxpos="7">0</val>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion0XVertices</name>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion0YVertices</name>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion1XVertices</name>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion1YVertices</name>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion2XVertices</name>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion2YVertices</name>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion3XVertices</name>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion3YVertices</name>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion4XVertices</name>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion4YVertices</name>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion5XVertices</name>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion5YVertices</name>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion6XVertices</name>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion6YVertices</name>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion7XVertices</name>
+</ctrl>
+<ctrl type="f64">
+<name>MaskRegion7YVertices</name>
+</ctrl>
+<ctrl type="enum">
+<name>demoWgenAutoDemo</name>
+<val>0,"sine"</val>
+</ctrl>
+<ctrl type="enum">
+<name>miscSignal</name>
+<val>0,"sineOnDemoLug"</val>
+</ctrl>
+<ctrl type="enum">
+<name>demoSignal</name>
+<val>0,"sine"</val>
+</ctrl>
+<ctrl type="f32">
+<name>demoPhase</name>
+<val>1119092736</val>
+</ctrl>
+<ctrl type="f64">
+<name>demoWfmClkRate</name>
+<val>4704770604115427328</val>
+</ctrl>
+<ctrl type="ui32">
+<name>demoWfmGlitchRate</name>
+<val>150000</val>
+</ctrl>
+<ctrl type="f64">
+<name>demoPsrrFreq</name>
+<val>4652007308841189376</val>
+</ctrl>
+<ctrl type="f64">
+<name>demoPsrrAmpGain</name>
+<val>4605380978949069210</val>
+</ctrl>
+<ctrl type="f64">
+<name>demoZoneWfmFreq</name>
+<val>4679056394396106752</val>
+</ctrl>
+<ctrl type="ui32">
+<name>demoZoneWfmGlitchRate</name>
+<val>1000</val>
+</ctrl>
+<ctrl type="f64">
+<name>demoRuntWfmFreq</name>
+<val>4671226772094713856</val>
+</ctrl>
+<ctrl type="ui32">
+<name>demoRuntWfmRuntRate</name>
+<val>3</val>
+</ctrl>
+<ctrl type="enum">
+<name>demoDisableMathAutoscale</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wavegenEzDemoActive</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan1UnitsOverride</name>
+<val>34,"none"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan2UnitsOverride</name>
+<val>34,"none"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan3UnitsOverride</name>
+<val>34,"none"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chan4UnitsOverride</name>
+<val>34,"none"</val>
+</ctrl>
+<ctrl type="enum">
+<name>chanExtUnitsOverride</name>
+<val>34,"none"</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan1ProbeAttenOverride</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan2ProbeAttenOverride</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan3ProbeAttenOverride</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>chan4ProbeAttenOverride</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="f64">
+<name>chanExtProbeAttenOverride</name>
+<val>4607182418800017408</val>
+</ctrl>
+<ctrl type="enum">
+<name>fgenHorzParam</name>
+<val>0,"frequency"</val>
+</ctrl>
+<ctrl type="enum">
+<name>fgenVoltParam</name>
+<val>0,"amp"</val>
+</ctrl>
+<ctrl type="enum">
+<name>fgenOffsetParam</name>
+<val>0,"offset"</val>
+</ctrl>
+<ctrl type="enum">
+<name>fgenPulseWidthFine</name>
+<val>1,"pulseWidthFine"</val>
+</ctrl>
+<ctrl type="enum">
+<name>arbVoltVern</name>
+<val>0,"volt"</val>
+</ctrl>
+<ctrl type="enum">
+<name>arbPointVern</name>
+<val>0,"point"</val>
+</ctrl>
+<ctrl type="enum">
+<name>arbTransparent</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>arbSelect</name>
+<val>0,"wgen1"</val>
+</ctrl>
+<ctrl type="i32">
+<name>arbRecallColumn</name>
+<val>2</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen1Track</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen1FreqTrack</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen1AmpTrack</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wavegen1Mode</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>fgen1Signal</name>
+<val>0,"sine"</val>
+</ctrl>
+<ctrl type="enum">
+<name>fgen1Impedance</name>
+<val>0,"highImp"</val>
+</ctrl>
+<ctrl type="f64">
+<name>fgen1Amplitude</name>
+<val>4602678819172646912</val>
+</ctrl>
+<ctrl type="f64">
+<name>fgen1Offset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>fgen1Frequency</name>
+<val>4652007308841189376</val>
+</ctrl>
+<ctrl type="f64">
+<name>fgen1Period</name>
+<val>4562254508917369340</val>
+</ctrl>
+<ctrl type="i32">
+<name>fgen1DutyCycle</name>
+<val>50</val>
+</ctrl>
+<ctrl type="i32">
+<name>fgen1Symmetry</name>
+<val>50</val>
+</ctrl>
+<ctrl type="f64">
+<name>fgen1PulseWidth</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="i32">
+<name>fgen1AddNoise</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>fgen1InvertOutput</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen1OutputMode</name>
+<val>0,"normal"</val>
+</ctrl>
+<ctrl type="i32">
+<name>wgen1Phase</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen1ModState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen1ModType</name>
+<val>0,"am"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen1ModSignal</name>
+<val>0,"sine"</val>
+</ctrl>
+<ctrl type="i32">
+<name>wgen1ModAmDepth</name>
+<val>100</val>
+</ctrl>
+<ctrl type="i32">
+<name>wgen1ModSymmetry</name>
+<val>50</val>
+</ctrl>
+<ctrl type="f64">
+<name>wgen1ModAmFreq</name>
+<val>4652007308841189376</val>
+</ctrl>
+<ctrl type="f64">
+<name>wgen1ModFmFreq</name>
+<val>4652007308841189376</val>
+</ctrl>
+<ctrl type="f64">
+<name>wgen1ModFmDev</name>
+<val>4666723172467343360</val>
+</ctrl>
+<ctrl type="f64">
+<name>wgen1ModFskHopFreq</name>
+<val>4652007308841189376</val>
+</ctrl>
+<ctrl type="f64">
+<name>wgen1ModFskRate</name>
+<val>4652007308841189376</val>
+</ctrl>
+<ctrl type="enum">
+<name>arb1Interpolate</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>arb1Src</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="i32">
+<name>arb1InitialPts</name>
+<val>2</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen1Features</name>
+<val>2,"modulation"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen2Track</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen2FreqTrack</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen2AmpTrack</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wavegen2Mode</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>fgen2Signal</name>
+<val>0,"sine"</val>
+</ctrl>
+<ctrl type="enum">
+<name>fgen2Impedance</name>
+<val>0,"highImp"</val>
+</ctrl>
+<ctrl type="f64">
+<name>fgen2Amplitude</name>
+<val>4602678819172646912</val>
+</ctrl>
+<ctrl type="f64">
+<name>fgen2Offset</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>fgen2Frequency</name>
+<val>4652007308841189376</val>
+</ctrl>
+<ctrl type="f64">
+<name>fgen2Period</name>
+<val>4562254508917369340</val>
+</ctrl>
+<ctrl type="i32">
+<name>fgen2DutyCycle</name>
+<val>50</val>
+</ctrl>
+<ctrl type="i32">
+<name>fgen2Symmetry</name>
+<val>50</val>
+</ctrl>
+<ctrl type="f64">
+<name>fgen2PulseWidth</name>
+<val>4547007122018943789</val>
+</ctrl>
+<ctrl type="i32">
+<name>fgen2AddNoise</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>fgen2InvertOutput</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen2OutputMode</name>
+<val>0,"normal"</val>
+</ctrl>
+<ctrl type="i32">
+<name>wgen2Phase</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen2ModState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen2ModType</name>
+<val>0,"am"</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen2ModSignal</name>
+<val>0,"sine"</val>
+</ctrl>
+<ctrl type="i32">
+<name>wgen2ModAmDepth</name>
+<val>100</val>
+</ctrl>
+<ctrl type="i32">
+<name>wgen2ModSymmetry</name>
+<val>50</val>
+</ctrl>
+<ctrl type="f64">
+<name>wgen2ModAmFreq</name>
+<val>4652007308841189376</val>
+</ctrl>
+<ctrl type="f64">
+<name>wgen2ModFmFreq</name>
+<val>4652007308841189376</val>
+</ctrl>
+<ctrl type="f64">
+<name>wgen2ModFmDev</name>
+<val>4666723172467343360</val>
+</ctrl>
+<ctrl type="f64">
+<name>wgen2ModFskHopFreq</name>
+<val>4652007308841189376</val>
+</ctrl>
+<ctrl type="f64">
+<name>wgen2ModFskRate</name>
+<val>4652007308841189376</val>
+</ctrl>
+<ctrl type="enum">
+<name>arb2Interpolate</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>arb2Src</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="i32">
+<name>arb2InitialPts</name>
+<val>2</val>
+</ctrl>
+<ctrl type="enum">
+<name>wgen2Features</name>
+<val>2,"modulation"</val>
+</ctrl>
+<ctrl type="enum">
+<name>selectRecallType</name>
+<val>3,"ref"</val>
+</ctrl>
+<ctrl type="i32">
+<name>dlgMainPos</name>
+<val muxpos="0">0</val>
+<val muxpos="1">0</val>
+</ctrl>
+<ctrl type="str">
+<name>remoteLogFileName</name>
+<val>scpi_log</val>
+</ctrl>
+<ctrl type="enum">
+<name>counterAutoScaleOverride</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>printDriver</name>
+<val>17,"usbPrt0"</val>
+</ctrl>
+<ctrl type="enum">
+<name>printFactors</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>printPalette</name>
+<val>0,"color"</val>
+</ctrl>
+<ctrl type="enum">
+<name>printInvertGrat</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>printFormFeed</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>printLandscape</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="str">
+<name>networkPrintDomain</name>
+<val/>
+</ctrl>
+<ctrl type="str">
+<name>networkPrintUsername</name>
+<val/>
+</ctrl>
+<ctrl type="enum">
+<name>networkPrintAddrIndex</name>
+<val>0,"networkPrinter0"</val>
+</ctrl>
+<ctrl type="str">
+<name>networkPrintAddress</name>
+<val muxpos="0"/>
+<val muxpos="1"/>
+</ctrl>
+<ctrl type="enum">
+<name>usingBattery</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>saveFormat</name>
+<val>8,"csv"</val>
+</ctrl>
+<ctrl type="enum">
+<name>dataLengthMax</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>autoIncrement</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>savePalette</name>
+<val>0,"color"</val>
+</ctrl>
+<ctrl type="enum">
+<name>saveFactors</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>saveInvertGrat</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>albFormat</name>
+<val>0,"default"</val>
+</ctrl>
+<ctrl type="enum">
+<name>saveArea</name>
+<val>0,"screen"</val>
+</ctrl>
+<ctrl type="enum">
+<name>printArea</name>
+<val>0,"screen"</val>
+</ctrl>
+<ctrl type="enum">
+<name>saveSegmentMode</name>
+<val>0,"current"</val>
+</ctrl>
+<ctrl type="enum">
+<name>analyzeSelect</name>
+<val>7,"measThresh"</val>
+</ctrl>
+<ctrl type="enum">
+<name>touchScreenState</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="str">
+<name>setupFileLabel</name>
+<val muxpos="0">&lt;None&gt;</val>
+<val muxpos="1">&lt;None&gt;</val>
+<val muxpos="2">&lt;None&gt;</val>
+<val muxpos="3">&lt;None&gt;</val>
+<val muxpos="4">&lt;None&gt;</val>
+<val muxpos="5">&lt;None&gt;</val>
+<val muxpos="6">&lt;None&gt;</val>
+<val muxpos="7">&lt;None&gt;</val>
+<val muxpos="8">&lt;None&gt;</val>
+<val muxpos="9">&lt;None&gt;</val>
+</ctrl>
+<ctrl type="str">
+<name>emailTo</name>
+<val/>
+</ctrl>
+<ctrl type="enum">
+<name>emailToValid</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="str">
+<name>emailFrom</name>
+<val/>
+</ctrl>
+<ctrl type="enum">
+<name>emailFromValid</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="str">
+<name>emailAddrHistory</name>
+<val muxpos="0"/>
+<val muxpos="1"/>
+<val muxpos="2"/>
+<val muxpos="3"/>
+<val muxpos="4"/>
+<val muxpos="5"/>
+<val muxpos="6"/>
+<val muxpos="7"/>
+<val muxpos="8"/>
+<val muxpos="9"/>
+</ctrl>
+<ctrl type="enum">
+<name>emailToHistorySel</name>
+<val>0,"emailAddrHistory0"</val>
+</ctrl>
+<ctrl type="enum">
+<name>emailFromHistorySel</name>
+<val>0,"emailAddrHistory0"</val>
+</ctrl>
+<ctrl type="str">
+<name>emailSubject</name>
+<val/>
+</ctrl>
+<ctrl type="str">
+<name>emailServer</name>
+<val/>
+</ctrl>
+<ctrl type="enum">
+<name>emailServerValid</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>remoteLogDest</name>
+<val>1,"screen"</val>
+</ctrl>
+<ctrl type="enum">
+<name>remoteLogWriteMode</name>
+<val>0,"create"</val>
+</ctrl>
+<ctrl type="enum">
+<name>remoteLogScreenDisp</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>remoteLogTransparent</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>saveAnalysisState</name>
+<val muxpos="0">1,"on"</val>
+<val muxpos="1">1,"on"</val>
+<val muxpos="2">1,"on"</val>
+<val muxpos="3">1,"on"</val>
+<val muxpos="4">1,"on"</val>
+<val muxpos="5">1,"on"</val>
+<val muxpos="6">1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>saveAnalysisSel</name>
+<val>0,"cursor"</val>
+</ctrl>
+<ctrl type="enum">
+<name>selectVoiceLang</name>
+<val>2,"englishBrit"</val>
+</ctrl>
+<ctrl type="enum">
+<name>selectLang</name>
+<val>1,"english"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchState</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchMode</name>
+<val>1,"edge"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchSerialMuxIndex</name>
+<val>0,"serial1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchUartMode</name>
+<val>2,"rxData"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchUartDataQual</name>
+<val>2,"equal"</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchUartData</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchSpiMode</name>
+<val>0,"mosi"</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchSpiWordCnt</name>
+<val>1</val>
+</ctrl>
+<ctrl type="str">
+<name>searchSpiBitData</name>
+<val>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchI2cMode</name>
+<val>6,"noAck"</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchI2cAddr</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchI2cDataQual</name>
+<val>2,"equal"</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchI2cData</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchI2cData2</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchCanMode</name>
+<val>0,"rtr"</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchCanSymbolicMsgIndex</name>
+<val>0</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchCanSymbolicSigIndex</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchCanSymbolicValType</name>
+<val>1,"encoded"</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchCanSymbolicValIndex</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>searchCanSymbolicVal</name>
+<val>0</val>
+</ctrl>
+<ctrl type="str">
+<name>searchCanSymbolicValUnit</name>
+<val/>
+</ctrl>
+<ctrl type="str">
+<name>searchCanSymbolicData</name>
+<val>XXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>searchCanSymbolicAddr</name>
+<val>XXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchCanAddrMode</name>
+<val>0,"std"</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchCanAddrLength</name>
+<val>3</val>
+</ctrl>
+<ctrl type="str">
+<name>searchCanAddr</name>
+<val>XXXXXXXX</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchCanDataLength</name>
+<val>4</val>
+</ctrl>
+<ctrl type="str">
+<name>searchCanData</name>
+<val>XXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchLinMode</name>
+<val>1,"id"</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchLinFrameId</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchLinDataLength</name>
+<val>4</val>
+</ctrl>
+<ctrl type="str">
+<name>searchLinData</name>
+<val>XXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchLinSymbolicFrmIndex</name>
+<val>0</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchLinSymbolicSigIndex</name>
+<val>0</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchLinSymbolicValType</name>
+<val>1,"encoded"</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchLinSymbolicValIndex</name>
+<val>0</val>
+</ctrl>
+<ctrl type="f64">
+<name>searchLinSymbolicVal</name>
+<val>0</val>
+</ctrl>
+<ctrl type="str">
+<name>searchLinSymbolicValUnit</name>
+<val/>
+</ctrl>
+<ctrl type="str">
+<name>searchLinSymbolicData</name>
+<val>XXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>searchLinSymbolicAddr</name>
+<val>XXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchI2sAudioChan</name>
+<val>2,"left"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchI2sMode</name>
+<val>0,"equal"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchI2sBase</name>
+<val>3,"dec"</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchI2sTrigWordSize</name>
+<val>4</val>
+</ctrl>
+<ctrl type="str">
+<name>searchI2sData</name>
+<val>00000000000000000000000000000000</val>
+</ctrl>
+<ctrl type="str">
+<name>searchI2sRangeMin</name>
+<val>11110110000000000000000000000000</val>
+</ctrl>
+<ctrl type="str">
+<name>searchI2sRangeMax</name>
+<val>00001010000000000000000000000000</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchI2sBitsDefine</name>
+<val>2,"data"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchM1553Mode</name>
+<val>2,"csStart"</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchM1553Rta</name>
+<val>0</val>
+</ctrl>
+<ctrl type="str">
+<name>searchM1553Data</name>
+<val>00000000000</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchFrayMode</name>
+<val>0,"frameId"</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchFrayFrameId</name>
+<val>0</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchFrayCycNum</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchFrayDataLength</name>
+<val>1</val>
+</ctrl>
+<ctrl type="str">
+<name>searchFrayData</name>
+<val>XXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchA429Mode</name>
+<val>2,"label"</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchA429Label</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="str">
+<name>searchA429Data</name>
+<val>00000000000000000000000</val>
+</ctrl>
+<ctrl type="str">
+<name>searchA429Sdi</name>
+<val>00</val>
+</ctrl>
+<ctrl type="str">
+<name>searchA429Ssm</name>
+<val>00</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchUsbSerTrig</name>
+<val>5,"tokenPacket"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchUsbTokenPidBase</name>
+<val>0,"out"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchUsbDataPidBase</name>
+<val>0,"data0"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchUsbHandshakePidBase</name>
+<val>0,"ack"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchUsbSpecialPidBase</name>
+<val>0,"pre"</val>
+</ctrl>
+<ctrl type="str">
+<name>searchUsbAddress</name>
+<val>XXXXXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>searchUsbEndpoint</name>
+<val>XXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>searchUsbCrc</name>
+<val>XXXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>searchUsbData</name>
+<val>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchUsbDataBytes</name>
+<val>4</val>
+</ctrl>
+<ctrl type="str">
+<name>searchUsbFrame</name>
+<val>XXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>searchUsbHubAddr</name>
+<val>XXXXXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>searchUsbSc</name>
+<val>X</val>
+</ctrl>
+<ctrl type="str">
+<name>searchUsbPort</name>
+<val>XXXXXXX</val>
+</ctrl>
+<ctrl type="str">
+<name>searchUsbSeu</name>
+<val>XX</val>
+</ctrl>
+<ctrl type="str">
+<name>searchUsbEt</name>
+<val>XX</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchSentMode</name>
+<val>9,"fastChannelData"</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchSentSlowId</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchSentSlowData</name>
+<val>-1</val>
+</ctrl>
+<ctrl type="str">
+<name>searchSentFastData</name>
+<val>XXXXXXXXXXXXXXXXXXXXXXXXXXXX</val>
+</ctrl>
+<ctrl type="i32">
+<name>searchSentNumNibbles</name>
+<val>28</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchWfmEdgeSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchWfmEdgeSlope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchWfmGlitchSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchWfmGlitchPolarity</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchWfmGlitchMode</name>
+<val>1,"lt"</val>
+</ctrl>
+<ctrl type="f64">
+<name>searchWfmGlitchMinWidth</name>
+<val>4491629857959087162</val>
+</ctrl>
+<ctrl type="f64">
+<name>searchWfmGlitchMaxWidth</name>
+<val>4494622300311939371</val>
+</ctrl>
+<ctrl type="f64">
+<name>searchWfmGlitchRangeMinWidth</name>
+<val>4491629857959087162</val>
+</ctrl>
+<ctrl type="f64">
+<name>searchWfmGlitchRangeMaxWidth</name>
+<val>4494622300311939372</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchWfmEdgeTransSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchWfmEdgeTransSlope</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchWfmEdgeTransQual</name>
+<val>1,"lt"</val>
+</ctrl>
+<ctrl type="f64">
+<name>searchWfmEdgeTransQualTime</name>
+<val>4491629857959087162</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchWfmRuntSrc</name>
+<val>0,"ch1"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchWfmRuntPolarity</name>
+<val>1,"positive"</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchWfmRuntQual</name>
+<val>0,"none"</val>
+</ctrl>
+<ctrl type="f64">
+<name>searchWfmRuntQualTime</name>
+<val>4491629857959087162</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchWfmPeakSrc</name>
+<val>26,"f1"</val>
+</ctrl>
+<ctrl type="i32">
+<name>SearchWfmPeakNumPeaks</name>
+<val>8</val>
+</ctrl>
+<ctrl type="enum">
+<name>SearchWfmPeakOrderMode</name>
+<val>1,"yOrder"</val>
+</ctrl>
+<ctrl type="f64">
+<name>searchWfmPeakThresh</name>
+<val>-4597049319638433792</val>
+</ctrl>
+<ctrl type="f64">
+<name>searchWfmPeakHyst</name>
+<val>4626322717216342016</val>
+</ctrl>
+<ctrl type="enum">
+<name>searchActive</name>
+<val>0,"off"</val>
+</ctrl>
+<ctrl type="enum">
+<name>navigateMode</name>
+<val>1,"time"</val>
+</ctrl>
+<ctrl type="enum">
+<name>navigateAutoZoom</name>
+<val>1,"on"</val>
+</ctrl>
+<ctrl type="enum">
+<name>navigatePlayMode</name>
+<val>0,"manual"</val>
+</ctrl>
+<ctrl type="enum">
+<name>navigateMarkerSelect</name>
+<val>0,"x1"</val>
+</ctrl>
+</control_section>
+</setup>
+

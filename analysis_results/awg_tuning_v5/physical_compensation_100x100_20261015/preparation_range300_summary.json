@@ -1,0 +1,818 @@
+{
+  "status": "all_12_offline_prepared",
+  "scope": "GUI preparation + TProc command model + compiler DC/RC planning; physical result is separate",
+  "condition_count": 12,
+  "total_modeled_points": 120000,
+  "selected_outputs_per_point": 2,
+  "helper_sha256": "bbe422b19710cdc2bdb75c343afe16856759b0fac798b782cce226cd66989764",
+  "source_files_unchanged": true,
+  "all_manifest_files_verified": true,
+  "all_dc_planning_residuals_zero": true,
+  "results": [
+    {
+      "label": "fixed_voltage_tau10",
+      "mode": "fixed_voltage",
+      "tau_us": 10,
+      "dc_time_us": 10,
+      "exit_code": 0,
+      "output": "offline_range300_fixed_voltage_tau10",
+      "points": 10000,
+      "pmem_words": 193,
+      "zero_pmem_words": 69,
+      "idle_pmem_words": 14,
+      "dmem_words": 0,
+      "point_spacing_cycles": [
+        13076
+      ],
+      "final_zero_bound_us": 435870.57,
+      "global_rc_bounds_mv": [
+        -617.597116910585,
+        619.4353772087816
+      ],
+      "hardware_dc_deadline_cycles": 3421,
+      "controls": [
+        {
+          "axis": 0,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 2932031007,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        },
+        {
+          "axis": 1,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 2932031007,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        }
+      ],
+      "requested_range_mv": [
+        -300.0,
+        300.0
+      ],
+      "actual_range_mv": [
+        -299.967978515625,
+        300.555
+      ],
+      "effective_code_area_range": [
+        -161938654,
+        162245954
+      ],
+      "dc_duration_cycles_range": [
+        31,
+        3308
+      ],
+      "model_output_events": 140006,
+      "source_file_count": 170,
+      "manifest_verified": true,
+      "expected_sha256": "be70ea9a29a6871e437fce99ee0f76b72a1ade500d548e3f4e1ed461b539d91d",
+      "model_sha256": "0f18f7e4cca6d404e46e0aa7cbee23b5921c3d09f2e5515e5967bd0edf190ee6"
+    },
+    {
+      "label": "fixed_time10_tau10",
+      "mode": "fixed_time",
+      "tau_us": 10,
+      "dc_time_us": 10,
+      "exit_code": 0,
+      "output": "offline_range300_fixed_time10_tau10",
+      "points": 10000,
+      "pmem_words": 197,
+      "zero_pmem_words": 69,
+      "idle_pmem_words": 14,
+      "dmem_words": 0,
+      "point_spacing_cycles": [
+        12768
+      ],
+      "final_zero_bound_us": 425603.9033333333,
+      "global_rc_bounds_mv": [
+        -617.6187470216661,
+        619.4573354811785
+      ],
+      "hardware_dc_deadline_cycles": 3113,
+      "controls": [
+        {
+          "axis": 0,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 2932031007,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        },
+        {
+          "axis": 1,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 2932031007,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        }
+      ],
+      "requested_range_mv": [
+        -300.0,
+        300.0
+      ],
+      "actual_range_mv": [
+        -299.967978515625,
+        300.555
+      ],
+      "effective_code_area_range": [
+        -161938654,
+        162245954
+      ],
+      "dc_duration_cycles_range": [
+        3000,
+        3000
+      ],
+      "model_output_events": 140006,
+      "source_file_count": 170,
+      "manifest_verified": true,
+      "expected_sha256": "8a4446ef65b7c80f8b9cbeae4d3d2eec20634c90f971a3754763fce38e5dfbdd",
+      "model_sha256": "05fb844c9373b8169473ebced7da9bc6716548b26b4313f1b2c95c89c1541017"
+    },
+    {
+      "label": "fixed_time20_tau10",
+      "mode": "fixed_time",
+      "tau_us": 10,
+      "dc_time_us": 20,
+      "exit_code": 0,
+      "output": "offline_range300_fixed_time20_tau10",
+      "points": 10000,
+      "pmem_words": 193,
+      "zero_pmem_words": 69,
+      "idle_pmem_words": 14,
+      "dmem_words": 0,
+      "point_spacing_cycles": [
+        15768
+      ],
+      "final_zero_bound_us": 525603.9033333333,
+      "global_rc_bounds_mv": [
+        -617.3971382582687,
+        619.2350072088091
+      ],
+      "hardware_dc_deadline_cycles": 6113,
+      "controls": [
+        {
+          "axis": 0,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 2932031007,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        },
+        {
+          "axis": 1,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 2932031007,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        }
+      ],
+      "requested_range_mv": [
+        -300.0,
+        300.0
+      ],
+      "actual_range_mv": [
+        -299.967978515625,
+        300.555
+      ],
+      "effective_code_area_range": [
+        -161938654,
+        162245954
+      ],
+      "dc_duration_cycles_range": [
+        6000,
+        6000
+      ],
+      "model_output_events": 140006,
+      "source_file_count": 170,
+      "manifest_verified": true,
+      "expected_sha256": "a5fe112076c624ca4a10e11f252bc699b739c67b28001bdc5d63781894ac14c9",
+      "model_sha256": "d7cf6ce6820433f864f386bd8e37847da74def45305994ffe842eba342930c69"
+    },
+    {
+      "label": "fixed_time30_tau10",
+      "mode": "fixed_time",
+      "tau_us": 10,
+      "dc_time_us": 30,
+      "exit_code": 0,
+      "output": "offline_range300_fixed_time30_tau10",
+      "points": 10000,
+      "pmem_words": 193,
+      "zero_pmem_words": 69,
+      "idle_pmem_words": 14,
+      "dmem_words": 0,
+      "point_spacing_cycles": [
+        18768
+      ],
+      "final_zero_bound_us": 625603.9033333333,
+      "global_rc_bounds_mv": [
+        -617.3971382582687,
+        619.2350072088091
+      ],
+      "hardware_dc_deadline_cycles": 9113,
+      "controls": [
+        {
+          "axis": 0,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 2932031007,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        },
+        {
+          "axis": 1,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 2932031007,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        }
+      ],
+      "requested_range_mv": [
+        -300.0,
+        300.0
+      ],
+      "actual_range_mv": [
+        -299.967978515625,
+        300.555
+      ],
+      "effective_code_area_range": [
+        -161938654,
+        162245954
+      ],
+      "dc_duration_cycles_range": [
+        9000,
+        9000
+      ],
+      "model_output_events": 140006,
+      "source_file_count": 170,
+      "manifest_verified": true,
+      "expected_sha256": "047674084ca23926607ad04e2741ad76939a4d21714810800e1f87e5a8c6d533",
+      "model_sha256": "855a1b929537cd1b3e21ce1ec01041a97690880ef91d21d3f52db9b88ad33df4"
+    },
+    {
+      "label": "fixed_voltage_tau20",
+      "mode": "fixed_voltage",
+      "tau_us": 20,
+      "dc_time_us": 10,
+      "exit_code": 0,
+      "output": "offline_range300_fixed_voltage_tau20",
+      "points": 10000,
+      "pmem_words": 191,
+      "zero_pmem_words": 69,
+      "idle_pmem_words": 14,
+      "dmem_words": 0,
+      "point_spacing_cycles": [
+        13076
+      ],
+      "final_zero_bound_us": 435870.57,
+      "global_rc_bounds_mv": [
+        -458.85603429255224,
+        460.35502162940986
+      ],
+      "hardware_dc_deadline_cycles": 3421,
+      "controls": [
+        {
+          "axis": 0,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 1466015504,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        },
+        {
+          "axis": 1,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 1466015504,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        }
+      ],
+      "requested_range_mv": [
+        -300.0,
+        300.0
+      ],
+      "actual_range_mv": [
+        -299.967978515625,
+        300.555
+      ],
+      "effective_code_area_range": [
+        -161938654,
+        162245954
+      ],
+      "dc_duration_cycles_range": [
+        31,
+        3308
+      ],
+      "model_output_events": 140006,
+      "source_file_count": 170,
+      "manifest_verified": true,
+      "expected_sha256": "5d14fe7b599462db7d0c81bb3c7146a72bb8f660b229afec38e2b3f37d93292b",
+      "model_sha256": "08964113bc0a299a5fffeefa6c4fc32ad06a716602eb02f1a7b28342b3747173"
+    },
+    {
+      "label": "fixed_time10_tau20",
+      "mode": "fixed_time",
+      "tau_us": 20,
+      "dc_time_us": 10,
+      "exit_code": 0,
+      "output": "offline_range300_fixed_time10_tau20",
+      "points": 10000,
+      "pmem_words": 195,
+      "zero_pmem_words": 69,
+      "idle_pmem_words": 14,
+      "dmem_words": 0,
+      "point_spacing_cycles": [
+        12768
+      ],
+      "final_zero_bound_us": 425603.9033333333,
+      "global_rc_bounds_mv": [
+        -458.8668493480965,
+        460.36600076561206
+      ],
+      "hardware_dc_deadline_cycles": 3113,
+      "controls": [
+        {
+          "axis": 0,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 1466015504,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        },
+        {
+          "axis": 1,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 1466015504,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        }
+      ],
+      "requested_range_mv": [
+        -300.0,
+        300.0
+      ],
+      "actual_range_mv": [
+        -299.967978515625,
+        300.555
+      ],
+      "effective_code_area_range": [
+        -161938654,
+        162245954
+      ],
+      "dc_duration_cycles_range": [
+        3000,
+        3000
+      ],
+      "model_output_events": 140006,
+      "source_file_count": 170,
+      "manifest_verified": true,
+      "expected_sha256": "491c257cf2e1572ac13a2ba279c906b44b25a2b8e7779f7c2336a2fc8a7f6de8",
+      "model_sha256": "70af8502fc85ec21870a791cad812e4dfff834cd0ef0efc50350deff84679eaf"
+    },
+    {
+      "label": "fixed_time20_tau20",
+      "mode": "fixed_time",
+      "tau_us": 20,
+      "dc_time_us": 20,
+      "exit_code": 0,
+      "output": "offline_range300_fixed_time20_tau20",
+      "points": 10000,
+      "pmem_words": 191,
+      "zero_pmem_words": 69,
+      "idle_pmem_words": 14,
+      "dmem_words": 0,
+      "point_spacing_cycles": [
+        15768
+      ],
+      "final_zero_bound_us": 525603.9033333333,
+      "global_rc_bounds_mv": [
+        -458.75604496636,
+        460.25483662938944
+      ],
+      "hardware_dc_deadline_cycles": 6113,
+      "controls": [
+        {
+          "axis": 0,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 1466015504,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        },
+        {
+          "axis": 1,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 1466015504,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        }
+      ],
+      "requested_range_mv": [
+        -300.0,
+        300.0
+      ],
+      "actual_range_mv": [
+        -299.967978515625,
+        300.555
+      ],
+      "effective_code_area_range": [
+        -161938654,
+        162245954
+      ],
+      "dc_duration_cycles_range": [
+        6000,
+        6000
+      ],
+      "model_output_events": 140006,
+      "source_file_count": 170,
+      "manifest_verified": true,
+      "expected_sha256": "982be9e750af0719f2bc1807f7267fd617517e6237866299fe30e70be344ce28",
+      "model_sha256": "e1e84207d804481e1eba3cd1289e05b0089660cbe709dac6631d4a40c1da8737"
+    },
+    {
+      "label": "fixed_time30_tau20",
+      "mode": "fixed_time",
+      "tau_us": 20,
+      "dc_time_us": 30,
+      "exit_code": 0,
+      "output": "offline_range300_fixed_time30_tau20",
+      "points": 10000,
+      "pmem_words": 191,
+      "zero_pmem_words": 69,
+      "idle_pmem_words": 14,
+      "dmem_words": 0,
+      "point_spacing_cycles": [
+        18768
+      ],
+      "final_zero_bound_us": 625603.9033333333,
+      "global_rc_bounds_mv": [
+        -458.75604496636,
+        460.25483662938944
+      ],
+      "hardware_dc_deadline_cycles": 9113,
+      "controls": [
+        {
+          "axis": 0,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 1466015504,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        },
+        {
+          "axis": 1,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 1466015504,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        }
+      ],
+      "requested_range_mv": [
+        -300.0,
+        300.0
+      ],
+      "actual_range_mv": [
+        -299.967978515625,
+        300.555
+      ],
+      "effective_code_area_range": [
+        -161938654,
+        162245954
+      ],
+      "dc_duration_cycles_range": [
+        9000,
+        9000
+      ],
+      "model_output_events": 140006,
+      "source_file_count": 170,
+      "manifest_verified": true,
+      "expected_sha256": "8dc10116e688fcdca0d1012ec2626603c02ad50b09c8b5be7e4f201ee3f43a96",
+      "model_sha256": "16c8de6d57b3d29ad8133daf0081195e745318be3cdb448114038a97ccb7df86"
+    },
+    {
+      "label": "fixed_voltage_tau30",
+      "mode": "fixed_voltage",
+      "tau_us": 30,
+      "dc_time_us": 10,
+      "exit_code": 0,
+      "output": "offline_range300_fixed_voltage_tau30",
+      "points": 10000,
+      "pmem_words": 189,
+      "zero_pmem_words": 69,
+      "idle_pmem_words": 14,
+      "dmem_words": 0,
+      "point_spacing_cycles": [
+        13076
+      ],
+      "final_zero_bound_us": 435870.57,
+      "global_rc_bounds_mv": [
+        -405.9423400143544,
+        407.32823636394465
+      ],
+      "hardware_dc_deadline_cycles": 3421,
+      "controls": [
+        {
+          "axis": 0,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 977343669,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        },
+        {
+          "axis": 1,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 977343669,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        }
+      ],
+      "requested_range_mv": [
+        -300.0,
+        300.0
+      ],
+      "actual_range_mv": [
+        -299.967978515625,
+        300.555
+      ],
+      "effective_code_area_range": [
+        -161938654,
+        162245954
+      ],
+      "dc_duration_cycles_range": [
+        31,
+        3308
+      ],
+      "model_output_events": 140006,
+      "source_file_count": 170,
+      "manifest_verified": true,
+      "expected_sha256": "31fb36622f9f740bf46e5db6f73f8b37ebf5e7342a2c4e80b12679158728584b",
+      "model_sha256": "293925d17d84c83b15625d3913e96c02e878ba12ac168ce0f70ba8c155347b4d"
+    },
+    {
+      "label": "fixed_time10_tau30",
+      "mode": "fixed_time",
+      "tau_us": 30,
+      "dc_time_us": 10,
+      "exit_code": 0,
+      "output": "offline_range300_fixed_time10_tau30",
+      "points": 10000,
+      "pmem_words": 193,
+      "zero_pmem_words": 69,
+      "idle_pmem_words": 14,
+      "dmem_words": 0,
+      "point_spacing_cycles": [
+        12768
+      ],
+      "final_zero_bound_us": 425603.9033333333,
+      "global_rc_bounds_mv": [
+        -405.9495500513814,
+        407.335555788077
+      ],
+      "hardware_dc_deadline_cycles": 3113,
+      "controls": [
+        {
+          "axis": 0,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 977343669,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        },
+        {
+          "axis": 1,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 977343669,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        }
+      ],
+      "requested_range_mv": [
+        -300.0,
+        300.0
+      ],
+      "actual_range_mv": [
+        -299.967978515625,
+        300.555
+      ],
+      "effective_code_area_range": [
+        -161938654,
+        162245954
+      ],
+      "dc_duration_cycles_range": [
+        3000,
+        3000
+      ],
+      "model_output_events": 140006,
+      "source_file_count": 170,
+      "manifest_verified": true,
+      "expected_sha256": "dc6364c3f659bd9bd9912f8249baada5612e8bb6b1c3f1e083f357317d7ed51e",
+      "model_sha256": "735ca6bb6b7e2f277166b98c827546fa55e03406cb3dd08bdfa8b947b6900567"
+    },
+    {
+      "label": "fixed_time20_tau30",
+      "mode": "fixed_time",
+      "tau_us": 30,
+      "dc_time_us": 20,
+      "exit_code": 0,
+      "output": "offline_range300_fixed_time20_tau30",
+      "points": 10000,
+      "pmem_words": 189,
+      "zero_pmem_words": 69,
+      "idle_pmem_words": 14,
+      "dmem_words": 0,
+      "point_spacing_cycles": [
+        15768
+      ],
+      "final_zero_bound_us": 525603.9033333333,
+      "global_rc_bounds_mv": [
+        -405.8756804635822,
+        407.26144636395384
+      ],
+      "hardware_dc_deadline_cycles": 6113,
+      "controls": [
+        {
+          "axis": 0,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 977343669,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        },
+        {
+          "axis": 1,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 977343669,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        }
+      ],
+      "requested_range_mv": [
+        -300.0,
+        300.0
+      ],
+      "actual_range_mv": [
+        -299.967978515625,
+        300.555
+      ],
+      "effective_code_area_range": [
+        -161938654,
+        162245954
+      ],
+      "dc_duration_cycles_range": [
+        6000,
+        6000
+      ],
+      "model_output_events": 140006,
+      "source_file_count": 170,
+      "manifest_verified": true,
+      "expected_sha256": "b6f247e1c908a722cb9771b8985a825cf14248ed7195277ab15678e7159aa15a",
+      "model_sha256": "252b84898486a47479dd8f7a02ddde10425139784d2f5af3989780840b8adb99"
+    },
+    {
+      "label": "fixed_time30_tau30",
+      "mode": "fixed_time",
+      "tau_us": 30,
+      "dc_time_us": 30,
+      "exit_code": 0,
+      "output": "offline_range300_fixed_time30_tau30",
+      "points": 10000,
+      "pmem_words": 189,
+      "zero_pmem_words": 69,
+      "idle_pmem_words": 14,
+      "dmem_words": 0,
+      "point_spacing_cycles": [
+        18768
+      ],
+      "final_zero_bound_us": 625603.9033333333,
+      "global_rc_bounds_mv": [
+        -405.8756804635822,
+        407.26144636395384
+      ],
+      "hardware_dc_deadline_cycles": 9113,
+      "controls": [
+        {
+          "axis": 0,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 977343669,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        },
+        {
+          "axis": 1,
+          "rc_enable_reset_cycle": 200,
+          "coefficient": 977343669,
+          "dc_arm_cycle": 812,
+          "dc_commands": 10000,
+          "rc_commands": 1,
+          "reset_policy": "Hardware DC completion clears area and IIR after final zero; no software per-shot RC command.",
+          "cleanup_rc_disabled_reset": true,
+          "cleanup_dc_disabled": true
+        }
+      ],
+      "requested_range_mv": [
+        -300.0,
+        300.0
+      ],
+      "actual_range_mv": [
+        -299.967978515625,
+        300.555
+      ],
+      "effective_code_area_range": [
+        -161938654,
+        162245954
+      ],
+      "dc_duration_cycles_range": [
+        9000,
+        9000
+      ],
+      "model_output_events": 140006,
+      "source_file_count": 170,
+      "manifest_verified": true,
+      "expected_sha256": "9226df28847531ec70f9fbb1ad9fd1c0dd0151465416e48275afb74b7ae9de39",
+      "model_sha256": "0985b88fa5b7f229cf85e6fac51e657d67704663ce7d2593a1fa96c6c0b2e0dd"
+    }
+  ],
+  "nonfinal_evidence_notes": "See preparation_scope_notes.log. Prior ranges and first assertion failures are retained, not part of these 12 final conditions."
+}

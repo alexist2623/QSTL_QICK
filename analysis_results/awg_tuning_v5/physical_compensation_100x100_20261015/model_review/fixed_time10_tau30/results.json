@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "physical_execution": false,
+  "bundle": "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\offline_range300_fixed_time10_tau30",
+  "points": 10000,
+  "outputs_checked": 20000,
+  "area_matches": 20000,
+  "zero_residuals": 20000,
+  "zero_final_rc_codes": 20000,
+  "metadata_step_mismatches": 0,
+  "sampled_rc_code_checks": 660000,
+  "sampled_rc_code_bounds": [
+    -4139,
+    4147
+  ],
+  "sampled_rc_mv_bounds": [
+    -404.9469873046875,
+    405.7296826171875
+  ],
+  "maximum_absolute_pre_dc_area": 162245954,
+  "production_range_bounds_mv": [
+    -405.9495500513814,
+    407.335555788077
+  ],
+  "maximum_abs_compiled_vs_requested_ideal_midpoint_mv": 0.6964275074968782,
+  "requested_range_mv": [
+    -300.0,
+    300.0
+  ],
+  "mode": "fixed_time",
+  "rc_tau_us": 30.0,
+  "dc_time_us": 10.0,
+  "dc_voltage_mv": null,
+  "frame_zero_bound_us": 425603.9033333333,
+  "elapsed_s": 6.51051389996428,
+  "input_hashes_unchanged": true,
+  "source_hashes": {
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\offline_range300_fixed_time10_tau30\\expected_points.json.gz": "dc6364c3f659bd9bd9912f8249baada5612e8bb6b1c3f1e083f357317d7ed51e",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\offline_range300_fixed_time10_tau30\\manifest.json": "dc99fdc0c51c54945616f38aee0092e8e8d195d5e6ad7e5d2454a844ab5b8bb9",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\offline_range300_fixed_time10_tau30\\preparation_summary.json": "e3353ade895e0c0da5866cc1dba7a4a91bc900eebe2d545f164ab174c1cbe073",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\model_review\\command_expectation.py": "0e64284671d7c323cd375d2d72291dfd8de973f1c085755f2b99ea962c228d7f",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\model_review\\compact_expectation.py": "9811e3d79137a9b7c4897bfba0e1a52a7cd8d6dc63156124030897893edaa0da",
+    "C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\model_review\\validate_bundle.py": "006484eb07a5835bb5d1c6eef98852723e8f6aa87163acbb1d47ffbc5f54deef"
+  },
+  "limitations": [
+    "Command arithmetic/compact digital expectation only; not a new RTL or physical test.",
+    "RC range sample boundaries/midpoints are diagnostics; compiler conservative bounds retain full-domain role.",
+    "Requested ideal midpoint uses nominal 1us ramp+10us HOLD; it does not substitute for the primary physical requested reference.",
+    "External analog RC capacitor and instrument uncertainty are not modeled."
+  ]
+}

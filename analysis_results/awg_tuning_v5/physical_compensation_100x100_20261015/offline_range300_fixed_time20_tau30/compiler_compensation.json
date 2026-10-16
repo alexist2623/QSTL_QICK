@@ -1,0 +1,147 @@
+{
+  "mode": "fixed_time",
+  "dc_settings": [
+    {
+      "words": 6000
+    },
+    {
+      "words": 6000
+    }
+  ],
+  "deadline_cycles": 6113,
+  "validation": [
+    {
+      "point": 0,
+      "output": 0,
+      "area": -161938654,
+      "prefix_min": -161938654,
+      "prefix_max": 0,
+      "compensation_words": 6000,
+      "residual": 0
+    },
+    {
+      "point": 0,
+      "output": 1,
+      "area": -161938654,
+      "prefix_min": -161938654,
+      "prefix_max": 0,
+      "compensation_words": 6000,
+      "residual": 0
+    },
+    {
+      "point": 99,
+      "output": 0,
+      "area": -161938654,
+      "prefix_min": -161938654,
+      "prefix_max": 0,
+      "compensation_words": 6000,
+      "residual": 0
+    },
+    {
+      "point": 99,
+      "output": 1,
+      "area": 162245954,
+      "prefix_min": 0,
+      "prefix_max": 162245954,
+      "compensation_words": 6000,
+      "residual": 0
+    },
+    {
+      "point": 9900,
+      "output": 0,
+      "area": 162245954,
+      "prefix_min": 0,
+      "prefix_max": 162245954,
+      "compensation_words": 6000,
+      "residual": 0
+    },
+    {
+      "point": 9900,
+      "output": 1,
+      "area": -161938654,
+      "prefix_min": -161938654,
+      "prefix_max": 0,
+      "compensation_words": 6000,
+      "residual": 0
+    },
+    {
+      "point": 9999,
+      "output": 0,
+      "area": 162245954,
+      "prefix_min": 0,
+      "prefix_max": 162245954,
+      "compensation_words": 6000,
+      "residual": 0
+    },
+    {
+      "point": 9999,
+      "output": 1,
+      "area": 162245954,
+      "prefix_min": 0,
+      "prefix_max": 162245954,
+      "compensation_words": 6000,
+      "residual": 0
+    }
+  ],
+  "rc_validation": [
+    {
+      "point_index": 0,
+      "gen_ch": 1,
+      "minimum_normalized": -0.5064077462489173,
+      "maximum_normalized": 0.20680128085590135
+    },
+    {
+      "point_index": 0,
+      "gen_ch": 3,
+      "minimum_normalized": -0.5064077462489173,
+      "maximum_normalized": 0.20680128085590135
+    },
+    {
+      "point_index": 99,
+      "gen_ch": 1,
+      "minimum_normalized": -0.5064077462489173,
+      "maximum_normalized": 0.20680128085590135
+    },
+    {
+      "point_index": 99,
+      "gen_ch": 3,
+      "minimum_normalized": -0.20733085920720787,
+      "maximum_normalized": 0.5081367549582695
+    },
+    {
+      "point_index": 9900,
+      "gen_ch": 1,
+      "minimum_normalized": -0.20733085920720787,
+      "maximum_normalized": 0.5081367549582695
+    },
+    {
+      "point_index": 9900,
+      "gen_ch": 3,
+      "minimum_normalized": -0.5064077462489173,
+      "maximum_normalized": 0.20680128085590135
+    },
+    {
+      "point_index": 9999,
+      "gen_ch": 1,
+      "minimum_normalized": -0.20733085920720787,
+      "maximum_normalized": 0.5081367549582695
+    },
+    {
+      "point_index": 9999,
+      "gen_ch": 3,
+      "minimum_normalized": -0.20733085920720787,
+      "maximum_normalized": 0.5081367549582695
+    }
+  ],
+  "net_area_bounds": [
+    [
+      -161943454,
+      162250752
+    ],
+    [
+      -161943454,
+      162250752
+    ]
+  ],
+  "note": "Planning bounds from current production compiler; not a new scalar RTL execution."
+}

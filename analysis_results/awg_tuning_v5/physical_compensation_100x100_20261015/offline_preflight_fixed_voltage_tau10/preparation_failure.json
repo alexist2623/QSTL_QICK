@@ -1,0 +1,15 @@
+{
+  "status": "preparation_rejected",
+  "error_type": "ValueError",
+  "error": "RC-compensated DAC output exceeds range: awg_0, sweep corner 0. Predicted bounds [-820, +300] mV; allowed [-801.48, +801.48] mV. Includes DC compensation and the zero-input hold before IIR reset. Reduce voltage/duration or increase RC tau.",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\GIT_Workspace\\QSTL_QICK\\analysis_results\\awg_tuning_v5\\physical_compensation_100x100_20261015\\prepare_program.py\", line 201, in prepare_program\n    args = window._experiment_run_arguments(require_readout=False,require_run_config=False)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\DCWaveform_Generator.py\", line 13334, in _experiment_run_arguments\n    sequence = build_qick_sequence(\n               ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\dc_waveform_core.py\", line 2395, in build_qick_sequence\n    sequence.rc_output_range_preview = (validate_sequence_rc_range(\n                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_rc_validation.py\", line 94, in validate_sequence_rc_range\n    check_limits(bounds, name=name, point=point, limits=(-1.0, 1.0),\n  File \"C:\\GIT_Workspace\\PulseGenerator\\DCWaveformGeneratorGUI\\qick_rc_validation.py\", line 56, in check_limits\n    raise ValueError(\nValueError: RC-compensated DAC output exceeds range: awg_0, sweep corner 0. Predicted bounds [-820, +300] mV; allowed [-801.48, +801.48] mV. Includes DC compensation and the zero-input hold before IIR reset. Reduce voltage/duration or increase RC tau.\n",
+  "mode": "fixed_voltage",
+  "hold_us": 10.0,
+  "dc_time_us": 10.0,
+  "tau_us": 10.0,
+  "start_mv": -400.0,
+  "stop_mv": 400.0,
+  "dc_voltage_mv": 300.0,
+  "physical_execution": false,
+  "helper_sha256": "0e2a253dd6cae01d21db9bb180fa1c56f5fe96712d65fc46bc0ab343e29e4a2c"
+}

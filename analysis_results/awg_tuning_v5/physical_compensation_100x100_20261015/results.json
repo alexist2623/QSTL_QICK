@@ -1,0 +1,340 @@
+{
+  "physical_cases": 12,
+  "physical_points": 120000,
+  "main_channel_measurements": 240000,
+  "acquisition_integrity_passed": true,
+  "independent_csv_and_hash_audit_passed": true,
+  "main_pass_points": 119893,
+  "main_fail_points": 107,
+  "main_fail_channels": 107,
+  "max_primary_error_mv": 19.51663770623881,
+  "dc_counts": {
+    "PASS": 226485,
+    "FAIL": 67,
+    "INCOMPLETE": 13448
+  },
+  "post_dc_zero_counts": {
+    "PASS": 239782,
+    "FAIL": 218,
+    "INCOMPLETE": 0
+  },
+  "final_zero_all_passed": true,
+  "source_files_unchanged": 170,
+  "raw_ieee_bytes": 67200264,
+  "lossless_gzip_bytes": 16207018,
+  "all_requested_waveform_checks_passed": false,
+  "cases": [
+    {
+      "label": "fixed_voltage_tau10",
+      "mode": "fixed_voltage",
+      "tau_us": 10.0,
+      "dc_time_us": null,
+      "main_pass_points": 9976,
+      "main_fail_points": 24,
+      "main_pass_channels": 19976,
+      "main_fail_channels": 24,
+      "ch1_fail": 0,
+      "ch2_fail": 24,
+      "max_error_mv": 18.83586564344907,
+      "dc_counts": {
+        "PASS": 15467,
+        "FAIL": 26,
+        "INCOMPLETE": 4507
+      },
+      "post_dc_zero_counts": {
+        "PASS": 19994,
+        "FAIL": 6,
+        "INCOMPLETE": 0
+      },
+      "final_zero_passed": true,
+      "capture_id": "014b9318-62dd-4f5d-bc33-b2698a39925e",
+      "analysis": "analysis_fixed_voltage_tau10_01"
+    },
+    {
+      "label": "fixed_time10_tau10",
+      "mode": "fixed_time",
+      "tau_us": 10.0,
+      "dc_time_us": 10.0,
+      "main_pass_points": 9959,
+      "main_fail_points": 41,
+      "main_pass_channels": 19959,
+      "main_fail_channels": 41,
+      "ch1_fail": 1,
+      "ch2_fail": 40,
+      "max_error_mv": 19.51663770623881,
+      "dc_counts": {
+        "PASS": 19997,
+        "FAIL": 3,
+        "INCOMPLETE": 0
+      },
+      "post_dc_zero_counts": {
+        "PASS": 19993,
+        "FAIL": 7,
+        "INCOMPLETE": 0
+      },
+      "final_zero_passed": true,
+      "capture_id": "4756849a-bc24-4293-85b7-871fd783e8b7",
+      "analysis": "analysis_fixed_time10_tau10_01"
+    },
+    {
+      "label": "fixed_time20_tau10",
+      "mode": "fixed_time",
+      "tau_us": 10.0,
+      "dc_time_us": 20.0,
+      "main_pass_points": 10000,
+      "main_fail_points": 0,
+      "main_pass_channels": 20000,
+      "main_fail_channels": 0,
+      "ch1_fail": 0,
+      "ch2_fail": 0,
+      "max_error_mv": 14.400930238725408,
+      "dc_counts": {
+        "PASS": 20000,
+        "FAIL": 0,
+        "INCOMPLETE": 0
+      },
+      "post_dc_zero_counts": {
+        "PASS": 19998,
+        "FAIL": 2,
+        "INCOMPLETE": 0
+      },
+      "final_zero_passed": true,
+      "capture_id": "e1b10126-1fdb-4166-a181-268bf55dea60",
+      "analysis": "analysis_fixed_time20_tau10_01"
+    },
+    {
+      "label": "fixed_time30_tau10",
+      "mode": "fixed_time",
+      "tau_us": 10.0,
+      "dc_time_us": 30.0,
+      "main_pass_points": 9959,
+      "main_fail_points": 41,
+      "main_pass_channels": 19959,
+      "main_fail_channels": 41,
+      "ch1_fail": 41,
+      "ch2_fail": 0,
+      "max_error_mv": 17.758643963661967,
+      "dc_counts": {
+        "PASS": 19978,
+        "FAIL": 22,
+        "INCOMPLETE": 0
+      },
+      "post_dc_zero_counts": {
+        "PASS": 19847,
+        "FAIL": 153,
+        "INCOMPLETE": 0
+      },
+      "final_zero_passed": true,
+      "capture_id": "c7d9bee9-9a60-446f-9659-5594f894b227",
+      "analysis": "analysis_fixed_time30_tau10_01"
+    },
+    {
+      "label": "fixed_voltage_tau20",
+      "mode": "fixed_voltage",
+      "tau_us": 20.0,
+      "dc_time_us": null,
+      "main_pass_points": 9999,
+      "main_fail_points": 1,
+      "main_pass_channels": 19999,
+      "main_fail_channels": 1,
+      "ch1_fail": 0,
+      "ch2_fail": 1,
+      "max_error_mv": 15.687249762587783,
+      "dc_counts": {
+        "PASS": 15554,
+        "FAIL": 9,
+        "INCOMPLETE": 4437
+      },
+      "post_dc_zero_counts": {
+        "PASS": 19995,
+        "FAIL": 5,
+        "INCOMPLETE": 0
+      },
+      "final_zero_passed": true,
+      "capture_id": "b41dda7b-ad42-481d-b905-2ab5ef968971",
+      "analysis": "analysis_fixed_voltage_tau20_01"
+    },
+    {
+      "label": "fixed_time10_tau20",
+      "mode": "fixed_time",
+      "tau_us": 20.0,
+      "dc_time_us": 10.0,
+      "main_pass_points": 10000,
+      "main_fail_points": 0,
+      "main_pass_channels": 20000,
+      "main_fail_channels": 0,
+      "ch1_fail": 0,
+      "ch2_fail": 0,
+      "max_error_mv": 13.520563736306997,
+      "dc_counts": {
+        "PASS": 20000,
+        "FAIL": 0,
+        "INCOMPLETE": 0
+      },
+      "post_dc_zero_counts": {
+        "PASS": 19994,
+        "FAIL": 6,
+        "INCOMPLETE": 0
+      },
+      "final_zero_passed": true,
+      "capture_id": "8832bd3f-d851-4f1a-859d-629f5d894202",
+      "analysis": "analysis_fixed_time10_tau20_01"
+    },
+    {
+      "label": "fixed_time20_tau20",
+      "mode": "fixed_time",
+      "tau_us": 20.0,
+      "dc_time_us": 20.0,
+      "main_pass_points": 10000,
+      "main_fail_points": 0,
+      "main_pass_channels": 20000,
+      "main_fail_channels": 0,
+      "ch1_fail": 0,
+      "ch2_fail": 0,
+      "max_error_mv": 12.607325373008194,
+      "dc_counts": {
+        "PASS": 20000,
+        "FAIL": 0,
+        "INCOMPLETE": 0
+      },
+      "post_dc_zero_counts": {
+        "PASS": 19992,
+        "FAIL": 8,
+        "INCOMPLETE": 0
+      },
+      "final_zero_passed": true,
+      "capture_id": "5c87ef70-21c7-4103-8b06-2db896f81321",
+      "analysis": "analysis_fixed_time20_tau20_01"
+    },
+    {
+      "label": "fixed_time30_tau20",
+      "mode": "fixed_time",
+      "tau_us": 20.0,
+      "dc_time_us": 30.0,
+      "main_pass_points": 10000,
+      "main_fail_points": 0,
+      "main_pass_channels": 20000,
+      "main_fail_channels": 0,
+      "ch1_fail": 0,
+      "ch2_fail": 0,
+      "max_error_mv": 14.98975456171425,
+      "dc_counts": {
+        "PASS": 20000,
+        "FAIL": 0,
+        "INCOMPLETE": 0
+      },
+      "post_dc_zero_counts": {
+        "PASS": 19992,
+        "FAIL": 8,
+        "INCOMPLETE": 0
+      },
+      "final_zero_passed": true,
+      "capture_id": "677dfd71-52c0-43fb-b188-b2ee8bed305b",
+      "analysis": "analysis_fixed_time30_tau20_01"
+    },
+    {
+      "label": "fixed_voltage_tau30",
+      "mode": "fixed_voltage",
+      "tau_us": 30.0,
+      "dc_time_us": null,
+      "main_pass_points": 10000,
+      "main_fail_points": 0,
+      "main_pass_channels": 20000,
+      "main_fail_channels": 0,
+      "ch1_fail": 0,
+      "ch2_fail": 0,
+      "max_error_mv": 13.565204471532148,
+      "dc_counts": {
+        "PASS": 15489,
+        "FAIL": 7,
+        "INCOMPLETE": 4504
+      },
+      "post_dc_zero_counts": {
+        "PASS": 19991,
+        "FAIL": 9,
+        "INCOMPLETE": 0
+      },
+      "final_zero_passed": true,
+      "capture_id": "241a2eba-6d9d-4488-ab05-759f4f556d58",
+      "analysis": "analysis_fixed_voltage_tau30_01"
+    },
+    {
+      "label": "fixed_time10_tau30",
+      "mode": "fixed_time",
+      "tau_us": 30.0,
+      "dc_time_us": 10.0,
+      "main_pass_points": 10000,
+      "main_fail_points": 0,
+      "main_pass_channels": 20000,
+      "main_fail_channels": 0,
+      "ch1_fail": 0,
+      "ch2_fail": 0,
+      "max_error_mv": 14.7171924811027,
+      "dc_counts": {
+        "PASS": 20000,
+        "FAIL": 0,
+        "INCOMPLETE": 0
+      },
+      "post_dc_zero_counts": {
+        "PASS": 19994,
+        "FAIL": 6,
+        "INCOMPLETE": 0
+      },
+      "final_zero_passed": true,
+      "capture_id": "698a43fc-7160-43a2-a2b9-6605ba2ebfe6",
+      "analysis": "analysis_fixed_time10_tau30_01"
+    },
+    {
+      "label": "fixed_time20_tau30",
+      "mode": "fixed_time",
+      "tau_us": 30.0,
+      "dc_time_us": 20.0,
+      "main_pass_points": 10000,
+      "main_fail_points": 0,
+      "main_pass_channels": 20000,
+      "main_fail_channels": 0,
+      "ch1_fail": 0,
+      "ch2_fail": 0,
+      "max_error_mv": 14.524190056172827,
+      "dc_counts": {
+        "PASS": 20000,
+        "FAIL": 0,
+        "INCOMPLETE": 0
+      },
+      "post_dc_zero_counts": {
+        "PASS": 19996,
+        "FAIL": 4,
+        "INCOMPLETE": 0
+      },
+      "final_zero_passed": true,
+      "capture_id": "0d8c6459-92c5-4ac1-a11a-7afe33ad70b7",
+      "analysis": "analysis_fixed_time20_tau30_01"
+    },
+    {
+      "label": "fixed_time30_tau30",
+      "mode": "fixed_time",
+      "tau_us": 30.0,
+      "dc_time_us": 30.0,
+      "main_pass_points": 10000,
+      "main_fail_points": 0,
+      "main_pass_channels": 20000,
+      "main_fail_channels": 0,
+      "ch1_fail": 0,
+      "ch2_fail": 0,
+      "max_error_mv": 12.506331831875983,
+      "dc_counts": {
+        "PASS": 20000,
+        "FAIL": 0,
+        "INCOMPLETE": 0
+      },
+      "post_dc_zero_counts": {
+        "PASS": 19996,
+        "FAIL": 4,
+        "INCOMPLETE": 0
+      },
+      "final_zero_passed": true,
+      "capture_id": "1b588637-def0-4578-a8b1-3aee650bec02",
+      "analysis": "analysis_fixed_time30_tau30_01"
+    }
+  ]
+}
