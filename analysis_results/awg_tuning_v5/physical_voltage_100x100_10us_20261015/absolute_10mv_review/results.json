@@ -1,0 +1,87 @@
+{
+  "criterion": "FAIL iff abs((plateau median - fixed channel offset) - requested voltage) > 10 mV",
+  "tolerance_mv": 10.0,
+  "failure_comparison": "strictly_greater_than",
+  "pass_comparison": "less_than_or_equal",
+  "offset_policy": "Unchanged fixed per-channel median from the 100 zero-HOLD central windows",
+  "zero_policy": "0 mV axes and (0,0) point included in absolute-error verdict; no percentage denominator",
+  "source_capture_id": "fa859645-d94c-459b-b8b0-9d4ec279dc8f",
+  "new_hardware_execution": false,
+  "plateau_counts": {
+    "total": 20000,
+    "passed": 19340,
+    "failed": 660
+  },
+  "point_counts": {
+    "total": 10000,
+    "passed": 9344,
+    "failed": 656
+  },
+  "per_channel": {
+    "1": {
+      "passed": 9963,
+      "failed": 37,
+      "zero_target_count": 100,
+      "zero_target_passed": 100,
+      "max_absolute_error_mv": 11.24221807191924,
+      "worst_example": {
+        "point": 7948,
+        "axis0": 79,
+        "axis1": 48,
+        "scope_channel": 1,
+        "panel_dac": 4,
+        "requested_mv": 319.1919191919192,
+        "raw_median_mv": 283.681984,
+        "fixed_offset_mv": -24.267717120000004,
+        "corrected_median_mv": 307.94970112,
+        "signed_error_mv": -11.24221807191924,
+        "absolute_error_mv": 11.24221807191924,
+        "passed": false,
+        "zero_target": false
+      },
+      "failed_requested_min_mv": 294.949494949495,
+      "failed_requested_max_mv": 391.9191919191919
+    },
+    "2": {
+      "passed": 9377,
+      "failed": 623,
+      "zero_target_count": 100,
+      "zero_target_passed": 100,
+      "max_absolute_error_mv": 11.81699871030304,
+      "worst_example": {
+        "point": 7275,
+        "axis0": 72,
+        "axis1": 75,
+        "scope_channel": 2,
+        "panel_dac": 5,
+        "requested_mv": 303.03030303030306,
+        "raw_median_mv": 276.98742528,
+        "fixed_offset_mv": -14.22587904,
+        "corrected_median_mv": 291.21330432,
+        "signed_error_mv": -11.81699871030304,
+        "absolute_error_mv": 11.81699871030304,
+        "passed": false,
+        "zero_target": false
+      },
+      "failed_requested_min_mv": 254.54545454545456,
+      "failed_requested_max_mv": 400.0
+    }
+  },
+  "integrity_passed": true,
+  "overall_passed": false,
+  "previous_5pct_point_counts": {
+    "PASS": 7460,
+    "FAIL": 2539,
+    "N/A": 1,
+    "INCOMPLETE": 0
+  },
+  "prior_3x3": {
+    "plateaus": 18,
+    "passed_plateaus": 15,
+    "failed_plateaus": 3,
+    "passed_points": 6,
+    "failed_points": 3
+  },
+  "previous_evidence_unchanged": true,
+  "interpretation": "This is a plateau-median accuracy check; individual noisy samples/glitches are not assigned this verdict. No gain/per-point correction or time-window changes."
+}
