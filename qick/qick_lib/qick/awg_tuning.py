@@ -633,6 +633,24 @@ class AxisAwgTuningV3(AxisAwgTuningV2):
                     fault=bool(status & (1 << 18)))
 
 
+class AxisAwgTuningV4(AxisAwgTuningV3):
+    """Common SET/RAMP pipeline used by the v6 firmware."""
+
+    bindto = ["QICK:QICK:axis_awg_tuning_v4:1.0",
+              "user.org:user:axis_awg_tuning_v4:1.0"]
+    EXTRA_Y_PIPE_STAGES_DEFAULT = 3
+
+    def _init_config(self, description):
+        super()._init_config(description)
+        common = self.cfg["extra_y_pipe_stages"] + 4
+        self.cfg["set_ramp_common_latency_cycles"] = common
+        # Startup is the RAMP delay relative to SET, not the common pipeline.
+        self.cfg["ramp_startup_latency_cycles"] = 0
+        self.cfg["ramp_guard_cycles"] = 0
+        self.cfg["output_latency_cycles"] += common
+        self.cfg["dc_control_latency_cycles"] = common
+
+
 @dataclass
 class TimedCommandEvent:
     """A timed 160-bit command event emitted by software or a tProcessor model."""

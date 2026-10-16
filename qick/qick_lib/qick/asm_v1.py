@@ -593,7 +593,7 @@ class AwgTuningGenManager(AbsRegisterManager):
     def __init__(self, prog, gen_ch):
         self.ch = gen_ch
         self.gencfg = prog.soccfg["gens"][self.ch]
-        expected_width = 32 if self.gencfg.get("type") in ("axis_awg_tuning_v2", "axis_awg_tuning_v3") else 24
+        expected_width = 32 if self.gencfg.get("type") in ("axis_awg_tuning_v2", "axis_awg_tuning_v3", "axis_awg_tuning_v4") else 24
         self.STEP_WIDTH = int(self.gencfg.get("step_width", expected_width))
         if self.STEP_WIDTH != expected_width:
             raise ValueError("AWG step width does not match the firmware IP version")
@@ -893,6 +893,7 @@ class QickProgram(AbsQickProgram):
                 'axis_awg_tuning_v1': AwgTuningGenManager,
                 'axis_awg_tuning_v2': AwgTuningGenManager,
                 'axis_awg_tuning_v3': AwgTuningGenManager,
+                'axis_awg_tuning_v4': AwgTuningGenManager,
                 'axis_square_pulse_v1': SquarePulseGenManager}
 
     # Gaussian and DRAG definitions use incorrect original definition, which gives a pulse that is too narrow by sqrt(2)

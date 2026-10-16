@@ -132,6 +132,7 @@ AXIS_PASS_THROUGH_FORWARD = {
     # Backward traversal is deliberately not generic: it must select a role.
     "axis_output_sum_v1": "m_axis",
     "axis_output_sum_v2": "m_axis",
+    "axis_output_sum_v3": "m_axis",
     "axis_clock_converter": "M_AXIS",
     "axis_dwidth_converter": "M_AXIS",
     "axis_register_slice": "M_AXIS",

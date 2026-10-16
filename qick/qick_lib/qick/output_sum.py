@@ -1,7 +1,7 @@
 """Discover versioned AWG/RF output stages without changing legacy generators."""
 
 SUM_TYPE = "axis_output_sum_v1"
-SUM_TYPES = {SUM_TYPE: 1, "axis_output_sum_v2": 2}
+SUM_TYPES = {SUM_TYPE: 1, "axis_output_sum_v2": 2, "axis_output_sum_v3": 3}
 
 
 def output_sum_config(metadata, fullpath):
@@ -12,7 +12,7 @@ def output_sum_config(metadata, fullpath):
         return {}
     version = SUM_TYPES[kind]
     keys = ["N_PTS", "BYPASS", "PIPELINE_CYCLES"]
-    if version == 2:
+    if version >= 2:
         keys.append("AWG_DELAY_CYCLES")
     try:
         parameters = {key: int(metadata.get_param(block, key)) for key in keys}
@@ -20,13 +20,13 @@ def output_sum_config(metadata, fullpath):
         raise RuntimeError(f"Missing or invalid output combiner parameter on {block}") from exc
     if (parameters["N_PTS"] != 16 or parameters["PIPELINE_CYCLES"] != 2
             or parameters["BYPASS"] not in (0, 1)
-            or (version == 2 and parameters["AWG_DELAY_CYCLES"] != 13)):
+            or (version >= 2 and parameters["AWG_DELAY_CYCLES"] != {2: 13, 3: 6}[version])):
         raise RuntimeError(f"Unsupported output combiner parameters on {block}: {parameters}")
     if port not in ("s0_axis", "s1_axis"):
         raise RuntimeError(f"Unsupported output combiner input {block}/{port}")
-    awg = metadata.trace_back(block, "s0_axis", ["axis_awg_tuning_v3"])
+    awg = metadata.trace_back(block, "s0_axis", ["axis_awg_tuning_v4" if version == 3 else "axis_awg_tuning_v3"])
     if awg is None:
-        raise RuntimeError(f"Missing v3 AWG input on {block}")
+        raise RuntimeError(f"Missing compatible AWG input on {block}")
     bypass = bool(parameters["BYPASS"])
     rf = None if bypass else metadata.trace_back(block, "s1_axis", ["axis_signal_gen_v6"])
     if not bypass and rf is None:
@@ -70,9 +70,9 @@ def apply_output_sum_config(cfg, route):
         return
     version = route["output_sum_version"]
     delay = route.get("output_sum_awg_delay_cycles", 0)
-    if (version not in (1, 2) or route["output_sum_role"] not in ("awg", "rf")
+    if (version not in (1, 2, 3) or route["output_sum_role"] not in ("awg", "rf")
             or route["post_output_latency_cycles"] != 2
-            or delay != (13 if version == 2 else 0)):
+            or delay != {1: 0, 2: 13, 3: 6}.get(version)):
         raise RuntimeError(f"Unsupported output combiner latency profile: {route}")
     cfg.update(route)
     cfg["output_sum_awg_delay_cycles"] = delay

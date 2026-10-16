@@ -1,0 +1,176 @@
+{
+  "published_utc": "2026-10-16T21:16:11.851853+00:00",
+  "publication_scope": "versioned firmware package; not deployed to a board",
+  "board_deployed": false,
+  "conditions": {
+    "project": "qstl_awg_v6",
+    "vivado_version": "2023.1",
+    "part": "xczu49dr-ffvf1760-2-e",
+    "board_part": "xilinx.com:zcu216:part0:2.0",
+    "launch_jobs": "4",
+    "general.maxThreads": "5",
+    "synthesis_strategy": "Vivado Synthesis Defaults",
+    "implementation_strategy": "Vivado Implementation Defaults",
+    "manual_routing": "disabled",
+    "constraint.timing.xdc.source_sha256": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb",
+    "constraint.timing.xdc.snapshot_sha256": "9f9d68f0d1d9e69d9c236606d65781e5c1f5eed4b1672a24daebfb670e0bacfb",
+    "constraint.ios.xdc.source_sha256": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7",
+    "constraint.ios.xdc.snapshot_sha256": "5435d174456af7c2156207ad1571fb56aec6ea1264efea73f9a42a11623430a7",
+    "git_branch": "awg_tuning_v4",
+    "git_commit": "f937e788383cad3536d24583fc9d947c43a6d442"
+  },
+  "timing": {
+    "synthesis_status": "synth_design Complete!",
+    "implementation_status": "write_bitstream Complete!",
+    "setup_wns_ns": "0.017997",
+    "setup_tns_ns": "0.000000",
+    "hold_whs_ns": "0.009598",
+    "hold_ths_ns": "0.000000",
+    "timing_closed": "YES",
+    "bitstream": "bitstream.bit",
+    "xsa": "bitstream.xsa",
+    "hwh": "bitstream.hwh"
+  },
+  "topology": {
+    "passed": true,
+    "sha256": "0ad1148376d143b1e623628e923017a013bdcdb0cca517431b464696ceabdea4",
+    "pairs": [
+      {
+        "awg": "axis_awg_tuning_v4_4",
+        "rf": "axis_signal_gen_v6_0",
+        "dac": "10",
+        "route": {
+          "output_sum_version": 3,
+          "output_sum_block": "axis_output_sum_4",
+          "output_sum_role": "awg",
+          "output_sum_bypass": false,
+          "output_sum_awg": "axis_awg_tuning_v4_4",
+          "output_sum_rf": "axis_signal_gen_v6_0",
+          "output_sum_awg_delay_cycles": 6,
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v4_5",
+        "rf": "axis_signal_gen_v6_1",
+        "dac": "11",
+        "route": {
+          "output_sum_version": 3,
+          "output_sum_block": "axis_output_sum_5",
+          "output_sum_role": "awg",
+          "output_sum_bypass": false,
+          "output_sum_awg": "axis_awg_tuning_v4_5",
+          "output_sum_rf": "axis_signal_gen_v6_1",
+          "output_sum_awg_delay_cycles": 6,
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v4_6",
+        "rf": "axis_signal_gen_v6_3",
+        "dac": "12",
+        "route": {
+          "output_sum_version": 3,
+          "output_sum_block": "axis_output_sum_6",
+          "output_sum_role": "awg",
+          "output_sum_bypass": false,
+          "output_sum_awg": "axis_awg_tuning_v4_6",
+          "output_sum_rf": "axis_signal_gen_v6_3",
+          "output_sum_awg_delay_cycles": 6,
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v4_8",
+        "rf": null,
+        "dac": "20",
+        "route": {
+          "output_sum_version": 3,
+          "output_sum_block": "axis_output_sum_8",
+          "output_sum_role": "awg",
+          "output_sum_bypass": true,
+          "output_sum_awg": "axis_awg_tuning_v4_8",
+          "output_sum_rf": null,
+          "output_sum_awg_delay_cycles": 6,
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v4_9",
+        "rf": null,
+        "dac": "21",
+        "route": {
+          "output_sum_version": 3,
+          "output_sum_block": "axis_output_sum_9",
+          "output_sum_role": "awg",
+          "output_sum_bypass": true,
+          "output_sum_awg": "axis_awg_tuning_v4_9",
+          "output_sum_rf": null,
+          "output_sum_awg_delay_cycles": 6,
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v4_10",
+        "rf": null,
+        "dac": "22",
+        "route": {
+          "output_sum_version": 3,
+          "output_sum_block": "axis_output_sum_10",
+          "output_sum_role": "awg",
+          "output_sum_bypass": true,
+          "output_sum_awg": "axis_awg_tuning_v4_10",
+          "output_sum_rf": null,
+          "output_sum_awg_delay_cycles": 6,
+          "post_output_latency_cycles": 2
+        }
+      },
+      {
+        "awg": "axis_awg_tuning_v4_11",
+        "rf": null,
+        "dac": "23",
+        "route": {
+          "output_sum_version": 3,
+          "output_sum_block": "axis_output_sum_11",
+          "output_sum_role": "awg",
+          "output_sum_bypass": true,
+          "output_sum_awg": "axis_awg_tuning_v4_11",
+          "output_sum_rf": null,
+          "output_sum_awg_delay_cycles": 6,
+          "post_output_latency_cycles": 2
+        }
+      }
+    ],
+    "awg_latency": 31,
+    "rf_latency": 31,
+    "clock_mhz": 300
+  },
+  "xsa_members": {
+    "bit": "bitstream.bit",
+    "hwh": "d_1.hwh"
+  },
+  "software_integration": {
+    "complete": false,
+    "passed": false,
+    "status": "gui_rtl_functional_timing_failure",
+    "failed_case": "grouped_voltage",
+    "delay_cycles": 5
+  },
+  "artifacts": [
+    {
+      "path": "bitstream.bit",
+      "bytes": 34437473,
+      "sha256": "5539bed300a12655a7c33edb742573deda1626011be2d2a35e6213b97e6791f7"
+    },
+    {
+      "path": "bitstream.hwh",
+      "bytes": 2660030,
+      "sha256": "0ad1148376d143b1e623628e923017a013bdcdb0cca517431b464696ceabdea4"
+    },
+    {
+      "path": "bitstream.xsa",
+      "bytes": 21327700,
+      "sha256": "94b1e5a5d45460f413717e657536b3d0aea1e65c3843d7ce5f891a3dc557be23"
+    }
+  ]
+}

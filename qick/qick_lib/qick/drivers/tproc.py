@@ -48,7 +48,8 @@ class AxisTProc64x32_x8(SocIP):
     :type axi_dma: int
     """
     bindto = ['user.org:user:axis_tproc64x32_x8:1.0',
-              'QICK:QICK:axis_tproc64x32_x8:1.0']
+              'QICK:QICK:axis_tproc64x32_x8:1.0',
+              'QICK:QICK:axis_tproc64x32_x8:2.0']
 
     # Number of 32-bit words in the lower address map (reserved for register access)
     NREG = 64
@@ -76,6 +77,8 @@ class AxisTProc64x32_x8(SocIP):
                           'mem_len_reg': 5}
 
         self.cfg['dmem_size'] = 2**self.DMEM_N
+        version = description.get('type', '').rsplit(':', 1)[-1]
+        self.cfg['timed_output_spacing_cycles'] = 1 if version == '2.0' else 3
 
     def _init_firmware(self):
         # Default registers.
