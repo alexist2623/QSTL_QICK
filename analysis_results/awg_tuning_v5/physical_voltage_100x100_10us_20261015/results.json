@@ -1,0 +1,70 @@
+{
+  "physical_execution_performed": true,
+  "physical_run": "run_01",
+  "capture_id": "fa859645-d94c-459b-b8b0-9d4ec279dc8f",
+  "execution_complete": true,
+  "physical_points": 10000,
+  "hold_duration_us": 10.0,
+  "point_spacing_us": 32.17666666666667,
+  "last_output_zero_us": 321760.58666666667,
+  "acquisition_passed": true,
+  "waveform_and_order_integrity_passed": true,
+  "voltage_threshold_percent": 5.0,
+  "voltage_overall_passed": false,
+  "point_counts": {
+    "PASS": 7460,
+    "FAIL": 2539,
+    "N/A": 1,
+    "INCOMPLETE": 0
+  },
+  "per_channel": {
+    "1": {
+      "passed": 8487,
+      "failed": 1413,
+      "maximum_absolute_error_pct": 100.0,
+      "sample_interval_s": 2e-07,
+      "observed_vertical_step_mv": 3.3472793600000004
+    },
+    "2": {
+      "passed": 8574,
+      "failed": 1326,
+      "maximum_absolute_error_pct": 58.57741791999987,
+      "sample_interval_s": 2e-07,
+      "observed_vertical_step_mv": 3.3472793600000004
+    }
+  },
+  "nonzero_plateau_passed": 17061,
+  "nonzero_plateau_failed": 2739,
+  "zero_plateaus_percent_na": 200,
+  "failure_distribution": {
+    "1": {
+      "failed_requested_min_mv": 4.040404040404041,
+      "failed_requested_max_mv": 117.17171717171718,
+      "endpoint_400mv_count": 100,
+      "endpoint_400mv_passed": 100,
+      "endpoint_corrected_min_mv": 391.63168512000004,
+      "endpoint_corrected_max_mv": 394.97896448000006
+    },
+    "2": {
+      "failed_requested_min_mv": 4.040404040404041,
+      "failed_requested_max_mv": 113.13131313131314,
+      "endpoint_400mv_count": 100,
+      "endpoint_400mv_passed": 100,
+      "endpoint_corrected_min_mv": 388.28440576,
+      "endpoint_corrected_max_mv": 391.63168512
+    }
+  },
+  "raw_sample_bytes": 8000000,
+  "raw_gzip_bytes": 1718127,
+  "samples_per_channel": 2000000,
+  "sample_interval_ns": 200.0,
+  "source_file_count": 170,
+  "production_sources_unchanged": true,
+  "prior_evidence_hashes_unchanged": true,
+  "dac_current_settings_unchanged": true,
+  "scope_restored": true,
+  "selected_awgs_zeroed": true,
+  "independent_audit_file": "independent_audit.json",
+  "prior_3x3_reanalysis": "offset_5pct_review: 12/12 nonzero plateaus PASS; prior 2% results preserved",
+  "scope": "Real GUI input -> production compiler -> actual board -> physical oscilloscope. Identity matrix, scope-only; not RunWorker/ADC/FIR/DDR/QCoDeS validation."
+}

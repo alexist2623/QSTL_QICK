@@ -1,0 +1,90 @@
+{
+  "capture_id": "fa859645-d94c-459b-b8b0-9d4ec279dc8f",
+  "new_hardware_execution": false,
+  "source_run": "run_01",
+  "analysis_complete": true,
+  "integrity_passed": true,
+  "integrity_issues": [],
+  "physical_points": 10000,
+  "measured_plateaus": 20000,
+  "nonzero_plateaus": 19800,
+  "passed_nonzero_plateaus": 17061,
+  "failed_nonzero_plateaus": 2739,
+  "incomplete_nonzero_plateaus": 0,
+  "zero_plateaus_percent_NA": 200,
+  "point_counts": {
+    "PASS": 7460,
+    "FAIL": 2539,
+    "N/A": 1,
+    "INCOMPLETE": 0
+  },
+  "overall_passed": false,
+  "threshold_percent": 5.0,
+  "comparison": "strictly_less_than",
+  "denominator": "requested voltage 400*axis_index/99; not hardware quantized value",
+  "offsets": {
+    "1": {
+      "median_mv": -24.267717120000004,
+      "mean_mv": -25.79407650816,
+      "samples": 2500,
+      "zero_hold_windows": 100
+    },
+    "2": {
+      "median_mv": -14.22587904,
+      "mean_mv": -14.958263763968,
+      "samples": 2500,
+      "zero_hold_windows": 100
+    }
+  },
+  "maximum_absolute_error_pct": 100.0,
+  "per_channel": {
+    "1": {
+      "passed": 8487,
+      "failed": 1413,
+      "maximum_absolute_error_pct": 100.0,
+      "sample_interval_s": 2e-07,
+      "observed_vertical_step_mv": 3.3472793600000004
+    },
+    "2": {
+      "passed": 8574,
+      "failed": 1326,
+      "maximum_absolute_error_pct": 58.57741791999987,
+      "sample_interval_s": 2e-07,
+      "observed_vertical_step_mv": 3.3472793600000004
+    }
+  },
+  "final_zero": {
+    "1": {
+      "samples": 2000,
+      "raw_median_mv": -24.267717120000004,
+      "fixed_offset_mv": -24.267717120000004,
+      "corrected_residual_mv": 0.0,
+      "std_mv": 2.5921296568363545,
+      "relative_percent_verdict": null,
+      "note": "Final baseline residual only; percent of zero is undefined"
+    },
+    "2": {
+      "samples": 2000,
+      "raw_median_mv": -14.22587904,
+      "fixed_offset_mv": -14.22587904,
+      "corrected_residual_mv": 0.0,
+      "std_mv": 2.774831499169114,
+      "relative_percent_verdict": null,
+      "note": "Final baseline residual only; percent of zero is undefined"
+    }
+  },
+  "single_time_offset_s": -0.0009806626278433483,
+  "max_row_endpoint_residual_us": 0.2049513156410221,
+  "input_hashes_unchanged": true,
+  "requested_endpoint_mv": 400.0,
+  "actual_compiled_endpoint_mv": 397.12003417968754,
+  "actual_compiled_code_increment": 164,
+  "analogue_accuracy_calibrated": false,
+  "limitations": [
+    "Median resolution and low-voltage relative-percent sensitivity retained; no tolerance widening.",
+    "Raw baseline/high used only for the single timing anchor, not amplitude gain correction.",
+    "Alignment integrity supports ROI assignment, not ns-scale timing/skew certification.",
+    "Capture raw samples remain in original lossless gzip files; this folder stores only derived summaries/maps/plots.",
+    "Run-worker ADC/FIR/DDR/QCoDeS path and nonidentity matrix are outside this scope-only identity test."
+  ]
+}
