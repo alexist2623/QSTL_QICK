@@ -17,6 +17,9 @@ class Metadata:
         if version == 2:
             self.parameters["AWG_DELAY_CYCLES"] = "13"
         self.awg = ("awg", "m_axis", "axis_awg_tuning_v3")
+        if version == 3:
+            self.parameters["AWG_DELAY_CYCLES"] = "6"
+            self.awg = ("awg", "m_axis", "axis_awg_tuning_v4")
         self.rf = ("rf", "m_axis", "axis_signal_gen_v6")
 
     def trace_forward(self, block, port, kinds):
@@ -163,14 +166,14 @@ def test_invalid_latency_route_cannot_partially_mutate_configuration(bad):
 
 
 def pair(version):
-    awg = dict(fullpath="awg", type="axis_awg_tuning_v3",
+    awg = dict(fullpath="awg", type="axis_awg_tuning_v4" if version == 3 else "axis_awg_tuning_v3",
                **output_sum_config(Metadata(version, "awg"), "awg"))
     rf = dict(fullpath="rf", type="axis_signal_gen_v6",
               **output_sum_config(Metadata(version, "rf"), "rf"))
     return [(0, awg), (1, rf)]
 
 
-@pytest.mark.parametrize("version", [1, 2])
+@pytest.mark.parametrize("version", [1, 2, 3])
 def test_current_control_requires_consistent_hwh_linked_pair(version):
     assert _summed_awg_output(pair(version))
     for key, value in [
@@ -184,3 +187,37 @@ def test_current_control_requires_consistent_hwh_linked_pair(version):
         assert not _summed_awg_output(generators), (key, value)
     assert not _summed_awg_output(pair(version)[:1])
     assert not _summed_awg_output(pair(version) + pair(version)[:1])
+
+
+@pytest.mark.parametrize("version", [1, 2, 3])
+def test_shared_awg_dac_current_write_and_hardware_readback(version):
+    from types import SimpleNamespace
+    from qick.dac_current import DacCurrentControl
+
+    class Block:
+        DACCompMode = 0
+        OutputCurr = 20000
+        writes = None
+
+        def SetDACVOP(self, value):
+            self.writes = value
+            self.OutputCurr = value - value % 25
+
+    class Soc(DacCurrentControl, dict):
+        pass
+
+    generators = [dict(g, dac="00") for _, g in pair(version)]
+    block = Block()
+    soc = Soc(gens=generators)
+    soc.rf = SimpleNamespace(cfg={"ip_type": 2},
+                             dac_tiles=[SimpleNamespace(blocks=[block])])
+    actual = soc.set_dac_current("00", 30982)["00"]
+    assert block.writes == 30982
+    assert actual["current_ua"] == 30975
+    assert actual["full_scale_mv"] == 1239
+    assert actual["adjustable"] and actual["dc_output"]
+    # The new version must still have an HWH-confirmed shared path.
+    generators[1]["output_sum_block"] = "unrelated_sum"
+    with pytest.raises(ValueError, match="read-only"):
+        soc.set_dac_current("00", 20000)
+    assert block.writes == 30982
