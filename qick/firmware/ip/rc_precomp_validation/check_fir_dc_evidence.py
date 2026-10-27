@@ -46,7 +46,7 @@ def main():
         records.append(dict(case=folder.name,fingerprint=digest,pmem_matches=True,dmem_matches=True))
     assert len(records)==8
     for name in ('DCWaveform_Generator.py','dc_waveform_core.py','qick_fine_tune_sweep.py',
-                 'qick_qcodes_experiment.py','test_dc_readout_timing.py'):
+                 'qick_qcodes_experiment.py','test/test_dc_readout_timing.py'):
         py_compile.compile(str(args.gui/'DCWaveformGeneratorGUI'/name),doraise=True)
     for path in args.out.glob('*.png'):
         with Image.open(path) as picture: picture.verify()

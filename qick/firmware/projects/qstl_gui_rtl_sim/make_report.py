@@ -90,19 +90,19 @@ Marker는 지정된 loop/experiment 경계의 **디지털 트리거 시각**이�
 
 ## 그래프
 
-![Hardware sweep overview](gui_sweep/overview.png)
+![Hardware sweep overview](../../../../firmware/projects/qstl_gui_rtl_sim/gui_sweep/overview.png)
 
-![Independent amplitude, frequency and phase updates](independent_updates.png)
+![Independent amplitude, frequency and phase updates](../../../../firmware/projects/qstl_gui_rtl_sim/independent_updates.png)
 
-![Marker and DAC boundary timing](gui_sweep/startup.png)
+![Marker and DAC boundary timing](../../../../firmware/projects/qstl_gui_rtl_sim/gui_sweep/startup.png)
 
-![500 us waveform](gui_500us/overview.png)
+![500 us waveform](../../../../firmware/projects/qstl_gui_rtl_sim/gui_500us/overview.png)
 
-![Continuous output through END and restart](gui_autonomy/overview.png)
+![Continuous output through END and restart](../../../../firmware/projects/qstl_gui_rtl_sim/gui_autonomy/overview.png)
 
-![Long-period and autonomous output comparison](long_runs.png)
+![Long-period and autonomous output comparison](../../../../firmware/projects/qstl_gui_rtl_sim/long_runs.png)
 
-![Trigger compensation and DDR capture](gui_sweep/capture.png)
+![Trigger compensation and DDR capture](../../../../firmware/projects/qstl_gui_rtl_sim/gui_sweep/capture.png)
 
 ## 프로젝트와 검증 범위
 
@@ -116,8 +116,8 @@ Marker는 지정된 loop/experiment 경계의 **디지털 트리거 시각**이�
 
 재현 방법은 [README.md](README.md), 개별 수치는 각 시나리오의 `comparison.json`, 명령별 시점은 `command_timing.csv`, GUI 소스 출처는 `gui_sources.json`, 결과 파일 hash는 `result_provenance.json`에 있다. `gui_export.py`, `program.asm`, `pmem.hex`, `dmem.txt`를 함께 보존했다.
 '''
-    (HERE/'RESULTS.md').write_text(text, encoding='utf-8')
-    print(HERE/'RESULTS.md')
+    (HERE.parents[2]/'md/firmware/projects/qstl_gui_rtl_sim/RESULTS.md').write_text(text, encoding='utf-8')
+    print(HERE.parents[2]/'md/firmware/projects/qstl_gui_rtl_sim/RESULTS.md')
 
 
 if __name__ == '__main__':

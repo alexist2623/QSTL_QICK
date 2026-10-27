@@ -34,8 +34,8 @@ def main():
         repositories.append(dict(path=root.as_posix(), branch=git(root, 'branch', '--show-current'),
                                  head=git(root, 'rev-parse', 'HEAD'), fsck_output=fsck))
         sources.update(root / name for name in git(root, 'diff', '--name-only', 'HEAD').splitlines())
-        sources.add(root / ('qick/qick_lib/qick/test_awg_tuning_v2.py' if root == repo
-                           else 'DCWaveformGeneratorGUI/test_awg_tuning_v2.py'))
+        sources.add(root / ('qick/test/qick_lib/qick/test_awg_tuning_v2.py' if root == repo
+                           else 'DCWaveformGeneratorGUI/test/test_awg_tuning_v2.py'))
     sources.update((repo / 'qick/firmware/ip/axis_awg_tuning_v2').rglob('*'))
     sources.update(project.glob('*'))
     source_records = []

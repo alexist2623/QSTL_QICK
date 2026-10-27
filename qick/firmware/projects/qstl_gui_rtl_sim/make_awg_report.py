@@ -67,15 +67,15 @@ RAMP는 16비트 소수 정밀도의 정수 step과 정수 register-add sweep을
 
 DDR 포함 테스트는 4회 trigger 각각에 대해 8,712 clocks = 29.04 µs의 보정 deadline을 확인했다. 이후 첫 FIR valid부터 연속 8개씩 총 **{capture['captured_samples']}개 IQ64 sample**, **{capture['ddr_beats']}개 256-bit AXI beat**가 저장되었다. 값, 순서, 주소, strobe가 전부 일치하며 반복 경계에서 샘플 누락·중복은 없었다.
 
-![Repeat trigger compensation and IQ64 storage](gui_awg_capture_repeat/capture.png)
+![Repeat trigger compensation and IQ64 storage](../../../../firmware/projects/qstl_gui_rtl_sim/gui_awg_capture_repeat/capture.png)
 
 ## 비교 그래프
 
-![AWG parameter points and repetitions](awg_repeat_overview.png)
+![AWG parameter points and repetitions](../../../../firmware/projects/qstl_gui_rtl_sim/awg_repeat_overview.png)
 
-![Requested AWG sweep versus actual RTL](awg_sweep_detail.png)
+![Requested AWG sweep versus actual RTL](../../../../firmware/projects/qstl_gui_rtl_sim/awg_sweep_detail.png)
 
-![AWG marker and segment timing](awg_repeat_timing.png)
+![AWG marker and segment timing](../../../../firmware/projects/qstl_gui_rtl_sim/awg_repeat_timing.png)
 
 ## 재현 및 파일
 
@@ -85,8 +85,8 @@ DDR 포함 테스트는 4회 trigger 각각에 대해 8,712 clocks = 29.04 µs�
 
 아날로그 RFDC/보드 지연과 post-route timing은 이 RTL 검증의 범위 밖이다. 전체 프로젝트 구성과 기존 SquarePulse 검증은 [RESULTS.md](RESULTS.md)를 참고한다.
 '''
-    (HERE/'AWG_SWEEP_RESULTS.md').write_text(text,encoding='utf-8')
-    print(HERE/'AWG_SWEEP_RESULTS.md')
+    (HERE.parents[2]/'md/firmware/projects/qstl_gui_rtl_sim/AWG_SWEEP_RESULTS.md').write_text(text,encoding='utf-8')
+    print(HERE.parents[2]/'md/firmware/projects/qstl_gui_rtl_sim/AWG_SWEEP_RESULTS.md')
 
 
 if __name__=='__main__':main()
