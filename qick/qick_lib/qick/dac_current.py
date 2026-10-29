@@ -17,7 +17,7 @@ def _summed_awg_output(generators):
     awg, rf = by_role['awg'], by_role['rf']
     return (_dc_generator(awg) and rf.get('type') == 'axis_signal_gen_v6'
             and bool(awg.get('output_sum_block'))
-            and awg.get('output_sum_version') in (1, 2, 3)
+            and awg.get('output_sum_version') in (1, 2, 3, 7)
             and all(g.get('output_sum_version') == awg['output_sum_version']
                     and g.get('output_sum_bypass') is False
                     and g.get('output_sum_block') == awg['output_sum_block']

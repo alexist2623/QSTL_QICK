@@ -6,6 +6,7 @@ from collections import defaultdict
 
 import numpy as np
 
+from .exceptions import UnsupportedModeError
 from .virtual_hw import SimDMA, SimDummyIP, SimRFdc, install_pynq_stubs
 from .models import (
     AxisAvgBufferV13BehaviorModel,
@@ -377,6 +378,11 @@ class QickSim(QickConfig):
         return words
 
     def _model_for_gen(self, gen, idx):
+        if gen.cfg.get("extended_ramp_version") == 1:
+            raise UnsupportedModeError(
+                "QickSim's legacy AWG waveform model does not implement v7 RAMP "
+                "or its common SET/RAMP latency. Use the v7 RTL testbench; "
+                "compiling v7 commands is supported without waveform simulation.")
         n_pts = int(gen.cfg.get("n_pts", gen.cfg.get("samps_per_clk", 16)))
         if isinstance(gen, AxisSignalGen):
             n_pts = int(gen.description.get("parameters", {}).get("N_DDS", n_pts))

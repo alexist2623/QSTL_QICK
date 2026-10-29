@@ -593,7 +593,7 @@ class AwgTuningGenManager(AbsRegisterManager):
     def __init__(self, prog, gen_ch):
         self.ch = gen_ch
         self.gencfg = prog.soccfg["gens"][self.ch]
-        expected_width = 32 if self.gencfg.get("type") in ("axis_awg_tuning_v2", "axis_awg_tuning_v3", "axis_awg_tuning_v4") else 24
+        expected_width = 32 if self.gencfg.get("type") in ("axis_awg_tuning_v2", "axis_awg_tuning_v3", "axis_awg_tuning_v4", "axis_awg_tuning_v7") else 24
         self.STEP_WIDTH = int(self.gencfg.get("step_width", expected_width))
         if self.STEP_WIDTH != expected_width:
             raise ValueError("AWG step width does not match the firmware IP version")
@@ -615,6 +615,12 @@ class AwgTuningGenManager(AbsRegisterManager):
         if "style" not in params:
             raise RuntimeError("missing required pulse parameter(s)", {"style"})
         style = params["style"]
+        if style == "awg_ramp" and "rise_end" in params:
+            if self.gencfg.get("type") != "axis_awg_tuning_v7" or self.gencfg.get("extended_ramp_version") != 1:
+                raise ValueError("Sample-position/two-edge RAMP requires AWG v7")
+            check_keys(params.keys(), ["style", "target", "rise_start", "rise_end"],
+                       ["fall_start", "fall_end", "end_target"])
+            return
         if style in self.UNSUPPORTED_STANDARD_STYLES:
             raise RuntimeError(
                 "axis_awg_tuning_v1 does not support const/arb/flat_top pulses; "
@@ -796,6 +802,28 @@ class AwgTuningGenManager(AbsRegisterManager):
             self.next_pulse["length"] = self._duration_to_fabric_cycles(params["duration"])
             self.current_value = 0 if hold_zero else value
             self.current_valid = True
+        elif style == "awg_ramp" and "rise_end" in params:
+            from .ramp_v7 import ramp_packet
+            if not self.current_valid:
+                raise ValueError("Issue awg_set first to establish the extended RAMP start value")
+            if self.gencfg.get("type") != "axis_awg_tuning_v7" or self.gencfg.get("extended_ramp_version") != 1:
+                raise ValueError("Sample-position/two-edge RAMP requires AWG v7")
+            # Legacy SET accepts all signed integers and retains the unquantized
+            # logical state. Extended endpoints use effective DAC codes; silently
+            # quantizing only the software seed would disagree with the RTL seed.
+            start = max(self.gencfg["minv"], min(self.gencfg["maxv"], self.current_value))
+            if start != self._clip_sample(start):
+                raise ValueError("Extended RAMP needs an aligned awg_set start (effective DAC code, multiple of 4)")
+            result = ramp_packet(start=start, target=params["target"],
+                                 rise_start=params["rise_start"], rise_end=params["rise_end"],
+                                 fall_start=params.get("fall_start"), fall_end=params.get("fall_end"),
+                                 end_target=params.get("end_target"))
+            self.last_ramp_start = self.current_value
+            self.last_ramp_step = result["rise_step"]
+            self._write_command_regs(result["word"])
+            self.next_pulse["length"] = result["reservation_cycles"]
+            self.current_value = result["terminal"]
+            self.current_valid = True
         elif style == "awg_ramp":
             target = self._check_int(params["target"], "target")
             duration = self._to_duration_field(params["duration"], "duration")
@@ -894,6 +922,7 @@ class QickProgram(AbsQickProgram):
                 'axis_awg_tuning_v2': AwgTuningGenManager,
                 'axis_awg_tuning_v3': AwgTuningGenManager,
                 'axis_awg_tuning_v4': AwgTuningGenManager,
+                'axis_awg_tuning_v7': AwgTuningGenManager,
                 'axis_square_pulse_v1': SquarePulseGenManager}
 
     # Gaussian and DRAG definitions use incorrect original definition, which gives a pulse that is too narrow by sqrt(2)
@@ -1195,16 +1224,23 @@ class QickProgram(AbsQickProgram):
         )
         self.pulse(ch, t=t)
 
-    def awg_ramp(self, ch, target, duration, t='auto', step=None, **kwargs):
-        """Emit an ``axis_awg_tuning_v1`` RAMP command through the normal pulse scheduler."""
-        self.set_pulse_registers(
-            ch,
-            style="awg_ramp",
-            target=target,
-            duration=duration,
-            step=step,
-            **kwargs,
-        )
+    def awg_ramp(self, ch, target, duration=None, t='auto', step=None, **kwargs):
+        """Schedule a legacy word-duration or v7 sample-position RAMP.
+
+        For v7 pass ``rise_start``/``rise_end`` and optionally
+        ``fall_start``/``fall_end``/``end_target``. The manager derives the
+        reservation and slopes; do not also pass ``duration`` or ``step``.
+        The legacy form still requires ``duration`` in fabric clocks.
+        """
+        params = dict(style="awg_ramp", target=target, **kwargs)
+        if "rise_end" in kwargs:
+            if duration is not None or step is not None:
+                raise ValueError("Sample-position RAMP cannot also specify duration or step")
+        else:
+            if duration is None:
+                raise ValueError("Legacy RAMP requires duration")
+            params.update(duration=duration, step=step)
+        self.set_pulse_registers(ch, **params)
         self.pulse(ch, t=t)
 
     def awg_nop(self, ch, duration=1, t='auto', **kwargs):
