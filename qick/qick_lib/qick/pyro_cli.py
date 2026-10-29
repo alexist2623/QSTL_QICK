@@ -44,5 +44,5 @@ start_server(
     proxy_name=proxy_name,
     soc_class=RFQickSoc216V1,
     iface='eth0',
-    bitfile  = "/home/xilinx/jupyter_notebooks/qick_test/qstl12/qstl12.bit",
+    bitfile  = '/home/QSTL_QICK/qick/firmware/projects/qstl_awg_v7/bitstream.bit',
 )

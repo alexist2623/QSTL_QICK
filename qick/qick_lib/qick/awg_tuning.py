@@ -651,6 +651,29 @@ class AxisAwgTuningV4(AxisAwgTuningV3):
         self.cfg["dc_control_latency_cycles"] = common
 
 
+class AxisAwgTuningV7(AxisAwgTuningV3):
+    """V7 common 11-clock SET/RAMP core and optional two-edge RAMP payload."""
+
+    bindto = ["QICK:QICK:axis_awg_tuning_v7:1.0"]
+    EXTRA_Y_PIPE_STAGES_DEFAULT = 3
+
+    def _init_config(self, description):
+        super()._init_config(description)
+        if self.cfg["extra_y_pipe_stages"] != 3:
+            raise ValueError("AWG v7 requires the validated 11-clock core profile")
+        self.cfg.update(set_ramp_common_latency_cycles=11,
+                        ramp_startup_latency_cycles=0, ramp_guard_cycles=0,
+                        dc_control_latency_cycles=11, extended_ramp_version=1,
+                        extended_step_width=35)
+        self.cfg["output_latency_cycles"] += 11
+
+    @staticmethod
+    def extended_ramp_cmd(**kwargs):
+        """Encode sample-exact endpoints; returned length reserves whole words."""
+        from .ramp_v7 import ramp_packet
+        return ramp_packet(**kwargs)
+
+
 @dataclass
 class TimedCommandEvent:
     """A timed 160-bit command event emitted by software or a tProcessor model."""
@@ -2283,6 +2306,7 @@ __all__ = [
     "AxisAwgTuningV1",
     "AxisAwgTuningV2",
     "AxisAwgTuningV3",
+    "AxisAwgTuningV7",
     "TimedCommandEvent",
     "CommandEvent",
     "TimingConflict",
