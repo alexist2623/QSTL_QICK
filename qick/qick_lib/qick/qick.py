@@ -1975,6 +1975,66 @@ class QickSoc(DacCurrentControl, Overlay, QickConfig):
             stride_bytes=stride_bytes,
         )
 
+    def get_fir_average_capabilities(self):
+        """Read-only software capability handshake; does not touch hardware."""
+        from .trace_averaging import FIR_AVERAGE_API_VERSION
+        return dict(api_version=FIR_AVERAGE_API_VERSION,
+                    modes=['repetition_mean', 'point_mean'],
+                    units='input_code', dtype='float64')
+
+    def get_ddr4_fir_mean(self, n_samples, repetitions, n_points=1, start=0,
+                          stride_bytes=None, max_chunk_bytes=8*1024*1024,
+                          reduce_samples=False):
+        """Average FIR traces over repetitions on the board CPU before transfer.
+
+        The completed capture must be point-major, repetition-minor. Returns
+        float64 input-code units with shape (point, sample, I/Q). DDR capture
+        still contains every repetition; this API reduces network traffic only.
+        With reduce_samples=True also average time, returning (point, 1, I/Q).
+        ``start`` is a physical uint32 word offset; ``stride_bytes`` includes
+        per-trigger padding. Sweep points are never combined; time samples are
+        retained unless reduce_samples is explicitly enabled.
+        """
+        from .trace_averaging import average_repetition_traces, positive_int
+
+        cfg = self.ddr4_buf.cfg
+        if not cfg.get('sample_capture', False) or not cfg.get('fir_enabled', False):
+            raise RuntimeError('get_ddr4_fir_mean() requires FIR DDR sample capture firmware')
+        n_samples = positive_int(n_samples, 'n_samples')
+        repetitions = positive_int(repetitions, 'repetitions')
+        n_points = positive_int(n_points, 'n_points')
+        if not isinstance(reduce_samples, bool):
+            raise ValueError('reduce_samples must be a bool')
+        start = self.ddr4_buf._check_int('start', start)
+        physical_words = self.ddr4_buf._physical_words_per_trigger(n_samples)
+        stride_words = physical_words
+        if stride_bytes is not None:
+            stride_bytes = self.ddr4_buf._check_int('stride_bytes', stride_bytes, physical_words*4)
+            if stride_bytes % 32:
+                raise ValueError('stride_bytes must be aligned to 32 bytes')
+            stride_words = stride_bytes // 4
+        if start + (n_points * repetitions - 1) * stride_words + physical_words > len(self.ddr4_buf.ddr4_array):
+            raise RuntimeError('DDR mean readback exceeds the mapped memory')
+        component_bits = int(cfg.get('iq_component_bits', 16))
+        scale_log2 = int(cfg.get('iq_scale_log2', 0))
+
+        def read(first, count):
+            return self.get_ddr4_fir_samples(
+                n_samples, n_triggers=count, start=start + first*stride_words,
+                stride_bytes=stride_bytes,
+            ).reshape(count, n_samples, 2)
+
+        iq = average_repetition_traces(
+            read, n_points, repetitions, (n_samples, 2),
+            np.dtype('int%d' % component_bits), scale_log2, max_chunk_bytes,
+            reduce_samples=reduce_samples,
+        )
+        return dict(iq=iq, data_kind='point_mean' if reduce_samples else 'repetition_mean',
+                    accumulation_repetitions=repetitions, iq_scale_log2=0,
+                    source_samples_per_trace=n_samples,
+                    source_iq_scale_log2=scale_log2,
+                    source_iq_component_bits=component_bits)
+
     def arm_mr(self, ch):
         """Prepare the Multi-Rate buffer to take data.
         This must be called before starting a program that triggers the buffer.
