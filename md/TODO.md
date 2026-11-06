@@ -250,6 +250,8 @@
 
 ## 8. AWG Tuning: RF acquisition 없는 Run forever
 
+**2026-11-06 v8 업데이트:** 아래는 최초 조사 당시 기록입니다. 현재 구현·검증 범위와 남은 실물 검증은 11번을 따릅니다.
+
 등록 / 조사일: 2026-10-23. **가능한 기능이지만 아직 구현되지 않았으며, 7번의 검증된 정지·재실행 기능을 먼저 완료한다.**
 
 **구현 가능성과 loop 방식**
@@ -338,3 +340,25 @@
 검증: 관련 11개 테스트 모듈 **377개 통과**, 종료 코드 0. 단위 전환·시간 sweep·DAC 상태·그룹 캐시·컴파일 캐시·기존 RC 범위 검사를 포함합니다. 실물 검증 결과는 아닙니다. Cancel/정지 메서드·실행 worker와 DDR arm/acquisition 함수의 AST는 작업 전과 동일하며, `qick_qcodes_experiment.py`도 작업 전 바이트와 같습니다.
 
 자료: [수정 전후 코드 설명](F:/QICK_Private_Analysis/gui_v6_host_fixes_20261027_035716Z/TIME_DISPLAY_CODE_REVIEW.md), [정확한 변경 패치](F:/QICK_Private_Analysis/gui_v6_host_fixes_20261027_035716Z/changes_from_before.patch), [검증 및 성능 보고서](F:/QICK_Private_Analysis/gui_v6_host_fixes_20261027_035716Z/REPORT.md). 원래 있던 미커밋 변경은 작업 시작 사본과 비교하여 보존했으며 Git commit/push는 하지 않았습니다.
+
+
+## 11. v8 DDR abort·AWG clipping·Run forever — 2026-11-06
+
+사용자가 7·8번의 구현을 새로 승인하여 두 저장소의 `awg_tuning_v8` 브랜치에서 진행합니다.
+이전 v6의 Cancel 제외 지시는 당시 작업의 기록이며 이번 새 승인 범위와 구분합니다.
+
+- [x] DDR sample v4에 `REG_ABORT`(offset 0x38)를 추가했습니다. 누락 trigger를 기다리지 않고 신규 입력을 막고, 이미 발행한 AXI AW/W/B 거래를 배출한 뒤 FIFO·queue를 정리하고 ACK합니다. v3 control bit 1도 같은 경로를 사용합니다.
+- [x] AWG v8의 DC/RC 보상 뒤·RF 합산 전 출력에 16 lane signed min/max clamp를 추가했습니다. 원자적 CDC 적용·readback, 기본 비활성·zero 포함 범위·invalid SLVERR를 구현했습니다. 기존 core/wrapper/final 지연은 11/27/31클록입니다.
+- [x] AWG Tuning과 Stability Diagram에 물리 generator별 min/max mV 설정, JSON/생성 코드/컴파일 캐시/실행 시 inward 양자화와 readback을 연결했습니다.
+- [x] DDR ARM 이후 오류/취소에는 producer stop → DDR abort ACK/idle 확인을 수행합니다. cleanup 실패를 성공 취소로 바꾸지 않습니다. 독립 RF/AWG 아날로그 zero 보장과는 구분합니다.
+- [x] AWG Tuning에 별도 Run forever를 추가했습니다. RF Readout 없는 설정을 허용하고 ADC/DDR 요청 및 host RF sweep은 실행 전에 거부합니다. QCoDeS 측정 저장/DDR ARM 없이 유한 reps × 전체 hardware sweep grid를 반복합니다.
+- [x] Stop은 완료된 shot의 DC/RC 보상 경계에서 AWG clear/zero, RF zero-gain, SquarePulse mute, marker 종료/파이프라인 대기 후 ACK합니다. 유한 실행의 SquarePulse 출력 유지 설정도 Run forever Stop에서는 mute됩니다.
+- [x] 보드 서버의 2초 lease/watchdog와 세션 상태를 추가했습니다. PC 연결 단절에도 정상 서버가 cooperative stop을 요청합니다. 30초 내 ACK가 없거나 zero/idle 확인에 실패하면 producer stop·AWG zero clamp를 시도하고 ERROR로 잠급니다. 서버 정지/FPGA 고장에 독립적인 하드웨어 interlock은 아닙니다.
+- [x] 출력 전용 컴파일·캐시·readout 거부·재시작·lease 만료·실패 보존·실제 offscreen GUI worker Start/Stop/재실행을 검사했습니다. 관련 회귀 634 PASS(출력 전용 26개 및 실제 HWH 검사 포함). 실제 CPU/TMUX/AWG/DDS/Square RTL 10 case에서 모든 명령 내용·출력 시각과 stop 뒤 digital zero/marker low를 확인했습니다.
+- [x] shot 종료 대기 후 다음 짧은 pulse의 명령이 늦어지는 문제를 수정했습니다. 각 shot/grid 앞에 전체 프로그램 길이를 기준으로 명령 준비 시간을 확보하고 cycle/µs를 metadata와 시작 로그에 기록합니다. shot 내부 pulse/보상 시간은 유지하지만 finite 모드보다 반복 주기는 길어지며, 무간격 연속 재생 기능은 아닙니다.
+- [x] 최종 배치배선과 BIT 생성이 exit 0으로 완료됐습니다. WNS 0.036819 ns, WHS 0.009329 ns, setup/hold/pulse-width 실패 0개, bus-skew 14/14 통과입니다. 동일 XSA의 BIT/HWH를 `qick/firmware/projects/qstl_awg_v8`에 게시하고 실제 GUI 패키지 검사를 통과했습니다. 기존 CDC·I/O 제약 경고는 남아 있으며 실물 배포 결과가 아닙니다. 두 저장소의 `awg_tuning_v8` 릴리스에 포함합니다.
+- [ ] 실물에서 Start/Stop·PC 연결 단절·아날로그 잔류 출력·일반 finite cancellation의 모든 출력 경로 검증, 다일 연속 실행/48-bit timestamp rollover, 서버 자체 정지에 독립적인 RF 포함 하드웨어 mute는 미완료입니다. 오프라인/RTL 검증을 실물 보장으로 표시하지 않습니다.
+
+사용법과 제한: PulseGenerator의 `DCWaveformGeneratorGUI/md/AWG_V8_OUTPUT_LIMITS_AND_CANCEL.md`.
+RTL/레지스터: [v8 README](../qick/md/firmware/projects/qstl_awg_v8/README.md).
+검증 결과·준비 중 실패 로그는 Git 밖 `F:/QICK_Private_Analysis/awg_tuning_v8/implementation_20261106_111700Z`에 보존합니다.

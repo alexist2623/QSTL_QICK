@@ -3,6 +3,8 @@ Drivers for readouts (FPGA blocks that receive data from ADCs) and buffers (bloc
 """
 from pynq.buffer import allocate
 import numpy as np
+import math
+import time
 from qick.ip import SocIP, QickIP, DummyIP
 
 def _trace_trigger(soc, start_block):
@@ -2443,3 +2445,51 @@ class AxisBufferDdrSampleV3(AxisBufferDdrSampleV2):
             words = self.ddr4_array[begin:begin+n_samples*4].copy()
             result[trigger*n_samples:(trigger+1)*n_samples] = words.view('<i8').reshape(-1, 2)
         return result
+
+
+class AxisBufferDdrSampleV4(AxisBufferDdrSampleV3):
+    """IQ64 capture with an acknowledged abort register at byte offset 0x38."""
+
+    bindto = ['QICK:QICK:axis_buffer_ddr_sample_v4:1.0',
+              'user.org:user:axis_buffer_ddr_sample_v4:1.0']
+
+    def _init_config(self, description):
+        super()._init_config(description)
+        self.REGISTERS.update(abort_reg=14)
+        self.cfg.update(supports_abort=True, abort_version=1, abort_offset=0x38)
+
+    def abort_status(self):
+        value = int(self.abort_reg)
+        if value & 0xFFFF0000 != 0xAB040000:
+            raise RuntimeError('DDR abort BIT/HWH mismatch: missing v4 register signature')
+        status = int(self.status_reg)
+        return dict(pending=bool(value & 1), acknowledged=bool(value & 2),
+                    busy=bool(status & 1), armed=bool(status & 8))
+
+    def _init_firmware(self):
+        self.abort_status()
+        super()._init_firmware()
+
+    def abort(self, timeout=2.0):
+        """Cancel missing triggers and partial captures without dropping AXI writes.
+
+        Stop the trigger producer first. Outstanding AW/W/B transactions must
+        finish before FIFO reset/acknowledgement. An unresponsive DDR AXI slave
+        causes a timeout, never a false successful cancellation. DDR contents
+        are not erased, and a cancelled capture must not be consumed as data.
+        """
+        timeout = float(timeout)
+        if not math.isfinite(timeout) or timeout <= 0:
+            raise ValueError('timeout must be positive and finite')
+        status = self.abort_status()
+        if not status['pending']:
+            self.abort_reg = 1
+        deadline = time.monotonic() + timeout
+        while True:
+            status = self.abort_status()
+            if (status['acknowledged'] and not status['pending']
+                    and not status['busy'] and not status['armed']):
+                return status
+            if time.monotonic() >= deadline:
+                raise TimeoutError(f'DDR capture abort did not finish; do not re-arm: {status}')
+            time.sleep(0.001)

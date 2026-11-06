@@ -593,7 +593,7 @@ class AwgTuningGenManager(AbsRegisterManager):
     def __init__(self, prog, gen_ch):
         self.ch = gen_ch
         self.gencfg = prog.soccfg["gens"][self.ch]
-        expected_width = 32 if self.gencfg.get("type") in ("axis_awg_tuning_v2", "axis_awg_tuning_v3", "axis_awg_tuning_v4", "axis_awg_tuning_v7") else 24
+        expected_width = 32 if self.gencfg.get("type") in ("axis_awg_tuning_v2", "axis_awg_tuning_v3", "axis_awg_tuning_v4", "axis_awg_tuning_v7", "axis_awg_tuning_v8") else 24
         self.STEP_WIDTH = int(self.gencfg.get("step_width", expected_width))
         if self.STEP_WIDTH != expected_width:
             raise ValueError("AWG step width does not match the firmware IP version")
@@ -616,7 +616,7 @@ class AwgTuningGenManager(AbsRegisterManager):
             raise RuntimeError("missing required pulse parameter(s)", {"style"})
         style = params["style"]
         if style == "awg_ramp" and "rise_end" in params:
-            if self.gencfg.get("type") != "axis_awg_tuning_v7" or self.gencfg.get("extended_ramp_version") != 1:
+            if self.gencfg.get("type") not in ("axis_awg_tuning_v7", "axis_awg_tuning_v8") or self.gencfg.get("extended_ramp_version") != 1:
                 raise ValueError("Sample-position/two-edge RAMP requires AWG v7")
             check_keys(params.keys(), ["style", "target", "rise_start", "rise_end"],
                        ["fall_start", "fall_end", "end_target"])
@@ -806,7 +806,7 @@ class AwgTuningGenManager(AbsRegisterManager):
             from .ramp_v7 import ramp_packet
             if not self.current_valid:
                 raise ValueError("Issue awg_set first to establish the extended RAMP start value")
-            if self.gencfg.get("type") != "axis_awg_tuning_v7" or self.gencfg.get("extended_ramp_version") != 1:
+            if self.gencfg.get("type") not in ("axis_awg_tuning_v7", "axis_awg_tuning_v8") or self.gencfg.get("extended_ramp_version") != 1:
                 raise ValueError("Sample-position/two-edge RAMP requires AWG v7")
             # Legacy SET accepts all signed integers and retains the unquantized
             # logical state. Extended endpoints use effective DAC codes; silently
@@ -923,6 +923,7 @@ class QickProgram(AbsQickProgram):
                 'axis_awg_tuning_v3': AwgTuningGenManager,
                 'axis_awg_tuning_v4': AwgTuningGenManager,
                 'axis_awg_tuning_v7': AwgTuningGenManager,
+                'axis_awg_tuning_v8': AwgTuningGenManager,
                 'axis_square_pulse_v1': SquarePulseGenManager}
 
     # Gaussian and DRAG definitions use incorrect original definition, which gives a pulse that is too narrow by sqrt(2)

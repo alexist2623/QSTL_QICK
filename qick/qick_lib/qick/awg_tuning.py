@@ -37,6 +37,7 @@ and hardware state may have diverged.
 import csv
 import math
 import re
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -672,6 +673,73 @@ class AxisAwgTuningV7(AxisAwgTuningV3):
         """Encode sample-exact endpoints; returned length reserves whole words."""
         from .ramp_v7 import ramp_packet
         return ramp_packet(**kwargs)
+
+
+class AxisAwgTuningV8(AxisAwgTuningV7):
+    """V7 command timing plus atomic limits after DC/RC, before RF summation."""
+
+    bindto = ["QICK:QICK:axis_awg_tuning_v8:1.0",
+              "user.org:user:axis_awg_tuning_v8:1.0"]
+
+    def _init_config(self, description):
+        super()._init_config(description)
+        self.REGISTERS.update(clip_min_reg=2, clip_max_reg=3, clip_control_reg=4)
+        self.cfg.update(output_clip_version=1, output_clip_location="post_compensation_pre_rf",
+                        output_clip_min_code=-32768, output_clip_max_code=32764,
+                        output_clip_quantum=4)
+
+    @staticmethod
+    def validate_output_limits(min_code, max_code):
+        """Zero must remain available for idle/stop; reject inexact DAC codes."""
+        for name, value in (("min_code", min_code), ("max_code", max_code)):
+            if isinstance(value, (bool, np.bool_)) or not isinstance(value, (int, np.integer)):
+                raise ValueError(f"{name} must be an integer DAC code")
+            if int(value) % 4:
+                raise ValueError(f"{name} must be a multiple of 4")
+        if not (-32768 <= min_code <= 0 <= max_code <= 32764):
+            raise ValueError("Output limits must satisfy -32768 <= min <= 0 <= max <= 32764")
+        return int(min_code), int(max_code)
+
+    def output_limits_status(self):
+        control = int(self.clip_control_reg)
+        if control & 0xFFFF0000 != 0xC1080000:
+            raise RuntimeError("AWG clipping BIT/HWH mismatch: missing v8 register signature")
+        def signed(value):
+            value = int(value) & 0xFFFFFFFF
+            return value - (1 << 32) if value & (1 << 31) else value
+        return dict(enabled=bool(control & 1), pending=bool(control & 2),
+                    configuration_error=bool(control & 4), clipped=bool(control & 8),
+                    min_code=signed(self.clip_min_reg), max_code=signed(self.clip_max_reg))
+
+    def set_output_limits(self, min_code=-32768, max_code=32764, enabled=False, timeout=1.0):
+        """Commit both bounds together; return only after the output clock ACKs.
+
+        Configure while the experiment is stopped. Clipping does not alter the
+        compensation integrators and does not limit the subsequently added RF.
+        """
+        minimum, maximum = self.validate_output_limits(min_code, max_code)
+        if not isinstance(enabled, (bool, np.bool_)):
+            raise ValueError("enabled must be boolean")
+        timeout = float(timeout)
+        if not math.isfinite(timeout) or timeout <= 0:
+            raise ValueError("timeout must be positive and finite")
+        status = self.output_limits_status()
+        if status["pending"]:
+            raise RuntimeError("Previous AWG clipping configuration is still pending")
+        self.clip_min_reg = minimum & 0xFFFFFFFF
+        self.clip_max_reg = maximum & 0xFFFFFFFF
+        self.clip_control_reg = 2 | int(enabled)
+        deadline = time.monotonic() + timeout
+        while True:
+            status = self.output_limits_status()
+            if not status["pending"]:
+                if (status["configuration_error"] or status["enabled"] != bool(enabled)
+                        or status["min_code"] != minimum or status["max_code"] != maximum):
+                    raise RuntimeError(f"AWG clipping configuration/readback mismatch: {status}")
+                return status
+            if time.monotonic() >= deadline:
+                raise TimeoutError("AWG clipping output-clock acknowledgement timed out")
+            time.sleep(0.001)
 
 
 @dataclass
@@ -2307,6 +2375,7 @@ __all__ = [
     "AxisAwgTuningV2",
     "AxisAwgTuningV3",
     "AxisAwgTuningV7",
+    "AxisAwgTuningV8",
     "TimedCommandEvent",
     "CommandEvent",
     "TimingConflict",

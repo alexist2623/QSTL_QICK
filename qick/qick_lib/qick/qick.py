@@ -1906,6 +1906,50 @@ class QickSoc(DacCurrentControl, Overlay, QickConfig):
         return int(n_samples_1msps) * decim + group_delay + int(margin)
 
     # Authors: Jeonghyun Park (jeonghyun.park@ubc.ca or alexist@snu.ac.kr), Farbod
+    def _output_forever_control(self):
+        from .output_forever import OutputForeverController
+        if not hasattr(self, '_output_forever_session'):
+            self._output_forever_session = OutputForeverController(self)
+        return self._output_forever_session
+
+    def begin_output_forever(self, awg_channels, lease_seconds=2.0):
+        """Claim the prepared output-only program; host must renew its lease."""
+        return self._output_forever_control().begin(awg_channels, lease_seconds)
+
+    def check_output_forever_idle(self, require_capture_idle=False):
+        """Reject reconfiguration while an output lease owns the tProcessor."""
+        return self._output_forever_control().check_idle(require_capture_idle)
+
+    def renew_output_forever(self, token):
+        return self._output_forever_control().renew(token)
+
+    def stop_output_forever(self, token, timeout=35.0):
+        return self._output_forever_control().stop(token, timeout)
+
+    def output_forever_status(self, token):
+        return self._output_forever_control().status(token)
+
+    def abort_ddr4_capture(self, timeout=2.0):
+        """Abort capture after the caller stops its trigger source (v4 or newer)."""
+        if not self.ddr4_buf.cfg.get('supports_abort', False):
+            raise RuntimeError('Safe DDR cancellation requires DDR sample v4 BIT/HWH and driver')
+        return self.ddr4_buf.abort(timeout=timeout)
+
+    def set_awg_output_limits(self, ch, min_code=-32768, max_code=32764,
+                              enabled=False, timeout=1.0):
+        """Set one AWG's post-compensation limits, before its optional RF sum."""
+        generator = self.gens[ch]
+        if not generator.cfg.get('output_clip_version', 0):
+            raise RuntimeError('AWG output clipping requires AWG tuning v8 BIT/HWH and driver')
+        return generator.set_output_limits(min_code, max_code, enabled, timeout)
+
+    def get_awg_output_limits(self, ch):
+        """Read clipping configuration/status without modifying output."""
+        generator = self.gens[ch]
+        if not generator.cfg.get('output_clip_version', 0):
+            raise RuntimeError('AWG output clipping requires AWG tuning v8 BIT/HWH and driver')
+        return generator.output_limits_status()
+
     def arm_ddr4_fir_samples(self, ch, n_samples, n_triggers=1, address=0,
                              stride_bytes=None, force_overwrite=False,
                              trigger_delay_cycles=None,

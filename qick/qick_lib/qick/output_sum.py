@@ -24,7 +24,10 @@ def output_sum_config(metadata, fullpath):
         raise RuntimeError(f"Unsupported output combiner parameters on {block}: {parameters}")
     if port not in ("s0_axis", "s1_axis"):
         raise RuntimeError(f"Unsupported output combiner input {block}/{port}")
-    awg = metadata.trace_back(block, "s0_axis", [{3: "axis_awg_tuning_v4", 7: "axis_awg_tuning_v7"}.get(version, "axis_awg_tuning_v3")])
+    compatible_awgs = {3: ["axis_awg_tuning_v4"],
+                       7: ["axis_awg_tuning_v7", "axis_awg_tuning_v8"]}.get(
+                           version, ["axis_awg_tuning_v3"])
+    awg = metadata.trace_back(block, "s0_axis", compatible_awgs)
     if awg is None:
         raise RuntimeError(f"Missing compatible AWG input on {block}")
     bypass = bool(parameters["BYPASS"])
